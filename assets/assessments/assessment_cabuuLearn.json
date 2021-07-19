@@ -1,0 +1,47 @@
+{
+    "title": "Vokabeln lernen",
+    "id": "cabuuLearn",
+    "questions": [
+        {
+            "id": "cabuuLearn_1",
+            "questionText": "Wie viele der Vokabeln, die du lernst, lernst du auf deinem Smartphone?",
+            "labels": {
+                "1": "Alle",
+                "2": "Die meisten",
+                "3": "Ungefähr die Hälfte",
+                "4": "Die wenigsten",
+                "5": "Gar keine"
+            }
+        },
+        {
+            "id": "cabuuLearn_2",
+            "questionText": "Bereitest du dich aktuell für einen anstehenden Vokabeltest oder eine Englischarbeit vor?",
+            "labels": {
+                "1": "Ja",
+                "2": "Nein"
+            }
+        },
+        {
+            "id": "cabuuLearn_3",
+            "questionText": "Wie oft lernst du in einer normalen Woche Vokabeln?",
+            "labels": {
+                "1": "An weniger als 1 Tag",
+                "2": "An 1-2 Tagen",
+                "3": "An 3-4 Tagen",
+                "4": "An 5-6 Tagen",
+                "5": "Jeden Tag"
+            }
+        },
+        {
+            "id": "cabuuLearn_4",
+            "questionText": "Bist du zufrieden damit, wie oft du Vokabeln lernst?",
+            "labels": {
+                "1": "Voll und ganz zufrieden",
+                "2": "Eher zufrieden",
+                "3": "Teils / teils",
+                "4": "Eher unzufrieden",
+                "5": "Ziemlich unzufrieden"
+            }
+        }
+    ]
+}

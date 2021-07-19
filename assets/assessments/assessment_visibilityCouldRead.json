@@ -1,0 +1,17 @@
+{
+    "title": "",
+    "id": "visibilityCouldRead",
+    "questions": [
+        {
+            "id": "visibility_2",
+            "questionText": "Konntest du diese Worte lesen?",
+            "labels": {
+                "1": "(Fast) nie",
+                "2": "Selten",
+                "3": "Hin und wieder",
+                "4": "Oft",
+                "5": "(Fast) immer"
+            }
+        }
+    ]
+}

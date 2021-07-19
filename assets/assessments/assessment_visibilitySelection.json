@@ -1,0 +1,14 @@
+{
+    "title": "",
+    "id": "visibilitySelection",
+    "questions": [
+        {
+            "id": "visibility_1",
+            "questionText": "In den letzten vier Wochen hast du häufiger die Wortaufgabe gemacht. Vor dem Wort oder Nicht-Wort wurde ganz kurz noch ein anderes Wort eingeblendet. Hast du beim Bearbeiten der Aufgaben mal gemerkt, dass noch etwas anderes eingeblendet wurde?",
+            "labels": {
+                "1": "Ja",
+                "2": "Nein"
+            }
+        }
+    ]
+}

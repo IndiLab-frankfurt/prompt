@@ -1,0 +1,63 @@
+{
+    "title": "Abschlussbefragung",
+    "id": "finalAttitude",
+    "questions": [
+        {
+            "id": "finalAttitude_1",
+            "questionText": "Wenn du dir noch einmal jeden Tag Pläne einprägen müsstest, wie würdest du sie am liebsten lernen?",
+            "labels": {
+                "1": "Plan dreimal durchlesen",
+                "2": "Wörter zum Plan zusammensetzen",
+                "3": "Plan mit Emojis darstellen",
+                "4": "Abwechselnd Plan dreimal durchlesen & Wörter zum Plan zusammensetzen",
+                "5": "Abwechselnd Plan dreimal durchlesen & mit Emojis darstellen",
+                "6": "Abwechselnd Wörter zum Plan zusammensetzen & Plan mit Emojis darstellen",
+                "7": "Alle drei im Wechsel"
+            }
+        },
+        {
+            "id": "finalAttitude_2",
+            "questionText": "Wie viel Spaß hat es dir gemacht, die App PROMPT zu nutzen?",
+            "labels": {
+                "1": "Gar nicht",
+                "2": "Kaum",
+                "3": "Teils / teils",
+                "4": "Ziemlich",
+                "5": "Sehr"
+            }
+        },
+        {
+            "id": "finalAttitude_3",
+            "questionText": "Wie schwierig fandest du es, die App PROMPT zu bedienen?",
+            "labels": {
+                "1": "Gar nicht",
+                "2": "Kaum",
+                "3": "Teils / teils",
+                "4": "Ziemlich",
+                "5": "Sehr"
+            }
+        },
+        {
+            "id": "finalAttitude_4",
+            "questionText": "Würdest du die App PROMPT weiter benutzen?",
+            "labels": {
+                "1": "Sehr ungern",
+                "2": "Eher ungern",
+                "3": "Vielleicht",
+                "4": "Gerne",
+                "5": "Sehr gerne"
+            }
+        },
+        {
+            "id": "finalAttitude_5",
+            "questionText": "Hast du dir Mühe gegeben, dir die Pläne gut zu merken?",
+            "labels": {
+                "1": "(Fast) nie",
+                "2": "Selten",
+                "3": "Hin und wieder",
+                "4": "Oft",
+                "5": "(Fast) jeden Tag"
+            }
+        }
+    ]
+}

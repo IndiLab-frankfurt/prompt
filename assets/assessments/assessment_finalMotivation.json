@@ -1,0 +1,39 @@
+{
+    "title": "",
+    "id": "affect",
+    "questions": [
+        {
+            "id": "final_6",
+            "questionText": "Es hat mich motiviert, für die Aufgaben 💎 zu bekommen.",
+            "labels": {
+                "1": "Überhaupt nicht",
+                "2": "Kaum",
+                "3": "Teils / teils",
+                "4": "Ziemlich",
+                "5": "Sehr"
+            }
+        },
+        {
+            "id": "final_7",
+            "questionText": "Es hat mich motiviert, dass ich für meine 💎 am Ende der Studie einen Gutschein bekomme.",
+            "labels": {
+                "1": "Überhaupt nicht",
+                "2": "Kaum",
+                "3": "Teils / teils",
+                "4": "Ziemlich",
+                "5": "Sehr"
+            }
+        },
+        {
+            "id": "final_8",
+            "questionText": "Es hat mich motiviert, dass ich Hintergründe freischalten konnte.",
+            "labels": {
+                "1": "Überhaupt nicht",
+                "2": "Kaum",
+                "3": "Teils / teils",
+                "4": "Ziemlich",
+                "5": "Sehr"
+            }
+        }
+    ]
+}

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "972973871566",
+    "project_id": "prompt-942ca",
+    "storage_bucket": "prompt-942ca.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972973871566:android:ef2e3ebeb3b887475b9b9f",
+        "android_client_info": {
+          "package_name": "de.dipf.prompt"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972973871566-8vnog0obd6jbkdlim164tnucaur431d2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZt3fv2u_DjqccHEV0xJwltSTZbBSme-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972973871566-8vnog0obd6jbkdlim164tnucaur431d2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

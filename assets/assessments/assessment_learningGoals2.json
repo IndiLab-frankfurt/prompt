@@ -1,0 +1,50 @@
+{
+    "title": "",
+    "id": "learningGoals2",
+    "questions": [
+        {
+            "id": "learningGoals2_1",
+            "questionText": "Wie wahrscheinlich ist es, dass du es schaffst, an X Tagen pro Woche Vokabeln zu lernen?",
+            "labels": {
+                "1": "Sehr wahrscheinlich",
+                "2": "Eher wahrscheinlich",
+                "3": "Weder noch",
+                "4": "Eher unwahrscheinlich",
+                "5": "Sehr unwahrscheinlich"
+            }
+        },
+        {
+            "id": "learningGoals2_2",
+            "questionText": "Wie wichtig ist es dir persönlich, dass du es schaffst, an X Tagen pro Woche Vokabeln zu lernen?",
+            "labels": {
+                "1": "Sehr wichtig",
+                "2": "Eher wichtig",
+                "3": "Mittel",
+                "4": "Eher unwichtig",
+                "5": "Sehr unwichtig"
+            }
+        },
+        {
+            "id": "learningGoals2_3",
+            "questionText": "Wie sehr verpasst du andere Dinge, wenn du an X Tagen pro Woche Vokabeln lernst?",
+            "labels": {
+                "1": "Gar nicht",
+                "2": "Kaum",
+                "3": "Teils/teils",
+                "4": "Ein bisschen",
+                "5": "Zu sehr"
+            }
+        },
+        {
+            "id": "learningGoals2_4",
+            "questionText": "Wie enttäuscht würdest du sein, wenn du es nicht schaffen würdest, an X Tagen pro Woche Vokabeln zu lernen?",
+            "labels": {
+                "1": "Gar nicht",
+                "2": "Kaum",
+                "3": "Mittel",
+                "4": "Ziemlich",
+                "5": "Voll und ganz"
+            }
+        }
+    ]
+}

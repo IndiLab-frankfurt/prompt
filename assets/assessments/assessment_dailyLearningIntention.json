@@ -1,0 +1,16 @@
+{
+    "title": "Lernintention",
+    "id": "dailyLearningIntention",
+    "questions": [
+        {
+            "id": "dailyLearningIntention_1",
+            "questionText": "Hast du vor, heute Vokabeln zu lernen?",
+            "labels": {
+                "1": "Ja",
+                "2": "Nein",
+                "3": "Weiß noch nicht",
+                "4": "Ich habe heute schon Vokabeln gelernt"
+            }
+        }
+    ]
+}
