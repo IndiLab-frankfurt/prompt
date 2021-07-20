@@ -1,15 +1,38 @@
+import 'package:flutter/foundation.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:flutter/src/foundation/key.dart';
+import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
-enum SessionZeroStep { welcome, cabuuLink }
+enum SessionZeroStep {
+  welcome,
+  cabuuLink,
+  mascotSelection,
+  motivationQuestionnaire,
+  goalIntention,
+  videoPlanning,
+  planCreation,
+  planDisplay,
+  planInternalisation,
+  selfEfficacy,
+  videoInstructionComplete
+}
 
 const List<SessionZeroStep> ScreenOrder = [
   SessionZeroStep.welcome,
-  SessionZeroStep.cabuuLink
+  SessionZeroStep.cabuuLink,
+  SessionZeroStep.mascotSelection,
+  SessionZeroStep.motivationQuestionnaire,
+  SessionZeroStep.goalIntention,
+  SessionZeroStep.videoPlanning,
+  SessionZeroStep.planCreation,
+  SessionZeroStep.planDisplay,
+  SessionZeroStep.planInternalisation,
+  SessionZeroStep.selfEfficacy,
+  SessionZeroStep.videoInstructionComplete
 ];
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
@@ -35,8 +58,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   }
 
   final ExperimentService _experimentService;
+  final DataService _dataService;
 
-  SessionZeroViewModel(this._experimentService);
+  SessionZeroViewModel(this._experimentService, this._dataService);
 
   @override
   bool canMoveBack(ValueKey currentPageKey) {
@@ -51,9 +75,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   }
 
   @override
-  Future<Assessment> getAssessment(assessmentType) {
-    // TODO: implement getAssessment
-    throw UnimplementedError();
+  Future<Assessment> getAssessment(assessmentType) async {
+    String name = describeEnum(assessmentType);
+    Assessment assessment = await _dataService.getAssessment(name);
+
+    return assessment;
   }
 
   @override

@@ -1,0 +1,17 @@
+{
+    "title": "Items zu Motivation, das Ziel zu erreichen bzw. wie sehr sie überhaupt dieses Ziel haben",
+    "id": "motivation",
+    "questions": [
+        {
+            "id": "motivation_1",
+            "questionText": "Ich bin wahnsinnig motiviert.",
+            "labels": {
+                "1": "Stimme überhaupt nicht zu",
+                "2": "Stimme kaum zu",
+                "3": "Teils / teils",
+                "4": "Stimme eher zu",
+                "5": "Stimme voll und ganz zu"
+            }
+        }
+    ]
+}

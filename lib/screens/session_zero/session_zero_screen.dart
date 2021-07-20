@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/models/assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
+import 'package:prompt/screens/assessments/questionnaire.dart';
 import 'package:prompt/screens/session_zero/cabuu_link_screen.dart';
+import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -21,6 +25,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     Map<SessionZeroStep, Widget> _stepScreenMap = {
       SessionZeroStep.welcome: welcomeScreen,
       SessionZeroStep.cabuuLink: cabuuLinkScreen,
+      SessionZeroStep.mascotSelection: mascotSelectionScreen,
+      SessionZeroStep.motivationQuestionnaire: motivationQuestionnaire
     };
 
     for (var page in ScreenOrder) {
@@ -46,8 +52,31 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         ))));
   }
 
-  Widget welcomeScreen = WelcomeScreen(key: ValueKey(SessionZeroStep.welcome));
+  var welcomeScreen = WelcomeScreen(key: ValueKey(SessionZeroStep.welcome));
 
-  Widget cabuuLinkScreen =
+  var cabuuLinkScreen =
       CabuuLinkScreen(key: ValueKey(SessionZeroStep.cabuuLink));
+
+  var mascotSelectionScreen =
+      MascotSelectionScreen(key: ValueKey(SessionZeroStep.mascotSelection));
+
+  late var motivationQuestionnaire = questionnaire(AssessmentTypes.motivation,
+      ValueKey(SessionZeroStep.motivationQuestionnaire));
+
+  Widget questionnaire(AssessmentTypes assessmentTypes, Key key) {
+    var vm = Provider.of<SessionZeroViewModel>(context);
+    return FutureBuilder(
+        key: key,
+        future: vm.getAssessment(assessmentTypes),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            if (snapshot.data is Assessment) {
+              var assessment = snapshot.data as Assessment;
+              return Questionnaire(assessment, vm.setAssessmentResult,
+                  onLoaded: vm.onAssessmentLoaded, key: key);
+            }
+          }
+          return Container(child: CircularProgressIndicator());
+        });
+  }
 }

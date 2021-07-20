@@ -4,6 +4,7 @@ import 'package:prompt/locator.dart';
 import 'package:prompt/screens/login_screen.dart';
 import 'package:prompt/screens/no_task_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
+import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
@@ -36,8 +37,9 @@ class AppRouter {
       case RouteNames.SESSION_ZERO:
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
-                create: (_) =>
-                    SessionZeroViewModel(locator.get<ExperimentService>()),
+                create: (_) => SessionZeroViewModel(
+                    locator.get<ExperimentService>(),
+                    locator.get<DataService>()),
                 child: SessionZeroScreen()));
 
       default:

@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:prompt/models/assessment.dart';
+import 'package:prompt/models/assessment_item.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/services/firebase_service.dart';
 import 'package:prompt/services/local_database_service.dart';
@@ -115,5 +120,22 @@ class DataService {
     ud?.registrationDate = dateTime;
     return await _databaseService.setRegistrationDate(
         _userService.getUsername(), dateTime.toIso8601String());
+  }
+
+  getAssessment(String name) async {
+    String data =
+        await rootBundle.loadString("assets/assessments/assessment_$name.json");
+    var json = jsonDecode(data);
+
+    var ass = Assessment();
+    ass.id = json["id"];
+    ass.title = json["title"];
+    ass.items = [];
+    for (var question in json["questions"]) {
+      ass.items.add(AssessmentItem(question["questionText"],
+          Map<String, String>.from(question["labels"]), question["id"]));
+    }
+
+    return ass;
   }
 }

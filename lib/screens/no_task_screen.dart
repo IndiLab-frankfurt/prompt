@@ -145,7 +145,6 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                 fit: BoxFit.contain,
                 alignment: Alignment.bottomCenter)),
         child: Scaffold(
-          // floatingActionButton: _buildAboutButton(),
           backgroundColor: Colors.transparent,
           appBar: PromptAppBar(showBackButton: true),
           drawer: _getDrawer(),
