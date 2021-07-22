@@ -42,6 +42,14 @@ class AppRouter {
                     locator.get<DataService>()),
                 child: SessionZeroScreen()));
 
+      case RouteNames.REMINDER_DEFAULT:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => SessionZeroViewModel(
+                    locator.get<ExperimentService>(),
+                    locator.get<DataService>()),
+                child: SessionZeroScreen()));
+
       default:
         return MaterialPageRoute(builder: (_) {
           return Scaffold(

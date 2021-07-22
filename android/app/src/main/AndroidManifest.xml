@@ -2,7 +2,7 @@
     package="de.dipf.prompt">
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
    <application
-        android:label="prompt"
+        android:label="PROMPT"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/questionnaire.dart';
+import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/session_zero/cabuu_link_screen.dart';
+import 'package:prompt/screens/session_zero/goal_intention_screen.dart';
 import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
+import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
+import 'package:prompt/screens/session_zero/plan_display_screen.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
 
 class SessionZeroScreen extends StatefulWidget {
@@ -19,6 +24,8 @@ class SessionZeroScreen extends StatefulWidget {
 class _SessionZeroScreenState extends State<SessionZeroScreen> {
   List<Widget> _pages = [];
 
+  late SessionZeroViewModel vm = Provider.of<SessionZeroViewModel>(context);
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -26,7 +33,12 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.welcome: welcomeScreen,
       SessionZeroStep.cabuuLink: cabuuLinkScreen,
       SessionZeroStep.mascotSelection: mascotSelectionScreen,
-      SessionZeroStep.motivationQuestionnaire: motivationQuestionnaire
+      SessionZeroStep.motivationQuestionnaire: motivationQuestionnaire,
+      SessionZeroStep.goalIntention: goalIntentionScreen,
+      SessionZeroStep.videoPlanning: videoPlanning,
+      SessionZeroStep.planCreation: planCreation,
+      SessionZeroStep.planDisplay: planDisplay,
+      SessionZeroStep.planInternalisation: planInternalisation,
     };
 
     for (var page in ScreenOrder) {
@@ -38,7 +50,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var vm = Provider.of<SessionZeroViewModel>(context);
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
@@ -60,8 +71,27 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   var mascotSelectionScreen =
       MascotSelectionScreen(key: ValueKey(SessionZeroStep.mascotSelection));
 
+  var goalIntentionScreen =
+      GoalIntentionScreen(key: ValueKey(SessionZeroStep.goalIntention));
+
+  late var videoPlanning = VideoScreen('assets/videos/videoLearning.mp4',
+      key: ValueKey(SessionZeroStep.videoPlanning),
+      onVideoCompleted: vm.videoPlanningCompleted);
+
   late var motivationQuestionnaire = questionnaire(AssessmentTypes.motivation,
       ValueKey(SessionZeroStep.motivationQuestionnaire));
+
+  late var planCreation =
+      PlanCreationScreen(key: ValueKey(SessionZeroStep.planCreation));
+
+  late var planDisplay =
+      PlanDisplayScreen(key: ValueKey(SessionZeroStep.planDisplay));
+
+  late var planInternalisation = ChangeNotifierProvider.value(
+    value: vm.internalisationViewmodel,
+    child: EmojiInternalisationScreen(
+        key: ValueKey(SessionZeroStep.planInternalisation)),
+  );
 
   Widget questionnaire(AssessmentTypes assessmentTypes, Key key) {
     var vm = Provider.of<SessionZeroViewModel>(context);

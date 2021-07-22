@@ -52,9 +52,16 @@ class PromptDrawer extends StatelessWidget {
           Divider(),
           _buildDrawerItem(
               icon: Icons.add_box,
-              text: "Init",
+              text: "Session 0",
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.SESSION_ZERO);
+              }),
+          Divider(),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Kontroll Reminder",
+              onTap: () async {
+                await Navigator.pushNamed(context, RouteNames.REMINDER_DEFAULT);
               }),
         ],
       ),

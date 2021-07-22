@@ -16,10 +16,10 @@ class NotificationService {
       "Wenn-Dann-Plan Erinnerung";
   static const String PAYLOAD_II_REMINDER = "PAYLOAD_II_REMINDER";
 
-  static const String CHANNEL_ID_TASK = "Aufgabenerinnerung";
-  static const String CHANNEL_NAME_TASK = "Aufgabenerinnerung";
-  static const String CHANNEL_DESCRIPTION_TASK = "Aufgabenerinnerung";
-  static const String PAYLOAD_TASK_REMINDER = "PAYLOAD_RECALL_TASK_REMINDER";
+  static const String CHANNEL_ID_EVENING = "Erinnerung Abend";
+  static const String CHANNEL_NAME_EVENING = "Erinnerung Abend";
+  static const String CHANNEL_DESCRIPTION_EVENING = "Erinnerung Abend";
+  static const String PAYLOAD_EVENING = "PAYLOAD_EVENING";
 
   static const String CHANNEL_ID_LDT_REMINDER = "LDT Erinnerung";
   static const String CHANNEL_NAME_LDT_REMINDER = "LDT Erinnerung";
@@ -57,7 +57,9 @@ class NotificationService {
     await localNotifications.initialize(initSettings,
         onSelectNotification: onSelectNotification);
 
-    await scheduleInternalisationReminder(new Time(6, 30, 0));
+    await scheduleMorningReminder(new Time(5, 0, 0));
+
+    // await scheduleEveningReminder(new DateTime(2021, 0, 17, 0, 0));
 
     return true;
   }
@@ -109,7 +111,7 @@ class NotificationService {
             .get<LoggingService>()
             .logEvent("NotificationClickInternalisation");
       }
-      if (payload == PAYLOAD_TASK_REMINDER) {
+      if (payload == PAYLOAD_EVENING) {
         locator.get<LoggingService>().logEvent("NotificationClickRecallTask");
       }
       if (payload == PAYLOAD_FINAL_REMINDER) {
@@ -130,7 +132,7 @@ class NotificationService {
     return scheduledDate;
   }
 
-  scheduleInternalisationReminder(Time time) async {
+  scheduleMorningReminder(Time time) async {
     await deleteScheduledInternalisationReminder();
 
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
@@ -164,12 +166,12 @@ class NotificationService {
     return midnight.difference(now).inMilliseconds;
   }
 
-  scheduleRecallTaskReminder(DateTime time) async {
+  scheduleEveningReminder(DateTime time) async {
     await deleteScheduledRecallReminderTask();
 
     var timeoutAfter = getMillisecondsUntilMidnight(time);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_TASK, CHANNEL_NAME_TASK, CHANNEL_DESCRIPTION_TASK,
+        CHANNEL_ID_EVENING, CHANNEL_NAME_EVENING, CHANNEL_DESCRIPTION_EVENING,
         ongoing: true, timeoutAfter: timeoutAfter);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var notificationDetails = new NotificationDetails(
@@ -182,13 +184,13 @@ class NotificationService {
     String title = "Mache jetzt weiter mit PROMPT!";
     String body = "";
 
-    locator.get<LoggingService>().logEvent("ScheduleNotificationTaskReminder");
+    locator.get<LoggingService>().logEvent("ScheduleEveningReminder");
 
     await localNotifications.zonedSchedule(
         ID_TASK_REMINDER, title, body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOAD_TASK_REMINDER,
+        payload: PAYLOAD_EVENING,
         androidAllowWhileIdle: true);
   }
 
@@ -247,7 +249,7 @@ class NotificationService {
 
   sendDebugReminder() async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        "WURST", CHANNEL_NAME_TASK, CHANNEL_DESCRIPTION_TASK);
+        "WURST", CHANNEL_NAME_EVENING, CHANNEL_DESCRIPTION_EVENING);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var notificationDetails = new NotificationDetails(
         android: androidPlatformChannelSpecifics,
@@ -266,7 +268,7 @@ class NotificationService {
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
-        payload: PAYLOAD_TASK_REMINDER,
+        payload: PAYLOAD_EVENING,
         androidAllowWhileIdle: true);
   }
 

@@ -113,7 +113,7 @@ class FirebaseService {
   Future<UserData?> getUserData(String email) async {
     return _databaseReference
         .collection(COLLECTION_USERS)
-        .where("email", isEqualTo: email)
+        .where("user", isEqualTo: email)
         .get()
         .then((documents) {
       if (documents.size == 0) return null;

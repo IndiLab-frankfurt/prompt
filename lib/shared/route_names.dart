@@ -9,4 +9,6 @@ class RouteNames {
   static const REWARD_SELECTION = "/rewardselection";
 
   static const SESSION_ZERO = "/sessionzero";
+
+  static const REMINDER_DEFAULT = "/defaultreminder";
 }

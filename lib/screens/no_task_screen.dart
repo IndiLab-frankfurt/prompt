@@ -136,48 +136,63 @@ class _NoTasksScreenState extends State<NoTasksScreen>
   Widget build(BuildContext context) {
     var rewardService = locator.get<RewardService>();
     return WillPopScope(
-      onWillPop: () async => false,
-      child: Container(
-        decoration: BoxDecoration(
-            gradient: rewardService.backgroundColor,
-            image: DecorationImage(
-                image: AssetImage(rewardService.backgroundImagePath),
-                fit: BoxFit.contain,
-                alignment: Alignment.bottomCenter)),
-        child: Scaffold(
-          backgroundColor: Colors.transparent,
-          appBar: PromptAppBar(showBackButton: true),
-          drawer: _getDrawer(),
-          body: FutureBuilder(
-              future: Future.delayed(Duration.zero),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return Container(
-                      child: Align(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              UIHelper.verticalSpaceMedium(),
-                              // Text(_textNotification,
-                              //     textAlign: TextAlign.center,
-                              //     style: Theme.of(context).textTheme.headline6),
-                              // UIHelper.verticalSpaceMedium(),
-                              // Text(_textNextTask,
-                              //     textAlign: TextAlign.center,
-                              //     style: Theme.of(context).textTheme.headline6),
-                              UIHelper.verticalSpaceMedium(),
-                              if (_showNextButton) _buildToRecallTaskButton(),
-                              UIHelper.verticalSpaceMedium(),
-                              _buildChangeBackgroundButton()
-                            ],
-                          ),
-                          alignment: Alignment(0.0, 0.6)));
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              }),
+        onWillPop: () async => false,
+        child: Container(
+            decoration: BoxDecoration(
+                gradient: rewardService.backgroundColor,
+                image: DecorationImage(
+                    image: AssetImage(rewardService.backgroundImagePath),
+                    fit: BoxFit.contain,
+                    alignment: Alignment.bottomCenter)),
+            child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: PromptAppBar(showBackButton: true),
+                drawer: _getDrawer(),
+                body: Container(
+                    child: Align(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            UIHelper.verticalSpaceMedium(),
+                            if (_showNextButton) _buildToRecallTaskButton(),
+                            UIHelper.verticalSpaceMedium(),
+                            _buildChangeBackgroundButton(),
+                            UIHelper.verticalSpaceMedium(),
+                            _buildStatistics()
+                          ],
+                        ),
+                        alignment: Alignment(0.0, 0.6))))));
+  }
+
+  _buildStatistics() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        UIHelper.verticalSpaceMedium(),
+        Text("7 Tage in Folge mitgemacht"),
+        UIHelper.verticalSpaceMedium(),
+        Text("Tag 24 von 36"),
+        UIHelper.verticalSpaceSmall(),
+        SizedBox(
+          width: 300,
+          child: LinearProgressIndicator(
+            color: Colors.blue,
+            minHeight: 12,
+            value: 0.5,
+          ),
         ),
-      ),
+        UIHelper.verticalSpaceMedium(),
+        Text("Fortschritt zur nächsten Belohnung:"),
+        UIHelper.verticalSpaceSmall(),
+        SizedBox(
+          width: 300,
+          child: LinearProgressIndicator(
+            color: Colors.blue,
+            minHeight: 12,
+            value: 0.7,
+          ),
+        )
+      ],
     );
   }
 

@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:prompt/models/assessment.dart';
-import 'package:flutter/src/foundation/key.dart';
+import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/route_names.dart';
-import 'package:prompt/viewmodels/base_view_model.dart';
+import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
 enum SessionZeroStep {
@@ -36,6 +36,17 @@ const List<SessionZeroStep> ScreenOrder = [
 ];
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
+  InternalisationViewModel internalisationViewmodel =
+      InternalisationViewModel();
+
+  String _plan = "Wenn ich nach Hause komme, esse ich eine Wurst";
+  String get plan => _plan;
+  set plan(String plan) {
+    this._plan = plan;
+    internalisationViewmodel.plan = plan;
+    notifyListeners();
+  }
+
   bool _consented = false;
   bool get consented => _consented;
   set consented(bool consented) {
@@ -54,6 +65,12 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   String get cabuuLinkEmail => _cabuuLinkEmail;
   set cabuuLinkEmail(String cabuuLinkEmail) {
     _cabuuLinkEmail = cabuuLinkEmail;
+    notifyListeners();
+  }
+
+  bool _videoPlanningCompleted = false;
+  void videoPlanningCompleted() {
+    _videoPlanningCompleted = true;
     notifyListeners();
   }
 

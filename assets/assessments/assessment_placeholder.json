@@ -1,0 +1,14 @@
+{
+    "title": "Das ist ein Placeholder",
+    "id": "placeholder",
+    "questions": [
+        {
+            "id": "placeholder_1",
+            "questionText": "Wie glücklich bist du darüber, dass hier ein Placeholder steht?",
+            "labels": {
+                "1": "Sehr",
+                "2": "Überhaupt nicht 😥"
+            }
+        }
+    ]
+}

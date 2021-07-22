@@ -37,15 +37,11 @@ class _IntervalScaleState extends State<IntervalScale> {
     setState(() {
       _groupValue = groupValue;
     });
-    if (widget.callback != null) {
-      widget.callback(selectedValue);
-    }
+
+    widget.callback(selectedValue);
   }
 
   buildStaticItem(int groupValue, String text) {
-    if (text == null) {
-      text = groupValue.toString();
-    }
     return InkWell(
       child: Row(
         children: <Widget>[
@@ -73,9 +69,7 @@ class _IntervalScaleState extends State<IntervalScale> {
   }
 
   buildTextInputItem(int groupValue, String text) {
-    if (text == null) {
-      text = groupValue.toString();
-    }
+    text = groupValue.toString();
     return Column(
       children: [
         InkWell(

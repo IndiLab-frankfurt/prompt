@@ -67,20 +67,6 @@ class StartupViewModel extends BaseViewModel {
       return AppStartupMode.firstLaunch;
     }
 
-    // addDebugText("Time For Internalisation Task?");
-    // if (await experimentService.isTimeForInternalisationTask()) {
-    //   return AppStartupMode.internalisationTask;
-    // }
-    // addDebugText("Time For Recall Task?");
-    // if (await experimentService.isTimeForRecallTask()) {
-    //   return AppStartupMode.recallTask;
-    // }
-    // addDebugText("Time For Lexical Decision Task?");
-    // if (await experimentService.isTimeForLexicalDecisionTask()) {
-    //   return AppStartupMode.lexicalDecisionTask;
-    // }
-
-    // addDebugText("No Tasks!");
     return AppStartupMode.noTasks;
   }
 }
