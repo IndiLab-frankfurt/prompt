@@ -32,7 +32,7 @@ class AppStrings {
 
   // Mascot Selection
   static const String SelectionOfMascot = "Auswahl des Monsters";
-  static const String ThinkAboutYourGoal = "Denk an dein Ziel:";
+  static const String ThinkAboutYourGoal = "Denke an dein Ziel:";
 
   // Goal Intention
   static const String HelpLearnVocabulary =
