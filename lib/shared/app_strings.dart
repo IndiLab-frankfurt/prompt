@@ -18,14 +18,9 @@ class AppStrings {
 
   // Plan Creation
   static const String LetsCreatePlan =
-      "Lass uns jetzt gemeinsam einen Plan erstellen";
-  static const String ThinkOfSomething =
-      "Überlege dir etwas, das du jeden Tag tust, möglichst auch am Wochenende. Schreibe es in 1-3 Stichworten auf:";
-  static const String GotTimeBeforeOrAfter =
-      "Hast du davor oder danach direkt Zeit, um mit cabuu zu lernen?";
-  static const String Before = "Davor";
-  static const String After = "Danach";
-  static const String Neither = "Weder noch";
+      "Erstelle jetzt deinen Plan:";
+  //static const String ThinkOfSomething =
+  //    "Überlege dir etwas, das du jeden Tag tust, möglichst auch am Wochenende. Schreibe es in 1-3 Stichworten auf:";
 
   // Shared Across Many Screens
   static const String Continue = "Weiter";
