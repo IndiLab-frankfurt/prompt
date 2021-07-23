@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/shared/app_strings.dart';
 
 class MascotSelectionScreen extends StatelessWidget {
   const MascotSelectionScreen({Key? key}) : super(key: key);
@@ -8,7 +9,7 @@ class MascotSelectionScreen extends StatelessWidget {
     return Container(
         child: ListView(
       children: [
-        Text("Auswahl des Monsters"),
+        Text(AppStrings.SelectionOfMascot),
         IconButton(
           icon: Image.asset('assets/icons/brain.png'),
           iconSize: 50,

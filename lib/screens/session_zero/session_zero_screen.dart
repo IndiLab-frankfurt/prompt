@@ -3,6 +3,7 @@ import 'package:prompt/models/assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/questionnaire.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
+import 'package:prompt/screens/placeholder_screen.dart';
 import 'package:prompt/screens/session_zero/cabuu_link_screen.dart';
 import 'package:prompt/screens/session_zero/goal_intention_screen.dart';
 import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
@@ -39,6 +40,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.planCreation: planCreation,
       SessionZeroStep.planDisplay: planDisplay,
       SessionZeroStep.planInternalisation: planInternalisation,
+      SessionZeroStep.selfEfficacy: selfEfficacyQuestionnaire,
+      SessionZeroStep.videoInstructionComplete: instructionComplete
     };
 
     for (var page in ScreenOrder) {
@@ -78,8 +81,16 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       key: ValueKey(SessionZeroStep.videoPlanning),
       onVideoCompleted: vm.videoPlanningCompleted);
 
+  late var instructionComplete = PlaceholderScreen(
+    text: "Hier Instruktionsvideo Abschluss Session 0 ",
+    key: ValueKey(SessionZeroStep.videoInstructionComplete),
+  );
+
   late var motivationQuestionnaire = questionnaire(AssessmentTypes.motivation,
       ValueKey(SessionZeroStep.motivationQuestionnaire));
+
+  late var selfEfficacyQuestionnaire = questionnaire(
+      AssessmentTypes.selfEfficacy, ValueKey(SessionZeroStep.selfEfficacy));
 
   late var planCreation =
       PlanCreationScreen(key: ValueKey(SessionZeroStep.planCreation));

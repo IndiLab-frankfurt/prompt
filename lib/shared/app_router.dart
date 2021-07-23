@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prompt/locator.dart';
+import 'package:prompt/screens/internalisation/default_reminder_screen.dart';
 import 'package:prompt/screens/login_screen.dart';
 import 'package:prompt/screens/no_task_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
@@ -43,12 +44,7 @@ class AppRouter {
                 child: SessionZeroScreen()));
 
       case RouteNames.REMINDER_DEFAULT:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => SessionZeroViewModel(
-                    locator.get<ExperimentService>(),
-                    locator.get<DataService>()),
-                child: SessionZeroScreen()));
+        return MaterialPageRoute(builder: (_) => DefaultReminderScreen());
 
       default:
         return MaterialPageRoute(builder: (_) {

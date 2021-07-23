@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/viewmodels/internalisation_view_model.dart';
+import 'package:provider/provider.dart';
 
 class InternalisationScreen extends StatefulWidget {
   InternalisationScreen({Key? key}) : super(key: key);
@@ -9,17 +12,20 @@ class InternalisationScreen extends StatefulWidget {
 }
 
 class _InternalisationScreenState extends State<InternalisationScreen> {
+  late var vm = Provider.of<InternalisationViewModel>(context);
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: ListView(
         children: [
-          Text("Denk an dein Ziel:"),
+          Text(AppStrings.Internalisation_ThinkAboutYourGoal),
           UIHelper.verticalSpaceMedium(),
-          Text("Ich will jeden Tag eine Wurst essen!"),
+          // TODO: Replaceholder
+          Text("Ich will jeden Tag Vokabeln lernen!"),
           UIHelper.verticalSpaceMedium(),
-          Text("Um dein Ziel zu erreichen, hast du folgenden Plan:"),
-          Text("Wenn ich nach Hause komme, dann esse ich eine Wurst!")
+          Text(AppStrings.Internalisation_ToReachYourGoal),
+          Text(vm.plan)
         ],
       ),
     );

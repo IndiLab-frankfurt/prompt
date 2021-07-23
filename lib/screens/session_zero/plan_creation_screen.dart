@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
 class PlanCreationScreen extends StatefulWidget {
@@ -44,11 +45,9 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
 
   Widget buildEnterHabit() {
     return ListView(children: [
-      MarkdownBody(data: "### Last und jetzt zusammen einen Plan erstellen!"),
+      MarkdownBody(data: "### " + AppStrings.LetsCreatePlan),
       UIHelper.verticalSpaceMedium(),
-      MarkdownBody(
-          data:
-              "### Überlege dir etwas, das du jeden Tag tust, möglichst auch am Wochenende. Schreibe es in 1-3 Stichworten auf:"),
+      MarkdownBody(data: "### " + AppStrings.ThinkOfSomething),
       TextField(
         controller: _habitTextController,
         onChanged: (newText) {
@@ -61,16 +60,16 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
               _screenState = PlanCreationScreenState.selectTime;
             });
           },
-          child: Text("Weiter"))
+          child: Text(AppStrings.Continue))
     ]);
   }
 
   Widget buildBeforeAfterNo() {
     return ListView(children: [
       Text(_habitTextController.text),
-      Text("Hast du davor oder danach direkt Zeit, um mit cabuu zu lernen?"),
+      Text(AppStrings.GotTimeBeforeOrAfter),
       ElevatedButton(
-        child: Text("Davor"),
+        child: Text(AppStrings.Before),
         onPressed: () {
           setState(() {
             _screenState = PlanCreationScreenState.before;
@@ -78,12 +77,12 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
         },
       ),
       ElevatedButton(
-          child: Text("Danach"),
+          child: Text(AppStrings.After),
           onPressed: () {
             _screenState = PlanCreationScreenState.after;
           }),
       ElevatedButton(
-        child: Text("Weder noch"),
+        child: Text(AppStrings.Neither),
         onPressed: () {
           _screenState = PlanCreationScreenState.neither;
         },

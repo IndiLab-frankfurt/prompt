@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
 class GoalIntentionScreen extends StatefulWidget {
@@ -14,16 +15,11 @@ class _GoalIntentionScreenState extends State<GoalIntentionScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        MarkdownBody(
-            data:
-                "### In der Studie PROMPT wollen wir dir dabei helfen, Vokabeln so zu lernen, dass du sie dir besonders gut merken kannst."),
+        MarkdownBody(data: "### " + AppStrings.HelpLearnVocabulary),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(
-            data:
-                "### Denk mal nach: Warum ist es für dich wichtig, Vokabeln zu lernen? Wie könnte es für dich in Zukunft von Vorteil sein, viele Vokabeln gelernt zu haben?"),
+        MarkdownBody(data: "### " + AppStrings.ThinkAboutWhy),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(
-            data: "### Schreibe deine Antwort hier auf (Stichworte genügen):"),
+        MarkdownBody(data: "### " + AppStrings.WriteYourResponse),
         UIHelper.verticalSpaceMedium(),
         TextField(
           decoration: InputDecoration(hintText: ''),

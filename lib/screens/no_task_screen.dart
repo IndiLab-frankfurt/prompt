@@ -4,6 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/reward_service.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/full_width_button.dart';
@@ -169,9 +170,11 @@ class _NoTasksScreenState extends State<NoTasksScreen>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         UIHelper.verticalSpaceMedium(),
-        Text("7 Tage in Folge mitgemacht"),
+        Text(AppStrings.daysParticipated(22)),
         UIHelper.verticalSpaceMedium(),
-        Text("Tag 24 von 36"),
+        Text(AppStrings.daysConsecutive(7)),
+        UIHelper.verticalSpaceMedium(),
+        Text(AppStrings.daysOfTotal(7, 36)),
         UIHelper.verticalSpaceSmall(),
         SizedBox(
           width: 300,
@@ -182,7 +185,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
           ),
         ),
         UIHelper.verticalSpaceMedium(),
-        Text("Fortschritt zur nächsten Belohnung:"),
+        Text(AppStrings.ProgressToReward),
         UIHelper.verticalSpaceSmall(),
         SizedBox(
           width: 300,
@@ -205,7 +208,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "Hintergrund ändern",
+                  AppStrings.ChangeBackground,
                   style: TextStyle(color: Colors.black),
                 )
               ],
