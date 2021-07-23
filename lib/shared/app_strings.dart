@@ -18,7 +18,7 @@ class AppStrings {
 
   // Plan Creation
   static const String LetsCreatePlan =
-      "Lass uns jetzt zusammen einen Plan erstellen";
+      "Lass uns jetzt gemeinsam einen Plan erstellen";
   static const String ThinkOfSomething =
       "Überlege dir etwas, das du jeden Tag tust, möglichst auch am Wochenende. Schreibe es in 1-3 Stichworten auf:";
   static const String GotTimeBeforeOrAfter =
