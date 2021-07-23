@@ -4,7 +4,7 @@ class AppStrings {
   static const String ProgressToReward = "Fortschritt zur nächsten Belohnung";
   static String daysParticipated(int days) {
     String dayString = days == 1 ? "Tag" : "Tage";
-    return "$days $dayString insgesamt mitgemacht";
+    return "$days $dayString insgesamt an der Studie teilgenommen";
   }
 
   static String daysConsecutive(int days) {
