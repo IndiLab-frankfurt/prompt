@@ -12,6 +12,17 @@
                 "4": "Stimme eher zu",
                 "5": "Stimme voll und ganz zu"
             }
+        },
+        {
+            "id": "motivation_2",
+            "questionText": "Ich bin wahnsinnig glücklich.",
+            "labels": {
+                "1": "Stimme überhaupt nicht zu",
+                "2": "Stimme kaum zu",
+                "3": "Teils / teils",
+                "4": "Stimme eher zu",
+                "5": "Stimme voll und ganz zu"
+            }
         }
     ]
 }
