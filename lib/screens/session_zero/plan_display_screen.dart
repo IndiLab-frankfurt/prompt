@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
@@ -14,13 +15,13 @@ class PlanDisplayScreen extends StatelessWidget {
     return Container(
         child: ListView(
       children: [
-        MarkdownBody(data: "# Prima!"),
+        MarkdownBody(data: "# " + AppStrings.PlanDisplay_Excellent),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(data: '### Dein Plan lautet also:'),
+        MarkdownBody(data: '### ' + AppStrings.PlanDisplay_YourPlanIs),
         UIHelper.verticalSpaceMedium(),
         SpeechBubble(text: '"${vm.plan}"'),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(data: "### Merke dir den Plan gut!")
+        MarkdownBody(data: "### " + AppStrings.PlanDisplay_RememberYourPlan)
       ],
     ));
   }

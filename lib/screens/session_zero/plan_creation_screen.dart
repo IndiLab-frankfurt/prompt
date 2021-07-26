@@ -45,9 +45,9 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
 
   Widget buildEnterHabit() {
     return ListView(children: [
-      MarkdownBody(data: "### " + AppStrings.LetsCreatePlan),
-      UIHelper.verticalSpaceMedium(),
       MarkdownBody(data: "### " + AppStrings.ThinkOfSomething),
+      UIHelper.verticalSpaceMedium(),
+      MarkdownBody(data: "### " + AppStrings.ThinkAboutYourGoal),
       TextField(
         controller: _habitTextController,
         onChanged: (newText) {

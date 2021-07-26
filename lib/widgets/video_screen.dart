@@ -29,14 +29,11 @@ class _VideoScreenState extends State<VideoScreen> {
 
     _videoPlayerController.addListener(() {
       if (!_videoPlayerController.value.isInitialized) return;
-      if (_videoPlayerController.value != null) {
-        var timeToFinish = _videoPlayerController.value.duration.inSeconds -
-            _videoPlayerController.value.position.inSeconds;
-        if (timeToFinish < 2) {
-          if (widget.onVideoCompleted != null) {
-            widget.onVideoCompleted();
-          }
-        }
+
+      var timeToFinish = _videoPlayerController.value.duration.inSeconds -
+          _videoPlayerController.value.position.inSeconds;
+      if (timeToFinish < 2) {
+        widget.onVideoCompleted();
       }
     });
   }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/widgets/emoji_keyboard/base_emoji.dart';
@@ -49,8 +50,7 @@ class _EmojiInternalisationScreenState
                 children: [
                   UIHelper.verticalSpaceSmall(),
                   SpeechBubble(
-                      text:
-                          "Erstelle aus Emojis eine Darstellung deines Planes"),
+                      text: AppStrings.EmojiInternalisation_Instruction),
                   UIHelper.verticalSpaceSmall(),
                   SpeechBubble(text: "${vm.plan}"),
                   UIHelper.verticalSpaceMedium(),
@@ -98,10 +98,7 @@ class _EmojiInternalisationScreenState
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                     ),
                     onChanged: (text) {
-                      setState(() {
-                        // _emojiStoryIf = text;
-                        // _checkIfIsDone();
-                      });
+                      setState(() {});
                     },
                     onTap: () {
                       setState(() {
@@ -152,10 +149,7 @@ class _EmojiInternalisationScreenState
                           borderRadius: BorderRadius.all(Radius.circular(20))),
                     ),
                     onChanged: (text) {
-                      setState(() {
-                        // _emojiStoryThen = text;
-                        // _checkIfIsDone();
-                      });
+                      setState(() {});
                     },
                     onTap: () {
                       setState(() {
@@ -219,7 +213,7 @@ class _EmojiInternalisationScreenState
     return Align(
         alignment: Alignment.bottomCenter,
         child: FullWidthButton(
-          text: "Weiter",
+          text: AppStrings.Continue,
           height: 40,
           onPressed: () async {
             var emojiInfoLeft = emojiNamesFromEmojiList(emojiNamesLeft);

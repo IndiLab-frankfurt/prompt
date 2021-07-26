@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class CabuuLinkScreen extends StatelessWidget {
                   value: vm.consented),
               Flexible(
                 child: Text(
-                  "Ja, ich möchte an der Studie teilnehmen",
+                  AppStrings.CabuuLink_WantToParticipate,
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ),
@@ -36,14 +37,14 @@ class CabuuLinkScreen extends StatelessWidget {
           ),
           UIHelper.verticalSpaceMedium(),
           Text(
-            "Gib hier die E-Mail-Adresse ein, mit der du bei cabuu angemeldet bist",
+            AppStrings.CabuuLink_EnterEmail,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           UIHelper.verticalSpaceMedium(),
           buildEmailField(context),
           UIHelper.verticalSpaceMedium(),
           Text(
-            "Falls du bei cabuu auch mit einem Benutzernamen angemeldet bist, gib diesen bitte hier ein",
+            AppStrings.CabuuLink_EnterUsername,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           UIHelper.verticalSpaceMedium(),

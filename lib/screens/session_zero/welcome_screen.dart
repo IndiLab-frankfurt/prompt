@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
 class WelcomeScreen extends StatelessWidget {
@@ -16,12 +17,12 @@ class WelcomeScreen extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            "Willkommen bei PROMPT!",
+            AppStrings.Welcome_WelcomeToPROMPT,
             style: Theme.of(context).textTheme.headline4,
           ),
           UIHelper.verticalSpaceMedium(),
           Text(
-            "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.",
+            AppStrings.Welcome_IntroductionTakeYourTime,
             style: Theme.of(context).textTheme.headline6,
           )
         ],
