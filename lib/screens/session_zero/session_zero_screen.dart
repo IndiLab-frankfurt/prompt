@@ -100,6 +100,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   late var planInternalisation = ChangeNotifierProvider.value(
     value: vm.internalisationViewmodel,
+    key: ValueKey(SessionZeroStep.planInternalisation),
     child: EmojiInternalisationScreen(
         key: ValueKey(SessionZeroStep.planInternalisation)),
   );
