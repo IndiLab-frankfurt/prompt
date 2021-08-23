@@ -18,29 +18,43 @@ class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
         child: ListView(
       children: [
         Text(AppStrings.SelectionOfMascot),
-        IconButton(
-          color: vm.selectedMascot == "1" ? Colors.orange : Colors.transparent,
-          icon: Image.asset('assets/illustrations/mascot_1_bare.png'),
-          iconSize: 50,
-          onPressed: () {
-            vm.selectedMascot = "1";
-          },
+        CircleAvatar(
+          radius: 50,
+          backgroundColor:
+              vm.selectedMascot == "1" ? Colors.orange : Colors.transparent,
+          child: IconButton(
+            icon: Image.asset('assets/illustrations/mascot_1_bare.png'),
+            iconSize: 80,
+            onPressed: () {
+              vm.selectedMascot = "1";
+            },
+          ),
         ),
-        IconButton(
-          color: vm.selectedMascot == "2" ? Colors.orange : Colors.transparent,
-          icon: Image.asset('assets/icons/anatomy.png'),
-          iconSize: 50,
-          onPressed: () {
-            vm.selectedMascot = "2";
-          },
+        CircleAvatar(
+          radius: 50,
+          backgroundColor:
+              vm.selectedMascot == "2" ? Colors.orange : Colors.transparent,
+          child: IconButton(
+            icon: Image.asset('assets/icons/anatomy.png'),
+            iconSize: 80,
+            onPressed: () {
+              vm.selectedMascot = "2";
+            },
+          ),
         ),
-        IconButton(
-          color: vm.selectedMascot == "3" ? Colors.orange : Colors.transparent,
-          icon: Image.asset('assets/icons/mehappy.png'),
-          iconSize: 50,
-          onPressed: () {
-            vm.selectedMascot = "3";
-          },
+        CircleAvatar(
+          radius: 50,
+          backgroundColor:
+              vm.selectedMascot == "3" ? Colors.orange : Colors.transparent,
+          child: IconButton(
+            color:
+                vm.selectedMascot == "3" ? Colors.orange : Colors.transparent,
+            icon: Image.asset('assets/icons/mehappy.png'),
+            iconSize: 50,
+            onPressed: () {
+              vm.selectedMascot = "3";
+            },
+          ),
         )
       ],
     ));
