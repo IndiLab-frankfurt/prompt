@@ -24,6 +24,12 @@ class RewardService {
   final DataService _dataService;
   final LoggingService _logService;
 
+  final List<int> unlockDays = [
+    0,
+    1,
+    3,
+  ];
+
   late List<UnlockableBackground> backgrounds;
 
   RewardService(this._dataService, this._logService) {

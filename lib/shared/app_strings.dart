@@ -49,7 +49,8 @@ class AppStrings {
   static const String PlanDisplay_RememberYourPlan = "Merke dir den Plan gut!";
 
   //Session Zero  Mascot Selection
-  static const String SelectionOfMascot = "Auswahl des Monsters";
+  static const String SelectionOfMascot =
+      "Hier kannst du dir ein Monster auswählen, das dich im Laufe der Studie begleiten wird. Welches Monster du auswählst, macht für den weiteren Verlauf keinen Unterschied, und es ist nur dafür da, um dich zu motivieren. Wähle also einfach das Monster aus, das dir am besten gefällt.";
   static const String ThinkAboutYourGoal = "Denke an dein Ziel:";
 
   // Goal Intention
