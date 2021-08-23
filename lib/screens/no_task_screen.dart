@@ -166,33 +166,53 @@ class _NoTasksScreenState extends State<NoTasksScreen>
   }
 
   _buildStatistics() {
+    var rewardService = locator<RewardService>();
+
+    var daysActive = 5; //rewardService.daysActive;
+    var streakDays = rewardService.streakDays;
+
+    int maxDays = 36;
+    double studyProgress = daysActive / maxDays;
+
+    double nextUnlockProgress = 0;
+    int daysToNextReward = 0;
+    for (var i = 1; i < (rewardService.backgrounds.length); i++) {
+      if (rewardService.backgrounds[i].requiredDays > daysActive) {
+        var current = rewardService.backgrounds[i - 1].requiredDays;
+        daysToNextReward = rewardService.backgrounds[i].requiredDays;
+        var max = daysToNextReward - current;
+        var progress = daysActive - current;
+        nextUnlockProgress = progress / max;
+        break;
+      }
+    }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.daysParticipated(22)),
+        Text(AppStrings.daysParticipated(daysActive)),
         UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.daysConsecutive(7)),
+        Text(AppStrings.daysConsecutive(streakDays)),
         UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.daysOfTotal(7, 36)),
+        Text(AppStrings.daysOfTotal(daysActive, 36)),
         UIHelper.verticalSpaceSmall(),
         SizedBox(
           width: 300,
           child: LinearProgressIndicator(
             color: Colors.blue,
             minHeight: 12,
-            value: 0.5,
+            value: studyProgress,
           ),
         ),
         UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.ProgressToReward),
+        Text(AppStrings.progressToReward(daysActive, daysToNextReward)),
         UIHelper.verticalSpaceSmall(),
         SizedBox(
           width: 300,
           child: LinearProgressIndicator(
             color: Colors.blue,
             minHeight: 12,
-            value: 0.7,
+            value: nextUnlockProgress,
           ),
         )
       ],

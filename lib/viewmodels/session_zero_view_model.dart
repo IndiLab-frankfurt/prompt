@@ -38,6 +38,13 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   InternalisationViewModel internalisationViewmodel =
       InternalisationViewModel();
 
+  String _selectedMascot = "1";
+  String get selectedMascot => _selectedMascot;
+  set selectedMascot(String selected) {
+    this._selectedMascot = selected;
+    notifyListeners();
+  }
+
   String _plan = "Wenn ich nach Hause komme, esse ich eine Wurst";
   String get plan => _plan;
   set plan(String plan) {

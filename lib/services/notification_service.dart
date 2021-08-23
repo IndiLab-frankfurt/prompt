@@ -98,8 +98,8 @@ class NotificationService {
 
   Future<void> _configureLocalTimeZone() async {
     tz.initializeTimeZones();
-    final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
-    tz.setLocalLocation(tz.getLocation(timeZoneName));
+    // final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    // tz.setLocalLocation(tz.getLocation(timeZoneName));
   }
 
   Future onSelectNotification(String? payload) async {

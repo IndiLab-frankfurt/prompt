@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:prompt/shared/enums.dart';
@@ -118,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // Provider.of<LoginState>(context).userId =
               },
               validator: (String? arg) {
-                if (arg!.length < 5) {
+                if (arg!.length != 6) {
                   return "Dein Code sollte aus sechs Zeichen bestehen";
                 } else {
                   return null;
@@ -128,7 +129,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 // labelText: "Email",
                 // alignLabelWithHint: true,
                 border: InputBorder.none,
-                hintText: 'Code eingeben',
+                hintText: AppStrings.LoginScreen_EnterCode,
               ),
             ),
           ),

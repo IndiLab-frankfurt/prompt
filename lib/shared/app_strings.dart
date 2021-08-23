@@ -1,7 +1,7 @@
 class AppStrings {
   // Idle Screen
   static const String ChangeBackground = "Hintergrund ändern";
-  static const String ProgressToReward = "Fortschritt zur nächsten Belohnung";
+
   static String daysParticipated(int days) {
     String dayString = days == 1 ? "Tag" : "Tage";
     return "$days $dayString insgesamt an der Studie teilgenommen";
@@ -14,6 +14,10 @@ class AppStrings {
 
   static String daysOfTotal(int days, int max) {
     return "Tag $days von $max";
+  }
+
+  static String progressToReward(int days, int max) {
+    return "Fortschritt zur nächsten Belohnung: $days / $max";
   }
 
   // Session Zero Welcome Screen
@@ -83,4 +87,6 @@ class AppStrings {
   static const String InfoScreen_Header4 = "Freiwilligkeit & Datenschutz";
   static const String InfoScreen_Body4 =
       "Du entscheidest selbst, ob du an der Studie teilnehmen möchtest. Du kannst jederzeit aufhören und musst das auch nicht begründen. Dir entstehen dadurch keine Nachteile. Die Angaben, die du während der Studie machst, werden von uns verschlüsselt. Das bedeutet, dass anstelle deines Namens eine Codenummer verwendet wird, sodass niemand weiß, dass das deine Daten sind. Bei Fragen kannst du dich jederzeit an uns wenden. Schreibe uns dazu eine E-Mail an prompt@idea-frankfurt.eu";
+
+  static const String LoginScreen_EnterCode = "Code eingeben";
 }
