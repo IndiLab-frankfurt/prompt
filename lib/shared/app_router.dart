@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prompt/locator.dart';
+import 'package:prompt/screens/assessments/evening_assessment_screen.dart';
+import 'package:prompt/screens/internalisation/daily_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/default_reminder_screen.dart';
+import 'package:prompt/screens/assessments/morning_assessment_screen.dart';
 import 'package:prompt/screens/login_screen.dart';
 import 'package:prompt/screens/no_task_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
@@ -11,7 +14,10 @@ import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/viewmodels/daily_internalisation_view_model.dart';
+import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
+import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -42,6 +48,30 @@ class AppRouter {
                     locator.get<ExperimentService>(),
                     locator.get<DataService>()),
                 child: SessionZeroScreen()));
+
+      case RouteNames.DAILY_INTERNALISATION:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => DailyInternalisationViewModel(
+                    locator.get<ExperimentService>(),
+                    locator.get<DataService>()),
+                child: DailyInternalisationScreen()));
+
+      case RouteNames.ASSESSMENT_MORNING:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => MorningAssessmentViewModel(
+                    locator.get<ExperimentService>(),
+                    locator.get<DataService>()),
+                child: MorningAssessmentScreen()));
+
+      case RouteNames.ASSESSMENT_EVENING:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => EveningAssessmentViewModel(
+                    locator.get<ExperimentService>(),
+                    locator.get<DataService>()),
+                child: EveningAssessmentScreen()));
 
       case RouteNames.REMINDER_DEFAULT:
         return MaterialPageRoute(builder: (_) => DefaultReminderScreen());

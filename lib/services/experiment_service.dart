@@ -19,7 +19,9 @@ class ExperimentService {
       this._loggingService, this._rewardService, this._navigationService);
 
   nextScreen(String currentScreen) async {
-    if (currentScreen == RouteNames.SESSION_ZERO) {
+    if (currentScreen == RouteNames.SESSION_ZERO ||
+        currentScreen == RouteNames.ASSESSMENT_EVENING ||
+        currentScreen == RouteNames.ASSESSMENT_MORNING) {
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
     }
   }

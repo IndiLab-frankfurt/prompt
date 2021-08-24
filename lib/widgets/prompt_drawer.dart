@@ -63,6 +63,29 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.REMINDER_DEFAULT);
               }),
+          Divider(),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Daily Internalisation",
+              onTap: () async {
+                await Navigator.pushNamed(context, RouteNames.REMINDER_DEFAULT);
+              }),
+          Divider(),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Befragung Morgens",
+              onTap: () async {
+                await Navigator.pushNamed(
+                    context, RouteNames.ASSESSMENT_MORNING);
+              }),
+          Divider(),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Befragung Abends",
+              onTap: () async {
+                await Navigator.pushNamed(
+                    context, RouteNames.ASSESSMENT_MORNING);
+              }),
         ],
       ),
     );

@@ -168,7 +168,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
   _buildStatistics() {
     var rewardService = locator<RewardService>();
 
-    var daysActive = 5; //rewardService.daysActive;
+    var daysActive = rewardService.daysActive;
     var streakDays = rewardService.streakDays;
 
     int maxDays = 36;

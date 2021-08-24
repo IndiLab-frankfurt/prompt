@@ -11,4 +11,10 @@ class RouteNames {
   static const SESSION_ZERO = "/sessionzero";
 
   static const REMINDER_DEFAULT = "/defaultreminder";
+
+  static const DAILY_INTERNALISATION = "/dailyinternalisation";
+
+  static const ASSESSMENT_MORNING = "/assessmentmorning";
+
+  static const ASSESSMENT_EVENING = "/assessmentevening";
 }

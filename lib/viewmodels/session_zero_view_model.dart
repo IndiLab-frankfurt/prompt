@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:prompt/models/assessment.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -83,32 +82,17 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   final ExperimentService _experimentService;
   final DataService _dataService;
 
-  SessionZeroViewModel(this._experimentService, this._dataService);
+  SessionZeroViewModel(this._experimentService, this._dataService)
+      : super(_dataService);
 
   @override
   bool canMoveBack(ValueKey currentPageKey) {
-    // TODO: implement canMoveBack
     return true;
   }
 
   @override
   bool canMoveNext(ValueKey currentPageKey) {
-    // TODO: implement canMoveNext
     return true;
-  }
-
-  @override
-  Future<Assessment> getAssessment(assessmentType) async {
-    String name = describeEnum(assessmentType);
-    Assessment assessment = await _dataService.getAssessment(name);
-
-    return assessment;
-  }
-
-  @override
-  int getNextPage(ValueKey currentPageKey) {
-    // TODO: implement getNextPage
-    return step + 1;
   }
 
   @override
