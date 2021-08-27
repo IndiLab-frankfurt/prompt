@@ -6,7 +6,7 @@ import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/route_names.dart';
 
 class ExperimentService {
-  static const int NUM_GROUPS = 3;
+  static const int NUM_GROUPS = 4;
   static const Duration MAX_STUDY_DURATION = Duration(days: 50);
 
   final DataService _dataService;
