@@ -10,21 +10,23 @@ import 'package:collection/collection.dart';
 class NotificationService {
   late FlutterLocalNotificationsPlugin localNotifications;
 
-  static const String CHANNEL_ID_II_REMINDER = "WDP Erinnerung";
-  static const String CHANNEL_NAME_II_REMINDER = "Wenn-Dann-Plan Erinnerung";
-  static const String CHANNEL_DESCRIPTION_II_REMINDER =
+  static const String CHANNEL_ID_MORNING_REMINDER = "WDP Erinnerung";
+  static const String CHANNEL_NAME_MORNING_REMINDER =
       "Wenn-Dann-Plan Erinnerung";
-  static const String PAYLOAD_II_REMINDER = "PAYLOAD_II_REMINDER";
+  static const String CHANNEL_DESCRIPTION_MORNING_REMINDER =
+      "Wenn-Dann-Plan Erinnerung";
+  static const String PAYLOAD_MORNING_REMINDER = "PAYLOAD_II_REMINDER";
 
   static const String CHANNEL_ID_EVENING = "Erinnerung Abend";
   static const String CHANNEL_NAME_EVENING = "Erinnerung Abend";
   static const String CHANNEL_DESCRIPTION_EVENING = "Erinnerung Abend";
   static const String PAYLOAD_EVENING = "PAYLOAD_EVENING";
 
-  static const String CHANNEL_ID_LDT_REMINDER = "LDT Erinnerung";
-  static const String CHANNEL_NAME_LDT_REMINDER = "LDT Erinnerung";
-  static const String CHANNEL_DESCRIPTION_LDT_REMINDER = "LDT Erinnerung";
-  static const String PAYLOAD_LDT_REMINDER = "PAYLOAD_LDT_REMINDER";
+  static const String CHANNEL_ID_BOOSTER_PROMPT = "Strategie Erinnerung";
+  static const String CHANNEL_NAME_BOOSTER_PROMPT = "Strategie Erinnerung";
+  static const String CHANNEL_DESCRIPTION_BOOSTER_PROMPT =
+      "Strategie Erinnerung";
+  static const String PAYLOAD_BOOSTER_PROMPT = "PAYLOAD_STRATEGIE_REMINDER";
 
   static const String CHANNEL_ID_FINAL_REMINDER =
       "Erinnerung Abschlussbefragung";
@@ -35,7 +37,7 @@ class NotificationService {
   static const String PAYLOAD_FINAL_REMINDER = "PAYLOAD_FINAL_REMINDER";
 
   static const int ID_LDT_REMINDER = 87;
-  static const int ID_INTERNALISATION = 69;
+  static const int ID_MORNING = 6969;
   static const int ID_TASK_REMINDER = 42;
   static const int ID_FINAL_TASK_REMINDER = 1901;
 
@@ -57,10 +59,6 @@ class NotificationService {
     await localNotifications.initialize(initSettings,
         onSelectNotification: onSelectNotification);
 
-    await scheduleMorningReminder(new Time(5, 0, 0));
-
-    // await scheduleEveningReminder(new DateTime(2021, 0, 17, 0, 0));
-
     return true;
   }
 
@@ -69,12 +67,12 @@ class NotificationService {
     print("Received Local Notification");
   }
 
-  deleteScheduledInternalisationReminder() async {
+  deleteReminderWithId(int id) async {
     var pendingNotifications = await getPendingNotifications();
-    var taskReminderExists = pendingNotifications
-        .firstWhereOrNull((n) => n.id == ID_INTERNALISATION);
-    if (taskReminderExists == null) {
-      localNotifications.cancel(ID_INTERNALISATION);
+    var reminderExists =
+        pendingNotifications.firstWhereOrNull((n) => n.id == ID_MORNING);
+    if (reminderExists == null) {
+      localNotifications.cancel(id);
     }
   }
 
@@ -99,14 +97,14 @@ class NotificationService {
   Future<void> _configureLocalTimeZone() async {
     tz.initializeTimeZones();
     // final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
-    // tz.setLocalLocation(tz.getLocation(timeZoneName));
+    tz.setLocalLocation(tz.getLocation("Europe/Berlin"));
   }
 
   Future onSelectNotification(String? payload) async {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
 
-      if (payload == PAYLOAD_II_REMINDER) {
+      if (payload == PAYLOAD_MORNING_REMINDER) {
         locator
             .get<LoggingService>()
             .logEvent("NotificationClickInternalisation");
@@ -120,25 +118,13 @@ class NotificationService {
     }
   }
 
-  _getNextScheduleTimeFromTime(Time time) {
-    final now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(
-        tz.local, now.year, now.month, now.day, time.hour, time.minute);
-
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
-
-    return scheduledDate;
-  }
-
-  scheduleMorningReminder(Time time) async {
-    await deleteScheduledInternalisationReminder();
-
+  scheduleMorningReminder(DateTime time, int id) async {
+    var timeoutAfter = getMillisecondsUntilMidnight(time);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_II_REMINDER,
-        CHANNEL_NAME_II_REMINDER,
-        CHANNEL_DESCRIPTION_II_REMINDER,
+        CHANNEL_ID_MORNING_REMINDER,
+        CHANNEL_NAME_MORNING_REMINDER,
+        CHANNEL_DESCRIPTION_MORNING_REMINDER,
+        timeoutAfter: timeoutAfter,
         ongoing: true);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var notificationDetails = new NotificationDetails(
@@ -150,12 +136,19 @@ class NotificationService {
     String title = "Mache jetzt weiter mit PROMPT!";
     String body = "";
 
-    await localNotifications.zonedSchedule(ID_INTERNALISATION, title, body,
-        _getNextScheduleTimeFromTime(time), notificationDetails,
+    var scheduledDate = tz.TZDateTime(
+        tz.local, time.year, time.month, time.day, time.hour, time.minute);
+
+    var reminderId = ID_MORNING + id;
+
+    print("Scheduling Morning Reminder for $scheduledDate with id $reminderId");
+
+    await localNotifications.zonedSchedule(
+        reminderId, title, body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         matchDateTimeComponents: DateTimeComponents.time,
-        payload: PAYLOAD_II_REMINDER,
+        payload: reminderId.toString(),
         androidAllowWhileIdle: true);
   }
 
@@ -194,11 +187,11 @@ class NotificationService {
         androidAllowWhileIdle: true);
   }
 
-  scheduleLDTReminder(DateTime time) async {
+  scheduleBoosterPrompt(DateTime time) async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_LDT_REMINDER,
-        CHANNEL_NAME_LDT_REMINDER,
-        CHANNEL_DESCRIPTION_LDT_REMINDER,
+        CHANNEL_ID_BOOSTER_PROMPT,
+        CHANNEL_NAME_BOOSTER_PROMPT,
+        CHANNEL_DESCRIPTION_BOOSTER_PROMPT,
         ongoing: true);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var notificationDetails = new NotificationDetails(
@@ -215,7 +208,7 @@ class NotificationService {
         ID_LDT_REMINDER, title, body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOAD_LDT_REMINDER,
+        payload: PAYLOAD_BOOSTER_PROMPT,
         androidAllowWhileIdle: true);
   }
 

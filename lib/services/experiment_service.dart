@@ -6,14 +6,32 @@ import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/route_names.dart';
 
 class ExperimentService {
-  static const int NUM_GROUPS = 4;
-  static const Duration MAX_STUDY_DURATION = Duration(days: 50);
+  static const int NUM_GROUPS = 6;
+  static const Duration MAX_STUDY_DURATION = Duration(days: 36);
 
   final DataService _dataService;
   final NotificationService _notificationService;
   final LoggingService _loggingService;
   final RewardService _rewardService;
   final NavigationService _navigationService;
+
+  final Map<int, List<int>> boosterPrompts = {
+    1: [],
+    2: [1, 2, 3, 7, 8, 9, 13, 14, 15, 19, 20, 21, 25, 26, 27, 31, 32, 33],
+    3: [4, 5, 6, 10, 11, 12, 16, 17, 18, 22, 23, 24, 28, 29, 30, 34, 35, 36],
+    4: [],
+    5: [1, 2, 3, 7, 8, 9, 13, 14, 15, 19, 20, 21, 25, 26, 27, 31, 32, 33],
+    6: [4, 5, 6, 10, 11, 12, 16, 17, 18, 22, 23, 24, 28, 29, 30, 34, 35, 36],
+  };
+
+  final Map<int, List<int>> internalisationPrompts = {
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [1, 2, 3, 7, 8, 9, 13, 14, 15, 19, 20, 21, 25, 26, 27, 31, 32, 33],
+    6: [4, 5, 6, 10, 11, 12, 16, 17, 18, 22, 23, 24, 28, 29, 30, 34, 35, 36],
+  };
 
   ExperimentService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
@@ -24,5 +42,26 @@ class ExperimentService {
         currentScreen == RouteNames.ASSESSMENT_MORNING) {
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
     }
+  }
+
+  schedulePrompts(int group) {
+    var now = DateTime.now();
+    var schedule = DateTime(2021, now.month, now.day, 5, 00);
+
+    for (var i = 0; i <= MAX_STUDY_DURATION.inDays; i++) {
+      print("Scheduling Booster prompt for group $group and day $i");
+      var scheduleDay = schedule.add(Duration(days: i));
+      _notificationService.scheduleMorningReminder(scheduleDay, i);
+    }
+
+    scheduleFinalTaskReminder();
+  }
+
+  scheduleFinalTaskReminder() {
+    var dayAfterFinal =
+        DateTime.now().add(ExperimentService.MAX_STUDY_DURATION);
+    print(
+        "scheduling final task reminder for ${dayAfterFinal.toIso8601String()}");
+    _notificationService.scheduleFinalTaskReminder(dayAfterFinal);
   }
 }
