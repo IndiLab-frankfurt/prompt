@@ -29,26 +29,6 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
-  Future<String> register(String input, String password) async {
-    var email = input;
-    if (!validateEmail(email)) {
-      email = "$email@prompt.studie";
-    }
-    if (password.isEmpty) {
-      password = getDefaultPassword(input);
-    }
-
-    setState(ViewState.busy);
-    var success = "";
-    var available = await this._userService.isNameAvailable(email);
-    success = await _userService.signInUser(email, password);
-    if (available) {
-      success = await _userService.registerUser(email, password);
-    } else {}
-    setState(ViewState.idle);
-    return success;
-  }
-
   Future<String> signIn(String input, String password) async {
     var email = input;
     if (!validateEmail(email)) {
@@ -59,17 +39,15 @@ class LoginViewModel extends BaseViewModel {
     }
     setState(ViewState.busy);
     var signin = await _userService.signInUser(email, password);
-    if (signin.isEmpty) {
+    if (signin == null) {
       setState(ViewState.idle);
       return RegistrationCodes.USER_NOT_FOUND;
     } else {
       await locator<RewardService>().initialize();
-      var dayAfterFinal =
-          DateTime.now().add(ExperimentService.MAX_STUDY_DURATION);
-      await locator<NotificationService>()
-          .scheduleFinalTaskReminder(dayAfterFinal);
+      await locator<ExperimentService>().schedulePrompts(signin.group);
+
       setState(ViewState.idle);
-      return signin;
+      return RegistrationCodes.SUCCESS;
     }
   }
 
