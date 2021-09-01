@@ -100,9 +100,7 @@ class _LoginScreenState extends State<LoginScreen> {
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
-              color: this.widget.foregroundColor,
-              width: 0.5,
-              style: BorderStyle.solid),
+              color: Colors.black, width: 0.5, style: BorderStyle.solid),
         ),
       ),
       padding: const EdgeInsets.only(left: 0.0, right: 10.0),
@@ -141,6 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
   buildSubmitButton(BuildContext context) {
     var vm = Provider.of<LoginViewModel>(context);
     return new ElevatedButton(
+      style: ElevatedButton.styleFrom(minimumSize: Size(200, 50)),
       onPressed: () async {
         if (vm.state != ViewState.idle) return;
         if (_userIdTextController.text.length != 6) {
@@ -151,7 +150,9 @@ class _LoginScreenState extends State<LoginScreen> {
       },
       child: vm.state == ViewState.idle
           ? Text("Anmelden")
-          : CircularProgressIndicator(),
+          : CircularProgressIndicator(
+              backgroundColor: Colors.blue,
+            ),
     );
   }
 

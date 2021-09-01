@@ -1,10 +1,10 @@
 {
     "title": "",
-    "id": "didLearnToday",
+    "id": "didLearnYesterday",
     "questions": [
         {
-            "id": "didLearnToday_1",
-            "questionText": "Hast du heute schon mit cabuu gelernt?",
+            "id": "didLearnYesterday_1",
+            "questionText": "Hast du gestern mit cabuu gelernt?",
             "labels": {
                 "1": "Ja",
                 "2": "Nein"

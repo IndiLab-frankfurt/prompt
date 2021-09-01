@@ -18,6 +18,7 @@ import 'package:prompt/viewmodels/daily_internalisation_view_model.dart';
 import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
+import 'package:prompt/viewmodels/no_task_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -39,7 +40,13 @@ class AppRouter {
                 )));
 
       case RouteNames.NO_TASKS:
-        return MaterialPageRoute(builder: (_) => NoTasksScreen());
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                  create: (_) => NoTaskViewModel(
+                      locator.get<ExperimentService>(),
+                      locator.get<DataService>()),
+                  child: NoTasksScreen(),
+                ));
 
       case RouteNames.SESSION_ZERO:
         return MaterialPageRoute(

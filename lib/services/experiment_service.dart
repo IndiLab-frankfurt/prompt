@@ -3,7 +3,9 @@ import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/shared/extensions.dart';
 
 class ExperimentService {
   static const int NUM_GROUPS = 6;
@@ -42,6 +44,55 @@ class ExperimentService {
         currentScreen == RouteNames.ASSESSMENT_MORNING) {
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
     }
+
+    if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
+      if (isTimeForFinalQuestionnaire()) {
+        return await _navigationService.navigateTo(RouteNames.ASSESSMENT_FINAL);
+      }
+    }
+  }
+
+  isBoosterPromptDay() {
+    var userData = _dataService.getUserDataCache();
+    var daysAgo = userData.registrationDate.daysAgo();
+
+    return boosterPrompts[userData.group]!.contains(daysAgo);
+  }
+
+  isInternalisationDay() {
+    var userData = _dataService.getUserDataCache();
+    var daysAgo = userData.registrationDate.daysAgo();
+
+    return internalisationPrompts[userData.group]!.contains(daysAgo);
+  }
+
+  shouldShowDistributedLearningVideo() {
+    var userData = _dataService.getUserDataCache();
+    var daysAgo = userData.registrationDate.daysAgo();
+
+    return daysAgo == 18;
+  }
+
+  bool isTimeForFinalQuestionnaire() {
+    var userData = _dataService.getUserDataCache();
+    var daysAgo = userData.registrationDate.daysAgo();
+
+    return daysAgo == MAX_STUDY_DURATION.inDays;
+  }
+
+  InternalisationCondition getInternalisationCondition() {
+    var userData = _dataService.getUserDataCache();
+    var daysAgo = userData.registrationDate.daysAgo();
+
+    var condition =
+        getInternalisationConditionForGroupAndDay(daysAgo, userData.group);
+    return InternalisationCondition.values[condition];
+  }
+
+  int getInternalisationConditionForGroupAndDay(int group, int day) {
+    var number = (group + day) % InternalisationCondition.values.length;
+
+    return number;
   }
 
   schedulePrompts(int group) {

@@ -12,6 +12,7 @@ enum SessionZeroStep {
   motivationQuestionnaire,
   goalIntention,
   videoPlanning,
+  videoDistributedLearning,
   planCreation,
   planDisplay,
   planInternalisation,
@@ -19,21 +20,22 @@ enum SessionZeroStep {
   videoInstructionComplete
 }
 
-const List<SessionZeroStep> ScreenOrder = [
-  SessionZeroStep.welcome,
-  SessionZeroStep.cabuuLink,
-  SessionZeroStep.mascotSelection,
-  SessionZeroStep.motivationQuestionnaire,
-  SessionZeroStep.goalIntention,
-  SessionZeroStep.videoPlanning,
-  SessionZeroStep.planCreation,
-  SessionZeroStep.planDisplay,
-  SessionZeroStep.planInternalisation,
-  SessionZeroStep.selfEfficacy,
-  SessionZeroStep.videoInstructionComplete
-];
-
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
+// ignore: non_constant_identifier_names
+  List<SessionZeroStep> screenOrder = [
+    SessionZeroStep.welcome,
+    SessionZeroStep.cabuuLink,
+    SessionZeroStep.mascotSelection,
+    SessionZeroStep.motivationQuestionnaire,
+    SessionZeroStep.goalIntention,
+    SessionZeroStep.videoPlanning,
+    // SessionZeroStep.videoDistributedLearning,
+    SessionZeroStep.planCreation,
+    SessionZeroStep.planDisplay,
+    SessionZeroStep.planInternalisation,
+    SessionZeroStep.selfEfficacy,
+    SessionZeroStep.videoInstructionComplete
+  ];
   InternalisationViewModel internalisationViewmodel =
       InternalisationViewModel();
 
@@ -83,7 +85,66 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   final DataService _dataService;
 
   SessionZeroViewModel(this._experimentService, this._dataService)
-      : super(_dataService);
+      : super(_dataService) {
+    getScreenOrder();
+  }
+
+  Future<void> getScreenOrder() async {
+    var ud = await _dataService.getUserData();
+    var group = ud!.group;
+
+    screenOrder = generateScreenOrder(group);
+    notifyListeners();
+  }
+
+  List<SessionZeroStep> generateScreenOrder(int group) {
+    List<SessionZeroStep> screenOrder = [];
+
+    List<SessionZeroStep> firstScreens = [
+      SessionZeroStep.welcome,
+      SessionZeroStep.cabuuLink,
+      SessionZeroStep.mascotSelection,
+      SessionZeroStep.motivationQuestionnaire,
+      SessionZeroStep.goalIntention,
+    ];
+
+    List<SessionZeroStep> distributedLearning = [
+      SessionZeroStep.videoDistributedLearning,
+      SessionZeroStep.goalIntention
+    ];
+
+    List<SessionZeroStep> finalSteps = [
+      SessionZeroStep.videoInstructionComplete
+    ];
+
+    List<SessionZeroStep> internalisationSteps = [
+      SessionZeroStep.videoPlanning,
+      // SessionZeroStep.videoDistributedLearning,
+      SessionZeroStep.planCreation,
+      SessionZeroStep.planDisplay,
+      SessionZeroStep.planInternalisation,
+      SessionZeroStep.selfEfficacy,
+      SessionZeroStep.videoInstructionComplete
+    ];
+
+    if (group == 1) {
+      screenOrder = [...firstScreens, ...finalSteps];
+    } else if (group == 2) {
+      screenOrder = [...firstScreens, ...distributedLearning, ...finalSteps];
+    } else if (group == 3 || group == 4) {
+      screenOrder = [
+        ...firstScreens,
+        ...distributedLearning,
+        ...internalisationSteps,
+        ...finalSteps
+      ];
+    } else {
+      throw Exception(
+          "Attempting to request data for a group that does not exist");
+    }
+
+    return screenOrder;
+  }
 
   @override
   bool canMoveBack(ValueKey currentPageKey) {

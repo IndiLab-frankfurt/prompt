@@ -15,6 +15,6 @@ class RouteNames {
   static const DAILY_INTERNALISATION = "/dailyinternalisation";
 
   static const ASSESSMENT_MORNING = "/assessmentmorning";
-
   static const ASSESSMENT_EVENING = "/assessmentevening";
+  static const ASSESSMENT_FINAL = "/assessmentfinal";
 }

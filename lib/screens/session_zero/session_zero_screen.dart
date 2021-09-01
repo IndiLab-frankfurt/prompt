@@ -44,7 +44,9 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.videoInstructionComplete: instructionComplete
     };
 
-    for (var page in ScreenOrder) {
+    _pages = [];
+
+    for (var page in vm.screenOrder) {
       if (_stepScreenMap.containsKey(page)) {
         _pages.add(_stepScreenMap[page]!);
       }

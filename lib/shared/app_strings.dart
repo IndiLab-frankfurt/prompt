@@ -90,4 +90,8 @@ class AppStrings {
       "Du entscheidest selbst, ob du an der Studie teilnehmen möchtest. Du kannst jederzeit aufhören und musst das auch nicht begründen. Dir entstehen dadurch keine Nachteile. Die Angaben, die du während der Studie machst, werden von uns verschlüsselt. Das bedeutet, dass anstelle deines Namens eine Codenummer verwendet wird, sodass niemand weiß, dass das deine Daten sind. Bei Fragen kannst du dich jederzeit an uns wenden. Schreibe uns dazu eine E-Mail an prompt@idea-frankfurt.eu";
 
   static const String LoginScreen_EnterCode = "Code eingeben";
+
+  static const String BoosterPrompt_Header = "BOOSTER PROMPT!";
+  static const String BoosterPrompt_Text =
+      "Denk daran, dass du dir die Vokabeln am besten merken kannst, wenn du jeden Tag lernst!";
 }

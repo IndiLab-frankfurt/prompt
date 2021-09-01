@@ -5,10 +5,11 @@ import 'package:prompt/locator.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:flutter/services.dart';
+import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/user_service.dart';
 
-class FirebaseService {
+class FirebaseService implements IDatabaseService {
   static final FirebaseService _instance = FirebaseService._internal();
   factory FirebaseService() => _instance;
 
@@ -83,7 +84,7 @@ class FirebaseService {
     }
   }
 
-  Future<UserData> registerUser(
+  Future<UserData?> registerUser(
       String userId, String password, int internalisationCondition) async {
     var result = await _firebaseAuth.createUserWithEmailAndPassword(
         email: userId, password: password);
@@ -99,10 +100,11 @@ class FirebaseService {
     return _databaseReference
         .collection(COLLECTION_USERS)
         .doc(userData.user)
-        .set(userData.toMap())
-        .then((value) => value)
-        .catchError((error) {
-      handleError(error.toString(), data: "Trying to inser UserData");
+        .set(userData.toMap(), SetOptions(merge: true))
+        .then((value) {
+      return userData;
+    }).catchError((error) {
+      handleError(error.toString(), data: "Trying to insert UserData");
     });
   }
 

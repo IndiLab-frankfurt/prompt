@@ -44,7 +44,7 @@ class LoginViewModel extends BaseViewModel {
       return RegistrationCodes.USER_NOT_FOUND;
     } else {
       await locator<RewardService>().initialize();
-      await locator<ExperimentService>().schedulePrompts(signin.group);
+      locator<ExperimentService>().schedulePrompts(signin.group);
 
       setState(ViewState.idle);
       return RegistrationCodes.SUCCESS;

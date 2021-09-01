@@ -24,4 +24,16 @@ class RegistrationCodes {
   static const USER_NOT_FOUND = "user-not-found";
 }
 
-enum AssessmentTypes { srl, motivation, selfEfficacy }
+enum AssessmentTypes {
+  srl,
+  didLearnToday,
+  motivation,
+  selfEfficacy,
+  didLearnYesterday
+}
+
+enum InternalisationCondition {
+  waiting,
+  scrambleWithHint,
+  emoji,
+}

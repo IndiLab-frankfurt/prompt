@@ -4,17 +4,19 @@ import 'package:prompt/locator.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/firebase_service.dart';
+import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/shared/enums.dart';
 
 class UserService {
-  UserService(this._settings) {
-    FirebaseService().getCurrentUser().listen((user) {
+  UserService(this._settings, this._databaseService) {
+    _databaseService.getCurrentUser()!.listen((user) {
       _isSignedIn = user != null;
     });
   }
 
-  SettingsService _settings;
+  final SettingsService _settings;
+  final IDatabaseService _databaseService;
   String userId = "";
   bool _isSignedIn = false;
 
@@ -65,7 +67,7 @@ class UserService {
         registrationDate: DateTime.now());
   }
 
-  Future<String> signInUser(String email, String password) async {
+  Future<UserData?> signInUser(String email, String password) async {
     var user = await FirebaseService().signInUser(email, password);
     if (user != null) {
       await saveUsername(email);
@@ -74,9 +76,9 @@ class UserService {
         var defaultUserData = await getDefaultUserData(email, uid: user.uid);
         await FirebaseService().insertUserData(defaultUserData);
       }
-      return RegistrationCodes.SUCCESS;
+      return userData;
     } else {
-      return locator.get<FirebaseService>().lastError;
+      return null;
     }
   }
 

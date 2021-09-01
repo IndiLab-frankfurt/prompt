@@ -6,6 +6,7 @@ import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_item.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/services/firebase_service.dart';
+import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/user_service.dart';
@@ -13,7 +14,7 @@ import 'package:prompt/shared/enums.dart';
 
 class DataService {
   final UserService _userService;
-  final FirebaseService _databaseService;
+  final IDatabaseService _databaseService;
   final LocalDatabaseService _localDatabaseService;
   final SettingsService _settingsService;
 
@@ -36,6 +37,10 @@ class DataService {
       _userDataCache = (await _databaseService.getUserData(username));
     }
     return _userDataCache;
+  }
+
+  UserData getUserDataCache() {
+    return _userDataCache!;
   }
 
   saveScore(int score) async {

@@ -4,7 +4,7 @@ import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/assessments/questionnaire.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/viewmodels/Evening_assessment_view_model.dart';
+import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:provider/provider.dart';
 
 class EveningAssessmentScreen extends StatefulWidget {
@@ -20,16 +20,17 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
   late EveningAssessmentViewModel vm =
       Provider.of<EveningAssessmentViewModel>(context);
 
+  late Map<String, Widget> _stepScreenMap = {
+    didLearnCabuuToday: didLearnCabuuTodayQuestionnaire,
+    eveningItems: eveningQuestionnaire,
+  };
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Map<EveningAssessmentStep, Widget> _stepScreenMap = {
-      EveningAssessmentStep.evening: eveningQuestionnaire,
-    };
 
     _pages = [];
 
-    for (var page in ScreenOrder) {
+    for (var page in vm.screenOrder) {
       if (_stepScreenMap.containsKey(page)) {
         _pages.add(_stepScreenMap[page]!);
       }
@@ -51,8 +52,13 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
         ))));
   }
 
+  late var didLearnCabuuTodayQuestionnaire = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.didLearnToday,
+      key: ValueKey(didLearnCabuuToday));
+
   late var eveningQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
       assessmentTypes: AssessmentTypes.selfEfficacy,
-      key: ValueKey(EveningAssessmentStep.evening));
+      key: ValueKey(eveningItems));
 }

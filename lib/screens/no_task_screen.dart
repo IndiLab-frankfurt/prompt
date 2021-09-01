@@ -117,6 +117,10 @@ class _NoTasksScreenState extends State<NoTasksScreen>
     );
   }
 
+  Future<bool> setNextText() async {
+    return true;
+  }
+
   _getDrawer() {
     return PromptDrawer();
   }
@@ -154,11 +158,12 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            UIHelper.verticalSpaceMedium(),
+                            UIHelper.verticalSpaceSmall(),
                             if (_showNextButton) _buildToRecallTaskButton(),
-                            UIHelper.verticalSpaceMedium(),
+                            UIHelper.verticalSpaceSmall(),
                             _buildChangeBackgroundButton(),
                             UIHelper.verticalSpaceMedium(),
+                            Divider(),
                             _buildStatistics()
                           ],
                         ),
