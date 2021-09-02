@@ -30,8 +30,9 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     MorningAssessmentStep.alternativeItems: alternativeItems,
     MorningAssessmentStep.eveningItems: eveningItems,
     MorningAssessmentStep.morningItems: morningItems,
+    MorningAssessmentStep.boosterPrompt: boosterPrompt,
     MorningAssessmentStep.internalisation: internalisation(),
-    MorningAssessmentStep.completed: completed
+    MorningAssessmentStep.completed: completed,
   };
 
   @override
@@ -71,7 +72,9 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
         internalisation = WaitingInternalisationScreen(Duration(seconds: 30));
         break;
       case InternalisationCondition.scrambleWithHint:
-        internalisation = ScrambleInternalisation(false);
+        internalisation = ScrambleInternalisation(
+          onCompleted: vm.onInternalisationCompleted,
+        );
         break;
       case InternalisationCondition.emoji:
         internalisation = EmojiInternalisationScreen();

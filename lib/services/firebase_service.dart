@@ -145,6 +145,19 @@ class FirebaseService implements IDatabaseService {
         .then((res) => res);
   }
 
+  Future<AssessmentResult?> getLastAssessmentResult(String userid) async {
+    return _databaseReference
+        .collection(COLLECTION_ASSESSMENTS)
+        .where("user", isEqualTo: userid)
+        .orderBy("submissionDate", descending: true)
+        .limit(1)
+        .get()
+        .then((snapshot) {
+      if (snapshot.docs.length == 0) return null;
+      return AssessmentResult.fromDocument(snapshot.docs[0]);
+    });
+  }
+
   Future<void> saveScore(String userid, int score) async {
     return _databaseReference
         .collection(COLLECTION_USERS)

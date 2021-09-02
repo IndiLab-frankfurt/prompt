@@ -1,9 +1,9 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_item.dart';
+import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/services/firebase_service.dart';
 import 'package:prompt/services/i_database_service.dart';
@@ -64,6 +64,12 @@ class DataService {
     });
   }
 
+  Future<AssessmentResult?> getLastAssessmentResult() async {
+    var ud = await getUserData();
+    var last = await _databaseService.getLastAssessmentResult(ud!.firebaseId);
+    return last;
+  }
+
   saveDaysActive(int daysActive) async {
     var ud = await getUserData();
     if (ud != null) {
@@ -91,6 +97,11 @@ class DataService {
     } else {
       return [Color(0xffffffff), Color(0xffffffff)];
     }
+  }
+
+  Future<void> saveAssessment(AssessmentResult assessment) async {
+    var ud = await getUserData();
+    await _databaseService.saveAssessment(assessment, ud!.firebaseId);
   }
 
   Future<void> setBackgroundImage(String imagePath) async {

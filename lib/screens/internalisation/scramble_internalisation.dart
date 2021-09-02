@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:prompt/shared/enums.dart';
@@ -60,9 +61,8 @@ class ScrambleText {
 }
 
 class ScrambleInternalisation extends StatefulWidget {
-  final bool showText;
-
-  const ScrambleInternalisation(this.showText);
+  final OnCompletedCallback? onCompleted;
+  const ScrambleInternalisation({this.onCompleted});
 
   @override
   _ScrambleInternalisationState createState() =>
@@ -73,7 +73,7 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
   List<ScrambleText> _scrambledSentence = [];
   String _correctSentence = "";
   List<ScrambleText> _builtSentence = [];
-  Duration fadeOutDuration = Duration(seconds: 15);
+  Duration fadeOutDuration = Duration(seconds: 1);
   bool _showPlan = true;
   bool _showPuzzle = false;
   int _timesWrong = 0;
@@ -91,14 +91,12 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
             ScrambleText.scrambleTextListFromString(_correctSentence, 1));
       });
 
-      if (widget.showText) {
-        Timer(Duration(seconds: 8), () {
-          setState(() {
-            _showPlan = false;
-            _showPuzzle = true;
-          });
+      Timer(Duration(seconds: 1), () {
+        setState(() {
+          _showPlan = false;
+          _showPuzzle = true;
         });
-      }
+      });
     });
   }
 
@@ -178,7 +176,6 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
               ],
             ),
           ),
-          if (_isDone() || _wrongTooOften()) _buildSubmitButton()
         ],
       ),
     );
@@ -219,6 +216,8 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
         vm.onScrambleCorrection(_builtSentence.last.text);
         _builtSentence.remove(scramble);
       }
+
+      if (_isDone() || _wrongTooOften()) _complete();
     });
   }
 
@@ -268,6 +267,18 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
             }
           }),
     );
+  }
+
+  _complete() {
+    if (widget.onCompleted != null) {
+      // var condition = InternalisationCondition.scrambleWithHint;
+      var built = "";
+      if (_builtSentence.length > 0) {
+        built = ScrambleText.stringFromScrambleTextList(_builtSentence);
+      }
+
+      widget.onCompleted!(built);
+    }
   }
 
   _buildSubmitButton() {

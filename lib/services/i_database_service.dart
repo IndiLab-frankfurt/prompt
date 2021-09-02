@@ -32,7 +32,9 @@ abstract class IDatabaseService {
 
   Future<void> setStreakDays(String username, int value) async {}
 
-  Future saveDaysAcive(String username, int daysActive) async {}
+  Future saveDaysAcive(String username, int daysActive);
 
-  Future setRegistrationDate(String username, String dateString) async {}
+  Future setRegistrationDate(String username, String dateString);
+
+  Future<AssessmentResult?> getLastAssessmentResult(String userid);
 }

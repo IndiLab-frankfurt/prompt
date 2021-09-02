@@ -7,9 +7,11 @@ import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/viewmodels/no_task_view_model.dart';
 import 'package:prompt/widgets/full_width_button.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
+import 'package:provider/provider.dart';
 
 class NoTasksScreen extends StatefulWidget {
   const NoTasksScreen({Key? key}) : super(key: key);
@@ -20,6 +22,8 @@ class NoTasksScreen extends StatefulWidget {
 
 class _NoTasksScreenState extends State<NoTasksScreen>
     with WidgetsBindingObserver {
+  late NoTaskViewModel vm = Provider.of<NoTaskViewModel>(context);
+
   bool _showNextButton = false;
 
   late Timer updateRegularlyTimer;
@@ -159,6 +163,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             UIHelper.verticalSpaceSmall(),
+                            Text(vm.wurst),
                             if (_showNextButton) _buildToRecallTaskButton(),
                             UIHelper.verticalSpaceSmall(),
                             _buildChangeBackgroundButton(),

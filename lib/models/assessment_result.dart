@@ -18,5 +18,6 @@ class AssessmentResult {
   AssessmentResult.fromDocument(dynamic document) {
     this.submissionDate = DateTime.parse(document["submissionDate"]);
     this.assessmentType = document["assessmentType"];
+    this.results = document["results"];
   }
 }

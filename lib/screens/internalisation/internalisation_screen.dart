@@ -4,6 +4,8 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:provider/provider.dart';
 
+typedef void OnCompletedCallback(String result);
+
 class InternalisationScreen extends StatefulWidget {
   InternalisationScreen({Key? key}) : super(key: key);
 

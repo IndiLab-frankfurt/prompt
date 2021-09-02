@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -18,6 +19,10 @@ enum MorningAssessmentStep {
 
 class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   final ExperimentService experimentService;
+  final DataService dataService;
+
+  InternalisationCondition _internalisationCondition =
+      InternalisationCondition.emoji;
 
   InternalisationViewModel internalisationViewmodel =
       InternalisationViewModel();
@@ -34,7 +39,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     MorningAssessmentStep.completed
   ];
 
-  MorningAssessmentViewModel(this.experimentService, DataService dataService)
+  MorningAssessmentViewModel(this.experimentService, this.dataService)
       : super(dataService);
 
   @override
@@ -93,11 +98,27 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   InternalisationCondition getInternalisationCondition() {
-    return experimentService.getInternalisationCondition();
+    _internalisationCondition = experimentService.getInternalisationCondition();
+    return _internalisationCondition;
+  }
+
+  void onInternalisationCompleted(String input) {
+    print("Internalisation completed with input $input");
   }
 
   @override
   void submit() async {
+    var type = "morningQuestions";
+    Map<String, String> results = {};
+    for (var result in allAssessmentResults.values) {
+      results.addAll(result);
+    }
+    var oneBigAssessment =
+        AssessmentResult(results, "morningQuestions", DateTime.now());
+    oneBigAssessment.startDate = this.startDate;
+
+    dataService.saveAssessment(oneBigAssessment);
+
     experimentService.nextScreen(RouteNames.ASSESSMENT_MORNING);
   }
 }
