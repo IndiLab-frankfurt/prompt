@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/locator.dart';
+import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/widgets/version_info.dart';
+import 'package:intl/intl.dart';
 
 class PromptDrawer extends StatelessWidget {
   PromptDrawer();
@@ -46,7 +48,11 @@ class PromptDrawer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(locator<UserService>().getUsername()),
-                        VersionInfo()
+                        VersionInfo(),
+                        Text(
+                            "Gruppe: ${locator.get<DataService>().getUserDataCache().group}"),
+                        Text(
+                            "Registrierung: ${DateFormat('yyyy-MM-dd').format(locator.get<DataService>().getUserDataCache().registrationDate)}")
                       ])),
             ),
           ),
@@ -67,13 +73,6 @@ class PromptDrawer extends StatelessWidget {
           Divider(),
           _buildDrawerItem(
               icon: Icons.add_box,
-              text: "Daily Internalisation",
-              onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.REMINDER_DEFAULT);
-              }),
-          Divider(),
-          _buildDrawerItem(
-              icon: Icons.add_box,
               text: "Befragung Morgens",
               onTap: () async {
                 await Navigator.pushNamed(
@@ -88,17 +87,60 @@ class PromptDrawer extends StatelessWidget {
                     context, RouteNames.ASSESSMENT_EVENING);
               }),
           Divider(),
+          Column(
+            children: [
+              Text("Gruppe ändern"),
+              TextFormField(
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                maxLength: 1,
+                initialValue: locator
+                    .get<DataService>()
+                    .getUserDataCache()
+                    .group
+                    .toString(),
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    var group = int.parse(value);
+                    if (group < 7) {
+                      locator.get<DataService>().getUserDataCache().group =
+                          group;
+                    }
+                  }
+                },
+              ),
+              // ElevatedButton(onPressed: () {}, child: Text("Ändern"))
+            ],
+          ),
+          Divider(),
           _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Reminder",
+              icon: Icons.calendar_today,
+              text: "Registrierungsdatum setzen",
               onTap: () async {
-                var now = DateTime.now();
-                var schedule = now.add(Duration(minutes: 1));
-                var notService = locator.get<NotificationService>();
+                var regDate = locator
+                    .get<DataService>()
+                    .getUserDataCache()
+                    .registrationDate;
 
-                await notService.clearPendingNotifications();
+                var picked = await showDatePicker(
+                  context: context,
+                  initialDate: regDate,
+                  firstDate: DateTime.now().subtract(Duration(days: 40)),
+                  lastDate: DateTime.now().add(Duration(days: 40)),
+                  builder: (context, child) {
+                    return Theme(
+                      data:
+                          ThemeData.dark(), // This will change to light theme.
+                      child: child!,
+                    );
+                  },
+                );
 
-                notService.scheduleMorningReminder(schedule, 5);
+                if (picked != null && picked != regDate)
+                  locator
+                      .get<DataService>()
+                      .getUserDataCache()
+                      .registrationDate = picked;
               }),
           Divider(),
           _buildDrawerItem(
