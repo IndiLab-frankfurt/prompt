@@ -53,6 +53,10 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       return allAssessmentResults.containsKey("didLearnYesterday");
     }
 
+    if (currentPageKey.value == MorningAssessmentStep.internalisation) {
+      return internalisationViewmodel.completed;
+    }
+
     return true;
   }
 
@@ -108,13 +112,12 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   @override
   void submit() async {
-    var type = "morningQuestions";
     Map<String, String> results = {};
     for (var result in allAssessmentResults.values) {
       results.addAll(result);
     }
     var oneBigAssessment =
-        AssessmentResult(results, "morningQuestions", DateTime.now());
+        AssessmentResult(results, "morningAssessment", DateTime.now());
     oneBigAssessment.startDate = this.startDate;
 
     dataService.saveAssessment(oneBigAssessment);

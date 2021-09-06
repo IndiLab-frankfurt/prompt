@@ -80,6 +80,48 @@ class ExperimentService {
     return daysAgo == MAX_STUDY_DURATION.inDays;
   }
 
+  Future<bool> isTimeForMorningAssessment() async {
+    var last = await _dataService.getLastAssessmentResult();
+
+    var userData = _dataService.getUserDataCache();
+
+    // If the user has only registered today, then there should be no assessment yet
+    if (userData.registrationDate.isToday()) {
+      return false;
+    }
+    // If there is no last result, none has been submitted, so the first should be done
+    if (last == null) return true;
+
+    if (last.submissionDate.isToday()) {
+      // If morning questions have already been submitted
+      if (last.assessmentType == "morningAssessment") {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    return true;
+  }
+
+  Future<bool> isTimeForEveningAssessment() async {
+    var last = await _dataService.getLastAssessmentResult();
+
+    // If there is no last result, none has been submitted, so the first should be done
+    if (last == null) return false;
+
+    if (last.submissionDate.isToday()) {
+      // If morning questions have already been submitted
+      if (last.assessmentType == "eveningAssessment") {
+        return false;
+      } else {
+        return true;
+      }
+    }
+
+    return true;
+  }
+
   InternalisationCondition getInternalisationCondition() {
     var userData = _dataService.getUserDataCache();
     var daysAgo = userData.registrationDate.daysAgo();
@@ -97,7 +139,7 @@ class ExperimentService {
 
   schedulePrompts(int group) {
     var now = DateTime.now();
-    var schedule = DateTime(2021, now.month, now.day, 5, 00);
+    var schedule = DateTime(now.year, now.month, now.day, 5, 00);
 
     for (var i = 0; i <= MAX_STUDY_DURATION.inDays; i++) {
       print("Scheduling Booster prompt for group $group and day $i");

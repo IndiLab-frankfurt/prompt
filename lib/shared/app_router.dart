@@ -44,7 +44,8 @@ class AppRouter {
             builder: (_) => ChangeNotifierProvider(
                   create: (_) => NoTaskViewModel(
                       locator.get<ExperimentService>(),
-                      locator.get<DataService>()),
+                      locator.get<DataService>(),
+                      locator.get<NavigationService>()),
                   child: NoTasksScreen(),
                 ));
 

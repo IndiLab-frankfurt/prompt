@@ -1,5 +1,5 @@
 class AssessmentResult {
-  Map<String, String> results = {};
+  Map<String, dynamic> results = {};
   String assessmentType = "";
   DateTime submissionDate = DateTime.now();
   DateTime startDate = DateTime.now();
@@ -18,6 +18,6 @@ class AssessmentResult {
   AssessmentResult.fromDocument(dynamic document) {
     this.submissionDate = DateTime.parse(document["submissionDate"]);
     this.assessmentType = document["assessmentType"];
-    this.results = document["results"];
+    this.results = document["results"].cast<String, dynamic>();
   }
 }

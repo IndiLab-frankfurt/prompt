@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/widgets/emoji_keyboard/base_emoji.dart';
@@ -9,7 +11,9 @@ import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:provider/provider.dart';
 
 class EmojiInternalisationScreen extends StatefulWidget {
-  EmojiInternalisationScreen({Key? key}) : super(key: key);
+  final OnCompletedCallback? onCompleted;
+
+  EmojiInternalisationScreen({Key? key, this.onCompleted}) : super(key: key);
 
   @override
   _EmojiInternalisationScreenState createState() =>
@@ -62,7 +66,7 @@ class _EmojiInternalisationScreenState
                 ],
               ),
             ),
-            if (_done) _buildSubmitButton()
+            // if (_done) _buildSubmitButton()
           ],
         ),
       ),
@@ -223,7 +227,19 @@ class _EmojiInternalisationScreenState
         ));
   }
 
+  String _getEmojiInput() {
+    var emojiInfoLeft = emojiNamesFromEmojiList(emojiNamesLeft);
+    var emojiInfoRight = emojiNamesFromEmojiList(emojiNamesRight);
+    return "L:$emojiInfoLeft | R:$emojiInfoRight";
+  }
+
   void _checkIfIsDone() {
     _done = _controllerLeft.text.isNotEmpty && _controllerRight.text.isNotEmpty;
+
+    if (_done && widget.onCompleted != null) {
+      var input = _getEmojiInput();
+      widget.onCompleted!(input);
+      vm.submit(InternalisationCondition.emoji, input);
+    }
   }
 }

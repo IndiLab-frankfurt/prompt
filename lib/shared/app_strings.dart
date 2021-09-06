@@ -94,4 +94,7 @@ class AppStrings {
   static const String BoosterPrompt_Header = "BOOSTER PROMPT!";
   static const String BoosterPrompt_Text =
       "Denk daran, dass du dir die Vokabeln am besten merken kannst, wenn du jeden Tag lernst!";
+
+  static const String NoTask_Continue_After_Cabuu =
+      "Machie hier weiter, sobald du heute mit cabuu gelernt hast";
 }

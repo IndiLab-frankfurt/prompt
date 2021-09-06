@@ -129,14 +129,14 @@ class _NoTasksScreenState extends State<NoTasksScreen>
     return PromptDrawer();
   }
 
-  _buildToRecallTaskButton() {
+  _buildToNextTaskButton() {
     return Container(
       margin: EdgeInsets.all(10),
       child: FullWidthButton(
         onPressed: () async {
           return;
         },
-        text: "Weiter zur Aufgabe",
+        text: "Ich habe heute mit cabuu gelernt",
       ),
     );
   }
@@ -163,8 +163,8 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             UIHelper.verticalSpaceSmall(),
-                            Text(vm.wurst),
-                            if (_showNextButton) _buildToRecallTaskButton(),
+                            Text(vm.message),
+                            if (_showNextButton) _buildToNextTaskButton(),
                             UIHelper.verticalSpaceSmall(),
                             _buildChangeBackgroundButton(),
                             UIHelper.verticalSpaceMedium(),
@@ -177,21 +177,16 @@ class _NoTasksScreenState extends State<NoTasksScreen>
 
   _buildStatistics() {
     var rewardService = locator<RewardService>();
-
-    var daysActive = rewardService.daysActive;
     var streakDays = rewardService.streakDays;
-
-    int maxDays = 36;
-    double studyProgress = daysActive / maxDays;
 
     double nextUnlockProgress = 0;
     int daysToNextReward = 0;
     for (var i = 1; i < (rewardService.backgrounds.length); i++) {
-      if (rewardService.backgrounds[i].requiredDays > daysActive) {
+      if (rewardService.backgrounds[i].requiredDays > vm.daysActive) {
         var current = rewardService.backgrounds[i - 1].requiredDays;
         daysToNextReward = rewardService.backgrounds[i].requiredDays;
         var max = daysToNextReward - current;
-        var progress = daysActive - current;
+        var progress = vm.daysActive - current;
         nextUnlockProgress = progress / max;
         break;
       }
@@ -199,23 +194,23 @@ class _NoTasksScreenState extends State<NoTasksScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        // UIHelper.verticalSpaceMedium(),
+        // Text(AppStrings.daysParticipated(daysActive)),
         UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.daysParticipated(daysActive)),
-        UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.daysConsecutive(streakDays)),
-        UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.daysOfTotal(daysActive, 36)),
+        Text(AppStrings.daysOfTotal(vm.daysActive, 36)),
         UIHelper.verticalSpaceSmall(),
         SizedBox(
           width: 300,
           child: LinearProgressIndicator(
             color: Colors.blue,
             minHeight: 12,
-            value: studyProgress,
+            value: vm.studyProgress,
           ),
         ),
         UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.progressToReward(daysActive, daysToNextReward)),
+        Text(AppStrings.daysConsecutive(streakDays)),
+        UIHelper.verticalSpaceMedium(),
+        Text(AppStrings.progressToReward(vm.daysActive, daysToNextReward)),
         UIHelper.verticalSpaceSmall(),
         SizedBox(
           width: 300,

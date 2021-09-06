@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/notification_service.dart';
+import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/widgets/version_info.dart';
@@ -52,7 +52,9 @@ class PromptDrawer extends StatelessWidget {
                         Text(
                             "Gruppe: ${locator.get<DataService>().getUserDataCache().group}"),
                         Text(
-                            "Registrierung: ${DateFormat('yyyy-MM-dd').format(locator.get<DataService>().getUserDataCache().registrationDate)}")
+                            "Registrierung: ${DateFormat('yyyy-MM-dd').format(locator.get<DataService>().getUserDataCache().registrationDate)}"),
+                        Text(
+                            "Vor ${locator.get<DataService>().getUserDataCache().registrationDate.daysAgo()} tagen")
                       ])),
             ),
           ),

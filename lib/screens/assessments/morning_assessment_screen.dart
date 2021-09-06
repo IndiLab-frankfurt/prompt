@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/models/assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
-import 'package:prompt/screens/assessments/questionnaire.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/scramble_internalisation.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
@@ -77,7 +75,8 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
         );
         break;
       case InternalisationCondition.emoji:
-        internalisation = EmojiInternalisationScreen();
+        internalisation = EmojiInternalisationScreen(
+            onCompleted: vm.onInternalisationCompleted);
         break;
     }
 
