@@ -24,6 +24,8 @@ class NoTaskViewModel extends BaseViewModel {
   }
 
   Future<void> getNextTask() async {
+    _dataService.getLastAssessmentResult();
+
     if (await _experimentService.isTimeForMorningAssessment()) {
       this._navigationService.navigateTo(RouteNames.ASSESSMENT_MORNING);
     }

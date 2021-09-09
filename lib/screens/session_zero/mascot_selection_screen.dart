@@ -11,6 +11,8 @@ class MascotSelectionScreen extends StatefulWidget {
 }
 
 class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
+  final double iconSize = 180;
+
   @override
   Widget build(BuildContext context) {
     var vm = Provider.of<SessionZeroViewModel>(context);
@@ -19,38 +21,38 @@ class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
       children: [
         Text(AppStrings.SelectionOfMascot),
         CircleAvatar(
-          radius: 50,
+          radius: 80,
           backgroundColor:
-              vm.selectedMascot == "1" ? Colors.orange : Colors.transparent,
+              vm.selectedMascot == "1" ? Colors.orange : Colors.grey,
           child: IconButton(
             icon: Image.asset('assets/illustrations/mascot_1_bare.png'),
-            iconSize: 80,
+            iconSize: iconSize,
             onPressed: () {
               vm.selectedMascot = "1";
             },
           ),
         ),
         CircleAvatar(
-          radius: 50,
+          radius: 80,
           backgroundColor:
-              vm.selectedMascot == "2" ? Colors.orange : Colors.transparent,
+              vm.selectedMascot == "2" ? Colors.orange : Colors.grey,
           child: IconButton(
-            icon: Image.asset('assets/icons/anatomy.png'),
-            iconSize: 80,
+            icon: Image.asset('assets/illustrations/mascot_2_bare.png'),
+            iconSize: iconSize,
             onPressed: () {
               vm.selectedMascot = "2";
             },
           ),
         ),
         CircleAvatar(
-          radius: 50,
+          radius: 80,
           backgroundColor:
-              vm.selectedMascot == "3" ? Colors.orange : Colors.transparent,
+              vm.selectedMascot == "3" ? Colors.orange : Colors.grey,
           child: IconButton(
             color:
                 vm.selectedMascot == "3" ? Colors.orange : Colors.transparent,
-            icon: Image.asset('assets/icons/mehappy.png'),
-            iconSize: 50,
+            icon: Image.asset('assets/illustrations/mascot_3_bare.png'),
+            iconSize: 180,
             onPressed: () {
               vm.selectedMascot = "3";
             },

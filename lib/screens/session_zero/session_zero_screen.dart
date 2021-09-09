@@ -32,8 +32,11 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     super.didChangeDependencies();
     Map<SessionZeroStep, Widget> _stepScreenMap = {
       SessionZeroStep.welcome: welcomeScreen,
+      SessionZeroStep.whereCanYouFindThisInformation:
+          whereCanYouFindThisInformation,
       SessionZeroStep.cabuuLink: cabuuLinkScreen,
       SessionZeroStep.mascotSelection: mascotSelectionScreen,
+      SessionZeroStep.moderatorVariables: moderatorVariables,
       SessionZeroStep.motivationQuestionnaire: motivationQuestionnaire,
       SessionZeroStep.goalIntention: goalIntentionScreen,
       SessionZeroStep.videoPlanning: videoPlanning,
@@ -88,6 +91,11 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     key: ValueKey(SessionZeroStep.videoInstructionComplete),
   );
 
+  late var moderatorVariables = PlaceholderScreen(
+    text: "Moderatorvariablen oder so",
+    key: ValueKey(SessionZeroStep.videoInstructionComplete),
+  );
+
   late var motivationQuestionnaire = questionnaire(AssessmentTypes.motivation,
       ValueKey(SessionZeroStep.motivationQuestionnaire));
 
@@ -99,6 +107,12 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   late var planDisplay =
       PlanDisplayScreen(key: ValueKey(SessionZeroStep.planDisplay));
+
+  late var whereCanYouFindThisInformation = PlaceholderScreen(
+    text:
+        "[zeigen, dass man unter 'Über PROMPT' noch mal eine Zusammenfassung der Stduieninformationen (+ Link zum Video?!) sehen kann]",
+    key: ValueKey(SessionZeroStep.videoInstructionComplete),
+  );
 
   late var planInternalisation = ChangeNotifierProvider.value(
     value: vm.internalisationViewmodel,

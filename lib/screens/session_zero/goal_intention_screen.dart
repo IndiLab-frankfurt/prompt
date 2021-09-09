@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/widgets/speech_bubble.dart';
 
 class GoalIntentionScreen extends StatefulWidget {
   GoalIntentionScreen({Key? key}) : super(key: key);
@@ -15,18 +16,12 @@ class _GoalIntentionScreenState extends State<GoalIntentionScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        MarkdownBody(data: "### " + AppStrings.HelpLearnVocabulary),
+        MarkdownBody(data: "### " + AppStrings.GoalIntention_ParagraphOne),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(data: "### " + AppStrings.ThinkAboutWhy),
+        MarkdownBody(data: "### " + AppStrings.GoalIntention_ParagraphTwo),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(data: "### " + AppStrings.WriteYourResponse),
-        UIHelper.verticalSpaceMedium(),
-        TextField(
-          decoration: InputDecoration(hintText: ''),
-          onChanged: (String text) {
-            setState(() {});
-          },
-        )
+        MarkdownBody(data: "### " + AppStrings.GoalIntention_SayToYourself),
+        SpeechBubble(text: AppStrings.GoalIntention_Plan)
       ],
     );
   }

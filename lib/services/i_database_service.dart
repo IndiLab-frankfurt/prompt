@@ -5,11 +5,11 @@ import 'package:prompt/models/user_data.dart';
 abstract class IDatabaseService {
   void handleError(Object? e, {String data = ""}) {}
 
-  void handleTimeout(String function) {}
+  void handleTimeout(String function);
 
-  Stream<User?>? getCurrentUser() {}
+  Stream<User?>? getCurrentUser();
 
-  Future<bool?> isNameAvailable(String userId) async {}
+  Future<bool?> isNameAvailable(String userId);
 
   Future<UserData?> registerUser(
       String userId, String password, int internalisationCondition) async {}
@@ -22,19 +22,21 @@ abstract class IDatabaseService {
 
   Future<User?> signInUser(String userId, String password) async {}
 
-  saveAssessment(AssessmentResult assessment, String userid) async {}
+  saveAssessment(AssessmentResult assessment, String userid);
 
-  Future<void> saveScore(String userid, int score) async {}
+  Future<void> saveScore(String userid, int score);
 
-  logEvent(String userid, dynamic data) {}
+  logEvent(String userid, dynamic data);
 
-  Future<void> saveInitSessionStepCompleted(String userid, int step) async {}
+  Future<void> saveInitSessionStepCompleted(String userid, int step);
 
-  Future<void> setStreakDays(String username, int value) async {}
+  Future<void> setStreakDays(String username, int value);
 
   Future saveDaysAcive(String username, int daysActive);
 
   Future setRegistrationDate(String username, String dateString);
 
   Future<AssessmentResult?> getLastAssessmentResult(String userid);
+
+  Future saveUserDataProperty(String username, String key, dynamic value);
 }

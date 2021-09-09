@@ -46,9 +46,9 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
         onPressed: () {
           setState(() {
             rewardService.setBackgroundImagePath(unlockable.path);
-            if (unlockable.backgroundColor != null) {
-              rewardService.setBackgroundColor(unlockable.backgroundColor);
-            }
+
+            rewardService.setBackgroundColor(unlockable.backgroundColor);
+
             Navigator.pop(context);
           });
         },

@@ -48,6 +48,19 @@ class AppStrings {
   static const String PlanDisplay_YourPlanIs = "Dein Plan lautet also:";
   static const String PlanDisplay_RememberYourPlan = "Merke dir den Plan gut!";
 
+  static const String WhyVocab_ParagraphOne =
+      "In der Studie PROMPT wollen wir dir dabei helfen, Vokabeln so zu lernen, dass du sie dir besonders gut merken kannst.";
+  static const String WhyVocab_ParagraphTwo =
+      "Denk mal nach: Warum ist es für dich wichtig, deinen Englischwortschatz zu erweitern? Wie könnte es für dich in Zukunft von Vorteil sein, seinen großen Englischwortschatz zu haben?";
+
+  static const String GoalIntention_ParagraphOne =
+      "Damit du es schaffst, regelmäßig Vokabeln zu lernen, solltest du dir ein **Ziel** setzen";
+  static const String GoalIntention_ParagraphTwo =
+      "Nimm dir jetzt vor, jeden Tag ein paar Vokabeln mit cabuu zu lernen. Denk dran: Du musst auch gar nicht lange lernen.";
+  static const String GoalIntention_SayToYourself = "Sag zu dir selbst:";
+  static const String GoalIntention_Plan =
+      '"Ich will jeden Tag ein paar Vokabeln mit cabuu lernen"';
+
   //Session Zero  Mascot Selection
   static const String SelectionOfMascot =
       "Hier kannst du dir ein Monster auswählen, das dich im Laufe der Studie begleiten wird. Welches Monster du auswählst, macht für den weiteren Verlauf keinen Unterschied, und es ist nur dafür da, um dich zu motivieren. Wähle also einfach das Monster aus, das dir am besten gefällt.";
@@ -96,5 +109,5 @@ class AppStrings {
       "Denk daran, dass du dir die Vokabeln am besten merken kannst, wenn du jeden Tag lernst!";
 
   static const String NoTask_Continue_After_Cabuu =
-      "Machie hier weiter, sobald du heute mit cabuu gelernt hast";
+      "Drücke hier, sobald du heute mit cabuu gelernt hast";
 }

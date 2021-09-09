@@ -7,8 +7,11 @@ import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
 enum SessionZeroStep {
   welcome,
+  whereCanYouFindThisInformation,
   cabuuLink,
   mascotSelection,
+  moderatorVariables,
+  whyLearnVocabs,
   motivationQuestionnaire,
   goalIntention,
   videoPlanning,
@@ -24,8 +27,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 // ignore: non_constant_identifier_names
   List<SessionZeroStep> screenOrder = [
     SessionZeroStep.welcome,
+    SessionZeroStep.whereCanYouFindThisInformation,
     SessionZeroStep.cabuuLink,
     SessionZeroStep.mascotSelection,
+    SessionZeroStep.moderatorVariables,
+    SessionZeroStep.whyLearnVocabs,
     SessionZeroStep.motivationQuestionnaire,
     SessionZeroStep.goalIntention,
     SessionZeroStep.videoPlanning,
@@ -102,10 +108,12 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     List<SessionZeroStep> firstScreens = [
       SessionZeroStep.welcome,
+      SessionZeroStep.whereCanYouFindThisInformation,
       SessionZeroStep.cabuuLink,
       SessionZeroStep.mascotSelection,
+      SessionZeroStep.moderatorVariables,
+      SessionZeroStep.whyLearnVocabs,
       SessionZeroStep.motivationQuestionnaire,
-      SessionZeroStep.goalIntention,
     ];
 
     List<SessionZeroStep> distributedLearning = [
@@ -124,14 +132,13 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planDisplay,
       SessionZeroStep.planInternalisation,
       SessionZeroStep.selfEfficacy,
-      SessionZeroStep.videoInstructionComplete
     ];
 
     if (group == 1) {
       screenOrder = [...firstScreens, ...finalSteps];
-    } else if (group == 2) {
+    } else if (group == 2 || group == 3) {
       screenOrder = [...firstScreens, ...distributedLearning, ...finalSteps];
-    } else if (group == 3 || group == 4) {
+    } else if (group == 4 || group == 5 || group == 6) {
       screenOrder = [
         ...firstScreens,
         ...distributedLearning,
@@ -158,6 +165,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   void submit() {
+    dataService.saveSelectedMascot(selectedMascot);
+
     _experimentService.nextScreen(RouteNames.SESSION_ZERO);
   }
 }

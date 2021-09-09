@@ -24,7 +24,9 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
       Provider.of<MorningAssessmentViewModel>(context);
 
   late Map<MorningAssessmentStep, Widget> _stepScreenMap = {
-    MorningAssessmentStep.didLearnCabuuYesterday: didLearnQuestionnaire,
+    MorningAssessmentStep.didLearn: didLearnQuestionnaire,
+    MorningAssessmentStep.rememberToUsePromptAfterCabuu:
+        rememberToUsePromptAfterCabuu,
     MorningAssessmentStep.alternativeItems: alternativeItems,
     MorningAssessmentStep.eveningItems: eveningItems,
     MorningAssessmentStep.morningItems: morningItems,
@@ -67,7 +69,10 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     Widget internalisation = Text("");
     switch (condition) {
       case InternalisationCondition.waiting:
-        internalisation = WaitingInternalisationScreen(Duration(seconds: 30));
+        internalisation = WaitingInternalisationScreen(
+          Duration(seconds: 15),
+          onCompleted: vm.onInternalisationCompleted,
+        );
         break;
       case InternalisationCondition.scrambleWithHint:
         internalisation = ScrambleInternalisation(
@@ -85,6 +90,18 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
         key: ValueKey(MorningAssessmentStep.internalisation),
         child: internalisation);
   }
+
+  late var rememberToUsePromptAfterCabuu = Column(
+    key: ValueKey(MorningAssessmentStep.rememberToUsePromptAfterCabuu),
+    children: [
+      MarkdownBody(
+          data:
+              '### Bitte denk nächstes Mal daran, PROMPT _direkt nach dem Lernen_ mit cabuu zu benutzen.'),
+      MarkdownBody(
+          data:
+              '### Beantworte die folgenden Fragen bezogen auf dein _gestriges_ Lernen mit cabuu')
+    ],
+  );
 
   late var alternativeItems = MarkdownBody(
     data: "# Alternativ-Items",
@@ -106,6 +123,6 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
 
   late var didLearnQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.didLearnYesterday,
-      key: ValueKey(MorningAssessmentStep.didLearnCabuuYesterday));
+      assessmentTypes: AssessmentTypes.didLearnWhen,
+      key: ValueKey(MorningAssessmentStep.didLearn));
 }

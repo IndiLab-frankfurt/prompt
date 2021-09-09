@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:prompt/shared/enums.dart';
@@ -9,8 +10,11 @@ import 'package:prompt/widgets/speech_bubble.dart';
 
 class WaitingInternalisationScreen extends StatefulWidget {
   final Duration waitingDuration;
+  final OnCompletedCallback? onCompleted;
 
-  const WaitingInternalisationScreen(this.waitingDuration);
+  WaitingInternalisationScreen(this.waitingDuration,
+      {Key? key, this.onCompleted})
+      : super(key: key);
 
   @override
   _WaitingInternalisationScreenState createState() =>
@@ -42,6 +46,8 @@ class _WaitingInternalisationScreenState
       if (status == AnimationStatus.completed) {
         setState(() {
           _done = true;
+          vm.submit(InternalisationCondition.waiting, "");
+          this.widget.onCompleted!("");
         });
       }
     });
@@ -74,7 +80,7 @@ class _WaitingInternalisationScreenState
               text:
                   "Lies dir den Plan mindestens dreimal durch und merke ihn dir gut! Drücke dann auf abschicken."),
           UIHelper.verticalSpaceMedium(),
-          SpeechBubble(text: vm.plan),
+          SpeechBubble(text: '"${vm.plan}"'),
           UIHelper.verticalSpaceMedium(),
           LinearProgressIndicator(
             value: animation.value,

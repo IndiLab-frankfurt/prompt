@@ -129,50 +129,48 @@ class _NoTasksScreenState extends State<NoTasksScreen>
     return PromptDrawer();
   }
 
-  _buildToNextTaskButton() {
-    return Container(
-      margin: EdgeInsets.all(10),
-      child: FullWidthButton(
-        onPressed: () async {
-          return;
-        },
-        text: "Ich habe heute mit cabuu gelernt",
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     var rewardService = locator.get<RewardService>();
     return WillPopScope(
         onWillPop: () async => false,
-        child: Container(
-            decoration: BoxDecoration(
-                gradient: rewardService.backgroundColor,
-                image: DecorationImage(
-                    image: AssetImage(rewardService.backgroundImagePath),
-                    fit: BoxFit.contain,
-                    alignment: Alignment.bottomCenter)),
-            child: Scaffold(
-                backgroundColor: Colors.transparent,
-                appBar: PromptAppBar(showBackButton: true),
-                drawer: _getDrawer(),
-                body: Container(
-                    child: Align(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            UIHelper.verticalSpaceSmall(),
-                            Text(vm.message),
-                            if (_showNextButton) _buildToNextTaskButton(),
-                            UIHelper.verticalSpaceSmall(),
-                            _buildChangeBackgroundButton(),
-                            UIHelper.verticalSpaceMedium(),
-                            Divider(),
-                            _buildStatistics()
-                          ],
-                        ),
-                        alignment: Alignment(0.0, 0.6))))));
+        child: Stack(
+          children: [
+            Image(image: AssetImage(rewardService.selectedMascotImage)),
+            Container(
+                decoration: BoxDecoration(
+                    gradient: rewardService.backgroundColor,
+                    image: DecorationImage(
+                        image: AssetImage(
+                            "assets/illustrations/mascot_plane_2.png"),
+                        fit: BoxFit.contain,
+                        alignment: Alignment.bottomCenter)),
+                child: Scaffold(
+                    backgroundColor: Colors.transparent,
+                    appBar: PromptAppBar(showBackButton: true),
+                    drawer: _getDrawer(),
+                    body: Container(
+                        child: Align(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                UIHelper.verticalSpaceSmall(),
+                                _buildToNextTaskButton(),
+                                UIHelper.verticalSpaceSmall(),
+                                _buildChangeBackgroundButton(),
+                                UIHelper.verticalSpaceMedium(),
+                                Divider(),
+                                _buildStatistics()
+                              ],
+                            ),
+                            alignment: Alignment(0.0, 0.6))))),
+            // Positioned(
+            //     child: Align(
+            //         alignment: Alignment.bottomCenter,
+            //         child: Image(
+            //             image: AssetImage(rewardService.selectedMascotImage))))
+          ],
+        ));
   }
 
   _buildStatistics() {
@@ -221,6 +219,27 @@ class _NoTasksScreenState extends State<NoTasksScreen>
           ),
         )
       ],
+    );
+  }
+
+  _buildToNextTaskButton() {
+    return Container(
+      height: 40,
+      margin: EdgeInsets.all(10),
+      child: OutlinedButton(
+        onPressed: () async {
+          await Navigator.pushNamed(context, RouteNames.ASSESSMENT_EVENING);
+          setState(() {});
+        },
+        child: Text(
+          vm.message,
+          style: TextStyle(color: Colors.black),
+        ),
+        style: ButtonStyle(
+          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(30.0))),
+        ),
+      ),
     );
   }
 

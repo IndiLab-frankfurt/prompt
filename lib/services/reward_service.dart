@@ -14,6 +14,7 @@ class RewardService {
   int streakDays = 0;
   final Color backgroundBase = Color(0xFFFFF3E0);
   String backgroundImagePath = "assets/illustrations/mascot_bare.png";
+  String selectedMascotImage = "assets/illustrations/mascot_1_bare.png";
   static const int STREAK_THRESHOLD = 5;
   // LinearGradient _baseGradient =
   LinearGradient backgroundColor = LinearGradient(
@@ -113,6 +114,13 @@ class RewardService {
     });
   }
 
+  Future getMasot() async {
+    return await _dataService.getSelectedMascot().then((path) {
+      this.selectedMascotImage = "assets/illustrations/mascot_${path}_bare.png";
+      return this.selectedMascotImage;
+    });
+  }
+
   Future getBackgroundImagePath() async {
     _dataService.getBackgroundImagePath().then((path) {
       if (path != null && path.isNotEmpty) {
@@ -144,6 +152,7 @@ class RewardService {
     await retrieveScore();
     await getDaysActive();
     await getStreakDays();
+    await getMasot();
   }
 
   setBackgroundImagePath(String imagePath) async {

@@ -187,6 +187,14 @@ class FirebaseService implements IDatabaseService {
         SetOptions(merge: true)).then((value) => true);
   }
 
+  Future saveUserDataProperty(
+      String username, String key, dynamic value) async {
+    _databaseReference
+        .collection(COLLECTION_USERS)
+        .doc(username)
+        .set({key: value}, SetOptions(merge: true)).then((value) => true);
+  }
+
   Future setRegistrationDate(String username, String dateString) async {
     _databaseReference.collection(COLLECTION_USERS).doc(username).set(
         {"registrationDate": dateString},

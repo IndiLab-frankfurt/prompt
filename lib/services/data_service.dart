@@ -19,6 +19,7 @@ class DataService {
   final SettingsService _settingsService;
 
   UserData? _userDataCache;
+  AssessmentResult? _lastAssessmentResultCache;
 
   DataService(this._databaseService, this._userService,
       this._localDatabaseService, this._settingsService);
@@ -65,9 +66,17 @@ class DataService {
   }
 
   Future<AssessmentResult?> getLastAssessmentResult() async {
-    var ud = await getUserData();
-    var last = await _databaseService.getLastAssessmentResult(ud!.firebaseId);
+    var last = _lastAssessmentResultCache;
+
+    if (_lastAssessmentResultCache == null) {
+      var ud = await getUserData();
+      last = await _databaseService.getLastAssessmentResult(ud!.firebaseId);
+    }
     return last;
+  }
+
+  AssessmentResult? getLastAssessmentResultCached() {
+    return _lastAssessmentResultCache;
   }
 
   saveDaysActive(int daysActive) async {
@@ -79,10 +88,25 @@ class DataService {
     }
   }
 
+  saveSelectedMascot(String mascot) async {
+    var ud = await getUserData();
+    if (ud != null) {
+      ud.selectedMascot = mascot;
+      await _databaseService.saveUserDataProperty(
+          _userService.getUsername(), "selectedMascot", mascot);
+    }
+  }
+
   Future<int> getStreakDays() async {
     var userData = await getUserData();
     if (userData == null) return 0;
     return userData.streakDays;
+  }
+
+  Future<String> getSelectedMascot() async {
+    var userData = await getUserData();
+    if (userData == null) return "1";
+    return userData.selectedMascot;
   }
 
   Future<List<Color>> getBackgroundGradientColors() async {

@@ -8,6 +8,7 @@ class UserData {
   int daysActive = 0;
   int initSessionStep = 0;
   String appVersion = "";
+  String selectedMascot = "1";
 
   UserData(
       {required this.firebaseId,
@@ -17,6 +18,7 @@ class UserData {
       this.streakDays = 0,
       this.score = 0,
       this.appVersion = "",
+      this.selectedMascot = "1",
       this.daysActive = 0});
 
   Map<String, dynamic> toMap() {
@@ -29,7 +31,8 @@ class UserData {
       "score": this.score,
       "daysActive": this.daysActive,
       "initSessionStep": this.initSessionStep,
-      "appVersion": this.appVersion
+      "appVersion": this.appVersion,
+      "selectedMascot": this.selectedMascot
     };
   }
 
@@ -53,6 +56,9 @@ class UserData {
     }
     if (json.containsKey("appVersion")) {
       appVersion = json["appVersion"];
+    }
+    if (json.containsKey("selectedMascot")) {
+      selectedMascot = json["selectedMascot"];
     }
   }
 }

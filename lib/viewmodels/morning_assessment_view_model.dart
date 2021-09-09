@@ -6,9 +6,11 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
+import 'package:prompt/shared/extensions.dart';
 
 enum MorningAssessmentStep {
-  didLearnCabuuYesterday,
+  didLearn,
+  rememberToUsePromptAfterCabuu,
   alternativeItems,
   eveningItems,
   morningItems,
@@ -30,7 +32,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   int group = 0;
 
   List<MorningAssessmentStep> screenOrder = [
-    MorningAssessmentStep.didLearnCabuuYesterday,
+    MorningAssessmentStep.didLearn,
+    MorningAssessmentStep.rememberToUsePromptAfterCabuu,
     MorningAssessmentStep.alternativeItems,
     MorningAssessmentStep.eveningItems,
     MorningAssessmentStep.morningItems,
@@ -49,8 +52,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   @override
   bool canMoveNext(ValueKey currentPageKey) {
-    if (currentPageKey.value == MorningAssessmentStep.didLearnCabuuYesterday) {
-      return allAssessmentResults.containsKey("didLearnYesterday");
+    if (currentPageKey.value == MorningAssessmentStep.didLearn) {
+      return allAssessmentResults.containsKey("didLearnWhen");
     }
 
     if (currentPageKey.value == MorningAssessmentStep.internalisation) {
@@ -64,21 +67,76 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     return screenOrder.indexOf(morningAssessmentStep);
   }
 
+  bool didCompleteEveningItemsYesterday() {
+    var last = dataService.getLastAssessmentResultCached();
+
+    if (last == null) return false;
+
+    if (last.submissionDate.daysAgo() == 1) {
+      return last.assessmentType == "eveningAssessment";
+    }
+    return false;
+  }
+
+  int getNextStepForDidLearn() {
+    var step = 0;
+
+    var answer = allAssessmentResults["didLearnWhen"]!["didLearnWhen_1"];
+
+    // did learn cabuu today
+    if (answer == "1") {
+      step = getStepIndex(MorningAssessmentStep.eveningItems);
+    }
+
+    // did learn yesterday
+    else if (answer == "2") {
+      if (didCompleteEveningItemsYesterday()) {
+        step =
+            getStepIndex(MorningAssessmentStep.rememberToUsePromptAfterCabuu);
+      } else {
+        step = getStepIndex(MorningAssessmentStep.eveningItems);
+      }
+    }
+
+    // did learn some other time
+    else if (answer == "3") if (didCompleteEveningItemsYesterday()) {
+      step = getStepIndex(MorningAssessmentStep.morningItems);
+    } else {
+      step = getStepIndex(MorningAssessmentStep.eveningItems);
+    }
+
+    return step;
+  }
+
+  int getNextStepForEveningItems() {
+    var step = 0;
+    var answer = allAssessmentResults["didLearnWhen"]!["didLearnWhen_1"];
+    if (answer == "1") {
+      if (experimentService.isBoosterPromptDay()) {
+        step = getStepIndex(MorningAssessmentStep.boosterPrompt);
+      } else {
+        step = getStepIndex(MorningAssessmentStep.completed);
+      }
+    } else {
+      step = getStepIndex(MorningAssessmentStep.morningItems);
+    }
+    return step;
+  }
+
   @override
   int getNextPage(ValueKey currentPageKey) {
     step += 1;
-    if (currentPageKey.value == MorningAssessmentStep.didLearnCabuuYesterday) {
-      var answer =
-          allAssessmentResults["didLearnYesterday"]!["didLearnYesterday_1"];
-      // did learn yesterday
-      if (answer == "1") {
-        step = getStepIndex(MorningAssessmentStep.alternativeItems);
-      } else
-        step = getStepIndex(MorningAssessmentStep.eveningItems);
-      // did not learn yesterday
+
+    if (currentPageKey.value == MorningAssessmentStep.didLearn) {
+      step = getNextStepForDidLearn();
     }
 
     if (currentPageKey.value == MorningAssessmentStep.alternativeItems) {
+      step = getStepIndex(MorningAssessmentStep.morningItems);
+    }
+
+    if (currentPageKey.value ==
+        MorningAssessmentStep.rememberToUsePromptAfterCabuu) {
       step = getStepIndex(MorningAssessmentStep.morningItems);
     }
 
@@ -88,6 +146,10 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       } else {
         step = getStepIndex(MorningAssessmentStep.completed);
       }
+    }
+
+    if (currentPageKey.value == MorningAssessmentStep.eveningItems) {
+      step = getNextStepForEveningItems();
     }
 
     if (currentPageKey.value == MorningAssessmentStep.boosterPrompt) {
@@ -107,7 +169,9 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   void onInternalisationCompleted(String input) {
+    this.internalisationViewmodel.completed = true;
     print("Internalisation completed with input $input");
+    notifyListeners();
   }
 
   @override

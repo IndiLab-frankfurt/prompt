@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-
+import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -32,6 +32,17 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   int getStepIndex(String step) {
     return screenOrder.indexOf(step);
+  }
+
+  bool didCompleteMorningItemsToday() {
+    var last = dataService.getLastAssessmentResultCached();
+
+    if (last == null) return false;
+
+    if (last.submissionDate.isToday()) {
+      return last.assessmentType == "morningAssessment";
+    }
+    return false;
   }
 
   @override

@@ -27,6 +27,7 @@ class RegistrationCodes {
 enum AssessmentTypes {
   srl,
   didLearnToday,
+  didLearnWhen,
   motivation,
   selfEfficacy,
   didLearnYesterday
