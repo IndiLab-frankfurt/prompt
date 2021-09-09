@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
           canvasColor: Colors.white,
           selectedRowColor: Colors.orange[200],
           textTheme:
-              GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
+              GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
           buttonTheme: ButtonThemeData(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

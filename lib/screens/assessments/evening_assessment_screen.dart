@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
+import 'package:prompt/screens/placeholder_screen.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +50,9 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
           // initialStep: vm.getPreviouslyCompletedStep(),
         ))));
   }
+
+  late var distributedLearningVideo = PlaceholderScreen(
+      text: "Video zum verteilten Lernen", key: ValueKey(eveningItems));
 
   late var didLearnCabuuTodayQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,

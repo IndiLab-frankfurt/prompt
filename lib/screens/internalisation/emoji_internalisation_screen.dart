@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/enums.dart';
@@ -53,10 +54,11 @@ class _EmojiInternalisationScreenState
               child: ListView(
                 children: [
                   UIHelper.verticalSpaceSmall(),
-                  SpeechBubble(
-                      text: AppStrings.EmojiInternalisation_Instruction),
+                  MarkdownBody(
+                      data:
+                          "## " + AppStrings.EmojiInternalisation_Instruction),
                   UIHelper.verticalSpaceSmall(),
-                  SpeechBubble(text: "${vm.plan}"),
+                  SpeechBubble(text: '"${vm.plan}"'),
                   UIHelper.verticalSpaceMedium(),
                   // buildEmojiFieldsHorizontal(),
                   _buildEmojiPickerCompatibleTextInput(),

@@ -7,6 +7,7 @@ import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
 const String eveningItems = "eveningItems";
 const String didLearnCabuuToday = "didLearnCabuuToday";
+const String distributedLearning = "distributedLearning";
 
 class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   final ExperimentService experimentService;
@@ -56,6 +57,10 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
       } else
         submit();
       // did not learn yesterday
+    }
+
+    if (currentPageKey.value == eveningItems) {
+      step = getStepIndex(distributedLearning);
     }
 
     return step;

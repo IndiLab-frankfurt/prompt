@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
@@ -19,9 +20,9 @@ class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
     return Container(
         child: ListView(
       children: [
-        Text(AppStrings.SelectionOfMascot),
+        MarkdownBody(data: "### " + AppStrings.SelectionOfMascot),
         CircleAvatar(
-          radius: 80,
+          radius: 70,
           backgroundColor:
               vm.selectedMascot == "1" ? Colors.orange : Colors.grey,
           child: IconButton(
@@ -33,7 +34,7 @@ class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
           ),
         ),
         CircleAvatar(
-          radius: 80,
+          radius: 70,
           backgroundColor:
               vm.selectedMascot == "2" ? Colors.orange : Colors.grey,
           child: IconButton(
@@ -45,7 +46,7 @@ class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
           ),
         ),
         CircleAvatar(
-          radius: 80,
+          radius: 70,
           backgroundColor:
               vm.selectedMascot == "3" ? Colors.orange : Colors.grey,
           child: IconButton(

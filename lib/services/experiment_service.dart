@@ -66,6 +66,13 @@ class ExperimentService {
     return internalisationPrompts[userData.group]!.contains(daysAgo);
   }
 
+  isDistributedLearningDay() {
+    var userData = _dataService.getUserDataCache();
+    var daysAgo = userData.registrationDate.daysAgo();
+
+    return (daysAgo == 18) && (userData.group == 1);
+  }
+
   shouldShowDistributedLearningVideo() {
     var userData = _dataService.getUserDataCache();
     var daysAgo = userData.registrationDate.daysAgo();
