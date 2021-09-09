@@ -8,7 +8,6 @@ import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/no_task_view_model.dart';
-import 'package:prompt/widgets/full_width_button.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:provider/provider.dart';
@@ -155,7 +154,8 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 UIHelper.verticalSpaceSmall(),
-                                _buildToNextTaskButton(),
+                                if (vm.showLearnedWithCabuuButton)
+                                  _buildToNextTaskButton(),
                                 UIHelper.verticalSpaceSmall(),
                                 _buildChangeBackgroundButton(),
                                 UIHelper.verticalSpaceMedium(),

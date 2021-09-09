@@ -112,7 +112,7 @@ class ExperimentService {
 
     if (last.submissionDate.isToday()) {
       // If morning questions have already been submitted
-      if (last.assessmentType == "eveningAssessment") {
+      if (last.assessmentType == "morningAssessment") {
         return false;
       } else {
         return true;

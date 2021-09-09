@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:package_info/package_info.dart';
-import 'package:prompt/locator.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/firebase_service.dart';

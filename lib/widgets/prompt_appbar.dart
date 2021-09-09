@@ -71,8 +71,8 @@ class _PromptAppBarState extends State<PromptAppBar> {
         UIHelper.horizontalSpaceMedium()
       ],
       title: Text(""),
-      textTheme:
-          TextTheme(headline6: TextStyle(color: Colors.black, fontSize: 22)),
+      // textTheme:
+      //     TextTheme(headline6: TextStyle(color: Colors.black, fontSize: 22)),
       centerTitle: true,
     );
   }

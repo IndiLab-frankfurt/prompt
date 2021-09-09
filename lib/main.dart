@@ -22,9 +22,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.orange[50],
           canvasColor: Colors.white,
-          primarySwatch: Colors.orange,
-          accentColor: Color(0xfff96d15),
-          buttonColor: Colors.orange[300],
           selectedRowColor: Colors.orange[200],
           textTheme:
               GoogleFonts.varelaRoundTextTheme(Theme.of(context).textTheme),
@@ -36,7 +33,9 @@ class MyApp extends StatelessWidget {
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)))),
-          iconTheme: IconThemeData(color: Colors.black)),
+          iconTheme: IconThemeData(color: Colors.black),
+          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)
+              .copyWith(secondary: Color(0xfff96d15))),
       onGenerateRoute: AppRouter.generateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
       home: StartupScreen(),

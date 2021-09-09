@@ -125,6 +125,9 @@ class DataService {
 
   Future<void> saveAssessment(AssessmentResult assessment) async {
     var ud = await getUserData();
+
+    _lastAssessmentResultCache = assessment;
+
     await _databaseService.saveAssessment(assessment, ud!.firebaseId);
   }
 

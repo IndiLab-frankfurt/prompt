@@ -11,6 +11,8 @@ class NoTaskViewModel extends BaseViewModel {
   final DataService _dataService;
   final NavigationService _navigationService;
 
+  bool showLearnedWithCabuuButton = false;
+
   late int daysActive =
       _dataService.getUserDataCache().registrationDate.daysAgo();
 
@@ -20,6 +22,7 @@ class NoTaskViewModel extends BaseViewModel {
 
   NoTaskViewModel(
       this._experimentService, this._dataService, this._navigationService) {
+    print("Constructor of no task viewmodel");
     getNextTask();
   }
 
@@ -30,9 +33,10 @@ class NoTaskViewModel extends BaseViewModel {
       this._navigationService.navigateTo(RouteNames.ASSESSMENT_MORNING);
     }
 
-    // if (await _experimentService.isTimeForEveningAssessment()) {
-    //   this._navigationService.navigateTo(RouteNames.ASSESSMENT_EVENING);
-    // }
+    if (await _experimentService.isTimeForEveningAssessment()) {
+      showLearnedWithCabuuButton = true;
+      notifyListeners();
+    }
   }
 
   //  Future<bool> getNextText() async {
