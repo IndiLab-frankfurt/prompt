@@ -146,7 +146,6 @@ class NotificationService {
         reminderId, title, body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time,
         payload: reminderId.toString(),
         androidAllowWhileIdle: true);
   }
@@ -259,7 +258,6 @@ class NotificationService {
         notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        matchDateTimeComponents: DateTimeComponents.time,
         payload: PAYLOAD_EVENING,
         androidAllowWhileIdle: true);
   }

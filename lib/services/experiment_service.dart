@@ -150,7 +150,6 @@ class ExperimentService {
 
     for (var i = 1; i <= MAX_STUDY_DURATION.inDays; i++) {
       var scheduleDay = schedule.add(Duration(days: i));
-      print("Scheduling Booster prompt for group $scheduleDay");
       _notificationService.scheduleMorningReminder(scheduleDay, i);
     }
 

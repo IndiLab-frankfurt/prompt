@@ -23,8 +23,6 @@ class _NoTasksScreenState extends State<NoTasksScreen>
     with WidgetsBindingObserver {
   late NoTaskViewModel vm = Provider.of<NoTaskViewModel>(context);
 
-  bool _showNextButton = false;
-
   late Timer updateRegularlyTimer;
 
   @override

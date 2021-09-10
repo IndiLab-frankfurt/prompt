@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/navigation_service.dart';
+import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -43,6 +44,7 @@ class LoginViewModel extends BaseViewModel {
       return RegistrationCodes.USER_NOT_FOUND;
     } else {
       await locator<RewardService>().initialize();
+      await locator<NotificationService>().clearPendingNotifications();
       locator<ExperimentService>().schedulePrompts(signin.group);
 
       setState(ViewState.idle);

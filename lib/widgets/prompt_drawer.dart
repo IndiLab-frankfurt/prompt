@@ -161,7 +161,11 @@ class PromptDrawer extends StatelessWidget {
                     .get<NotificationService>()
                     .getPendingNotifications();
 
-                print(pending);
+                print("Number of pending notifications: " +
+                    pending.length.toString());
+                for (var p in pending) {
+                  print(p.title);
+                }
               }),
         ],
       ),

@@ -12,12 +12,11 @@ class UIHelper {
 
   ThemeData darkTheme = ThemeData.dark().copyWith(
       primaryColor: Color(0xff1f655d),
-      accentColor: Color(0xff40bf7a),
       textTheme: TextTheme(
           headline6: TextStyle(color: Color(0xff40bf7a)),
           subtitle2: TextStyle(color: Colors.white),
           subtitle1: TextStyle(color: Color(0xff40bf7a))),
-      appBarTheme: AppBarTheme(color: Color(0xff1f655d)));
+      appBarTheme: AppBarTheme(color: Color(0xff1f655d)), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xff40bf7a)));
 
   static InputDecoration defaultTextfieldDecoration = InputDecoration(
       fillColor: Colors.white,
