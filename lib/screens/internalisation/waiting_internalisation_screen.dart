@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
@@ -16,11 +17,16 @@ class _GoalIntentionScreenState extends State<GoalIntentionScreen> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        MarkdownBody(data: "### " + AppStrings.GoalIntention_ParagraphOne),
+        MarkdownBody(
+          data: "## " + AppStrings.GoalIntention_ParagraphOne,
+        ),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(data: "### " + AppStrings.GoalIntention_ParagraphTwo),
+        MarkdownBody(
+          data: "## " + AppStrings.GoalIntention_ParagraphTwo,
+        ),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(data: "### " + AppStrings.GoalIntention_SayToYourself),
+        MarkdownBody(data: "## " + AppStrings.GoalIntention_SayToYourself),
+        UIHelper.verticalSpaceSmall(),
         SpeechBubble(text: AppStrings.GoalIntention_Plan)
       ],
     );

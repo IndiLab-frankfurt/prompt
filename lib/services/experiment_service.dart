@@ -66,6 +66,13 @@ class ExperimentService {
     return internalisationPrompts[userData.group]!.contains(daysAgo);
   }
 
+  isDistributedLearningDay() {
+    var userData = _dataService.getUserDataCache();
+    var daysAgo = userData.registrationDate.daysAgo();
+
+    return (daysAgo == 18) && (userData.group == 1);
+  }
+
   shouldShowDistributedLearningVideo() {
     var userData = _dataService.getUserDataCache();
     var daysAgo = userData.registrationDate.daysAgo();
@@ -112,7 +119,7 @@ class ExperimentService {
 
     if (last.submissionDate.isToday()) {
       // If morning questions have already been submitted
-      if (last.assessmentType == "eveningAssessment") {
+      if (last.assessmentType == "morningAssessment") {
         return false;
       } else {
         return true;
