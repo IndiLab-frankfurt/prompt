@@ -141,9 +141,9 @@ class ExperimentService {
     var now = DateTime.now();
     var schedule = DateTime(now.year, now.month, now.day, 5, 00);
 
-    for (var i = 0; i <= MAX_STUDY_DURATION.inDays; i++) {
-      print("Scheduling Booster prompt for group $group and day $i");
+    for (var i = 1; i <= MAX_STUDY_DURATION.inDays; i++) {
       var scheduleDay = schedule.add(Duration(days: i));
+      print("Scheduling Booster prompt for group $scheduleDay");
       _notificationService.scheduleMorningReminder(scheduleDay, i);
     }
 
