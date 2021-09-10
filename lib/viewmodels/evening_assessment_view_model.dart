@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
@@ -68,6 +69,16 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   @override
   void submit() {
+    Map<String, String> results = {};
+    for (var result in allAssessmentResults.values) {
+      results.addAll(result);
+    }
+    var oneBigAssessment =
+        AssessmentResult(results, "eveningAssessment", DateTime.now());
+    oneBigAssessment.startDate = this.startDate;
+
+    experimentService.submitAssessment(oneBigAssessment, "eveningAssessment");
+
     experimentService.nextScreen(RouteNames.ASSESSMENT_EVENING);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
@@ -49,6 +50,26 @@ class ExperimentService {
       if (isTimeForFinalQuestionnaire()) {
         return await _navigationService.navigateTo(RouteNames.ASSESSMENT_FINAL);
       }
+    }
+  }
+
+  Future<bool> _shouldIncrementStreakDay() async {
+    var lastRecall =
+        await _dataService.getLastAssessmentResultFor("morningAssessment");
+    if (lastRecall == null) {
+      var userData = await _dataService.getUserData();
+      return userData!.registrationDate.isYesterday();
+    }
+
+    return lastRecall.submissionDate.isYesterday();
+  }
+
+  Future<void> submitAssessment(
+      AssessmentResult assessment, String type) async {
+    this._dataService.saveAssessment(assessment);
+
+    if (type == "morningAssessment") {
+      await _rewardService.addStreakDays(1);
     }
   }
 
@@ -118,8 +139,12 @@ class ExperimentService {
     if (last == null) return false;
 
     if (last.submissionDate.isToday()) {
-      // If morning questions have already been submitted
+      // If morning questions have already been submitted today
       if (last.assessmentType == "morningAssessment") {
+        return false;
+      }
+      // If Evening assessment has already been submitted today
+      if (last.assessmentType == "eveningAssessment") {
         return false;
       } else {
         return true;

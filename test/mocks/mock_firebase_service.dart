@@ -90,4 +90,11 @@ class MockFirebaseService implements IDatabaseService {
   Future saveUserDataProperty(String username, String key, value) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<AssessmentResult?> getLastAssessmentResultFor(
+      String userid, String assessmentName) {
+    // TODO: implement getLastAssessmentResultFor
+    throw UnimplementedError();
+  }
 }

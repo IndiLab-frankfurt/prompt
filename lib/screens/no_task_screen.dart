@@ -133,7 +133,6 @@ class _NoTasksScreenState extends State<NoTasksScreen>
         onWillPop: () async => false,
         child: Stack(
           children: [
-            Image(image: AssetImage(rewardService.selectedMascotImage)),
             Container(
                 decoration: BoxDecoration(
                     gradient: rewardService.backgroundColor,

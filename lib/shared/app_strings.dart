@@ -34,7 +34,8 @@ class AppStrings {
       "Falls du bei cabuu auch mit einem Benutzernamen angemeldet bist, gib diesen bitte hier ein";
 
   // Session Zero Plan Creation
-  static const String LetsCreatePlan = "Erstelle jetzt deinen Plan:";
+  static const String PlanCreation_LetsCreatePlan =
+      "Erstelle jetzt deinen Plan:";
   static const String ThinkOfSomething =
       "Überlege dir etwas, das du jeden Tag tust, möglichst auch am Wochenende. Schreibe es in 1-3 Stichworten auf:";
   static const String GotTimeBeforeOrAfter =
