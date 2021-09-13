@@ -52,7 +52,7 @@ class AppStrings {
   static const String WhyVocab_ParagraphOne =
       "In der Studie PROMPT wollen wir dir dabei helfen, Vokabeln so zu lernen, dass du sie dir besonders gut merken kannst.";
   static const String WhyVocab_ParagraphTwo =
-      "Denk mal nach: Warum ist es für dich wichtig, deinen Englischwortschatz zu erweitern? Wie könnte es für dich in Zukunft von Vorteil sein, seinen großen Englischwortschatz zu haben?";
+      "Denk mal nach: Warum ist es für dich persönlich wichtig, deinen Englischwortschatz zu erweitern? Wie könnte es für dich jetzt oder auch in Zukunft außerhalb der Schule von Vorteil sein, seinen großen Englischwortschatz zu haben?";
 
   static const String GoalIntention_ParagraphOne =
       "Damit du es schaffst, regelmäßig Vokabeln zu lernen, solltest du dir ein **Ziel** setzen";
