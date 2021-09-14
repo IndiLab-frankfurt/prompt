@@ -221,9 +221,9 @@ class _NoTasksScreenState extends State<NoTasksScreen>
 
   _buildToNextTaskButton() {
     return Container(
-      height: 50,
-      margin: EdgeInsets.all(10),
-      child: OutlinedButton(
+        height: 50,
+        margin: EdgeInsets.all(10),
+        child: OutlinedButton(
           onPressed: () async {
             await Navigator.pushNamed(context, RouteNames.ASSESSMENT_EVENING);
             setState(() {});
@@ -233,11 +233,11 @@ class _NoTasksScreenState extends State<NoTasksScreen>
             style: TextStyle(color: Colors.black),
           ),
           style: OutlinedButton.styleFrom(
-                backgroundColor: Colors.orange[200],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                side: BorderSide(width: 1.0, color: Colors.grey)),
-    );
+              backgroundColor: Colors.orange[200],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              side: BorderSide(width: 1.0, color: Colors.grey)),
+        ));
   }
 
   _buildChangeBackgroundButton() {
