@@ -38,3 +38,6 @@ enum InternalisationCondition {
   scrambleWithHint,
   emoji,
 }
+
+const String EVENING_ASSESSMENT = "eveningAssessment";
+const String MORNING_ASSESSMENT = "morningAssessment";
