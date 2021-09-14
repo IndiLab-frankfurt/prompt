@@ -45,14 +45,13 @@ class _EmojiInternalisationScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: UIHelper.getContainerMargin(),
+        // margin: UIHelper.getContainerMargin(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: ListView(
                 children: [
-                  UIHelper.verticalSpaceSmall(),
                   MarkdownBody(
                       data:
                           "## " + AppStrings.EmojiInternalisation_Instruction),
