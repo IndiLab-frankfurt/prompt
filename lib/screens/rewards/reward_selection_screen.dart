@@ -17,6 +17,7 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
   Widget build(BuildContext context) {
     List<Widget> unlockItems = [];
     var rewardService = locator<RewardService>();
+
     for (var bg in rewardService.backgrounds) {
       unlockItems.add(_buildUnlockItem(bg, rewardService.daysActive));
     }

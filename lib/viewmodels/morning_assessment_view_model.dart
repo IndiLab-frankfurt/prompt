@@ -184,7 +184,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         AssessmentResult(results, "morningAssessment", DateTime.now());
     oneBigAssessment.startDate = this.startDate;
 
-    dataService.saveAssessment(oneBigAssessment);
+    experimentService.submitAssessment(oneBigAssessment, "morningAssessment");
 
     experimentService.nextScreen(RouteNames.ASSESSMENT_MORNING);
   }

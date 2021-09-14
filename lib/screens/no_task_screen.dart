@@ -23,8 +23,6 @@ class _NoTasksScreenState extends State<NoTasksScreen>
     with WidgetsBindingObserver {
   late NoTaskViewModel vm = Provider.of<NoTaskViewModel>(context);
 
-  bool _showNextButton = false;
-
   late Timer updateRegularlyTimer;
 
   @override
@@ -135,7 +133,6 @@ class _NoTasksScreenState extends State<NoTasksScreen>
         onWillPop: () async => false,
         child: Stack(
           children: [
-            Image(image: AssetImage(rewardService.selectedMascotImage)),
             Container(
                 decoration: BoxDecoration(
                     gradient: rewardService.backgroundColor,
@@ -224,29 +221,30 @@ class _NoTasksScreenState extends State<NoTasksScreen>
 
   _buildToNextTaskButton() {
     return Container(
-      height: 40,
-      margin: EdgeInsets.all(10),
-      child: OutlinedButton(
-        onPressed: () async {
-          await Navigator.pushNamed(context, RouteNames.ASSESSMENT_EVENING);
-          setState(() {});
-        },
-        child: Text(
-          vm.message,
-          style: TextStyle(color: Colors.black),
-        ),
-        style: ButtonStyle(
-          shape: MaterialStateProperty.all(RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30.0))),
-        ),
-      ),
-    );
+        height: 50,
+        margin: EdgeInsets.all(10),
+        child: OutlinedButton(
+          onPressed: () async {
+            await Navigator.pushNamed(context, RouteNames.ASSESSMENT_EVENING);
+            setState(() {});
+          },
+          child: Text(
+            vm.message,
+            style: TextStyle(color: Colors.black),
+          ),
+          style: OutlinedButton.styleFrom(
+              backgroundColor: Colors.orange[200],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              side: BorderSide(width: 1.0, color: Colors.grey)),
+        ));
   }
 
   _buildChangeBackgroundButton() {
     return Container(
-        width: 250,
-        height: 40,
+        width: double.infinity,
+        height: 50,
+        margin: EdgeInsets.all(10),
         child: OutlinedButton(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -257,10 +255,11 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                 )
               ],
             ),
-            style: ButtonStyle(
-              shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30.0))),
-            ),
+            style: OutlinedButton.styleFrom(
+                backgroundColor: Colors.orange[200],
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(10))),
+                side: BorderSide(width: 1.0, color: Colors.grey)),
             onPressed: () async {
               await Navigator.pushNamed(context, RouteNames.REWARD_SELECTION);
               setState(() {});

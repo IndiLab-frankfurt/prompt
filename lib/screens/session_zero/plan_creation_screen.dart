@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
@@ -45,22 +46,28 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
 
   Widget buildEnterHabit() {
     return ListView(children: [
-      MarkdownBody(data: "### " + AppStrings.ThinkOfSomething),
+      MarkdownBody(data: "## " + AppStrings.PlanCreation_LetsCreatePlan),
       UIHelper.verticalSpaceMedium(),
-      MarkdownBody(data: "### " + AppStrings.ThinkAboutYourGoal),
+      MarkdownBody(data: '## "Wenn ich'),
       TextField(
-        controller: _habitTextController,
-        onChanged: (newText) {
-          // _habitTextController. = newText;
-        },
-      ),
-      ElevatedButton(
-          onPressed: () {
-            setState(() {
-              _screenState = PlanCreationScreenState.selectTime;
-            });
+          controller: _habitTextController,
+          onChanged: (newText) {
+            // _habitTextController. = newText;
           },
-          child: Text(AppStrings.Continue))
+          decoration:
+              new InputDecoration(hintText: 'gib hier deinen Plan ein...'),
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          )),
+      MarkdownBody(data: '## dann lerne ich mit cabuu."'),
+      // ElevatedButton(
+      //     onPressed: () {
+      //       setState(() {
+      //         _screenState = PlanCreationScreenState.selectTime;
+      //       });
+      //     },
+      //     child: Text(AppStrings.Continue))
     ]);
   }
 

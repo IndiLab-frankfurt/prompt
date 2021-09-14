@@ -7,7 +7,6 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/widgets/emoji_keyboard/base_emoji.dart';
 import 'package:prompt/widgets/emoji_keyboard/emoji_keyboard_widget.dart';
-import 'package:prompt/widgets/full_width_button.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:provider/provider.dart';
 
@@ -46,14 +45,13 @@ class _EmojiInternalisationScreenState
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        margin: UIHelper.getContainerMargin(),
+        // margin: UIHelper.getContainerMargin(),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
               child: ListView(
                 children: [
-                  UIHelper.verticalSpaceSmall(),
                   MarkdownBody(
                       data:
                           "## " + AppStrings.EmojiInternalisation_Instruction),
@@ -215,19 +213,19 @@ class _EmojiInternalisationScreenState
     return emojiKeyboard;
   }
 
-  _buildSubmitButton() {
-    return Align(
-        alignment: Alignment.bottomCenter,
-        child: FullWidthButton(
-          text: AppStrings.Continue,
-          height: 40,
-          onPressed: () async {
-            var emojiInfoLeft = emojiNamesFromEmojiList(emojiNamesLeft);
-            var emojiInfoRight = emojiNamesFromEmojiList(emojiNamesRight);
-            var emojiInfo = "L:$emojiInfoLeft | R:$emojiInfoRight";
-          },
-        ));
-  }
+  // _buildSubmitButton() {
+  //   return Align(
+  //       alignment: Alignment.bottomCenter,
+  //       child: FullWidthButton(
+  //         text: AppStrings.Continue,
+  //         height: 40,
+  //         onPressed: () async {
+  //           var emojiInfoLeft = emojiNamesFromEmojiList(emojiNamesLeft);
+  //           var emojiInfoRight = emojiNamesFromEmojiList(emojiNamesRight);
+  //           var emojiInfo = "L:$emojiInfoLeft | R:$emojiInfoRight";
+  //         },
+  //       ));
+  // }
 
   String _getEmojiInput() {
     var emojiInfoLeft = emojiNamesFromEmojiList(emojiNamesLeft);

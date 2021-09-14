@@ -65,6 +65,18 @@ class DataService {
     });
   }
 
+  Future<AssessmentResult?> getLastAssessmentResultFor(
+      String assessmentName) async {
+    var last = _lastAssessmentResultCache;
+
+    if (_lastAssessmentResultCache == null) {
+      var ud = await getUserData();
+      last = await _databaseService.getLastAssessmentResultFor(
+          ud!.firebaseId, assessmentName);
+    }
+    return last;
+  }
+
   Future<AssessmentResult?> getLastAssessmentResult() async {
     var last = _lastAssessmentResultCache;
 

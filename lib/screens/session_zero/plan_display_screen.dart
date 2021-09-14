@@ -15,13 +15,12 @@ class PlanDisplayScreen extends StatelessWidget {
     return Container(
         child: ListView(
       children: [
-        MarkdownBody(data: "# " + AppStrings.PlanDisplay_Excellent),
-        UIHelper.verticalSpaceMedium(),
-        MarkdownBody(data: '### ' + AppStrings.PlanDisplay_YourPlanIs),
+        MarkdownBody(data: "## " + AppStrings.PlanDisplay_Excellent),
+        MarkdownBody(data: '## ' + AppStrings.PlanDisplay_YourPlanIs),
         UIHelper.verticalSpaceMedium(),
         SpeechBubble(text: '"${vm.plan}"'),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(data: "### " + AppStrings.PlanDisplay_RememberYourPlan)
+        MarkdownBody(data: "## " + AppStrings.PlanDisplay_RememberYourPlan)
       ],
     ));
   }

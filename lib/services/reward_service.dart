@@ -14,7 +14,7 @@ class RewardService {
   int streakDays = 0;
   final Color backgroundBase = Color(0xFFFFF3E0);
   String backgroundImagePath = "assets/illustrations/mascot_bare.png";
-  String selectedMascotImage = "assets/illustrations/mascot_1_bare.png";
+  String selectedMascot = "1";
   static const int STREAK_THRESHOLD = 5;
   // LinearGradient _baseGradient =
   LinearGradient backgroundColor = LinearGradient(
@@ -31,66 +31,11 @@ class RewardService {
     3,
   ];
 
-  late List<UnlockableBackground> backgrounds;
-
-  RewardService(this._dataService, this._logService) {
-    backgrounds = [
-      UnlockableBackground("Monster", "assets/illustrations/mascot_bare.png", 0,
-          LinearGradient(colors: [backgroundBase, backgroundBase])),
-      UnlockableBackground(
-          "Flugzeug",
-          "assets/illustrations/mascot_plane_2.png",
-          0,
-          LinearGradient(colors: [backgroundBase, Color(0xff9fc7f0)])),
-      UnlockableBackground(
-          "Weltraum 1",
-          "assets/illustrations/mascot_space_1.png",
-          1,
-          LinearGradient(colors: [backgroundBase, Color(0xff08111f)])),
-      UnlockableBackground(
-          "Pyramiden",
-          "assets/illustrations/mascot_pyramid.png",
-          3,
-          LinearGradient(colors: [backgroundBase, Color(0xffa2d0ff)])),
-      UnlockableBackground(
-          "Vulkan 1",
-          "assets/illustrations/mascot_vulcan_1.png",
-          6,
-          LinearGradient(colors: [backgroundBase, Color(0xffb7c6d6)])),
-      UnlockableBackground(
-          "Wikinger",
-          "assets/illustrations/mascot_viking_1.png",
-          9,
-          LinearGradient(colors: [backgroundBase, Color(0xff08172e)])),
-      UnlockableBackground("Ozean 1", "assets/illustrations/mascot_ocean_2.png",
-          12, LinearGradient(colors: [backgroundBase, Color(0xff97b9d3)])),
-      UnlockableBackground(
-          "Pyramide 2",
-          "assets/illustrations/mascot_pyramid_2.png",
-          15,
-          LinearGradient(colors: [backgroundBase, Color(0xffa2d0ff)])),
-      UnlockableBackground(
-          "Weltraum",
-          "assets/illustrations/mascot_space_2.png",
-          18,
-          LinearGradient(colors: [backgroundBase, Color(0xff08111f)])),
-      UnlockableBackground(
-          "Vulkan 2",
-          "assets/illustrations/mascot_vulcan_2.png",
-          21,
-          LinearGradient(colors: [backgroundBase, Color(0xffb7c6d6)])),
-      UnlockableBackground(
-          "Wikinger 2",
-          "assets/illustrations/mascot_viking_2.png",
-          24,
-          LinearGradient(colors: [backgroundBase, Color(0xff08172e)])),
-      UnlockableBackground(
-          "Zauberei 2",
-          "assets/illustrations/mascot_wizard_2.png",
-          27,
-          LinearGradient(colors: [backgroundBase, Color(0xffccdcf6)])),
-    ];
+  List<UnlockableBackground> get backgrounds {
+    return getBackgroundImages(selectedMascot);
   }
+
+  RewardService(this._dataService, this._logService) {}
 
   Future retrieveScore() async {
     await _dataService.getScore().then((s) {
@@ -116,8 +61,8 @@ class RewardService {
 
   Future getMasot() async {
     return await _dataService.getSelectedMascot().then((path) {
-      this.selectedMascotImage = "assets/illustrations/mascot_${path}_bare.png";
-      return this.selectedMascotImage;
+      this.selectedMascot = path;
+      return path;
     });
   }
 
@@ -153,6 +98,68 @@ class RewardService {
     await getDaysActive();
     await getStreakDays();
     await getMasot();
+  }
+
+  getBackgroundImages(String mascotId) {
+    return [
+      UnlockableBackground(
+          "Monster",
+          "assets/illustrations/mascot_${mascotId}_bare.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backgroundBase])),
+      UnlockableBackground(
+          "Flugzeug",
+          "assets/illustrations/mascot_${mascotId}_plane_2.png",
+          0,
+          LinearGradient(colors: [backgroundBase, Color(0xff9fc7f0)])),
+      UnlockableBackground(
+          "Weltraum 1",
+          "assets/illustrations/mascot_${mascotId}_space_1.png",
+          1,
+          LinearGradient(colors: [backgroundBase, Color(0xff08111f)])),
+      UnlockableBackground(
+          "Pyramiden",
+          "assets/illustrations/mascot_${mascotId}_pyramid.png",
+          3,
+          LinearGradient(colors: [backgroundBase, Color(0xffa2d0ff)])),
+      UnlockableBackground(
+          "Vulkan 1",
+          "assets/illustrations/mascot_${mascotId}_vulcan_1.png",
+          6,
+          LinearGradient(colors: [backgroundBase, Color(0xffb7c6d6)])),
+      UnlockableBackground(
+          "Wikinger",
+          "assets/illustrations/mascot_${mascotId}_viking_1.png",
+          9,
+          LinearGradient(colors: [backgroundBase, Color(0xff08172e)])),
+      UnlockableBackground("Ozean 1", "assets/illustrations/mascot_ocean_2.png",
+          12, LinearGradient(colors: [backgroundBase, Color(0xff97b9d3)])),
+      UnlockableBackground(
+          "Pyramide 2",
+          "assets/illustrations/mascot_${mascotId}_pyramid_2.png",
+          15,
+          LinearGradient(colors: [backgroundBase, Color(0xffa2d0ff)])),
+      UnlockableBackground(
+          "Weltraum",
+          "assets/illustrations/mascot_${mascotId}_space_2.png",
+          18,
+          LinearGradient(colors: [backgroundBase, Color(0xff08111f)])),
+      UnlockableBackground(
+          "Vulkan 2",
+          "assets/illustrations/mascot_${mascotId}_vulcan_2.png",
+          21,
+          LinearGradient(colors: [backgroundBase, Color(0xffb7c6d6)])),
+      UnlockableBackground(
+          "Wikinger 2",
+          "assets/illustrations/mascot_${mascotId}_viking_2.png",
+          24,
+          LinearGradient(colors: [backgroundBase, Color(0xff08172e)])),
+      UnlockableBackground(
+          "Zauberei 2",
+          "assets/illustrations/mascot_${mascotId}_wizard_2.png",
+          27,
+          LinearGradient(colors: [backgroundBase, Color(0xffccdcf6)])),
+    ];
   }
 
   setBackgroundImagePath(String imagePath) async {

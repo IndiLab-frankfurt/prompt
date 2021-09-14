@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/data_service.dart';
+import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -150,6 +151,21 @@ class PromptDrawer extends StatelessWidget {
               text: "Login",
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.LOG_IN);
+              }),
+          Divider(),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Scheduled Notifications",
+              onTap: () async {
+                var pending = await locator
+                    .get<NotificationService>()
+                    .getPendingNotifications();
+
+                print("Number of pending notifications: " +
+                    pending.length.toString());
+                for (var p in pending) {
+                  print(p.title);
+                }
               }),
         ],
       ),

@@ -38,5 +38,8 @@ abstract class IDatabaseService {
 
   Future<AssessmentResult?> getLastAssessmentResult(String userid);
 
+  Future<AssessmentResult?> getLastAssessmentResultFor(
+      String userid, String assessmentName);
+
   Future saveUserDataProperty(String username, String key, dynamic value);
 }
