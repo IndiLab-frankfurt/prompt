@@ -73,7 +73,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     if (last == null) return false;
 
     if (last.submissionDate.daysAgo() == 1) {
-      return last.assessmentType == "eveningAssessment";
+      return last.assessmentType == EVENING_ASSESSMENT;
     }
     return false;
   }
@@ -99,10 +99,12 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     }
 
     // did learn some other time
-    else if (answer == "3") if (didCompleteEveningItemsYesterday()) {
-      step = getStepIndex(MorningAssessmentStep.morningItems);
-    } else {
-      step = getStepIndex(MorningAssessmentStep.eveningItems);
+    else if (answer == "3") {
+      if (didCompleteEveningItemsYesterday()) {
+        step = getStepIndex(MorningAssessmentStep.morningItems);
+      } else {
+        step = getStepIndex(MorningAssessmentStep.eveningItems);
+      }
     }
 
     return step;
@@ -181,10 +183,10 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       results.addAll(result);
     }
     var oneBigAssessment =
-        AssessmentResult(results, "morningAssessment", DateTime.now());
+        AssessmentResult(results, MORNING_ASSESSMENT, DateTime.now());
     oneBigAssessment.startDate = this.startDate;
 
-    experimentService.submitAssessment(oneBigAssessment, "morningAssessment");
+    experimentService.submitAssessment(oneBigAssessment, MORNING_ASSESSMENT);
 
     experimentService.nextScreen(RouteNames.ASSESSMENT_MORNING);
   }

@@ -4,6 +4,7 @@ import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/questionnaire.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/placeholder_screen.dart';
+import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
 import 'package:prompt/screens/session_zero/cabuu_link_screen.dart';
 import 'package:prompt/screens/session_zero/goal_intention_screen.dart';
 import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
@@ -34,6 +35,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.welcome: welcomeScreen,
       SessionZeroStep.whereCanYouFindThisInformation:
           whereCanYouFindThisInformation,
+      SessionZeroStep.cabuuCode: cabuuCodeScreen,
       SessionZeroStep.cabuuLink: cabuuLinkScreen,
       SessionZeroStep.mascotSelection: mascotSelectionScreen,
       SessionZeroStep.moderatorVariables: moderatorVariables,
@@ -72,6 +74,9 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   }
 
   var welcomeScreen = WelcomeScreen(key: ValueKey(SessionZeroStep.welcome));
+
+  var cabuuCodeScreen =
+      CabuuCodeScreen(key: ValueKey(SessionZeroStep.cabuuCode));
 
   var cabuuLinkScreen =
       CabuuLinkScreen(key: ValueKey(SessionZeroStep.cabuuLink));

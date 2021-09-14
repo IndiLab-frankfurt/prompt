@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
@@ -42,7 +43,7 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
     if (last == null) return false;
 
     if (last.submissionDate.isToday()) {
-      return last.assessmentType == "morningAssessment";
+      return last.assessmentType == MORNING_ASSESSMENT;
     }
     return false;
   }
@@ -74,10 +75,10 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
       results.addAll(result);
     }
     var oneBigAssessment =
-        AssessmentResult(results, "eveningAssessment", DateTime.now());
+        AssessmentResult(results, EVENING_ASSESSMENT, DateTime.now());
     oneBigAssessment.startDate = this.startDate;
 
-    experimentService.submitAssessment(oneBigAssessment, "eveningAssessment");
+    experimentService.submitAssessment(oneBigAssessment, EVENING_ASSESSMENT);
 
     experimentService.nextScreen(RouteNames.ASSESSMENT_EVENING);
   }

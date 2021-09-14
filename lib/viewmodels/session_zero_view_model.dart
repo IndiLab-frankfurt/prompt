@@ -8,6 +8,7 @@ import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 enum SessionZeroStep {
   welcome,
   whereCanYouFindThisInformation,
+  cabuuCode,
   cabuuLink,
   mascotSelection,
   moderatorVariables,
@@ -28,6 +29,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   List<SessionZeroStep> screenOrder = [
     SessionZeroStep.welcome,
     SessionZeroStep.whereCanYouFindThisInformation,
+    SessionZeroStep.cabuuCode,
     SessionZeroStep.cabuuLink,
     SessionZeroStep.mascotSelection,
     SessionZeroStep.moderatorVariables,
@@ -109,6 +111,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     List<SessionZeroStep> firstScreens = [
       SessionZeroStep.welcome,
       SessionZeroStep.whereCanYouFindThisInformation,
+      SessionZeroStep.cabuuCode,
       SessionZeroStep.cabuuLink,
       SessionZeroStep.mascotSelection,
       SessionZeroStep.moderatorVariables,

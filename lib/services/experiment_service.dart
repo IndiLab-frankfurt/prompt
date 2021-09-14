@@ -55,7 +55,7 @@ class ExperimentService {
 
   Future<bool> _shouldIncrementStreakDay() async {
     var lastRecall =
-        await _dataService.getLastAssessmentResultFor("morningAssessment");
+        await _dataService.getLastAssessmentResultFor(MORNING_ASSESSMENT);
     if (lastRecall == null) {
       var userData = await _dataService.getUserData();
       return userData!.registrationDate.isYesterday();
@@ -68,7 +68,7 @@ class ExperimentService {
       AssessmentResult assessment, String type) async {
     this._dataService.saveAssessment(assessment);
 
-    if (type == "morningAssessment") {
+    if (type == MORNING_ASSESSMENT) {
       await _rewardService.addStreakDays(1);
     }
   }
@@ -135,11 +135,11 @@ class ExperimentService {
 
     if (last.submissionDate.isToday()) {
       // If morning questions have already been submitted today
-      if (last.assessmentType == "morningAssessment") {
+      if (last.assessmentType == MORNING_ASSESSMENT) {
         return true;
       }
       // If Evening assessment has already been submitted today
-      if (last.assessmentType == "eveningAssessment") {
+      if (last.assessmentType == EVENING_ASSESSMENT) {
         return false;
       } else {
         return true;
