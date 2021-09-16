@@ -137,8 +137,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                 decoration: BoxDecoration(
                     gradient: rewardService.backgroundColor,
                     image: DecorationImage(
-                        image: AssetImage(
-                            "assets/illustrations/mascot_plane_2.png"),
+                        image: AssetImage(rewardService.backgroundImagePath),
                         fit: BoxFit.contain,
                         alignment: Alignment.bottomCenter)),
                 child: Scaffold(

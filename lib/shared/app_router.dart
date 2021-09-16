@@ -7,6 +7,7 @@ import 'package:prompt/screens/internalisation/default_reminder_screen.dart';
 import 'package:prompt/screens/assessments/morning_assessment_screen.dart';
 import 'package:prompt/screens/login_screen.dart';
 import 'package:prompt/screens/no_task_screen.dart';
+import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
@@ -80,6 +81,9 @@ class AppRouter {
                     locator.get<ExperimentService>(),
                     locator.get<DataService>()),
                 child: EveningAssessmentScreen()));
+
+      case RouteNames.REWARD_SELECTION:
+        return MaterialPageRoute(builder: (_) => RewardSelectionScreen());
 
       case RouteNames.REMINDER_DEFAULT:
         return MaterialPageRoute(builder: (_) => DefaultReminderScreen());
