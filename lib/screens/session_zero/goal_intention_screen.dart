@@ -18,14 +18,13 @@ class _GoalIntentionScreenState extends State<GoalIntentionScreen> {
     return ListView(
       children: [
         MarkdownBody(
-          data: "## " + AppStrings.GoalIntention_ParagraphOne,
+          data: "### " + AppStrings.GoalIntention_ParagraphOne,
         ),
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
-          data: "## " + AppStrings.GoalIntention_ParagraphTwo,
+          data: "### " + AppStrings.GoalIntention_ParagraphTwo,
         ),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(data: "## " + AppStrings.GoalIntention_SayToYourself),
         UIHelper.verticalSpaceSmall(),
         SpeechBubble(text: AppStrings.GoalIntention_Plan)
       ],

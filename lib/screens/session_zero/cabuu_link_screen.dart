@@ -11,7 +11,9 @@ class CabuuLinkScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var vm = Provider.of<SessionZeroViewModel>(context);
     return Container(
-      child: ListView(
+      margin: EdgeInsets.only(bottom: 50),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
             "",
@@ -35,19 +37,23 @@ class CabuuLinkScreen extends StatelessWidget {
               ),
             ],
           ),
-          UIHelper.verticalSpaceMedium(),
-          Text(
-            AppStrings.CabuuLink_EnterEmail,
-            style: Theme.of(context).textTheme.subtitle1,
+          UIHelper.verticalSpaceLarge(),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              AppStrings.CabuuLink_EnterEmail,
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
           ),
-          UIHelper.verticalSpaceMedium(),
           buildEmailField(context),
-          UIHelper.verticalSpaceMedium(),
-          Text(
-            AppStrings.CabuuLink_EnterUsername,
-            style: Theme.of(context).textTheme.subtitle1,
+          UIHelper.verticalSpaceLarge(),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Text(
+              AppStrings.CabuuLink_EnterUsername,
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
           ),
-          UIHelper.verticalSpaceMedium(),
           buildUserIdField(context),
         ],
       ),

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/notification_service.dart';
+import 'package:prompt/services/usage_stats/usage_stats_service.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -155,17 +157,16 @@ class PromptDrawer extends StatelessWidget {
           Divider(),
           _buildDrawerItem(
               icon: Icons.add_box,
-              text: "Scheduled Notifications",
+              text: "Usage Stats",
               onTap: () async {
-                var pending = await locator
-                    .get<NotificationService>()
-                    .getPendingNotifications();
-
-                print("Number of pending notifications: " +
-                    pending.length.toString());
-                for (var p in pending) {
-                  print(p.title);
-                }
+                var startDate = DateTime.now().subtract(Duration(days: 20));
+                UsageStatsService.queryUsageStats(startDate, DateTime.now());
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Usage Permissions",
+              onTap: () async {
+                UsageStatsService.grantUsagePermission();
               }),
         ],
       ),

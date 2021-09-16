@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/screens/startup_screen.dart';
@@ -23,8 +24,11 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.orange[50],
           canvasColor: Colors.white,
           selectedRowColor: Colors.orange[200],
-          textTheme:
-              GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
+          textTheme: TextTheme(
+              bodyText1: GoogleFonts.quicksand(
+                  textStyle:
+                      TextStyle(fontSize: 14, fontWeight: FontWeight.w600))),
+          // GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
           buttonTheme: ButtonThemeData(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

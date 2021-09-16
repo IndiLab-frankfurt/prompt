@@ -46,9 +46,9 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
 
   Widget buildEnterHabit() {
     return ListView(children: [
-      MarkdownBody(data: "## " + AppStrings.PlanCreation_LetsCreatePlan),
+      MarkdownBody(data: "### " + AppStrings.PlanCreation_LetsCreatePlan),
       UIHelper.verticalSpaceMedium(),
-      MarkdownBody(data: '## "Wenn ich'),
+      MarkdownBody(data: '### "Wenn ich'),
       TextField(
           controller: _habitTextController,
           onChanged: (newText) {
@@ -57,10 +57,10 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
           decoration:
               new InputDecoration(hintText: 'gib hier deinen Plan ein...'),
           style: TextStyle(
-            fontSize: 20,
+            fontSize: 14,
             fontWeight: FontWeight.w600,
           )),
-      MarkdownBody(data: '## dann lerne ich mit cabuu."'),
+      MarkdownBody(data: '### dann lerne ich mit cabuu."'),
       // ElevatedButton(
       //     onPressed: () {
       //       setState(() {

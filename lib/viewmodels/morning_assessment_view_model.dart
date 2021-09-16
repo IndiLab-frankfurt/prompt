@@ -103,7 +103,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       if (didCompleteEveningItemsYesterday()) {
         step = getStepIndex(MorningAssessmentStep.morningItems);
       } else {
-        step = getStepIndex(MorningAssessmentStep.eveningItems);
+        step = getStepIndex(MorningAssessmentStep.alternativeItems);
       }
     }
 

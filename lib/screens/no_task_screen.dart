@@ -221,6 +221,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
 
   _buildToNextTaskButton() {
     return Container(
+        width: double.infinity,
         height: 50,
         margin: EdgeInsets.all(10),
         child: OutlinedButton(
