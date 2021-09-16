@@ -5,7 +5,7 @@ import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_item.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/user_data.dart';
-import 'package:prompt/services/firebase_service.dart';
+import 'package:collection/collection.dart';
 import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/settings_service.dart';
@@ -20,6 +20,7 @@ class DataService {
 
   UserData? _userDataCache;
   AssessmentResult? _lastAssessmentResultCache;
+  List<AssessmentResult>? _assessmentResultsCache;
 
   DataService(this._databaseService, this._userService,
       this._localDatabaseService, this._settingsService);
@@ -65,26 +66,40 @@ class DataService {
     });
   }
 
+  AssessmentResult? getLastAssessmentResultForCached(String assessmentName) {
+    _assessmentResultsCache!.sortBy((element) => element.submissionDate);
+    return _assessmentResultsCache!
+        .lastWhereOrNull((element) => element.assessmentType == assessmentName);
+  }
+
   Future<AssessmentResult?> getLastAssessmentResultFor(
       String assessmentName) async {
-    var last = _lastAssessmentResultCache;
+    List<AssessmentResult> lastResults = [];
 
     if (_lastAssessmentResultCache == null) {
-      var ud = await getUserData();
-      last = await _databaseService.getLastAssessmentResultFor(
-          ud!.firebaseId, assessmentName);
+      lastResults = await getAssessmentResults();
     }
-    return last;
+    lastResults.sortBy((element) => element.submissionDate);
+    return lastResults
+        .lastWhereOrNull((element) => element.assessmentType == assessmentName);
   }
 
   Future<AssessmentResult?> getLastAssessmentResult() async {
-    var last = _lastAssessmentResultCache;
-
+    List<AssessmentResult> lastResults = [];
     if (_lastAssessmentResultCache == null) {
-      var ud = await getUserData();
-      last = await _databaseService.getLastAssessmentResult(ud!.firebaseId);
+      lastResults = await getAssessmentResults();
     }
-    return last;
+    if (lastResults.length == 0) return null;
+    return lastResults.sortedBy((element) => element.submissionDate).last;
+  }
+
+  Future<List<AssessmentResult>> getAssessmentResults() async {
+    if (_assessmentResultsCache == null) {
+      var ud = await getUserData();
+      _assessmentResultsCache =
+          await _databaseService.getAssessmentResults(ud!.user);
+    }
+    return _assessmentResultsCache!;
   }
 
   AssessmentResult? getLastAssessmentResultCached() {
@@ -136,11 +151,11 @@ class DataService {
   }
 
   Future<void> saveAssessment(AssessmentResult assessment) async {
+    var arCache = await getAssessmentResults();
+    arCache.add(assessment);
+
     var ud = await getUserData();
-
-    _lastAssessmentResultCache = assessment;
-
-    await _databaseService.saveAssessment(assessment, ud!.firebaseId);
+    await _databaseService.saveAssessment(assessment, ud!.user);
   }
 
   Future<void> setBackgroundImage(String imagePath) async {

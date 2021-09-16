@@ -68,14 +68,11 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   bool didCompleteEveningItemsYesterday() {
-    var last = dataService.getLastAssessmentResultCached();
+    var last = dataService.getLastAssessmentResultForCached(EVENING_ASSESSMENT);
 
     if (last == null) return false;
 
-    if (last.submissionDate.daysAgo() == 1) {
-      return last.assessmentType == EVENING_ASSESSMENT;
-    }
-    return false;
+    return (last.submissionDate.daysAgo() <= 1);
   }
 
   int getNextStepForDidLearn() {
@@ -91,10 +88,10 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     // did learn yesterday
     else if (answer == "2") {
       if (didCompleteEveningItemsYesterday()) {
+        step = getStepIndex(MorningAssessmentStep.morningItems);
+      } else {
         step =
             getStepIndex(MorningAssessmentStep.rememberToUsePromptAfterCabuu);
-      } else {
-        step = getStepIndex(MorningAssessmentStep.eveningItems);
       }
     }
 

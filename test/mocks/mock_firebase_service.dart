@@ -97,4 +97,10 @@ class MockFirebaseService implements IDatabaseService {
     // TODO: implement getLastAssessmentResultFor
     throw UnimplementedError();
   }
+
+  @override
+  Future<List<AssessmentResult>> getAssessmentResults(String userid) {
+    // TODO: implement getAssessmentResults
+    throw UnimplementedError();
+  }
 }

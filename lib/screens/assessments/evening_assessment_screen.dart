@@ -21,6 +21,7 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
 
   late Map<String, Widget> _stepScreenMap = {
     didLearnCabuuToday: didLearnCabuuTodayQuestionnaire,
+    continueAfterCabuu: continueAfterCabuuScreen,
     eveningItems: eveningQuestionnaire,
   };
   @override
@@ -50,6 +51,10 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
           // initialStep: vm.getPreviouslyCompletedStep(),
         ))));
   }
+
+  late var continueAfterCabuuScreen = PlaceholderScreen(
+      text: "Mache hier erst weiter, wenn du mit cabuu gelernt hast",
+      key: ValueKey(continueAfterCabuu));
 
   late var distributedLearningVideo = PlaceholderScreen(
       text: "Video zum verteilten Lernen", key: ValueKey(eveningItems));

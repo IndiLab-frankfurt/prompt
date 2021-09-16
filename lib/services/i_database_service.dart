@@ -38,6 +38,8 @@ abstract class IDatabaseService {
 
   Future<AssessmentResult?> getLastAssessmentResult(String userid);
 
+  Future<List<AssessmentResult>> getAssessmentResults(String userid);
+
   Future<AssessmentResult?> getLastAssessmentResultFor(
       String userid, String assessmentName);
 

@@ -10,11 +10,16 @@ import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 const String eveningItems = "eveningItems";
 const String didLearnCabuuToday = "didLearnCabuuToday";
 const String distributedLearning = "distributedLearning";
+const String continueAfterCabuu = "continueAfterCabuu";
 
 class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   final ExperimentService experimentService;
 
-  List<String> screenOrder = [didLearnCabuuToday, eveningItems];
+  List<String> screenOrder = [
+    didLearnCabuuToday,
+    continueAfterCabuu,
+    eveningItems
+  ];
 
   EveningAssessmentViewModel(this.experimentService, DataService dataService)
       : super(dataService);
@@ -53,16 +58,22 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
     step += 1;
     if (currentPageKey.value == didLearnCabuuToday) {
       var answer = allAssessmentResults["didLearnToday"]!["didLearnToday_1"];
-      // did learn yesterday
+      // did learn with cabuu today
       if (answer == "1") {
         step = getStepIndex(eveningItems);
-      } else
-        submit();
-      // did not learn yesterday
+      }
+      // did not learn with cabuu today
+      else {
+        step = getStepIndex(continueAfterCabuu);
+      }
     }
 
     if (currentPageKey.value == eveningItems) {
       step = getStepIndex(distributedLearning);
+    }
+
+    if (currentPageKey.value == continueAfterCabuu) {
+      continueWithoutSubmission();
     }
 
     return step;
@@ -80,6 +91,10 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
     experimentService.submitAssessment(oneBigAssessment, EVENING_ASSESSMENT);
 
+    experimentService.nextScreen(RouteNames.ASSESSMENT_EVENING);
+  }
+
+  continueWithoutSubmission() {
     experimentService.nextScreen(RouteNames.ASSESSMENT_EVENING);
   }
 }

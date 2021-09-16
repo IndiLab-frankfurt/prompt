@@ -109,7 +109,8 @@ class ExperimentService {
   }
 
   Future<bool> isTimeForMorningAssessment() async {
-    var last = await _dataService.getLastAssessmentResult();
+    var lastMorningAssessment =
+        await _dataService.getLastAssessmentResultFor(MORNING_ASSESSMENT);
 
     var userData = _dataService.getUserDataCache();
 
@@ -118,9 +119,9 @@ class ExperimentService {
       return false;
     }
     // If there is no last result, none has been submitted, so the first should be done
-    if (last == null) return true;
+    if (lastMorningAssessment == null) return true;
 
-    if (last.submissionDate.isToday()) {
+    if (lastMorningAssessment.submissionDate.isToday()) {
       return false;
     }
 
@@ -128,21 +129,22 @@ class ExperimentService {
   }
 
   Future<bool> isTimeForEveningAssessment() async {
-    var last = await _dataService.getLastAssessmentResult();
+    var lastMorningAssessment =
+        await _dataService.getLastAssessmentResultFor(MORNING_ASSESSMENT);
 
-    // If there is no last result, none has been submitted, so the first should be done
-    if (last == null) return false;
-
-    if (last.submissionDate.isToday()) {
-      // If morning questions have already been submitted today
-      if (last.assessmentType == MORNING_ASSESSMENT) {
-        return true;
-      }
-      // If Evening assessment has already been submitted today
-      if (last.assessmentType == EVENING_ASSESSMENT) {
-        return false;
-      } else {
-        return true;
+    var lastEveningAssessment =
+        await _dataService.getLastAssessmentResultFor(MORNING_ASSESSMENT);
+    // If there is no prior morning assessment, this should be done first.
+    if (lastMorningAssessment == null) return false;
+    // If the morning assessment has been completed today
+    if (lastMorningAssessment.submissionDate.isToday()) {
+      // Check if the evening assessment has been completed today as well
+      if (lastEveningAssessment != null) {
+        if (lastEveningAssessment.submissionDate.isToday()) {
+          return false;
+        } else {
+          return true;
+        }
       }
     }
 

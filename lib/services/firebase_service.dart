@@ -158,6 +158,19 @@ class FirebaseService implements IDatabaseService {
     });
   }
 
+  Future<List<AssessmentResult>> getAssessmentResults(String userid) async {
+    return _databaseReference
+        .collection(COLLECTION_ASSESSMENTS)
+        .where("user", isEqualTo: userid)
+        .orderBy("submissionDate", descending: true)
+        .get()
+        .then((snapshot) {
+      return snapshot.docs
+          .map((e) => AssessmentResult.fromDocument(e))
+          .toList();
+    });
+  }
+
   @override
   Future<AssessmentResult?> getLastAssessmentResultFor(
       String userid, String assessmentName) {
