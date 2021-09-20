@@ -13,6 +13,7 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
+import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/daily_internalisation_view_model.dart';
@@ -55,7 +56,8 @@ class AppRouter {
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => SessionZeroViewModel(
                     locator.get<ExperimentService>(),
-                    locator.get<DataService>()),
+                    locator.get<DataService>(),
+                    locator.get<RewardService>()),
                 child: SessionZeroScreen()));
 
       case RouteNames.DAILY_INTERNALISATION:

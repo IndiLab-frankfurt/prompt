@@ -168,6 +168,16 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 UsageStatsService.grantUsagePermission();
               }),
+          Divider(),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Scheduled Notifications",
+              onTap: () async {
+                var pending = await locator<NotificationService>()
+                    .getPendingNotifications();
+
+                print(pending);
+              }),
         ],
       ),
     );

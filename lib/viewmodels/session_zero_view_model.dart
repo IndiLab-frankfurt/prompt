@@ -1,6 +1,8 @@
 import 'package:flutter/foundation.dart';
+import 'package:prompt/locator.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
@@ -51,6 +53,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   String get selectedMascot => _selectedMascot;
   set selectedMascot(String selected) {
     this._selectedMascot = selected;
+    _dataService.setSelectedMascot(selected);
+    _rewardService.selectedMascot = selected;
     notifyListeners();
   }
 
@@ -91,8 +95,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   final ExperimentService _experimentService;
   final DataService _dataService;
+  final RewardService _rewardService;
 
-  SessionZeroViewModel(this._experimentService, this._dataService)
+  SessionZeroViewModel(
+      this._experimentService, this._dataService, this._rewardService)
       : super(_dataService) {
     getScreenOrder();
   }
@@ -168,7 +174,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   void submit() {
-    dataService.saveSelectedMascot(selectedMascot);
+    dataService.setSelectedMascot(selectedMascot);
 
     _experimentService.nextScreen(RouteNames.SESSION_ZERO);
   }

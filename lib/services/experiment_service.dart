@@ -133,7 +133,7 @@ class ExperimentService {
         await _dataService.getLastAssessmentResultFor(MORNING_ASSESSMENT);
 
     var lastEveningAssessment =
-        await _dataService.getLastAssessmentResultFor(MORNING_ASSESSMENT);
+        await _dataService.getLastAssessmentResultFor(EVENING_ASSESSMENT);
     // If there is no prior morning assessment, this should be done first.
     if (lastMorningAssessment == null) return false;
     // If the morning assessment has been completed today

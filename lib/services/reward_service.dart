@@ -13,15 +13,23 @@ class RewardService {
   int daysActive = 0;
   int streakDays = 0;
   final Color backgroundBase = Color(0xFFFFF3E0);
+  final Color backGroundViking = Color(0xff061021);
+  final Color backgroundPlane = Color(0xff9fc7f0);
+  final Color backgroundSpace = Color(0xff08111f);
+  final Color backgroundVulcan = Color(0xffb7c6d6);
+  final Color backgroundWizard = Color(0xffccdcf6);
+  final Color backgroundPyramid = Color(0xffa2d0ff);
+  final Color backgroundOcean = Color(0xff97b9d3);
   String backgroundImagePath = "assets/illustrations/mascot_1_bare.png";
   String selectedMascot = "1";
   static const int STREAK_THRESHOLD = 5;
-  // LinearGradient _baseGradient =
+
   LinearGradient backgroundColor = LinearGradient(
     colors: [Colors.orange, Colors.orange],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
+
   final DataService _dataService;
   final LoggingService _logService;
 
@@ -83,7 +91,7 @@ class RewardService {
         begin: Alignment.topCenter,
         end: Alignment.bottomCenter,
       );
-      // setBackgroundColor(bgColor);
+
       this.backgroundColor = bgColor;
 
       return colors;
@@ -109,59 +117,59 @@ class RewardService {
           LinearGradient(colors: [backgroundBase, backgroundBase])),
       UnlockableBackground(
           "Flugzeug",
-          "assets/illustrations/backgrounds/mascot_${mascotId}_plane_2.png",
+          "assets/illustrations/mascot_${mascotId}_plane_2.png",
           0,
-          LinearGradient(colors: [backgroundBase, Color(0xff9fc7f0)])),
+          LinearGradient(colors: [backgroundBase, backgroundPlane])),
       UnlockableBackground(
           "Weltraum 1",
-          "assets/illustrations/backgrounds/mascot_${mascotId}_space_1.png",
-          1,
-          LinearGradient(colors: [backgroundBase, Color(0xff08111f)])),
+          "assets/illustrations/mascot_${mascotId}_space_1.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backgroundSpace])),
       UnlockableBackground(
           "Pyramiden",
-          "assets/illustrations/backgrounds/mascot_${mascotId}_pyramid.png",
-          3,
-          LinearGradient(colors: [backgroundBase, Color(0xffa2d0ff)])),
+          "assets/illustrations/mascot_${mascotId}_pyramid_1.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backgroundPyramid])),
       UnlockableBackground(
           "Vulkan 1",
-          "assets/illustrations/backgrounds/mascot_${mascotId}_vulcan_1.png",
-          6,
-          LinearGradient(colors: [backgroundBase, Color(0xffb7c6d6)])),
+          "assets/illustrations/mascot_${mascotId}_vulcan_1.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backgroundVulcan])),
       UnlockableBackground(
           "Wikinger",
-          "assets/illustrations/backgrounds/mascot_${mascotId}_viking_1.png",
-          9,
-          LinearGradient(colors: [backgroundBase, Color(0xff08172e)])),
+          "assets/illustrations/mascot_${mascotId}_viking_1.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backGroundViking])),
       UnlockableBackground(
           "Ozean 1",
-          "assets/illustrations/backgrounds/mascot_ocean_2.png",
-          12,
-          LinearGradient(colors: [backgroundBase, Color(0xff97b9d3)])),
+          "assets/illustrations/mascot_${mascotId}_ocean_2.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backgroundOcean])),
       UnlockableBackground(
           "Pyramide 2",
-          "assets/illustrations/backgrounds/mascot_${mascotId}_pyramid_2.png",
-          15,
-          LinearGradient(colors: [backgroundBase, Color(0xffa2d0ff)])),
+          "assets/illustrations/mascot_${mascotId}_pyramid_2.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backgroundPyramid])),
       UnlockableBackground(
           "Weltraum",
-          "assets/illustrations/backgrounds/mascot_${mascotId}_space_2.png",
-          18,
-          LinearGradient(colors: [backgroundBase, Color(0xff08111f)])),
+          "assets/illustrations/mascot_${mascotId}_space_2.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backgroundSpace])),
       UnlockableBackground(
           "Vulkan 2",
-          "assets/illustrations/backgrounds/mascot_${mascotId}_vulcan_2.png",
-          21,
-          LinearGradient(colors: [backgroundBase, Color(0xffb7c6d6)])),
+          "assets/illustrations/mascot_${mascotId}_vulcan_2.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backgroundVulcan])),
       UnlockableBackground(
           "Wikinger 2",
-          "assets/illustrations/backgrounds/mascot_${mascotId}_viking_2.png",
-          24,
-          LinearGradient(colors: [backgroundBase, Color(0xff08172e)])),
+          "assets/illustrations/mascot_${mascotId}_viking_2.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backGroundViking])),
       UnlockableBackground(
           "Zauberei 2",
-          "assets/illustrations/backgrounds/mascot_${mascotId}_wizard_2.png",
-          27,
-          LinearGradient(colors: [backgroundBase, Color(0xffccdcf6)])),
+          "assets/illustrations/mascot_${mascotId}_wizard_2.png",
+          0,
+          LinearGradient(colors: [backgroundBase, backgroundWizard])),
     ];
   }
 

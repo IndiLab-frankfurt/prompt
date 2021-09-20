@@ -115,7 +115,7 @@ class DataService {
     }
   }
 
-  saveSelectedMascot(String mascot) async {
+  setSelectedMascot(String mascot) async {
     var ud = await getUserData();
     if (ud != null) {
       ud.selectedMascot = mascot;
