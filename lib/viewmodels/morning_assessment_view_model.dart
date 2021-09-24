@@ -136,7 +136,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
     if (currentPageKey.value ==
         MorningAssessmentStep.rememberToUsePromptAfterCabuu) {
-      step = getStepIndex(MorningAssessmentStep.morningItems);
+      step = getStepIndex(MorningAssessmentStep.eveningItems);
     }
 
     if (currentPageKey.value == MorningAssessmentStep.morningItems) {

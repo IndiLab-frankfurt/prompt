@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prompt/locator.dart';
+import 'package:prompt/screens/assessments/disributed_learning_video_screen.dart';
 import 'package:prompt/screens/assessments/evening_assessment_screen.dart';
 import 'package:prompt/screens/internalisation/daily_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/default_reminder_screen.dart';
@@ -89,6 +90,9 @@ class AppRouter {
 
       case RouteNames.REMINDER_DEFAULT:
         return MaterialPageRoute(builder: (_) => DefaultReminderScreen());
+
+      case RouteNames.VIDEO_DISTRIBUTED_LEARNING:
+        return MaterialPageRoute(builder: (_) => DistributedLearningVideo());
 
       default:
         return MaterialPageRoute(builder: (_) {

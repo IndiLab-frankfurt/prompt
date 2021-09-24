@@ -178,6 +178,14 @@ class PromptDrawer extends StatelessWidget {
 
                 print(pending);
               }),
+          Divider(),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Distributed Learning",
+              onTap: () async {
+                await Navigator.pushNamed(
+                    context, RouteNames.VIDEO_DISTRIBUTED_LEARNING);
+              }),
         ],
       ),
     );

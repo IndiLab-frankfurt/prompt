@@ -17,4 +17,6 @@ class RouteNames {
   static const ASSESSMENT_MORNING = "/assessmentmorning";
   static const ASSESSMENT_EVENING = "/assessmentevening";
   static const ASSESSMENT_FINAL = "/assessmentfinal";
+
+  static const VIDEO_DISTRIBUTED_LEARNING = "/videodistributedlearning";
 }

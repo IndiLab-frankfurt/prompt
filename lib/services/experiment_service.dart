@@ -4,6 +4,7 @@ import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
+import 'package:prompt/services/usage_stats/usage_stats_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/extensions.dart';
@@ -40,9 +41,21 @@ class ExperimentService {
       this._loggingService, this._rewardService, this._navigationService);
 
   nextScreen(String currentScreen) async {
-    if (currentScreen == RouteNames.SESSION_ZERO ||
-        currentScreen == RouteNames.ASSESSMENT_EVENING ||
-        currentScreen == RouteNames.ASSESSMENT_MORNING) {
+    if (currentScreen == RouteNames.SESSION_ZERO) {
+      UsageStatsService.grantUsagePermission();
+      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
+    }
+
+    if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
+      if (isDistributedLearningDay()) {
+        await _navigationService
+            .navigateTo(RouteNames.VIDEO_DISTRIBUTED_LEARNING);
+      } else {
+        await _navigationService.navigateTo(RouteNames.NO_TASKS);
+      }
+    }
+
+    if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
     }
 
@@ -94,13 +107,6 @@ class ExperimentService {
     return (daysAgo == 18) && (userData.group == 1);
   }
 
-  shouldShowDistributedLearningVideo() {
-    var userData = _dataService.getUserDataCache();
-    var daysAgo = userData.registrationDate.daysAgo();
-
-    return daysAgo == 18;
-  }
-
   bool isTimeForFinalQuestionnaire() {
     var userData = _dataService.getUserDataCache();
     var daysAgo = userData.registrationDate.daysAgo();
@@ -149,6 +155,12 @@ class ExperimentService {
     }
 
     return true;
+  }
+
+  bool shouldShowDistributedLearningVideo() {
+    var ud = _dataService.getUserDataCache();
+    var daysAgo = ud.registrationDate.daysAgo();
+    return (ud.group == 1) && (daysAgo == 18);
   }
 
   InternalisationCondition getInternalisationCondition() {

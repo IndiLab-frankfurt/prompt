@@ -85,7 +85,7 @@ class _WaitingInternalisationScreenState
             value: animation.value,
           ),
           UIHelper.verticalSpaceMedium(),
-          if (_done) _buildSubmitButton()
+          // if (_done) _buildSubmitButton()
         ],
       ),
     );

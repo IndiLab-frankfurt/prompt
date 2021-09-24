@@ -1,4 +1,6 @@
 import 'package:flutter/services.dart';
+import 'package:prompt/locator.dart';
+import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/usage_stats/usage_info.dart';
 
 class UsageStatsService {
@@ -6,13 +8,11 @@ class UsageStatsService {
 
   void init() {}
 
-  static Future<void> getUsageStats() async {
+  static Future<void> grantUsagePermission() async {
     var result = await _channel.invokeMethod('grantUsagePermission');
     print(result);
-  }
-
-  static Future<void> grantUsagePermission() async {
-    await _channel.invokeMethod('grantUsagePermission');
+    locator<LoggingService>()
+        .logEvent("UsagePermissions", data: {"result": result});
   }
 
   static Future<List<UsageInfo>> queryUsageStats(
