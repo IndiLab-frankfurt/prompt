@@ -1,0 +1,37 @@
+{
+    "title": "",
+    "id": "morning",
+    "questions": [
+        {
+            "id": "intention_1",
+            "questionText": "Hast du vor, heute mit cabuu zu lernen?",
+            "labels": {
+                "1": "Ja",
+                "2": "Ich habe heute  keine Lust",
+                "3": "Ich habe heute keine Zeit",
+                "4": "Ich habe heute keine Vokabeln zu lernen",
+                "TEXTINPUT_1": "Nein, weil:"
+            }
+        },
+        {
+            "id": "expectancy",
+            "questionText": "Kannst du es heute schaffen, mit cabuu zu lernen?",
+            "labels": {
+                "1": "Sicher nicht",
+                "2": "Eher nicht",
+                "3": "Eher ja",
+                "4": "Sicher ja"
+            }
+        },
+        {
+            "id": "importance",
+            "questionText": "Wie wichtig ist es dir, heute mit cabuu zu lernen?",
+            "labels": {
+                "1": "Sicher unwichtig",
+                "2": "Eher unwichtig",
+                "3": "Eher wichtig",
+                "4": "Sehr wichtig"
+            }
+        }
+    ]
+}

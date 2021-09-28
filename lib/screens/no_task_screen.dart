@@ -152,6 +152,8 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                                 UIHelper.verticalSpaceSmall(),
                                 if (vm.showLearnedWithCabuuButton)
                                   _buildToNextTaskButton(),
+                                if (vm.showVocabularyTestReminder)
+                                  _buildVocabTestReminder(),
                                 UIHelper.verticalSpaceSmall(),
                                 _buildChangeBackgroundButton(),
                                 UIHelper.verticalSpaceMedium(),
@@ -216,6 +218,34 @@ class _NoTasksScreenState extends State<NoTasksScreen>
         )
       ],
     );
+  }
+
+  _buildVocabTestReminder() {
+    return Container(
+        width: double.infinity,
+        height: 50,
+        margin: EdgeInsets.all(10),
+        child: Column(
+          children: [
+            Text("Denk dran, heute in cabuu den Test zu machen"),
+            OutlinedButton(
+              onPressed: () async {
+                await Navigator.pushNamed(
+                    context, RouteNames.ASSESSMENT_EVENING);
+                setState(() {});
+              },
+              child: Text(
+                "Drücke hier, wenn du damit fertig bist",
+                style: TextStyle(color: Colors.black),
+              ),
+              style: OutlinedButton.styleFrom(
+                  backgroundColor: Colors.orange[200],
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(10))),
+                  side: BorderSide(width: 1.0, color: Colors.grey)),
+            ),
+          ],
+        ));
   }
 
   _buildToNextTaskButton() {

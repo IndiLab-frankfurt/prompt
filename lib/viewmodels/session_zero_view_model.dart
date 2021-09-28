@@ -58,9 +58,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
-  String _plan = "Wenn ich nach Hause komme, esse ich eine Wurst";
+  String _plan = "";
   String get plan => _plan;
   set plan(String plan) {
+    plan = "Wenn ich $plan, dann lerne ich mit cabuu";
     this._plan = plan;
     internalisationViewmodel.plan = plan;
     notifyListeners();
@@ -118,7 +119,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.welcome,
       SessionZeroStep.whereCanYouFindThisInformation,
       SessionZeroStep.cabuuCode,
-      SessionZeroStep.cabuuLink,
+      // SessionZeroStep.cabuuLink,
       SessionZeroStep.mascotSelection,
       SessionZeroStep.moderatorVariables,
       SessionZeroStep.whyLearnVocabs,
@@ -162,6 +163,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     return screenOrder;
   }
 
+  int getStepIndex(SessionZeroStep step) {
+    return screenOrder.indexOf(step);
+  }
+
   @override
   bool canMoveBack(ValueKey currentPageKey) {
     return true;
@@ -169,12 +174,16 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   bool canMoveNext(ValueKey currentPageKey) {
+    if (currentPageKey.value == SessionZeroStep.planCreation) {
+      return plan.isNotEmpty;
+    }
     return true;
   }
 
   @override
   void submit() {
     dataService.setSelectedMascot(selectedMascot);
+    dataService.savePlan(plan);
 
     _experimentService.nextScreen(RouteNames.SESSION_ZERO);
   }

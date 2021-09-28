@@ -31,6 +31,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   int group = 0;
 
+  String finalMessage = "Vielen Dank, dass du die Fragen beantwortest hast";
+
   List<MorningAssessmentStep> screenOrder = [
     MorningAssessmentStep.didLearn,
     MorningAssessmentStep.rememberToUsePromptAfterCabuu,
@@ -43,7 +45,11 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   ];
 
   MorningAssessmentViewModel(this.experimentService, this.dataService)
-      : super(dataService);
+      : super(dataService) {
+    if (dataService.getUserDataCache().registrationDate.daysAgo() == 9) {
+      finalMessage = "Denk dran, dass du heute in cabuu den Test machen sollst";
+    }
+  }
 
   @override
   bool canMoveBack(ValueKey currentPageKey) {
@@ -171,6 +177,14 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     this.internalisationViewmodel.completed = true;
     print("Internalisation completed with input $input");
     notifyListeners();
+  }
+
+  Future<bool> getPlan() async {
+    var lastPlan = await dataService.getLastPlan();
+    if (lastPlan != null) {
+      internalisationViewmodel.plan = lastPlan.plan;
+    }
+    return true;
   }
 
   @override

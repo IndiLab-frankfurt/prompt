@@ -1,3 +1,4 @@
+import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,12 +14,6 @@ class MockFirebaseService implements IDatabaseService {
   Future<UserData?> getUserData(String email) {
     throw UnimplementedError();
   }
-
-  @override
-  void handleError(Object? e, {String data = ""}) {}
-
-  @override
-  void handleTimeout(String function) {}
 
   @override
   insertUserData(UserData userData) {
@@ -101,6 +96,18 @@ class MockFirebaseService implements IDatabaseService {
   @override
   Future<List<AssessmentResult>> getAssessmentResults(String userid) {
     // TODO: implement getAssessmentResults
+    throw UnimplementedError();
+  }
+
+  @override
+  savePlan(String plan, String userid) {
+    // TODO: implement savePlan
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Plan?> getLastPlan(String userid) {
+    // TODO: implement getLastPlan
     throw UnimplementedError();
   }
 }

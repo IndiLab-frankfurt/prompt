@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -13,6 +15,7 @@ class IntervalScale extends StatefulWidget {
   final String id;
   final IntervalScaleCallback callback;
   final int groupValue;
+  final bool randomize;
 
   IntervalScale(
       {Key? key,
@@ -20,17 +23,39 @@ class IntervalScale extends StatefulWidget {
       required this.labels,
       this.groupValue = -1,
       this.id = "",
+      this.randomize = false,
       required this.callback})
       : super(key: key);
 }
 
 class _IntervalScaleState extends State<IntervalScale> {
   int _groupValue = -1;
+  Map<String, String> items = {};
+
+  randomizeMap(Map<String, String> map) {
+    var random = new Random();
+    Map<String, String> newmap = {};
+    var list = List<int>.generate(map.length, (i) => i + 1);
+    list.shuffle();
+    for (var i in list) {
+      var existingKey = widget.labels.keys.elementAt(i);
+      var existingValue = widget.labels.values.elementAt(i);
+      newmap[existingKey] = existingValue;
+    }
+
+    return newmap;
+  }
 
   @override
   void initState() {
     super.initState();
     _groupValue = widget.groupValue;
+
+    if (widget.randomize) {
+      items = randomizeMap(widget.labels);
+    } else {
+      items = widget.labels;
+    }
   }
 
   _onChanged(int groupValue, String selectedValue) {

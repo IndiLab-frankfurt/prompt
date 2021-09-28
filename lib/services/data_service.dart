@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_item.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:collection/collection.dart';
 import 'package:prompt/services/i_database_service.dart';
@@ -113,6 +114,17 @@ class DataService {
       await _databaseService.saveDaysAcive(
           _userService.getUsername(), daysActive);
     }
+  }
+
+  savePlan(String plan) async {
+    var planModel = Plan(plan);
+    var ud = await getUserData();
+    await _databaseService.savePlan(planModel, ud!.user);
+  }
+
+  Future<Plan?> getLastPlan() async {
+    var ud = await getUserData();
+    return await _databaseService.getLastPlan(ud!.user);
   }
 
   setSelectedMascot(String mascot) async {

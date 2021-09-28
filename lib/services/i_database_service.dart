@@ -1,28 +1,29 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 
 abstract class IDatabaseService {
-  void handleError(Object? e, {String data = ""}) {}
-
-  void handleTimeout(String function);
-
   Stream<User?>? getCurrentUser();
 
   Future<bool?> isNameAvailable(String userId);
 
   Future<UserData?> registerUser(
-      String userId, String password, int internalisationCondition) async {}
+      String userId, String password, int internalisationCondition);
 
-  insertUserData(UserData userData) async {}
+  insertUserData(UserData userData);
 
-  saveScrambleCorrections(dynamic corrections) async {}
+  saveScrambleCorrections(dynamic corrections);
 
-  Future<UserData?> getUserData(String email) async {}
+  Future<UserData?> getUserData(String email);
 
-  Future<User?> signInUser(String userId, String password) async {}
+  Future<User?> signInUser(String userId, String password);
 
   saveAssessment(AssessmentResult assessment, String userid);
+
+  savePlan(Plan plan, String userid);
+
+  Future<Plan?> getLastPlan(String userid);
 
   Future<void> saveScore(String userid, int score);
 

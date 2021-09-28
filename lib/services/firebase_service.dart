@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:flutter/services.dart';
 import 'package:prompt/services/i_database_service.dart';
@@ -23,9 +24,7 @@ class FirebaseService implements IDatabaseService {
         Settings(persistenceEnabled: true, cacheSizeBytes: 5000000);
   }
 
-  static const String COLLECTION_GOALS = "goals";
-  static const String COLLECTION_GOALS_DELETED = "deletedGoals";
-  static const String COLLECTION_GOALS_OPEN = "openGoals";
+  static const String COLLECTION_PLANS = "plans";
   static const String COLLECTION_USERS = "users";
   static const String COLLECTION_ASSESSMENTS = "assessments";
   static const String COLLECTION_TAGS = "tags";
@@ -145,6 +144,15 @@ class FirebaseService implements IDatabaseService {
         .then((res) => res);
   }
 
+  savePlan(Plan plan, String userid) async {
+    var planMap = plan.toMap();
+    planMap["user"] = userid;
+    _databaseReference
+        .collection(COLLECTION_PLANS)
+        .add(planMap)
+        .then((res) => res);
+  }
+
   Future<AssessmentResult?> getLastAssessmentResult(String userid) async {
     return _databaseReference
         .collection(COLLECTION_ASSESSMENTS)
@@ -155,6 +163,19 @@ class FirebaseService implements IDatabaseService {
         .then((snapshot) {
       if (snapshot.docs.length == 0) return null;
       return AssessmentResult.fromDocument(snapshot.docs[0]);
+    });
+  }
+
+  Future<Plan?> getLastPlan(String userid) async {
+    return _databaseReference
+        .collection(COLLECTION_PLANS)
+        .where("user", isEqualTo: userid)
+        .orderBy("submissionDate", descending: true)
+        .limit(1)
+        .get()
+        .then((snapshot) {
+      if (snapshot.docs.length == 0) return null;
+      return Plan.fromDocument(snapshot.docs[0]);
     });
   }
 

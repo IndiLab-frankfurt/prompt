@@ -88,7 +88,15 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     return ChangeNotifierProvider.value(
         value: vm.internalisationViewmodel,
         key: ValueKey(MorningAssessmentStep.internalisation),
-        child: internalisation);
+        child: FutureBuilder(
+          future: vm.getPlan(),
+          builder: (_, snapshot) {
+            if (snapshot.hasData) {
+              return internalisation;
+            }
+            return Container(child: CircularProgressIndicator());
+          },
+        ));
   }
 
   late var rememberToUsePromptAfterCabuu = Column(
@@ -109,7 +117,8 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
   );
 
   late var completed = MarkdownBody(
-      data: "# Vielen Dank", key: ValueKey(MorningAssessmentStep.eveningItems));
+      data: "# " + vm.finalMessage,
+      key: ValueKey(MorningAssessmentStep.eveningItems));
 
   late var eveningItems = MarkdownBody(
       data: "# Abend-Items", key: ValueKey(MorningAssessmentStep.eveningItems));

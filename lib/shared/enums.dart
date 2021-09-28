@@ -30,7 +30,8 @@ enum AssessmentTypes {
   didLearnWhen,
   motivation,
   selfEfficacy,
-  didLearnYesterday
+  didLearnYesterday,
+  morning
 }
 
 enum InternalisationCondition {

@@ -12,6 +12,7 @@ class NoTaskViewModel extends BaseViewModel {
   final NavigationService _navigationService;
 
   bool showLearnedWithCabuuButton = false;
+  bool showVocabularyTestReminder = false;
 
   late int daysActive =
       _dataService.getUserDataCache().registrationDate.daysAgo();
@@ -35,6 +36,12 @@ class NoTaskViewModel extends BaseViewModel {
 
     if (await _experimentService.isTimeForEveningAssessment()) {
       showLearnedWithCabuuButton = true;
+      notifyListeners();
+    }
+
+    if (daysActive % 9 == 0) {
+      showLearnedWithCabuuButton = false;
+      showVocabularyTestReminder = true;
       notifyListeners();
     }
   }

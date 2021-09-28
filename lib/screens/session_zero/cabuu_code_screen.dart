@@ -10,13 +10,14 @@ class CabuuCodeScreen extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          MarkdownBody(data: "## Dein Cabuu Code lautet:"),
+          Text("Dein Cabuu Code lautet:",
+              style: Theme.of(context).textTheme.subtitle1),
           Center(
             child: MarkdownBody(data: "# **12356**"),
           ),
           MarkdownBody(
               data:
-                  "## Schreibe dir diesen Code auf, du musst ihn dann in cabuu eingeben.")
+                  "### Schreibe dir diesen Code auf, du musst ihn dann in cabuu eingeben.")
         ],
       ),
     );
