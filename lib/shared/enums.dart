@@ -29,6 +29,8 @@ enum AssessmentTypes {
   didLearnToday,
   didLearnWhen,
   motivation,
+  itLiteracy,
+  learningFrequencyDuration,
   selfEfficacy,
   didLearnYesterday,
   morning

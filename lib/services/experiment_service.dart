@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/logging_service.dart';
@@ -42,7 +44,11 @@ class ExperimentService {
 
   nextScreen(String currentScreen) async {
     if (currentScreen == RouteNames.SESSION_ZERO) {
-      UsageStatsService.grantUsagePermission();
+      if (Platform.isAndroid) {
+        // TODO: Change to an instruction page
+        UsageStatsService.grantUsagePermission();
+      }
+
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
     }
 

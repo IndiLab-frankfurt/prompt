@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
+import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/assessments/questionnaire.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/placeholder_screen.dart';
@@ -10,6 +11,7 @@ import 'package:prompt/screens/session_zero/goal_intention_screen.dart';
 import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
+import 'package:prompt/screens/session_zero/plan_timing_screen.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
@@ -39,12 +41,16 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.cabuuLink: cabuuLinkScreen,
       SessionZeroStep.mascotSelection: mascotSelectionScreen,
       SessionZeroStep.moderatorVariables: moderatorVariables,
-      SessionZeroStep.motivationQuestionnaire: motivationQuestionnaire,
+      SessionZeroStep.assessment_motivation: motivationQuestionnaire,
+      SessionZeroStep.assessment_itLiteracy: itLiteracyQuestionnaire,
+      SessionZeroStep.assessment_learningFrequencyDuration:
+          learningFrequencyDuration,
       SessionZeroStep.goalIntention: goalIntentionScreen,
       SessionZeroStep.videoPlanning: videoPlanning,
       SessionZeroStep.planCreation: planCreation,
       SessionZeroStep.planDisplay: planDisplay,
       SessionZeroStep.planInternalisation: planInternalisation,
+      SessionZeroStep.planTiming: planTiming,
       SessionZeroStep.selfEfficacy: selfEfficacyQuestionnaire,
       SessionZeroStep.videoInstructionComplete: instructionComplete
     };
@@ -75,16 +81,16 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   var welcomeScreen = WelcomeScreen(key: ValueKey(SessionZeroStep.welcome));
 
-  var cabuuCodeScreen =
+  late var cabuuCodeScreen =
       CabuuCodeScreen(key: ValueKey(SessionZeroStep.cabuuCode));
 
-  var cabuuLinkScreen =
+  late var cabuuLinkScreen =
       CabuuLinkScreen(key: ValueKey(SessionZeroStep.cabuuLink));
 
-  var mascotSelectionScreen =
+  late var mascotSelectionScreen =
       MascotSelectionScreen(key: ValueKey(SessionZeroStep.mascotSelection));
 
-  var goalIntentionScreen =
+  late var goalIntentionScreen =
       GoalIntentionScreen(key: ValueKey(SessionZeroStep.goalIntention));
 
   late var videoPlanning = VideoScreen('assets/videos/videoLearning.mp4',
@@ -101,17 +107,34 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     key: ValueKey(SessionZeroStep.videoInstructionComplete),
   );
 
-  late var motivationQuestionnaire = questionnaire(AssessmentTypes.motivation,
-      ValueKey(SessionZeroStep.motivationQuestionnaire));
+  late var motivationQuestionnaire = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.motivation,
+      key: ValueKey(SessionZeroStep.assessment_motivation));
 
-  late var selfEfficacyQuestionnaire = questionnaire(
-      AssessmentTypes.selfEfficacy, ValueKey(SessionZeroStep.selfEfficacy));
+  late var selfEfficacyQuestionnaire = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.selfEfficacy,
+      key: ValueKey(SessionZeroStep.selfEfficacy));
+
+  late var itLiteracyQuestionnaire = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.itLiteracy,
+      key: ValueKey(SessionZeroStep.assessment_itLiteracy));
+
+  late var learningFrequencyDuration = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.learningFrequencyDuration,
+      key: ValueKey(SessionZeroStep.assessment_learningFrequencyDuration));
 
   late var planCreation =
       PlanCreationScreen(key: ValueKey(SessionZeroStep.planCreation));
 
   late var planDisplay =
       PlanDisplayScreen(key: ValueKey(SessionZeroStep.planDisplay));
+
+  late var planTiming =
+      PlanTimingScreen(key: ValueKey(SessionZeroStep.planTiming));
 
   late var whereCanYouFindThisInformation = PlaceholderScreen(
     text:
@@ -125,21 +148,4 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     child: EmojiInternalisationScreen(
         key: ValueKey(SessionZeroStep.planInternalisation)),
   );
-
-  Widget questionnaire(AssessmentTypes assessmentTypes, Key key) {
-    var vm = Provider.of<SessionZeroViewModel>(context);
-    return FutureBuilder(
-        key: key,
-        future: vm.getAssessment(assessmentTypes),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data is Assessment) {
-              var assessment = snapshot.data as Assessment;
-              return Questionnaire(assessment, vm.setAssessmentResult,
-                  onLoaded: vm.onAssessmentLoaded, key: key);
-            }
-          }
-          return Container(child: CircularProgressIndicator());
-        });
-  }
 }

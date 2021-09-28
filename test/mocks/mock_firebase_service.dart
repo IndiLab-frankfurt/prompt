@@ -100,7 +100,7 @@ class MockFirebaseService implements IDatabaseService {
   }
 
   @override
-  savePlan(String plan, String userid) {
+  savePlan(Plan plan, String userid) {
     // TODO: implement savePlan
     throw UnimplementedError();
   }

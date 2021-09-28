@@ -1,16 +1,15 @@
 {
     "title": "",
-    "id": "learningGoals2",
+    "id": "plan",
     "questions": [
         {
-            "id": "learningGoals2_1",
-            "questionText": "Wie wahrscheinlich ist es, dass du es schaffst, an X Tagen pro Woche Vokabeln zu lernen?",
+            "id": "plan_time",
+            "questionText": "Dieser Plan wird mir dabei helfen, die Vokabeln in cabuu zu lernen",
             "labels": {
-                "1": "Sehr wahrscheinlich",
-                "2": "Eher wahrscheinlich",
-                "3": "Weder noch",
-                "4": "Eher unwahrscheinlich",
-                "5": "Sehr unwahrscheinlich"
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
             }
         },
         {

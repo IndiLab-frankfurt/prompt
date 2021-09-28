@@ -14,16 +14,19 @@ enum SessionZeroStep {
   cabuuLink,
   mascotSelection,
   moderatorVariables,
+  assessment_itLiteracy,
+  assessment_learningFrequencyDuration,
+  assessment_motivation,
   whyLearnVocabs,
-  motivationQuestionnaire,
   goalIntention,
   videoPlanning,
   videoDistributedLearning,
   planCreation,
   planDisplay,
   planInternalisation,
+  planTiming,
   selfEfficacy,
-  videoInstructionComplete
+  videoInstructionComplete,
 }
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
@@ -34,9 +37,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     SessionZeroStep.cabuuCode,
     SessionZeroStep.cabuuLink,
     SessionZeroStep.mascotSelection,
-    SessionZeroStep.moderatorVariables,
+    SessionZeroStep.assessment_itLiteracy,
     SessionZeroStep.whyLearnVocabs,
-    SessionZeroStep.motivationQuestionnaire,
+    SessionZeroStep.assessment_motivation,
     SessionZeroStep.goalIntention,
     SessionZeroStep.videoPlanning,
     // SessionZeroStep.videoDistributedLearning,
@@ -121,9 +124,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.cabuuCode,
       // SessionZeroStep.cabuuLink,
       SessionZeroStep.mascotSelection,
-      SessionZeroStep.moderatorVariables,
+      SessionZeroStep.assessment_itLiteracy,
+      SessionZeroStep.assessment_learningFrequencyDuration,
+      SessionZeroStep.assessment_motivation,
       SessionZeroStep.whyLearnVocabs,
-      SessionZeroStep.motivationQuestionnaire,
+      SessionZeroStep.assessment_motivation,
     ];
 
     List<SessionZeroStep> distributedLearning = [
@@ -141,6 +146,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planCreation,
       SessionZeroStep.planDisplay,
       SessionZeroStep.planInternalisation,
+      SessionZeroStep.planTiming,
       SessionZeroStep.selfEfficacy,
     ];
 
