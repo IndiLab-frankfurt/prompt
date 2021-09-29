@@ -9,6 +9,7 @@ import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
 import 'package:prompt/screens/session_zero/cabuu_link_screen.dart';
 import 'package:prompt/screens/session_zero/goal_intention_screen.dart';
 import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
+import 'package:prompt/screens/session_zero/plan_commitment_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
 import 'package:prompt/screens/session_zero/plan_timing_screen.dart';
@@ -52,7 +53,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.planInternalisation: planInternalisation,
       SessionZeroStep.planTiming: planTiming,
       SessionZeroStep.selfEfficacy: selfEfficacyQuestionnaire,
-      SessionZeroStep.videoInstructionComplete: instructionComplete
+      SessionZeroStep.videoInstructionComplete: instructionComplete,
+      SessionZeroStep.assessment_planCommitment: planCommitment
     };
 
     _pages = [];
@@ -135,6 +137,9 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   late var planTiming =
       PlanTimingScreen(key: ValueKey(SessionZeroStep.planTiming));
+
+  late var planCommitment = PlanCommitmentScreen(
+      key: ValueKey(SessionZeroStep.assessment_planCommitment));
 
   late var whereCanYouFindThisInformation = PlaceholderScreen(
     text:

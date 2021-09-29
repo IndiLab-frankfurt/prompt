@@ -79,8 +79,13 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
         children: [
           SpeechBubble(text: vm.plan),
           buildTimeItem(1, "Zu einer bestimmten Uhrzeit"),
-          buildRegularItem(2, "Ist jeden Tag ganz unterschiedlich"),
-          buildRegularItem(3, "Weiß ich nicht"),
+          buildRegularItem(2, "Zwischen 6 und 8 Uhr morgens"),
+          buildRegularItem(3, "Zwischen 10 und 12 Uhr morgens"),
+          buildRegularItem(4, "Zwischen 12 und 14 Uhr morgens"),
+          buildRegularItem(5, "Zwischen 14 und 16 Uhr morgens"),
+          buildRegularItem(6, "Zwischen 16 und 18 Uhr morgens"),
+          buildRegularItem(6, "Ist jeden Tag ganz unterschiedlich"),
+          buildRegularItem(7, "Weiß ich nicht"),
         ],
       ),
     );

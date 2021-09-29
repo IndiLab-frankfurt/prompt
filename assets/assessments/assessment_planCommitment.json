@@ -1,0 +1,49 @@
+{
+    "title": "",
+    "id": "planCommitment",
+    "questions": [
+        {
+            "id": "plan_time",
+            "questionText": "Dieser Plan wird mir dabei helfen, die Vokabeln in cabuu zu lernen",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "learningGoals2_2",
+            "questionText": "Wie wichtig ist es dir persönlich, dass du es schaffst, an X Tagen pro Woche Vokabeln zu lernen?",
+            "labels": {
+                "1": "Sehr wichtig",
+                "2": "Eher wichtig",
+                "3": "Mittel",
+                "4": "Eher unwichtig",
+                "5": "Sehr unwichtig"
+            }
+        },
+        {
+            "id": "learningGoals2_3",
+            "questionText": "Wie sehr verpasst du andere Dinge, wenn du an X Tagen pro Woche Vokabeln lernst?",
+            "labels": {
+                "1": "Gar nicht",
+                "2": "Kaum",
+                "3": "Teils/teils",
+                "4": "Ein bisschen",
+                "5": "Zu sehr"
+            }
+        },
+        {
+            "id": "learningGoals2_4",
+            "questionText": "Wie enttäuscht würdest du sein, wenn du es nicht schaffen würdest, an X Tagen pro Woche Vokabeln zu lernen?",
+            "labels": {
+                "1": "Gar nicht",
+                "2": "Kaum",
+                "3": "Mittel",
+                "4": "Ziemlich",
+                "5": "Voll und ganz"
+            }
+        }
+    ]
+}

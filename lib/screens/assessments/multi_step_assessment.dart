@@ -32,6 +32,7 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
         step = _controller.page!.round();
       }
       widget.vm.step = step;
+      widget.vm.onPageChange();
     });
   }
 

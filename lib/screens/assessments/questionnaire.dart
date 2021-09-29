@@ -7,14 +7,17 @@ import 'package:prompt/shared/ui_helper.dart';
 typedef void ItemSelectedCallback(
     String assessment, String itemId, String value);
 
+typedef void OnAssessmentCompletedCallback(Assessment assessment);
+
 typedef void OnLoadedCallback(Assessment assessment);
 
 class Questionnaire extends StatefulWidget {
   final Assessment assessment;
   final ItemSelectedCallback onFinished;
   final OnLoadedCallback onLoaded;
+  final OnAssessmentCompletedCallback? onAssessmentCompleted;
   const Questionnaire(this.assessment, this.onFinished,
-      {required this.onLoaded, Key? key})
+      {required this.onLoaded, this.onAssessmentCompleted, Key? key})
       : super(key: key);
 
   @override
@@ -37,6 +40,7 @@ class _QuestionnaireState extends State<Questionnaire> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance!.addPostFrameCallback((_) => afterBuild());
     print(widget.assessment.title);
     return Scrollbar(
       thickness: 8.0,
@@ -70,6 +74,14 @@ class _QuestionnaireState extends State<Questionnaire> {
         ],
       ),
     );
+  }
+
+  void afterBuild() {
+    if (_isFilledOut()) {
+      if (this.widget.onAssessmentCompleted != null) {
+        this.widget.onAssessmentCompleted!(this.widget.assessment);
+      }
+    }
   }
 
   buildQuestionCard(AssessmentItem assessment, int index) {
@@ -111,6 +123,7 @@ class _QuestionnaireState extends State<Questionnaire> {
     for (var assessmentItem in widget.assessment.items) {
       if (!_results.containsKey(assessmentItem.id)) canSubmit = false;
     }
+
     return canSubmit;
   }
 }

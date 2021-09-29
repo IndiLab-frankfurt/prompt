@@ -8,6 +8,8 @@ import 'package:prompt/viewmodels/base_view_model.dart';
 abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   final DataService dataService;
 
+  bool currentAssessmentIsFilledOut = false;
+
   int step = 0;
   Assessment lastAssessment = Assessment();
   DateTime startDate = DateTime.now();
@@ -28,16 +30,6 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
     return step + 1;
   }
 
-  isAssessmentFilledOut(Assessment assessment) {
-    if (assessment.id.isEmpty) return false;
-    bool canSubmit = true;
-    for (var assessmentItem in assessment.items) {
-      if (!currentAssessmentResults.containsKey(assessmentItem.id))
-        canSubmit = false;
-    }
-    return canSubmit;
-  }
-
   setAssessmentResult(String assessmentType, String itemId, String value) {
     currentAssessmentResults[itemId] = value;
 
@@ -45,6 +37,12 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
       allAssessmentResults[assessmentType] = {itemId: value};
     }
     allAssessmentResults[assessmentType]![itemId] = value;
+
+    notifyListeners();
+  }
+
+  void onAssessmentCompleted(Assessment assessment) {
+    currentAssessmentIsFilledOut = true;
 
     notifyListeners();
   }
@@ -65,5 +63,9 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   onAssessmentLoaded(Assessment assessment) {
     lastAssessment = assessment;
     currentAssessmentResults = {};
+  }
+
+  onPageChange() {
+    currentAssessmentIsFilledOut = false;
   }
 }

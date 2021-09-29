@@ -23,7 +23,9 @@ class MultiStepQuestionnaireFuture extends StatelessWidget {
             if (snapshot.data is Assessment) {
               var assessment = snapshot.data as Assessment;
               return Questionnaire(assessment, vm.setAssessmentResult,
-                  onLoaded: vm.onAssessmentLoaded, key: key);
+                  onAssessmentCompleted: vm.onAssessmentCompleted,
+                  onLoaded: vm.onAssessmentLoaded,
+                  key: key);
             }
           }
           return Container(child: CircularProgressIndicator());

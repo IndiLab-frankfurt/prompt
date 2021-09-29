@@ -14,9 +14,11 @@ enum SessionZeroStep {
   cabuuLink,
   mascotSelection,
   moderatorVariables,
+  assessment_planCommitment,
   assessment_itLiteracy,
   assessment_learningFrequencyDuration,
   assessment_motivation,
+  assessment_learningExpectations,
   whyLearnVocabs,
   goalIntention,
   videoPlanning,
@@ -146,7 +148,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planCreation,
       SessionZeroStep.planDisplay,
       SessionZeroStep.planInternalisation,
+      SessionZeroStep.assessment_planCommitment,
       SessionZeroStep.planTiming,
+      SessionZeroStep.assessment_learningExpectations,
       SessionZeroStep.selfEfficacy,
     ];
 
@@ -180,9 +184,76 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   bool canMoveNext(ValueKey currentPageKey) {
-    if (currentPageKey.value == SessionZeroStep.planCreation) {
-      return plan.isNotEmpty;
+    var stepKey = currentPageKey.value as SessionZeroStep;
+
+    switch (stepKey) {
+      case SessionZeroStep.welcome:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.whereCanYouFindThisInformation:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.cabuuCode:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.cabuuLink:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.mascotSelection:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.moderatorVariables:
+        return true;
+        break;
+      case SessionZeroStep.assessment_planCommitment:
+        return currentAssessmentIsFilledOut;
+        break;
+      case SessionZeroStep.assessment_itLiteracy:
+        return currentAssessmentIsFilledOut;
+        break;
+      case SessionZeroStep.assessment_learningFrequencyDuration:
+        return currentAssessmentIsFilledOut;
+        break;
+      case SessionZeroStep.assessment_motivation:
+        return currentAssessmentIsFilledOut;
+        break;
+      case SessionZeroStep.assessment_learningExpectations:
+        return currentAssessmentIsFilledOut;
+        break;
+      case SessionZeroStep.whyLearnVocabs:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.goalIntention:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.videoPlanning:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.videoDistributedLearning:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.planCreation:
+        return plan.isNotEmpty;
+        break;
+      case SessionZeroStep.planDisplay:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.planInternalisation:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.planTiming:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.selfEfficacy:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.videoInstructionComplete:
+        // TODO: Handle this case.
+        break;
+      default:
+        return true;
     }
+
     return true;
   }
 
