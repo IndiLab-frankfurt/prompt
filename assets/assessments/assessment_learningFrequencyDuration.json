@@ -6,7 +6,7 @@
             "id": "learning_frequency",
             "questionText": "Wie oft lernst du in einer normalen Woche Englischvokabeln?",
             "labels": {
-                "1": "Weniger als Einmal pro Woche",
+                "1": "Weniger als 1 Tag pro Woche",
                 "2": "1-2 Tage pro Woche",
                 "3": "3-4 Tage pro Woche",
                 "4": "5-6 Tage pro Woche",
