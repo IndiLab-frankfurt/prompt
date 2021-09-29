@@ -4,11 +4,7 @@
     "questions": [
         {
             "id": "expectation_distributed_practice",
-<<<<<<< HEAD
-            "questionText": "Ich glaube, ich werde es schaffen, fast jeden Tag in cabuu Vokabeln zu lernen.",
-=======
             "questionText": "Ich glaube, ich werde es schaffen, (fast) jeden Tag in cabuu Vokabeln zu lernen.",
->>>>>>> 8ada57c4103098f0ca1d183fc29782bba649feb4
             "labels": {
                 "1": "Trifft überhaupt nicht zu",
                 "2": "Trifft eher nicht zu",
