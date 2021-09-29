@@ -15,6 +15,7 @@ import 'package:prompt/screens/session_zero/plan_display_screen.dart';
 import 'package:prompt/screens/session_zero/plan_timing_screen.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
@@ -46,6 +47,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.assessment_itLiteracy: itLiteracyQuestionnaire,
       SessionZeroStep.assessment_learningFrequencyDuration:
           learningFrequencyDuration,
+      SessionZeroStep.assessment_distributedLearning: distributedLearning,
       SessionZeroStep.goalIntention: goalIntentionScreen,
       SessionZeroStep.videoPlanning: videoPlanning,
       SessionZeroStep.planCreation: planCreation,
@@ -140,6 +142,11 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   late var planCommitment = PlanCommitmentScreen(
       key: ValueKey(SessionZeroStep.assessment_planCommitment));
+
+  late var distributedLearning = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.distributedPractice,
+      key: ValueKey(SessionZeroStep.assessment_distributedLearning));
 
   late var whereCanYouFindThisInformation = PlaceholderScreen(
     text:

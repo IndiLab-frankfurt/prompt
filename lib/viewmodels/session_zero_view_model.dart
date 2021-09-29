@@ -19,6 +19,7 @@ enum SessionZeroStep {
   assessment_learningFrequencyDuration,
   assessment_motivation,
   assessment_learningExpectations,
+  assessment_distributedLearning,
   whyLearnVocabs,
   goalIntention,
   videoPlanning,
@@ -130,15 +131,16 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.assessment_learningFrequencyDuration,
       SessionZeroStep.assessment_motivation,
       SessionZeroStep.whyLearnVocabs,
-      SessionZeroStep.assessment_motivation,
     ];
 
     List<SessionZeroStep> distributedLearning = [
       SessionZeroStep.videoDistributedLearning,
+      SessionZeroStep.assessment_distributedLearning,
       SessionZeroStep.goalIntention
     ];
 
     List<SessionZeroStep> finalSteps = [
+      SessionZeroStep.assessment_learningExpectations,
       SessionZeroStep.videoInstructionComplete
     ];
 
@@ -150,7 +152,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planInternalisation,
       SessionZeroStep.assessment_planCommitment,
       SessionZeroStep.planTiming,
-      SessionZeroStep.assessment_learningExpectations,
       SessionZeroStep.selfEfficacy,
     ];
 
@@ -188,8 +189,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     switch (stepKey) {
       case SessionZeroStep.welcome:
-        // TODO: Handle this case.
-        break;
+        return true;
       case SessionZeroStep.whereCanYouFindThisInformation:
         // TODO: Handle this case.
         break;
@@ -197,29 +197,20 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         // TODO: Handle this case.
         break;
       case SessionZeroStep.cabuuLink:
-        // TODO: Handle this case.
-        break;
+        return true;
       case SessionZeroStep.mascotSelection:
         // TODO: Handle this case.
         break;
       case SessionZeroStep.moderatorVariables:
         return true;
-        break;
       case SessionZeroStep.assessment_planCommitment:
-        return currentAssessmentIsFilledOut;
-        break;
       case SessionZeroStep.assessment_itLiteracy:
-        return currentAssessmentIsFilledOut;
-        break;
       case SessionZeroStep.assessment_learningFrequencyDuration:
-        return currentAssessmentIsFilledOut;
-        break;
       case SessionZeroStep.assessment_motivation:
-        return currentAssessmentIsFilledOut;
-        break;
       case SessionZeroStep.assessment_learningExpectations:
+      case SessionZeroStep.selfEfficacy:
+      case SessionZeroStep.assessment_distributedLearning:
         return currentAssessmentIsFilledOut;
-        break;
       case SessionZeroStep.whyLearnVocabs:
         // TODO: Handle this case.
         break;
@@ -234,7 +225,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         break;
       case SessionZeroStep.planCreation:
         return plan.isNotEmpty;
-        break;
       case SessionZeroStep.planDisplay:
         // TODO: Handle this case.
         break;
@@ -242,9 +232,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         // TODO: Handle this case.
         break;
       case SessionZeroStep.planTiming:
-        // TODO: Handle this case.
-        break;
-      case SessionZeroStep.selfEfficacy:
         // TODO: Handle this case.
         break;
       case SessionZeroStep.videoInstructionComplete:

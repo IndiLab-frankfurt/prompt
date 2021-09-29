@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:provider/provider.dart';
@@ -15,6 +16,8 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
   late final vm = Provider.of<SessionZeroViewModel>(context);
   int _groupValue = -1;
 
+  TimeOfDay? selectedTime;
+
   buildRegularItem(int groupValue, String text) {
     return InkWell(
       child: Row(
@@ -23,9 +26,8 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
             groupValue: _groupValue,
             value: groupValue,
             onChanged: (value) {
-              // FocusScope.of(context).unfocus();
               if (value is int) {
-                // _onChanged(value, groupValue.toString());
+                _onChanged(value, groupValue.toString());
               }
             },
           ),
@@ -37,12 +39,37 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
         ],
       ),
       onTap: () {
-        // _onChanged(groupValue, groupValue.toString());
+        _onChanged(groupValue, groupValue.toString());
       },
     );
   }
 
   buildTimeItem(int groupValue, String text) {
+    var selectTime = () async {
+      TimeOfDay? time = await showTimePicker(
+        initialTime: TimeOfDay.now(),
+        context: context,
+        initialEntryMode: TimePickerEntryMode.input,
+        builder: (BuildContext context, Widget? child) {
+          return MediaQuery(
+            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+            child: child!,
+          );
+        },
+      );
+
+      setState(() {
+        if (time != null) {
+          this.selectedTime = time;
+        }
+      });
+
+      final localizations = MaterialLocalizations.of(context);
+      final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!);
+
+      _onChanged(groupValue, formattedTimeOfDay);
+    };
+
     return InkWell(
       child: Row(
         children: <Widget>[
@@ -51,9 +78,7 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
             value: groupValue,
             onChanged: (value) {
               // FocusScope.of(context).unfocus();
-              if (value is int) {
-                // _onChanged(value, groupValue.toString());
-              }
+              selectTime();
             },
           ),
           Expanded(
@@ -63,31 +88,44 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
           )
         ],
       ),
-      onTap: () {
-        Future<TimeOfDay?> selectedTime = showTimePicker(
-          initialTime: TimeOfDay.now(),
-          context: context,
-        );
+      onTap: () async {
+        selectTime();
       },
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          SpeechBubble(text: vm.plan),
-          buildTimeItem(1, "Zu einer bestimmten Uhrzeit"),
-          buildRegularItem(2, "Zwischen 6 und 8 Uhr morgens"),
-          buildRegularItem(3, "Zwischen 10 und 12 Uhr morgens"),
-          buildRegularItem(4, "Zwischen 12 und 14 Uhr morgens"),
-          buildRegularItem(5, "Zwischen 14 und 16 Uhr morgens"),
-          buildRegularItem(6, "Zwischen 16 und 18 Uhr morgens"),
-          buildRegularItem(6, "Ist jeden Tag ganz unterschiedlich"),
-          buildRegularItem(7, "Weiß ich nicht"),
-        ],
+    var timeDisplay = "Drücke hier um eine Uhrzeit auszuwählen";
+    if (selectedTime != null) {
+      final localizations = MaterialLocalizations.of(context);
+      final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!);
+      timeDisplay = "um $formattedTimeOfDay";
+    }
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
+      child: Container(
+        padding: EdgeInsets.all(10),
+        child: ListView(
+          children: [
+            SpeechBubble(text: vm.plan),
+            UIHelper.verticalSpaceMedium(),
+            MarkdownBody(data: "### Um wie viel Uhr passiert das ungefähr?"),
+            UIHelper.verticalSpaceMedium(),
+            buildTimeItem(1, timeDisplay),
+            buildRegularItem(6, "Ist jeden Tag ganz unterschiedlich"),
+            buildRegularItem(7, "Weiß ich nicht"),
+          ],
+        ),
       ),
     );
+  }
+
+  _onChanged(int groupValue, String selectedValue) {
+    setState(() {
+      _groupValue = groupValue;
+    });
   }
 }

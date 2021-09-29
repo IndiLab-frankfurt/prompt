@@ -30,6 +30,7 @@ enum AssessmentTypes {
   didLearnWhen,
   motivation,
   itLiteracy,
+  distributedPractice,
   learningFrequencyDuration,
   selfEfficacy,
   didLearnYesterday,
