@@ -4,7 +4,7 @@
     "questions": [
         {
             "id": "it_literacy_age",
-            "questionText": "Wie alt warst du, als du angefangen hast regelmäßig digitale Geräte zu nutzen?",
+            "questionText": "Wie alt warst du, als du angefangen hast, regelmäßig digitale Geräte zu nutzen?",
             "labels": {
                 "1": "3 Jahre oder jünger",
                 "2": "4-6 Jahre",
@@ -24,7 +24,7 @@
         },
         {
             "id": "it_literacy_learning",
-            "questionText": "Ich habe das Gefühl mit digitalen Lernangeboten (z.B. Webseiten, Videos, Apps) lerne ich besser als mit analogen Methoden (z.B. Bücher, Arbeitsblätter).",
+            "questionText": "Mit digitalen Lernangeboten (z.B. Webseiten, Videos, Apps) lerne ich besser als mit analogen Methoden (z.B. Bücher, Arbeitsblätter).",
             "labels": {
                 "1": "Trifft überhaupt nicht zu",
                 "2": "Trifft eher nicht zu",

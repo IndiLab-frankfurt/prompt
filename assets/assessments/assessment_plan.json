@@ -4,7 +4,7 @@
     "questions": [
         {
             "id": "plan_time",
-            "questionText": "Dieser Plan wird mir dabei helfen, die Vokabeln in cabuu zu lernen",
+            "questionText": "Ich glaube, dieser Plan wird mir dabei helfen, möglichst oft mit cabuu zu lernen.",
             "labels": {
                 "1": "Trifft überhaupt nicht zu",
                 "2": "Trifft eher nicht zu",
