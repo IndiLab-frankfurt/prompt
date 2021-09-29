@@ -7,9 +7,6 @@
             "questionText": "Hast du vor, heute mit cabuu zu lernen?",
             "labels": {
                 "1": "Ja",
-                "2": "Ich habe heute  keine Lust",
-                "3": "Ich habe heute keine Zeit",
-                "4": "Ich habe heute keine Vokabeln zu lernen",
                 "TEXTINPUT_1": "Nein, weil:"
             }
         }
