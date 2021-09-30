@@ -14,6 +14,7 @@ import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
 import 'package:prompt/screens/session_zero/plan_timing_screen.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
+import 'package:prompt/screens/session_zero/why_learn_vocab_screen.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
@@ -56,7 +57,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.planTiming: planTiming,
       SessionZeroStep.selfEfficacy: selfEfficacyQuestionnaire,
       SessionZeroStep.videoInstructionComplete: instructionComplete,
-      SessionZeroStep.assessment_planCommitment: planCommitment
+      SessionZeroStep.assessment_planCommitment: planCommitment,
+      SessionZeroStep.whyLearnVocabs: whyLearnVocabs
     };
 
     _pages = [];
@@ -136,6 +138,9 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   late var planDisplay =
       PlanDisplayScreen(key: ValueKey(SessionZeroStep.planDisplay));
+
+  late var whyLearnVocabs =
+      WhyLearnVocabScreen(key: ValueKey(SessionZeroStep.whyLearnVocabs));
 
   late var planTiming =
       PlanTimingScreen(key: ValueKey(SessionZeroStep.planTiming));

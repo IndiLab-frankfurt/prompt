@@ -30,28 +30,15 @@ enum SessionZeroStep {
   planTiming,
   selfEfficacy,
   videoInstructionComplete,
+  instructions1,
+  instructions2,
+  instructions3,
+  instructions4
 }
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 // ignore: non_constant_identifier_names
-  List<SessionZeroStep> screenOrder = [
-    SessionZeroStep.welcome,
-    SessionZeroStep.whereCanYouFindThisInformation,
-    SessionZeroStep.cabuuCode,
-    SessionZeroStep.cabuuLink,
-    SessionZeroStep.mascotSelection,
-    SessionZeroStep.assessment_itLiteracy,
-    SessionZeroStep.whyLearnVocabs,
-    SessionZeroStep.assessment_motivation,
-    SessionZeroStep.goalIntention,
-    SessionZeroStep.videoPlanning,
-    // SessionZeroStep.videoDistributedLearning,
-    SessionZeroStep.planCreation,
-    SessionZeroStep.planDisplay,
-    SessionZeroStep.planInternalisation,
-    SessionZeroStep.selfEfficacy,
-    SessionZeroStep.videoInstructionComplete
-  ];
+  List<SessionZeroStep> screenOrder = [];
   InternalisationViewModel internalisationViewmodel =
       InternalisationViewModel();
 
@@ -124,7 +111,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     List<SessionZeroStep> firstScreens = [
       SessionZeroStep.welcome,
       SessionZeroStep.whereCanYouFindThisInformation,
-      SessionZeroStep.cabuuCode,
       // SessionZeroStep.cabuuLink,
       SessionZeroStep.mascotSelection,
       SessionZeroStep.assessment_itLiteracy,
@@ -140,7 +126,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     ];
 
     List<SessionZeroStep> finalSteps = [
+      SessionZeroStep.selfEfficacy,
       SessionZeroStep.assessment_learningExpectations,
+      SessionZeroStep.cabuuCode,
       SessionZeroStep.videoInstructionComplete
     ];
 
@@ -152,7 +140,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planInternalisation,
       SessionZeroStep.assessment_planCommitment,
       SessionZeroStep.planTiming,
-      SessionZeroStep.selfEfficacy,
     ];
 
     if (group == 1) {

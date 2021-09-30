@@ -1,6 +1,6 @@
 {
-    "title": "",
-    "id": "learningQuestions",
+    "title": "Wie oft und wie lange lernst du normalerweise Vokabeln? Beantworte die folgenden Fragen.",
+    "id": "learningFrequencyDuration",
     "questions": [
         {
             "id": "learning_frequency",
