@@ -3,18 +3,8 @@
     "id": "evening_3",
     "questions": [
         {
-            "id": "cost_emotion_after",
-            "questionText": "Wenn ich daran denke, wie ich heute mit cabuu gelernt habe, bin ich zufrieden mit mir.",
-            "labels": {
-                "1": "trifft überhaupt nicht zu",
-                "2": "trifft eher nicht zu",
-                "3": "trifft eher zu",
-                "4": "trifft voll und ganz zu"
-            }
-        },
-        {
             "id": "effort_investment",
-            "questionText": "Mir ist es persönlich wichtig, die Vokabeln von heute gut zu können.",
+            "questionText": "Ich habe mich beim Lernen mit cabuu heute besonders angestrent.",
             "labels": {
                 "1": "trifft überhaupt nicht zu",
                 "2": "trifft eher nicht zu",
@@ -23,8 +13,8 @@
             }
         },
         {
-            "id": "value_intrinsic_after",
-            "questionText": "Es hat mir heute Spaß gemacht, mit cabuu zu lernen.",
+            "id": "obstacle_initiating",
+            "questionText": "Es ist mir heute schwergefallen, mit dem Lernen auf cabuu anzufangen.",
             "labels": {
                 "1": "trifft überhaupt nicht zu",
                 "2": "trifft eher nicht zu",
@@ -33,38 +23,8 @@
             }
         },
         {
-            "id": "value_utility_after",
-            "questionText": "Es wird sich für mich noch auszahlen, dass ich heute die Vokabeln in cabuu gelernt habe.",
-            "labels": {
-                "1": "trifft überhaupt nicht zu",
-                "2": "trifft eher nicht zu",
-                "3": "trifft eher zu",
-                "4": "trifft voll und ganz zu"
-            }
-        },
-        {
-            "id": "cost_opportunity_after",
-            "questionText": "Um heute mit cabuu zu lernen, musste ich auf spaßigere Dinge verzichten.",
-            "labels": {
-                "1": "trifft überhaupt nicht zu",
-                "2": "trifft eher nicht zu",
-                "3": "trifft eher zu",
-                "4": "trifft voll und ganz zu"
-            }
-        },
-        {
-            "id": "cost_emotion_after",
-            "questionText": "Das Lernen mit cabuu hat mich in eine schlechte Stimmung gebracht.",
-            "labels": {
-                "1": "trifft überhaupt nicht zu",
-                "2": "trifft eher nicht zu",
-                "3": "trifft eher zu",
-                "4": "trifft voll und ganz zu"
-            }
-        },
-        {
-            "id": "cost_effort_after",
-            "questionText": "Das Lernen mit cabuu hat mich erschöpft.",
+            "id": "obstacle_maintaining",
+            "questionText": "Während ich mit cabuu gelernt habe, gab es viele Ablenkungen.",
             "labels": {
                 "1": "trifft überhaupt nicht zu",
                 "2": "trifft eher nicht zu",
