@@ -1,0 +1,76 @@
+{
+    "title": "Denke bei den folgenden Fragen daran, wie das Lernen mit cabuu GESTERN für dich gewesen ist.",
+    "id": "evening_2_yesterday",
+    "questions": [
+        {
+            "id": "expectation_yesterday",
+            "questionText": "Die Vokabeln, die ich gestern mit cabuu gelernt habe,  werde ich im Test gut können.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "value_attainment_yesterday",
+            "questionText": "Mir ist es persönlich wichtig, die Vokabeln von gestern gut zu können.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "value_intrinsic_yesterday",
+            "questionText": "Es hat mir gestern Spaß gemacht, mit cabuu zu lernen.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "value_utility_yesterday",
+            "questionText": "Es wird sich für mich noch auszahlen, dass ich gestern die Vokabeln in cabuu gelernt habe.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "cost_opportunity_yesterday",
+            "questionText": "Um gestern mit cabuu zu lernen, musste ich auf spaßigere Dinge verzichten.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "cost_emotion_yesterday",
+            "questionText": "Das Lernen mit cabuu hat mich in eine schlechte Stimmung gebracht.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "cost_effort_yesterday",
+            "questionText": "Das Lernen mit cabuu hat mich erschöpft.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        }
+    ]
+}
