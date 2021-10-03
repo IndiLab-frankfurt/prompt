@@ -7,7 +7,7 @@
             "questionText": "Hast du vor, heute mit cabuu zu lernen?",
             "labels": {
                 "1": "Ja",
-                "TEXTINPUT_1": "Nein, weil:"
+                "2": "Nein"
             }
         }
     ]
