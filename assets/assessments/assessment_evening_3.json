@@ -4,7 +4,7 @@
     "questions": [
         {
             "id": "effort_investment",
-            "questionText": "Ich habe mich beim Lernen mit cabuu heute besonders angestrent.",
+            "questionText": "Ich habe mich beim Lernen mit cabuu heute besonders angestrengt.",
             "labels": {
                 "1": "trifft überhaupt nicht zu",
                 "2": "trifft eher nicht zu",
