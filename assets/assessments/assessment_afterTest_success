@@ -1,0 +1,46 @@
+{
+    "title": "",
+    "id": "after_test_success",
+    "questions": [
+        {
+            "id": "success_attribution_effort",
+            "questionText": "Ich war gut im Test, weil ich hart dafür gelernt habe.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "success_attribution_ability",
+            "questionText": "Ich war gut im Test, weil ich talentiert bin.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "success_attribution_luck",
+            "questionText": "Ich war gut im Test, weil ich Glück hatte.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "success_attribution_difficulty",
+            "questionText": "Ich war gut im Test, weil der Test einfach war.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        }
+    ]
+}
