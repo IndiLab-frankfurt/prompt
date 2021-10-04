@@ -44,7 +44,7 @@
         },
         {
             "id": "cost_effort_test",
-            "questionText": "Es wird mich sehr erschöpfen, mich auf den nächsten Test vorzubereiten.",
+            "questionText": "Es wird mich erschöpfen, mich auf den nächsten Test vorzubereiten.",
             "labels": {
                 "1": "trifft überhaupt nicht zu",
                 "2": "trifft eher nicht zu",
