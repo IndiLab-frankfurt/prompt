@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/models/assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
-import 'package:prompt/screens/assessments/questionnaire.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/placeholder_screen.dart';
 import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
-import 'package:prompt/screens/session_zero/cabuu_link_screen.dart';
 import 'package:prompt/screens/session_zero/goal_intention_screen.dart';
+import 'package:prompt/screens/session_zero/instruction_screen_1.dart';
+import 'package:prompt/screens/session_zero/instruction_screen_2.dart';
+import 'package:prompt/screens/session_zero/instruction_screen_3.dart';
+import 'package:prompt/screens/session_zero/instruction_screen_4.dart';
 import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
 import 'package:prompt/screens/session_zero/plan_commitment_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
@@ -16,7 +17,7 @@ import 'package:prompt/screens/session_zero/plan_timing_screen.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
 import 'package:prompt/screens/session_zero/why_learn_vocab_screen.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
+import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
@@ -41,7 +42,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.whereCanYouFindThisInformation:
           whereCanYouFindThisInformation,
       SessionZeroStep.cabuuCode: cabuuCodeScreen,
-      SessionZeroStep.cabuuLink: cabuuLinkScreen,
       SessionZeroStep.mascotSelection: mascotSelectionScreen,
       SessionZeroStep.moderatorVariables: moderatorVariables,
       SessionZeroStep.assessment_motivation: motivationQuestionnaire,
@@ -49,6 +49,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.assessment_learningFrequencyDuration:
           learningFrequencyDuration,
       SessionZeroStep.assessment_distributedLearning: distributedLearning,
+      SessionZeroStep.videoDistributedLearning: videoDistributedLearning,
       SessionZeroStep.goalIntention: goalIntentionScreen,
       SessionZeroStep.videoPlanning: videoPlanning,
       SessionZeroStep.planCreation: planCreation,
@@ -58,7 +59,11 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.selfEfficacy: selfEfficacyQuestionnaire,
       SessionZeroStep.videoInstructionComplete: instructionComplete,
       SessionZeroStep.assessment_planCommitment: planCommitment,
-      SessionZeroStep.whyLearnVocabs: whyLearnVocabs
+      SessionZeroStep.whyLearnVocabs: whyLearnVocabs,
+      SessionZeroStep.instructions1: instructionScreen1,
+      SessionZeroStep.instructions2: instructionScreen2,
+      SessionZeroStep.instructions3: instructionScreen3,
+      SessionZeroStep.instructions4: instructionScreen4,
     };
 
     _pages = [];
@@ -75,14 +80,12 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-            // appBar: SereneAppBar(),
-            // drawer: SereneDrawer(),
             body: Container(
+                margin: UIHelper.containerMargin,
                 child: MultiStepAssessment(
-          vm,
-          _pages,
-          // initialStep: vm.getPreviouslyCompletedStep(),
-        ))));
+                  vm,
+                  _pages,
+                ))));
   }
 
   var welcomeScreen = WelcomeScreen(key: ValueKey(SessionZeroStep.welcome));
@@ -90,8 +93,17 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   late var cabuuCodeScreen =
       CabuuCodeScreen(key: ValueKey(SessionZeroStep.cabuuCode));
 
-  late var cabuuLinkScreen =
-      CabuuLinkScreen(key: ValueKey(SessionZeroStep.cabuuLink));
+  late var instructionScreen1 =
+      InstructionScreen1(key: ValueKey(SessionZeroStep.instructions1));
+
+  late var instructionScreen2 =
+      InstructionScreen2(key: ValueKey(SessionZeroStep.instructions2));
+
+  late var instructionScreen3 =
+      InstructionScreen3(key: ValueKey(SessionZeroStep.instructions3));
+
+  late var instructionScreen4 =
+      InstructionScreen4(key: ValueKey(SessionZeroStep.instructions4));
 
   late var mascotSelectionScreen =
       MascotSelectionScreen(key: ValueKey(SessionZeroStep.mascotSelection));
@@ -165,4 +177,9 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     child: EmojiInternalisationScreen(
         key: ValueKey(SessionZeroStep.planInternalisation)),
   );
+
+  late var videoDistributedLearning = VideoScreen(
+      'assets/videos/videoLearning.mp4',
+      key: ValueKey(SessionZeroStep.videoDistributedLearning),
+      onVideoCompleted: vm.videoDistributedLearningCompleted);
 }

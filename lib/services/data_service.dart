@@ -73,6 +73,10 @@ class DataService {
         .lastWhereOrNull((element) => element.assessmentType == assessmentName);
   }
 
+  List<AssessmentResult>? getAssessmentResultsCached() {
+    return _assessmentResultsCache;
+  }
+
   Future<AssessmentResult?> getLastAssessmentResultFor(
       String assessmentName) async {
     List<AssessmentResult> lastResults = [];

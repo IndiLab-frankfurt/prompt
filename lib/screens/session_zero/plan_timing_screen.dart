@@ -99,7 +99,8 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
     var timeDisplay = "Drücke hier um eine Uhrzeit auszuwählen";
     if (selectedTime != null) {
       final localizations = MaterialLocalizations.of(context);
-      final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!);
+      final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!,
+          alwaysUse24HourFormat: true);
       timeDisplay = "um $formattedTimeOfDay";
     }
     return Card(

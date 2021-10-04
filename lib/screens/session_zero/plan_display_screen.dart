@@ -13,15 +13,17 @@ class PlanDisplayScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var vm = Provider.of<SessionZeroViewModel>(context);
     return Container(
+        margin: UIHelper.containerMargin,
         child: ListView(
-      children: [
-        MarkdownBody(data: "### " + AppStrings.PlanDisplay_Excellent),
-        MarkdownBody(data: '### ' + AppStrings.PlanDisplay_YourPlanIs),
-        UIHelper.verticalSpaceMedium(),
-        SpeechBubble(text: '"${vm.plan}"'),
-        UIHelper.verticalSpaceMedium(),
-        MarkdownBody(data: "### " + AppStrings.PlanDisplay_RememberYourPlan)
-      ],
-    ));
+          children: [
+            MarkdownBody(data: "### " + AppStrings.PlanDisplay_Excellent),
+            UIHelper.verticalSpaceMedium(),
+            MarkdownBody(data: '### ' + AppStrings.PlanDisplay_YourPlanIs),
+            UIHelper.verticalSpaceMedium(),
+            SpeechBubble(text: '"${vm.plan}"'),
+            UIHelper.verticalSpaceMedium(),
+            MarkdownBody(data: "### " + AppStrings.PlanDisplay_RememberYourPlan)
+          ],
+        ));
   }
 }

@@ -10,6 +10,7 @@ import 'package:prompt/services/usage_stats/usage_stats_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/extensions.dart';
+import 'package:collection/collection.dart';
 
 class ExperimentService {
   static const int NUM_GROUPS = 6;
@@ -70,6 +71,18 @@ class ExperimentService {
         return await _navigationService.navigateTo(RouteNames.ASSESSMENT_FINAL);
       }
     }
+  }
+
+  int getDaysSinceStart() {
+    var assessments = _dataService.getAssessmentResultsCached();
+    if (assessments == null) return 0;
+
+    var firstMornignAssessment = assessments.firstWhereOrNull(
+        (element) => element.assessmentType == MORNING_ASSESSMENT);
+
+    if (firstMornignAssessment == null) return 0;
+
+    return firstMornignAssessment.submissionDate.daysAgo();
   }
 
   Future<bool> _shouldIncrementStreakDay() async {

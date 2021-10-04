@@ -1,8 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:prompt/locator.dart';
+import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/reward_service.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
@@ -87,6 +89,12 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
+  bool _videoDistributedLearningCompleted = false;
+  void videoDistributedLearningCompleted() {
+    _videoDistributedLearningCompleted = true;
+    notifyListeners();
+  }
+
   final ExperimentService _experimentService;
   final DataService _dataService;
   final RewardService _rewardService;
@@ -111,8 +119,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     List<SessionZeroStep> firstScreens = [
       SessionZeroStep.welcome,
       SessionZeroStep.whereCanYouFindThisInformation,
-      // SessionZeroStep.cabuuLink,
       SessionZeroStep.mascotSelection,
+      SessionZeroStep.instructions1,
+      SessionZeroStep.instructions2,
+      SessionZeroStep.instructions3,
+      SessionZeroStep.instructions4,
       SessionZeroStep.assessment_itLiteracy,
       SessionZeroStep.assessment_learningFrequencyDuration,
       SessionZeroStep.assessment_motivation,
@@ -121,6 +132,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     List<SessionZeroStep> distributedLearning = [
       SessionZeroStep.videoDistributedLearning,
+    ];
+
+    List<SessionZeroStep> goalIntention = [
       SessionZeroStep.assessment_distributedLearning,
       SessionZeroStep.goalIntention
     ];
@@ -134,7 +148,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     List<SessionZeroStep> internalisationSteps = [
       SessionZeroStep.videoPlanning,
-      // SessionZeroStep.videoDistributedLearning,
       SessionZeroStep.planCreation,
       SessionZeroStep.planDisplay,
       SessionZeroStep.planInternalisation,
@@ -143,13 +156,19 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     ];
 
     if (group == 1) {
-      screenOrder = [...firstScreens, ...finalSteps];
+      screenOrder = [...firstScreens, ...goalIntention, ...finalSteps];
     } else if (group == 2 || group == 3) {
-      screenOrder = [...firstScreens, ...distributedLearning, ...finalSteps];
+      screenOrder = [
+        ...firstScreens,
+        ...distributedLearning,
+        ...goalIntention,
+        ...finalSteps
+      ];
     } else if (group == 4 || group == 5 || group == 6) {
       screenOrder = [
         ...firstScreens,
         ...distributedLearning,
+        ...goalIntention,
         ...internalisationSteps,
         ...finalSteps
       ];
@@ -232,9 +251,21 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   }
 
   @override
-  void submit() {
+  void submit() async {
     dataService.setSelectedMascot(selectedMascot);
     dataService.savePlan(plan);
+
+    Map<String, String> results = {};
+    for (var result in allAssessmentResults.values) {
+      results.addAll(result);
+    }
+
+    // TODO: Save all assessment items
+    var oneBigAssessment =
+        AssessmentResult(results, SESSION_ZERO, DateTime.now());
+    oneBigAssessment.startDate = this.startDate;
+
+    _experimentService.submitAssessment(oneBigAssessment, SESSION_ZERO);
 
     _experimentService.nextScreen(RouteNames.SESSION_ZERO);
   }

@@ -15,11 +15,12 @@ class _WhyLearnVocabScreenState extends State<WhyLearnVocabScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: UIHelper.containerMargin,
       child: Column(
         children: [
-          MarkdownBody(data: "## " + AppStrings.WhyVocab_ParagraphOne),
+          MarkdownBody(data: "### " + AppStrings.WhyVocab_ParagraphOne),
           UIHelper.verticalSpaceSmall(),
-          MarkdownBody(data: "## " + AppStrings.WhyVocab_ParagraphTwo),
+          MarkdownBody(data: "### " + AppStrings.WhyVocab_ParagraphTwo),
           UIHelper.verticalSpaceSmall(),
           TextField(
               minLines: 5,

@@ -35,7 +35,19 @@ enum AssessmentTypes {
   selfEfficacy,
   didLearnYesterday,
   morning,
-  planCommitment
+  planCommitment,
+  afterTest_2,
+  afterText_failure,
+  afterText_success,
+  evening_1,
+  evening_1_yesterday,
+  evening_2,
+  evening_2_yesterday,
+  evening_3,
+  evening_3_yesterday,
+  morning_intention,
+  morning_with_intention,
+  morning_without_intention
 }
 
 enum InternalisationCondition {
@@ -46,3 +58,4 @@ enum InternalisationCondition {
 
 const String EVENING_ASSESSMENT = "eveningAssessment";
 const String MORNING_ASSESSMENT = "morningAssessment";
+const String SESSION_ZERO = "sessionZero";

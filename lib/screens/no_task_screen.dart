@@ -154,6 +154,8 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                                   _buildToNextTaskButton(),
                                 if (vm.showVocabularyTestReminder)
                                   _buildVocabTestReminder(),
+                                if (vm.showContinueTomorrowButton)
+                                  _buildReturnTomorrowButton(),
                                 UIHelper.verticalSpaceSmall(),
                                 _buildChangeBackgroundButton(),
                                 UIHelper.verticalSpaceMedium(),
@@ -259,7 +261,28 @@ class _NoTasksScreenState extends State<NoTasksScreen>
             setState(() {});
           },
           child: Text(
-            vm.message,
+            vm.messageContinueAfterCabuu,
+            style: TextStyle(color: Colors.black),
+          ),
+          style: OutlinedButton.styleFrom(
+              backgroundColor: Colors.orange[200],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              side: BorderSide(width: 1.0, color: Colors.grey)),
+        ));
+  }
+
+  _buildReturnTomorrowButton() {
+    return Container(
+        width: double.infinity,
+        height: 50,
+        margin: EdgeInsets.all(10),
+        child: OutlinedButton(
+          onPressed: () async {
+            setState(() {});
+          },
+          child: Text(
+            vm.messageContinueTomorrow,
             style: TextStyle(color: Colors.black),
           ),
           style: OutlinedButton.styleFrom(

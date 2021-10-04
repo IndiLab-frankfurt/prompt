@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:prompt/shared/enums.dart';
 import 'package:collection/collection.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
@@ -279,28 +278,6 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
 
       widget.onCompleted!(built);
     }
-  }
-
-  _buildSubmitButton() {
-    var vm = Provider.of<InternalisationViewModel>(context, listen: false);
-    return Align(
-      alignment: Alignment.bottomCenter,
-      child: SizedBox(
-          width: double.infinity,
-          height: 60,
-          child: ElevatedButton(
-            onPressed: () async {
-              var condition = InternalisationCondition.scrambleWithHint;
-              var built = "";
-              if (_builtSentence.length > 0) {
-                built = ScrambleText.stringFromScrambleTextList(_builtSentence);
-              }
-
-              vm.submit(condition, built);
-            },
-            child: Text("Weiter", style: TextStyle(fontSize: 20)),
-          )),
-    );
   }
 
   _buildCorrectText(String text) {

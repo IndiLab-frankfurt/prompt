@@ -111,4 +111,6 @@ class AppStrings {
 
   static const String NoTask_Continue_After_Cabuu =
       "Drücke hier, sobald du heute mit cabuu gelernt hast";
+  static const String NoTask_ContinueTomorrow =
+      "Komme morgen früh hierher zurück und mache weiter";
 }

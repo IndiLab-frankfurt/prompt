@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -33,7 +31,6 @@ class _IntervalScaleState extends State<IntervalScale> {
   Map<String, String> items = {};
 
   randomizeMap(Map<String, String> map) {
-    var random = new Random();
     Map<String, String> newmap = {};
     var list = List<int>.generate(map.length, (i) => i + 1);
     list.shuffle();

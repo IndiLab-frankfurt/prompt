@@ -13,13 +13,14 @@ class NoTaskViewModel extends BaseViewModel {
 
   bool showLearnedWithCabuuButton = false;
   bool showVocabularyTestReminder = false;
+  bool showContinueTomorrowButton = false;
 
-  late int daysActive =
-      _dataService.getUserDataCache().registrationDate.daysAgo();
+  late int daysActive = _experimentService.getDaysSinceStart();
 
   late double studyProgress = daysActive / 36;
 
-  String message = AppStrings.NoTask_Continue_After_Cabuu;
+  String messageContinueAfterCabuu = AppStrings.NoTask_Continue_After_Cabuu;
+  String messageContinueTomorrow = AppStrings.NoTask_ContinueTomorrow;
 
   NoTaskViewModel(
       this._experimentService, this._dataService, this._navigationService) {
@@ -28,7 +29,15 @@ class NoTaskViewModel extends BaseViewModel {
   }
 
   Future<void> getNextTask() async {
-    _dataService.getLastAssessmentResult();
+    await _dataService.getAssessmentResults();
+
+    showLearnedWithCabuuButton = false;
+    showVocabularyTestReminder = false;
+
+    if (daysActive == 0) {
+      notifyListeners();
+      return;
+    }
 
     if (await _experimentService.isTimeForMorningAssessment()) {
       this._navigationService.navigateTo(RouteNames.ASSESSMENT_MORNING);
