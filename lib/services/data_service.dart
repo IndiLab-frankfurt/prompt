@@ -52,6 +52,13 @@ class DataService {
     await _databaseService.saveScore(_userService.getUsername(), score);
   }
 
+  saveSessionZeroStep(int step) async {
+    var ud = await getUserData();
+    ud?.initSessionStep = step;
+    await _databaseService.saveInitSessionStepCompleted(
+        _userService.getUsername(), step);
+  }
+
   Future<int> getDaysActive() async {
     var userData = await getUserData();
     if (userData == null) return 0;

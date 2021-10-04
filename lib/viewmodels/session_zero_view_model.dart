@@ -109,11 +109,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     var ud = await _dataService.getUserData();
     var group = ud!.group;
 
-    screenOrder = generateScreenOrder(group);
+    screenOrder = generateScreenOrder(group, ud.initSessionStep);
     notifyListeners();
   }
 
-  List<SessionZeroStep> generateScreenOrder(int group) {
+  List<SessionZeroStep> generateScreenOrder(int group, int firstStep) {
     List<SessionZeroStep> screenOrder = [];
 
     List<SessionZeroStep> firstScreens = [
@@ -127,21 +127,19 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.assessment_itLiteracy,
       SessionZeroStep.assessment_learningFrequencyDuration,
       SessionZeroStep.assessment_motivation,
+      SessionZeroStep.assessment_distributedLearning,
       SessionZeroStep.whyLearnVocabs,
+      SessionZeroStep.assessment_learningExpectations,
     ];
 
     List<SessionZeroStep> distributedLearning = [
       SessionZeroStep.videoDistributedLearning,
     ];
 
-    List<SessionZeroStep> goalIntention = [
-      SessionZeroStep.assessment_distributedLearning,
-      SessionZeroStep.goalIntention
-    ];
+    List<SessionZeroStep> goalIntention = [SessionZeroStep.goalIntention];
 
     List<SessionZeroStep> finalSteps = [
       SessionZeroStep.selfEfficacy,
-      SessionZeroStep.assessment_learningExpectations,
       SessionZeroStep.cabuuCode,
       SessionZeroStep.videoInstructionComplete
     ];
@@ -177,7 +175,21 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
           "Attempting to request data for a group that does not exist");
     }
 
+    screenOrder.removeRange(0, firstStep);
+
     return screenOrder;
+  }
+
+  @override
+  onPageChange() {
+    this._dataService.saveSessionZeroStep(step);
+    super.onPageChange();
+  }
+
+  @override
+  int getNextPage(ValueKey currentPageKey) {
+    step += 1;
+    return step;
   }
 
   int getStepIndex(SessionZeroStep step) {
