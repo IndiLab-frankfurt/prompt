@@ -17,6 +17,7 @@ class InstructionsCabuu1 extends StatelessWidget {
         MarkdownBody(data: "### Dein Cabuu Code lautet:"),
         UIHelper.verticalSpaceMedium(),
         Center(child: MarkdownBody(data: "# **123**")),
+        UIHelper.verticalSpaceMedium(),
         MarkdownBody(
             data:
                 "### Schreibe dir diesen Code auf. Du brauchst ihn gleich, um cabuu freizuschalten.")

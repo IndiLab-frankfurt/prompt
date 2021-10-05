@@ -10,6 +10,8 @@ import 'package:prompt/screens/session_zero/instruction_screen_2.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_3.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_4.dart';
 import 'package:prompt/screens/session_zero/instructions_cabuu_1.dart';
+import 'package:prompt/screens/session_zero/instructions_cabuu_2.dart';
+import 'package:prompt/screens/session_zero/instructions_cabuu_3.dart';
 import 'package:prompt/screens/session_zero/instructions_distributed_learning.dart';
 import 'package:prompt/screens/session_zero/instructions_implementation_intentions.dart';
 import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
@@ -51,6 +53,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.assessment_itLiteracy: itLiteracyQuestionnaire,
       SessionZeroStep.assessment_learningFrequencyDuration:
           learningFrequencyDuration,
+      SessionZeroStep.assessment_learningExpectations: learningExpectations,
       SessionZeroStep.assessment_distributedLearning: distributedLearning,
       SessionZeroStep.videoDistributedLearning: videoDistributedLearning,
       SessionZeroStep.goalIntention: goalIntentionScreen,
@@ -107,10 +110,10 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       InstructionsCabuu1(key: ValueKey(SessionZeroStep.instructions_cabuu_1));
 
   late var instructionsCabuu2 =
-      InstructionsCabuu1(key: ValueKey(SessionZeroStep.instructions_cabuu_2));
+      InstructionsCabuu2(key: ValueKey(SessionZeroStep.instructions_cabuu_2));
 
   late var instructionsCabuu3 =
-      InstructionsCabuu1(key: ValueKey(SessionZeroStep.instructions_cabuu_3));
+      InstructionsCabuu3(key: ValueKey(SessionZeroStep.instructions_cabuu_3));
 
   late var instructionsDistributedLearning = InstructionsDistributedLearning(
       key: ValueKey(SessionZeroStep.instructions_distributedLearning));
@@ -170,6 +173,11 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       vm: vm,
       assessmentTypes: AssessmentTypes.learningFrequencyDuration,
       key: ValueKey(SessionZeroStep.assessment_learningFrequencyDuration));
+
+  late var learningExpectations = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.learningExpectations,
+      key: ValueKey(SessionZeroStep.assessment_learningExpectations));
 
   late var planCreation =
       PlanCreationScreen(key: ValueKey(SessionZeroStep.planCreation));

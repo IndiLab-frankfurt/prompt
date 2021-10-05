@@ -64,10 +64,12 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
         }
       });
 
-      final localizations = MaterialLocalizations.of(context);
-      final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!);
+      if (selectedTime != null) {
+        final localizations = MaterialLocalizations.of(context);
+        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!);
 
-      _onChanged(groupValue, formattedTimeOfDay);
+        _onChanged(groupValue, formattedTimeOfDay);
+      }
     };
 
     return InkWell(

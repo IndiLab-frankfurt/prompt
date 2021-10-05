@@ -150,7 +150,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     List<SessionZeroStep> finalSteps = [
       SessionZeroStep.selfEfficacy,
-      SessionZeroStep.cabuuCode,
       SessionZeroStep.videoInstructionComplete
     ];
 
@@ -159,8 +158,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.videoPlanning,
       SessionZeroStep.planCreation,
       SessionZeroStep.planDisplay,
-      SessionZeroStep.planInternalisation,
       SessionZeroStep.assessment_planCommitment,
+      SessionZeroStep.planInternalisation,
       SessionZeroStep.planTiming,
     ];
 

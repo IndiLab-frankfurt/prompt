@@ -111,8 +111,9 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     ],
   );
 
-  late var alternativeItems = MarkdownBody(
-    data: "# Alternativ-Items",
+  late var alternativeItems = MultiStepQuestionnaireFuture(
+    vm: vm,
+    assessmentTypes: AssessmentTypes.evening_alternative,
     key: ValueKey(MorningAssessmentStep.alternativeItems),
   );
 
