@@ -22,7 +22,7 @@ enum SessionZeroStep {
   assessment_motivation,
   assessment_learningExpectations,
   assessment_distributedLearning,
-  whyLearnVocabs,
+  valueIntervention,
   goalIntention,
   videoPlanning,
   videoDistributedLearning,
@@ -35,7 +35,12 @@ enum SessionZeroStep {
   instructions1,
   instructions2,
   instructions3,
-  instructions4
+  instructions4,
+  instructions_cabuu_1,
+  instructions_cabuu_2,
+  instructions_cabuu_3,
+  instructions_distributedLearning,
+  instructions_implementationIntentions
 }
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
@@ -128,12 +133,17 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.assessment_learningFrequencyDuration,
       SessionZeroStep.assessment_motivation,
       SessionZeroStep.assessment_distributedLearning,
-      SessionZeroStep.whyLearnVocabs,
+      SessionZeroStep.valueIntervention,
+      SessionZeroStep.instructions_cabuu_1,
+      SessionZeroStep.instructions_cabuu_2,
+      SessionZeroStep.instructions_cabuu_3,
       SessionZeroStep.assessment_learningExpectations,
     ];
 
     List<SessionZeroStep> distributedLearning = [
+      SessionZeroStep.instructions_distributedLearning,
       SessionZeroStep.videoDistributedLearning,
+      SessionZeroStep.assessment_distributedLearning,
     ];
 
     List<SessionZeroStep> goalIntention = [SessionZeroStep.goalIntention];
@@ -145,6 +155,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     ];
 
     List<SessionZeroStep> internalisationSteps = [
+      SessionZeroStep.instructions_implementationIntentions,
       SessionZeroStep.videoPlanning,
       SessionZeroStep.planCreation,
       SessionZeroStep.planDisplay,
@@ -155,14 +166,14 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     if (group == 1) {
       screenOrder = [...firstScreens, ...goalIntention, ...finalSteps];
-    } else if (group == 2 || group == 3) {
+    } else if (group == 2 || group == 3 || group == 4) {
       screenOrder = [
         ...firstScreens,
         ...distributedLearning,
         ...goalIntention,
         ...finalSteps
       ];
-    } else if (group == 4 || group == 5 || group == 6) {
+    } else if (group == 5 || group == 6) {
       screenOrder = [
         ...firstScreens,
         ...distributedLearning,
@@ -183,6 +194,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   @override
   onPageChange() {
     this._dataService.saveSessionZeroStep(step);
+    // TODO: Submit results so far
     super.onPageChange();
   }
 
@@ -229,7 +241,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.selfEfficacy:
       case SessionZeroStep.assessment_distributedLearning:
         return currentAssessmentIsFilledOut;
-      case SessionZeroStep.whyLearnVocabs:
+      case SessionZeroStep.valueIntervention:
         // TODO: Handle this case.
         break;
       case SessionZeroStep.goalIntention:

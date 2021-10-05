@@ -12,14 +12,14 @@ class InstructionScreen4 extends StatelessWidget {
       children: [
         MarkdownBody(
             data:
-                'Weil du PROMPT jeden Tag benutzen sollst, werden wir dir an vielen Tagen dieselben Fragen noch mal stellen. Das machen wir, weil eine Aussage an einem Tag mehr und an einem anderen Tag weniger auf dich zutreffen kann. Zum Beispiel trifft die Aussage '),
+                '### Weil du PROMPT jeden Tag benutzen sollst, werden wir dir an vielen Tagen dieselben Fragen noch mal stellen. Das machen wir, weil eine Aussage an einem Tag mehr und an einem anderen Tag weniger auf dich zutreffen kann. Zum Beispiel trifft die Aussage '),
         MarkdownBody(data: '> ### “Heute habe ich Lust, Vokabeln zu lernen”'),
         MarkdownBody(
             data:
-                'vielleicht heute voll und ganz auf dich zu, morgen aber überhaupt nicht. Überlege also jeden Tag genau, wie sehr die Aussage **jetzt gerade** auf dich zutrifft.'),
+                '### vielleicht heute voll und ganz auf dich zu, morgen aber überhaupt nicht. Überlege also jeden Tag genau, wie sehr die Aussage **jetzt gerade** auf dich zutrifft.'),
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
-          data: 'Wir starten jetzt mit den ersten Fragen',
+          data: '### Wir starten jetzt mit den ersten Fragen',
         )
       ],
     ));

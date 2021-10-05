@@ -27,9 +27,10 @@ class _WhyLearnVocabScreenState extends State<WhyLearnVocabScreen> {
               maxLines: null,
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
                 labelText:
-                    'Schreibe deine Antwort hier affe (Stichworte genügen)',
+                    'Schreibe deine Antwort hier auf (Stichworte genügen)',
               )),
         ],
       ),
