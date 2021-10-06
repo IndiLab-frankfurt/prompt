@@ -9,6 +9,7 @@ import 'package:prompt/screens/session_zero/instruction_screen_1.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_2.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_3.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_4.dart';
+import 'package:prompt/screens/session_zero/instructions_appPermissions.dart';
 import 'package:prompt/screens/session_zero/instructions_cabuu_1.dart';
 import 'package:prompt/screens/session_zero/instructions_cabuu_2.dart';
 import 'package:prompt/screens/session_zero/instructions_cabuu_3.dart';
@@ -76,7 +77,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.instructions_distributedLearning:
           instructionsDistributedLearning,
       SessionZeroStep.instructions_implementationIntentions:
-          instructionsImplementationIntentions
+          instructionsImplementationIntentions,
+      SessionZeroStep.instructions_appPermissions: instructionsAppPermissions
     };
 
     _pages = [];
@@ -130,6 +132,9 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   late var instructionScreen4 =
       InstructionScreen4(key: ValueKey(SessionZeroStep.instructions4));
 
+  late var instructionsAppPermissions = InstructionsAppPermissions(
+      key: ValueKey(SessionZeroStep.instructions_appPermissions));
+
   late var instructionsImplementationIntentions =
       InstructionsImplementationIntentions(
           key: ValueKey(SessionZeroStep.instructions_implementationIntentions));
@@ -145,7 +150,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       onVideoCompleted: vm.videoPlanningCompleted);
 
   late var instructionComplete = PlaceholderScreen(
-    text: "Hier Instruktionsvideo Abschluss Session 0 ",
+    text: "Abschluss-Irgendwas (Video? Text?)",
     key: ValueKey(SessionZeroStep.videoInstructionComplete),
   );
 

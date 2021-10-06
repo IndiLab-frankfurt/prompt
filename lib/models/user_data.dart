@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class UserData {
   String firebaseId = "";
   String user = "";
@@ -9,6 +11,7 @@ class UserData {
   int initSessionStep = 0;
   String appVersion = "";
   String selectedMascot = "1";
+  String platform = Platform.isAndroid ? "Android" : "iOS";
 
   UserData(
       {required this.firebaseId,

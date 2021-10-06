@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/models/assessment_result.dart';
@@ -40,7 +42,8 @@ enum SessionZeroStep {
   instructions_cabuu_2,
   instructions_cabuu_3,
   instructions_distributedLearning,
-  instructions_implementationIntentions
+  instructions_implementationIntentions,
+  instructions_appPermissions
 }
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
@@ -48,6 +51,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   List<SessionZeroStep> screenOrder = [];
   InternalisationViewModel internalisationViewmodel =
       InternalisationViewModel();
+  List<String> submittedResults = [];
 
   String _selectedMascot = "1";
   String get selectedMascot => _selectedMascot;
@@ -149,8 +153,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     List<SessionZeroStep> goalIntention = [SessionZeroStep.goalIntention];
 
     List<SessionZeroStep> finalSteps = [
-      SessionZeroStep.selfEfficacy,
-      SessionZeroStep.videoInstructionComplete
+      // SessionZeroStep.selfEfficacy,
+      SessionZeroStep.videoInstructionComplete,
     ];
 
     List<SessionZeroStep> internalisationSteps = [
@@ -185,7 +189,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
           "Attempting to request data for a group that does not exist");
     }
 
-    screenOrder.removeRange(0, firstStep);
+    if (Platform.isAndroid) {
+      screenOrder.add(SessionZeroStep.instructions_appPermissions);
+    }
+
+    // screenOrder.removeRange(0, firstStep);
 
     return screenOrder;
   }
@@ -194,7 +202,22 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   onPageChange() {
     this._dataService.saveSessionZeroStep(step);
     // TODO: Submit results so far
+    if (allAssessmentResults.length > 0) {
+      var lastKey = allAssessmentResults.keys.last;
+      if (!submittedResults.contains(lastKey)) {
+        submitAssessmentResult(lastKey);
+      }
+    }
+
     super.onPageChange();
+  }
+
+  void submitAssessmentResult(key) {
+    var assessmentResult =
+        AssessmentResult(allAssessmentResults[key]!, key, DateTime.now());
+    assessmentResult.startDate = this.startDate;
+    _dataService.saveAssessment(assessmentResult);
+    submittedResults.add(key);
   }
 
   @override
