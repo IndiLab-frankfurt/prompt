@@ -25,8 +25,11 @@ import 'package:prompt/screens/session_zero/why_learn_vocab_screen.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/widgets/prompt_appbar.dart';
+import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:async/async.dart';
 
 class SessionZeroScreen extends StatefulWidget {
   SessionZeroScreen({Key? key}) : super(key: key);
@@ -37,6 +40,8 @@ class SessionZeroScreen extends StatefulWidget {
 
 class _SessionZeroScreenState extends State<SessionZeroScreen> {
   List<Widget> _pages = [];
+
+  final AsyncMemoizer _memoizer = AsyncMemoizer();
 
   late SessionZeroViewModel vm = Provider.of<SessionZeroViewModel>(context);
 
@@ -49,7 +54,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
           whereCanYouFindThisInformation,
       SessionZeroStep.cabuuCode: cabuuCodeScreen,
       SessionZeroStep.mascotSelection: mascotSelectionScreen,
-      SessionZeroStep.moderatorVariables: moderatorVariables,
       SessionZeroStep.assessment_motivation: motivationQuestionnaire,
       SessionZeroStep.assessment_itLiteracy: itLiteracyQuestionnaire,
       SessionZeroStep.assessment_learningFrequencyDuration:
@@ -63,7 +67,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.planDisplay: planDisplay,
       SessionZeroStep.planInternalisation: planInternalisation,
       SessionZeroStep.planTiming: planTiming,
-      SessionZeroStep.selfEfficacy: selfEfficacyQuestionnaire,
+      SessionZeroStep.assessment_selfEfficacy: selfEfficacyQuestionnaire,
       SessionZeroStep.videoInstructionComplete: instructionComplete,
       SessionZeroStep.assessment_planCommitment: planCommitment,
       SessionZeroStep.valueIntervention: whyLearnVocabs,
@@ -90,17 +94,37 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     }
   }
 
+  init() async {
+    return this._memoizer.runOnce(() async {
+      await vm.getInitialValues();
+      return true;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-            body: Container(
-                margin: UIHelper.containerMargin,
-                child: MultiStepAssessment(
-                  vm,
-                  _pages,
-                ))));
+            appBar: PromptAppBar(showBackButton: true),
+            drawer: PromptDrawer(),
+            body: FutureBuilder(
+              future: init(),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.hasData) {
+                  return Container(
+                      margin: UIHelper.containerMargin,
+                      child: MultiStepAssessment(
+                        vm,
+                        _pages,
+                      ));
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            )));
   }
 
   var welcomeScreen = WelcomeScreen(key: ValueKey(SessionZeroStep.welcome));
@@ -154,11 +178,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     key: ValueKey(SessionZeroStep.videoInstructionComplete),
   );
 
-  late var moderatorVariables = PlaceholderScreen(
-    text: "Moderatorvariablen oder so",
-    key: ValueKey(SessionZeroStep.videoInstructionComplete),
-  );
-
   late var motivationQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
       assessmentTypes: AssessmentTypes.motivation,
@@ -167,7 +186,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   late var selfEfficacyQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
       assessmentTypes: AssessmentTypes.selfEfficacy,
-      key: ValueKey(SessionZeroStep.selfEfficacy));
+      key: ValueKey(SessionZeroStep.assessment_selfEfficacy));
 
   late var itLiteracyQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,

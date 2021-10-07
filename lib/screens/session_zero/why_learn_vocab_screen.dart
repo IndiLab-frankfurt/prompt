@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:provider/provider.dart';
 
 class WhyLearnVocabScreen extends StatefulWidget {
   WhyLearnVocabScreen({Key? key}) : super(key: key);
@@ -12,8 +14,11 @@ class WhyLearnVocabScreen extends StatefulWidget {
 }
 
 class _WhyLearnVocabScreenState extends State<WhyLearnVocabScreen> {
+  TextEditingController _controller = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    var vm = Provider.of<SessionZeroViewModel>(context, listen: false);
     return Container(
       margin: UIHelper.containerMargin,
       child: Column(
@@ -23,8 +28,12 @@ class _WhyLearnVocabScreenState extends State<WhyLearnVocabScreen> {
           MarkdownBody(data: "### " + AppStrings.WhyVocab_ParagraphTwo),
           UIHelper.verticalSpaceSmall(),
           TextField(
+              controller: _controller,
               minLines: 5,
               maxLines: null,
+              onChanged: (text) {
+                vm.vocabValue = text;
+              },
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
                 border: OutlineInputBorder(

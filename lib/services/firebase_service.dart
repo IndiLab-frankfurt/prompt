@@ -39,6 +39,7 @@ class FirebaseService implements IDatabaseService {
   static const String COLLECTION_LOGS = "logs";
   static const String COLLECTION_LDT = "ldt";
   static const String COLLECTION_INITSESSION = "initSession";
+  static const String COLLECTION_VOCABVALUE = "vocabValue";
 
   static const Duration timeoutDuration = Duration(seconds: 30);
 
@@ -249,5 +250,16 @@ class FirebaseService implements IDatabaseService {
     _databaseReference.collection(COLLECTION_USERS).doc(username).set(
         {"registrationDate": dateString},
         SetOptions(merge: true)).then((value) => true);
+  }
+
+  @override
+  Future saveVocabValue(Plan plan, String userid) async {
+    var map = plan.toMap();
+    map["user"] = userid;
+    _databaseReference
+        .collection(COLLECTION_VOCABVALUE)
+        .doc(userid)
+        .set(map, SetOptions(merge: true))
+        .then((res) => res);
   }
 }

@@ -133,6 +133,12 @@ class DataService {
     await _databaseService.savePlan(planModel, ud!.user);
   }
 
+  saveVocabValue(String vocabValue) async {
+    var planModel = Plan(vocabValue);
+    var ud = await getUserData();
+    await _databaseService.saveVocabValue(planModel, ud!.user);
+  }
+
   Future<Plan?> getLastPlan() async {
     var ud = await getUserData();
     return await _databaseService.getLastPlan(ud!.user);
@@ -188,8 +194,6 @@ class DataService {
 
   Future<String?> getBackgroundImagePath() async {
     return await _settingsService.getSetting(SettingsKeys.backGroundImage);
-    // return await _localDatabaseService
-    //     .getSettingsValue(SettingsKeys.backGroundImage);
   }
 
   Future saveBackgroundGradientColors(List<Color> colors) async {

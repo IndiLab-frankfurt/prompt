@@ -106,4 +106,10 @@ class MockFirebaseService implements IDatabaseService {
   Future<Plan?> getLastPlan(String userid) {
     throw UnimplementedError();
   }
+
+  @override
+  Future saveVocabValue(Plan plan, String userid) {
+    // TODO: implement saveVocabValue
+    throw UnimplementedError();
+  }
 }

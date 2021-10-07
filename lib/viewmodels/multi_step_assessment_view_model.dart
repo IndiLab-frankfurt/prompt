@@ -11,6 +11,8 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   bool currentAssessmentIsFilledOut = false;
 
   int step = 0;
+  int initialStep = 0;
+
   Assessment lastAssessment = Assessment();
   DateTime startDate = DateTime.now();
 

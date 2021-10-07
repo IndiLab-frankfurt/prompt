@@ -37,6 +37,8 @@ abstract class IDatabaseService {
 
   Future setRegistrationDate(String username, String dateString);
 
+  Future saveVocabValue(Plan plan, String userid);
+
   Future<AssessmentResult?> getLastAssessmentResult(String userid);
 
   Future<List<AssessmentResult>> getAssessmentResults(String userid);

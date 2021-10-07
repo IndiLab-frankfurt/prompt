@@ -25,7 +25,7 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
   void initState() {
     super.initState();
 
-    _controller = new PageController(initialPage: widget.vm.step);
+    _controller = new PageController();
     _controller.addListener(() {
       int step = 0;
       if (_controller.page != null) {
@@ -34,16 +34,26 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
       widget.vm.step = step;
       widget.vm.onPageChange();
     });
+
+    Future.delayed(Duration(milliseconds: 1), (() {
+      print("Jumping to page ${widget.vm.initialStep}");
+      _controller.jumpToPage(widget.vm.initialStep);
+    }));
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(child: _buildPageView());
+    return _buildPageView();
   }
 
   _buildPageView() {
     return Container(
-      margin: EdgeInsets.all(10),
       child: Column(
         children: [
           UIHelper.verticalSpaceMedium(),
