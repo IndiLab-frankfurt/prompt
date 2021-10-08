@@ -64,7 +64,7 @@ class AppStrings {
 
   //Session Zero  Mascot Selection
   static const String SelectionOfMascot =
-      "Hier kannst du dir ein Monster auswählen, das dich im Laufe der Studie begleiten wird. Welches Monster du auswählst, macht für den weiteren Verlauf keinen Unterschied, und es ist nur dafür da, um dich zu motivieren. Wähle also einfach das Monster aus, das dir am besten gefällt.";
+      "Suche dir ein Monster aus, das dich im Laufe der Studie begleitet. Es macht für die Studie keinen Unterschied, welches Monster du wählst. Du kannst das Monster auch später noch wechseln.";
   static const String ThinkAboutYourGoal = "Denke an dein Ziel:";
 
   // Goal Intention
