@@ -12,11 +12,11 @@ class InstructionsCabuu3 extends StatelessWidget {
       children: [
         MarkdownBody(
             data:
-                "### Hast du deine 6 Vokabellisten in cabuu angelegt? Prima!"),
+                "### Hast du deine 6 Vokabellisten in cabuu angelegt und den ersten Lernplan aktiviert? Prima!"),
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
             data:
-                "### Mit dem Lernen in cabuu geht es erst morgen los. Morgen zeigen wir dir, wie du dafür einen Lernplan anlegst."),
+                "###Mit dem Lernen in cabuu sollst du erst *ab morgen* beginnen."),
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
             data:

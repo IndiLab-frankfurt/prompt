@@ -44,7 +44,7 @@
         },
         {
             "id": "cost_effort_learning",
-            "questionText": "Es wird sehr anstrengend sein, die Vokabeln in cabuu zu lernen.",
+            "questionText": "Es wird mich erschöpfen, die Vokabeln in cabuu zu lernen.",
             "labels": {
                 "1": "Trifft überhaupt nicht zu",
                 "2": "Trifft eher nicht zu",
@@ -54,7 +54,7 @@
         },
         {
             "id": "cost_emotion_learning",
-            "questionText": "Es wird meine Stimmung runterziehen, wenn ich die Vokabeln in cabuu lerne.",
+            "questionText": "Es wird mich in eine schlechte Stimmung bringen, wenn ich die Vokabeln in cabuu lerne.",
             "labels": {
                 "1": "Trifft überhaupt nicht zu",
                 "2": "Trifft eher nicht zu",
