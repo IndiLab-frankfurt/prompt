@@ -7,6 +7,7 @@ import 'package:prompt/screens/internalisation/scramble_internalisation.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
 import 'package:prompt/screens/prompts/booster_strategy_prompt_screen.dart';
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -56,11 +57,12 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
             // appBar: SereneAppBar(),
             // drawer: SereneDrawer(),
             body: Container(
+                margin: UIHelper.containerMargin,
                 child: MultiStepAssessment(
-          vm,
-          _pages,
-          // initialStep: vm.getPreviouslyCompletedStep(),
-        ))));
+                  vm,
+                  _pages,
+                  // initialStep: vm.getPreviouslyCompletedStep(),
+                ))));
   }
 
   dynamic internalisation() {

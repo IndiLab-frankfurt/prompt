@@ -44,7 +44,7 @@ class _QuestionnaireState extends State<Questionnaire> {
     print(widget.assessment.title);
     return Scrollbar(
       thickness: 8.0,
-      isAlwaysShown: true,
+      // isAlwaysShown: true,
       child: ListView(
         padding: EdgeInsets.only(top: 10, bottom: 10),
         shrinkWrap: true,

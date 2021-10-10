@@ -8,10 +8,12 @@ class InternalisationViewModel extends BaseViewModel {
 
   String input = "";
 
+  DateTime startDate = DateTime.now();
+
   void onScrambleCorrection(String text) {}
 
   void submit(InternalisationCondition condition, String input) {
     completed = true;
-    input = input;
+    this.input = input;
   }
 }

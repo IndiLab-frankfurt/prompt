@@ -14,13 +14,23 @@ import 'package:collection/collection.dart';
 
 class ExperimentService {
   static const int NUM_GROUPS = 6;
-  static const Duration MAX_STUDY_DURATION = Duration(days: 36);
+  static const Duration MAX_STUDY_DURATION = Duration(days: 56);
 
   final DataService _dataService;
   final NotificationService _notificationService;
   final LoggingService _loggingService;
   final RewardService _rewardService;
   final NavigationService _navigationService;
+
+  // TODO: Schedule according to this
+  late Map<int, List<int>> reminderNotifications = {
+    1: List<int>.generate(54, (int index) => index),
+    2: List<int>.generate(36, (int index) => index),
+    3: List<int>.generate(36, (int index) => index),
+    4: List<int>.generate(36, (int index) => index),
+    5: List<int>.generate(36, (int index) => index),
+    6: List<int>.generate(36, (int index) => index),
+  };
 
   final Map<int, List<int>> boosterPrompts = {
     1: [],
@@ -32,6 +42,15 @@ class ExperimentService {
   };
 
   final Map<int, List<int>> internalisationPrompts = {
+    1: [],
+    2: [],
+    3: [],
+    4: [],
+    5: [1, 2, 3, 7, 8, 9, 13, 14, 15, 19, 20, 21, 25, 26, 27, 31, 32, 33],
+    6: [4, 5, 6, 10, 11, 12, 16, 17, 18, 22, 23, 24, 28, 29, 30, 34, 35, 36],
+  };
+
+  final Map<int, List<int>> vocabTestReminder = {
     1: [],
     2: [],
     3: [],

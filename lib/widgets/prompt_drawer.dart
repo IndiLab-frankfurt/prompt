@@ -162,12 +162,24 @@ class PromptDrawer extends StatelessWidget {
                 var startDate = DateTime.now().subtract(Duration(days: 20));
                 UsageStatsService.queryUsageStats(startDate, DateTime.now());
               }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Usage Permissions",
-              onTap: () async {
-                UsageStatsService.grantUsagePermission();
-              }),
+          Column(
+            children: [
+              Text("Sesion 0 Schritt"),
+              TextFormField(
+                textAlign: TextAlign.center,
+                keyboardType: TextInputType.number,
+                maxLength: 2,
+                initialValue: "",
+                onChanged: (value) {
+                  if (value.isNotEmpty) {
+                    var group = int.parse(value);
+                    locator.get<DataService>().saveSessionZeroStep(group);
+                  }
+                },
+              ),
+              // ElevatedButton(onPressed: () {}, child: Text("Ändern"))
+            ],
+          ),
           Divider(),
           _buildDrawerItem(
               icon: Icons.add_box,

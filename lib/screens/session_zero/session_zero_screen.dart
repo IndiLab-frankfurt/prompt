@@ -232,6 +232,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     value: vm.internalisationViewmodel,
     key: ValueKey(SessionZeroStep.planInternalisation),
     child: EmojiInternalisationScreen(
+        onCompleted: vm.onInternalisationCompleted,
         key: ValueKey(SessionZeroStep.planInternalisation)),
   );
 

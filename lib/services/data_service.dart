@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_item.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:collection/collection.dart';
@@ -53,8 +54,8 @@ class DataService {
   }
 
   saveSessionZeroStep(int step) async {
-    var ud = await getUserData();
-    ud?.initSessionStep = step;
+    var ud = getUserDataCache();
+    ud.initSessionStep = step;
     await _databaseService.saveInitSessionStepCompleted(
         _userService.getUsername(), step);
   }
@@ -203,6 +204,11 @@ class DataService {
         .join(",");
     _localDatabaseService.upsertSetting(
         SettingsKeys.backgroundColors, colorString);
+  }
+
+  saveInternalisation(Internalisation internalisation) async {
+    return await _databaseService.saveInternalisation(
+        internalisation, _userService.getUsername());
   }
 
   Future<void> setStreakDays(int value) async {

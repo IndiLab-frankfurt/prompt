@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:flutter/services.dart';
@@ -218,6 +219,13 @@ class FirebaseService implements IDatabaseService {
 
   logEvent(String userid, dynamic data) async {
     _databaseReference.collection(COLLECTION_LOGS).add(data);
+  }
+
+  saveInternalisation(Internalisation internalisation, String email) async {
+    var map = internalisation.toMap();
+    map["user"] = email;
+
+    _databaseReference.collection(COLLECTION_INTERNALISATION).add(map);
   }
 
   Future<void> saveInitSessionStepCompleted(String userid, int step) async {

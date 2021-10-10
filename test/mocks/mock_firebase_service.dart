@@ -1,3 +1,4 @@
+import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/models/assessment_result.dart';
@@ -109,7 +110,11 @@ class MockFirebaseService implements IDatabaseService {
 
   @override
   Future saveVocabValue(Plan plan, String userid) {
-    // TODO: implement saveVocabValue
+    throw UnimplementedError();
+  }
+
+  @override
+  Future saveInternalisation(Internalisation internalisation, String email) {
     throw UnimplementedError();
   }
 }

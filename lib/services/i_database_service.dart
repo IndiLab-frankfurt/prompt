@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 
@@ -38,6 +39,8 @@ abstract class IDatabaseService {
   Future setRegistrationDate(String username, String dateString);
 
   Future saveVocabValue(Plan plan, String userid);
+
+  Future saveInternalisation(Internalisation internalisation, String email);
 
   Future<AssessmentResult?> getLastAssessmentResult(String userid);
 

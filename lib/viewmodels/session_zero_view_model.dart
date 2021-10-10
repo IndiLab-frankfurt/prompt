@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/reward_service.dart';
@@ -90,6 +91,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   bool _videoDistributedLearningCompleted = false;
   void videoDistributedLearningCompleted() {
     _videoDistributedLearningCompleted = true;
+    notifyListeners();
+  }
+
+  void onInternalisationCompleted(String result) {
     notifyListeners();
   }
 
@@ -231,6 +236,16 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     return step;
   }
 
+  saveInternalisation() async {
+    var internalisation = Internalisation(
+        startDate: DateTime.now(),
+        completionDate: DateTime.now(),
+        plan: this.plan,
+        condition: InternalisationCondition.emoji.toString(),
+        input: this.internalisationViewmodel.input);
+    await dataService.saveInternalisation(internalisation);
+  }
+
   void doStepDependentSubmission(ValueKey currentPageKey) {
     var stepKey = currentPageKey.value as SessionZeroStep;
 
@@ -263,6 +278,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.assessment_learningExpectations:
       case SessionZeroStep.assessment_distributedLearning:
       case SessionZeroStep.assessment_selfEfficacy:
+      case SessionZeroStep.planTiming:
         checkIfAssessmentNeedsSubmission();
         break;
       case SessionZeroStep.valueIntervention:
@@ -275,10 +291,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         dataService.savePlan(plan);
         break;
       case SessionZeroStep.planInternalisation:
-        // TODO: Handle this case.
-        break;
-      case SessionZeroStep.planTiming:
-        // TODO: Save plan timing!!!
+        saveInternalisation();
         break;
     }
   }
@@ -327,8 +340,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         // TODO: Handle this case.
         break;
       case SessionZeroStep.planInternalisation:
-        // TODO: Handle this case.
-        break;
+        return this.internalisationViewmodel.input.isNotEmpty;
       case SessionZeroStep.planTiming:
         // TODO: Handle this case.
         break;

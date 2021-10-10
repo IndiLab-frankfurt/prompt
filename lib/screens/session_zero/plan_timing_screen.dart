@@ -129,6 +129,9 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
   _onChanged(int groupValue, String selectedValue) {
     setState(() {
       _groupValue = groupValue;
+
+      vm.setAssessmentResult(
+          "planTiming", groupValue.toString(), selectedValue);
     });
   }
 }

@@ -228,9 +228,11 @@ class _EmojiInternalisationScreenState
   // }
 
   String _getEmojiInput() {
+    var rawInput =
+        "Wenn ${_controllerLeft.text}, dann ${_controllerRight.text}";
     var emojiInfoLeft = emojiNamesFromEmojiList(emojiNamesLeft);
     var emojiInfoRight = emojiNamesFromEmojiList(emojiNamesRight);
-    return "L:$emojiInfoLeft | R:$emojiInfoRight";
+    return "${rawInput} ---- L:$emojiInfoLeft | R:$emojiInfoRight";
   }
 
   void _checkIfIsDone() {
