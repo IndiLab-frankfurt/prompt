@@ -13,8 +13,8 @@
             }
         },
         {
-            "id": "obstacle_initiating",
-            "questionText": "Es ist mir heute schwergefallen, mit dem Lernen auf cabuu anzufangen.",
+            "id": "procrastination",
+            "questionText": "Ich habe das Lernen mit cabuu heute vor mir hergeschoben.",
             "labels": {
                 "1": "trifft überhaupt nicht zu",
                 "2": "trifft eher nicht zu",
@@ -23,13 +23,43 @@
             }
         },
         {
-            "id": "obstacle_maintaining",
-            "questionText": "Während ich mit cabuu gelernt habe, gab es viele Ablenkungen.",
+            "id": "multitasking_music",
+            "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei Musik gehört.",
             "labels": {
-                "1": "trifft überhaupt nicht zu",
-                "2": "trifft eher nicht zu",
-                "3": "trifft eher zu",
-                "4": "trifft voll und ganz zu"
+                "1": "überhaupt nicht",
+                "2": "nur kurz",
+                "3": "mehrmals/längere Zeit",
+                "4": "(fast) die ganze Zeit"
+            }
+        },
+        {
+            "id": "multitasking_messages",
+            "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei Nachrichten geschrieben.",
+            "labels": {
+                "1": "überhaupt nicht",
+                "2": "nur kurz",
+                "3": "mehrmals/längere Zeit",
+                "4": "(fast) die ganze Zeit"
+            }
+        },
+        {
+            "id": "multitasking_socialmedia",
+            "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei soziale Netzwerke genutzt (z.B. Instagram, TikTok).",
+            "labels": {
+                "1": "überhaupt nicht",
+                "2": "nur kurz",
+                "3": "mehrmals/längere Zeit",
+                "4": "(fast) die ganze Zeit"
+            }
+        },
+        {
+            "id": "multitasking_TV",
+            "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei ferngesehen.",
+            "labels": {
+                "1": "überhaupt nicht",
+                "2": "nur kurz",
+                "3": "mehrmals/längere Zeit",
+                "4": "(fast) die ganze Zeit"
             }
         }
     ]
