@@ -27,7 +27,7 @@
             "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei etwas angehört (z.B. Musik, Podcasts, Radio).",
             "labels": {
                 "1": "überhaupt nicht",
-                "2": "nur kurz",
+                "2": "selten/nur kurze Zeit",
                 "3": "mehrmals/längere Zeit",
                 "4": "(fast) die ganze Zeit"
             }
@@ -37,7 +37,7 @@
             "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei Nachrichten mit dem Handy oder Computer geschrieben.",
             "labels": {
                 "1": "überhaupt nicht",
-                "2": "nur kurz",
+                "2": "selten/nur kurze Zeit",
                 "3": "mehrmals/längere Zeit",
                 "4": "(fast) die ganze Zeit"
             }
@@ -47,7 +47,7 @@
             "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei soziale Netzwerke genutzt (z.B. Instagram, TikTok).",
             "labels": {
                 "1": "überhaupt nicht",
-                "2": "nur kurz",
+                "2": "selten/nur kurze Zeit",
                 "3": "mehrmals/längere Zeit",
                 "4": "(fast) die ganze Zeit"
             }
@@ -57,7 +57,7 @@
             "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei etwas angeschaut (z.B. YouTube, Fernsehen, Serien).",
             "labels": {
                 "1": "überhaupt nicht",
-                "2": "nur kurz",
+                "2": "selten/nur kurze Zeit",
                 "3": "mehrmals/längere Zeit",
                 "4": "(fast) die ganze Zeit"
             }
