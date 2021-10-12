@@ -24,7 +24,7 @@
         },
         {
             "id": "multitasking_music",
-            "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei Musik gehört.",
+            "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei etwas angehört (z.B. Musik, Podcasts, Radio).",
             "labels": {
                 "1": "überhaupt nicht",
                 "2": "nur kurz",
@@ -34,7 +34,7 @@
         },
         {
             "id": "multitasking_messages",
-            "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei Nachrichten geschrieben.",
+            "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei Nachrichten mit dem Handy oder Computer geschrieben.",
             "labels": {
                 "1": "überhaupt nicht",
                 "2": "nur kurz",
@@ -54,7 +54,7 @@
         },
         {
             "id": "multitasking_TV",
-            "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei ferngesehen.",
+            "questionText": "Während ich mit cabuu gelernt habe, habe ich nebenbei etwas angeschaut (z.B. YouTube, Fernsehen, Serien).",
             "labels": {
                 "1": "überhaupt nicht",
                 "2": "nur kurz",
