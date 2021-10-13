@@ -63,10 +63,10 @@ class AppStrings {
       '"Ich will jeden Tag ein paar Vokabeln mit cabuu lernen"';
 
   //Session Zero  Mascot Selection
-  static const String endofsessionText =
-    "Prima, für heute bist du fertig! Denk daran, dass du PROMPT ab morgen jeden Tag - am besten schon morgens - benutzen sollst.";
+  static const String EndofsessionText =
+      "Prima, gleich bist du für heute fertig! Denk daran, dass du PROMPT ab morgen jeden Tag - am besten schon morgens - benutzen sollst.";
   static const String SelectionOfMascot =
-      "Zum Schluss kannst du dir jetzt noch ein Monster aussuchen, das dich im Laufe der Studie begleiten. Es macht für die Studie keinen Unterschied, welches Monster du wählst. Du kannst das Monster auch später noch wechseln.";
+      "Zum Schluss kannst du dir jetzt noch ein Monster aussuchen, das dich im Laufe der Studie begleitet. Es macht für die Studie keinen Unterschied, welches Monster du wählst. Du kannst das Monster auch später noch wechseln.";
   static const String ThinkAboutYourGoal = "Denke an dein Ziel:";
 
   // Goal Intention

@@ -63,6 +63,12 @@ class PromptDrawer extends StatelessWidget {
           ),
           Divider(),
           _buildDrawerItem(
+              icon: Icons.info,
+              text: "Über PROMPT",
+              onTap: () async {
+                await Navigator.pushNamed(context, RouteNames.ABOUT_PROMPT);
+              }),
+          _buildDrawerItem(
               icon: Icons.add_box,
               text: "Session 0",
               onTap: () async {
@@ -141,11 +147,14 @@ class PromptDrawer extends StatelessWidget {
                   },
                 );
 
-                if (picked != null && picked != regDate)
+                if (picked != null) {
                   locator
                       .get<DataService>()
                       .getUserDataCache()
                       .registrationDate = picked;
+                }
+
+                await Navigator.pushNamed(context, RouteNames.NO_TASKS);
               }),
           Divider(),
           _buildDrawerItem(

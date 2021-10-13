@@ -21,7 +21,7 @@ class _WhyLearnVocabScreenState extends State<WhyLearnVocabScreen> {
     var vm = Provider.of<SessionZeroViewModel>(context, listen: false);
     return Container(
       margin: UIHelper.containerMargin,
-      child: Column(
+      child: ListView(
         children: [
           MarkdownBody(data: "### " + AppStrings.WhyVocab_ParagraphOne),
           UIHelper.verticalSpaceSmall(),

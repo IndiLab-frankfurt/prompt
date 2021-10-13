@@ -12,6 +12,7 @@ import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
 enum SessionZeroStep {
   welcome,
+  rewardSreen1,
   whereCanYouFindThisInformation,
   cabuuCode,
   mascotSelection,
@@ -23,7 +24,6 @@ enum SessionZeroStep {
   assessment_distributedLearning,
   assessment_selfEfficacy,
   valueIntervention,
-  goalIntention,
   videoPlanning,
   videoDistributedLearning,
   planCreation,
@@ -40,7 +40,8 @@ enum SessionZeroStep {
   instructions_cabuu_3,
   instructions_distributedLearning,
   instructions_implementationIntentions,
-  instructions_appPermissions
+  instructions_appPermissions,
+  endOfSession
 }
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
@@ -135,7 +136,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     List<SessionZeroStep> firstScreens = [
       SessionZeroStep.welcome,
       SessionZeroStep.whereCanYouFindThisInformation,
-      SessionZeroStep.mascotSelection,
+      SessionZeroStep.rewardSreen1,
       SessionZeroStep.instructions1,
       SessionZeroStep.instructions2,
       SessionZeroStep.instructions3,
@@ -157,11 +158,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.assessment_distributedLearning,
     ];
 
-    List<SessionZeroStep> goalIntention = [SessionZeroStep.goalIntention];
-
     List<SessionZeroStep> finalSteps = [
       // SessionZeroStep.selfEfficacy,
       SessionZeroStep.videoInstructionComplete,
+      SessionZeroStep.endOfSession,
+      SessionZeroStep.mascotSelection,
     ];
 
     List<SessionZeroStep> internalisationSteps = [
@@ -175,19 +176,13 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     ];
 
     if (group == 1) {
-      screenOrder = [...firstScreens, ...goalIntention, ...finalSteps];
-    } else if (group == 2 || group == 3 || group == 4) {
+      screenOrder = [...firstScreens, ...finalSteps];
+    } else if (group == 2 || group == 3) {
+      screenOrder = [...firstScreens, ...distributedLearning, ...finalSteps];
+    } else if (group == 5 || group == 6 || group == 4) {
       screenOrder = [
         ...firstScreens,
         ...distributedLearning,
-        ...goalIntention,
-        ...finalSteps
-      ];
-    } else if (group == 5 || group == 6) {
-      screenOrder = [
-        ...firstScreens,
-        ...distributedLearning,
-        ...goalIntention,
         ...internalisationSteps,
         ...finalSteps
       ];
@@ -243,7 +238,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         plan: this.plan,
         condition: InternalisationCondition.emoji.toString(),
         input: this.internalisationViewmodel.input);
-    await dataService.saveInternalisation(internalisation);
+    await _dataService.saveInternalisation(internalisation);
   }
 
   void doStepDependentSubmission(ValueKey currentPageKey) {
@@ -261,6 +256,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.instructions4:
       case SessionZeroStep.instructions_cabuu_1:
       case SessionZeroStep.instructions_cabuu_2:
+      case SessionZeroStep.rewardSreen1:
       case SessionZeroStep.instructions_cabuu_3:
       case SessionZeroStep.instructions_distributedLearning:
       case SessionZeroStep.instructions_appPermissions:
@@ -269,7 +265,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.planDisplay:
         break;
       case SessionZeroStep.mascotSelection:
-        dataService.setSelectedMascot(selectedMascot);
+        _dataService.setSelectedMascot(selectedMascot);
         break;
       case SessionZeroStep.assessment_planCommitment:
       case SessionZeroStep.assessment_itLiteracy:
@@ -282,16 +278,16 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         checkIfAssessmentNeedsSubmission();
         break;
       case SessionZeroStep.valueIntervention:
-        dataService.saveVocabValue(vocabValue);
-        break;
-      case SessionZeroStep.goalIntention:
-        // TODO: Handle this case.
+        _dataService.saveVocabValue(vocabValue);
         break;
       case SessionZeroStep.planCreation:
-        dataService.savePlan(plan);
+        _dataService.savePlan(plan);
         break;
       case SessionZeroStep.planInternalisation:
         saveInternalisation();
+        break;
+      case SessionZeroStep.endOfSession:
+        // TODO: Handle this case.
         break;
     }
   }
@@ -325,9 +321,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         return currentAssessmentIsFilledOut;
       case SessionZeroStep.valueIntervention:
         return vocabValue.isNotEmpty;
-      case SessionZeroStep.goalIntention:
-        // TODO: Handle this case.
-        break;
       case SessionZeroStep.videoPlanning:
         // TODO: Handle this case.
         break;

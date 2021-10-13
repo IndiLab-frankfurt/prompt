@@ -19,4 +19,6 @@ class RouteNames {
   static const ASSESSMENT_FINAL = "/assessmentfinal";
 
   static const VIDEO_DISTRIBUTED_LEARNING = "/videodistributedlearning";
+
+  static const ABOUT_PROMPT = "/aboutprompt";
 }

@@ -21,6 +21,9 @@ class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
     return Container(
         child: ListView(
       children: [
+        UIHelper.verticalSpaceMedium(),
+        MarkdownBody(data: "### " + AppStrings.EndofsessionText),
+        UIHelper.verticalSpaceMedium(),
         MarkdownBody(data: "### " + AppStrings.SelectionOfMascot),
         UIHelper.verticalSpaceMedium(),
         CircleAvatar(

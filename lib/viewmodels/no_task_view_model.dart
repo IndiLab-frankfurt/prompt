@@ -25,18 +25,25 @@ class NoTaskViewModel extends BaseViewModel {
   NoTaskViewModel(
       this._experimentService, this._dataService, this._navigationService) {
     print("Constructor of no task viewmodel");
-    getNextTask();
+    // getNextTask();
   }
 
-  Future<void> getNextTask() async {
+  Future<bool> getNextTask() async {
     await _dataService.getAssessmentResults();
 
     showLearnedWithCabuuButton = false;
     showVocabularyTestReminder = false;
 
     if (daysActive == 0) {
-      notifyListeners();
-      return;
+      // notifyListeners();
+      return true;
+    }
+
+    if (_experimentService.isVocabTestDay()) {
+      showLearnedWithCabuuButton = false;
+      showVocabularyTestReminder = true;
+      // notifyListeners();
+      return true;
     }
 
     if (await _experimentService.isTimeForMorningAssessment()) {
@@ -45,13 +52,10 @@ class NoTaskViewModel extends BaseViewModel {
 
     if (await _experimentService.isTimeForEveningAssessment()) {
       showLearnedWithCabuuButton = true;
-      notifyListeners();
+      // notifyListeners();
+      return true;
     }
 
-    if (daysActive % 9 == 0) {
-      showLearnedWithCabuuButton = false;
-      showVocabularyTestReminder = true;
-      notifyListeners();
-    }
+    return false;
   }
 }

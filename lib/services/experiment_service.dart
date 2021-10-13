@@ -59,6 +59,8 @@ class ExperimentService {
     6: [4, 5, 6, 10, 11, 12, 16, 17, 18, 22, 23, 24, 28, 29, 30, 34, 35, 36],
   };
 
+  final List<int> vocabTestDays = [8, 17, 26, 35, 44, 53];
+
   ExperimentService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
 
@@ -92,16 +94,26 @@ class ExperimentService {
     }
   }
 
+  bool isVocabTestDay() {
+    return vocabTestDays.contains(getDaysSinceStart());
+  }
+
+  bool wasVocabDayYesterday() {
+    return vocabTestDays.contains(getDaysSinceStart() + 1);
+  }
+
+  bool didCompletePreVocabToday() {
+    var last =
+        _dataService.getLastAssessmentResultForCached("preVocabCompleted");
+
+    if (last == null) return false;
+
+    return (last.submissionDate.isToday());
+  }
+
   int getDaysSinceStart() {
-    var assessments = _dataService.getAssessmentResultsCached();
-    if (assessments == null) return 0;
-
-    var firstMornignAssessment = assessments.firstWhereOrNull(
-        (element) => element.assessmentType == MORNING_ASSESSMENT);
-
-    if (firstMornignAssessment == null) return 0;
-
-    return firstMornignAssessment.submissionDate.daysAgo();
+    var ud = _dataService.getUserDataCache();
+    return ud.registrationDate.daysAgo();
   }
 
   Future<bool> _shouldIncrementStreakDay() async {

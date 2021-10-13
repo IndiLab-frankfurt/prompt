@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
+import 'package:prompt/screens/assessments/pre_vocab_screen.dart';
+import 'package:prompt/screens/assessments/pre_vocab_video.dart';
+import 'package:prompt/screens/assessments/yesterday_vocab_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/scramble_internalisation.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
@@ -26,6 +29,9 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
 
   late Map<MorningAssessmentStep, Widget> _stepScreenMap = {
     MorningAssessmentStep.didLearn: didLearnQuestionnaire,
+    MorningAssessmentStep.preVocab: preVocabScreen,
+    MorningAssessmentStep.preVocabVideo: preVocabVideo,
+    MorningAssessmentStep.yesterdayVocab: yesterdayVocab,
     MorningAssessmentStep.rememberToUsePromptAfterCabuu:
         rememberToUsePromptAfterCabuu,
     MorningAssessmentStep.alternativeItems: alternativeItems,
@@ -34,6 +40,22 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     MorningAssessmentStep.boosterPrompt: boosterPrompt,
     MorningAssessmentStep.internalisation: internalisation(),
     MorningAssessmentStep.completed: completed,
+    MorningAssessmentStep.assessment_afterTest: afterTest1,
+    MorningAssessmentStep.assessment_afterTest_success: afterTestSuccess,
+    MorningAssessmentStep.assessment_afterTest_failure: afterTestFailure,
+    MorningAssessmentStep.assessment_afterTest_2: afterTest2,
+    MorningAssessmentStep.assessment_evening_1: evening1,
+    MorningAssessmentStep.assessment_evening_2: evening2,
+    MorningAssessmentStep.assessment_evening_3: evening3,
+    MorningAssessmentStep.assessment_evening_alternative: eveningAlternative,
+    MorningAssessmentStep.assessment_evening_1_yesterday: evening1yesterday,
+    MorningAssessmentStep.assessment_evening_2_yesterday: evening2yesterday,
+    MorningAssessmentStep.assessment_evening_3_yesterday: evening3yesterday,
+    MorningAssessmentStep.assessment_morningIntention: morningIntention,
+    MorningAssessmentStep.assessment_morning_with_intention:
+        morningWithIntention,
+    MorningAssessmentStep.assessment_morning_without_intention:
+        morningWithoutIntention
   };
 
   @override
@@ -45,6 +67,8 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     for (var page in vm.screenOrder) {
       if (_stepScreenMap.containsKey(page)) {
         _pages.add(_stepScreenMap[page]!);
+      } else {
+        throw Exception("The requested screen is not mapped");
       }
     }
   }
@@ -118,6 +142,89 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     assessmentTypes: AssessmentTypes.evening_alternative,
     key: ValueKey(MorningAssessmentStep.alternativeItems),
   );
+
+  late var morningIntention = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.morning_intention,
+      key: ValueKey(MorningAssessmentStep.assessment_morningIntention));
+
+  late var morningWithIntention = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.morning_with_intention,
+      key: ValueKey(MorningAssessmentStep.assessment_morning_with_intention));
+
+  late var morningWithoutIntention = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.morning_without_intention,
+      key:
+          ValueKey(MorningAssessmentStep.assessment_morning_without_intention));
+
+  late var eveningAlternative = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.evening_alternative,
+      key: ValueKey(MorningAssessmentStep.assessment_evening_alternative));
+
+  late var evening1 = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.evening_1,
+      key: ValueKey(MorningAssessmentStep.assessment_evening_1));
+
+  late var evening1yesterday = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.evening_1_yesterday,
+      key: ValueKey(MorningAssessmentStep.assessment_evening_1_yesterday));
+
+  late var evening2yesterday = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.evening_2_yesterday,
+      key: ValueKey(MorningAssessmentStep.assessment_evening_2_yesterday));
+
+  late var evening3yesterday = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.evening_3_yesterday,
+      key: ValueKey(MorningAssessmentStep.assessment_evening_3_yesterday));
+
+  late var evening2 = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.evening_2,
+      key: ValueKey(MorningAssessmentStep.assessment_evening_2));
+
+  late var evening3 = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.evening_3,
+      key: ValueKey(MorningAssessmentStep.assessment_evening_3));
+
+  late var afterTest1 = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.afterTest,
+      key: ValueKey(MorningAssessmentStep.assessment_afterTest));
+
+  late var afterTest2 = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.afterTest_2,
+      key: ValueKey(MorningAssessmentStep.assessment_afterTest_2));
+
+  late var afterTestFailure = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.afterTest_failure,
+      key: ValueKey(MorningAssessmentStep.assessment_afterTest_failure));
+
+  late var afterTestSuccess = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.afterTest_success,
+      key: ValueKey(MorningAssessmentStep.assessment_afterTest_success));
+
+  late var preVocabScreen =
+      PreVocabScreen(key: ValueKey(MorningAssessmentStep.preVocab));
+
+  late var preVocabVideo = PreVocabVideo(
+      onVideoCompleted: vm.onPreVocabVideoCompleted,
+      nextLearnDate: vm.getNextVocabTestDate(),
+      key: ValueKey(MorningAssessmentStep.preVocabVideo));
+
+  late var yesterdayVocab = YesterdayVocabScreen(
+      nextVocabTestDate: vm.getNextVocabTestDate(),
+      key: ValueKey(MorningAssessmentStep.yesterdayVocab));
 
   late var completed = MarkdownBody(
       data: "# " + vm.finalMessage,

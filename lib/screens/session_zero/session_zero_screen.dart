@@ -4,7 +4,7 @@ import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart'
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/placeholder_screen.dart';
 import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
-import 'package:prompt/screens/session_zero/goal_intention_screen.dart';
+import 'package:prompt/screens/session_zero/end_of_session_screen.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_1.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_2.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_3.dart';
@@ -20,6 +20,7 @@ import 'package:prompt/screens/session_zero/plan_commitment_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
 import 'package:prompt/screens/session_zero/plan_timing_screen.dart';
+import 'package:prompt/screens/session_zero/reward_screen_1.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
 import 'package:prompt/screens/session_zero/why_learn_vocab_screen.dart';
 import 'package:prompt/shared/enums.dart';
@@ -61,7 +62,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.assessment_learningExpectations: learningExpectations,
       SessionZeroStep.assessment_distributedLearning: distributedLearning,
       SessionZeroStep.videoDistributedLearning: videoDistributedLearning,
-      SessionZeroStep.goalIntention: goalIntentionScreen,
       SessionZeroStep.videoPlanning: videoPlanning,
       SessionZeroStep.planCreation: planCreation,
       SessionZeroStep.planDisplay: planDisplay,
@@ -82,7 +82,9 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
           instructionsDistributedLearning,
       SessionZeroStep.instructions_implementationIntentions:
           instructionsImplementationIntentions,
-      SessionZeroStep.instructions_appPermissions: instructionsAppPermissions
+      SessionZeroStep.instructions_appPermissions: instructionsAppPermissions,
+      SessionZeroStep.endOfSession: endOfSessionScreen,
+      SessionZeroStep.rewardSreen1: rewardScreen1
     };
 
     _pages = [];
@@ -127,7 +129,14 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
             )));
   }
 
-  var welcomeScreen = WelcomeScreen(key: ValueKey(SessionZeroStep.welcome));
+  late var welcomeScreen =
+      WelcomeScreen(key: ValueKey(SessionZeroStep.welcome));
+
+  late var rewardScreen1 =
+      RewardScreen1(key: ValueKey(SessionZeroStep.rewardSreen1));
+
+  late var endOfSessionScreen =
+      EndOfSessionScreen(key: ValueKey(SessionZeroStep.endOfSession));
 
   late var cabuuCodeScreen =
       CabuuCodeScreen(key: ValueKey(SessionZeroStep.cabuuCode));
@@ -165,9 +174,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   late var mascotSelectionScreen =
       MascotSelectionScreen(key: ValueKey(SessionZeroStep.mascotSelection));
-
-  late var goalIntentionScreen =
-      GoalIntentionScreen(key: ValueKey(SessionZeroStep.goalIntention));
 
   late var videoPlanning = VideoScreen('assets/videos/videoLearning.mp4',
       key: ValueKey(SessionZeroStep.videoPlanning),

@@ -43,7 +43,7 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   bool didCompleteMorningItemsToday() {
-    var last = dataService.getLastAssessmentResultCached();
+    var last = this.dataService.getLastAssessmentResultCached();
 
     if (last == null) return false;
 

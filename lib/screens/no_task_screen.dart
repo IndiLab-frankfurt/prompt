@@ -144,31 +144,34 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                     backgroundColor: Colors.transparent,
                     appBar: PromptAppBar(showBackButton: true),
                     drawer: _getDrawer(),
-                    body: Container(
-                        child: Align(
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                UIHelper.verticalSpaceSmall(),
-                                if (vm.showLearnedWithCabuuButton)
-                                  _buildToNextTaskButton(),
-                                if (vm.showVocabularyTestReminder)
-                                  _buildVocabTestReminder(),
-                                if (vm.showContinueTomorrowButton)
-                                  _buildReturnTomorrowButton(),
-                                UIHelper.verticalSpaceSmall(),
-                                _buildChangeBackgroundButton(),
-                                UIHelper.verticalSpaceMedium(),
-                                Divider(),
-                                _buildStatistics()
-                              ],
-                            ),
-                            alignment: Alignment(0.0, 0.6))))),
-            // Positioned(
-            //     child: Align(
-            //         alignment: Alignment.bottomCenter,
-            //         child: Image(
-            //             image: AssetImage(rewardService.selectedMascotImage))))
+                    body: FutureBuilder(
+                      future: vm.getNextTask(),
+                      builder: (_, snapshot) {
+                        if (snapshot.hasData) {
+                          return Container(
+                              child: Align(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      UIHelper.verticalSpaceSmall(),
+                                      if (vm.showLearnedWithCabuuButton)
+                                        _buildToNextTaskButton(),
+                                      if (vm.showVocabularyTestReminder)
+                                        _buildVocabTestReminder(),
+                                      if (vm.showContinueTomorrowButton)
+                                        _buildReturnTomorrowButton(),
+                                      UIHelper.verticalSpaceSmall(),
+                                      _buildChangeBackgroundButton(),
+                                      UIHelper.verticalSpaceMedium(),
+                                      Divider(),
+                                      _buildStatistics()
+                                    ],
+                                  ),
+                                  alignment: Alignment(0.0, 0.6)));
+                        }
+                        return CircularProgressIndicator();
+                      },
+                    ))),
           ],
         ));
   }
@@ -225,7 +228,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
   _buildVocabTestReminder() {
     return Container(
         width: double.infinity,
-        height: 50,
+        height: 80,
         margin: EdgeInsets.all(10),
         child: Column(
           children: [
@@ -253,7 +256,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
   _buildToNextTaskButton() {
     return Container(
         width: double.infinity,
-        height: 50,
+        height: 80,
         margin: EdgeInsets.all(10),
         child: OutlinedButton(
           onPressed: () async {

@@ -24,8 +24,13 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.orange[50],
           canvasColor: Colors.white,
           selectedRowColor: Colors.orange[200],
-          textTheme:
-              GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
+          textTheme: TextTheme(
+            bodyText1: GoogleFonts.quicksand(fontSize: 15),
+            bodyText2: GoogleFonts.quicksand(
+                fontSize: 15, fontWeight: FontWeight.w700),
+            subtitle1: GoogleFonts.quicksand(
+                fontSize: 20, fontWeight: FontWeight.w600),
+          ),
           // GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
           buttonTheme: ButtonThemeData(
             shape:
