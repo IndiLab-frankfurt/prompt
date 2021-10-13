@@ -120,9 +120,8 @@ class NotificationService {
   scheduleMorningReminder(DateTime time, int id) async {
     var timeoutAfter = getMillisecondsUntilMidnight(time);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_MORNING_REMINDER,
-        CHANNEL_NAME_MORNING_REMINDER,
-        CHANNEL_DESCRIPTION_MORNING_REMINDER,
+        CHANNEL_ID_MORNING_REMINDER, CHANNEL_NAME_MORNING_REMINDER,
+        channelDescription: CHANNEL_DESCRIPTION_MORNING_REMINDER,
         timeoutAfter: timeoutAfter,
         ongoing: true);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
@@ -162,8 +161,10 @@ class NotificationService {
 
     var timeoutAfter = getMillisecondsUntilMidnight(time);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_EVENING, CHANNEL_NAME_EVENING, CHANNEL_DESCRIPTION_EVENING,
-        ongoing: true, timeoutAfter: timeoutAfter);
+        CHANNEL_ID_EVENING, CHANNEL_NAME_EVENING,
+        channelDescription: CHANNEL_DESCRIPTION_EVENING,
+        ongoing: true,
+        timeoutAfter: timeoutAfter);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var notificationDetails = new NotificationDetails(
         android: androidPlatformChannelSpecifics,
@@ -187,10 +188,8 @@ class NotificationService {
 
   scheduleBoosterPrompt(DateTime time) async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_BOOSTER_PROMPT,
-        CHANNEL_NAME_BOOSTER_PROMPT,
-        CHANNEL_DESCRIPTION_BOOSTER_PROMPT,
-        ongoing: true);
+        CHANNEL_ID_BOOSTER_PROMPT, CHANNEL_NAME_BOOSTER_PROMPT,
+        channelDescription: CHANNEL_DESCRIPTION_BOOSTER_PROMPT, ongoing: true);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var notificationDetails = new NotificationDetails(
         android: androidPlatformChannelSpecifics,
@@ -214,10 +213,8 @@ class NotificationService {
     await deleteScheduledFinalReminderTask();
 
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_FINAL_REMINDER,
-        CHANNEL_NAME_FINAL_REMINDER,
-        CHANNEL_DESCRIPTION_FINAL_REMINDER,
-        ongoing: true);
+        CHANNEL_ID_FINAL_REMINDER, CHANNEL_NAME_FINAL_REMINDER,
+        channelDescription: CHANNEL_DESCRIPTION_FINAL_REMINDER, ongoing: true);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var notificationDetails = new NotificationDetails(
         android: androidPlatformChannelSpecifics,
@@ -240,7 +237,8 @@ class NotificationService {
 
   sendDebugReminder() async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        "WURST", CHANNEL_NAME_EVENING, CHANNEL_DESCRIPTION_EVENING);
+        "WURST", CHANNEL_NAME_EVENING,
+        channelDescription: CHANNEL_DESCRIPTION_EVENING);
     var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
     var notificationDetails = new NotificationDetails(
         android: androidPlatformChannelSpecifics,

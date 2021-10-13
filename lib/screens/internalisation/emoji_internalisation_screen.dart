@@ -232,7 +232,7 @@ class _EmojiInternalisationScreenState
         "Wenn ${_controllerLeft.text}, dann ${_controllerRight.text}";
     var emojiInfoLeft = emojiNamesFromEmojiList(emojiNamesLeft);
     var emojiInfoRight = emojiNamesFromEmojiList(emojiNamesRight);
-    return "${rawInput} ---- L:$emojiInfoLeft | R:$emojiInfoRight";
+    return "$rawInput ---- L:$emojiInfoLeft | R:$emojiInfoRight";
   }
 
   void _checkIfIsDone() {
