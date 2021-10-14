@@ -12,7 +12,7 @@ class InstructionScreen1 extends StatelessWidget {
       children: [
         MarkdownBody(
             data:
-                "### Heute und im Laufe der Studie werden wir dir einige Fragen stellen. Die meisten Fragen beziehen sich darauf, wie du lernst oder was über das Lernen denkst."),
+                "### Heute und im Laufe der Studie werden wir dir einige Fragen stellen. Die meisten Fragen beziehen sich darauf, wie du lernst oder was du über das Lernen denkst."),
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(data: "### Meistens zeigen wir dir eine Aussage, z.B.:"),
         MarkdownBody(data: '> ### Ich lerne gerne Vokabeln'),
