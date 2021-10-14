@@ -15,7 +15,7 @@
         },
         {
             "id": "learning_duration",
-            "questionText": "Wie lange lernst du Vokabeln, wenn du lernst??",
+            "questionText": "Wie lange lernst du Vokabeln, wenn du lernst?",
             "labels": {
                 "1": "Unter 5 Minuten",
                 "2": "5 bis 15 Minuten",
