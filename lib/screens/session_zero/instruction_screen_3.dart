@@ -23,7 +23,7 @@ class InstructionScreen3 extends StatelessWidget {
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
           data:
-              '### Deine Angaben sind anonym. Das bedeutet, dass wir nicht sehen können, dass du diese Antwort gegeben hast.',
+              '### Deine Angaben sind anonym. Das bedeutet, dass wir nicht sehen können, dass *du* diese Antwort gegeben hast.',
         )
       ],
     ));
