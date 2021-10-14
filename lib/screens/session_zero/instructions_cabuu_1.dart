@@ -9,7 +9,7 @@ class InstructionsCabuu1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var format = new DateFormat("dd.MM.yyyy");
-    var targetDate = format.format(DateTime.now().add(Duration(days: 9)));
+    var targetDate = format.format(DateTime.now().add(Duration(days: 8)));
     return Container(
         child: ListView(
       children: [

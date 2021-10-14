@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:prompt/locator.dart';
+import 'package:prompt/screens/about_screen.dart';
 import 'package:prompt/screens/assessments/disributed_learning_video_screen.dart';
 import 'package:prompt/screens/assessments/evening_assessment_screen.dart';
 import 'package:prompt/screens/internalisation/daily_internalisation_screen.dart';
@@ -93,6 +94,9 @@ class AppRouter {
 
       case RouteNames.VIDEO_DISTRIBUTED_LEARNING:
         return MaterialPageRoute(builder: (_) => DistributedLearningVideo());
+
+      case RouteNames.ABOUT_PROMPT:
+        return MaterialPageRoute(builder: (_) => AboutScreen());
 
       default:
         return MaterialPageRoute(builder: (_) {

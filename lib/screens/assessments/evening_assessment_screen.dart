@@ -19,10 +19,12 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
   late EveningAssessmentViewModel vm =
       Provider.of<EveningAssessmentViewModel>(context);
 
-  late Map<String, Widget> _stepScreenMap = {
-    didLearnCabuuToday: didLearnCabuuTodayQuestionnaire,
-    continueAfterCabuu: continueAfterCabuuScreen,
-    eveningItems: eveningQuestionnaire,
+  late Map<EveningAssessmentStep, Widget> _stepScreenMap = {
+    EveningAssessmentStep.didLearnCabuuToday: didLearnCabuuTodayQuestionnaire,
+    EveningAssessmentStep.continueAfterCabuu: continueAfterCabuuScreen,
+    EveningAssessmentStep.assessment_evening_1: evening1,
+    EveningAssessmentStep.assessment_evening_2: evening2,
+    EveningAssessmentStep.assessment_evening_3: evening3
   };
   @override
   void didChangeDependencies() {
@@ -54,18 +56,34 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
 
   late var continueAfterCabuuScreen = PlaceholderScreen(
       text: "Mache hier erst weiter, wenn du mit cabuu gelernt hast",
-      key: ValueKey(continueAfterCabuu));
+      key: ValueKey(EveningAssessmentStep.continueAfterCabuu));
 
   late var distributedLearningVideo = PlaceholderScreen(
-      text: "Video zum verteilten Lernen", key: ValueKey(eveningItems));
+      text: "Video zum verteilten Lernen",
+      key: ValueKey(EveningAssessmentStep.distributedLearning));
 
   late var didLearnCabuuTodayQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
       assessmentTypes: AssessmentTypes.didLearnToday,
-      key: ValueKey(didLearnCabuuToday));
+      key: ValueKey(EveningAssessmentStep.didLearnCabuuToday));
 
   late var eveningQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
       assessmentTypes: AssessmentTypes.selfEfficacy,
       key: ValueKey(eveningItems));
+
+  late var evening1 = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.evening_1,
+      key: ValueKey(EveningAssessmentStep.assessment_evening_1));
+
+  late var evening2 = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.evening_2,
+      key: ValueKey(EveningAssessmentStep.assessment_evening_2));
+
+  late var evening3 = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.evening_3,
+      key: ValueKey(EveningAssessmentStep.assessment_evening_3));
 }

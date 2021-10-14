@@ -16,7 +16,7 @@ class InstructionsCabuu3 extends StatelessWidget {
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
             data:
-                "###Mit dem Lernen in cabuu sollst du erst *ab morgen* beginnen."),
+                "### Mit dem Lernen in cabuu sollst du erst *ab morgen* beginnen."),
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
             data:

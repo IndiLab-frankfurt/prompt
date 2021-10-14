@@ -1,5 +1,5 @@
 {
-    "title": "Zuerst haben wir ein paar Fragen dazu, wie du digitale Geräte (z.B. Smartphone, Tablet) benutzt",
+    "title": "Zuerst haben wir ein paar Fragen dazu, wie du digitale Geräte (z.B. Smartphone, Tablet) und digitale Medien (z.B. Apps, Webseiten, Spiele, Filme) benutzt",
     "id": "it_literacy",
     "questions": [
         {
@@ -30,6 +30,94 @@
                 "2": "Trifft eher nicht zu",
                 "3": "Trifft eher zu",
                 "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "mssf_1",
+            "questionText": "Ich beschäftige mich lieber mit digitalen Medien, statt Zeit zum Lernen oder für Hausaufgaben aufzubringen.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_2",
+            "questionText": "Ich erledige Aufgaben für die Schule hastig, damit ich früher wieder digitale Medien nutzen kann.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_3",
+            "questionText": "Ich vernachlässige Aufgaben für die Schule, weil ich lieber digitale Medien nutze.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_4",
+            "questionText": "Wenn ich für die Schule Aufgaben am PC/Tablet/Laptop erledige, lasse ich mich leicht durch andere digitale Medien ablenken.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_5",
+            "questionText": "Ich nutze digitale Medien für außerschulische Aktivitäten parallel beim Lernen und Hausaufgaben machen.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_6",
+            "questionText": "Ich war so viel mit digitalen Medien beschäftigt, dass nicht mehr genügend Zeit für das Lernen übrig geblieben ist.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_7",
+            "questionText": "Ich habe die Fertigstellung einer Aufgabe hinausgeschoben, um lieber digitale Medien nutzen zu können.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_8",
+            "questionText": "Ich habe so viel Zeit mit digitalen Medien verbracht, dass ich später beim Lernen Konzentrationsprobleme hatte.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
             }
         }
     ]

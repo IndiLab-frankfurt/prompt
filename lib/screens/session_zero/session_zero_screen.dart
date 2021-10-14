@@ -68,7 +68,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.planInternalisation: planInternalisation,
       SessionZeroStep.planTiming: planTiming,
       SessionZeroStep.assessment_selfEfficacy: selfEfficacyQuestionnaire,
-      SessionZeroStep.videoInstructionComplete: instructionComplete,
       SessionZeroStep.assessment_planCommitment: planCommitment,
       SessionZeroStep.valueIntervention: whyLearnVocabs,
       SessionZeroStep.instructions1: instructionScreen1,
@@ -179,11 +178,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       key: ValueKey(SessionZeroStep.videoPlanning),
       onVideoCompleted: vm.videoPlanningCompleted);
 
-  late var instructionComplete = PlaceholderScreen(
-    text: "Abschluss-Irgendwas (Video? Text?)",
-    key: ValueKey(SessionZeroStep.videoInstructionComplete),
-  );
-
   late var motivationQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
       assessmentTypes: AssessmentTypes.motivation,
@@ -229,9 +223,10 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       assessmentTypes: AssessmentTypes.distributedPractice,
       key: ValueKey(SessionZeroStep.assessment_distributedLearning));
 
-  late var whereCanYouFindThisInformation = PlaceholderScreen(
-    text: "Einführungsvideo",
-    key: ValueKey(SessionZeroStep.videoInstructionComplete),
+  late var whereCanYouFindThisInformation = VideoScreen(
+    'assets/videos/intro_prompt_compressed.mp4',
+    onVideoCompleted: vm.videoWelcomeCompleted,
+    key: ValueKey(SessionZeroStep.whereCanYouFindThisInformation),
   );
 
   late var planInternalisation = ChangeNotifierProvider.value(

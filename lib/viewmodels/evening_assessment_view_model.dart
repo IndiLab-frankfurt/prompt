@@ -12,6 +12,15 @@ const String didLearnCabuuToday = "didLearnCabuuToday";
 const String distributedLearning = "distributedLearning";
 const String continueAfterCabuu = "continueAfterCabuu";
 
+enum EveningAssessmentStep {
+  didLearnCabuuToday,
+  distributedLearning,
+  continueAfterCabuu,
+  assessment_evening_1,
+  assessment_evening_2,
+  assessment_evening_3,
+}
+
 class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   final ExperimentService experimentService;
 

@@ -226,9 +226,12 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
       nextVocabTestDate: vm.getNextVocabTestDate(),
       key: ValueKey(MorningAssessmentStep.yesterdayVocab));
 
-  late var completed = MarkdownBody(
-      data: "# " + vm.finalMessage,
-      key: ValueKey(MorningAssessmentStep.eveningItems));
+  late var completed = ListView(children: [
+    UIHelper.verticalSpaceLarge(),
+    MarkdownBody(
+        data: "# " + vm.finalMessage,
+        key: ValueKey(MorningAssessmentStep.eveningItems))
+  ]);
 
   late var eveningItems = MarkdownBody(
       data: "# Abend-Items", key: ValueKey(MorningAssessmentStep.eveningItems));

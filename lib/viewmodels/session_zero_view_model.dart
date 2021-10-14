@@ -30,7 +30,6 @@ enum SessionZeroStep {
   planDisplay,
   planInternalisation,
   planTiming,
-  videoInstructionComplete,
   instructions1,
   instructions2,
   instructions3,
@@ -95,6 +94,12 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
+  bool _videoWelcomeCompleted = false;
+  void videoWelcomeCompleted() {
+    _videoWelcomeCompleted = true;
+    notifyListeners();
+  }
+
   void onInternalisationCompleted(String result) {
     notifyListeners();
   }
@@ -134,6 +139,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     List<SessionZeroStep> screenOrder = [];
 
     List<SessionZeroStep> firstScreens = [
+      SessionZeroStep.instructions_appPermissions,
       SessionZeroStep.welcome,
       SessionZeroStep.whereCanYouFindThisInformation,
       SessionZeroStep.rewardSreen1,
@@ -160,7 +166,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     List<SessionZeroStep> finalSteps = [
       // SessionZeroStep.selfEfficacy,
-      SessionZeroStep.videoInstructionComplete,
       SessionZeroStep.endOfSession,
       SessionZeroStep.mascotSelection,
     ];
@@ -246,7 +251,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     switch (stepKey) {
       case SessionZeroStep.welcome:
-      case SessionZeroStep.whereCanYouFindThisInformation:
       case SessionZeroStep.cabuuCode:
       case SessionZeroStep.videoPlanning:
       case SessionZeroStep.videoDistributedLearning:
@@ -256,13 +260,15 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.instructions4:
       case SessionZeroStep.instructions_cabuu_1:
       case SessionZeroStep.instructions_cabuu_2:
-      case SessionZeroStep.rewardSreen1:
       case SessionZeroStep.instructions_cabuu_3:
       case SessionZeroStep.instructions_distributedLearning:
       case SessionZeroStep.instructions_appPermissions:
-      case SessionZeroStep.videoInstructionComplete:
       case SessionZeroStep.instructions_implementationIntentions:
+      case SessionZeroStep.rewardSreen1:
       case SessionZeroStep.planDisplay:
+        break;
+      case SessionZeroStep.whereCanYouFindThisInformation:
+        _rewardService.addPoints(5);
         break;
       case SessionZeroStep.mascotSelection:
         _dataService.setSelectedMascot(selectedMascot);
@@ -298,6 +304,95 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   bool canMoveBack(ValueKey currentPageKey) {
+    var stepKey = currentPageKey.value as SessionZeroStep;
+
+    switch (stepKey) {
+      case SessionZeroStep.welcome:
+      case SessionZeroStep.rewardSreen1:
+      case SessionZeroStep.whereCanYouFindThisInformation:
+        return false;
+      case SessionZeroStep.cabuuCode:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.mascotSelection:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.assessment_planCommitment:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.assessment_itLiteracy:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.assessment_learningFrequencyDuration:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.assessment_motivation:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.assessment_learningExpectations:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.assessment_distributedLearning:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.assessment_selfEfficacy:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.valueIntervention:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.videoPlanning:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.videoDistributedLearning:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.planCreation:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.planDisplay:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.planInternalisation:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.planTiming:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.instructions1:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.instructions2:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.instructions3:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.instructions4:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.instructions_cabuu_1:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.instructions_cabuu_2:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.instructions_cabuu_3:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.instructions_distributedLearning:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.instructions_implementationIntentions:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.instructions_appPermissions:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.endOfSession:
+        // TODO: Handle this case.
+        break;
+    }
     return true;
   }
 
@@ -307,7 +402,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     switch (stepKey) {
       case SessionZeroStep.welcome:
+        return true;
       case SessionZeroStep.whereCanYouFindThisInformation:
+        return _videoWelcomeCompleted;
       case SessionZeroStep.cabuuCode:
       case SessionZeroStep.mascotSelection:
         return true;
@@ -335,9 +432,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.planInternalisation:
         return this.internalisationViewmodel.input.isNotEmpty;
       case SessionZeroStep.planTiming:
-        // TODO: Handle this case.
-        break;
-      case SessionZeroStep.videoInstructionComplete:
         // TODO: Handle this case.
         break;
       default:
