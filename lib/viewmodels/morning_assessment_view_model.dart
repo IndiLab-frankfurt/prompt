@@ -54,7 +54,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   MorningAssessmentViewModel(this.experimentService, DataService dataService)
       : super(dataService) {
     this.group = dataService.getUserDataCache().group;
-    if (dataService.getUserDataCache().registrationDate.daysAgo() == 9) {
+    if (experimentService.isVocabTestDay()) {
       finalMessage = "Denk dran, dass du heute in cabuu den Test machen sollst";
     }
 

@@ -59,7 +59,7 @@ class ExperimentService {
     6: [4, 5, 6, 10, 11, 12, 16, 17, 18, 22, 23, 24, 28, 29, 30, 34, 35, 36],
   };
 
-  final List<int> vocabTestDays = [8, 17, 26, 35, 44, 53];
+  final List<int> vocabTestDays = [9, 18, 27, 36, 45, 54];
 
   ExperimentService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
