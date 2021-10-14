@@ -19,7 +19,7 @@ class InstructionScreen4 extends StatelessWidget {
                 '### vielleicht heute voll und ganz auf dich zu, morgen aber überhaupt nicht. Überlege also jeden Tag genau, wie sehr die Aussage **jetzt gerade** auf dich zutrifft.'),
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
-          data: '### Wir starten jetzt mit den ersten Fragen',
+          data: '### Wir starten jetzt mit den ersten Fragen.',
         )
       ],
     ));
