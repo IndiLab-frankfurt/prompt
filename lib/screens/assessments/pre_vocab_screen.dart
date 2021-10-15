@@ -13,11 +13,11 @@ class PreVocabScreen extends StatelessWidget {
         UIHelper.verticalSpaceLarge(),
         MarkdownBody(
             data:
-                "### Heute sollst du in cabuu den Vokabeltest machen. Wie das geht, zeigen wir dir im Video auf der nächsten Seite."),
+                "### Heute sollst du in cabuu den Vokabeltest machen und den nächsten Lernplan aktivieren. Wie das geht, zeigen wir dir im Video auf der nächsten Seite."),
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
             data:
-                "### Mach nach dem Video bitte den Test und komm dann direkt zurück zu PROMPT, um ein paar Fragen zu beantworten.")
+                "### Mach bitte den Test, aktiviere den Lernplan und komm dann direkt zurück zu PROMPT, um ein paar Fragen zu beantworten.")
       ],
     ));
   }
