@@ -66,7 +66,7 @@ class _WaitingInternalisationScreenState
         children: <Widget>[
           SpeechBubble(
               text:
-                  "Lies dir den Plan mindestens dreimal durch und merke ihn dir gut! Drücke dann auf abschicken."),
+                  "Lies dir den Plan mindestens dreimal durch und merke ihn dir gut! Drücke dann auf Weiter."),
           UIHelper.verticalSpaceMedium(),
           SpeechBubble(text: '"${vm.plan}"'),
           UIHelper.verticalSpaceMedium(),
