@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:provider/provider.dart';
@@ -64,9 +65,9 @@ class _WaitingInternalisationScreenState
       margin: UIHelper.getContainerMargin(),
       child: ListView(
         children: <Widget>[
-          SpeechBubble(
-              text:
-                  "Lies dir den Plan mindestens dreimal durch und merke ihn dir gut! Drücke dann auf abschicken."),
+          MarkdownBody(
+              data:
+                  "### Lies dir den Plan mindestens dreimal durch und merke ihn dir gut! Drücke dann auf abschicken."),
           UIHelper.verticalSpaceMedium(),
           SpeechBubble(text: '"${vm.plan}"'),
           UIHelper.verticalSpaceMedium(),

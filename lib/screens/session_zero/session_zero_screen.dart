@@ -174,7 +174,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   late var mascotSelectionScreen =
       MascotSelectionScreen(key: ValueKey(SessionZeroStep.mascotSelection));
 
-  late var videoPlanning = VideoScreen('assets/videos/videoLearning.mp4',
+  late var videoPlanning = VideoScreen('assets/videos/videoPlanning.mp4',
       key: ValueKey(SessionZeroStep.videoPlanning),
       onVideoCompleted: vm.videoPlanningCompleted);
 
@@ -234,6 +234,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     key: ValueKey(SessionZeroStep.planInternalisation),
     child: EmojiInternalisationScreen(
         onCompleted: vm.onInternalisationCompleted,
+        emojiInputIf: true,
+        emojiInputThen: true,
         key: ValueKey(SessionZeroStep.planInternalisation)),
   );
 

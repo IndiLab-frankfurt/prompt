@@ -12,8 +12,15 @@ import 'package:provider/provider.dart';
 
 class EmojiInternalisationScreen extends StatefulWidget {
   final OnCompletedCallback? onCompleted;
+  final bool emojiInputIf;
+  final bool emojiInputThen;
 
-  EmojiInternalisationScreen({Key? key, this.onCompleted}) : super(key: key);
+  EmojiInternalisationScreen(
+      {Key? key,
+      this.onCompleted,
+      this.emojiInputIf = true,
+      this.emojiInputThen = true})
+      : super(key: key);
 
   @override
   _EmojiInternalisationScreenState createState() =>
@@ -58,7 +65,6 @@ class _EmojiInternalisationScreenState
                   UIHelper.verticalSpaceSmall(),
                   SpeechBubble(text: '"${vm.plan}"'),
                   UIHelper.verticalSpaceMedium(),
-                  // buildEmojiFieldsHorizontal(),
                   _buildEmojiPickerCompatibleTextInput(),
                   UIHelper.verticalSpaceMedium(),
                   _buildEmojiPicker(),
@@ -78,108 +84,132 @@ class _EmojiInternalisationScreenState
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("Wenn...", style: Theme.of(context).textTheme.headline6),
-            Container(
-                width: width,
-                child: Stack(children: [
-                  TextField(
-                    minLines: 1,
-                    maxLines: 3,
-                    controller: _controllerLeft,
-                    autofocus: true,
-                    autocorrect: false,
-                    readOnly: true,
-                    enableSuggestions: false,
-                    enableInteractiveSelection: false,
-                    style: Theme.of(context).textTheme.headline6,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                    ),
-                    onChanged: (text) {
-                      setState(() {});
-                    },
-                    onTap: () {
-                      setState(() {
-                        _activeController = _controllerLeft;
+        if (this.widget.emojiInputIf) _buildEmojiInputLeft(),
+        if (!this.widget.emojiInputIf) _buildIfPart(),
+        if (this.widget.emojiInputThen) _buildEmojiInputRight(),
+        if (!this.widget.emojiInputThen) _builThenPart()
+      ],
+    );
+  }
+
+  _buildIfPart() {
+    var width = MediaQuery.of(context).size.width * 0.42;
+    var ifPart = this.vm.plan.split("dann")[0];
+    return Container(
+        width: width, child: MarkdownBody(data: "## ${ifPart}..."));
+  }
+
+  _builThenPart() {
+    var width = MediaQuery.of(context).size.width * 0.42;
+    var thenPart = this.vm.plan.split("dann")[1];
+    return Container(
+        width: width, child: MarkdownBody(data: "## ...dann ${thenPart}"));
+  }
+
+  _buildEmojiInputLeft() {
+    var width = MediaQuery.of(context).size.width * 0.42;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("Wenn...", style: Theme.of(context).textTheme.headline6),
+        Container(
+            width: width,
+            child: Stack(children: [
+              TextField(
+                minLines: 1,
+                maxLines: 3,
+                controller: _controllerLeft,
+                autofocus: true,
+                autocorrect: false,
+                readOnly: true,
+                enableSuggestions: false,
+                enableInteractiveSelection: false,
+                style: Theme.of(context).textTheme.headline6,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                ),
+                onChanged: (text) {
+                  setState(() {});
+                },
+                onTap: () {
+                  setState(() {
+                    _activeController = _controllerLeft;
+                    _checkIfIsDone();
+                  });
+                },
+              ),
+              Positioned(
+                  top: 0.0,
+                  right: 0.0,
+                  child: IconButton(
+                      icon: Icon(Icons.backspace),
+                      onPressed: () {
+                        if (emojiNamesLeft.length > 0) {
+                          emojiNamesLeft.removeAt(emojiNamesLeft.length - 1);
+                        }
+                        _controllerLeft.text =
+                            textFromEmojiList(emojiNamesLeft);
+                        //
                         _checkIfIsDone();
-                      });
-                    },
-                  ),
-                  Positioned(
-                      top: 0.0,
-                      right: 0.0,
-                      child: IconButton(
-                          icon: Icon(Icons.backspace),
-                          onPressed: () {
-                            if (emojiNamesLeft.length > 0) {
-                              emojiNamesLeft
-                                  .removeAt(emojiNamesLeft.length - 1);
-                            }
-                            _controllerLeft.text =
-                                textFromEmojiList(emojiNamesLeft);
-                            //
-                            _checkIfIsDone();
-                          })),
-                ])),
-          ],
-        ),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text("dann...", style: Theme.of(context).textTheme.headline6),
-            Container(
-                width: width,
-                child: Stack(children: [
-                  TextField(
-                    minLines: 1,
-                    maxLines: 3,
-                    controller: _controllerRight,
-                    autofocus: true,
-                    autocorrect: false,
-                    readOnly: true,
-                    enableSuggestions: false,
-                    enableInteractiveSelection: false,
-                    style: Theme.of(context).textTheme.headline6,
-                    decoration: InputDecoration(
-                      fillColor: Colors.white,
-                      filled: true,
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
-                    ),
-                    onChanged: (text) {
-                      setState(() {});
-                    },
-                    onTap: () {
-                      setState(() {
-                        _activeController = _controllerRight;
+                      })),
+            ])),
+      ],
+    );
+  }
+
+  _buildEmojiInputRight() {
+    var width = MediaQuery.of(context).size.width * 0.42;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text("dann...", style: Theme.of(context).textTheme.headline6),
+        Container(
+            width: width,
+            child: Stack(children: [
+              TextField(
+                minLines: 1,
+                maxLines: 3,
+                controller: _controllerRight,
+                autofocus: true,
+                autocorrect: false,
+                readOnly: true,
+                enableSuggestions: false,
+                enableInteractiveSelection: false,
+                style: Theme.of(context).textTheme.headline6,
+                decoration: InputDecoration(
+                  fillColor: Colors.white,
+                  filled: true,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                ),
+                onChanged: (text) {
+                  setState(() {});
+                },
+                onTap: () {
+                  setState(() {
+                    _activeController = _controllerRight;
+                    _checkIfIsDone();
+                  });
+                },
+              ),
+              Positioned(
+                  top: 0.0,
+                  right: 0.0,
+                  child: IconButton(
+                      icon: Icon(Icons.backspace),
+                      onPressed: () {
+                        if (emojiNamesRight.length > 0) {
+                          emojiNamesRight.removeAt(emojiNamesRight.length - 1);
+                        }
+                        _controllerRight.text =
+                            textFromEmojiList(emojiNamesRight);
+                        //
                         _checkIfIsDone();
-                      });
-                    },
-                  ),
-                  Positioned(
-                      top: 0.0,
-                      right: 0.0,
-                      child: IconButton(
-                          icon: Icon(Icons.backspace),
-                          onPressed: () {
-                            if (emojiNamesRight.length > 0) {
-                              emojiNamesRight
-                                  .removeAt(emojiNamesRight.length - 1);
-                            }
-                            _controllerRight.text =
-                                textFromEmojiList(emojiNamesRight);
-                            //
-                            _checkIfIsDone();
-                          })),
-                ])),
-          ],
-        )
+                      })),
+            ])),
       ],
     );
   }
@@ -236,12 +266,16 @@ class _EmojiInternalisationScreenState
   }
 
   void _checkIfIsDone() {
-    _done = _controllerLeft.text.isNotEmpty && _controllerRight.text.isNotEmpty;
+    var leftSide =
+        this.widget.emojiInputIf ? _controllerLeft.text.isNotEmpty : true;
+    var rightSide =
+        this.widget.emojiInputThen ? _controllerRight.text.isNotEmpty : true;
+    _done = leftSide && rightSide;
 
     if (_done && widget.onCompleted != null) {
       var input = _getEmojiInput();
       widget.onCompleted!(input);
-      vm.submit(InternalisationCondition.emoji, input);
+      vm.submit(InternalisationCondition.emojiIf, input);
     }
   }
 }

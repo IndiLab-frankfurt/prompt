@@ -23,13 +23,13 @@ class ExperimentService {
   final NavigationService _navigationService;
 
   // TODO: Schedule according to this
-  late Map<int, List<int>> reminderNotifications = {
+  late Map<int, List<int>> reminderNotificationDays = {
     1: List<int>.generate(54, (int index) => index),
-    2: List<int>.generate(36, (int index) => index),
-    3: List<int>.generate(36, (int index) => index),
-    4: List<int>.generate(36, (int index) => index),
-    5: List<int>.generate(36, (int index) => index),
-    6: List<int>.generate(36, (int index) => index),
+    2: [...List<int>.generate(36, (int index) => index), 45, 54],
+    3: [...List<int>.generate(36, (int index) => index), 45, 54],
+    4: [...List<int>.generate(36, (int index) => index), 45, 54],
+    5: [...List<int>.generate(36, (int index) => index), 45, 54],
+    6: [...List<int>.generate(36, (int index) => index), 45, 54],
   };
 
   final Map<int, List<int>> boosterPrompts = {
@@ -59,6 +59,15 @@ class ExperimentService {
     6: [4, 5, 6, 10, 11, 12, 16, 17, 18, 22, 23, 24, 28, 29, 30, 34, 35, 36],
   };
 
+  final Map<int, int> finalAssessmentDay = {
+    1: 36,
+    2: 36,
+    3: 36,
+    4: 36,
+    5: 36,
+    6: 54,
+  };
+
   final List<int> vocabTestDays = [9, 18, 27, 36, 45, 54];
 
   ExperimentService(this._dataService, this._notificationService,
@@ -75,12 +84,13 @@ class ExperimentService {
     }
 
     if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
-      if (isDistributedLearningDay()) {
-        await _navigationService
-            .navigateTo(RouteNames.VIDEO_DISTRIBUTED_LEARNING);
-      } else {
-        await _navigationService.navigateTo(RouteNames.NO_TASKS);
-      }
+      await _navigationService.navigateTo(RouteNames.NO_TASKS);
+      // if (isDistributedLearningDay()) {
+      //   await _navigationService
+      //       .navigateTo(RouteNames.VIDEO_DISTRIBUTED_LEARNING);
+      // } else {
+      //   await _navigationService.navigateTo(RouteNames.NO_TASKS);
+      // }
     }
 
     if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
@@ -92,6 +102,10 @@ class ExperimentService {
         return await _navigationService.navigateTo(RouteNames.ASSESSMENT_FINAL);
       }
     }
+  }
+
+  bool isFinalAssessmentDay() {
+    return false;
   }
 
   bool isVocabTestDay() {
@@ -181,7 +195,9 @@ class ExperimentService {
       return false;
     }
 
-    return true;
+    var daysAgo = userData.registrationDate.daysAgo();
+
+    return reminderNotificationDays[userData.group]!.contains(daysAgo);
   }
 
   Future<bool> isTimeForEveningAssessment() async {

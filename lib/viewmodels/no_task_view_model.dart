@@ -14,6 +14,7 @@ class NoTaskViewModel extends BaseViewModel {
   bool showLearnedWithCabuuButton = false;
   bool showVocabularyTestReminder = false;
   bool showContinueTomorrowButton = false;
+  bool showFinalAssessmentButton = false;
 
   late int daysActive = _experimentService.getDaysSinceStart();
 

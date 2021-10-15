@@ -115,4 +115,7 @@ class AppStrings {
       "Drücke hier, sobald du heute mit cabuu gelernt hast";
   static const String NoTask_ContinueTomorrow =
       "Komme morgen früh hierher zurück und mache weiter";
+
+  static const String EveningAssessment_Completed =
+      "Vielen Dank, dass du die Fragen beantwortet hast";
 }

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/placeholder_screen.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +27,10 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
     EveningAssessmentStep.continueAfterCabuu: continueAfterCabuuScreen,
     EveningAssessmentStep.assessment_evening_1: evening1,
     EveningAssessmentStep.assessment_evening_2: evening2,
-    EveningAssessmentStep.assessment_evening_3: evening3
+    EveningAssessmentStep.assessment_evening_3: evening3,
+    EveningAssessmentStep.distributedLearningVideo: distributedLearningVideo,
+    EveningAssessmentStep.assessment_distributedLearning: distributedLearning,
+    EveningAssessmentStep.completed: completed,
   };
   @override
   void didChangeDependencies() {
@@ -35,6 +41,8 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
     for (var page in vm.screenOrder) {
       if (_stepScreenMap.containsKey(page)) {
         _pages.add(_stepScreenMap[page]!);
+      } else {
+        throw Exception("The requested screen is not mapped");
       }
     }
   }
@@ -47,11 +55,12 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
             // appBar: SereneAppBar(),
             // drawer: SereneDrawer(),
             body: Container(
+                margin: UIHelper.containerMargin,
                 child: MultiStepAssessment(
-          vm,
-          _pages,
-          // initialStep: vm.getPreviouslyCompletedStep(),
-        ))));
+                  vm,
+                  _pages,
+                  // initialStep: vm.getPreviouslyCompletedStep(),
+                ))));
   }
 
   late var continueAfterCabuuScreen = PlaceholderScreen(
@@ -60,17 +69,12 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
 
   late var distributedLearningVideo = PlaceholderScreen(
       text: "Video zum verteilten Lernen",
-      key: ValueKey(EveningAssessmentStep.distributedLearning));
+      key: ValueKey(EveningAssessmentStep.distributedLearningVideo));
 
   late var didLearnCabuuTodayQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
       assessmentTypes: AssessmentTypes.didLearnToday,
       key: ValueKey(EveningAssessmentStep.didLearnCabuuToday));
-
-  late var eveningQuestionnaire = MultiStepQuestionnaireFuture(
-      vm: vm,
-      assessmentTypes: AssessmentTypes.selfEfficacy,
-      key: ValueKey(eveningItems));
 
   late var evening1 = MultiStepQuestionnaireFuture(
       vm: vm,
@@ -86,4 +90,16 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
       vm: vm,
       assessmentTypes: AssessmentTypes.evening_3,
       key: ValueKey(EveningAssessmentStep.assessment_evening_3));
+
+  late var distributedLearning = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.distributedPractice,
+      key: ValueKey(EveningAssessmentStep.assessment_distributedLearning));
+
+  late var completed = ListView(children: [
+    UIHelper.verticalSpaceLarge(),
+    MarkdownBody(
+        data: "# " + AppStrings.EveningAssessment_Completed,
+        key: ValueKey(EveningAssessmentStep.completed))
+  ]);
 }

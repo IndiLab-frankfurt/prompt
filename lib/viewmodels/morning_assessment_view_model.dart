@@ -12,8 +12,6 @@ enum MorningAssessmentStep {
   didLearn,
   rememberToUsePromptAfterCabuu,
   alternativeItems,
-  eveningItems,
-  morningItems,
   boosterPrompt,
   internalisation,
   completed,
@@ -40,7 +38,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   final ExperimentService experimentService;
 
   InternalisationCondition _internalisationCondition =
-      InternalisationCondition.emoji;
+      InternalisationCondition.emojiIf;
 
   InternalisationViewModel internalisationViewmodel =
       InternalisationViewModel();
@@ -101,6 +99,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       MorningAssessmentStep.assessment_evening_1,
       MorningAssessmentStep.assessment_evening_2,
       MorningAssessmentStep.assessment_evening_3,
+      MorningAssessmentStep.alternativeItems,
       MorningAssessmentStep.assessment_morningIntention,
       MorningAssessmentStep.assessment_morning_with_intention,
       MorningAssessmentStep.assessment_morning_without_intention,
@@ -197,26 +196,13 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     // did learn some other time
     else if (answer == "3") {
       if (didCompleteEveningItemsYesterday()) {
-        step = getStepIndex(MorningAssessmentStep.morningItems);
+        step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
       } else {
         step = getStepIndex(MorningAssessmentStep.alternativeItems);
       }
     }
 
     return step;
-  }
-
-  int getNextStepForEveningItems() {
-    var answer = allAssessmentResults["didLearnWhen"]!["didLearnWhen_1"];
-    if (answer == "1") {
-      if (experimentService.isBoosterPromptDay()) {
-        return getStepIndex(MorningAssessmentStep.boosterPrompt);
-      } else {
-        return getStepIndex(MorningAssessmentStep.completed);
-      }
-    } else {
-      return getStepIndex(MorningAssessmentStep.morningItems);
-    }
   }
 
   int getStepAfterMorningIntention() {
@@ -246,12 +232,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
       case MorningAssessmentStep.alternativeItems:
         step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
-        break;
-      case MorningAssessmentStep.eveningItems:
-        // TODO: Handle this case.
-        break;
-      case MorningAssessmentStep.morningItems:
-        // TODO: Handle this case.
         break;
       case MorningAssessmentStep.boosterPrompt:
         if ([5, 6].contains(group)) {

@@ -6,7 +6,6 @@ import 'package:prompt/screens/assessments/pre_vocab_screen.dart';
 import 'package:prompt/screens/assessments/pre_vocab_video.dart';
 import 'package:prompt/screens/assessments/yesterday_vocab_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
-import 'package:prompt/screens/internalisation/scramble_internalisation.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
 import 'package:prompt/screens/prompts/booster_strategy_prompt_screen.dart';
 import 'package:prompt/shared/enums.dart';
@@ -35,8 +34,6 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     MorningAssessmentStep.rememberToUsePromptAfterCabuu:
         rememberToUsePromptAfterCabuu,
     MorningAssessmentStep.alternativeItems: alternativeItems,
-    MorningAssessmentStep.eveningItems: eveningItems,
-    MorningAssessmentStep.morningItems: morningItems,
     MorningAssessmentStep.boosterPrompt: boosterPrompt,
     MorningAssessmentStep.internalisation: internalisation(),
     MorningAssessmentStep.completed: completed,
@@ -100,13 +97,16 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
           onCompleted: vm.onInternalisationCompleted,
         );
         break;
-      case InternalisationCondition.scrambleWithHint:
-        internalisation = ScrambleInternalisation(
-          onCompleted: vm.onInternalisationCompleted,
-        );
-        break;
-      case InternalisationCondition.emoji:
+      case InternalisationCondition.emojiIf:
         internalisation = EmojiInternalisationScreen(
+            emojiInputIf: true,
+            emojiInputThen: false,
+            onCompleted: vm.onInternalisationCompleted);
+        break;
+      case InternalisationCondition.emojiThen:
+        internalisation = EmojiInternalisationScreen(
+            emojiInputIf: false,
+            emojiInputThen: true,
             onCompleted: vm.onInternalisationCompleted);
         break;
     }
@@ -230,15 +230,8 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     UIHelper.verticalSpaceLarge(),
     MarkdownBody(
         data: "# " + vm.finalMessage,
-        key: ValueKey(MorningAssessmentStep.eveningItems))
+        key: ValueKey(MorningAssessmentStep.completed))
   ]);
-
-  late var eveningItems = MarkdownBody(
-      data: "# Abend-Items", key: ValueKey(MorningAssessmentStep.eveningItems));
-
-  late var morningItems = MarkdownBody(
-      data: "# Morgen-Items",
-      key: ValueKey(MorningAssessmentStep.morningItems));
 
   late var boosterPrompt = BoosterStrategyPromptScreen(
       key: ValueKey(MorningAssessmentStep.boosterPrompt));

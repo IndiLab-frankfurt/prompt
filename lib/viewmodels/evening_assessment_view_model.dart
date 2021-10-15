@@ -1,5 +1,7 @@
 import 'package:flutter/foundation.dart';
+import 'package:prompt/locator.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/data_service.dart';
@@ -14,24 +16,34 @@ const String continueAfterCabuu = "continueAfterCabuu";
 
 enum EveningAssessmentStep {
   didLearnCabuuToday,
-  distributedLearning,
+  distributedLearningVideo,
   continueAfterCabuu,
+  internalisation,
+  assessment_distributedLearning,
   assessment_evening_1,
   assessment_evening_2,
   assessment_evening_3,
+  completed
 }
 
 class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   final ExperimentService experimentService;
 
-  List<String> screenOrder = [
-    didLearnCabuuToday,
-    continueAfterCabuu,
-    eveningItems
+  List<EveningAssessmentStep> screenOrder = [
+    EveningAssessmentStep.didLearnCabuuToday,
+    EveningAssessmentStep.continueAfterCabuu,
+    EveningAssessmentStep.distributedLearningVideo,
+    EveningAssessmentStep.assessment_distributedLearning,
+    EveningAssessmentStep.assessment_evening_1,
+    EveningAssessmentStep.assessment_evening_2,
+    EveningAssessmentStep.assessment_evening_3,
+    EveningAssessmentStep.completed
   ];
 
   EveningAssessmentViewModel(this.experimentService, DataService dataService)
-      : super(dataService);
+      : super(dataService) {
+    this.group = dataService.getUserDataCache().group;
+  }
 
   @override
   bool canMoveBack(ValueKey currentPageKey) {
@@ -47,7 +59,9 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
     return true;
   }
 
-  int getStepIndex(String step) {
+  int group = 0;
+
+  int getStepIndex(EveningAssessmentStep step) {
     return screenOrder.indexOf(step);
   }
 
@@ -62,27 +76,61 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
     return false;
   }
 
+  int getStepAfterEveningItems() {
+    // TODO: Actual logic
+    bool promptWasCompleted = true;
+
+    if (experimentService.isDistributedLearningDay()) {
+      return getStepIndex(EveningAssessmentStep.distributedLearningVideo);
+    } else {
+      return getStepIndex(EveningAssessmentStep.completed);
+    }
+  }
+
   @override
   int getNextPage(ValueKey currentPageKey) {
     step += 1;
-    if (currentPageKey.value == didLearnCabuuToday) {
-      var answer = allAssessmentResults["didLearnToday"]!["didLearnToday_1"];
-      // did learn with cabuu today
-      if (answer == "1") {
-        step = getStepIndex(eveningItems);
-      }
-      // did not learn with cabuu today
-      else {
-        step = getStepIndex(continueAfterCabuu);
-      }
-    }
 
-    if (currentPageKey.value == eveningItems) {
-      step = getStepIndex(distributedLearning);
-    }
+    step += 1;
 
-    if (currentPageKey.value == continueAfterCabuu) {
-      continueWithoutSubmission();
+    var pageKey = currentPageKey.value as EveningAssessmentStep;
+
+    switch (pageKey) {
+      case EveningAssessmentStep.didLearnCabuuToday:
+        var answer = allAssessmentResults["didLearnToday"]!["didLearnToday_1"];
+        // did learn with cabuu today
+        if (answer == "1") {
+          step = getStepIndex(EveningAssessmentStep.assessment_evening_1);
+        }
+        // did not learn with cabuu today
+        else {
+          step = getStepIndex(EveningAssessmentStep.continueAfterCabuu);
+        }
+        break;
+      case EveningAssessmentStep.assessment_distributedLearning:
+        getStepIndex(EveningAssessmentStep.completed);
+        break;
+      case EveningAssessmentStep.continueAfterCabuu:
+        continueWithoutSubmission();
+        break;
+      case EveningAssessmentStep.assessment_evening_1:
+        step = getStepIndex(EveningAssessmentStep.assessment_evening_2);
+        break;
+      case EveningAssessmentStep.assessment_evening_2:
+        step = getStepIndex(EveningAssessmentStep.assessment_evening_3);
+        break;
+      case EveningAssessmentStep.assessment_evening_3:
+        step = getStepAfterEveningItems();
+        break;
+      case EveningAssessmentStep.distributedLearningVideo:
+        getStepIndex(EveningAssessmentStep.assessment_distributedLearning);
+        break;
+      case EveningAssessmentStep.internalisation:
+        // TODO: Handle this case.
+        break;
+      case EveningAssessmentStep.completed:
+        // TODO: Handle this case.
+        break;
     }
 
     return step;
@@ -104,6 +152,6 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   continueWithoutSubmission() {
-    experimentService.nextScreen(RouteNames.ASSESSMENT_EVENING);
+    locator<NavigationService>().navigateTo(RouteNames.NO_TASKS);
   }
 }

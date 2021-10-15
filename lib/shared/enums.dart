@@ -55,8 +55,8 @@ enum AssessmentTypes {
 
 enum InternalisationCondition {
   waiting,
-  scrambleWithHint,
-  emoji,
+  emojiIf,
+  emojiThen,
 }
 
 const String EVENING_ASSESSMENT = "eveningAssessment";

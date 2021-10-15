@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/shared/ui_helper.dart';
 
 class BoosterStrategyPromptScreen extends StatelessWidget {
   const BoosterStrategyPromptScreen({Key? key}) : super(key: key);
@@ -10,7 +11,7 @@ class BoosterStrategyPromptScreen extends StatelessWidget {
     return Container(
       child: Column(
         children: [
-          MarkdownBody(data: "# " + AppStrings.BoosterPrompt_Header),
+          UIHelper.verticalSpaceLarge(),
           MarkdownBody(data: "# " + AppStrings.BoosterPrompt_Text)
         ],
       ),

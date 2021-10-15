@@ -139,7 +139,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     List<SessionZeroStep> screenOrder = [];
 
     List<SessionZeroStep> firstScreens = [
-      SessionZeroStep.instructions_appPermissions,
       SessionZeroStep.welcome,
       SessionZeroStep.whereCanYouFindThisInformation,
       SessionZeroStep.rewardSreen1,
@@ -241,7 +240,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         startDate: DateTime.now(),
         completionDate: DateTime.now(),
         plan: this.plan,
-        condition: InternalisationCondition.emoji.toString(),
+        condition: InternalisationCondition.emojiIf.toString(),
         input: this.internalisationViewmodel.input);
     await _dataService.saveInternalisation(internalisation);
   }
@@ -419,8 +418,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.valueIntervention:
         return vocabValue.isNotEmpty;
       case SessionZeroStep.videoPlanning:
-        // TODO: Handle this case.
-        break;
+        return _videoPlanningCompleted;
       case SessionZeroStep.videoDistributedLearning:
         // TODO: Handle this case.
         break;
