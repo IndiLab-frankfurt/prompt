@@ -306,7 +306,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
         break;
       case MorningAssessmentStep.firstDay_1:
-        step = getStepIndex(MorningAssessmentStep.firstDay_1);
+        step = getStepIndex(MorningAssessmentStep.firstDay_2);
         break;
       case MorningAssessmentStep.firstDay_2:
         step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);

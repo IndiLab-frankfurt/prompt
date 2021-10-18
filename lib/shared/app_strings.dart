@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class AppStrings {
   // Idle Screen
   static const String ChangeBackground = "Hintergrund ändern";
@@ -125,7 +127,11 @@ class AppStrings {
       "An Tagen, an denen du mit cabuu gelernt hast, benutzt du PROMPT **danach noch einmal**. An Tagen, an denen du nicht mit cabuu gelernt hast, benutzt du PROMPT erst wieder am nächsten Tag.";
 
   static const String MorningAssessment_FirstDay_Screen2_1 =
-      "Benutze PROMPT ab jetzt **jeden Tag** und zwar am besten schon **morgens**. Die ersten Fragen sollst du nämlich beantworten, **bevor** du mit cabuu lernst.";
-  static const String MorningAssessment_FirstDay_Screen2_2 =
-      "An Tagen, an denen du mit cabuu gelernt hast, benutzt du PROMPT **danach noch einmal**. An Tagen, an denen du nicht mit cabuu gelernt hast, benutzt du PROMPT erst wieder am nächsten Tag.";
+      'Du solltest bereits in cabuu den Lernplan für Liste 1 angelegt haben. Klicke auf "Weiter", wenn du das gemacht hast.';
+  // ignore: non_constant_identifier_names
+  static String MorningAssessment_FirstDay_Screen2_2(DateTime datetime) {
+    var format = new DateFormat("dd.MM.yyyy");
+    var targetDate = format.format(datetime);
+    return '**Falls du den Lernplan noch nicht erstellt hast**: Klicke in cabuu auf Liste 1 und wähle "Lernplan". Gib als End-Datum ein: $targetDate';
+  }
 }
