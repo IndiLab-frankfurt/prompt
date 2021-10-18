@@ -110,6 +110,16 @@ class ExperimentService {
     }
   }
 
+  DateTime getNextVocabTestDate() {
+    var daysAgo = _dataService.getUserDataCache().registrationDate.daysAgo();
+    for (var day in vocabTestDays) {
+      if (day > daysAgo) {
+        return DateTime.now().add(Duration(days: day - daysAgo));
+      }
+    }
+    return DateTime.now();
+  }
+
   bool isFinalAssessmentDay() {
     var daysSince = getDaysSinceStart();
     var group = _dataService.getUserDataCache().group;

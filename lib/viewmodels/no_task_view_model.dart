@@ -29,6 +29,18 @@ class NoTaskViewModel extends BaseViewModel {
     // getNextTask();
   }
 
+  String daysUntilVocabTest() {
+    var nextDate = _experimentService.getNextVocabTestDate();
+    var difference = nextDate.difference(DateTime.now());
+
+    if (difference.inDays > 0) {
+      var daysPlural = difference.inDays == 1 ? "Tag" : "Tage";
+      return "${difference.inDays} $daysPlural bis zum nächsten Vokabeltest";
+    } else {
+      return "Dein nächster Vokabeltest ist heute";
+    }
+  }
+
   Future<bool> getNextTask() async {
     await _dataService.getAssessmentResults();
 

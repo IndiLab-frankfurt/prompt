@@ -192,6 +192,9 @@ class _NoTasksScreenState extends State<NoTasksScreen>
         break;
       }
     }
+
+    var nextVocab = vm.daysUntilVocabTest();
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -209,7 +212,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
           ),
         ),
         UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.daysConsecutive(streakDays)),
+        Text(nextVocab),
         UIHelper.verticalSpaceMedium(),
         Text(AppStrings.progressToReward(vm.daysActive, daysToNextReward)),
         UIHelper.verticalSpaceSmall(),
