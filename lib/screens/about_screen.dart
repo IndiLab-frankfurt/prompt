@@ -9,7 +9,9 @@ class AboutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: PromptAppBar(),
+        appBar: PromptAppBar(
+          showBackButton: true,
+        ),
         drawer: PromptDrawer(),
         body: VideoScreen('assets/videos/videoLearning.mp4',
             onVideoCompleted: () {}));

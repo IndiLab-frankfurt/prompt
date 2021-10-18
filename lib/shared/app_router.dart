@@ -11,6 +11,7 @@ import 'package:prompt/screens/login_screen.dart';
 import 'package:prompt/screens/no_task_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
+import 'package:prompt/screens/study_complete_screen.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/logging_service.dart';
@@ -97,6 +98,9 @@ class AppRouter {
 
       case RouteNames.ABOUT_PROMPT:
         return MaterialPageRoute(builder: (_) => AboutScreen());
+
+      case RouteNames.STUDY_COMPLETE:
+        return MaterialPageRoute(builder: (_) => StudyCompleteScreen());
 
       default:
         return MaterialPageRoute(builder: (_) {

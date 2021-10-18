@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/assessments/morning_first_day_1.dart';
 import 'package:prompt/screens/assessments/morning_first_day_2.dart';
+import 'package:prompt/screens/assessments/morning_lastVocab_1.dart';
+import 'package:prompt/screens/assessments/morning_lastVocab_2.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/assessments/pre_vocab_screen.dart';
@@ -31,6 +33,8 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
   late Map<MorningAssessmentStep, Widget> _stepScreenMap = {
     MorningAssessmentStep.firstDay_1: firstDay1,
     MorningAssessmentStep.firstDay_2: firstDay2,
+    MorningAssessmentStep.lastVocab_1: lastVocab1,
+    MorningAssessmentStep.lastVocab_2: lastVocab2,
     MorningAssessmentStep.didLearn: didLearnQuestionnaire,
     MorningAssessmentStep.preVocab: preVocabScreen,
     MorningAssessmentStep.preVocabVideo: preVocabVideo,
@@ -147,6 +151,12 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
   late var firstDay2 = MorningFirstDay2(
       nextVocabTestDate: vm.getNextVocabTestDate(),
       key: ValueKey(MorningAssessmentStep.firstDay_2));
+
+  late var lastVocab1 =
+      MorningLastVocab1(key: ValueKey(MorningAssessmentStep.lastVocab_1));
+
+  late var lastVocab2 =
+      MorningLastVocab2(key: ValueKey(MorningAssessmentStep.lastVocab_2));
 
   late var alternativeItems = MultiStepQuestionnaireFuture(
     vm: vm,

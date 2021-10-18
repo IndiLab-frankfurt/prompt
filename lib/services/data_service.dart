@@ -11,6 +11,7 @@ import 'package:collection/collection.dart';
 import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/settings_service.dart';
+import 'package:prompt/services/usage_stats/usage_info.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
 
@@ -117,6 +118,26 @@ class DataService {
 
   AssessmentResult? getLastAssessmentResultCached() {
     return _lastAssessmentResultCache;
+  }
+
+  saveUsageStats(List<UsageInfo> usageStatInfo, DateTime startDate,
+      DateTime endDate) async {
+    var ud = getUserDataCache();
+    Map<String, dynamic> dbObject = {
+      "user": ud.user,
+      "submissionDate": DateTime.now().toIso8601String()
+    };
+    List<dynamic> listForDb = [];
+    for (var usi in usageStatInfo) {
+      if (usi.totalTimeInForeground > 0) {
+        listForDb.add(usi.toMap());
+      }
+    }
+    dbObject["info"] = listForDb;
+    dbObject["start"] = startDate.toIso8601String();
+    dbObject["end"] = endDate.toIso8601String();
+
+    await _databaseService.saveUsageStats(dbObject, ud.user);
   }
 
   saveDaysActive(int daysActive) async {

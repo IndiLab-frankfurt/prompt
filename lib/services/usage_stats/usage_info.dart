@@ -17,6 +17,15 @@ class UsageInfo {
         packageName: map['packageName'],
       );
 
+  Map<String, dynamic> toMap() {
+    return {
+      "firstTimeStamp": this.firstTimeStamp,
+      "lastTimeStamp": this.lastTimeStamp,
+      "totalTimeInForeground": this.totalTimeInForeground,
+      "packageName": this.packageName
+    };
+  }
+
   final String packageName;
   final int firstTimeStamp;
   final int lastTimeStamp;

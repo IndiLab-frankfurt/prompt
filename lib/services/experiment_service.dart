@@ -79,7 +79,6 @@ class ExperimentService {
         // TODO: Change to an instruction page
         UsageStatsService.grantUsagePermission();
       }
-
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
     }
 
@@ -94,7 +93,14 @@ class ExperimentService {
     }
 
     if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
-      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
+      if (isFinalAssessmentDay()) {
+        return await _navigationService.navigateTo(RouteNames.ASSESSMENT_FINAL);
+      }
+      if (isLastVocabTestDay()) {
+        return await _navigationService.navigateTo(RouteNames.STUDY_COMPLETE);
+      } else {
+        return await _navigationService.navigateTo(RouteNames.NO_TASKS);
+      }
     }
 
     if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
@@ -105,7 +111,9 @@ class ExperimentService {
   }
 
   bool isFinalAssessmentDay() {
-    return false;
+    var daysSince = getDaysSinceStart();
+    var group = _dataService.getUserDataCache().group;
+    return finalAssessmentDay[group] == daysSince;
   }
 
   bool isVocabTestDay() {
@@ -147,10 +155,18 @@ class ExperimentService {
 
     if (type == MORNING_ASSESSMENT) {
       await _rewardService.addStreakDays(1);
+
+      if (Platform.isAndroid) {
+        saveUsageStats();
+      }
     }
   }
 
-  isFirstDay() {
+  bool isLastVocabTestDay() {
+    return getDaysSinceStart() == vocabTestDays.last;
+  }
+
+  bool isFirstDay() {
     var userData = _dataService.getUserDataCache();
     var daysAgo = userData.registrationDate.daysAgo();
 
@@ -253,11 +269,15 @@ class ExperimentService {
 
   schedulePrompts(int group) {
     var now = DateTime.now();
-    var schedule = DateTime(now.year, now.month, now.day, 5, 00);
+    var reminderHour = 5;
+    var schedule = DateTime(now.year, now.month, now.day, reminderHour, 00);
 
     for (var i = 1; i <= MAX_STUDY_DURATION.inDays; i++) {
       var scheduleDay = schedule.add(Duration(days: i));
-      _notificationService.scheduleMorningReminder(scheduleDay, i);
+      // In order to prevent hour of day skips during winter/summer time, explictly set the hour again
+      var scheduleDayWithTime = DateTime(scheduleDay.year, scheduleDay.month,
+          scheduleDay.day, reminderHour, 00);
+      _notificationService.scheduleMorningReminder(scheduleDayWithTime, i);
     }
 
     scheduleFinalTaskReminder();
@@ -269,5 +289,13 @@ class ExperimentService {
     print(
         "scheduling final task reminder for ${dayAfterFinal.toIso8601String()}");
     _notificationService.scheduleFinalTaskReminder(dayAfterFinal);
+  }
+
+  saveUsageStats() async {
+    var startDate = DateTime.now().subtract(Duration(days: 35));
+    var endDate = DateTime.now();
+    var stats =
+        await UsageStatsService.queryUsageStats(startDate, DateTime.now());
+    _dataService.saveUsageStats(stats, startDate, endDate);
   }
 }

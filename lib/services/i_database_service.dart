@@ -42,6 +42,8 @@ abstract class IDatabaseService {
 
   Future saveInternalisation(Internalisation internalisation, String email);
 
+  Future saveUsageStats(Map<String, dynamic> usageInfo, String userid);
+
   Future<AssessmentResult?> getLastAssessmentResult(String userid);
 
   Future<List<AssessmentResult>> getAssessmentResults(String userid);

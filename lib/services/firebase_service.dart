@@ -41,6 +41,7 @@ class FirebaseService implements IDatabaseService {
   static const String COLLECTION_LDT = "ldt";
   static const String COLLECTION_INITSESSION = "initSession";
   static const String COLLECTION_VOCABVALUE = "vocabValue";
+  static const String COLLECTION_USAGESTATS = "usageStats";
 
   static const Duration timeoutDuration = Duration(seconds: 30);
 
@@ -269,5 +270,10 @@ class FirebaseService implements IDatabaseService {
         .doc(userid)
         .set(map, SetOptions(merge: true))
         .then((res) => res);
+  }
+
+  @override
+  Future saveUsageStats(Map<String, dynamic> usageInfo, String userid) async {
+    _databaseReference.collection(COLLECTION_USAGESTATS).add(usageInfo);
   }
 }

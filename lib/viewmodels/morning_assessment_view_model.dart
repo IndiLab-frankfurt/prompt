@@ -11,6 +11,8 @@ import 'package:prompt/shared/extensions.dart';
 enum MorningAssessmentStep {
   firstDay_1,
   firstDay_2,
+  lastVocab_1,
+  lastVocab_2,
   didLearn,
   rememberToUsePromptAfterCabuu,
   alternativeItems,
@@ -84,6 +86,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       ];
     }
 
+    if (experimentService.isLastVocabTestDay()) {}
+
     if (experimentService.isVocabTestDay()) {
       if (experimentService.didCompletePreVocabToday()) {
         order = [
@@ -102,6 +106,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
     order.addAll([
       MorningAssessmentStep.didLearn,
+      MorningAssessmentStep.rememberToUsePromptAfterCabuu,
       MorningAssessmentStep.assessment_evening_1_yesterday,
       MorningAssessmentStep.assessment_evening_2_yesterday,
       MorningAssessmentStep.assessment_evening_3_yesterday,
@@ -218,7 +223,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     if (experimentService.isBoosterPromptDay()) {
       return getStepIndex(MorningAssessmentStep.boosterPrompt);
     } else {
-      return getStepIndex(MorningAssessmentStep.internalisation);
+      return getStepIndex(MorningAssessmentStep.completed);
     }
   }
 
@@ -310,6 +315,12 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
       case MorningAssessmentStep.firstDay_2:
         step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
+        break;
+      case MorningAssessmentStep.lastVocab_1:
+        step = getStepIndex(MorningAssessmentStep.lastVocab_1);
+        break;
+      case MorningAssessmentStep.lastVocab_2:
+        step = getStepIndex(MorningAssessmentStep.assessment_afterTest);
         break;
     }
 

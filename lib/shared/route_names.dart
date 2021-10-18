@@ -21,4 +21,6 @@ class RouteNames {
   static const VIDEO_DISTRIBUTED_LEARNING = "/videodistributedlearning";
 
   static const ABOUT_PROMPT = "/aboutprompt";
+
+  static const STUDY_COMPLETE = "/studycomplete";
 }

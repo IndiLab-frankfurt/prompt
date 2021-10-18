@@ -117,4 +117,10 @@ class MockFirebaseService implements IDatabaseService {
   Future saveInternalisation(Internalisation internalisation, String email) {
     throw UnimplementedError();
   }
+
+  @override
+  Future saveUsageStats(Map<String, dynamic> usageInfo, String userid) {
+    // TODO: implement saveUsageStats
+    throw UnimplementedError();
+  }
 }
