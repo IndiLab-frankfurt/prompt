@@ -7,6 +7,7 @@ import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
+import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
 
 class EveningAssessmentScreen extends StatefulWidget {
@@ -68,8 +69,8 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
           "Mache hier erst weiter, wenn du heute mit cabuu gelernt hast. Falls du heute _nicht_ mit cabuu lernst, sollst du erst morgen mit PROMPT weitermachen.",
       key: ValueKey(EveningAssessmentStep.continueAfterCabuu));
 
-  late var distributedLearningVideo = PlaceholderScreen(
-      text: "Video zum verteilten Lernen",
+  late var distributedLearningVideo = VideoScreen(
+      'assets/videos/videoDistributedLearning.mp4',
       key: ValueKey(EveningAssessmentStep.distributedLearningVideo));
 
   late var didLearnCabuuTodayQuestionnaire = MultiStepQuestionnaireFuture(

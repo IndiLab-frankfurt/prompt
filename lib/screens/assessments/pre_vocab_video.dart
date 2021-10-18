@@ -22,7 +22,7 @@ class _PreVocabVideoState extends State<PreVocabVideo> {
     return Container(
         child: ListView(
       children: [
-        VideoScreen('assets/videos/videoWelcome.mp4',
+        VideoScreen('assets/videos/cabuu_test_lernplan.mp4',
             onVideoCompleted: widget.onVideoCompleted),
         MarkdownBody(data: "### Dein nächster Lernplan endet am: $targetDate")
       ],
