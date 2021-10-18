@@ -150,6 +150,13 @@ class ExperimentService {
     }
   }
 
+  isFirstDay() {
+    var userData = _dataService.getUserDataCache();
+    var daysAgo = userData.registrationDate.daysAgo();
+
+    return daysAgo == 1;
+  }
+
   isBoosterPromptDay() {
     var userData = _dataService.getUserDataCache();
     var daysAgo = userData.registrationDate.daysAgo();

@@ -136,8 +136,8 @@ class PromptDrawer extends StatelessWidget {
                 var picked = await showDatePicker(
                   context: context,
                   initialDate: regDate,
-                  firstDate: DateTime.now().subtract(Duration(days: 40)),
-                  lastDate: DateTime.now().add(Duration(days: 40)),
+                  firstDate: DateTime.now().subtract(Duration(days: 120)),
+                  lastDate: DateTime.now().add(Duration(days: 120)),
                   builder: (context, child) {
                     return Theme(
                       data:

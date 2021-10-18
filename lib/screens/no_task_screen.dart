@@ -169,7 +169,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                                   ),
                                   alignment: Alignment(0.0, 0.6)));
                         }
-                        return CircularProgressIndicator();
+                        return Center(child: CircularProgressIndicator());
                       },
                     ))),
           ],

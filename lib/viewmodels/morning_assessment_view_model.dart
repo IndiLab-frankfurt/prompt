@@ -9,6 +9,8 @@ import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 import 'package:prompt/shared/extensions.dart';
 
 enum MorningAssessmentStep {
+  firstDay_1,
+  firstDay_2,
   didLearn,
   rememberToUsePromptAfterCabuu,
   alternativeItems,
@@ -74,6 +76,13 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     List<MorningAssessmentStep> order = [];
     // order.addAll(MorningAssessmentStep.values);
     // return order;
+
+    if (experimentService.isFirstDay()) {
+      order = [
+        MorningAssessmentStep.firstDay_1,
+        MorningAssessmentStep.firstDay_2,
+      ];
+    }
 
     if (experimentService.isVocabTestDay()) {
       if (experimentService.didCompletePreVocabToday()) {
@@ -206,14 +215,11 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   int getStepAfterMorningIntention() {
-    if ([2, 3, 5, 6].contains(this.group)) {
-      if (experimentService.isBoosterPromptDay()) {
-        return getStepIndex(MorningAssessmentStep.boosterPrompt);
-      } else {
-        return getStepIndex(MorningAssessmentStep.internalisation);
-      }
+    if (experimentService.isBoosterPromptDay()) {
+      return getStepIndex(MorningAssessmentStep.boosterPrompt);
+    } else {
+      return getStepIndex(MorningAssessmentStep.internalisation);
     }
-    return getStepIndex(MorningAssessmentStep.completed);
   }
 
   @override
@@ -234,7 +240,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
         break;
       case MorningAssessmentStep.boosterPrompt:
-        if ([5, 6].contains(group)) {
+        if (experimentService.isBoosterPromptDay()) {
           step = getStepIndex(MorningAssessmentStep.internalisation);
         } else {
           step = getStepIndex(MorningAssessmentStep.completed);
@@ -297,6 +303,12 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
         break;
       case MorningAssessmentStep.yesterdayVocab:
+        step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
+        break;
+      case MorningAssessmentStep.firstDay_1:
+        step = getStepIndex(MorningAssessmentStep.firstDay_1);
+        break;
+      case MorningAssessmentStep.firstDay_2:
         step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
         break;
     }

@@ -118,4 +118,14 @@ class AppStrings {
 
   static const String EveningAssessment_Completed =
       "Vielen Dank, dass du die Fragen beantwortet hast";
+
+  static const String MorningAssessment_FirstDay_Screen1_1 =
+      "Benutze PROMPT ab jetzt **jeden Tag** und zwar am besten schon **morgens**. Die ersten Fragen sollst du nämlich beantworten, **bevor** du mit cabuu lernst.";
+  static const String MorningAssessment_FirstDay_Screen1_2 =
+      "An Tagen, an denen du mit cabuu gelernt hast, benutzt du PROMPT **danach noch einmal**. An Tagen, an denen du nicht mit cabuu gelernt hast, benutzt du PROMPT erst wieder am nächsten Tag.";
+
+  static const String MorningAssessment_FirstDay_Screen2_1 =
+      "Benutze PROMPT ab jetzt **jeden Tag** und zwar am besten schon **morgens**. Die ersten Fragen sollst du nämlich beantworten, **bevor** du mit cabuu lernst.";
+  static const String MorningAssessment_FirstDay_Screen2_2 =
+      "An Tagen, an denen du mit cabuu gelernt hast, benutzt du PROMPT **danach noch einmal**. An Tagen, an denen du nicht mit cabuu gelernt hast, benutzt du PROMPT erst wieder am nächsten Tag.";
 }

@@ -90,7 +90,8 @@ class _IntervalScaleState extends State<IntervalScale> {
     );
   }
 
-  buildTextInputItem(int groupValue, String text) {
+  buildSingleTextInputItemWithSelector(int groupValue, String text,
+      {String hintText = ""}) {
     text = groupValue.toString();
     return Column(
       children: [
@@ -135,6 +136,29 @@ class _IntervalScaleState extends State<IntervalScale> {
     );
   }
 
+  buildTextInputItem(int groupValue, String text, {String hintText = ""}) {
+    text = groupValue.toString();
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.only(left: 15.0),
+          child: TextField(
+            decoration: InputDecoration(
+                border: OutlineInputBorder(), label: Text(hintText)),
+            onTap: () {
+              setState(() {
+                _groupValue = groupValue;
+              });
+            },
+            onChanged: (text) {
+              _onChanged(groupValue, text);
+            },
+          ),
+        )
+      ],
+    );
+  }
+
   String? getLabel(String key) {
     if (widget.labels.containsKey(key)) {
       return widget.labels[key];
@@ -146,14 +170,21 @@ class _IntervalScaleState extends State<IntervalScale> {
   Widget build(BuildContext context) {
     List<Widget> items = [];
 
-    int groupValue = 1;
+    int displayGroupValue = 1;
     for (var key in widget.labels.keys) {
       if (key.contains("TEXTINPUT")) {
-        items.add(buildTextInputItem(groupValue, widget.labels[key]!));
+        if (widget.labels.length == 1) {
+          items.add(buildTextInputItem(displayGroupValue, widget.labels[key]!,
+              hintText: widget.labels[key]!));
+        } else {
+          items.add(buildSingleTextInputItemWithSelector(
+              displayGroupValue, widget.labels[key]!));
+          _groupValue = displayGroupValue;
+        }
       } else {
-        items.add(buildStaticItem(groupValue, widget.labels[key]!));
+        items.add(buildStaticItem(displayGroupValue, widget.labels[key]!));
       }
-      groupValue += 1;
+      displayGroupValue += 1;
     }
 
     return Column(children: <Widget>[
