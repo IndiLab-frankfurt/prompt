@@ -161,9 +161,9 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                                       if (vm.showContinueTomorrowButton)
                                         _buildReturnTomorrowButton(),
                                       UIHelper.verticalSpaceSmall(),
-                                      _buildChangeBackgroundButton(),
+                                      // _buildChangeBackgroundButton(),
                                       UIHelper.verticalSpaceMedium(),
-                                      Divider(),
+                                      // Divider(),
                                       _buildStatistics()
                                     ],
                                   ),
@@ -239,7 +239,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
             OutlinedButton(
               onPressed: () async {
                 await Navigator.pushNamed(
-                    context, RouteNames.ASSESSMENT_EVENING);
+                    context, RouteNames.ASSESSMENT_MORNING);
                 setState(() {});
               },
               child: Text(

@@ -53,10 +53,14 @@ class NoTaskViewModel extends BaseViewModel {
     }
 
     if (_experimentService.isVocabTestDay()) {
-      showLearnedWithCabuuButton = false;
-      showVocabularyTestReminder = true;
-      // notifyListeners();
-      return true;
+      if (await _experimentService.isTimeForMorningAssessment()) {
+        showLearnedWithCabuuButton = false;
+        showVocabularyTestReminder = true;
+        // notifyListeners();
+        return true;
+      } else {
+        return false;
+      }
     }
 
     if (await _experimentService.isTimeForMorningAssessment()) {

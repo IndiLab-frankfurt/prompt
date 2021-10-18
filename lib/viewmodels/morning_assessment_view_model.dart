@@ -56,7 +56,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   MorningAssessmentViewModel(this.experimentService, DataService dataService)
       : super(dataService) {
     this.group = dataService.getUserDataCache().group;
-    if (experimentService.isVocabTestDay()) {
+    if (experimentService.isVocabTestDay() &&
+        !experimentService.didCompletePreVocabToday()) {
       finalMessage = "Denk dran, dass du heute in cabuu den Test machen sollst";
     }
 
@@ -245,7 +246,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
         break;
       case MorningAssessmentStep.boosterPrompt:
-        if (experimentService.isBoosterPromptDay()) {
+        if (experimentService.isInternalisationDay()) {
           step = getStepIndex(MorningAssessmentStep.internalisation);
         } else {
           step = getStepIndex(MorningAssessmentStep.completed);
@@ -261,6 +262,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getStepIndex(MorningAssessmentStep.preVocabVideo);
         break;
       case MorningAssessmentStep.preVocabVideo:
+        onPreVocabVideoCompleted();
         step = getStepIndex(MorningAssessmentStep.completed);
         break;
       case MorningAssessmentStep.assessment_evening_1_yesterday:

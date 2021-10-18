@@ -250,7 +250,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
   late var completed = ListView(children: [
     UIHelper.verticalSpaceLarge(),
     MarkdownBody(
-        data: "# " + vm.finalMessage,
+        data: "### " + vm.finalMessage,
         key: ValueKey(MorningAssessmentStep.completed))
   ]);
 

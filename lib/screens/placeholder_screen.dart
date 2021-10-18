@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 class PlaceholderScreen extends StatelessWidget {
   final String text;
@@ -7,7 +8,7 @@ class PlaceholderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Center(child: Text(text)),
+      child: Center(child: MarkdownBody(data: "### " + text)),
     );
   }
 }
