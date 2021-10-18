@@ -64,7 +64,7 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
   }
 
   late var continueAfterCabuuScreen = PlaceholderScreen(
-      text: "Mache hier erst weiter, wenn du heute mit cabuu gelernt hast. Falls du heute *nicht* mit cabuu lernst, sollst du erst morgen mit PROMPT weitermachen.",
+      text: "Mache hier erst weiter, wenn du heute mit cabuu gelernt hast. Falls du heute _nicht_ mit cabuu lernst, sollst du erst morgen mit PROMPT weitermachen.",
       key: ValueKey(EveningAssessmentStep.continueAfterCabuu));
 
   late var distributedLearningVideo = PlaceholderScreen(
