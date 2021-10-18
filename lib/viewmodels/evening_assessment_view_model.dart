@@ -59,6 +59,11 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
     return true;
   }
 
+  bool _distributedLearningVideoCompleted = false;
+  onDistributedLearningVideoCompleted() {
+    _distributedLearningVideoCompleted = true;
+  }
+
   int group = 0;
 
   int getStepIndex(EveningAssessmentStep step) {

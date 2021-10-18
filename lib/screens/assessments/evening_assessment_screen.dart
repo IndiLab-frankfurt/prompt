@@ -71,6 +71,7 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
 
   late var distributedLearningVideo = VideoScreen(
       'assets/videos/videoDistributedLearning.mp4',
+      onVideoCompleted: vm.onDistributedLearningVideoCompleted,
       key: ValueKey(EveningAssessmentStep.distributedLearningVideo));
 
   late var didLearnCabuuTodayQuestionnaire = MultiStepQuestionnaireFuture(
