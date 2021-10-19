@@ -69,13 +69,13 @@ class PromptDrawer extends StatelessWidget {
                 await Navigator.pushNamed(context, RouteNames.REWARD_SELECTION);
               }),
           _buildDrawerItem(
-              icon: Icons.image_outlined,
+              icon: Icons.pets_outlined,
               text: "Monster ändern",
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.MASCOT_CHANGE);
               }),
           _buildDrawerItem(
-              icon: Icons.info,
+              icon: Icons.info_outlined,
               text: "Über PROMPT",
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.ABOUT_PROMPT);
