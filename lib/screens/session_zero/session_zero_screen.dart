@@ -21,6 +21,7 @@ import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
 import 'package:prompt/screens/session_zero/plan_timing_screen.dart';
 import 'package:prompt/screens/session_zero/reward_screen_1.dart';
+import 'package:prompt/screens/session_zero/rewards_screen_2.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
 import 'package:prompt/screens/session_zero/why_learn_vocab_screen.dart';
 import 'package:prompt/shared/enums.dart';
@@ -83,7 +84,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
           instructionsImplementationIntentions,
       SessionZeroStep.instructions_appPermissions: instructionsAppPermissions,
       SessionZeroStep.endOfSession: endOfSessionScreen,
-      SessionZeroStep.rewardSreen1: rewardScreen1
+      SessionZeroStep.rewardScreen1: rewardScreen1,
+      SessionZeroStep.rewardScreen2: rewardScreen2
     };
 
     _pages = [];
@@ -132,7 +134,10 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       WelcomeScreen(key: ValueKey(SessionZeroStep.welcome));
 
   late var rewardScreen1 =
-      RewardScreen1(key: ValueKey(SessionZeroStep.rewardSreen1));
+      RewardScreen1(key: ValueKey(SessionZeroStep.rewardScreen1));
+
+  late var rewardScreen2 =
+      RewardScreen2(key: ValueKey(SessionZeroStep.rewardScreen2));
 
   late var endOfSessionScreen =
       EndOfSessionScreen(key: ValueKey(SessionZeroStep.endOfSession));
