@@ -23,4 +23,6 @@ class RouteNames {
   static const ABOUT_PROMPT = "/aboutprompt";
 
   static const STUDY_COMPLETE = "/studycomplete";
+
+  static const MASCOT_CHANGE = "/mascotselection";
 }

@@ -55,7 +55,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   set selectedMascot(String selected) {
     this._selectedMascot = selected;
     _dataService.setSelectedMascot(selected);
-    _rewardService.selectedMascot = selected;
+    _rewardService.changeMascot(selected);
     notifyListeners();
   }
 

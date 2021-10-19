@@ -21,7 +21,8 @@ class RewardService {
   final Color backgroundPyramid = Color(0xffa2d0ff);
   final Color backgroundOcean = Color(0xff97b9d3);
   String backgroundImagePath = "assets/illustrations/mascot_1_bare.png";
-  String selectedMascot = "1";
+  String _selectedMascot = "1";
+  String get selectedMascot => _selectedMascot;
   static const int STREAK_THRESHOLD = 5;
 
   LinearGradient backgroundColor = LinearGradient(
@@ -40,7 +41,7 @@ class RewardService {
   ];
 
   List<UnlockableBackground> get backgrounds {
-    return getBackgroundImages(selectedMascot);
+    return getBackgroundImages(_selectedMascot);
   }
 
   RewardService(this._dataService, this._logService);
@@ -69,7 +70,7 @@ class RewardService {
 
   Future getMasot() async {
     return await _dataService.getSelectedMascot().then((path) {
-      this.selectedMascot = path;
+      this._selectedMascot = path;
       return path;
     });
   }
@@ -82,6 +83,12 @@ class RewardService {
 
       return backgroundImagePath;
     });
+  }
+
+  void changeMascot(String newMascot) {
+    this.backgroundImagePath =
+        this.backgroundImagePath.replaceFirst(this._selectedMascot, newMascot);
+    this._selectedMascot = newMascot;
   }
 
   Future<List<Color>> getBackgroundColors() async {
