@@ -12,7 +12,7 @@ class AboutVideoScreen extends StatelessWidget {
         appBar: PromptAppBar(
           showBackButton: true,
         ),
-        body: VideoScreen('assets/videos/videoPlanning.mp4',
+        body: VideoScreen('assets/videos/intro_prompt_compressed.mp4',
             onVideoCompleted: () {}));
   }
 }

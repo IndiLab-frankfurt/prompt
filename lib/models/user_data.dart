@@ -20,6 +20,7 @@ class UserData {
       required this.registrationDate,
       this.streakDays = 0,
       this.score = 0,
+      this.initSessionStep = 0,
       this.appVersion = "",
       this.selectedMascot = "1",
       this.daysActive = 0});

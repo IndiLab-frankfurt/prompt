@@ -189,7 +189,7 @@ class _IntervalScaleState extends State<IntervalScale> {
 
     return Column(children: <Widget>[
       MarkdownBody(
-        data: "### " + widget.title,
+        data: "## " + widget.title,
       ),
       Column(mainAxisAlignment: MainAxisAlignment.start, children: items)
     ]);

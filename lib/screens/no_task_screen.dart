@@ -182,8 +182,10 @@ class _NoTasksScreenState extends State<NoTasksScreen>
 
     double nextUnlockProgress = 0;
     int daysToNextReward = 0;
-    for (var i = 1; i < (rewardService.backgrounds.length); i++) {
-      if (rewardService.backgrounds[i].requiredDays > vm.daysActive) {
+    var backgrounds = rewardService.backgrounds;
+    for (var i = 1; i < (backgrounds.length); i++) {
+      var requiredDays = rewardService.backgrounds[i].requiredDays;
+      if (requiredDays > vm.daysActive) {
         var current = rewardService.backgrounds[i - 1].requiredDays;
         daysToNextReward = rewardService.backgrounds[i].requiredDays;
         var max = daysToNextReward - current;

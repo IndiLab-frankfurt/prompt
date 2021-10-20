@@ -77,7 +77,11 @@ class DataService {
   }
 
   AssessmentResult? getLastAssessmentResultForCached(String assessmentName) {
-    _assessmentResultsCache!.sortBy((element) => element.submissionDate);
+    if (_assessmentResultsCache == null) {
+      _assessmentResultsCache = [];
+    } else {
+      _assessmentResultsCache!.sortBy((element) => element.submissionDate);
+    }
     return _assessmentResultsCache!
         .lastWhereOrNull((element) => element.assessmentType == assessmentName);
   }

@@ -50,7 +50,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   int group = 0;
 
-  String finalMessage = "Vielen Dank, dass du die Fragen beantwortest hast";
+  String finalMessage = "Vielen Dank, dass du die Fragen beantwortet hast";
 
   List<MorningAssessmentStep> screenOrder = [];
 
@@ -149,7 +149,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       return internalisationViewmodel.completed;
     }
 
-    return true;
+    return currentAssessmentIsFilledOut;
   }
 
   int getStepIndex(MorningAssessmentStep morningAssessmentStep) {

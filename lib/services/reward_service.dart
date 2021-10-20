@@ -115,67 +115,82 @@ class RewardService {
     await getMasot();
   }
 
+  getUnlockDays(String background, int group) {
+    var unlockDays = {
+      "Monster": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0},
+      "Flugzeug": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0},
+      "Weltraum 1": {1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 3},
+      "Pyramiden 1": {1: 8, 2: 6, 3: 6, 4: 6, 5: 6, 6: 6},
+      "Vulkan 1": {1: 12, 2: 9, 3: 9, 4: 9, 5: 9, 6: 9},
+      "Wikinger 1": {1: 16, 2: 12, 3: 12, 4: 12, 5: 12, 6: 12},
+      "Ozean 1": {1: 16, 2: 12, 3: 12, 4: 12, 5: 12, 6: 12},
+      "Pyramiden 2": {1: 16, 2: 12, 3: 12, 4: 12, 5: 12, 6: 12},
+    };
+    return unlockDays[background][group];
+  }
+
   getBackgroundImages(String mascotId) {
+    var grp = _dataService.getUserDataCache().group;
     return [
       UnlockableBackground(
           "Monster",
           "assets/illustrations/mascot_${mascotId}_bare.png",
-          0,
+          getUnlockDays("Monster", grp),
           LinearGradient(colors: [backgroundBase, backgroundBase])),
       UnlockableBackground(
           "Flugzeug",
           "assets/illustrations/mascot_${mascotId}_plane_2.png",
-          0,
+          getUnlockDays("Flugzeug", grp),
           LinearGradient(colors: [backgroundBase, backgroundPlane])),
       UnlockableBackground(
           "Weltraum 1",
           "assets/illustrations/mascot_${mascotId}_space_1.png",
-          0,
+          getUnlockDays("Weltraum 1", grp),
           LinearGradient(colors: [backgroundBase, backgroundSpace])),
-      UnlockableBackground(
-          "Pyramiden",
-          "assets/illustrations/mascot_${mascotId}_pyramid_1.png",
-          0,
-          LinearGradient(colors: [backgroundBase, backgroundPyramid])),
       UnlockableBackground(
           "Vulkan 1",
           "assets/illustrations/mascot_${mascotId}_vulcan_1.png",
-          0,
+          getUnlockDays("Vulkan 1", grp),
           LinearGradient(colors: [backgroundBase, backgroundVulcan])),
       UnlockableBackground(
-          "Wikinger",
+          "Pyramiden 1",
+          "assets/illustrations/mascot_${mascotId}_pyramid_1.png",
+          getUnlockDays("Pyramiden 1", grp),
+          LinearGradient(colors: [backgroundBase, backgroundPyramid])),
+      UnlockableBackground(
+          "Wikinger 1",
           "assets/illustrations/mascot_${mascotId}_viking_1.png",
-          0,
+          getUnlockDays("Wikinger 1", grp),
           LinearGradient(colors: [backgroundBase, backGroundViking])),
       UnlockableBackground(
           "Ozean 1",
           "assets/illustrations/mascot_${mascotId}_ocean_2.png",
-          0,
+          getUnlockDays("Ozean 1", grp),
           LinearGradient(colors: [backgroundBase, backgroundOcean])),
       UnlockableBackground(
-          "Pyramide 2",
+          "Pyramiden 2",
           "assets/illustrations/mascot_${mascotId}_pyramid_2.png",
-          0,
+          getUnlockDays("Pyramiden 2", grp),
           LinearGradient(colors: [backgroundBase, backgroundPyramid])),
       UnlockableBackground(
-          "Weltraum",
+          "Weltraum 2",
           "assets/illustrations/mascot_${mascotId}_space_2.png",
-          0,
+          getUnlockDays("Weltraum 2", grp),
           LinearGradient(colors: [backgroundBase, backgroundSpace])),
       UnlockableBackground(
           "Vulkan 2",
           "assets/illustrations/mascot_${mascotId}_vulcan_2.png",
-          0,
+          getUnlockDays("Vulkan 2", grp),
           LinearGradient(colors: [backgroundBase, backgroundVulcan])),
       UnlockableBackground(
           "Wikinger 2",
           "assets/illustrations/mascot_${mascotId}_viking_2.png",
-          0,
+          getUnlockDays("Wikinger 2", grp),
           LinearGradient(colors: [backgroundBase, backGroundViking])),
       UnlockableBackground(
           "Zauberei 2",
           "assets/illustrations/mascot_${mascotId}_wizard_2.png",
-          0,
+          getUnlockDays("Zauberei 2", grp),
           LinearGradient(colors: [backgroundBase, backgroundWizard])),
     ];
   }
@@ -195,7 +210,7 @@ class RewardService {
     await this._dataService.saveBackgroundGradientColors(lg.colors);
   }
 
-  onRecallTask() async {
+  onMorningAssessment() async {
     int points = 10 + streakDays;
     await addPoints(points);
   }
@@ -203,12 +218,6 @@ class RewardService {
   onFinalTask() async {
     await addPoints(10);
   }
-
-  onLdtInitialLongLdtFinished() async {
-    await addPoints(5);
-  }
-
-  onRecallTaskEverythingCompleted() async {}
 
   addDaysActive(int days) async {
     daysActive += days;

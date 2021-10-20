@@ -164,7 +164,12 @@ class ExperimentService {
     this._dataService.saveAssessment(assessment);
 
     if (type == MORNING_ASSESSMENT) {
-      await _rewardService.addStreakDays(1);
+      if (await _shouldIncrementStreakDay()) {
+        await _rewardService.addStreakDays(1);
+      } else {
+        await _rewardService.clearStreakDays();
+      }
+      await _rewardService.onMorningAssessment();
 
       if (Platform.isAndroid) {
         saveUsageStats();

@@ -62,6 +62,7 @@ class UserService {
         group: condition,
         score: 0,
         streakDays: 0,
+        initSessionStep: 0,
         appVersion: appVersion,
         registrationDate: DateTime.now());
   }
@@ -72,8 +73,8 @@ class UserService {
       await saveUsername(email);
       var userData = await FirebaseService().getUserData(email);
       if (userData == null) {
-        var defaultUserData = await getDefaultUserData(email, uid: user.uid);
-        await FirebaseService().insertUserData(defaultUserData);
+        userData = await getDefaultUserData(email, uid: user.uid);
+        await FirebaseService().insertUserData(userData);
       }
       return userData;
     } else {
