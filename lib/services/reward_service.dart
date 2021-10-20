@@ -123,10 +123,21 @@ class RewardService {
       "Pyramiden 1": {1: 8, 2: 6, 3: 6, 4: 6, 5: 6, 6: 6},
       "Vulkan 1": {1: 12, 2: 9, 3: 9, 4: 9, 5: 9, 6: 9},
       "Wikinger 1": {1: 16, 2: 12, 3: 12, 4: 12, 5: 12, 6: 12},
-      "Ozean 1": {1: 16, 2: 12, 3: 12, 4: 12, 5: 12, 6: 12},
-      "Pyramiden 2": {1: 16, 2: 12, 3: 12, 4: 12, 5: 12, 6: 12},
+      "Ozean 1": {1: 21, 2: 15, 3: 15, 4: 15, 5: 15, 6: 15},
+      "Pyramiden 2": {1: 25, 2: 18, 3: 18, 4: 18, 5: 18, 6: 18},
+      "Zauberei 1": {1: 30, 2: 21, 3: 21, 4: 21, 5: 21, 6: 21},
+      "Weltraum 2": {1: 34, 2: 24, 3: 24, 4: 24, 5: 24, 6: 24},
+      "Vulkan 2": {1: 38, 2: 27, 3: 27, 4: 27, 5: 27, 6: 27},
+      "Ozean 2": {1: 43, 2: 30, 3: 30, 4: 30, 5: 30, 6: 30},
+      "Wikinger 2": {1: 47, 2: 33, 3: 33, 4: 33, 5: 33, 6: 33},
+      "Zauberei 2": {1: 52, 2: 36, 3: 36, 4: 36, 5: 36, 6: 36},
     };
-    return unlockDays[background][group];
+    if (unlockDays.containsKey(background)) {
+      if (unlockDays[background]!.containsKey(group)) {
+        return unlockDays[background]![group];
+      }
+    }
+    return 0;
   }
 
   getBackgroundImages(String mascotId) {

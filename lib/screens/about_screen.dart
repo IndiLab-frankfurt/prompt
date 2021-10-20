@@ -1,4 +1,3 @@
-import 'package:better_player/better_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -6,7 +5,6 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/full_width_button.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
-import 'package:prompt/widgets/video_screen.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({Key? key}) : super(key: key);
