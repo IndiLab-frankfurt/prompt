@@ -41,6 +41,8 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     MorningAssessmentStep.yesterdayVocab: yesterdayVocab,
     MorningAssessmentStep.rememberToUsePromptAfterCabuu:
         rememberToUsePromptAfterCabuu,
+    MorningAssessmentStep.rememberToUsePromptBeforeCabuu:
+        rememberToUsePromptBeforeCabuu,
     MorningAssessmentStep.alternativeItems: alternativeItems,
     MorningAssessmentStep.boosterPrompt: boosterPrompt,
     MorningAssessmentStep.internalisation: internalisation(),
@@ -136,9 +138,21 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
   late var rememberToUsePromptAfterCabuu = Column(
     key: ValueKey(MorningAssessmentStep.rememberToUsePromptAfterCabuu),
     children: [
+      UIHelper.verticalSpaceLarge(),
+      MarkdownBody(
+          data:
+              '### Bitte denk nächstes Mal daran, PROMPT zu benutzen, _bevor_ du mit cabuu lernst'),
+    ],
+  );
+
+  late var rememberToUsePromptBeforeCabuu = Column(
+    key: ValueKey(MorningAssessmentStep.rememberToUsePromptBeforeCabuu),
+    children: [
+      UIHelper.verticalSpaceLarge(),
       MarkdownBody(
           data:
               '### Bitte denk nächstes Mal daran, PROMPT _direkt nach dem Lernen_ mit cabuu zu benutzen.'),
+      UIHelper.verticalSpaceMedium(),
       MarkdownBody(
           data:
               '### Beantworte die folgenden Fragen bezogen auf dein _gestriges_ Lernen mit cabuu')

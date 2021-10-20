@@ -13,8 +13,6 @@ class MorningFirstDay1 extends StatelessWidget {
         MarkdownBody(
             data: "### " + AppStrings.MorningAssessment_FirstDay_Screen1_1),
         UIHelper.verticalSpaceMedium(),
-        MarkdownBody(
-            data: "### " + AppStrings.MorningAssessment_FirstDay_Screen2_1),
       ],
     );
   }

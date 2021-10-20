@@ -20,6 +20,7 @@ class _VideoScreenState extends State<VideoScreen> {
     videoPlayerController: _videoPlayerController,
     looping: false,
     showControls: true,
+    // autoInitialize: true,
     aspectRatio: 9 / 16,
   );
 

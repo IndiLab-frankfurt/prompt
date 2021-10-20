@@ -245,7 +245,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   );
 
   late var videoDistributedLearning = VideoScreen(
-      'assets/videos/videoLearning.mp4',
+      'assets/videos/videoDistributedLearning.mp4',
       key: ValueKey(SessionZeroStep.videoDistributedLearning),
       onVideoCompleted: vm.videoDistributedLearningCompleted);
 }

@@ -15,6 +15,7 @@ enum MorningAssessmentStep {
   lastVocab_2,
   didLearn,
   rememberToUsePromptAfterCabuu,
+  rememberToUsePromptBeforeCabuu,
   alternativeItems,
   boosterPrompt,
   internalisation,
@@ -108,6 +109,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     order.addAll([
       MorningAssessmentStep.didLearn,
       MorningAssessmentStep.rememberToUsePromptAfterCabuu,
+      MorningAssessmentStep.rememberToUsePromptBeforeCabuu,
       MorningAssessmentStep.assessment_evening_1_yesterday,
       MorningAssessmentStep.assessment_evening_2_yesterday,
       MorningAssessmentStep.assessment_evening_3_yesterday,
@@ -195,7 +197,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
     // did learn cabuu today
     if (answer == "1") {
-      step = getStepIndex(MorningAssessmentStep.assessment_evening_1);
+      step = getStepIndex(MorningAssessmentStep.rememberToUsePromptBeforeCabuu);
     }
 
     // did learn yesterday
@@ -323,6 +325,9 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
       case MorningAssessmentStep.lastVocab_2:
         step = getStepIndex(MorningAssessmentStep.assessment_afterTest);
+        break;
+      case MorningAssessmentStep.rememberToUsePromptBeforeCabuu:
+        step = getStepIndex(MorningAssessmentStep.assessment_evening_1);
         break;
     }
 
