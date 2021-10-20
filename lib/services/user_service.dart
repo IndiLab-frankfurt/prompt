@@ -45,11 +45,19 @@ class UserService {
     return RegistrationCodes.SUCCESS;
   }
 
-  static Future<UserData> getDefaultUserData(email, {uid = ""}) async {
+  static int getGroup() {
     var rng = Random();
-    var condition = rng.nextInt(6);
-    condition += 1;
+    var isControlGroup = rng.nextInt(2);
+    if (isControlGroup == 1) {
+      return 1;
+    } else {
+      var condition = rng.nextInt(5);
+      condition += 2;
+      return condition;
+    }
+  }
 
+  static Future<UserData> getDefaultUserData(email, {uid = ""}) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     String version = packageInfo.version;
@@ -59,7 +67,7 @@ class UserService {
     return UserData(
         firebaseId: uid,
         user: email,
-        group: condition,
+        group: getGroup(),
         score: 0,
         streakDays: 0,
         initSessionStep: 0,
