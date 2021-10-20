@@ -149,7 +149,41 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       return internalisationViewmodel.completed;
     }
 
-    return currentAssessmentIsFilledOut;
+    var pageKey = currentPageKey.value as MorningAssessmentStep;
+
+    switch (pageKey) {
+      case MorningAssessmentStep.firstDay_1:
+      case MorningAssessmentStep.firstDay_2:
+      case MorningAssessmentStep.lastVocab_1:
+      case MorningAssessmentStep.lastVocab_2:
+      case MorningAssessmentStep.rememberToUsePromptBeforeCabuu:
+      case MorningAssessmentStep.rememberToUsePromptAfterCabuu:
+      case MorningAssessmentStep.boosterPrompt:
+      case MorningAssessmentStep.preVocabVideo:
+      case MorningAssessmentStep.completed:
+        return true;
+      case MorningAssessmentStep.internalisation:
+        return internalisationViewmodel.completed;
+      case MorningAssessmentStep.alternativeItems:
+      case MorningAssessmentStep.yesterdayVocab:
+      case MorningAssessmentStep.didLearn:
+      case MorningAssessmentStep.preVocab:
+      case MorningAssessmentStep.assessment_evening_1_yesterday:
+      case MorningAssessmentStep.assessment_evening_2_yesterday:
+      case MorningAssessmentStep.assessment_evening_3_yesterday:
+      case MorningAssessmentStep.assessment_evening_1:
+      case MorningAssessmentStep.assessment_evening_2:
+      case MorningAssessmentStep.assessment_evening_3:
+      case MorningAssessmentStep.assessment_afterTest:
+      case MorningAssessmentStep.assessment_afterTest_success:
+      case MorningAssessmentStep.assessment_afterTest_failure:
+      case MorningAssessmentStep.assessment_afterTest_2:
+      case MorningAssessmentStep.assessment_morningIntention:
+      case MorningAssessmentStep.assessment_morning_with_intention:
+      case MorningAssessmentStep.assessment_morning_without_intention:
+      case MorningAssessmentStep.assessment_evening_alternative:
+        return currentAssessmentIsFilledOut;
+    }
   }
 
   int getStepIndex(MorningAssessmentStep morningAssessmentStep) {

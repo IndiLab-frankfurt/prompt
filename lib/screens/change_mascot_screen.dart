@@ -47,6 +47,7 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                         iconSize: iconSize,
                         onPressed: () {
                           vm.selectedMascot = "1";
+                          Navigator.pushNamed(context, RouteNames.NO_TASKS);
                         },
                       ),
                     ),
@@ -62,6 +63,7 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                         iconSize: iconSize,
                         onPressed: () {
                           vm.selectedMascot = "2";
+                          Navigator.pushNamed(context, RouteNames.NO_TASKS);
                         },
                       ),
                     ),
@@ -80,6 +82,7 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                         iconSize: 180,
                         onPressed: () {
                           vm.selectedMascot = "3";
+                          Navigator.pushNamed(context, RouteNames.NO_TASKS);
                         },
                       ),
                     )
