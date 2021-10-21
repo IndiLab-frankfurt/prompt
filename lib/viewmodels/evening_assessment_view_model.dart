@@ -52,11 +52,22 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   @override
   bool canMoveNext(ValueKey currentPageKey) {
-    if (currentPageKey.value == didLearnCabuuToday) {
-      return allAssessmentResults.containsKey("didLearnToday");
-    }
+    var pageKey = currentPageKey.value as EveningAssessmentStep;
 
-    return true;
+    switch (pageKey) {
+      case EveningAssessmentStep.didLearnCabuuToday:
+      case EveningAssessmentStep.assessment_evening_1:
+      case EveningAssessmentStep.assessment_evening_2:
+      case EveningAssessmentStep.assessment_evening_3:
+        return currentAssessmentIsFilledOut;
+      case EveningAssessmentStep.assessment_distributedLearning:
+        return _distributedLearningVideoCompleted;
+      case EveningAssessmentStep.distributedLearningVideo:
+      case EveningAssessmentStep.completed:
+      case EveningAssessmentStep.continueAfterCabuu:
+      case EveningAssessmentStep.internalisation:
+        return true;
+    }
   }
 
   bool _distributedLearningVideoCompleted = false;
