@@ -4,7 +4,7 @@
   "questions": [
     {
       "id": "motivation_regulation_1",
-      "questionText": "Ich wende verschiedene Tricks an, um mich am Arbeiten zu halten, auch wenn ich keine Lust zum Lernen habe.",
+      "questionText": "Ich wende verschiedene Tricks an, um weiter zu lernen, auch wenn ich keine Lust zum Lernen habe.",
       "labels": {
         "1": "Trifft überhaupt nicht zu",
         "2": "Trifft eher nicht zu",
@@ -14,7 +14,7 @@
     },
     {
       "id": "motivation_regulation_2",
-      "questionText": "Wenn ich das Interesse an einer Aufgabe verliere, weiß ich, wie ich meine Anstrengungen erhöhen kann, um sie zu erledigen.",
+      "questionText": "Wenn ich das Interesse an einer Aufgabe verliere, weiß ich, wie ich mich dazu bringe mich mehr anstrengen, um sie trotzdem zu erledigen.",
       "labels": {
         "1": "Trifft überhaupt nicht zu",
         "2": "Trifft eher nicht zu",
