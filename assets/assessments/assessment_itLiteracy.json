@@ -74,6 +74,7 @@
                 "3": "Manchmal",
                 "4": "Häufig",
                 "5": "Sehr häufig"
+                "6": "Ich habe noch nie für die Schule Aufgaben am PC/Tablet/Laptop erledigt."
             }
         },
         {
@@ -100,7 +101,7 @@
         },
         {
             "id": "mssf_7",
-            "questionText": "Ich habe das Beenden einer Aufgabe aufgeschoben, um lieber digitale Medien nutzen zu können.",
+            "questionText": "Ich habe eine Aufgabe vor mir hergeschoben, um lieber digitale Medien nutzen zu können.",
             "labels": {
                 "1": "Nie",
                 "2": "Selten",
