@@ -45,7 +45,7 @@
         },
         {
             "id": "mssf_2",
-            "questionText": "Ich erledige Aufgaben für die Schule hastig, damit ich früher wieder digitale Medien nutzen kann.",
+            "questionText": "Ich erledige Aufgaben für die Schule eilig, damit ich früher wieder digitale Medien nutzen kann.",
             "labels": {
                 "1": "Nie",
                 "2": "Selten",
@@ -78,7 +78,7 @@
         },
         {
             "id": "mssf_5",
-            "questionText": "Ich nutze digitale Medien für außerschulische Aktivitäten parallel beim Lernen und Hausaufgaben machen.",
+            "questionText": "Ich nutze digitale Medien zum Spaß, während ich lerne und Hausaufgaben mache.",
             "labels": {
                 "1": "Nie",
                 "2": "Selten",
@@ -100,7 +100,7 @@
         },
         {
             "id": "mssf_7",
-            "questionText": "Ich habe die Fertigstellung einer Aufgabe hinausgeschoben, um lieber digitale Medien nutzen zu können.",
+            "questionText": "Ich habe das Beenden einer Aufgabe aufgeschoben, um lieber digitale Medien nutzen zu können.",
             "labels": {
                 "1": "Nie",
                 "2": "Selten",
