@@ -1,15 +1,15 @@
 {
-    "title": "Wie oft und wie lange lernst du normalerweise Vokabeln? Beantworte die folgenden Fragen.",
+    "title": "Wie oft und wie lange lernst du normalerweise Vokabeln?",
     "id": "learningFrequencyDuration",
     "questions": [
         {
             "id": "learning_frequency",
-            "questionText": "Wie oft lernst du in einer normalen Woche Englischvokabeln?",
+            "questionText": "Wenn du weißt, dass du in einer Woche einen Vokabeltest schreibst und noch nicht gelernt hast, wie viele Tage lernst du dann in der Woche bis zum Test?",
             "labels": {
-                "1": "Weniger als 1 Tag pro Woche",
-                "2": "1-2 Tage pro Woche",
-                "3": "3-4 Tage pro Woche",
-                "4": "5-6 Tage pro Woche",
+                "1": "Weniger als 1 Tag",
+                "2": "1-2 Tage",
+                "3": "3-4 Tage",
+                "4": "5-6 Tage",
                 "5": "Jeden Tag"
             }
         },
