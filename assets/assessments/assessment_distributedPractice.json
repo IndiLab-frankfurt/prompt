@@ -24,7 +24,7 @@
         },
         {
             "id": "belief_distributed_practice_1",
-            "questionText": "Je öfter ich in cabuu Vokabeln lerne, desto besser werde ich sie mir merken können",
+            "questionText": "Je öfter ich in cabuu Vokabeln lerne, desto besser werde ich sie mir merken können.",
             "labels": {
                 "1": "Trifft überhaupt nicht zu",
                 "2": "Trifft eher nicht zu",
