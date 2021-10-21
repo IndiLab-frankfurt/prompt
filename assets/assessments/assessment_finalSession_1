@@ -23,7 +23,7 @@
         },
         {
             "id": "mc_distributed_practice_3",
-            "questionText": "Willst du den Trick des Lernmonsters öfter lernen (auch) in Zukunft nutzen?",
+            "questionText": "Willst du den Trick des Lernmonsters häufiger zu lernen (auch) in Zukunft nutzen?",
             "labels": {
                 "1": "Nein, auf keinen Fall.",
                 "2": "Nein, eher nicht.",
