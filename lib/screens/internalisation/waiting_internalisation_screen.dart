@@ -67,7 +67,7 @@ class _WaitingInternalisationScreenState
         children: <Widget>[
           MarkdownBody(
               data:
-                  "### Lies dir den Plan mindestens dreimal durch und merke ihn dir gut! Drücke dann auf abschicken."),
+                  "### Lies dir den Plan mindestens dreimal durch und merke ihn dir gut! Drücke dann auf weiter."),
           UIHelper.verticalSpaceMedium(),
           SpeechBubble(text: '"${vm.plan}"'),
           UIHelper.verticalSpaceMedium(),

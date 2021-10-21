@@ -18,7 +18,6 @@ enum EveningAssessmentStep {
   didLearnCabuuToday,
   distributedLearningVideo,
   continueAfterCabuu,
-  internalisation,
   assessment_distributedLearning,
   assessment_evening_1,
   assessment_evening_2,
@@ -65,7 +64,6 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case EveningAssessmentStep.distributedLearningVideo:
       case EveningAssessmentStep.completed:
       case EveningAssessmentStep.continueAfterCabuu:
-      case EveningAssessmentStep.internalisation:
         return true;
     }
   }
@@ -141,11 +139,7 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case EveningAssessmentStep.distributedLearningVideo:
         getStepIndex(EveningAssessmentStep.assessment_distributedLearning);
         break;
-      case EveningAssessmentStep.internalisation:
-        // TODO: Handle this case.
-        break;
       case EveningAssessmentStep.completed:
-        // TODO: Handle this case.
         break;
     }
 

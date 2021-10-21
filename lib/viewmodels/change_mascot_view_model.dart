@@ -7,7 +7,7 @@ class ChangeMascotViewModel extends BaseViewModel {
   final RewardService _rewardService;
   final DataService _dataService;
 
-  ChangeMascotViewModel(this._rewardService, this._dataService) {}
+  ChangeMascotViewModel(this._rewardService, this._dataService);
 
   late String _selectedMascot = _rewardService.selectedMascot;
   String get selectedMascot => _selectedMascot;

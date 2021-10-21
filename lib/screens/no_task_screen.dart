@@ -178,7 +178,6 @@ class _NoTasksScreenState extends State<NoTasksScreen>
 
   _buildStatistics() {
     var rewardService = locator<RewardService>();
-    var streakDays = rewardService.streakDays;
 
     double nextUnlockProgress = 0;
     int daysToNextReward = 0;
@@ -200,8 +199,6 @@ class _NoTasksScreenState extends State<NoTasksScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // UIHelper.verticalSpaceMedium(),
-        // Text(AppStrings.daysParticipated(daysActive)),
         UIHelper.verticalSpaceMedium(),
         Text(AppStrings.daysOfTotal(vm.daysActive, 36)),
         UIHelper.verticalSpaceSmall(),

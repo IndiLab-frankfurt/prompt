@@ -76,7 +76,6 @@ class ExperimentService {
   nextScreen(String currentScreen) async {
     if (currentScreen == RouteNames.SESSION_ZERO) {
       if (Platform.isAndroid) {
-        // TODO: Change to an instruction page
         UsageStatsService.grantUsagePermission();
       }
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);

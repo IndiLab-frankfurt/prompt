@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
+import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
 import 'package:prompt/screens/placeholder_screen.dart';
 import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
 import 'package:prompt/screens/session_zero/end_of_session_screen.dart';
@@ -66,7 +67,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.videoPlanning: videoPlanning,
       SessionZeroStep.planCreation: planCreation,
       SessionZeroStep.planDisplay: planDisplay,
-      SessionZeroStep.planInternalisation: planInternalisation,
+      SessionZeroStep.planInternalisationEmoji: planInternalisationEmoji,
+      SessionZeroStep.planInternalisationWaiting: planInternalisationWaiting,
       SessionZeroStep.planTiming: planTiming,
       SessionZeroStep.assessment_selfEfficacy: selfEfficacyQuestionnaire,
       SessionZeroStep.assessment_planCommitment: planCommitment,
@@ -234,14 +236,22 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     key: ValueKey(SessionZeroStep.whereCanYouFindThisInformation),
   );
 
-  late var planInternalisation = ChangeNotifierProvider.value(
-    value: vm.internalisationViewmodel,
-    key: ValueKey(SessionZeroStep.planInternalisation),
+  late var planInternalisationEmoji = ChangeNotifierProvider.value(
+    value: vm.internalisationViewmodelEmoji,
+    key: ValueKey(SessionZeroStep.planInternalisationEmoji),
     child: EmojiInternalisationScreen(
         onCompleted: vm.onInternalisationCompleted,
         emojiInputIf: true,
         emojiInputThen: true,
-        key: ValueKey(SessionZeroStep.planInternalisation)),
+        key: ValueKey(SessionZeroStep.planInternalisationEmoji)),
+  );
+
+  late var planInternalisationWaiting = ChangeNotifierProvider.value(
+    value: vm.internalisationViewmodelWaiting,
+    key: ValueKey(SessionZeroStep.planInternalisationWaiting),
+    child: WaitingInternalisationScreen(Duration(seconds: 15),
+        onCompleted: vm.onInternalisationCompleted,
+        key: ValueKey(SessionZeroStep.planInternalisationWaiting)),
   );
 
   late var videoDistributedLearning = VideoScreen(

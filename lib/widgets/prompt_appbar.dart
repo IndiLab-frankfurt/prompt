@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/screens/info_screen.dart';
 
 class PromptAppBar extends StatefulWidget with PreferredSizeWidget {
   final String title;
@@ -75,29 +74,5 @@ class _PromptAppBarState extends State<PromptAppBar> {
       //     TextTheme(headline6: TextStyle(color: Colors.black, fontSize: 22)),
       centerTitle: true,
     );
-  }
-
-  _buildAboutButton() {
-    return TextButton(
-        style: TextButton.styleFrom(
-          primary: Colors.grey[850],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.info_outline),
-            Text(
-              "Über PROMPT",
-              style: TextStyle(
-                fontSize: 20,
-              ),
-            )
-          ],
-        ),
-        onPressed: () async {
-          await Navigator.push(
-              context, MaterialPageRoute(builder: (context) => InfoScreen()));
-          setState(() {});
-        });
   }
 }

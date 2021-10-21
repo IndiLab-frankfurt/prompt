@@ -28,7 +28,8 @@ enum SessionZeroStep {
   videoDistributedLearning,
   planCreation,
   planDisplay,
-  planInternalisation,
+  planInternalisationWaiting,
+  planInternalisationEmoji,
   planTiming,
   instructions1,
   instructions2,
@@ -47,7 +48,9 @@ enum SessionZeroStep {
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 // ignore: non_constant_identifier_names
   List<SessionZeroStep> screenOrder = [];
-  InternalisationViewModel internalisationViewmodel =
+  InternalisationViewModel internalisationViewmodelEmoji =
+      InternalisationViewModel();
+  InternalisationViewModel internalisationViewmodelWaiting =
       InternalisationViewModel();
   List<String> submittedResults = [];
 
@@ -65,7 +68,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   set plan(String plan) {
     plan = "Wenn ich $plan, dann lerne ich mit cabuu";
     this._plan = plan;
-    internalisationViewmodel.plan = plan;
+    internalisationViewmodelEmoji.plan = plan;
+    internalisationViewmodelWaiting.plan = plan;
     notifyListeners();
   }
 
@@ -176,7 +180,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planCreation,
       SessionZeroStep.planDisplay,
       SessionZeroStep.assessment_planCommitment,
-      SessionZeroStep.planInternalisation,
+      SessionZeroStep.planInternalisationWaiting,
+      SessionZeroStep.planInternalisationEmoji,
       SessionZeroStep.planTiming,
     ];
 
@@ -242,7 +247,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         completionDate: DateTime.now(),
         plan: this.plan,
         condition: InternalisationCondition.emojiIf.toString(),
-        input: this.internalisationViewmodel.input);
+        input: this.internalisationViewmodelEmoji.input);
     await _dataService.saveInternalisation(internalisation);
   }
 
@@ -265,6 +270,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.instructions_appPermissions:
       case SessionZeroStep.instructions_implementationIntentions:
       case SessionZeroStep.rewardScreen1:
+      case SessionZeroStep.planInternalisationWaiting:
       case SessionZeroStep.planDisplay:
         break;
       case SessionZeroStep.whereCanYouFindThisInformation:
@@ -289,7 +295,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.planCreation:
         _dataService.savePlan(plan);
         break;
-      case SessionZeroStep.planInternalisation:
+      case SessionZeroStep.planInternalisationEmoji:
         saveInternalisation();
         break;
       case SessionZeroStep.endOfSession:
@@ -332,7 +338,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.videoDistributedLearning:
       case SessionZeroStep.planCreation:
       case SessionZeroStep.planDisplay:
-      case SessionZeroStep.planInternalisation:
+      case SessionZeroStep.planInternalisationEmoji:
       case SessionZeroStep.planTiming:
       case SessionZeroStep.instructions1:
       case SessionZeroStep.instructions4:
@@ -341,10 +347,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.instructions_appPermissions:
       case SessionZeroStep.endOfSession:
       case SessionZeroStep.valueIntervention:
+      case SessionZeroStep.planInternalisationWaiting:
       case SessionZeroStep.rewardScreen2:
         return false;
     }
-    return true;
   }
 
   @override
@@ -352,11 +358,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     var stepKey = currentPageKey.value as SessionZeroStep;
 
     switch (stepKey) {
-      case SessionZeroStep.welcome:
-        return true;
       case SessionZeroStep.whereCanYouFindThisInformation:
         return _videoWelcomeCompleted;
+      case SessionZeroStep.welcome:
       case SessionZeroStep.cabuuCode:
+      case SessionZeroStep.planDisplay:
       case SessionZeroStep.mascotSelection:
         return true;
       case SessionZeroStep.assessment_planCommitment:
@@ -372,17 +378,12 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.videoPlanning:
         return _videoPlanningCompleted;
       case SessionZeroStep.videoDistributedLearning:
-        // TODO: Handle this case.
-        break;
+        return _videoDistributedLearningCompleted;
       case SessionZeroStep.planCreation:
         return plan.isNotEmpty;
-      case SessionZeroStep.planDisplay:
-        // TODO: Handle this case.
-        break;
-      case SessionZeroStep.planInternalisation:
-        return this.internalisationViewmodel.input.isNotEmpty;
+      case SessionZeroStep.planInternalisationEmoji:
+        return this.internalisationViewmodelEmoji.input.isNotEmpty;
       case SessionZeroStep.planTiming:
-        // TODO: Handle this case.
         break;
       default:
         return true;

@@ -23,7 +23,6 @@ class _InternalisationScreenState extends State<InternalisationScreen> {
         children: [
           Text(AppStrings.Internalisation_ThinkAboutYourGoal),
           UIHelper.verticalSpaceMedium(),
-          // TODO: Replaceholder
           Text("Ich will jeden Tag Vokabeln lernen!"),
           UIHelper.verticalSpaceMedium(),
           Text(AppStrings.Internalisation_ToReachYourGoal),
