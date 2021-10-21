@@ -1,1 +1,35 @@
-
+{
+    "title": "Hier geht es um das Video, in dem dir der Lerntrick des Monsters - früher anfangen und häufiger lernen - erklärt wurde.",
+    "id": "evening_1",
+    "questions": [
+        {
+            "id": "mc_distributed_practice_1",
+            "questionText": "Hast du nachdem du das Video gesehen hast an mehr Tagen gelernt als vorher?",
+            "labels": {
+                "1": "Nein, seltener.",
+                "2": "Nein, es gab keinen Unterschied.",
+                "3": "Ja, ein bisschen.",
+                "4": "Ja, ich habe (viel) häufiger gelernt."
+            }
+        },
+        {
+            "id": "mc_distributed_practice_2",
+            "questionText": "Hat dir das etwas gebracht?",
+            "labels": {
+                "1": "Nein, ich konnte mir die Vokabeln nicht besser merken.",
+                "2": "Ich konnte mir die Vokabeln besser merken, aber habe insgesamt viel länger gelernt als sonst.",
+                "3": "Ich konnte mir die Vokabeln besser merken und habe genauso viel oder weniger Zeit gebraucht als sonst.",
+            }
+        },
+        {
+            "id": "mc_distributed_practice_3",
+            "questionText": "Willst du den Trick des Lernmonsters öfter lernen (auch) in Zukunft nutzen?",
+            "labels": {
+                "1": "Nein, auf keinen Fall.",
+                "2": "Nein, eher nicht.",
+                "3": "Eher ja.",
+                "4": "Ja, auf jeden Fall."
+            }
+        } 
+    ]
+}
