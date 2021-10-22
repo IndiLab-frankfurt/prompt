@@ -234,7 +234,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
         margin: EdgeInsets.all(10),
         child: Column(
           children: [
-            Text("Denk dran, heute in cabuu den Test zu machen"),
+            Text("Denk dran, heute in cabuu den Test zu machen."),
             OutlinedButton(
               onPressed: () async {
                 await Navigator.pushNamed(
@@ -242,7 +242,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                 setState(() {});
               },
               child: Text(
-                "Drücke hier, wenn du damit fertig bist",
+                "Drücke hier, wenn du damit fertig bist.",
                 style: TextStyle(color: Colors.black),
               ),
               style: OutlinedButton.styleFrom(
