@@ -7,6 +7,7 @@ import 'package:prompt/screens/assessments/morning_lastVocab_2.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/assessments/pre_vocab_screen.dart';
+import 'package:prompt/screens/assessments/pre_vocab_screen_2.dart';
 import 'package:prompt/screens/assessments/pre_vocab_video.dart';
 import 'package:prompt/screens/assessments/yesterday_vocab_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
@@ -37,7 +38,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     MorningAssessmentStep.lastVocab_2: lastVocab2,
     MorningAssessmentStep.didLearn: didLearnQuestionnaire,
     MorningAssessmentStep.preVocab: preVocabScreen,
-    MorningAssessmentStep.preVocabVideo: preVocabVideo,
+    MorningAssessmentStep.preVocab2: preVocabVideo,
     MorningAssessmentStep.yesterdayVocab: yesterdayVocab,
     MorningAssessmentStep.rememberToUsePromptAfterCabuu:
         rememberToUsePromptAfterCabuu,
@@ -252,10 +253,9 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
   late var preVocabScreen =
       PreVocabScreen(key: ValueKey(MorningAssessmentStep.preVocab));
 
-  late var preVocabVideo = PreVocabVideo(
-      onVideoCompleted: vm.onPreVocabVideoCompleted,
-      nextLearnDate: vm.getNextVocabTestDate(),
-      key: ValueKey(MorningAssessmentStep.preVocabVideo));
+  late var preVocabVideo = PreVocabScreen2(
+      nextVocabDate: vm.getNextVocabTestDate(),
+      key: ValueKey(MorningAssessmentStep.preVocab2));
 
   late var yesterdayVocab = YesterdayVocabScreen(
       nextVocabTestDate: vm.getNextVocabTestDate(),

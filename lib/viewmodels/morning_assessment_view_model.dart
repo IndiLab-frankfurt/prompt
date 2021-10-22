@@ -21,7 +21,7 @@ enum MorningAssessmentStep {
   internalisation,
   completed,
   preVocab,
-  preVocabVideo,
+  preVocab2,
   assessment_evening_1_yesterday,
   assessment_evening_2_yesterday,
   assessment_evening_3_yesterday,
@@ -103,7 +103,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       } else {
         order = [
           MorningAssessmentStep.preVocab,
-          MorningAssessmentStep.preVocabVideo,
+          MorningAssessmentStep.preVocab2,
         ];
       }
     }
@@ -154,7 +154,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.lastVocab_2:
       case MorningAssessmentStep.rememberToUsePromptBeforeCabuu:
       case MorningAssessmentStep.rememberToUsePromptAfterCabuu:
-      case MorningAssessmentStep.preVocabVideo:
+      case MorningAssessmentStep.preVocab2:
       case MorningAssessmentStep.completed:
       case MorningAssessmentStep.preVocab:
         return true;
@@ -292,9 +292,9 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         // TODO: Handle this case.
         break;
       case MorningAssessmentStep.preVocab:
-        step = getStepIndex(MorningAssessmentStep.preVocabVideo);
+        step = getStepIndex(MorningAssessmentStep.preVocab2);
         break;
-      case MorningAssessmentStep.preVocabVideo:
+      case MorningAssessmentStep.preVocab2:
         onPreVocabVideoCompleted();
         step = getStepIndex(MorningAssessmentStep.completed);
         break;

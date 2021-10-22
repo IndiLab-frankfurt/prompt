@@ -109,6 +109,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
+  void onWaitingInternalisationCompleted(String result) {
+    notifyListeners();
+  }
+
   final ExperimentService _experimentService;
   final DataService _dataService;
   final RewardService _rewardService;
@@ -383,6 +387,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         return plan.isNotEmpty;
       case SessionZeroStep.planInternalisationEmoji:
         return this.internalisationViewmodelEmoji.input.isNotEmpty;
+      case SessionZeroStep.planInternalisationWaiting:
+        return this.internalisationViewmodelWaiting.completed;
       case SessionZeroStep.planTiming:
         break;
       default:

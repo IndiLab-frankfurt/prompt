@@ -250,7 +250,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     value: vm.internalisationViewmodelWaiting,
     key: ValueKey(SessionZeroStep.planInternalisationWaiting),
     child: WaitingInternalisationScreen(Duration(seconds: 15),
-        onCompleted: vm.onInternalisationCompleted,
+        onCompleted: vm.onWaitingInternalisationCompleted,
         key: ValueKey(SessionZeroStep.planInternalisationWaiting)),
   );
 
