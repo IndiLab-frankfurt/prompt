@@ -50,6 +50,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   int group = 0;
 
+  final Duration boosterPromptDuration = Duration(seconds: 7);
+
   String finalMessage = "Vielen Dank, dass du die Fragen beantwortet hast";
 
   List<MorningAssessmentStep> screenOrder = [];
@@ -143,14 +145,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   @override
   bool canMoveNext(ValueKey currentPageKey) {
-    if (currentPageKey.value == MorningAssessmentStep.didLearn) {
-      return allAssessmentResults.containsKey("didLearnWhen");
-    }
-
-    if (currentPageKey.value == MorningAssessmentStep.internalisation) {
-      return internalisationViewmodel.completed;
-    }
-
     var pageKey = currentPageKey.value as MorningAssessmentStep;
 
     switch (pageKey) {
@@ -160,7 +154,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.lastVocab_2:
       case MorningAssessmentStep.rememberToUsePromptBeforeCabuu:
       case MorningAssessmentStep.rememberToUsePromptAfterCabuu:
-      case MorningAssessmentStep.boosterPrompt:
       case MorningAssessmentStep.preVocabVideo:
       case MorningAssessmentStep.completed:
       case MorningAssessmentStep.preVocab:
@@ -185,6 +178,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.assessment_morning_without_intention:
       case MorningAssessmentStep.assessment_evening_alternative:
         return currentAssessmentIsFilledOut;
+      case MorningAssessmentStep.boosterPrompt:
+        return _boosterPromptCompleted;
     }
   }
 
@@ -373,6 +368,12 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   InternalisationCondition getInternalisationCondition() {
     _internalisationCondition = experimentService.getInternalisationCondition();
     return _internalisationCondition;
+  }
+
+  bool _boosterPromptCompleted = false;
+  void onBoosterPromptCompleted(String param) {
+    _boosterPromptCompleted = true;
+    notifyListeners();
   }
 
   void onInternalisationCompleted(String input) {

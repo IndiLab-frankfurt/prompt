@@ -269,6 +269,8 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
   ]);
 
   late var boosterPrompt = BoosterStrategyPromptScreen(
+      waitingDuration: vm.boosterPromptDuration,
+      onCompleted: vm.onBoosterPromptCompleted,
       key: ValueKey(MorningAssessmentStep.boosterPrompt));
 
   late var didLearnQuestionnaire = MultiStepQuestionnaireFuture(
