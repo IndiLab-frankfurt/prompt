@@ -17,13 +17,16 @@ class PreVocabVideo extends StatefulWidget {
 class _PreVocabVideoState extends State<PreVocabVideo> {
   @override
   Widget build(BuildContext context) {
+    var height = MediaQuery.of(context).size.height * 0.75;
     var format = new DateFormat("dd.MM.yyyy");
     var targetDate = format.format(widget.nextLearnDate);
     return Container(
         child: ListView(
       children: [
-        VideoScreen('assets/videos/cabuu_test_lernplan.mp4',
-            onVideoCompleted: widget.onVideoCompleted),
+        Container(
+            height: height,
+            child: VideoScreen('assets/videos/cabuu_test_lernplan.mp4',
+                onVideoCompleted: widget.onVideoCompleted)),
         MarkdownBody(data: "### Dein nächster Lernplan endet am: $targetDate")
       ],
     ));

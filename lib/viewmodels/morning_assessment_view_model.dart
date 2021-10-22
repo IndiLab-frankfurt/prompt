@@ -129,7 +129,9 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     return order;
   }
 
+  bool _preVocabVideoCompleted = false;
   void onPreVocabVideoCompleted() {
+    _preVocabVideoCompleted = true;
     var result = AssessmentResult({}, "preVocabCompleted", DateTime.now());
     dataService.saveAssessment(result);
   }
@@ -161,13 +163,13 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.boosterPrompt:
       case MorningAssessmentStep.preVocabVideo:
       case MorningAssessmentStep.completed:
+      case MorningAssessmentStep.preVocab:
         return true;
       case MorningAssessmentStep.internalisation:
         return internalisationViewmodel.completed;
       case MorningAssessmentStep.alternativeItems:
       case MorningAssessmentStep.yesterdayVocab:
       case MorningAssessmentStep.didLearn:
-      case MorningAssessmentStep.preVocab:
       case MorningAssessmentStep.assessment_evening_1_yesterday:
       case MorningAssessmentStep.assessment_evening_2_yesterday:
       case MorningAssessmentStep.assessment_evening_3_yesterday:
