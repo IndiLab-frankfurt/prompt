@@ -98,7 +98,7 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var timeDisplay = "Drücke hier um eine Uhrzeit auszuwählen";
+    var timeDisplay = "Drücke hier um eine Uhrzeit auszuwählen.";
     if (selectedTime != null) {
       final localizations = MaterialLocalizations.of(context);
       final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!,
