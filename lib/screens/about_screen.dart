@@ -36,7 +36,7 @@ class _AboutScreenState extends State<AboutScreen> {
             margin: UIHelper.containerMargin,
             child: ListView(children: [
               FullWidthButton(
-                  text: "Drücke hier, um das Einführungsvideo anzusehen",
+                  text: "Drücke hier, um das Einführungsvideo anzusehen.",
                   onPressed: () async {
                     await Navigator.pushNamed(
                         context, RouteNames.ABOUT_PROMPT_VIDEO);
