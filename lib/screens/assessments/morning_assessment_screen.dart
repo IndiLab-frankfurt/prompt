@@ -8,7 +8,6 @@ import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/assessments/pre_vocab_screen.dart';
 import 'package:prompt/screens/assessments/pre_vocab_screen_2.dart';
-import 'package:prompt/screens/assessments/pre_vocab_video.dart';
 import 'package:prompt/screens/assessments/yesterday_vocab_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';

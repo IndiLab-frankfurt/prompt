@@ -46,6 +46,12 @@ class _EmojiInternalisationScreenState
   @override
   void initState() {
     super.initState();
+
+    if (widget.emojiInputIf) {
+      _activeController = _controllerLeft;
+    } else {
+      _activeController = _controllerRight;
+    }
   }
 
   @override

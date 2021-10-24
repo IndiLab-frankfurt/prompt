@@ -114,12 +114,12 @@ class AppStrings {
       "Denk daran, dass du dir die Vokabeln am besten merken kannst, wenn du jeden Tag lernst!";
 
   static const String NoTask_Continue_After_Cabuu =
-      "Drücke hier, sobald du heute mit cabuu gelernt hast";
+      "Drücke hier, sobald du heute mit cabuu gelernt hast.";
   static const String NoTask_ContinueTomorrow =
-      "Komme morgen früh hierher zurück und mache weiter";
+      "Komme morgen früh hierher zurück und mache weiter.";
 
   static const String EveningAssessment_Completed =
-      "Vielen Dank, dass du die Fragen beantwortet hast";
+      "Vielen Dank, dass du die Fragen beantwortet hast.";
 
   static const String MorningAssessment_FirstDay_Screen1_1 =
       "Benutze PROMPT ab jetzt **jeden Tag** und zwar am besten schon **morgens**. Die ersten Fragen sollst du nämlich beantworten, **bevor** du mit cabuu lernst.";

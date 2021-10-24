@@ -83,12 +83,10 @@ class ExperimentService {
 
     if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
       await _navigationService.navigateTo(RouteNames.NO_TASKS);
-      // if (isDistributedLearningDay()) {
-      //   await _navigationService
-      //       .navigateTo(RouteNames.VIDEO_DISTRIBUTED_LEARNING);
-      // } else {
-      //   await _navigationService.navigateTo(RouteNames.NO_TASKS);
-      // }
+    }
+
+    if (currentScreen == RouteNames.ASSESSMENT_FINAL) {
+      await _navigationService.navigateTo(RouteNames.NO_TASKS);
     }
 
     if (currentScreen == RouteNames.ASSESSMENT_MORNING) {

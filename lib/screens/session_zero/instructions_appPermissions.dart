@@ -12,7 +12,7 @@ class InstructionsAppPermissions extends StatelessWidget {
       children: [
         MarkdownBody(
             data:
-                "### Du wirst als nächstes  von der PROMPT App zu den Einstellungen deines Telefons geschickt. Das sieht dann ungefährt so aus: "),
+                "### Du wirst als nächstes von der PROMPT App zu den Einstellungen deines Telefons geschickt. Das sieht dann ungefährt so aus: "),
         UIHelper.verticalSpaceMedium(),
         Container(
             decoration: BoxDecoration(

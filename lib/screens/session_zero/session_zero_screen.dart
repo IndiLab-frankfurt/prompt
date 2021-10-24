@@ -3,7 +3,6 @@ import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
-import 'package:prompt/screens/placeholder_screen.dart';
 import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
 import 'package:prompt/screens/session_zero/end_of_session_screen.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_1.dart';

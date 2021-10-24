@@ -1,6 +1,6 @@
 {
     "title": "Hier geht es um das Video, in dem dir der Lerntrick des Monsters - früher anfangen und häufiger lernen - erklärt wurde.",
-    "id": "evening_1",
+    "id": "final_1",
     "questions": [
         {
             "id": "mc_distributed_practice_1",
@@ -18,7 +18,7 @@
             "labels": {
                 "1": "Nein, ich konnte mir die Vokabeln nicht besser merken.",
                 "2": "Ich konnte mir die Vokabeln besser merken, aber habe insgesamt viel länger gelernt als sonst.",
-                "3": "Ich konnte mir die Vokabeln besser merken und habe genauso viel oder weniger Zeit gebraucht als sonst.",
+                "3": "Ich konnte mir die Vokabeln besser merken und habe genauso viel oder weniger Zeit gebraucht als sonst."
             }
         },
         {

@@ -5,6 +5,7 @@ import 'package:prompt/screens/about_screen.dart';
 import 'package:prompt/screens/about_video_screen.dart';
 import 'package:prompt/screens/assessments/disributed_learning_video_screen.dart';
 import 'package:prompt/screens/assessments/evening_assessment_screen.dart';
+import 'package:prompt/screens/assessments/final_assessment_screen.dart';
 import 'package:prompt/screens/change_mascot_screen.dart';
 import 'package:prompt/screens/internalisation/daily_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/default_reminder_screen.dart';
@@ -24,6 +25,7 @@ import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/change_mascot_view_model.dart';
 import 'package:prompt/viewmodels/daily_internalisation_view_model.dart';
 import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
+import 'package:prompt/viewmodels/final_asssessment_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
 import 'package:prompt/viewmodels/no_task_view_model.dart';
@@ -89,6 +91,14 @@ class AppRouter {
                     locator.get<ExperimentService>(),
                     locator.get<DataService>()),
                 child: EveningAssessmentScreen()));
+
+      case RouteNames.ASSESSMENT_FINAL:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => FinalAssessmentViewModel(
+                    locator.get<DataService>(),
+                    locator.get<ExperimentService>()),
+                child: FinalAssessmentScreen()));
 
       case RouteNames.MASCOT_CHANGE:
         return MaterialPageRoute(

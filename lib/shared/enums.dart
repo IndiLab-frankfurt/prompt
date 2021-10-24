@@ -50,7 +50,11 @@ enum AssessmentTypes {
   evening_3_yesterday,
   morning_intention,
   morning_with_intention,
-  morning_without_intention
+  morning_without_intention,
+  finalSession_1,
+  finalSession_2,
+  finalSession_3,
+  finalSession_4,
 }
 
 enum InternalisationCondition {
@@ -61,4 +65,5 @@ enum InternalisationCondition {
 
 const String EVENING_ASSESSMENT = "eveningAssessment";
 const String MORNING_ASSESSMENT = "morningAssessment";
+const String FINAL_ASSESSMENT = "finalAssessment";
 const String SESSION_ZERO = "sessionZero";
