@@ -266,9 +266,9 @@ class FirebaseService implements IDatabaseService {
         .collection("initialData")
         .doc(userid)
         .get()
-        .then((docs) {
-      if (docs.exists) {
-        return docs[0];
+        .then((snapshot) {
+      if (snapshot.exists) {
+        return snapshot.data();
       } else {
         return null;
       }

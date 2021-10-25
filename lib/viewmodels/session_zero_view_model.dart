@@ -73,6 +73,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
+  String cabuuCode = "123";
+
   bool _consented = false;
   bool get consented => _consented;
   set consented(bool consented) {
@@ -140,6 +142,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     var ud = _dataService.getUserDataCache();
     initialStep = ud.initSessionStep;
+    cabuuCode = ud.cabuuCode;
 
     return true;
   }

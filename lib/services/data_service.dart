@@ -35,6 +35,10 @@ class DataService {
     }
   }
 
+  setUserDataCache(UserData ud) async {
+    _userDataCache = ud;
+  }
+
   Future<UserData?> getUserData() async {
     var username = _userService.getUsername();
     if (username.isEmpty) return null;

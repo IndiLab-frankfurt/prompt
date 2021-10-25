@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:intl/intl.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:provider/provider.dart';
 
 class InstructionsCabuu1 extends StatelessWidget {
   const InstructionsCabuu1({Key? key}) : super(key: key);
@@ -10,6 +12,7 @@ class InstructionsCabuu1 extends StatelessWidget {
   Widget build(BuildContext context) {
     var format = new DateFormat("dd.MM.yyyy");
     var targetDate = format.format(DateTime.now().add(Duration(days: 8)));
+    late var vm = Provider.of<SessionZeroViewModel>(context);
     return Container(
         child: ListView(
       children: [
@@ -19,7 +22,7 @@ class InstructionsCabuu1 extends StatelessWidget {
         UIHelper.verticalSpaceSmall(),
         MarkdownBody(data: "### Dein Cabuu Code lautet:"),
         UIHelper.verticalSpaceSmall(),
-        Center(child: MarkdownBody(data: "# **123**")),
+        Center(child: MarkdownBody(data: '# ' + vm.cabuuCode)),
         UIHelper.verticalSpaceSmall(),
         MarkdownBody(
             data:

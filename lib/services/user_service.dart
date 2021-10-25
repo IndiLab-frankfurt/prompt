@@ -1,6 +1,8 @@
 import 'dart:math';
 import 'package:package_info/package_info.dart';
+import 'package:prompt/locator.dart';
 import 'package:prompt/models/user_data.dart';
+import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/firebase_service.dart';
 import 'package:prompt/services/i_database_service.dart';
@@ -93,6 +95,7 @@ class UserService {
         userData = await getDefaultUserData(email, uid: user.uid);
         await FirebaseService().insertUserData(userData);
       }
+      locator<DataService>().setUserDataCache(userData);
       return userData;
     } else {
       return null;
