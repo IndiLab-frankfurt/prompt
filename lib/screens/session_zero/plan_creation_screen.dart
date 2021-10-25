@@ -42,7 +42,7 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
             fontWeight: FontWeight.w500,
           )),
       UIHelper.verticalSpaceSmall(),
-      MarkdownBody(data: '### , dann lerne ich mit cabuu."'),
+      MarkdownBody(data: '### , dann lerne ich mit cabuu!"'),
       // ElevatedButton(
       //     onPressed: () {
       //       setState(() {
