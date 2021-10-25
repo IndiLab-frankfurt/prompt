@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/screens/assessments/final_plan_display.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/shared/enums.dart';
@@ -21,9 +22,11 @@ class _FinalAssessmentScreenState extends State<FinalAssessmentScreen> {
       Provider.of<FinalAssessmentViewModel>(context);
 
   late Map<FinalAssessmentStep, Widget> _stepScreenMap = {
+    FinalAssessmentStep.introduction: introduction,
     FinalAssessmentStep.assessment_finalSession_1: finalSession1,
     FinalAssessmentStep.assessment_finalSession_2: finalSession2,
     FinalAssessmentStep.assessment_finalSession_3: finalSession3,
+    FinalAssessmentStep.planDisplay: planDisplay,
     FinalAssessmentStep.assessment_finalSession_4: finalSession4,
     FinalAssessmentStep.completed: completed
   };
@@ -56,6 +59,17 @@ class _FinalAssessmentScreenState extends State<FinalAssessmentScreen> {
                 ))));
   }
 
+  late var introduction = ListView(children: [
+    UIHelper.verticalSpaceLarge(),
+    MarkdownBody(
+        data: "### " +
+            "Heute ist der letzte Tag, an dem d PROMPT jeden Tag benutzen solltest."),
+    UIHelper.verticalSpaceMedium(),
+    MarkdownBody(
+        data: "### " +
+            "Wir haben jetzt noch ein paar Fragen dazu, wie die Studie bisher für dich gewesen ist."),
+  ]);
+
   late var finalSession1 = MultiStepQuestionnaireFuture(
       vm: vm,
       assessmentTypes: AssessmentTypes.finalSession_1,
@@ -76,18 +90,28 @@ class _FinalAssessmentScreenState extends State<FinalAssessmentScreen> {
       assessmentTypes: AssessmentTypes.finalSession_4,
       key: ValueKey(FinalAssessmentStep.assessment_finalSession_4));
 
+  late var planDisplay = FutureBuilder(
+      future: vm.getPlan(),
+      builder: (_, snapshot) {
+        if (snapshot.hasData) {
+          if (snapshot.data != null) {
+            var plan = snapshot.data as String;
+            return FinalPlanDisplay(plan: plan);
+          }
+        }
+        return Container(child: CircularProgressIndicator());
+      });
+
   late var completed = ListView(children: [
     UIHelper.verticalSpaceLarge(),
-    MarkdownBody(
-        data: "### " +
-            "Du bist jetzt fertig mit der Studie! Vielen Dank, dass du so toll mitgemacht hast!"),
+    MarkdownBody(data: "### " + "Danke!"),
     UIHelper.verticalSpaceMedium(),
     MarkdownBody(
         data: "### " +
-            "Wir senden dir in den kommenden Wochen den Amazon-Gutschein zu. Bitte habe etwas Geduld - du solltest im Januar von uns hören."),
+            "Die letzten beiden Vokabellisten sollst du nun alleine lernen. Ab morgen musst du also nicht mehr täglich PROMPT benutzen. Nur an den Tagen, an denen du den Vokabeltest machst, sollst du noch einmal Fragen beantworten."),
     UIHelper.verticalSpaceMedium(),
     MarkdownBody(
         data: "### " +
-            "Die App cabuu kannst du nun kostenlos weiter verwenden. Die App PROMPT kannst du deinstallieren."),
+            "**Wichtig:** Behalte die PROMPT auf dem Handy. An den Tagen, an denen du den Vokabeltest machen sollst, schicken wir dir eine Notification."),
   ]);
 }

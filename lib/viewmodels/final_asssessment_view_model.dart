@@ -7,23 +7,29 @@ import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
 enum FinalAssessmentStep {
+  introduction,
   assessment_finalSession_1,
   assessment_finalSession_2,
   assessment_finalSession_3,
+  planDisplay,
   assessment_finalSession_4,
   completed
 }
 
 class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
   List<FinalAssessmentStep> screenOrder = [
+    FinalAssessmentStep.introduction,
     FinalAssessmentStep.assessment_finalSession_1,
     FinalAssessmentStep.assessment_finalSession_2,
     FinalAssessmentStep.assessment_finalSession_3,
+    FinalAssessmentStep.planDisplay,
     FinalAssessmentStep.assessment_finalSession_4,
     FinalAssessmentStep.completed
   ];
 
   final ExperimentService experimentService;
+
+  int group = 0;
 
   FinalAssessmentViewModel(DataService dataService, this.experimentService)
       : super(dataService);
@@ -38,6 +44,9 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
     var key = currentPageKey.value as FinalAssessmentStep;
 
     switch (key) {
+      case FinalAssessmentStep.introduction:
+      case FinalAssessmentStep.planDisplay:
+        return true;
       case FinalAssessmentStep.assessment_finalSession_1:
       case FinalAssessmentStep.assessment_finalSession_2:
       case FinalAssessmentStep.assessment_finalSession_3:
@@ -62,6 +71,9 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
     var pageKey = currentPageKey.value as FinalAssessmentStep;
 
     switch (pageKey) {
+      case FinalAssessmentStep.introduction:
+        step = getStepIndex(FinalAssessmentStep.assessment_finalSession_1);
+        break;
       case FinalAssessmentStep.assessment_finalSession_1:
         var answer =
             allAssessmentResults["final_1"]!["mc_distributed_practice_1"];
@@ -82,9 +94,21 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
       case FinalAssessmentStep.completed:
         break;
+      case FinalAssessmentStep.planDisplay:
+        step = getStepIndex(FinalAssessmentStep.assessment_finalSession_4);
+        break;
     }
 
     return step;
+  }
+
+  Future<String> getPlan() async {
+    var lastPlan = await dataService.getLastPlan();
+    if (lastPlan != null) {
+      return lastPlan.plan;
+    } else {
+      return "";
+    }
   }
 
   @override

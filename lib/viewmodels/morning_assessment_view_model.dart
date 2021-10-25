@@ -21,7 +21,7 @@ enum MorningAssessmentStep {
   internalisation,
   completed,
   preVocab,
-  preVocab2,
+  preVocabCheck,
   assessment_evening_1_yesterday,
   assessment_evening_2_yesterday,
   assessment_evening_3_yesterday,
@@ -54,6 +54,12 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   String finalMessage = "Vielen Dank, dass du die Fragen beantwortet hast!";
 
+  bool _preVocabCompleted = false;
+  set preVocabCompleted(value) {
+    _preVocabCompleted = true;
+    notifyListeners();
+  }
+
   List<MorningAssessmentStep> screenOrder = [];
 
   MorningAssessmentViewModel(this.experimentService, DataService dataService)
@@ -61,7 +67,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     this.group = dataService.getUserDataCache().group;
     if (experimentService.isVocabTestDay() &&
         !experimentService.didCompletePreVocabToday()) {
-      finalMessage = "Denk dran, dass du heute in cabuu den Test machen sollst.";
+      finalMessage =
+          "Denk dran, dass du heute in cabuu den Test machen sollst.";
     }
 
     screenOrder = getScreenOrder(group);
@@ -103,7 +110,11 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       } else {
         order = [
           MorningAssessmentStep.preVocab,
-          MorningAssessmentStep.preVocab2,
+          MorningAssessmentStep.preVocabCheck,
+          MorningAssessmentStep.assessment_afterTest,
+          MorningAssessmentStep.assessment_afterTest_success,
+          MorningAssessmentStep.assessment_afterTest_failure,
+          MorningAssessmentStep.assessment_afterTest_2,
         ];
       }
     }
@@ -154,10 +165,11 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.lastVocab_2:
       case MorningAssessmentStep.rememberToUsePromptBeforeCabuu:
       case MorningAssessmentStep.rememberToUsePromptAfterCabuu:
-      case MorningAssessmentStep.preVocab2:
       case MorningAssessmentStep.completed:
       case MorningAssessmentStep.preVocab:
         return true;
+      case MorningAssessmentStep.preVocabCheck:
+        return _preVocabCompleted;
       case MorningAssessmentStep.internalisation:
         return internalisationViewmodel.completed;
       case MorningAssessmentStep.alternativeItems:
@@ -292,11 +304,11 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         // TODO: Handle this case.
         break;
       case MorningAssessmentStep.preVocab:
-        step = getStepIndex(MorningAssessmentStep.preVocab2);
+        step = getStepIndex(MorningAssessmentStep.preVocabCheck);
         break;
-      case MorningAssessmentStep.preVocab2:
-        onPreVocabVideoCompleted();
-        step = getStepIndex(MorningAssessmentStep.completed);
+      case MorningAssessmentStep.preVocabCheck:
+        // onPreVocabVideoCompleted();
+        step = getStepIndex(MorningAssessmentStep.assessment_afterTest);
         break;
       case MorningAssessmentStep.assessment_evening_1_yesterday:
         step =

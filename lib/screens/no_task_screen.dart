@@ -297,30 +297,4 @@ class _NoTasksScreenState extends State<NoTasksScreen>
               side: BorderSide(width: 1.0, color: Colors.grey)),
         ));
   }
-
-  _buildChangeBackgroundButton() {
-    return Container(
-        width: double.infinity,
-        height: 50,
-        margin: EdgeInsets.all(10),
-        child: OutlinedButton(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  AppStrings.ChangeBackground,
-                  style: TextStyle(color: Colors.black),
-                )
-              ],
-            ),
-            style: OutlinedButton.styleFrom(
-                backgroundColor: Colors.orange[200],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(10))),
-                side: BorderSide(width: 1.0, color: Colors.grey)),
-            onPressed: () async {
-              await Navigator.pushNamed(context, RouteNames.REWARD_SELECTION);
-              setState(() {});
-            }));
-  }
 }

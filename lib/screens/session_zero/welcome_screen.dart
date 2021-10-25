@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 

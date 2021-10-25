@@ -10,7 +10,6 @@ import 'package:prompt/services/usage_stats/usage_stats_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/extensions.dart';
-import 'package:collection/collection.dart';
 
 class ExperimentService {
   static const int NUM_GROUPS = 6;

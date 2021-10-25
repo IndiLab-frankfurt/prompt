@@ -4,7 +4,6 @@ import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
-import 'package:prompt/shared/extensions.dart';
 
 class NoTaskViewModel extends BaseViewModel {
   final ExperimentService _experimentService;

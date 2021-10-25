@@ -6,7 +6,7 @@ import 'package:prompt/screens/assessments/morning_lastVocab_1.dart';
 import 'package:prompt/screens/assessments/morning_lastVocab_2.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
-import 'package:prompt/screens/assessments/pre_vocab_screen.dart';
+import 'package:prompt/screens/assessments/pre_vocab_check.dart';
 import 'package:prompt/screens/assessments/pre_vocab_screen_2.dart';
 import 'package:prompt/screens/assessments/yesterday_vocab_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
@@ -36,8 +36,8 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     MorningAssessmentStep.lastVocab_1: lastVocab1,
     MorningAssessmentStep.lastVocab_2: lastVocab2,
     MorningAssessmentStep.didLearn: didLearnQuestionnaire,
-    MorningAssessmentStep.preVocab: preVocabScreen,
-    MorningAssessmentStep.preVocab2: preVocabVideo,
+    MorningAssessmentStep.preVocab: preVocab,
+    MorningAssessmentStep.preVocabCheck: preVocabCheck,
     MorningAssessmentStep.yesterdayVocab: yesterdayVocab,
     MorningAssessmentStep.rememberToUsePromptAfterCabuu:
         rememberToUsePromptAfterCabuu,
@@ -249,12 +249,12 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
       assessmentTypes: AssessmentTypes.afterTest_success,
       key: ValueKey(MorningAssessmentStep.assessment_afterTest_success));
 
-  late var preVocabScreen =
-      PreVocabScreen(key: ValueKey(MorningAssessmentStep.preVocab));
-
-  late var preVocabVideo = PreVocabScreen2(
+  late var preVocab = PreVocabScreen2(
       nextVocabDate: vm.getNextVocabTestDate(),
-      key: ValueKey(MorningAssessmentStep.preVocab2));
+      key: ValueKey(MorningAssessmentStep.preVocab));
+
+  late var preVocabCheck =
+      PreVocabCheck(key: ValueKey(MorningAssessmentStep.preVocabCheck));
 
   late var yesterdayVocab = YesterdayVocabScreen(
       nextVocabTestDate: vm.getNextVocabTestDate(),
