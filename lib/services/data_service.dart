@@ -120,6 +120,12 @@ class DataService {
     return _assessmentResultsCache!;
   }
 
+  Future<Map<String, dynamic>?> getInitialData() async {
+    var ud = await getUserData();
+    var initData = await _databaseService.getInitialData(ud!.user);
+    return null;
+  }
+
   AssessmentResult? getLastAssessmentResultCached() {
     return _lastAssessmentResultCache;
   }

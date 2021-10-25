@@ -135,8 +135,8 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
         ));
   }
 
-  late var rememberToUsePromptAfterCabuu = Column(
-    key: ValueKey(MorningAssessmentStep.rememberToUsePromptAfterCabuu),
+  late var rememberToUsePromptBeforeCabuu = Column(
+    key: ValueKey(MorningAssessmentStep.rememberToUsePromptBeforeCabuu),
     children: [
       UIHelper.verticalSpaceLarge(),
       MarkdownBody(
@@ -145,8 +145,8 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     ],
   );
 
-  late var rememberToUsePromptBeforeCabuu = Column(
-    key: ValueKey(MorningAssessmentStep.rememberToUsePromptBeforeCabuu),
+  late var rememberToUsePromptAfterCabuu = Column(
+    key: ValueKey(MorningAssessmentStep.rememberToUsePromptAfterCabuu),
     children: [
       UIHelper.verticalSpaceLarge(),
       MarkdownBody(

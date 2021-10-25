@@ -48,6 +48,8 @@ abstract class IDatabaseService {
 
   Future<List<AssessmentResult>> getAssessmentResults(String userid);
 
+  Future<Map<String, dynamic>?> getInitialData(String userid);
+
   Future<AssessmentResult?> getLastAssessmentResultFor(
       String userid, String assessmentName);
 

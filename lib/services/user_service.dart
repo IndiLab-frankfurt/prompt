@@ -57,17 +57,26 @@ class UserService {
     }
   }
 
-  static Future<UserData> getDefaultUserData(email, {uid = ""}) async {
+  static Future<UserData> getDefaultUserData(user, {uid = ""}) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
 
     String version = packageInfo.version;
     String buildNumber = packageInfo.buildNumber;
     String appVersion = "v.$version+$buildNumber";
 
+    var group = getGroup();
+    var cabuuCode = "123";
+    var groupCode = await FirebaseService().getInitialData(user);
+    if (groupCode != null) {
+      group = groupCode["group"];
+      cabuuCode = groupCode["cabuuCode"];
+    }
+
     return UserData(
         firebaseId: uid,
-        user: email,
+        user: user,
         group: getGroup(),
+        cabuuCode: cabuuCode,
         score: 0,
         streakDays: 0,
         initSessionStep: 0,

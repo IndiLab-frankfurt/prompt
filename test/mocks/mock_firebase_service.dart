@@ -122,4 +122,10 @@ class MockFirebaseService implements IDatabaseService {
   Future saveUsageStats(Map<String, dynamic> usageInfo, String userid) {
     throw UnimplementedError();
   }
+
+  @override
+  Future<Map<String, dynamic>?> getInitialData(String userid) {
+    // TODO: implement getInitialData
+    throw UnimplementedError();
+  }
 }

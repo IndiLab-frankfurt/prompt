@@ -10,7 +10,6 @@ class PreVocabScreen2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var height = MediaQuery.of(context).size.height * 0.75;
     var format = new DateFormat("dd.MM.yyyy");
     var targetDate = format.format(nextVocabDate);
     var difference = nextVocabDate.difference(DateTime.now());

@@ -261,6 +261,20 @@ class FirebaseService implements IDatabaseService {
         SetOptions(merge: true)).then((value) => true);
   }
 
+  Future<Map<String, dynamic>?> getInitialData(String userid) async {
+    return _databaseReference
+        .collection("initialData")
+        .doc(userid)
+        .get()
+        .then((docs) {
+      if (docs.exists) {
+        return docs[0];
+      } else {
+        return null;
+      }
+    });
+  }
+
   @override
   Future saveVocabValue(Plan plan, String userid) async {
     var map = plan.toMap();
