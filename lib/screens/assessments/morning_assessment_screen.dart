@@ -141,7 +141,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
       UIHelper.verticalSpaceLarge(),
       MarkdownBody(
           data:
-              '### Bitte denk nächstes Mal daran, PROMPT zu benutzen, _bevor_ du mit cabuu lernst'),
+              '### Bitte denk nächstes Mal daran, PROMPT zu benutzen, _bevor_ du mit cabuu lernst.'),
     ],
   );
 
@@ -155,7 +155,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
       UIHelper.verticalSpaceMedium(),
       MarkdownBody(
           data:
-              '### Beantworte die folgenden Fragen bezogen auf dein _gestriges_ Lernen mit cabuu')
+              '### Beantworte die folgenden Fragen bezogen auf dein _gestriges_ Lernen mit cabuu.')
     ],
   );
 
