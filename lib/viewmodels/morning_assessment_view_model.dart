@@ -52,7 +52,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   final Duration boosterPromptDuration = Duration(seconds: 7);
 
-  String finalMessage = "Vielen Dank, dass du die Fragen beantwortet hast";
+  String finalMessage = "Vielen Dank, dass du die Fragen beantwortet hast!";
 
   List<MorningAssessmentStep> screenOrder = [];
 
@@ -61,7 +61,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     this.group = dataService.getUserDataCache().group;
     if (experimentService.isVocabTestDay() &&
         !experimentService.didCompletePreVocabToday()) {
-      finalMessage = "Denk dran, dass du heute in cabuu den Test machen sollst";
+      finalMessage = "Denk dran, dass du heute in cabuu den Test machen sollst.";
     }
 
     screenOrder = getScreenOrder(group);
