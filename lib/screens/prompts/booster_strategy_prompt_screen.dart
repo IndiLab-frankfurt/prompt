@@ -63,8 +63,11 @@ class _BoosterStrategyPromptScreenState
           ),
           UIHelper.verticalSpaceMedium(),
           MarkdownBody(
+              data: '# Lies dir den Lerntrick des Monsters genau durch:'),
+          UIHelper.verticalSpaceSmall(),
+          MarkdownBody(
               data:
-                  '### Denk dran: Du kannst dir die Vokabeln am besten merken, wenn du jeden Tag lernst.'),
+                  '# Du kannst dir die Vokabeln am besten merken, wenn du jeden Tag lernst.'),
           UIHelper.verticalSpaceMedium(),
           LinearProgressIndicator(
             value: animation.value,

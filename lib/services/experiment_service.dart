@@ -212,7 +212,17 @@ class ExperimentService {
     var userData = _dataService.getUserDataCache();
     var daysAgo = userData.registrationDate.daysAgo();
 
-    return (daysAgo == 18) && (userData.group == 1);
+    var notPreviouslyAnswered = true;
+    var previousResults = _dataService.getAssessmentResultsCached();
+    if (previousResults != null) {
+      for (var previous in previousResults) {
+        if (previous.results.containsKey("expectation_distributed_practice")) {
+          notPreviouslyAnswered = false;
+        }
+      }
+    }
+
+    return (daysAgo >= 18) && (userData.group == 1) && notPreviouslyAnswered;
   }
 
   bool isTimeForFinalQuestionnaire() {

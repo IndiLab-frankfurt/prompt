@@ -61,10 +61,15 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   int group = 0;
 
-  final Duration boosterPromptDuration = Duration(seconds: 7);
+  final Duration boosterPromptDuration = Duration(seconds: 10);
+  final Duration waitingInternalisationDuration = Duration(seconds: 15);
 
   String finalMessage = "Vielen Dank, dass du die Fragen beantwortet hast!";
   String pointsMessage = "";
+
+  String finalFeedbackGood = "";
+  String finalFeedbackBad = "";
+  String finalFeedbackOpen = "";
 
   bool _preVocabCompleted = false;
   set preVocabCompleted(value) {
@@ -79,6 +84,11 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     this.group = dataService.getUserDataCache().group;
 
     screenOrder = getScreenOrder(group);
+
+    experimentService.getPointsForMorningAssessment().then((points) {
+      pointsMessage =
+          "Dafür, dass du heute mitgemacht hast, bekommst du $points 💎";
+    });
   }
 
   Future<bool> getInitialValues() async {
@@ -137,6 +147,10 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       }
     }
 
+    if (experimentService.wasVocabDayYesterday()) {
+      order.add(MorningAssessmentStep.yesterdayVocab);
+    }
+
     order.addAll([
       MorningAssessmentStep.didLearn,
       MorningAssessmentStep.rememberToUsePromptAfterCabuu,
@@ -158,7 +172,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
     var daysAgo = experimentService.getDaysSinceStart();
 
-    if (group == 1 && daysAgo == 18) {
+    if (experimentService.isDistributedLearningDay()) {
       order.addAll([
         MorningAssessmentStep.distributedLearningIntermediate,
         MorningAssessmentStep.distributedLearningVideo,
@@ -222,6 +236,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.finalPromptDayIntroduction:
       case MorningAssessmentStep.finalPromptDayComplete:
       case MorningAssessmentStep.planDisplay:
+      case MorningAssessmentStep.assessment_finalSession_3:
         return true;
       case MorningAssessmentStep.preVocabCheck:
         return _preVocabCompleted;
@@ -235,7 +250,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.assessment_evening_3_yesterday:
       case MorningAssessmentStep.assessment_finalSession_1:
       case MorningAssessmentStep.assessment_finalSession_2:
-      case MorningAssessmentStep.assessment_finalSession_3:
       case MorningAssessmentStep.assessment_finalSession_4:
       case MorningAssessmentStep.assessment_evening_1:
       case MorningAssessmentStep.assessment_evening_2:
@@ -330,6 +344,9 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   int getStepAfterMorningIntention() {
     if (experimentService.isBoosterPromptDay()) {
       return getStepIndex(MorningAssessmentStep.boosterPrompt);
+    } else if (experimentService.isDistributedLearningDay()) {
+      return getStepIndex(
+          MorningAssessmentStep.distributedLearningIntermediate);
     } else {
       return getStepIndex(MorningAssessmentStep.completed);
     }
@@ -357,12 +374,22 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         return getStepIndex(MorningAssessmentStep.finalPromptDayIntroduction);
       }
     } else {
-      if (daysAgo == 18) {
+      if (experimentService.isDistributedLearningDay()) {
         return getStepIndex(
             MorningAssessmentStep.distributedLearningIntermediate);
       }
     }
     return getStepIndex(MorningAssessmentStep.completed);
+  }
+
+  void addFreeFeedbackToResults() {
+    var results = {
+      "good": finalFeedbackGood,
+      "bad": finalFeedbackBad,
+      "open": finalFeedbackOpen
+    };
+    // var res = AssessmentResult(results, "finalfeedback", DateTime.now());
+    allAssessmentResults["finalfeedback"] = results;
   }
 
   int getNextStepAfterFinal3() {
@@ -460,7 +487,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
         break;
       case MorningAssessmentStep.yesterdayVocab:
-        step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
+        step = getStepIndex(MorningAssessmentStep.didLearn);
         break;
       case MorningAssessmentStep.firstDay_1:
         step = getStepIndex(MorningAssessmentStep.firstDay_2);
@@ -484,6 +511,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getStepIndex(MorningAssessmentStep.assessment_finalSession_3);
         break;
       case MorningAssessmentStep.assessment_finalSession_3:
+        addFreeFeedbackToResults();
         step = getNextStepAfterFinal3();
         break;
       case MorningAssessmentStep.finalPromptDayIntroduction:

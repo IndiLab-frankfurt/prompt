@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/screens/assessments/final_feedback_freetext.dart';
 import 'package:prompt/screens/assessments/final_plan_display.dart';
 import 'package:prompt/screens/assessments/morning_first_day_1.dart';
 import 'package:prompt/screens/assessments/morning_first_day_2.dart';
@@ -118,7 +119,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     switch (condition) {
       case InternalisationCondition.waiting:
         internalisation = WaitingInternalisationScreen(
-          Duration(seconds: 15),
+          vm.waitingInternalisationDuration,
           onCompleted: vm.onInternalisationCompleted,
         );
         break;
@@ -312,9 +313,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
       assessmentTypes: AssessmentTypes.finalSession_2,
       key: ValueKey(MorningAssessmentStep.assessment_finalSession_2));
 
-  late var finalSession3 = MultiStepQuestionnaireFuture(
-      vm: vm,
-      assessmentTypes: AssessmentTypes.finalSession_3,
+  late var finalSession3 = FinalFeedbackFreeText(
       key: ValueKey(MorningAssessmentStep.assessment_finalSession_3));
 
   late var finalSession4 = MultiStepQuestionnaireFuture(
@@ -340,7 +339,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
         UIHelper.verticalSpaceLarge(),
         MarkdownBody(
             data: "### " +
-                "Heute ist der letzte Tag, an dem d PROMPT jeden Tag benutzen solltest."),
+                "Heute ist der letzte Tag, an dem du PROMPT jeden Tag benutzen solltest."),
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
             data: "### " +
