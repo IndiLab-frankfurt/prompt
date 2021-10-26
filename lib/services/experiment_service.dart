@@ -89,14 +89,14 @@ class ExperimentService {
     }
 
     if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
-      if (isFinalAssessmentDay()) {
-        return await _navigationService.navigateTo(RouteNames.ASSESSMENT_FINAL);
-      }
-      if (isLastVocabTestDay()) {
-        return await _navigationService.navigateTo(RouteNames.STUDY_COMPLETE);
-      } else {
         return await _navigationService.navigateTo(RouteNames.NO_TASKS);
-      }
+      // if (isFinalAssessmentDay()) {
+      //   return await _navigationService.navigateTo(RouteNames.ASSESSMENT_FINAL);
+      // }
+      // if (isLastVocabTestDay()) {
+      //   return await _navigationService.navigateTo(RouteNames.STUDY_COMPLETE);
+      // } else {
+      // }
     }
 
     if (currentScreen == RouteNames.ASSESSMENT_EVENING) {

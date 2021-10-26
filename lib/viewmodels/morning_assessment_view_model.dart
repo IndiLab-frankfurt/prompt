@@ -14,6 +14,8 @@ enum MorningAssessmentStep {
   lastVocab_1,
   lastVocab_2,
   didLearn,
+  finalPromptDayIntroduction,
+  finalPromptDayComplete,
   rememberToUsePromptAfterCabuu,
   rememberToUsePromptBeforeCabuu,
   alternativeItems,
@@ -28,6 +30,10 @@ enum MorningAssessmentStep {
   assessment_evening_1,
   assessment_evening_2,
   assessment_evening_3,
+  assessment_finalSession_1,
+  assessment_finalSession_2,
+  assessment_finalSession_3,
+  assessment_finalSession_4,
   assessment_afterTest,
   assessment_afterTest_success,
   assessment_afterTest_failure,
@@ -36,7 +42,9 @@ enum MorningAssessmentStep {
   assessment_morning_with_intention,
   assessment_morning_without_intention,
   assessment_evening_alternative,
-  yesterdayVocab
+  yesterdayVocab,
+  planDisplay,
+  last_screen
 }
 
 class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
@@ -139,6 +147,29 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       MorningAssessmentStep.completed
     ]);
 
+    var daysAgo = experimentService.getDaysSinceStart();
+
+    if (group > 1 && daysAgo >= 36) {
+      order.addAll([
+        MorningAssessmentStep.finalPromptDayIntroduction,
+        MorningAssessmentStep.assessment_finalSession_1,
+        MorningAssessmentStep.assessment_finalSession_2,
+        MorningAssessmentStep.assessment_finalSession_3,
+        MorningAssessmentStep.planDisplay,
+        MorningAssessmentStep.assessment_finalSession_4,
+        MorningAssessmentStep.finalPromptDayComplete,
+      ]);
+    }
+
+    if (daysAgo >= 54) {
+      order.addAll([
+        MorningAssessmentStep.assessment_finalSession_1,
+        MorningAssessmentStep.assessment_finalSession_2,
+        MorningAssessmentStep.assessment_finalSession_3,
+        MorningAssessmentStep.last_screen
+      ]);
+    }
+
     return order;
   }
 
@@ -166,7 +197,11 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.rememberToUsePromptBeforeCabuu:
       case MorningAssessmentStep.rememberToUsePromptAfterCabuu:
       case MorningAssessmentStep.completed:
+      case MorningAssessmentStep.last_screen:
       case MorningAssessmentStep.preVocab:
+      case MorningAssessmentStep.finalPromptDayIntroduction:
+      case MorningAssessmentStep.finalPromptDayComplete:
+      case MorningAssessmentStep.planDisplay:
         return true;
       case MorningAssessmentStep.preVocabCheck:
         return _preVocabCompleted;
@@ -178,6 +213,10 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.assessment_evening_1_yesterday:
       case MorningAssessmentStep.assessment_evening_2_yesterday:
       case MorningAssessmentStep.assessment_evening_3_yesterday:
+      case MorningAssessmentStep.assessment_finalSession_1:
+      case MorningAssessmentStep.assessment_finalSession_2:
+      case MorningAssessmentStep.assessment_finalSession_3:
+      case MorningAssessmentStep.assessment_finalSession_4:
       case MorningAssessmentStep.assessment_evening_1:
       case MorningAssessmentStep.assessment_evening_2:
       case MorningAssessmentStep.assessment_evening_3:
@@ -273,6 +312,43 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     }
   }
 
+  int getNextStepAfterTestFailureOrSuccess() {
+    var daysAgo = experimentService.getDaysSinceStart();
+
+    if (daysAgo < 54) {
+      return getStepIndex(MorningAssessmentStep.assessment_afterTest_2);
+    } else {
+      if (group == 1) {
+        return getStepIndex(MorningAssessmentStep.assessment_finalSession_1);
+      } else {
+        return getStepIndex(MorningAssessmentStep.last_screen);
+      }
+    }
+  }
+
+  int getNextStepAfterTest2() {
+    var daysAgo = experimentService.getDaysSinceStart();
+
+    if (daysAgo >= 36) {
+      if (group > 1) {
+        return getStepIndex(MorningAssessmentStep.finalPromptDayIntroduction);
+      }
+    }
+    return getStepIndex(MorningAssessmentStep.completed);
+  }
+
+  int getNextStepAfterFinal3() {
+    var daysAgo = experimentService.getDaysSinceStart();
+
+    if ([2, 3].contains(group)) {
+      return getStepIndex(MorningAssessmentStep.finalPromptDayComplete);
+    } else if ([4, 5, 6].contains(group)) {
+      return getStepIndex(MorningAssessmentStep.planDisplay);
+    } else {
+      return getStepIndex(MorningAssessmentStep.last_screen);
+    }
+  }
+
   @override
   int getNextPage(ValueKey currentPageKey) {
     step += 1;
@@ -280,6 +356,10 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     var pageKey = currentPageKey.value as MorningAssessmentStep;
 
     switch (pageKey) {
+      case MorningAssessmentStep.completed:
+      case MorningAssessmentStep.last_screen:
+      case MorningAssessmentStep.finalPromptDayComplete:
+        break;
       case MorningAssessmentStep.didLearn:
         step = getNextStepForDidLearn();
         break;
@@ -299,9 +379,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
       case MorningAssessmentStep.internalisation:
         step = getStepIndex(MorningAssessmentStep.completed);
-        break;
-      case MorningAssessmentStep.completed:
-        // TODO: Handle this case.
         break;
       case MorningAssessmentStep.preVocab:
         step = getStepIndex(MorningAssessmentStep.preVocabCheck);
@@ -334,13 +411,13 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getNextStepForAfterTest();
         break;
       case MorningAssessmentStep.assessment_afterTest_success:
-        step = getStepIndex(MorningAssessmentStep.assessment_afterTest_2);
+        step = getNextStepAfterTestFailureOrSuccess();
         break;
       case MorningAssessmentStep.assessment_afterTest_failure:
-        step = getStepIndex(MorningAssessmentStep.assessment_afterTest_2);
+        step = getNextStepAfterTestFailureOrSuccess();
         break;
       case MorningAssessmentStep.assessment_afterTest_2:
-        step = getStepIndex(MorningAssessmentStep.completed);
+        step = getNextStepAfterTest2();
         break;
       case MorningAssessmentStep.assessment_morningIntention:
         step = getStepForMorningIntention();
@@ -371,6 +448,24 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
       case MorningAssessmentStep.rememberToUsePromptBeforeCabuu:
         step = getStepIndex(MorningAssessmentStep.assessment_evening_1);
+        break;
+      case MorningAssessmentStep.assessment_finalSession_1:
+        step = getStepIndex(MorningAssessmentStep.assessment_finalSession_2);
+        break;
+      case MorningAssessmentStep.assessment_finalSession_2:
+        step = getStepIndex(MorningAssessmentStep.assessment_finalSession_3);
+        break;
+      case MorningAssessmentStep.assessment_finalSession_3:
+        step = getNextStepAfterFinal3();
+        break;
+      case MorningAssessmentStep.finalPromptDayIntroduction:
+        step = getStepIndex(MorningAssessmentStep.assessment_finalSession_1);
+        break;
+      case MorningAssessmentStep.assessment_finalSession_4:
+        step = getStepIndex(MorningAssessmentStep.finalPromptDayComplete);
+        break;
+      case MorningAssessmentStep.planDisplay:
+        step = getStepIndex(MorningAssessmentStep.assessment_finalSession_4);
         break;
     }
 

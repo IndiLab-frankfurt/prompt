@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
 import 'package:provider/provider.dart';
 
 class PreVocabCheck extends StatefulWidget {
-  const PreVocabCheck({Key? key}) : super(key: key);
+  final DateTime nextVocabDate;
+  const PreVocabCheck({Key? key, required this.nextVocabDate})
+      : super(key: key);
 
   @override
   _PreVocabCheckState createState() => _PreVocabCheckState();
@@ -17,32 +20,51 @@ class _PreVocabCheckState extends State<PreVocabCheck> {
   @override
   Widget build(BuildContext context) {
     var vm = Provider.of<MorningAssessmentViewModel>(context);
+
+    var format = new DateFormat("dd.MM.yyyy");
+    var difference = DateTime.now().difference(widget.nextVocabDate);
+
+    var listNumber = difference.inDays ~/ 9 + 1;
+    var isLastTest = listNumber >= 6;
     return Container(
         child: ListView(children: [
       UIHelper.verticalSpaceLarge(),
-      Checkbox(
-          value: isTestChecked,
-          onChanged: (value) {
-            setState(() {
-              isTestChecked = value!;
-            });
+      Row(
+        children: [
+          Checkbox(
+              value: isTestChecked,
+              onChanged: (value) {
+                setState(() {
+                  isTestChecked = value!;
+                });
 
-            if (isTestChecked && isLearnPlanCreatedChecked) {
-              vm.preVocabCompleted = true;
-            }
-          }),
+                if (isTestChecked &&
+                    (isLearnPlanCreatedChecked || isLastTest)) {
+                  vm.preVocabCompleted = true;
+                }
+              }),
+          Text("Ich habe den Test gemacht")
+        ],
+      ),
       UIHelper.verticalSpaceLarge(),
-      Checkbox(
-          value: isLearnPlanCreatedChecked,
-          onChanged: (value) {
-            setState(() {
-              isLearnPlanCreatedChecked = value!;
-            });
+      if (!isLastTest)
+        Row(
+          children: [
+            Checkbox(
+                value: isLearnPlanCreatedChecked,
+                onChanged: (value) {
+                  setState(() {
+                    isLearnPlanCreatedChecked = value!;
+                  });
 
-            if (isTestChecked && isLearnPlanCreatedChecked) {
-              vm.preVocabCompleted = true;
-            }
-          }),
+                  if (isTestChecked &&
+                      (isLearnPlanCreatedChecked || isLastTest)) {
+                    vm.preVocabCompleted = true;
+                  }
+                }),
+            Text("Ich habe den Lernplan aktiviert")
+          ],
+        ),
     ]));
   }
 }

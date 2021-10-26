@@ -63,7 +63,7 @@ class _FinalAssessmentScreenState extends State<FinalAssessmentScreen> {
     UIHelper.verticalSpaceLarge(),
     MarkdownBody(
         data: "### " +
-            "Heute ist der letzte Tag, an dem d PROMPT jeden Tag benutzen solltest."),
+            "Heute ist der letzte Tag, an dem du PROMPT jeden Tag benutzen solltest."),
     UIHelper.verticalSpaceMedium(),
     MarkdownBody(
         data: "### " +
