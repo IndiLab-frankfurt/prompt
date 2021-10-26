@@ -59,7 +59,7 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                           : Colors.grey,
                       child: IconButton(
                         icon: Image.asset(
-                            'assets/illustrations/mascot_2_bare.png'),
+                            'assets/illustrations/mascot_2_selection.png'),
                         iconSize: iconSize,
                         onPressed: () {
                           vm.selectedMascot = "2";
@@ -78,7 +78,7 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                             ? Colors.orange
                             : Colors.transparent,
                         icon: Image.asset(
-                            'assets/illustrations/mascot_3_bare.png'),
+                            'assets/illustrations/mascot_3_selection.png'),
                         iconSize: 180,
                         onPressed: () {
                           vm.selectedMascot = "3";

@@ -16,9 +16,7 @@ const String continueAfterCabuu = "continueAfterCabuu";
 
 enum EveningAssessmentStep {
   didLearnCabuuToday,
-  distributedLearningVideo,
   continueAfterCabuu,
-  assessment_distributedLearning,
   assessment_evening_1,
   assessment_evening_2,
   assessment_evening_3,
@@ -31,8 +29,6 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   List<EveningAssessmentStep> screenOrder = [
     EveningAssessmentStep.didLearnCabuuToday,
     EveningAssessmentStep.continueAfterCabuu,
-    EveningAssessmentStep.distributedLearningVideo,
-    EveningAssessmentStep.assessment_distributedLearning,
     EveningAssessmentStep.assessment_evening_1,
     EveningAssessmentStep.assessment_evening_2,
     EveningAssessmentStep.assessment_evening_3,
@@ -59,18 +55,10 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case EveningAssessmentStep.assessment_evening_2:
       case EveningAssessmentStep.assessment_evening_3:
         return currentAssessmentIsFilledOut;
-      case EveningAssessmentStep.assessment_distributedLearning:
-        return _distributedLearningVideoCompleted;
-      case EveningAssessmentStep.distributedLearningVideo:
       case EveningAssessmentStep.completed:
       case EveningAssessmentStep.continueAfterCabuu:
         return true;
     }
-  }
-
-  bool _distributedLearningVideoCompleted = false;
-  onDistributedLearningVideoCompleted() {
-    _distributedLearningVideoCompleted = true;
   }
 
   int group = 0;
@@ -94,11 +82,7 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
     // TODO: Actual logic
     bool promptWasCompleted = true;
 
-    if (experimentService.isDistributedLearningDay()) {
-      return getStepIndex(EveningAssessmentStep.distributedLearningVideo);
-    } else {
-      return getStepIndex(EveningAssessmentStep.completed);
-    }
+    return getStepIndex(EveningAssessmentStep.completed);
   }
 
   @override
@@ -121,9 +105,6 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
           step = getStepIndex(EveningAssessmentStep.continueAfterCabuu);
         }
         break;
-      case EveningAssessmentStep.assessment_distributedLearning:
-        getStepIndex(EveningAssessmentStep.completed);
-        break;
       case EveningAssessmentStep.continueAfterCabuu:
         continueWithoutSubmission();
         break;
@@ -135,9 +116,6 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
       case EveningAssessmentStep.assessment_evening_3:
         step = getStepAfterEveningItems();
-        break;
-      case EveningAssessmentStep.distributedLearningVideo:
-        getStepIndex(EveningAssessmentStep.assessment_distributedLearning);
         break;
       case EveningAssessmentStep.completed:
         break;

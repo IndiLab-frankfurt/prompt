@@ -16,6 +16,7 @@ import 'package:prompt/screens/prompts/booster_strategy_prompt_screen.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
+import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
 
 class MorningAssessmentScreen extends StatefulWidget {
@@ -63,6 +64,10 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     MorningAssessmentStep.assessment_finalSession_2: finalSession2,
     MorningAssessmentStep.assessment_finalSession_3: finalSession3,
     MorningAssessmentStep.assessment_finalSession_4: finalSession4,
+    MorningAssessmentStep.distributedLearningIntermediate:
+        distributedLearningIntermediate,
+    MorningAssessmentStep.distributedLearningVideo: distributedLearningVideo,
+    MorningAssessmentStep.assessment_distributedLearning: distributedLearning,
     MorningAssessmentStep.assessment_morningIntention: morningIntention,
     MorningAssessmentStep.planDisplay: planDisplay,
     MorningAssessmentStep.finalPromptDayIntroduction:
@@ -168,6 +173,32 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
               '### Beantworte die folgenden Fragen bezogen auf dein _gestriges_ Lernen mit cabuu.')
     ],
   );
+
+  late var distributedLearningVideo = VideoScreen(
+      'assets/videos/videoDistributedLearning.mp4',
+      onVideoCompleted: vm.onDistributedLearningVideoCompleted,
+      key: ValueKey(MorningAssessmentStep.distributedLearningVideo));
+
+  late var distributedLearning = MultiStepQuestionnaireFuture(
+      vm: vm,
+      assessmentTypes: AssessmentTypes.distributedPractice,
+      key: ValueKey(MorningAssessmentStep.assessment_distributedLearning));
+
+  late var distributedLearningIntermediate = ListView(
+    key: ValueKey(MorningAssessmentStep.distributedLearningIntermediate),
+    children: [
+      MarkdownBody(
+          data:
+              "### Heute siehst du zusätzlich zu den kurzen Fragen noch ein Video! Zum Video kommst du, wenn du hier auf “weiter” drückst.")
+    ],
+  );
+
+// late var rewardAfterDistributed = ListView(
+//     key: ValueKey(MorningAssessmentStep.rewardAfterDistributed),
+//     children: [
+//       MarkdownBody(data: "### “Heute siehst du zusätzlich zu den kurzen Fragen noch ein Video! Zum Video kommst du, wenn du hier auf “weiter” drückst.")
+//     ],
+//   );
 
   late var firstDay1 =
       MorningFirstDay1(key: ValueKey(MorningAssessmentStep.firstDay_1));
@@ -303,16 +334,18 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
         return Container(child: CircularProgressIndicator());
       });
 
-  late var finalPromptScreen = ListView(children: [
-    UIHelper.verticalSpaceLarge(),
-    MarkdownBody(
-        data: "### " +
-            "Heute ist der letzte Tag, an dem d PROMPT jeden Tag benutzen solltest."),
-    UIHelper.verticalSpaceMedium(),
-    MarkdownBody(
-        data: "### " +
-            "Wir haben jetzt noch ein paar Fragen dazu, wie die Studie bisher für dich gewesen ist."),
-  ]);
+  late var finalPromptScreen = ListView(
+      key: ValueKey(MorningAssessmentStep.finalPromptDayIntroduction),
+      children: [
+        UIHelper.verticalSpaceLarge(),
+        MarkdownBody(
+            data: "### " +
+                "Heute ist der letzte Tag, an dem d PROMPT jeden Tag benutzen solltest."),
+        UIHelper.verticalSpaceMedium(),
+        MarkdownBody(
+            data: "### " +
+                "Wir haben jetzt noch ein paar Fragen dazu, wie die Studie bisher für dich gewesen ist."),
+      ]);
 
   late var lastScreen = ListView(children: [
     UIHelper.verticalSpaceLarge(),
@@ -329,11 +362,15 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
             "Die App cabuu kannst du nun kostenlos weiter verwenden. Die App PROMPT kannst du deinstallieren."),
   ]);
 
-  late var completed = ListView(children: [
+  late var completed =
+      ListView(key: ValueKey(MorningAssessmentStep.completed), children: [
     UIHelper.verticalSpaceLarge(),
     MarkdownBody(
-        data: "### " + vm.finalMessage,
-        key: ValueKey(MorningAssessmentStep.completed))
+      data: "### " + vm.finalMessage,
+    ),
+    MarkdownBody(
+      data: "### " + vm.pointsMessage,
+    )
   ]);
 
   late var boosterPrompt = BoosterStrategyPromptScreen(

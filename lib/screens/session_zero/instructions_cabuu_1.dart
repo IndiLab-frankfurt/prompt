@@ -22,7 +22,7 @@ class InstructionsCabuu1 extends StatelessWidget {
         UIHelper.verticalSpaceSmall(),
         MarkdownBody(data: "### Dein Cabuu Code lautet:"),
         UIHelper.verticalSpaceSmall(),
-        Center(child: MarkdownBody(data: '# ' + vm.cabuuCode)),
+        Center(child: MarkdownBody(data: '> # ' + vm.cabuuCode)),
         UIHelper.verticalSpaceSmall(),
         MarkdownBody(
             data:

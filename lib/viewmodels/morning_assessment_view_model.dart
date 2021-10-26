@@ -17,6 +17,9 @@ enum MorningAssessmentStep {
   finalPromptDayIntroduction,
   finalPromptDayComplete,
   rememberToUsePromptAfterCabuu,
+  distributedLearningIntermediate,
+  distributedLearningVideo,
+  assessment_distributedLearning,
   rememberToUsePromptBeforeCabuu,
   alternativeItems,
   boosterPrompt,
@@ -61,6 +64,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   final Duration boosterPromptDuration = Duration(seconds: 7);
 
   String finalMessage = "Vielen Dank, dass du die Fragen beantwortet hast!";
+  String pointsMessage = "";
 
   bool _preVocabCompleted = false;
   set preVocabCompleted(value) {
@@ -73,11 +77,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   MorningAssessmentViewModel(this.experimentService, DataService dataService)
       : super(dataService) {
     this.group = dataService.getUserDataCache().group;
-    if (experimentService.isVocabTestDay() &&
-        !experimentService.didCompletePreVocabToday()) {
-      finalMessage =
-          "Denk dran, dass du heute in cabuu den Test machen sollst.";
-    }
 
     screenOrder = getScreenOrder(group);
   }
@@ -85,7 +84,18 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   Future<bool> getInitialValues() async {
     var ud = dataService.getUserDataCache();
 
+    var points = await experimentService.getPointsForMorningAssessment();
+
+    pointsMessage =
+        "Dafür, dass du heute mitgemacht hast, bekommst du $points 💎";
+
     return true;
+  }
+
+  bool _distributedLearningVideoCompleted = false;
+  onDistributedLearningVideoCompleted() {
+    _distributedLearningVideoCompleted = true;
+    notifyListeners();
   }
 
   DateTime getNextVocabTestDate() {
@@ -144,10 +154,17 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       MorningAssessmentStep.assessment_evening_alternative,
       MorningAssessmentStep.boosterPrompt,
       MorningAssessmentStep.internalisation,
-      MorningAssessmentStep.completed
     ]);
 
     var daysAgo = experimentService.getDaysSinceStart();
+
+    if (group == 1 && daysAgo == 18) {
+      order.addAll([
+        MorningAssessmentStep.distributedLearningIntermediate,
+        MorningAssessmentStep.distributedLearningVideo,
+        MorningAssessmentStep.assessment_distributedLearning,
+      ]);
+    }
 
     if (group > 1 && daysAgo >= 36) {
       order.addAll([
@@ -168,6 +185,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         MorningAssessmentStep.assessment_finalSession_3,
         MorningAssessmentStep.last_screen
       ]);
+    } else {
+      order.add(MorningAssessmentStep.completed);
     }
 
     return order;
@@ -199,6 +218,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.completed:
       case MorningAssessmentStep.last_screen:
       case MorningAssessmentStep.preVocab:
+      case MorningAssessmentStep.distributedLearningIntermediate:
       case MorningAssessmentStep.finalPromptDayIntroduction:
       case MorningAssessmentStep.finalPromptDayComplete:
       case MorningAssessmentStep.planDisplay:
@@ -227,10 +247,13 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.assessment_morningIntention:
       case MorningAssessmentStep.assessment_morning_with_intention:
       case MorningAssessmentStep.assessment_morning_without_intention:
+      case MorningAssessmentStep.assessment_distributedLearning:
       case MorningAssessmentStep.assessment_evening_alternative:
         return currentAssessmentIsFilledOut;
       case MorningAssessmentStep.boosterPrompt:
         return _boosterPromptCompleted;
+      case MorningAssessmentStep.distributedLearningVideo:
+        return _distributedLearningVideoCompleted;
     }
   }
 
@@ -329,9 +352,14 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   int getNextStepAfterTest2() {
     var daysAgo = experimentService.getDaysSinceStart();
 
-    if (daysAgo >= 36) {
-      if (group > 1) {
+    if (group > 1) {
+      if (daysAgo >= 36) {
         return getStepIndex(MorningAssessmentStep.finalPromptDayIntroduction);
+      }
+    } else {
+      if (daysAgo == 18) {
+        return getStepIndex(
+            MorningAssessmentStep.distributedLearningIntermediate);
       }
     }
     return getStepIndex(MorningAssessmentStep.completed);
@@ -466,6 +494,16 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
       case MorningAssessmentStep.planDisplay:
         step = getStepIndex(MorningAssessmentStep.assessment_finalSession_4);
+        break;
+      case MorningAssessmentStep.distributedLearningIntermediate:
+        step = getStepIndex(MorningAssessmentStep.distributedLearningVideo);
+        break;
+      case MorningAssessmentStep.distributedLearningVideo:
+        step =
+            getStepIndex(MorningAssessmentStep.assessment_distributedLearning);
+        break;
+      case MorningAssessmentStep.assessment_distributedLearning:
+        step = getStepIndex(MorningAssessmentStep.completed);
         break;
     }
 

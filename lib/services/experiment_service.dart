@@ -89,7 +89,7 @@ class ExperimentService {
     }
 
     if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
-        return await _navigationService.navigateTo(RouteNames.NO_TASKS);
+      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
       // if (isFinalAssessmentDay()) {
       //   return await _navigationService.navigateTo(RouteNames.ASSESSMENT_FINAL);
       // }
@@ -153,6 +153,16 @@ class ExperimentService {
     }
 
     return lastRecall.submissionDate.isYesterday();
+  }
+
+  Future<int> getPointsForMorningAssessment() async {
+    if (await _shouldIncrementStreakDay()) {
+      return 1 +
+          _rewardService.pointsForMorningAssessment +
+          _rewardService.streakDays;
+    } else {
+      return 1 + _rewardService.pointsForMorningAssessment;
+    }
   }
 
   Future<void> submitAssessment(

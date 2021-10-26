@@ -29,8 +29,6 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
     EveningAssessmentStep.assessment_evening_1: evening1,
     EveningAssessmentStep.assessment_evening_2: evening2,
     EveningAssessmentStep.assessment_evening_3: evening3,
-    EveningAssessmentStep.distributedLearningVideo: distributedLearningVideo,
-    EveningAssessmentStep.assessment_distributedLearning: distributedLearning,
     EveningAssessmentStep.completed: completed,
   };
   @override
@@ -69,11 +67,6 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
           "Mache hier erst weiter, wenn du heute mit cabuu gelernt hast. Falls du heute _nicht_ mit cabuu lernst, sollst du erst morgen mit PROMPT weitermachen.",
       key: ValueKey(EveningAssessmentStep.continueAfterCabuu));
 
-  late var distributedLearningVideo = VideoScreen(
-      'assets/videos/videoDistributedLearning.mp4',
-      onVideoCompleted: vm.onDistributedLearningVideoCompleted,
-      key: ValueKey(EveningAssessmentStep.distributedLearningVideo));
-
   late var didLearnCabuuTodayQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
       assessmentTypes: AssessmentTypes.didLearnToday,
@@ -93,11 +86,6 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
       vm: vm,
       assessmentTypes: AssessmentTypes.evening_3,
       key: ValueKey(EveningAssessmentStep.assessment_evening_3));
-
-  late var distributedLearning = MultiStepQuestionnaireFuture(
-      vm: vm,
-      assessmentTypes: AssessmentTypes.distributedPractice,
-      key: ValueKey(EveningAssessmentStep.assessment_distributedLearning));
 
   late var completed = ListView(children: [
     UIHelper.verticalSpaceLarge(),

@@ -8,6 +8,7 @@ class InstructionsCabuu2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var url = "https://youtu.be/k47mVYRf-yU";
     return Container(
         child: ListView(
       children: [
@@ -22,8 +23,10 @@ class InstructionsCabuu2 extends StatelessWidget {
         Center(
             child: InkWell(
                 child: MarkdownBody(data: "# **https://youtu.be/k47mVYRf-yU**"),
-                onTap: () {
-                  launch('https://youtu.be/k47mVYRf-yU');
+                onTap: () async {
+                  if (await canLaunch(url)) {
+                    await launch('https://youtu.be/k47mVYRf-yU');
+                  }
                 })),
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(

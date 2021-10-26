@@ -14,6 +14,7 @@ class NoTaskViewModel extends BaseViewModel {
   bool showVocabularyTestReminder = false;
   bool showContinueTomorrowButton = false;
   bool showFinalAssessmentButton = false;
+  bool startTomorrow = false;
 
   late int daysActive = _experimentService.getDaysSinceStart();
 
@@ -41,7 +42,6 @@ class NoTaskViewModel extends BaseViewModel {
   }
 
   Future<bool> getNextTask() async {
-    print("Before Get Assessment Results");
     await _dataService.getAssessmentResults();
 
     showLearnedWithCabuuButton = false;
@@ -49,11 +49,11 @@ class NoTaskViewModel extends BaseViewModel {
 
     if (daysActive == 0) {
       // notifyListeners();
+      startTomorrow = true;
       return true;
     }
 
     if (_experimentService.isVocabTestDay()) {
-      print("Before is time for morning assessment");
       if (await _experimentService.isTimeForMorningAssessment()) {
         showLearnedWithCabuuButton = false;
         showVocabularyTestReminder = true;
@@ -64,11 +64,10 @@ class NoTaskViewModel extends BaseViewModel {
       }
     }
 
-    print("Before is time for morning assessment");
     if (await _experimentService.isTimeForMorningAssessment()) {
       this._navigationService.navigateTo(RouteNames.ASSESSMENT_MORNING);
     }
-    print("Before is time for morning assessment");
+
     if (await _experimentService.isTimeForEveningAssessment()) {
       showLearnedWithCabuuButton = true;
       // notifyListeners();

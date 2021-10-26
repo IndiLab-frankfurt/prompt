@@ -160,6 +160,8 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                                         _buildVocabTestReminder(),
                                       if (vm.showContinueTomorrowButton)
                                         _buildReturnTomorrowButton(),
+                                      if (vm.startTomorrow)
+                                        _buildStartTomorrow(),
                                       UIHelper.verticalSpaceSmall(),
                                       // _buildChangeBackgroundButton(),
                                       UIHelper.verticalSpaceMedium(),
@@ -252,6 +254,25 @@ class _NoTasksScreenState extends State<NoTasksScreen>
                   side: BorderSide(width: 1.0, color: Colors.grey)),
             ),
           ],
+        ));
+  }
+
+  _buildStartTomorrow() {
+    return Container(
+        width: double.infinity,
+        height: 80,
+        margin: EdgeInsets.all(10),
+        child: OutlinedButton(
+          onPressed: () async {},
+          child: Text(
+            "Morgen geht es richtig los",
+            style: TextStyle(color: Colors.black),
+          ),
+          style: OutlinedButton.styleFrom(
+              backgroundColor: Colors.orange[200],
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(10))),
+              side: BorderSide(width: 1.0, color: Colors.grey)),
         ));
   }
 

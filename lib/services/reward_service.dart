@@ -12,6 +12,7 @@ class RewardService {
   int gems = 0;
   int daysActive = 0;
   int streakDays = 0;
+  final pointsForMorningAssessment = 10;
   final Color backgroundBase = Color(0xFFFFF3E0);
   final Color backGroundViking = Color(0xff061021);
   final Color backgroundPlane = Color(0xff9fc7f0);
@@ -222,7 +223,7 @@ class RewardService {
   }
 
   onMorningAssessment() async {
-    int points = 10 + streakDays;
+    int points = pointsForMorningAssessment + streakDays;
     await addPoints(points);
   }
 

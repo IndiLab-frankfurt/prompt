@@ -29,42 +29,34 @@ class _PreVocabCheckState extends State<PreVocabCheck> {
     return Container(
         child: ListView(children: [
       UIHelper.verticalSpaceLarge(),
-      Row(
-        children: [
-          Checkbox(
-              value: isTestChecked,
-              onChanged: (value) {
-                setState(() {
-                  isTestChecked = value!;
-                });
+      CheckboxListTile(
+          controlAffinity: ListTileControlAffinity.leading,
+          value: isTestChecked,
+          title: Text("Ich habe den Test gemacht"),
+          onChanged: (value) {
+            setState(() {
+              isTestChecked = value!;
+            });
 
-                if (isTestChecked &&
-                    (isLearnPlanCreatedChecked || isLastTest)) {
-                  vm.preVocabCompleted = true;
-                }
-              }),
-          Text("Ich habe den Test gemacht")
-        ],
-      ),
+            if (isTestChecked && (isLearnPlanCreatedChecked || isLastTest)) {
+              vm.preVocabCompleted = true;
+            }
+          }),
       UIHelper.verticalSpaceLarge(),
       if (!isLastTest)
-        Row(
-          children: [
-            Checkbox(
-                value: isLearnPlanCreatedChecked,
-                onChanged: (value) {
-                  setState(() {
-                    isLearnPlanCreatedChecked = value!;
-                  });
+        CheckboxListTile(
+            controlAffinity: ListTileControlAffinity.leading,
+            value: isLearnPlanCreatedChecked,
+            title: Text("Ich habe den Lernplan aktiviert"),
+            onChanged: (value) {
+              setState(() {
+                isLearnPlanCreatedChecked = value!;
+              });
 
-                  if (isTestChecked &&
-                      (isLearnPlanCreatedChecked || isLastTest)) {
-                    vm.preVocabCompleted = true;
-                  }
-                }),
-            Text("Ich habe den Lernplan aktiviert")
-          ],
-        ),
+              if (isTestChecked && (isLearnPlanCreatedChecked || isLastTest)) {
+                vm.preVocabCompleted = true;
+              }
+            }),
     ]));
   }
 }

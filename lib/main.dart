@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       title: 'Serene',
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.orange[50],
-          canvasColor: Colors.white,
+          canvasColor: Colors.orange[50],
           selectedRowColor: Colors.orange[200],
           textTheme: TextTheme(
             bodyText1: GoogleFonts.quicksand(fontSize: 15),
