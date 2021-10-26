@@ -26,7 +26,7 @@ class PreVocabScreen2 extends StatelessWidget {
         if (listNumber < 6)
           MarkdownBody(
               data:
-                  "### Nachdem du den test gemacht hast, sollst du schon einmal den Lernplan für Liste ${listNumber + 1} aktivieren. Klicke dazu auf die Liste und wähle 'Lernplan'."),
+                  "### Nachdem du den Test gemacht hast, sollst du schon einmal den Lernplan für Liste ${listNumber + 1} aktivieren. Klicke dazu auf die Liste und wähle 'Lernplan'."),
         if (listNumber < 6)
           MarkdownBody(
               data: "### Dein nächster Lernplan endet am: $targetDate"),
