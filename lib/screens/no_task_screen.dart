@@ -196,7 +196,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
       }
     }
 
-    var nextVocab = vm.daysUntilVocabTest();
+    var nextVocab = vm.daysUntilVocabTestString();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -217,14 +217,14 @@ class _NoTasksScreenState extends State<NoTasksScreen>
         UIHelper.verticalSpaceMedium(),
         // Text(AppStrings.progressToReward(vm.daysActive, daysToNextReward)),
         // UIHelper.verticalSpaceSmall(),
-        // SizedBox(
-        //   width: 300,
-        //   child: LinearProgressIndicator(
-        //     color: Colors.blue,
-        //     minHeight: 12,
-        //     value: nextUnlockProgress,
-        //   ),
-        // )
+        SizedBox(
+          width: 300,
+          child: LinearProgressIndicator(
+            color: Colors.blue,
+            minHeight: 12,
+            value: vm.daysUntilVocabTest() / 9,
+          ),
+        )
       ],
     );
   }

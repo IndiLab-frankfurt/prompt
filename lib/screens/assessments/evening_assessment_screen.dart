@@ -53,13 +53,14 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
         child: Scaffold(
             // appBar: SereneAppBar(),
             // drawer: SereneDrawer(),
-            body: Container(
-                margin: UIHelper.containerMargin,
-                child: MultiStepAssessment(
-                  vm,
-                  _pages,
-                  // initialStep: vm.getPreviouslyCompletedStep(),
-                ))));
+            body: SafeArea(
+                child: Container(
+                    margin: UIHelper.containerMargin,
+                    child: MultiStepAssessment(
+                      vm,
+                      _pages,
+                      // initialStep: vm.getPreviouslyCompletedStep(),
+                    )))));
   }
 
   late var continueAfterCabuuScreen = PlaceholderScreen(

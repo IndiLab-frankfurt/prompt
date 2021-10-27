@@ -30,7 +30,7 @@ class NoTaskViewModel extends BaseViewModel {
     // getNextTask();
   }
 
-  String daysUntilVocabTest() {
+  String daysUntilVocabTestString() {
     var nextDate = _experimentService.getNextVocabTestDate();
     var difference = nextDate.weekDaysAgo(DateTime.now());
 
@@ -40,8 +40,13 @@ class NoTaskViewModel extends BaseViewModel {
       return "Dein nächster Vokabeltest ist morgen";
     } else {
       var daysPlural = difference == 1 ? "Tag" : "Tage";
-      return "${difference} $daysPlural bis zum nächsten Vokabeltest";
+      return "Noch ${difference} $daysPlural bis zum nächsten Vokabeltest";
     }
+  }
+
+  int daysUntilVocabTest() {
+    var nextDate = _experimentService.getNextVocabTestDate();
+    return nextDate.weekDaysAgo(DateTime.now());
   }
 
   int getMaxStudyDays() {
