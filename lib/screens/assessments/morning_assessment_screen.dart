@@ -322,6 +322,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
       key: ValueKey(MorningAssessmentStep.assessment_finalSession_4));
 
   late var planDisplay = FutureBuilder(
+      key: ValueKey(MorningAssessmentStep.planDisplay),
       future: vm.getPlan(),
       builder: (_, snapshot) {
         if (snapshot.hasData) {

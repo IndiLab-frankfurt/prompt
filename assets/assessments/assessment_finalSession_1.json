@@ -18,8 +18,8 @@
             "labels": {
                 "1": "Trifft überhaupt nicht zu",
                 "2": "Trifft eher nicht zu",
-                "3": "Trifft eher zu"
-                "3": "Trifft voll und ganz zu"
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
             }
         },
         {

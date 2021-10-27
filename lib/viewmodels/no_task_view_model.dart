@@ -41,11 +41,19 @@ class NoTaskViewModel extends BaseViewModel {
     }
   }
 
-  Future<bool> getNextTask() async {
+  Future<void> initialize() async {
     await _dataService.getAssessmentResults();
+  }
+
+  Future<bool> getNextTask() async {
+    await initialize();
 
     showLearnedWithCabuuButton = false;
     showVocabularyTestReminder = false;
+
+    if (!_experimentService.hasCompletedSessionZero()) {
+      this._navigationService.navigateTo(RouteNames.SESSION_ZERO);
+    }
 
     if (daysActive == 0) {
       // notifyListeners();

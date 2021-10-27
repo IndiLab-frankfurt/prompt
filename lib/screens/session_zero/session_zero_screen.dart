@@ -112,22 +112,25 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         child: Scaffold(
             appBar: PromptAppBar(showBackButton: true),
             drawer: PromptDrawer(),
-            body: FutureBuilder(
-              future: init(),
-              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                if (snapshot.hasData) {
-                  return Container(
-                      margin: UIHelper.containerMargin,
-                      child: MultiStepAssessment(
-                        vm,
-                        _pages,
-                      ));
-                } else {
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-                }
-              },
+            body: SafeArea(
+              child: FutureBuilder(
+                future: init(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                        margin: UIHelper.containerMargin,
+                        child: MultiStepAssessment(
+                          vm,
+                          _pages,
+                        ));
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
+              ),
             )));
   }
 

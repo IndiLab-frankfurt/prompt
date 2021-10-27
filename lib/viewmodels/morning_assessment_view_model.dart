@@ -85,10 +85,10 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
     screenOrder = getScreenOrder(group);
 
-    experimentService.getPointsForMorningAssessment().then((points) {
-      pointsMessage =
-          "Dafür, dass du heute mitgemacht hast, bekommst du $points 💎";
-    });
+    var points = experimentService.getPointsForMorningAssessment();
+
+    pointsMessage =
+        "Dafür, dass du heute mitgemacht hast, bekommst du $points 💎";
   }
 
   Future<bool> getInitialValues() async {
@@ -397,7 +397,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
     if ([2, 3].contains(group)) {
       return getStepIndex(MorningAssessmentStep.finalPromptDayComplete);
-    } else if ([4, 5, 6].contains(group)) {
+    } else if ([4, 5, 6, 7].contains(group)) {
       return getStepIndex(MorningAssessmentStep.planDisplay);
     } else {
       return getStepIndex(MorningAssessmentStep.last_screen);
@@ -555,12 +555,10 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
-  Future<bool> getPlan() async {
+  Future<String> getPlan() async {
     var lastPlan = await dataService.getLastPlan();
-    if (lastPlan != null) {
-      internalisationViewmodel.plan = lastPlan.plan;
-    }
-    return true;
+
+    return lastPlan!.plan;
   }
 
   @override

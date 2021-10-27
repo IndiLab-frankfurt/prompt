@@ -10,6 +10,7 @@ class FinalPlanDisplay extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         child: ListView(children: [
+      UIHelper.verticalSpaceLarge(),
       MarkdownBody(
           data:
               "### In unserer Studie hast du dir für das Lernen mit cabuu einen Plan gemacht."),
@@ -17,7 +18,7 @@ class FinalPlanDisplay extends StatelessWidget {
       UIHelper.verticalSpaceMedium(),
       Center(
           child: MarkdownBody(
-        data: "### " + plan,
+        data: "## " + plan,
       )),
       UIHelper.verticalSpaceMedium(),
       MarkdownBody(

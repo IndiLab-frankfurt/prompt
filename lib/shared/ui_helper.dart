@@ -16,7 +16,9 @@ class UIHelper {
           headline6: TextStyle(color: Color(0xff40bf7a)),
           subtitle2: TextStyle(color: Colors.white),
           subtitle1: TextStyle(color: Color(0xff40bf7a))),
-      appBarTheme: AppBarTheme(color: Color(0xff1f655d)), colorScheme: ColorScheme.fromSwatch().copyWith(secondary: Color(0xff40bf7a)));
+      appBarTheme: AppBarTheme(color: Color(0xff1f655d)),
+      colorScheme:
+          ColorScheme.fromSwatch().copyWith(secondary: Color(0xff40bf7a)));
 
   static InputDecoration defaultTextfieldDecoration = InputDecoration(
       fillColor: Colors.white,
@@ -57,7 +59,7 @@ class UIHelper {
   }
 
   static EdgeInsets getContainerMargin() {
-    return EdgeInsets.all(10);
+    return EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 5);
   }
 
   static const EdgeInsets containerMargin = EdgeInsets.all(10);

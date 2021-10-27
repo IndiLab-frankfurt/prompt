@@ -129,7 +129,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     var ud = _dataService.getUserDataCache();
     var group = ud.group;
 
-    screenOrder = getScreenOrder(group, ud.initSessionStep);
+    screenOrder = getScreenOrder(group);
 
     notifyListeners();
   }
@@ -147,7 +147,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     return true;
   }
 
-  List<SessionZeroStep> getScreenOrder(int group, int firstStep) {
+  static List<SessionZeroStep> getScreenOrder(int group) {
     List<SessionZeroStep> screenOrder = [];
 
     List<SessionZeroStep> firstScreens = [
@@ -203,6 +203,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         ...internalisationSteps,
         ...finalSteps
       ];
+    } else if (group == 7) {
+      screenOrder = [...firstScreens, ...distributedLearning, ...finalSteps];
     } else {
       throw Exception(
           "Attempting to request data for a group that does not exist ");

@@ -15,7 +15,7 @@ class PromptAppBar extends StatefulWidget with PreferredSizeWidget {
   _PromptAppBarState createState() => _PromptAppBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(50);
+  Size get preferredSize => Size.fromHeight(40);
 }
 
 class _PromptAppBarState extends State<PromptAppBar> {

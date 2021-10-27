@@ -10,9 +10,10 @@ import 'package:prompt/services/usage_stats/usage_stats_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/extensions.dart';
+import 'package:prompt/viewmodels/session_zero_view_model.dart';
 
 class ExperimentService {
-  static const int NUM_GROUPS = 6;
+  static const int NUM_GROUPS = 7;
   static const Duration MAX_STUDY_DURATION = Duration(days: 56);
 
   final DataService _dataService;
@@ -23,12 +24,13 @@ class ExperimentService {
 
   // TODO: Schedule according to this
   late Map<int, List<int>> reminderNotificationDays = {
-    1: List<int>.generate(54, (int index) => index),
-    2: [...List<int>.generate(36, (int index) => index), 45, 54],
-    3: [...List<int>.generate(36, (int index) => index), 45, 54],
-    4: [...List<int>.generate(36, (int index) => index), 45, 54],
-    5: [...List<int>.generate(36, (int index) => index), 45, 54],
-    6: [...List<int>.generate(36, (int index) => index), 45, 54],
+    1: List<int>.generate(54, (int index) => 1 + index),
+    2: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
+    3: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
+    4: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
+    5: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
+    6: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
+    7: [...List<int>.generate(36, (int index) => 1 + index), 45, 54]
   };
 
   final Map<int, List<int>> boosterPrompts = {
@@ -38,6 +40,7 @@ class ExperimentService {
     4: [],
     5: [1, 2, 3, 7, 8, 13, 14, 15, 19, 20, 21, 25, 26, 31, 32, 33],
     6: [4, 5, 6, 10, 11, 12, 16, 17, 22, 23, 24, 28, 29, 30, 34, 35],
+    7: [],
   };
 
   final Map<int, List<int>> internalisationPrompts = {
@@ -47,6 +50,7 @@ class ExperimentService {
     4: [],
     5: [1, 2, 3, 7, 8, 13, 14, 15, 19, 20, 21, 25, 26, 31, 32, 33],
     6: [4, 5, 6, 10, 11, 12, 16, 17, 22, 23, 24, 28, 29, 30, 34, 35],
+    7: [],
   };
 
   final Map<int, List<int>> vocabTestReminder = {
@@ -56,15 +60,17 @@ class ExperimentService {
     4: [],
     5: [1, 2, 3, 7, 8, 9, 13, 14, 15, 19, 20, 21, 25, 26, 27, 31, 32, 33],
     6: [4, 5, 6, 10, 11, 12, 16, 17, 18, 22, 23, 24, 28, 29, 30, 34, 35, 36],
+    7: [],
   };
 
   final Map<int, int> finalAssessmentDay = {
-    1: 36,
+    1: 54,
     2: 36,
     3: 36,
     4: 36,
     5: 36,
-    6: 54,
+    6: 36,
+    7: 36
   };
 
   final List<int> vocabTestDays = [9, 18, 27, 36, 45, 54];
@@ -144,19 +150,19 @@ class ExperimentService {
     return ud.registrationDate.daysAgo();
   }
 
-  Future<bool> _shouldIncrementStreakDay() async {
+  bool _shouldIncrementStreakDay() {
     var lastRecall =
-        await _dataService.getLastAssessmentResultFor(MORNING_ASSESSMENT);
+        _dataService.getLastAssessmentResultForCached(MORNING_ASSESSMENT);
     if (lastRecall == null) {
-      var userData = await _dataService.getUserData();
-      return userData!.registrationDate.isYesterday();
+      var userData = _dataService.getUserDataCache();
+      return userData.registrationDate.isYesterday();
     }
 
     return lastRecall.submissionDate.isYesterday();
   }
 
-  Future<int> getPointsForMorningAssessment() async {
-    if (await _shouldIncrementStreakDay()) {
+  int getPointsForMorningAssessment() {
+    if (_shouldIncrementStreakDay()) {
       return 1 +
           _rewardService.pointsForMorningAssessment +
           _rewardService.streakDays;
@@ -170,7 +176,7 @@ class ExperimentService {
     this._dataService.saveAssessment(assessment);
 
     if (type == MORNING_ASSESSMENT) {
-      if (await _shouldIncrementStreakDay()) {
+      if (_shouldIncrementStreakDay()) {
         await _rewardService.addStreakDays(1);
       } else {
         await _rewardService.clearStreakDays();
@@ -223,6 +229,14 @@ class ExperimentService {
     }
 
     return (daysAgo >= 18) && (userData.group == 1) && notPreviouslyAnswered;
+  }
+
+  bool hasCompletedSessionZero() {
+    var userData = _dataService.getUserDataCache();
+    var group = userData.group;
+    var numSteps = SessionZeroViewModel.getScreenOrder(group).length;
+
+    return (userData.initSessionStep > (numSteps - 5));
   }
 
   bool isTimeForFinalQuestionnaire() {
@@ -303,15 +317,18 @@ class ExperimentService {
     var reminderHour = 5;
     var schedule = DateTime(now.year, now.month, now.day, reminderHour, 00);
 
-    for (var i = 1; i <= MAX_STUDY_DURATION.inDays; i++) {
-      var scheduleDay = schedule.add(Duration(days: i));
+    var numReminders = 1;
+    for (var day in reminderNotificationDays[group]!) {
+      var scheduleDay = schedule.add(Duration(days: day));
       // In order to prevent hour of day skips during winter/summer time, explictly set the hour again
       var scheduleDayWithTime = DateTime(scheduleDay.year, scheduleDay.month,
           scheduleDay.day, reminderHour, 00);
-      _notificationService.scheduleMorningReminder(scheduleDayWithTime, i);
+      _notificationService.scheduleMorningReminder(scheduleDayWithTime, day);
+
+      print("Scheduled Reminder ${numReminders++}");
     }
 
-    scheduleFinalTaskReminder();
+    // scheduleFinalTaskReminder();
   }
 
   scheduleFinalTaskReminder() {

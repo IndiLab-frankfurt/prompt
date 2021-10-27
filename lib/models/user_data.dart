@@ -68,7 +68,7 @@ class UserData {
       selectedMascot = json["selectedMascot"];
     }
     if (json.containsKey("cabuuCode")) {
-      selectedMascot = json["cabuuCode"];
+      cabuuCode = json["cabuuCode"];
     }
   }
 }
