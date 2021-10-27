@@ -71,6 +71,15 @@
                 "3": "trifft eher zu",
                 "4": "trifft voll und ganz zu"
             }
+        },
+        {
+            "id": "school_vocabtest",
+            "questionText": "Schreibst du in den nächsten 9 Tagen einen Vokabeltest in der Schule?",
+            "labels": {
+                "1": "ja",
+                "2": "nein",
+                "3": "weiß ich noch nicht",
+            }
         }
     ]
 }
