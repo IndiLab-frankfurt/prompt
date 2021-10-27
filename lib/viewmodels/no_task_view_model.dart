@@ -32,15 +32,15 @@ class NoTaskViewModel extends BaseViewModel {
 
   String daysUntilVocabTest() {
     var nextDate = _experimentService.getNextVocabTestDate();
-    var difference = nextDate.difference(DateTime.now());
+    var difference = nextDate.weekDaysAgo(DateTime.now());
 
     if (nextDate.isToday()) {
       return "Dein nächster Vokabeltest ist heute";
     } else if (nextDate.isTomorrow()) {
       return "Dein nächster Vokabeltest ist morgen";
     } else {
-      var daysPlural = difference.inDays == 1 ? "Tag" : "Tage";
-      return "${difference.inDays} $daysPlural bis zum nächsten Vokabeltest";
+      var daysPlural = difference == 1 ? "Tag" : "Tage";
+      return "${difference} $daysPlural bis zum nächsten Vokabeltest";
     }
   }
 
