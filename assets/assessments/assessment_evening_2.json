@@ -4,7 +4,7 @@
     "questions": [
         {
             "id": "expectation_after",
-            "questionText": "Die Vokabeln, die ich heute mit cabuu gelernt habe,  werde ich im Test gut können.",
+            "questionText": "Die Vokabeln, die ich heute mit cabuu gelernt habe, werde ich im Test gut können.",
             "labels": {
                 "1": "trifft überhaupt nicht zu",
                 "2": "trifft eher nicht zu",
