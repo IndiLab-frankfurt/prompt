@@ -42,6 +42,13 @@ extension DateHelpers on DateTime {
         now.year == this.year;
   }
 
+  bool isTomorrow() {
+    final tomorrow = DateTime.now().add(Duration(days: 1));
+    return tomorrow.day == this.day &&
+        tomorrow.month == this.month &&
+        tomorrow.year == this.year;
+  }
+
   bool isYesterday() {
     final yesterday = DateTime.now().subtract(Duration(days: 1));
     return yesterday.day == this.day &&

@@ -2,6 +2,7 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
@@ -33,12 +34,19 @@ class NoTaskViewModel extends BaseViewModel {
     var nextDate = _experimentService.getNextVocabTestDate();
     var difference = nextDate.difference(DateTime.now());
 
-    if (difference.inDays > 0) {
+    if (nextDate.isToday()) {
+      return "Dein nächster Vokabeltest ist heute";
+    } else if (nextDate.isTomorrow()) {
+      return "Dein nächster Vokabeltest ist morgen";
+    } else {
       var daysPlural = difference.inDays == 1 ? "Tag" : "Tage";
       return "${difference.inDays} $daysPlural bis zum nächsten Vokabeltest";
-    } else {
-      return "Dein nächster Vokabeltest ist heute";
     }
+  }
+
+  int getMaxStudyDays() {
+    var group = _dataService.getUserDataCache().group;
+    return _experimentService.finalAssessmentDay[group]!;
   }
 
   Future<void> initialize() async {

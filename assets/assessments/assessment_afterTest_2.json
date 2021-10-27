@@ -77,7 +77,7 @@
             "questionText": "Wurde dir ein Vokabeltest in der Schule angekündigt, der in den nächsten 9 Tagen stattfindet?",
             "labels": {
                 "1": "ja",
-                "2": "nein",
+                "2": "nein"
             }
         }
     ]

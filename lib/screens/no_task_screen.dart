@@ -202,7 +202,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.daysOfTotal(vm.daysActive, 36)),
+        Text(AppStrings.daysOfTotal(vm.daysActive, vm.getMaxStudyDays())),
         UIHelper.verticalSpaceSmall(),
         SizedBox(
           width: 300,
@@ -215,16 +215,16 @@ class _NoTasksScreenState extends State<NoTasksScreen>
         UIHelper.verticalSpaceMedium(),
         Text(nextVocab),
         UIHelper.verticalSpaceMedium(),
-        Text(AppStrings.progressToReward(vm.daysActive, daysToNextReward)),
-        UIHelper.verticalSpaceSmall(),
-        SizedBox(
-          width: 300,
-          child: LinearProgressIndicator(
-            color: Colors.blue,
-            minHeight: 12,
-            value: nextUnlockProgress,
-          ),
-        )
+        // Text(AppStrings.progressToReward(vm.daysActive, daysToNextReward)),
+        // UIHelper.verticalSpaceSmall(),
+        // SizedBox(
+        //   width: 300,
+        //   child: LinearProgressIndicator(
+        //     color: Colors.blue,
+        //     minHeight: 12,
+        //     value: nextUnlockProgress,
+        //   ),
+        // )
       ],
     );
   }
