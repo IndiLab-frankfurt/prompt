@@ -151,14 +151,14 @@ class ExperimentService {
   }
 
   bool _shouldIncrementStreakDay() {
-    var lastRecall =
+    var last =
         _dataService.getLastAssessmentResultForCached(MORNING_ASSESSMENT);
-    if (lastRecall == null) {
+    if (last == null) {
       var userData = _dataService.getUserDataCache();
       return userData.registrationDate.isYesterday();
     }
 
-    return lastRecall.submissionDate.isYesterday();
+    return last.submissionDate.isYesterday();
   }
 
   int getPointsForMorningAssessment() {
@@ -167,7 +167,7 @@ class ExperimentService {
           _rewardService.pointsForMorningAssessment +
           _rewardService.streakDays;
     } else {
-      return 1 + _rewardService.pointsForMorningAssessment;
+      return _rewardService.pointsForMorningAssessment;
     }
   }
 

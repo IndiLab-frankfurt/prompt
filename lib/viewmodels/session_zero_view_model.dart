@@ -280,6 +280,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.instructions_implementationIntentions:
       case SessionZeroStep.rewardScreen1:
       case SessionZeroStep.planInternalisationWaiting:
+      case SessionZeroStep.rewardScreen2:
       case SessionZeroStep.planDisplay:
         break;
       case SessionZeroStep.whereCanYouFindThisInformation:
@@ -309,9 +310,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         break;
       case SessionZeroStep.endOfSession:
         _rewardService.addPoints(5);
-        break;
-      case SessionZeroStep.rewardScreen2:
-        // TODO: Handle this case.
         break;
     }
   }

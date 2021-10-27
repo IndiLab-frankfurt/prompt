@@ -21,9 +21,10 @@ class InstructionsCabuu2 extends StatelessWidget {
                 "### Unser Video, in dem wir alles erklären, schaust du dir am besten auf einem anderen Gerät (z.B. Computer) an, damit du gleichzeitig auf diesem Handy cabuu installieren kannst. Den Link zum Video findest du in der E-Mail, die wir an deine Eltern geschickt haben. Von dort kannst du ihn auf einem anderen Gerät öffnen. Hier ist der Link noch mal:"),
         UIHelper.verticalSpaceMedium(),
         Center(
-            child: InkWell(
-                child: MarkdownBody(data: "# **https://youtu.be/k47mVYRf-yU**"),
-                onTap: () async {
+            child: MarkdownBody(
+                data: "# **https://youtu.be/k47mVYRf-yU**",
+                selectable: true,
+                onTapLink: (_, __, ___) async {
                   if (await canLaunch(url)) {
                     await launch('https://youtu.be/k47mVYRf-yU');
                   }

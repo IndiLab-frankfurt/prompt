@@ -125,7 +125,7 @@ class PromptDrawer extends StatelessWidget {
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                     var group = int.parse(value);
-                    if (group < 7) {
+                    if (group <= 7) {
                       locator.get<DataService>().getUserDataCache().group =
                           group;
                     }

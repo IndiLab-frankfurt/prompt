@@ -14,6 +14,7 @@ class MascotSelectionScreen extends StatefulWidget {
 
 class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
   final double iconSize = 180;
+  final double iconRadius = 70;
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
         MarkdownBody(data: "### " + AppStrings.SelectionOfMascot),
         UIHelper.verticalSpaceMedium(),
         CircleAvatar(
-          radius: 70,
+          radius: iconRadius,
           backgroundColor:
               vm.selectedMascot == "1" ? Colors.orange : Colors.grey,
           child: IconButton(
@@ -39,11 +40,11 @@ class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
           ),
         ),
         CircleAvatar(
-          radius: 70,
+          radius: iconRadius,
           backgroundColor:
               vm.selectedMascot == "2" ? Colors.orange : Colors.grey,
           child: IconButton(
-            icon: Image.asset('assets/illustrations/mascot_2_bare.png'),
+            icon: Image.asset('assets/illustrations/mascot_2_selection.png'),
             iconSize: iconSize,
             onPressed: () {
               vm.selectedMascot = "2";
@@ -51,13 +52,13 @@ class _MascotSelectionScreenState extends State<MascotSelectionScreen> {
           ),
         ),
         CircleAvatar(
-          radius: 70,
+          radius: iconRadius,
           backgroundColor:
               vm.selectedMascot == "3" ? Colors.orange : Colors.grey,
           child: IconButton(
             color:
                 vm.selectedMascot == "3" ? Colors.orange : Colors.transparent,
-            icon: Image.asset('assets/illustrations/mascot_3_bare.png'),
+            icon: Image.asset('assets/illustrations/mascot_3_selection.png'),
             iconSize: 180,
             onPressed: () {
               vm.selectedMascot = "3";

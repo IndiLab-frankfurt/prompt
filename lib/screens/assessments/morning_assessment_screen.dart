@@ -101,15 +101,14 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-            // appBar: SereneAppBar(),
-            // drawer: SereneDrawer(),
-            body: Container(
-                margin: UIHelper.containerMargin,
-                child: MultiStepAssessment(
-                  vm,
-                  _pages,
-                  // initialStep: vm.getPreviouslyCompletedStep(),
-                ))));
+            body: SafeArea(
+          child: Container(
+              margin: UIHelper.containerMargin,
+              child: MultiStepAssessment(
+                vm,
+                _pages,
+              )),
+        )));
   }
 
   dynamic internalisation() {

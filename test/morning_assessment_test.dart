@@ -2,12 +2,9 @@ import 'dart:math';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prompt/services/experiment_service.dart';
-import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
-
 import 'mocks/mock_services.dart';
 
 void main() {
-  var vm = MorningAssessmentViewModel(mockExperimentService, mockDataService);
   test("Each group should have each internalisation condition", () {
     List<int> conditionsSeen = [];
     for (var group = 1; group <= ExperimentService.NUM_GROUPS; group++) {
