@@ -407,6 +407,6 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
         UIHelper.verticalSpaceMedium(),
         MarkdownBody(
             data: "### " +
-                "**Wichtig:** Behalte die PROMPT auf dem Handy. An den Tagen, an denen du den Vokabeltest machen sollst, schicken wir dir eine Notification."),
+                "**Wichtig:** Behalte die App PROMPT auf dem Handy. An den Tagen, an denen du den Vokabeltest machen sollst, schicken wir dir eine Notification."),
       ]);
 }
