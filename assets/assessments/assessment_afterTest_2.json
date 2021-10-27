@@ -74,11 +74,10 @@
         },
         {
             "id": "school_vocabtest",
-            "questionText": "Schreibst du in den nächsten 9 Tagen einen Vokabeltest in der Schule?",
+            "questionText": "Wurde dir ein Vokabeltest in der Schule angekündigt, der in den nächsten 9 Tagen stattfindet?",
             "labels": {
                 "1": "ja",
                 "2": "nein",
-                "3": "weiß ich noch nicht",
             }
         }
     ]
