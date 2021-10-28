@@ -136,6 +136,7 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
       experimentService.submitAssessment(oneBigAssessment, EVENING_ASSESSMENT);
 
       experimentService.nextScreen(RouteNames.ASSESSMENT_EVENING);
+      setState(ViewState.idle);
     }
   }
 

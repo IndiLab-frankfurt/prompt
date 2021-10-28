@@ -225,6 +225,7 @@ class RewardService {
   onMorningAssessment() async {
     int points = pointsForMorningAssessment + streakDays;
     await addPoints(points);
+    await addDaysActive(1);
   }
 
   onFinalTask() async {

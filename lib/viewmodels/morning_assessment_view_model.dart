@@ -369,8 +369,10 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     var daysAgo = experimentService.getDaysSinceStart();
 
     if (group > 1) {
-      if (daysAgo >= 36) {
+      if (experimentService.isTimeForFinalQuestionnaire()) {
         return getStepIndex(MorningAssessmentStep.finalPromptDayIntroduction);
+      } else {
+        return getStepIndex(MorningAssessmentStep.completed);
       }
     } else {
       if (experimentService.isDistributedLearningDay()) {
@@ -378,6 +380,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
             MorningAssessmentStep.distributedLearningIntermediate);
       }
     }
+
     return getStepIndex(MorningAssessmentStep.completed);
   }
 
@@ -589,6 +592,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
           oneBigAssessment, MORNING_ASSESSMENT);
 
       experimentService.nextScreen(RouteNames.ASSESSMENT_MORNING);
+      setState(ViewState.idle);
     }
   }
 }
