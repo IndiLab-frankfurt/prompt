@@ -17,6 +17,8 @@ import 'package:prompt/screens/prompts/booster_strategy_prompt_screen.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
+import 'package:prompt/widgets/prompt_appbar.dart';
+import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -101,14 +103,16 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
+            appBar: PromptAppBar(showBackButton: true),
+            drawer: PromptDrawer(),
             body: SafeArea(
-          child: Container(
-              margin: UIHelper.containerMargin,
-              child: MultiStepAssessment(
-                vm,
-                _pages,
-              )),
-        )));
+              child: Container(
+                  margin: UIHelper.containerMargin,
+                  child: MultiStepAssessment(
+                    vm,
+                    _pages,
+                  )),
+            )));
   }
 
   dynamic internalisation() {
@@ -291,6 +295,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
       key: ValueKey(MorningAssessmentStep.assessment_afterTest_success));
 
   late var preVocab = PreVocabScreen2(
+      nextListNumber: vm.getVocabListNumber(),
       nextVocabDate: vm.getNextVocabTestDate(),
       key: ValueKey(MorningAssessmentStep.preVocab));
 

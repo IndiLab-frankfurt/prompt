@@ -33,7 +33,7 @@ class EndOfSessionScreen extends StatelessWidget {
           backgroundColor:
               vm.selectedMascot == "2" ? Colors.orange : Colors.grey,
           child: IconButton(
-            icon: Image.asset('assets/illustrations/mascot_2_bare.png'),
+            icon: Image.asset('assets/illustrations/mascot_2_selection.png'),
             iconSize: iconSize,
             onPressed: () {
               vm.selectedMascot = "2";
@@ -47,7 +47,7 @@ class EndOfSessionScreen extends StatelessWidget {
           child: IconButton(
             color:
                 vm.selectedMascot == "3" ? Colors.orange : Colors.transparent,
-            icon: Image.asset('assets/illustrations/mascot_3_bare.png'),
+            icon: Image.asset('assets/illustrations/mascot_3_selection.png'),
             iconSize: 180,
             onPressed: () {
               vm.selectedMascot = "3";

@@ -126,17 +126,20 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   @override
   void submit() {
-    Map<String, String> results = {};
-    for (var result in allAssessmentResults.values) {
-      results.addAll(result);
+    if (state == ViewState.idle) {
+      setState(ViewState.busy);
+      Map<String, String> results = {};
+      for (var result in allAssessmentResults.values) {
+        results.addAll(result);
+      }
+      var oneBigAssessment =
+          AssessmentResult(results, EVENING_ASSESSMENT, DateTime.now());
+      oneBigAssessment.startDate = this.startDate;
+
+      experimentService.submitAssessment(oneBigAssessment, EVENING_ASSESSMENT);
+
+      experimentService.nextScreen(RouteNames.ASSESSMENT_EVENING);
     }
-    var oneBigAssessment =
-        AssessmentResult(results, EVENING_ASSESSMENT, DateTime.now());
-    oneBigAssessment.startDate = this.startDate;
-
-    experimentService.submitAssessment(oneBigAssessment, EVENING_ASSESSMENT);
-
-    experimentService.nextScreen(RouteNames.ASSESSMENT_EVENING);
   }
 
   continueWithoutSubmission() {

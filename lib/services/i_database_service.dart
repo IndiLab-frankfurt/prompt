@@ -54,4 +54,6 @@ abstract class IDatabaseService {
       String userid, String assessmentName);
 
   Future saveUserDataProperty(String username, String key, dynamic value);
+
+  Future saveBoosterPromptReadTimes(Map<String, dynamic> map);
 }

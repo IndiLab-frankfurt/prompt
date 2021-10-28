@@ -165,8 +165,17 @@ class DataService {
 
   savePlan(String plan) async {
     var planModel = Plan(plan);
-    var ud = await getUserData();
-    await _databaseService.savePlan(planModel, ud!.user);
+    var ud = getUserDataCache();
+    await _databaseService.savePlan(planModel, ud.user);
+  }
+
+  saveBoosterPromptReadTimes(DateTime start, DateTime end) async {
+    var map = {
+      "user": getUserDataCache().user,
+      "start": start.toIso8601String(),
+      "end": end.toIso8601String()
+    };
+    await _databaseService.saveBoosterPromptReadTimes(map);
   }
 
   saveVocabValue(String vocabValue) async {

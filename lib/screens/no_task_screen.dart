@@ -23,8 +23,6 @@ class _NoTasksScreenState extends State<NoTasksScreen>
     with WidgetsBindingObserver {
   late NoTaskViewModel vm = Provider.of<NoTaskViewModel>(context);
 
-  late Timer updateRegularlyTimer;
-
   @override
   void initState() {
     super.initState();
@@ -34,22 +32,12 @@ class _NoTasksScreenState extends State<NoTasksScreen>
     });
 
     WidgetsBinding.instance!.addObserver(this);
-
-    updateRegularly();
-  }
-
-  updateRegularly() {
-    updateRegularlyTimer = Timer(Duration(minutes: 5), () {
-      setState(() {});
-      updateRegularly();
-    });
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
     super.dispose();
-    updateRegularlyTimer.cancel();
   }
 
   @override
@@ -222,7 +210,7 @@ class _NoTasksScreenState extends State<NoTasksScreen>
           child: LinearProgressIndicator(
             color: Colors.blue,
             minHeight: 12,
-            value: vm.daysUntilVocabTest() / 9,
+            value: (9 - vm.daysUntilVocabTest()) / 9,
           ),
         )
       ],

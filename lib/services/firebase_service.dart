@@ -290,4 +290,12 @@ class FirebaseService implements IDatabaseService {
   Future saveUsageStats(Map<String, dynamic> usageInfo, String userid) async {
     _databaseReference.collection(COLLECTION_USAGESTATS).add(usageInfo);
   }
+
+  @override
+  Future saveBoosterPromptReadTimes(Map<String, dynamic> map) async {
+    _databaseReference
+        .collection("boosterPromptTimes")
+        .add(map)
+        .then((res) => res);
+  }
 }

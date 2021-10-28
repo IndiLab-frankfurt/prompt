@@ -54,6 +54,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       InternalisationViewModel();
   List<String> submittedResults = [];
 
+  bool _firstPointsReceived = false;
+  bool _secondPointsReceived = false;
+
   String _selectedMascot = "1";
   String get selectedMascot => _selectedMascot;
   set selectedMascot(String selected) {
@@ -250,14 +253,14 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     return step;
   }
 
-  saveInternalisation() async {
+  saveInternalisation() {
     var internalisation = Internalisation(
         startDate: DateTime.now(),
         completionDate: DateTime.now(),
         plan: this.plan,
         condition: InternalisationCondition.emojiIf.toString(),
         input: this.internalisationViewmodelEmoji.input);
-    await _dataService.saveInternalisation(internalisation);
+    _dataService.saveInternalisation(internalisation);
   }
 
   void doStepDependentSubmission(ValueKey currentPageKey) {
@@ -284,7 +287,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.planDisplay:
         break;
       case SessionZeroStep.whereCanYouFindThisInformation:
-        _rewardService.addPoints(5);
+        if (!_firstPointsReceived) {
+          _rewardService.addPoints(5);
+          _firstPointsReceived = true;
+        }
         break;
       case SessionZeroStep.mascotSelection:
         _dataService.setSelectedMascot(selectedMascot);
@@ -309,7 +315,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         saveInternalisation();
         break;
       case SessionZeroStep.endOfSession:
-        _rewardService.addPoints(5);
+        if (!_secondPointsReceived) {
+          _rewardService.addPoints(5);
+          _secondPointsReceived = true;
+        }
+
         break;
     }
   }
@@ -329,6 +339,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.instructions2:
       case SessionZeroStep.instructions3:
       case SessionZeroStep.whereCanYouFindThisInformation:
+      case SessionZeroStep.planDisplay:
         return true;
       case SessionZeroStep.cabuuCode:
       case SessionZeroStep.welcome:
@@ -344,7 +355,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.videoPlanning:
       case SessionZeroStep.videoDistributedLearning:
       case SessionZeroStep.planCreation:
-      case SessionZeroStep.planDisplay:
       case SessionZeroStep.planInternalisationEmoji:
       case SessionZeroStep.planTiming:
       case SessionZeroStep.instructions1:

@@ -2,7 +2,9 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
 class InternalisationViewModel extends BaseViewModel {
-  String plan = "Wenn ich nach Hause komme, esse ich eine Wurst";
+  String plan = "Wenn ich lernen will, dann konzentriere ich mich";
+
+  InternalisationCondition condition = InternalisationCondition.waiting;
 
   bool completed = false;
 
@@ -13,6 +15,7 @@ class InternalisationViewModel extends BaseViewModel {
   void onScrambleCorrection(String text) {}
 
   void submit(InternalisationCondition condition, String input) {
+    this.condition = condition;
     completed = true;
     this.input = input;
   }

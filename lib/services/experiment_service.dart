@@ -83,7 +83,8 @@ class ExperimentService {
       if (Platform.isAndroid) {
         UsageStatsService.grantUsagePermission();
       }
-      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
+      return await _navigationService
+          .navigateWithReplacement(RouteNames.NO_TASKS);
     }
 
     if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
@@ -113,7 +114,7 @@ class ExperimentService {
   }
 
   DateTime getNextVocabTestDate() {
-    var daysAgo = _dataService.getUserDataCache().registrationDate.daysAgo();
+    var daysAgo = getDaysSinceStart();
     for (var day in vocabTestDays) {
       if (day > daysAgo) {
         return DateTime.now().add(Duration(days: day - daysAgo));
@@ -133,21 +134,23 @@ class ExperimentService {
   }
 
   bool wasVocabDayYesterday() {
-    return vocabTestDays.contains(getDaysSinceStart() + 1);
+    return vocabTestDays.contains(getDaysSinceStart() - 1);
   }
 
-  bool didCompletePreVocabToday() {
+  bool didCompleteFinal() {
     var last =
-        _dataService.getLastAssessmentResultForCached("preVocabCompleted");
+        _dataService.getLastAssessmentResultForCached(MORNING_ASSESSMENT);
 
-    if (last == null) return false;
-
-    return (last.submissionDate.isToday());
+    if (last == null) {
+      return false;
+    }
+    return last.results.containsKey('usability_fun');
   }
 
   int getDaysSinceStart() {
     var ud = _dataService.getUserDataCache();
-    return ud.registrationDate.daysAgo();
+    var daysAgo = ud.registrationDate.daysAgo();
+    return daysAgo;
   }
 
   bool _shouldIncrementStreakDay() {
@@ -193,6 +196,11 @@ class ExperimentService {
     return getDaysSinceStart() == vocabTestDays.last;
   }
 
+  int getNextVocabListNumber() {
+    var listNumber = getDaysSinceStart() ~/ 9;
+    return listNumber;
+  }
+
   bool isFirstDay() {
     var userData = _dataService.getUserDataCache();
     var daysAgo = userData.registrationDate.daysAgo();
@@ -212,6 +220,20 @@ class ExperimentService {
     var daysAgo = userData.registrationDate.daysAgo();
 
     return internalisationPrompts[userData.group]!.contains(daysAgo);
+  }
+
+  isTimeForFinalQuestions() {
+    var group = _dataService.getUserDataCache().group;
+    var daysAgo = getDaysSinceStart();
+    if (!didCompleteFinal()) {
+      if ([2, 3, 4, 5, 6, 7].contains(group) && daysAgo > 36) {
+        return true;
+      }
+      if (group == 1 && daysAgo >= 54) {
+        return true;
+      }
+    }
+    return false;
   }
 
   isDistributedLearningDay() {
