@@ -84,7 +84,8 @@ class PromptDrawer extends StatelessWidget {
               icon: Icons.add_box,
               text: "Session 0",
               onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.SESSION_ZERO);
+                await Navigator.pushReplacementNamed(
+                    context, RouteNames.SESSION_ZERO);
               }),
           // Divider(),
           // _buildDrawerItem(
@@ -166,14 +167,16 @@ class PromptDrawer extends StatelessWidget {
                       .registrationDate = picked;
                 }
 
-                await Navigator.pushNamed(context, RouteNames.NO_TASKS);
+                await Navigator.pushReplacementNamed(
+                    context, RouteNames.NO_TASKS);
               }),
           Divider(),
           _buildDrawerItem(
               icon: Icons.add_box,
               text: "Login",
               onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.LOG_IN);
+                await Navigator.pushReplacementNamed(
+                    context, RouteNames.LOG_IN);
               }),
           Divider(),
           _buildDrawerItem(
@@ -209,13 +212,6 @@ class PromptDrawer extends StatelessWidget {
                     .getPendingNotifications();
 
                 print(pending);
-              }),
-          Divider(),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Abschlussbefragung",
-              onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.ASSESSMENT_FINAL);
               }),
         ],
       ),

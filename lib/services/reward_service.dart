@@ -87,8 +87,12 @@ class RewardService {
   }
 
   void changeMascot(String newMascot) {
-    this.backgroundImagePath =
-        this.backgroundImagePath.replaceFirst(this._selectedMascot, newMascot);
+    var m = "mascot_";
+    var indexof = this.backgroundImagePath.lastIndexOf(m);
+    var replaced = this
+        .backgroundImagePath
+        .replaceRange(indexof + m.length, indexof + m.length + 1, newMascot);
+    this.backgroundImagePath = replaced;
     this._selectedMascot = newMascot;
   }
 
