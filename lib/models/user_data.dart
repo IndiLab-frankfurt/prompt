@@ -13,6 +13,8 @@ class UserData {
   String selectedMascot = "1";
   String cabuuCode = "123";
   String platform = Platform.isAndroid ? "Android" : "iOS";
+  bool hasSeenDistributedPracticeIntervention = false;
+  bool finalQuestionsCompleted = false;
 
   UserData(
       {required this.firebaseId,
@@ -39,7 +41,10 @@ class UserData {
       "initSessionStep": this.initSessionStep,
       "appVersion": this.appVersion,
       "selectedMascot": this.selectedMascot,
-      "cabuuCode": this.cabuuCode
+      "cabuuCode": this.cabuuCode,
+      "hasSeenDistributedPracticeIntervention":
+          this.hasSeenDistributedPracticeIntervention,
+      "finalQuestionsCompleted": this.finalQuestionsCompleted
     };
   }
 
@@ -69,6 +74,13 @@ class UserData {
     }
     if (json.containsKey("cabuuCode")) {
       cabuuCode = json["cabuuCode"];
+    }
+    if (json.containsKey("hasSeenDistributedPracticeIntervention")) {
+      hasSeenDistributedPracticeIntervention =
+          json["hasSeenDistributedPracticeIntervention"];
+    }
+    if (json.containsKey("finalQuestionsCompleted")) {
+      finalQuestionsCompleted = json["finalQuestionsCompleted"];
     }
   }
 }

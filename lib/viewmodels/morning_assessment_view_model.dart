@@ -519,6 +519,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
       case MorningAssessmentStep.assessment_finalSession_2:
         step = getStepIndex(MorningAssessmentStep.assessment_finalSession_3);
+        dataService.saveUserDataProperty("finalQuestionsCompleted", true);
         break;
       case MorningAssessmentStep.assessment_finalSession_3:
         addFreeFeedbackToResults();
@@ -539,6 +540,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.distributedLearningVideo:
         step =
             getStepIndex(MorningAssessmentStep.assessment_distributedLearning);
+        dataService.saveUserDataProperty(
+            "hasSeenDistributedPracticeIntervention", true);
         break;
       case MorningAssessmentStep.assessment_distributedLearning:
         step = getStepIndex(MorningAssessmentStep.completed);
@@ -576,9 +579,11 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   Future<String> getPlan() async {
     var lastPlan = await dataService.getLastPlan();
 
-    internalisationViewmodel.plan = lastPlan!.plan;
-
-    return lastPlan.plan;
+    if (lastPlan != null) {
+      internalisationViewmodel.plan = lastPlan.plan;
+      return lastPlan.plan;
+    }
+    return "";
   }
 
   @override

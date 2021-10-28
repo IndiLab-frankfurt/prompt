@@ -109,12 +109,6 @@ class ExperimentService {
     return DateTime.now();
   }
 
-  bool isFinalAssessmentDay() {
-    var daysSince = getDaysSinceStart();
-    var group = _dataService.getUserDataCache().group;
-    return finalAssessmentDay[group] == daysSince;
-  }
-
   bool isVocabTestDay() {
     return vocabTestDays.contains(getDaysSinceStart());
   }
@@ -124,21 +118,7 @@ class ExperimentService {
   }
 
   bool didCompleteFinal() {
-    var last = _dataService.getAssessmentResultsCached();
-
-    var completed = false;
-
-    if (last == null) {
-      return false;
-    }
-
-    for (var res in last) {
-      if (res.results.containsKey('usability_fun')) {
-        completed = true;
-      }
-    }
-
-    return completed;
+    return _dataService.getUserDataCache().finalQuestionsCompleted;
   }
 
   int getDaysSinceStart() {
@@ -235,17 +215,9 @@ class ExperimentService {
     var userData = _dataService.getUserDataCache();
     var daysAgo = userData.registrationDate.daysAgo();
 
-    var notPreviouslyAnswered = true;
-    var previousResults = _dataService.getAssessmentResultsCached();
-    if (previousResults != null) {
-      for (var previous in previousResults) {
-        if (previous.results.containsKey("expectation_distributed_practice")) {
-          notPreviouslyAnswered = false;
-        }
-      }
-    }
+    var hasSeen = userData.hasSeenDistributedPracticeIntervention;
 
-    return (daysAgo >= 18) && (userData.group == 1) && notPreviouslyAnswered;
+    return (daysAgo >= 18) && (userData.group == 1) && !hasSeen;
   }
 
   bool hasCompletedSessionZero() {

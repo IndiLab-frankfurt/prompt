@@ -169,6 +169,13 @@ class DataService {
     await _databaseService.savePlan(planModel, ud.user);
   }
 
+  saveUserDataProperty(String propertyname, dynamic value) async {
+    var ud = getUserDataCache();
+
+    await _databaseService.saveUserDataProperty(ud.user, propertyname, value);
+    _userDataCache = await _databaseService.getUserData(ud.user);
+  }
+
   saveBoosterPromptReadTimes(DateTime start, DateTime end) async {
     var map = {
       "user": getUserDataCache().user,
@@ -193,8 +200,7 @@ class DataService {
     var ud = await getUserData();
     if (ud != null) {
       ud.selectedMascot = mascot;
-      await _databaseService.saveUserDataProperty(
-          _userService.getUsername(), "selectedMascot", mascot);
+      await saveUserDataProperty("selectedMascot", mascot);
     }
   }
 
