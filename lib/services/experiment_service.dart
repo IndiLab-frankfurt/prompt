@@ -97,13 +97,6 @@ class ExperimentService {
 
     if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
-      // if (isFinalAssessmentDay()) {
-      //   return await _navigationService.navigateTo(RouteNames.ASSESSMENT_FINAL);
-      // }
-      // if (isLastVocabTestDay()) {
-      //   return await _navigationService.navigateTo(RouteNames.STUDY_COMPLETE);
-      // } else {
-      // }
     }
 
     if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
@@ -161,16 +154,18 @@ class ExperimentService {
       return userData.registrationDate.isYesterday();
     }
 
-    return last.submissionDate.isYesterday();
+    var adequateSubmissionDate =
+        last.submissionDate.isYesterday() || last.submissionDate.isToday();
+    return adequateSubmissionDate;
   }
 
   int getPointsForMorningAssessment() {
     if (_shouldIncrementStreakDay()) {
       return 1 +
-          _rewardService.pointsForMorningAssessment +
+          RewardService.pointsForMorningAssessment +
           _rewardService.streakDays;
     } else {
-      return _rewardService.pointsForMorningAssessment;
+      return RewardService.pointsForMorningAssessment;
     }
   }
 

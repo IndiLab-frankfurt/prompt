@@ -12,7 +12,7 @@ class RewardService {
   int gems = 0;
   int daysActive = 0;
   int streakDays = 0;
-  final pointsForMorningAssessment = 10;
+  static final pointsForMorningAssessment = 10;
   final Color backgroundBase = Color(0xFFFFF3E0);
   final Color backGroundViking = Color(0xff061021);
   final Color backgroundPlane = Color(0xff9fc7f0);

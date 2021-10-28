@@ -3,6 +3,7 @@ import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
@@ -103,7 +104,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     var points = experimentService.getPointsForMorningAssessment();
 
     pointsMessage =
-        "Dafür, dass du heute mitgemacht hast, bekommst du $points 💎";
+        "Dafür, dass du heute mitgemacht hast, bekommst du $points 💎. Denk daran, dass du mehr 💎 bekommst, wenn du an an jedem Tag mitmachst.";
 
     return true;
   }
