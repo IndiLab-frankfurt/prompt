@@ -124,13 +124,21 @@ class ExperimentService {
   }
 
   bool didCompleteFinal() {
-    var last =
-        _dataService.getLastAssessmentResultForCached(MORNING_ASSESSMENT);
+    var last = _dataService.getAssessmentResultsCached();
+
+    var completed = false;
 
     if (last == null) {
       return false;
     }
-    return last.results.containsKey('usability_fun');
+
+    for (var res in last) {
+      if (res.results.containsKey('usability_fun')) {
+        completed = true;
+      }
+    }
+
+    return completed;
   }
 
   int getDaysSinceStart() {
@@ -246,13 +254,6 @@ class ExperimentService {
     var numSteps = SessionZeroViewModel.getScreenOrder(group).length;
 
     return (userData.initSessionStep > (numSteps - 5));
-  }
-
-  bool isTimeForFinalQuestionnaire() {
-    var userData = _dataService.getUserDataCache();
-    var daysAgo = userData.registrationDate.daysAgo();
-
-    return daysAgo == MAX_STUDY_DURATION.inDays;
   }
 
   Future<bool> isTimeForMorningAssessment() async {

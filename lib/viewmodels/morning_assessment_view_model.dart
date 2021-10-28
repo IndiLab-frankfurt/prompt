@@ -369,7 +369,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     var daysAgo = experimentService.getDaysSinceStart();
 
     if (group > 1) {
-      if (experimentService.isTimeForFinalQuestionnaire()) {
+      if (experimentService.isTimeForFinalQuestions()) {
         return getStepIndex(MorningAssessmentStep.finalPromptDayIntroduction);
       } else {
         return getStepIndex(MorningAssessmentStep.completed);
