@@ -163,7 +163,7 @@ class ExperimentService {
 
   Future<void> submitAssessment(
       AssessmentResult assessment, String type) async {
-    this._dataService.saveAssessment(assessment);
+    await this._dataService.saveAssessment(assessment);
 
     if (type == MORNING_ASSESSMENT) {
       if (_shouldIncrementStreakDay()) {

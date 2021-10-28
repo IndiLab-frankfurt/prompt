@@ -65,7 +65,7 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
       results.addAll(result);
     }
     var oneBigAssessment =
-        AssessmentResult(results, EVENING_ASSESSMENT, DateTime.now());
+        AssessmentResult(results, assessmentName, DateTime.now());
     oneBigAssessment.startDate = this.startDate;
     oneBigAssessment.timings = this.timings;
 

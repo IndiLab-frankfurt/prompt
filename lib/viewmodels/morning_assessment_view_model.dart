@@ -93,18 +93,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     var points = experimentService.getPointsForMorningAssessment();
 
     pointsMessage =
-        "Dafür, dass du heute mitgemacht hast, bekommst du $points 💎";
-  }
-
-  Future<bool> getInitialValues() async {
-    var ud = dataService.getUserDataCache();
-
-    var points = experimentService.getPointsForMorningAssessment();
-
-    pointsMessage =
         "Für deine Teilnahme bekommst du $points 💎. Denk daran, dass du mehr 💎 bekommst, wenn du an an jedem Tag mitmachst.";
-
-    return true;
   }
 
   bool _distributedLearningVideoCompleted = false;
@@ -177,8 +166,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       MorningAssessmentStep.internalisation,
     ]);
 
-    var daysAgo = experimentService.getDaysSinceStart();
-
     if (experimentService.isDistributedLearningDay()) {
       order.addAll([
         MorningAssessmentStep.distributedLearningIntermediate,
@@ -222,13 +209,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     }
 
     return order;
-  }
-
-  bool _preVocabVideoCompleted = false;
-  void onPreVocabVideoCompleted() {
-    _preVocabVideoCompleted = true;
-    var result = AssessmentResult({}, "preVocabCompleted", DateTime.now());
-    dataService.saveAssessment(result);
   }
 
   @override
