@@ -110,7 +110,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     return WillPopScope(
         onWillPop: () async => false,
         child: Scaffold(
-            appBar: PromptAppBar(showBackButton: true),
+            appBar: PromptAppBar(showBackButton: false),
             drawer: PromptDrawer(),
             body: SafeArea(
               child: FutureBuilder(
