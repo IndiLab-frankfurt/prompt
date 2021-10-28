@@ -250,6 +250,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   int getNextPage(ValueKey currentPageKey) {
     doStepDependentSubmission(currentPageKey);
     step += 1;
+
+    var end = (step < screenOrder.length - 1)
+        ? screenOrder[step].toString()
+        : "complete";
+    addTiming(currentPageKey.value.toString(), end);
     return step;
   }
 
@@ -413,17 +418,13 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   void submit() async {
-    Map<String, String> results = {};
-    for (var result in allAssessmentResults.values) {
-      results.addAll(result);
+    if (state == ViewState.idle) {
+      setState(ViewState.busy);
+      var oneBigAssessment = this.getOneBisAssessment(SESSION_ZERO);
+
+      _experimentService.submitAssessment(oneBigAssessment, SESSION_ZERO);
+
+      _experimentService.nextScreen(RouteNames.SESSION_ZERO);
     }
-
-    var oneBigAssessment =
-        AssessmentResult(results, SESSION_ZERO, DateTime.now());
-    oneBigAssessment.startDate = this.startDate;
-
-    _experimentService.submitAssessment(oneBigAssessment, SESSION_ZERO);
-
-    _experimentService.nextScreen(RouteNames.SESSION_ZERO);
   }
 }

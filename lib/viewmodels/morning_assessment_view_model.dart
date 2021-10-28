@@ -414,9 +414,13 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   int getNextStepAfterFinal3() {
     var daysAgo = experimentService.getDaysSinceStart();
 
-    if ([2, 3].contains(group)) {
+    if ([2, 3, 7].contains(group)) {
       return getStepIndex(MorningAssessmentStep.finalPromptDayComplete);
-    } else if ([4, 5, 6, 7].contains(group)) {
+    } else if ([
+      4,
+      5,
+      6,
+    ].contains(group)) {
       return getStepIndex(MorningAssessmentStep.planDisplay);
     } else {
       return getStepIndex(MorningAssessmentStep.last_screen);
