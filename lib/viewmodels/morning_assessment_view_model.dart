@@ -93,7 +93,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     var points = experimentService.getPointsForMorningAssessment();
 
     pointsMessage =
-        "Für deine Teilnahme bekommst du $points 💎. Denk daran, dass du mehr 💎 bekommst, wenn du an an jedem Tag mitmachst.";
+        "Für deine Teilnahme bekommst du $points 💎. Denk daran, dass du mehr 💎 bekommst, wenn du jeden PROMPT benutzt.";
   }
 
   bool _distributedLearningVideoCompleted = false;
