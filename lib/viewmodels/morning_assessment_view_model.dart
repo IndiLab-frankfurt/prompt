@@ -212,9 +212,12 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
           MorningAssessmentStep.assessment_finalSession_1,
           MorningAssessmentStep.assessment_finalSession_2,
           MorningAssessmentStep.assessment_finalSession_3,
-          MorningAssessmentStep.last_screen
         ]);
       }
+    }
+
+    if (experimentService.isLastVocabTestDay()) {
+      order.add(MorningAssessmentStep.last_screen);
     } else {
       order.add(MorningAssessmentStep.completed);
     }

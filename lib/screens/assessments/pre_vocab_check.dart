@@ -24,8 +24,7 @@ class _PreVocabCheckState extends State<PreVocabCheck> {
     var format = new DateFormat("dd.MM.yyyy");
     var difference = DateTime.now().difference(widget.nextVocabDate);
 
-    var listNumber = difference.inDays ~/ 9 + 1;
-    var isLastTest = listNumber >= 6;
+    var isLastTest = vm.getVocabListNumber() >= 6;
     return Container(
         child: ListView(children: [
       UIHelper.verticalSpaceLarge(),
