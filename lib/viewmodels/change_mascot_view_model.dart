@@ -1,4 +1,3 @@
-import 'package:prompt/screens/change_mascot_screen.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';

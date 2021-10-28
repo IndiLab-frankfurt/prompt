@@ -167,23 +167,6 @@ class _NoTasksScreenState extends State<NoTasksScreen>
   }
 
   _buildStatistics() {
-    var rewardService = locator<RewardService>();
-
-    double nextUnlockProgress = 0;
-    int daysToNextReward = 0;
-    var backgrounds = rewardService.backgrounds;
-    for (var i = 1; i < (backgrounds.length); i++) {
-      var requiredDays = rewardService.backgrounds[i].requiredDays;
-      if (requiredDays > vm.daysActive) {
-        var current = rewardService.backgrounds[i - 1].requiredDays;
-        daysToNextReward = rewardService.backgrounds[i].requiredDays;
-        var max = daysToNextReward - current;
-        var progress = vm.daysActive - current;
-        nextUnlockProgress = progress / max;
-        break;
-      }
-    }
-
     var nextVocab = vm.daysUntilVocabTestString();
 
     return Column(

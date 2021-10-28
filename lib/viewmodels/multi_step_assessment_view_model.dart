@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:prompt/models/assessment.dart';
+import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
@@ -27,6 +28,7 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
 
   Map<String, String> currentAssessmentResults = {};
   Map<String, Map<String, String>> allAssessmentResults = {};
+  Map<String, Map<String, dynamic>> timings = {};
 
   int getNextPage(ValueKey currentPageKey) {
     return step + 1;
@@ -55,6 +57,33 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
     lastAssessment = assessment;
     currentAssessmentResults = {};
     return assessment;
+  }
+
+  AssessmentResult getOneBisAssessment(String assessmentName) {
+    Map<String, String> results = {};
+    for (var result in allAssessmentResults.values) {
+      results.addAll(result);
+    }
+    var oneBigAssessment =
+        AssessmentResult(results, EVENING_ASSESSMENT, DateTime.now());
+    oneBigAssessment.startDate = this.startDate;
+    oneBigAssessment.timings = this.timings;
+
+    return oneBigAssessment;
+  }
+
+  addTiming(String previous, String next) {
+    var nowString = DateTime.now().toIso8601String();
+
+    if (!timings.containsKey(previous)) {
+      timings[previous] = {"start": nowString, "end": nowString};
+    }
+    if (!timings.containsKey(next)) {
+      timings[next] = {"start": nowString, "end": nowString};
+    }
+
+    timings[next]!["start"] = nowString;
+    timings[previous]!["end"] = nowString;
   }
 
   clearCurrent() {

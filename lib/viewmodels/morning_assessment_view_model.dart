@@ -76,8 +76,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   DateTime boosterPromptStart = DateTime.now();
   DateTime boosterPromptComplete = DateTime.now();
 
-  Map<String, String> timings = {};
-
   bool _preVocabCompleted = false;
   set preVocabCompleted(value) {
     _preVocabCompleted = true;
@@ -104,7 +102,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     var points = experimentService.getPointsForMorningAssessment();
 
     pointsMessage =
-        "Dafür, dass du heute mitgemacht hast, bekommst du $points 💎. Denk daran, dass du mehr 💎 bekommst, wenn du an an jedem Tag mitmachst.";
+        "Für deine Teilnahme bekommst du $points 💎. Denk daran, dass du mehr 💎 bekommst, wenn du an an jedem Tag mitmachst.";
 
     return true;
   }
@@ -560,6 +558,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
     }
 
+    addTiming(pageKey.toString(), screenOrder[step].toString());
+
     return step;
   }
 
@@ -598,13 +598,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-      Map<String, String> results = {};
-      for (var result in allAssessmentResults.values) {
-        results.addAll(result);
-      }
-      var oneBigAssessment =
-          AssessmentResult(results, MORNING_ASSESSMENT, DateTime.now());
-      oneBigAssessment.startDate = this.startDate;
+
+      var oneBigAssessment = this.getOneBisAssessment(MORNING_ASSESSMENT);
 
       await experimentService.submitAssessment(
           oneBigAssessment, MORNING_ASSESSMENT);

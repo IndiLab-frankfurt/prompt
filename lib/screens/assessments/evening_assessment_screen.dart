@@ -7,7 +7,6 @@ import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
-import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
 
 class EveningAssessmentScreen extends StatefulWidget {

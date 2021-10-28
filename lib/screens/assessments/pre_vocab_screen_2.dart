@@ -13,7 +13,7 @@ class PreVocabScreen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var format = new DateFormat("dd.MM.yyyy");
-    var targetDate = format.format(nextVocabDate);
+    var targetDate = format.format(nextVocabDate.subtract(Duration(days: 1)));
 
     return Container(
         child: ListView(

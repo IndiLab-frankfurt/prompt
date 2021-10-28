@@ -77,7 +77,7 @@ class UserService {
     return UserData(
         firebaseId: uid,
         user: user,
-        group: getGroup(),
+        group: group,
         cabuuCode: cabuuCode,
         score: 0,
         streakDays: 0,

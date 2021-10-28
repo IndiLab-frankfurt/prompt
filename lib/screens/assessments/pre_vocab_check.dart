@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
 import 'package:provider/provider.dart';
@@ -20,9 +19,6 @@ class _PreVocabCheckState extends State<PreVocabCheck> {
   @override
   Widget build(BuildContext context) {
     var vm = Provider.of<MorningAssessmentViewModel>(context);
-
-    var format = new DateFormat("dd.MM.yyyy");
-    var difference = DateTime.now().difference(widget.nextVocabDate);
 
     var isLastTest = vm.getVocabListNumber() >= 6;
     return Container(

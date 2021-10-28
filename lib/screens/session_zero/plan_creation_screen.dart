@@ -25,8 +25,19 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
     );
   }
 
+  @override
+  void initState() {
+    super.initState();
+    _habitTextController.text =
+        Provider.of<SessionZeroViewModel>(context, listen: false)
+            .plan
+            .replaceFirst("Wenn ich ", "")
+            .replaceFirst(", dann lerne ich mit cabuu!", "");
+  }
+
   Widget buildEnterHabit() {
     var vm = Provider.of<SessionZeroViewModel>(context);
+
     return ListView(children: [
       MarkdownBody(data: "### " + AppStrings.PlanCreation_LetsCreatePlan),
       UIHelper.verticalSpaceLarge(),

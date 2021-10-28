@@ -22,7 +22,6 @@ class ExperimentService {
   final RewardService _rewardService;
   final NavigationService _navigationService;
 
-  // TODO: Schedule according to this
   late Map<int, List<int>> reminderNotificationDays = {
     1: List<int>.generate(54, (int index) => 1 + index),
     2: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
@@ -98,12 +97,6 @@ class ExperimentService {
     if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
     }
-
-    if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
-      if (isTimeForFinalQuestionnaire()) {
-        return await _navigationService.navigateTo(RouteNames.ASSESSMENT_FINAL);
-      }
-    }
   }
 
   DateTime getNextVocabTestDate() {
@@ -150,8 +143,7 @@ class ExperimentService {
     var last =
         _dataService.getLastAssessmentResultForCached(MORNING_ASSESSMENT);
     if (last == null) {
-      var userData = _dataService.getUserDataCache();
-      return userData.registrationDate.isYesterday();
+      return _dataService.getUserDataCache().registrationDate.isYesterday();
     }
 
     var adequateSubmissionDate =
@@ -221,7 +213,7 @@ class ExperimentService {
     var group = _dataService.getUserDataCache().group;
     var daysAgo = getDaysSinceStart();
     if (!didCompleteFinal()) {
-      if ([2, 3, 4, 5, 6, 7].contains(group) && daysAgo > 36) {
+      if ([2, 3, 4, 5, 6, 7].contains(group) && daysAgo >= 36) {
         return true;
       }
       if (group == 1 && daysAgo >= 54) {

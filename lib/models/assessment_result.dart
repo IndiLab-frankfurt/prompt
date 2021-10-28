@@ -3,6 +3,7 @@ class AssessmentResult {
   String assessmentType = "";
   DateTime submissionDate = DateTime.now();
   DateTime startDate = DateTime.now();
+  Map<String, Map<String, dynamic>> timings = {};
 
   AssessmentResult(this.results, this.assessmentType, this.submissionDate);
 
@@ -11,7 +12,8 @@ class AssessmentResult {
       "results": this.results,
       "assessmentType": this.assessmentType,
       "submissionDate": this.submissionDate.toIso8601String(),
-      "startDate": this.startDate.toIso8601String()
+      "startDate": this.startDate.toIso8601String(),
+      "timings": this.timings
     };
   }
 

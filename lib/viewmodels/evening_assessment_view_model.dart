@@ -121,6 +121,8 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
         break;
     }
 
+    addTiming(pageKey.toString(), screenOrder[step].toString());
+
     return step;
   }
 
@@ -128,13 +130,8 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   void submit() {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-      Map<String, String> results = {};
-      for (var result in allAssessmentResults.values) {
-        results.addAll(result);
-      }
-      var oneBigAssessment =
-          AssessmentResult(results, EVENING_ASSESSMENT, DateTime.now());
-      oneBigAssessment.startDate = this.startDate;
+
+      var oneBigAssessment = this.getOneBisAssessment(EVENING_ASSESSMENT);
 
       experimentService.submitAssessment(oneBigAssessment, EVENING_ASSESSMENT);
 

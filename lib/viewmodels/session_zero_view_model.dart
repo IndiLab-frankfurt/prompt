@@ -69,7 +69,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   String _plan = "";
   String get plan => _plan;
   set plan(String plan) {
-    plan = "Wenn ich $plan, dann lerne ich mit cabuu";
+    plan = "Wenn ich $plan, dann lerne ich mit cabuu!";
     this._plan = plan;
     internalisationViewmodelEmoji.plan = plan;
     internalisationViewmodelWaiting.plan = plan;
