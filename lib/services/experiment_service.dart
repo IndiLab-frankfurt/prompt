@@ -122,8 +122,10 @@ class ExperimentService {
   }
 
   int getDaysSinceStart() {
-    var ud = _dataService.getUserDataCache();
-    var daysAgo = ud.registrationDate.daysAgo();
+    var regDate = _dataService.getUserDataCache().registrationDate;
+    var compareDate =
+        DateTime(regDate.year, regDate.month, regDate.day, 3, 0, 0);
+    var daysAgo = compareDate.daysAgo();
     return daysAgo;
   }
 
@@ -131,7 +133,7 @@ class ExperimentService {
     var last =
         _dataService.getLastAssessmentResultForCached(MORNING_ASSESSMENT);
     if (last == null) {
-      return _dataService.getUserDataCache().registrationDate.isYesterday();
+      return getDaysSinceStart() == 1;
     }
 
     var adequateSubmissionDate =
@@ -178,21 +180,21 @@ class ExperimentService {
 
   bool isFirstDay() {
     var userData = _dataService.getUserDataCache();
-    var daysAgo = userData.registrationDate.daysAgo();
+    var daysAgo = getDaysSinceStart();
 
     return daysAgo == 1;
   }
 
   isBoosterPromptDay() {
     var userData = _dataService.getUserDataCache();
-    var daysAgo = userData.registrationDate.daysAgo();
+    var daysAgo = getDaysSinceStart();
 
     return boosterPrompts[userData.group]!.contains(daysAgo);
   }
 
   isInternalisationDay() {
     var userData = _dataService.getUserDataCache();
-    var daysAgo = userData.registrationDate.daysAgo();
+    var daysAgo = getDaysSinceStart();
 
     return internalisationPrompts[userData.group]!.contains(daysAgo);
   }
@@ -213,7 +215,7 @@ class ExperimentService {
 
   isDistributedLearningDay() {
     var userData = _dataService.getUserDataCache();
-    var daysAgo = userData.registrationDate.daysAgo();
+    var daysAgo = getDaysSinceStart();
 
     var hasSeen = userData.hasSeenDistributedPracticeIntervention;
 
@@ -245,7 +247,7 @@ class ExperimentService {
       return false;
     }
 
-    var daysAgo = userData.registrationDate.daysAgo();
+    var daysAgo = getDaysSinceStart();
 
     return reminderNotificationDays[userData.group]!.contains(daysAgo);
   }
@@ -275,13 +277,13 @@ class ExperimentService {
 
   bool shouldShowDistributedLearningVideo() {
     var ud = _dataService.getUserDataCache();
-    var daysAgo = ud.registrationDate.daysAgo();
+    var daysAgo = getDaysSinceStart();
     return (ud.group == 1) && (daysAgo == 18);
   }
 
   InternalisationCondition getInternalisationCondition() {
     var userData = _dataService.getUserDataCache();
-    var daysAgo = userData.registrationDate.daysAgo();
+    var daysAgo = getDaysSinceStart();
 
     var condition =
         getInternalisationConditionForGroupAndDay(daysAgo, userData.group);
