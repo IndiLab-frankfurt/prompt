@@ -22,7 +22,7 @@ class NoTasksScreen extends StatefulWidget {
 class _NoTasksScreenState extends State<NoTasksScreen>
     with WidgetsBindingObserver {
   late NoTaskViewModel vm = Provider.of<NoTaskViewModel>(context);
-
+  Timer? updateRegularlyTimer;
   @override
   void initState() {
     super.initState();
@@ -60,7 +60,9 @@ class _NoTasksScreenState extends State<NoTasksScreen>
 
   void onResumed() {
     print("on resumed");
-    setState(() {});
+    setState(() {
+      vm.getNextTask();
+    });
   }
 
   void onPaused() {
