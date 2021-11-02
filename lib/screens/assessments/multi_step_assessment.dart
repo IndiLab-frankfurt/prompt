@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 import 'package:prompt/shared/extensions.dart';
@@ -76,12 +77,16 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
   }
 
   _buildSubmitButton() {
-    return FullWidthButton(
-      onPressed: () async {
-        widget.vm.submit();
-      },
-      text: "Weiter",
-    );
+    if (widget.vm.state == ViewState.idle) {
+      return FullWidthButton(
+        onPressed: () async {
+          widget.vm.submit();
+        },
+        text: "Weiter",
+      );
+    } else {
+      return Center(child: CircularProgressIndicator());
+    }
   }
 
   _buildBottomNavigation() {
