@@ -10,6 +10,7 @@ import 'package:prompt/screens/internalisation/daily_internalisation_screen.dart
 import 'package:prompt/screens/internalisation/default_reminder_screen.dart';
 import 'package:prompt/screens/login_screen.dart';
 import 'package:prompt/screens/no_task_screen.dart';
+import 'package:prompt/screens/registration_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
 import 'package:prompt/screens/study_complete_screen.dart';
@@ -26,6 +27,7 @@ import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:prompt/viewmodels/final_asssessment_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/no_task_view_model.dart';
+import 'package:prompt/viewmodels/registration_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +42,18 @@ class AppRouter {
                 create: (_) => LoginViewModel(locator.get<UserService>(),
                     locator.get<NavigationService>()),
                 child: LoginScreen(
+                  backgroundColor1: Color(0xFFFFF3E0),
+                  backgroundColor2: Color(0xFFFFF3E0),
+                  highlightColor: Colors.blue,
+                  foregroundColor: Color(0xFFFFF3E0),
+                )));
+
+      case RouteNames.REGISTER:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider<RegistrationViewModel>(
+                create: (_) => RegistrationViewModel(locator.get<UserService>(),
+                    locator.get<NavigationService>()),
+                child: RegistrationScreen(
                   backgroundColor1: Color(0xFFFFF3E0),
                   backgroundColor2: Color(0xFFFFF3E0),
                   highlightColor: Colors.blue,

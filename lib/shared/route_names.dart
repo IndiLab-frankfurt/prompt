@@ -4,6 +4,7 @@ class RouteNames {
 
   static const NO_TASKS = "/notasks";
 
+  static const REGISTER = "/register";
   static const LOG_IN = "/login";
 
   static const REWARD_SELECTION = "/rewardselection";
