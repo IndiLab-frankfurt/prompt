@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:prompt/shared/enums.dart';
@@ -111,7 +112,7 @@ class _LoginScreenState extends State<LoginScreen> {
           new Expanded(
             child: TextFormField(
               controller: _userIdTextController,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.emailAddress,
               textAlign: TextAlign.center,
               onChanged: (text) {
                 // Provider.of<LoginState>(context).userId =
@@ -124,10 +125,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               decoration: InputDecoration(
-                // labelText: "Email",
-                // alignLabelWithHint: true,
+                labelText: "Email",
+                alignLabelWithHint: true,
                 border: InputBorder.none,
-                hintText: AppStrings.LoginScreen_EnterCode,
               ),
             ),
           ),
@@ -156,6 +156,73 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  buildSwitchToRegister() {
+    return new Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
+      alignment: Alignment.center,
+      child: new Row(
+        children: <Widget>[
+          new Expanded(
+            child: new TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, RouteNames.REGISTER);
+              },
+              child: new Text(
+                "Sie haben noch keinen Account? Hier klicken um sich zu registrieren.",
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildPasswordField(BuildContext context) {
+    return new Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(left: 40.0, right: 40.0),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+              color: Colors.black, width: 0.5, style: BorderStyle.solid),
+        ),
+      ),
+      padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+      child: new Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          new Expanded(
+            child: TextFormField(
+              autocorrect: false,
+              obscureText: true,
+              enableSuggestions: false,
+              controller: _passwordTextController,
+              keyboardType: TextInputType.visiblePassword,
+              textAlign: TextAlign.center,
+              onChanged: (text) {},
+              validator: (String? arg) {
+                if (arg!.length < 6) {
+                  return "Das Passwort sollte mindestens 6 Zeichen lang sein";
+                } else {
+                  return null;
+                }
+              },
+              decoration: InputDecoration(
+                labelText: "Password",
+                alignLabelWithHint: true,
+                border: InputBorder.none,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget buildControls(BuildContext context) {
     return Form(
       key: _formKey,
@@ -177,7 +244,9 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             UIHelper.verticalSpaceLarge(),
             buildUserIdField(context),
-            // buildPasswordInput(context),
+            buildPasswordField(context),
+            UIHelper.verticalSpaceLarge(),
+            buildSwitchToRegister(),
             new Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),

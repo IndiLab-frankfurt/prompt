@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/registration_view_model.dart';
 import 'package:provider/provider.dart';
@@ -96,6 +97,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             UIHelper.verticalSpaceLarge(),
             buildUserIdField(context),
             buildPasswordField(context),
+            UIHelper.verticalSpaceMedium(),
+            buildSwitchToLogin(),
             new Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
@@ -202,7 +205,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
               },
               validator: (String? arg) {
                 if (arg!.length < 6) {
-                  return "Dein Passwort sollte mindestens 6 Zeichen lang sein";
+                  return "Das Passwort sollte mindestens 6 Zeichen lang sein";
                 } else {
                   return null;
                 }
@@ -212,6 +215,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 alignLabelWithHint: true,
                 border: InputBorder.none,
                 hintText: "Mindestens 6 Zeichen",
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildSwitchToLogin() {
+    return new Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
+      alignment: Alignment.center,
+      child: new Row(
+        children: <Widget>[
+          new Expanded(
+            child: new TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, RouteNames.LOG_IN);
+              },
+              child: new Text(
+                "Sie haben bereits einen Account? Hier klicken um sich einzuloggen.",
+                textAlign: TextAlign.center,
               ),
             ),
           ),
