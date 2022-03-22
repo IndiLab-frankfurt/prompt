@@ -70,6 +70,14 @@ class FirebaseService implements IDatabaseService {
     // });
   }
 
+  void resetPassword(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      handleError(e);
+    }
+  }
+
   Future<bool> isNameAvailable(String userId) async {
     try {
       var availableMethods = await _firebaseAuth

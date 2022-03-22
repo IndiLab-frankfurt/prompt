@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 import 'package:prompt/locator.dart';
-import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/extensions.dart';
@@ -79,9 +78,6 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   int getStepAfterEveningItems() {
-    // TODO: Actual logic
-    bool promptWasCompleted = true;
-
     return getStepIndex(EveningAssessmentStep.completed);
   }
 

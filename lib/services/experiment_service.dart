@@ -13,7 +13,7 @@ import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 
 class ExperimentService {
-  static const int NUM_GROUPS = 7;
+  static const int NUM_GROUPS = 2;
   static const Duration MAX_STUDY_DURATION = Duration(days: 56);
 
   final DataService _dataService;
@@ -169,17 +169,7 @@ class ExperimentService {
     }
   }
 
-  bool isLastVocabTestDay() {
-    return getDaysSinceStart() == vocabTestDays.last;
-  }
-
-  int getNextVocabListNumber() {
-    var listNumber = getDaysSinceStart() ~/ 9;
-    return listNumber;
-  }
-
   bool isFirstDay() {
-    var userData = _dataService.getUserDataCache();
     var daysAgo = getDaysSinceStart();
 
     return daysAgo == 1;
@@ -216,7 +206,6 @@ class ExperimentService {
   isDistributedLearningDay() {
     var userData = _dataService.getUserDataCache();
     var daysAgo = getDaysSinceStart();
-
     var hasSeen = userData.hasSeenDistributedPracticeIntervention;
 
     return (daysAgo >= 18) && (userData.group == 1) && !hasSeen;
@@ -311,16 +300,6 @@ class ExperimentService {
 
       print("Scheduled Reminder ${numReminders++}");
     }
-
-    // scheduleFinalTaskReminder();
-  }
-
-  scheduleFinalTaskReminder() {
-    var dayAfterFinal =
-        DateTime.now().add(ExperimentService.MAX_STUDY_DURATION);
-    print(
-        "scheduling final task reminder for ${dayAfterFinal.toIso8601String()}");
-    _notificationService.scheduleFinalTaskReminder(dayAfterFinal);
   }
 
   saveUsageStats() async {

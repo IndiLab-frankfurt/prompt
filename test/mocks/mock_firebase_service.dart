@@ -130,7 +130,6 @@ class MockFirebaseService implements IDatabaseService {
 
   @override
   Future saveBoosterPromptReadTimes(Map<String, dynamic> map) {
-    // TODO: implement saveBoosterPromptReadTimes
     throw UnimplementedError();
   }
 }

@@ -1,6 +1,4 @@
 import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prompt/models/unlockable_background.dart';
 import 'package:prompt/services/data_service.dart';

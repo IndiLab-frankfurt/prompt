@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/screens/about_screen.dart';
 import 'package:prompt/screens/about_video_screen.dart';
@@ -9,7 +8,6 @@ import 'package:prompt/screens/assessments/final_assessment_screen.dart';
 import 'package:prompt/screens/change_mascot_screen.dart';
 import 'package:prompt/screens/internalisation/daily_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/default_reminder_screen.dart';
-import 'package:prompt/screens/assessments/morning_assessment_screen.dart';
 import 'package:prompt/screens/login_screen.dart';
 import 'package:prompt/screens/no_task_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
@@ -27,7 +25,6 @@ import 'package:prompt/viewmodels/daily_internalisation_view_model.dart';
 import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:prompt/viewmodels/final_asssessment_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
-import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
 import 'package:prompt/viewmodels/no_task_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
@@ -75,14 +72,6 @@ class AppRouter {
                     locator.get<ExperimentService>(),
                     locator.get<DataService>()),
                 child: DailyInternalisationScreen()));
-
-      case RouteNames.ASSESSMENT_MORNING:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => MorningAssessmentViewModel(
-                    locator.get<ExperimentService>(),
-                    locator.get<DataService>()),
-                child: MorningAssessmentScreen()));
 
       case RouteNames.ASSESSMENT_EVENING:
         return MaterialPageRoute(

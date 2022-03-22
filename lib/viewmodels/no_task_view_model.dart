@@ -40,7 +40,7 @@ class NoTaskViewModel extends BaseViewModel {
       return "Dein nächster Vokabeltest ist morgen";
     } else {
       var daysPlural = difference == 1 ? "Tag" : "Tage";
-      return "Noch ${difference} $daysPlural bis zum nächsten Vokabeltest";
+      return "Noch $difference $daysPlural bis zum nächsten Vokabeltest";
     }
   }
 

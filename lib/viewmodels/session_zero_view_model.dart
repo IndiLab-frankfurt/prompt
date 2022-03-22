@@ -12,9 +12,9 @@ import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
 enum SessionZeroStep {
   welcome,
+  whoAreYou,
   rewardScreen1,
   whereCanYouFindThisInformation,
-  cabuuCode,
   mascotSelection,
   assessment_planCommitment,
   assessment_itLiteracy,
@@ -35,9 +35,6 @@ enum SessionZeroStep {
   instructions2,
   instructions3,
   instructions4,
-  instructions_cabuu_1,
-  instructions_cabuu_2,
-  instructions_cabuu_3,
   instructions_distributedLearning,
   instructions_implementationIntentions,
   instructions_appPermissions,
@@ -155,6 +152,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     List<SessionZeroStep> firstScreens = [
       SessionZeroStep.welcome,
+      SessionZeroStep.whoAreYou,
       SessionZeroStep.whereCanYouFindThisInformation,
       SessionZeroStep.rewardScreen1,
       SessionZeroStep.instructions1,
@@ -166,9 +164,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.assessment_motivation,
       SessionZeroStep.assessment_distributedLearning,
       SessionZeroStep.valueIntervention,
-      SessionZeroStep.instructions_cabuu_1,
-      SessionZeroStep.instructions_cabuu_2,
-      SessionZeroStep.instructions_cabuu_3,
       SessionZeroStep.assessment_learningExpectations,
     ];
 
@@ -179,7 +174,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     ];
 
     List<SessionZeroStep> finalSteps = [
-      // SessionZeroStep.selfEfficacy,
       SessionZeroStep.endOfSession,
       SessionZeroStep.rewardScreen2,
     ];
@@ -216,8 +210,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     if (Platform.isAndroid) {
       screenOrder.add(SessionZeroStep.instructions_appPermissions);
     }
-
-    // screenOrder.removeRange(0, firstStep);
 
     return screenOrder;
   }
@@ -273,16 +265,14 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     switch (stepKey) {
       case SessionZeroStep.welcome:
-      case SessionZeroStep.cabuuCode:
+        videoWelcomeCompleted();
+        break;
       case SessionZeroStep.videoPlanning:
       case SessionZeroStep.videoDistributedLearning:
       case SessionZeroStep.instructions1:
       case SessionZeroStep.instructions2:
       case SessionZeroStep.instructions3:
       case SessionZeroStep.instructions4:
-      case SessionZeroStep.instructions_cabuu_1:
-      case SessionZeroStep.instructions_cabuu_2:
-      case SessionZeroStep.instructions_cabuu_3:
       case SessionZeroStep.instructions_distributedLearning:
       case SessionZeroStep.instructions_appPermissions:
       case SessionZeroStep.instructions_implementationIntentions:
@@ -326,6 +316,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         }
 
         break;
+      case SessionZeroStep.whoAreYou:
+        // TODO: Handle this case.
+        break;
     }
   }
 
@@ -339,16 +332,13 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     switch (stepKey) {
       case SessionZeroStep.rewardScreen1:
-      case SessionZeroStep.instructions_cabuu_2:
-      case SessionZeroStep.instructions_cabuu_3:
+      case SessionZeroStep.whoAreYou:
       case SessionZeroStep.instructions2:
       case SessionZeroStep.instructions3:
       case SessionZeroStep.whereCanYouFindThisInformation:
       case SessionZeroStep.planDisplay:
         return true;
-      case SessionZeroStep.cabuuCode:
       case SessionZeroStep.welcome:
-      case SessionZeroStep.instructions_cabuu_1:
       case SessionZeroStep.mascotSelection:
       case SessionZeroStep.assessment_planCommitment:
       case SessionZeroStep.assessment_itLiteracy:
@@ -383,7 +373,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.whereCanYouFindThisInformation:
         return _videoWelcomeCompleted;
       case SessionZeroStep.welcome:
-      case SessionZeroStep.cabuuCode:
       case SessionZeroStep.planDisplay:
       case SessionZeroStep.mascotSelection:
         return true;

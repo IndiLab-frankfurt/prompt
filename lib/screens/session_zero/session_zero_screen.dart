@@ -3,16 +3,12 @@ import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
-import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
 import 'package:prompt/screens/session_zero/end_of_session_screen.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_1.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_2.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_3.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_4.dart';
 import 'package:prompt/screens/session_zero/instructions_appPermissions.dart';
-import 'package:prompt/screens/session_zero/instructions_cabuu_1.dart';
-import 'package:prompt/screens/session_zero/instructions_cabuu_2.dart';
-import 'package:prompt/screens/session_zero/instructions_cabuu_3.dart';
 import 'package:prompt/screens/session_zero/instructions_distributed_learning.dart';
 import 'package:prompt/screens/session_zero/instructions_implementation_intentions.dart';
 import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
@@ -54,7 +50,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.welcome: welcomeScreen,
       SessionZeroStep.whereCanYouFindThisInformation:
           whereCanYouFindThisInformation,
-      SessionZeroStep.cabuuCode: cabuuCodeScreen,
       SessionZeroStep.mascotSelection: mascotSelectionScreen,
       SessionZeroStep.assessment_motivation: motivationQuestionnaire,
       SessionZeroStep.assessment_itLiteracy: itLiteracyQuestionnaire,
@@ -76,9 +71,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.instructions2: instructionScreen2,
       SessionZeroStep.instructions3: instructionScreen3,
       SessionZeroStep.instructions4: instructionScreen4,
-      SessionZeroStep.instructions_cabuu_1: instructionsCabuu1,
-      SessionZeroStep.instructions_cabuu_2: instructionsCabuu2,
-      SessionZeroStep.instructions_cabuu_3: instructionsCabuu3,
       SessionZeroStep.instructions_distributedLearning:
           instructionsDistributedLearning,
       SessionZeroStep.instructions_implementationIntentions:
@@ -145,18 +137,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   late var endOfSessionScreen =
       EndOfSessionScreen(key: ValueKey(SessionZeroStep.endOfSession));
-
-  late var cabuuCodeScreen =
-      CabuuCodeScreen(key: ValueKey(SessionZeroStep.cabuuCode));
-
-  late var instructionsCabuu1 =
-      InstructionsCabuu1(key: ValueKey(SessionZeroStep.instructions_cabuu_1));
-
-  late var instructionsCabuu2 =
-      InstructionsCabuu2(key: ValueKey(SessionZeroStep.instructions_cabuu_2));
-
-  late var instructionsCabuu3 =
-      InstructionsCabuu3(key: ValueKey(SessionZeroStep.instructions_cabuu_3));
 
   late var instructionsDistributedLearning = InstructionsDistributedLearning(
       key: ValueKey(SessionZeroStep.instructions_distributedLearning));

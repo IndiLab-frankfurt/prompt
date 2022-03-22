@@ -47,7 +47,6 @@ class LocalDatabaseService {
         ")");
   }
 
-//TODO: Write a better migration script
   _onUpgrade(Database db, int oldVersion, int newVersion) async {
     if (oldVersion != newVersion) {
       await db.execute(

@@ -124,12 +124,6 @@ class DataService {
     return _assessmentResultsCache!;
   }
 
-  Future<Map<String, dynamic>?> getInitialData() async {
-    var ud = await getUserData();
-    var initData = await _databaseService.getInitialData(ud!.user);
-    return null;
-  }
-
   AssessmentResult? getLastAssessmentResultCached() {
     return _lastAssessmentResultCache;
   }
@@ -174,15 +168,6 @@ class DataService {
 
     await _databaseService.saveUserDataProperty(ud.user, propertyname, value);
     _userDataCache = await _databaseService.getUserData(ud.user);
-  }
-
-  saveBoosterPromptReadTimes(DateTime start, DateTime end) async {
-    var map = {
-      "user": getUserDataCache().user,
-      "start": start.toIso8601String(),
-      "end": end.toIso8601String()
-    };
-    await _databaseService.saveBoosterPromptReadTimes(map);
   }
 
   saveVocabValue(String vocabValue) async {

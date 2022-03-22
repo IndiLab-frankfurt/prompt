@@ -45,6 +45,7 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
 
     switch (key) {
       case FinalAssessmentStep.introduction:
+      case FinalAssessmentStep.completed:
       case FinalAssessmentStep.planDisplay:
         return true;
       case FinalAssessmentStep.assessment_finalSession_1:
@@ -52,12 +53,7 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
       case FinalAssessmentStep.assessment_finalSession_3:
       case FinalAssessmentStep.assessment_finalSession_4:
         return currentAssessmentIsFilledOut;
-      case FinalAssessmentStep.completed:
-        // TODO: Handle this case.
-        break;
     }
-
-    return true;
   }
 
   int getStepIndex(FinalAssessmentStep step) {
