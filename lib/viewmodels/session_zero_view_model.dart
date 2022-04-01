@@ -1,5 +1,6 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:prompt/data/obstacles.dart';
+import 'package:prompt/data/outcomes.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/services/data_service.dart';
@@ -9,50 +10,61 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
+import 'package:prompt/viewmodels/sortable_list_view_model.dart';
 
 enum SessionZeroStep {
   welcome,
   whoAreYou,
-  rewardScreen1,
-  whereCanYouFindThisInformation,
-  mascotSelection,
-  assessment_planCommitment,
-  assessment_itLiteracy,
-  assessment_learningFrequencyDuration,
-  assessment_motivation,
-  assessment_learningExpectations,
-  assessment_distributedLearning,
-  assessment_selfEfficacy,
-  valueIntervention,
-  videoPlanning,
-  videoDistributedLearning,
+  video_introduction,
+  questions_sociodemographics,
+  introduction_distributedLearning,
+  video_distributedLearning,
+  introduction_planning,
+  video_planning,
   planCreation,
   planDisplay,
   planInternalisationWaiting,
   planInternalisationEmoji,
-  planTiming,
-  instructions1,
-  instructions2,
-  instructions3,
-  instructions4,
-  instructions_distributedLearning,
-  instructions_implementationIntentions,
-  instructions_appPermissions,
-  rewardScreen2,
-  endOfSession
+  obstacleList,
+  outcomeEnter,
+  obstacleEnter,
+  copingPlanCreation,
+  mascotSelection,
 }
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
+  static List<SessionZeroStep> getScreenOrder(int group) {
+    List<SessionZeroStep> screenOrder = [
+      SessionZeroStep.outcomeEnter,
+      SessionZeroStep.obstacleEnter,
+      SessionZeroStep.welcome,
+      SessionZeroStep.whoAreYou,
+      SessionZeroStep.video_introduction,
+      SessionZeroStep.questions_sociodemographics,
+      SessionZeroStep.introduction_distributedLearning,
+      SessionZeroStep.video_distributedLearning,
+      SessionZeroStep.introduction_planning,
+      SessionZeroStep.video_planning,
+      SessionZeroStep.planCreation,
+      SessionZeroStep.planDisplay,
+      SessionZeroStep.planInternalisationWaiting,
+      SessionZeroStep.planInternalisationEmoji,
+    ];
+
+    return screenOrder;
+  }
+
 // ignore: non_constant_identifier_names
   List<SessionZeroStep> screenOrder = [];
   InternalisationViewModel internalisationViewmodelEmoji =
       InternalisationViewModel();
   InternalisationViewModel internalisationViewmodelWaiting =
       InternalisationViewModel();
+  SortableListViewModel outcomeSelectionViewModel =
+      SortableListViewModel.withInitialItems(outcomes);
+  SortableListViewModel obstacleSelectionViewModel =
+      SortableListViewModel.withInitialItems(obstacles);
   List<String> submittedResults = [];
-
-  bool _firstPointsReceived = false;
-  bool _secondPointsReceived = false;
 
   String _selectedMascot = "1";
   String get selectedMascot => _selectedMascot;
@@ -73,8 +85,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
-  String cabuuCode = "123";
-
   bool _consented = false;
   bool get consented => _consented;
   set consented(bool consented) {
@@ -82,10 +92,24 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
-  String _vocabValue = "";
-  String get vocabValue => _vocabValue;
-  set vocabValue(String vocabValue) {
-    _vocabValue = vocabValue;
+  String _role = "";
+  String get role => _role;
+  set role(String roleInput) {
+    this._role = roleInput;
+    notifyListeners();
+  }
+
+  String _outcome = "";
+  String get outcome => _outcome;
+  set outcome(String vocabValue) {
+    _outcome = vocabValue;
+    notifyListeners();
+  }
+
+  String _obstacle = "";
+  String get obstacle => _outcome;
+  set obstacle(String vocabValue) {
+    _outcome = vocabValue;
     notifyListeners();
   }
 
@@ -140,78 +164,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       this.plan = plan.plan;
     }
 
-    var ud = _dataService.getUserDataCache();
-    initialStep = ud.initSessionStep;
-    cabuuCode = ud.cabuuCode;
+    // var ud = _dataService.getUserDataCache();
+    // initialStep = ud.initSessionStep;
 
     return true;
-  }
-
-  static List<SessionZeroStep> getScreenOrder(int group) {
-    List<SessionZeroStep> screenOrder = [];
-
-    List<SessionZeroStep> firstScreens = [
-      SessionZeroStep.welcome,
-      SessionZeroStep.whoAreYou,
-      SessionZeroStep.whereCanYouFindThisInformation,
-      SessionZeroStep.rewardScreen1,
-      SessionZeroStep.instructions1,
-      SessionZeroStep.instructions2,
-      SessionZeroStep.instructions3,
-      SessionZeroStep.instructions4,
-      SessionZeroStep.assessment_itLiteracy,
-      SessionZeroStep.assessment_learningFrequencyDuration,
-      SessionZeroStep.assessment_motivation,
-      SessionZeroStep.assessment_distributedLearning,
-      SessionZeroStep.valueIntervention,
-      SessionZeroStep.assessment_learningExpectations,
-    ];
-
-    List<SessionZeroStep> distributedLearning = [
-      SessionZeroStep.instructions_distributedLearning,
-      SessionZeroStep.videoDistributedLearning,
-      SessionZeroStep.assessment_distributedLearning,
-    ];
-
-    List<SessionZeroStep> finalSteps = [
-      SessionZeroStep.endOfSession,
-      SessionZeroStep.rewardScreen2,
-    ];
-
-    List<SessionZeroStep> internalisationSteps = [
-      SessionZeroStep.instructions_implementationIntentions,
-      SessionZeroStep.videoPlanning,
-      SessionZeroStep.planCreation,
-      SessionZeroStep.planDisplay,
-      SessionZeroStep.assessment_planCommitment,
-      SessionZeroStep.planInternalisationWaiting,
-      SessionZeroStep.planInternalisationEmoji,
-      SessionZeroStep.planTiming,
-    ];
-
-    if (group == 1) {
-      screenOrder = [...firstScreens, ...finalSteps];
-    } else if (group == 2 || group == 3) {
-      screenOrder = [...firstScreens, ...distributedLearning, ...finalSteps];
-    } else if (group == 5 || group == 6 || group == 4) {
-      screenOrder = [
-        ...firstScreens,
-        ...distributedLearning,
-        ...internalisationSteps,
-        ...finalSteps
-      ];
-    } else if (group == 7) {
-      screenOrder = [...firstScreens, ...distributedLearning, ...finalSteps];
-    } else {
-      throw Exception(
-          "Attempting to request data for a group that does not exist ");
-    }
-
-    if (Platform.isAndroid) {
-      screenOrder.add(SessionZeroStep.instructions_appPermissions);
-    }
-
-    return screenOrder;
   }
 
   @override
@@ -267,41 +223,13 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.welcome:
         videoWelcomeCompleted();
         break;
-      case SessionZeroStep.videoPlanning:
-      case SessionZeroStep.videoDistributedLearning:
-      case SessionZeroStep.instructions1:
-      case SessionZeroStep.instructions2:
-      case SessionZeroStep.instructions3:
-      case SessionZeroStep.instructions4:
-      case SessionZeroStep.instructions_distributedLearning:
-      case SessionZeroStep.instructions_appPermissions:
-      case SessionZeroStep.instructions_implementationIntentions:
-      case SessionZeroStep.rewardScreen1:
+      case SessionZeroStep.video_planning:
+      case SessionZeroStep.video_distributedLearning:
       case SessionZeroStep.planInternalisationWaiting:
-      case SessionZeroStep.rewardScreen2:
       case SessionZeroStep.planDisplay:
-        break;
-      case SessionZeroStep.whereCanYouFindThisInformation:
-        if (!_firstPointsReceived) {
-          _rewardService.addPoints(5);
-          _firstPointsReceived = true;
-        }
         break;
       case SessionZeroStep.mascotSelection:
         _dataService.setSelectedMascot(selectedMascot);
-        break;
-      case SessionZeroStep.assessment_planCommitment:
-      case SessionZeroStep.assessment_itLiteracy:
-      case SessionZeroStep.assessment_learningFrequencyDuration:
-      case SessionZeroStep.assessment_motivation:
-      case SessionZeroStep.assessment_learningExpectations:
-      case SessionZeroStep.assessment_distributedLearning:
-      case SessionZeroStep.assessment_selfEfficacy:
-      case SessionZeroStep.planTiming:
-        checkIfAssessmentNeedsSubmission();
-        break;
-      case SessionZeroStep.valueIntervention:
-        _dataService.saveVocabValue(vocabValue);
         break;
       case SessionZeroStep.planCreation:
         _dataService.savePlan(plan);
@@ -309,14 +237,31 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.planInternalisationEmoji:
         saveInternalisation();
         break;
-      case SessionZeroStep.endOfSession:
-        if (!_secondPointsReceived) {
-          _rewardService.addPoints(5);
-          _secondPointsReceived = true;
-        }
-
-        break;
       case SessionZeroStep.whoAreYou:
+        _dataService.saveUserDataProperty("role", role);
+        break;
+      case SessionZeroStep.video_introduction:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.questions_sociodemographics:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.introduction_distributedLearning:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.introduction_planning:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.obstacleList:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.copingPlanCreation:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.outcomeEnter:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.obstacleEnter:
         // TODO: Handle this case.
         break;
     }
@@ -331,64 +276,41 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     var stepKey = currentPageKey.value as SessionZeroStep;
 
     switch (stepKey) {
-      case SessionZeroStep.rewardScreen1:
       case SessionZeroStep.whoAreYou:
-      case SessionZeroStep.instructions2:
-      case SessionZeroStep.instructions3:
-      case SessionZeroStep.whereCanYouFindThisInformation:
       case SessionZeroStep.planDisplay:
-        return true;
+      case SessionZeroStep.video_introduction:
       case SessionZeroStep.welcome:
       case SessionZeroStep.mascotSelection:
-      case SessionZeroStep.assessment_planCommitment:
-      case SessionZeroStep.assessment_itLiteracy:
-      case SessionZeroStep.assessment_learningFrequencyDuration:
-      case SessionZeroStep.assessment_motivation:
-      case SessionZeroStep.assessment_learningExpectations:
-      case SessionZeroStep.assessment_selfEfficacy:
-      case SessionZeroStep.assessment_distributedLearning:
-      case SessionZeroStep.videoPlanning:
-      case SessionZeroStep.videoDistributedLearning:
+      case SessionZeroStep.video_planning:
+      case SessionZeroStep.video_distributedLearning:
       case SessionZeroStep.planCreation:
       case SessionZeroStep.planInternalisationEmoji:
-      case SessionZeroStep.planTiming:
-      case SessionZeroStep.instructions1:
-      case SessionZeroStep.instructions4:
-      case SessionZeroStep.instructions_distributedLearning:
-      case SessionZeroStep.instructions_implementationIntentions:
-      case SessionZeroStep.instructions_appPermissions:
-      case SessionZeroStep.endOfSession:
-      case SessionZeroStep.valueIntervention:
       case SessionZeroStep.planInternalisationWaiting:
-      case SessionZeroStep.rewardScreen2:
-        return false;
+      case SessionZeroStep.questions_sociodemographics:
+      case SessionZeroStep.introduction_distributedLearning:
+      case SessionZeroStep.introduction_planning:
+      case SessionZeroStep.obstacleList:
+      case SessionZeroStep.copingPlanCreation:
+      case SessionZeroStep.outcomeEnter:
+      case SessionZeroStep.obstacleEnter:
+        return true;
     }
   }
 
   @override
   bool canMoveNext(ValueKey currentPageKey) {
+    return true;
+
     var stepKey = currentPageKey.value as SessionZeroStep;
 
     switch (stepKey) {
-      case SessionZeroStep.whereCanYouFindThisInformation:
-        return _videoWelcomeCompleted;
       case SessionZeroStep.welcome:
       case SessionZeroStep.planDisplay:
       case SessionZeroStep.mascotSelection:
         return true;
-      case SessionZeroStep.assessment_planCommitment:
-      case SessionZeroStep.assessment_itLiteracy:
-      case SessionZeroStep.assessment_learningFrequencyDuration:
-      case SessionZeroStep.assessment_motivation:
-      case SessionZeroStep.assessment_learningExpectations:
-      case SessionZeroStep.assessment_selfEfficacy:
-      case SessionZeroStep.assessment_distributedLearning:
-        return currentAssessmentIsFilledOut;
-      case SessionZeroStep.valueIntervention:
-        return vocabValue.isNotEmpty;
-      case SessionZeroStep.videoPlanning:
+      case SessionZeroStep.video_planning:
         return _videoPlanningCompleted;
-      case SessionZeroStep.videoDistributedLearning:
+      case SessionZeroStep.video_distributedLearning:
         return _videoDistributedLearningCompleted;
       case SessionZeroStep.planCreation:
         return plan.isNotEmpty;
@@ -396,8 +318,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         return this.internalisationViewmodelEmoji.input.isNotEmpty;
       case SessionZeroStep.planInternalisationWaiting:
         return this.internalisationViewmodelWaiting.completed;
-      case SessionZeroStep.planTiming:
-        break;
       default:
         return true;
     }

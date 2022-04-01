@@ -63,6 +63,8 @@ enum InternalisationCondition {
   emojiThen,
 }
 
+enum QuestionType { single, multiple, text, text_numeric }
+
 const String EVENING_ASSESSMENT = "eveningAssessment";
 const String MORNING_ASSESSMENT = "morningAssessment";
 const String FINAL_ASSESSMENT = "finalAssessment";

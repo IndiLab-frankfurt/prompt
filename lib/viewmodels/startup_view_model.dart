@@ -35,7 +35,7 @@ class StartupViewModel extends BaseViewModel {
         nav.navigateAndRemove(RouteNames.LOG_IN);
         break;
       case AppStartupMode.firstLaunch:
-        nav.navigateAndRemove(RouteNames.REGISTER);
+        nav.navigateAndRemove(RouteNames.RANDOM_LOGIN);
         break;
       case AppStartupMode.noTasks:
         nav.navigateAndRemove(RouteNames.NO_TASKS);

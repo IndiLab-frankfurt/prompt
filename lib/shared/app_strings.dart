@@ -46,14 +46,24 @@ class AppStrings {
   static const String After = "Danach";
   static const String Neither = "Weder noch";
 
+  static const String SessionZero_Introduction_DistributedLearning_1 = """
+  Beim Vokabellernen kann man Strategien anwernden, die einem beim Lernen und Erinnern helfen. 
+  Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.
+""";
+
+  static const String SessionZero_Introduction_Planning_1 = """
+  Es kann schwierig sein, jeden Tag daran zu denken, Vokabeln zu lernen. 
+  Auf der nächsten Seite zeit dir unser Monster einen Trick, der dir dabei hilft, dieses Ziel zu erreichen.
+""";
+
   // Session Zero Plan Display
   static const String PlanDisplay_Excellent = "Prima!";
   static const String PlanDisplay_YourPlanIs = "Dein Plan lautet also:";
   static const String PlanDisplay_RememberYourPlan = "Merke dir den Plan gut!";
 
-  static const String WhyVocab_ParagraphOne =
-      "In der Studie PROMPT wollen wir dir dabei helfen, Vokabeln so zu lernen, dass du sie dir besonders gut merken kannst.";
-  static const String WhyVocab_ParagraphTwo =
+  static const String SessionZero_ObstacleEnter_1 =
+      "Was wären mögliche **Hindernisse**, die dich davon abhalten könnten, deine Ziele zu erreichen?";
+  static const String SessionZero_OutcomeEnter_1 =
       "Denk mal nach: Warum ist es für dich wichtig, Englischvokabeln zu lernen? Wie könnte es für dich auch außerhalb der Schule gut sein, viele Englischvokabeln zu kennen?";
 
   static const String GoalIntention_ParagraphOne =
@@ -139,4 +149,6 @@ class AppStrings {
       'Heute sollst du in cabuu den letzten Test machen. Klicke dazu in cabuu auf Liste 6 und wähle "Abfrage".';
   static const String MorningAssessment_lastVocab1_2 =
       'Mach bitte den Test und komm danach direkt zurück zu PROMPT, um die letzten Fragen zu beantworten. Danach bist du fertig mit der Studie.';
+
+  static const String Dashboard_daysLearned = "Tage gelernt";
 }

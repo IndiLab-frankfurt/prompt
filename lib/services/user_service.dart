@@ -104,7 +104,7 @@ class UserService {
 
   saveRandomUser() async {
     var uid = _getRandomUsername();
-    return await registerUser("$uid@edutec.science", "123456");
+    return registerUser("$uid@edutec.science", "123456");
   }
 
   _getRandomUsername() {

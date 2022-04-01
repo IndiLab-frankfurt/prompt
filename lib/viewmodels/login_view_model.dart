@@ -21,22 +21,12 @@ class LoginViewModel extends BaseViewModel {
 
   LoginViewModel(this._userService, this._navigationService) {
     var username = this._userService.getUsername();
-    if (username.isNotEmpty) {
-      var indexOfSplit = username.indexOf("@");
-      if (indexOfSplit >= 0) {
-        _email = username.substring(0, indexOfSplit);
-      }
-    }
+    _email = username;
   }
 
   Future<String> signIn(String input, String password) async {
     var email = input;
-    if (!validateEmail(email)) {
-      email = "$email@prompt.studie";
-    }
-    if (password.isEmpty) {
-      password = getDefaultPassword(input);
-    }
+
     setState(ViewState.busy);
     var signin = await _userService.signInUser(email, password);
     if (signin == null) {
@@ -50,10 +40,6 @@ class LoginViewModel extends BaseViewModel {
       setState(ViewState.idle);
       return RegistrationCodes.SUCCESS;
     }
-  }
-
-  getDefaultPassword(String userid) {
-    return "hasselhoernchen!$userid";
   }
 
   submit() async {

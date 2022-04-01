@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:prompt/locator.dart';
-import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/notification_service.dart';
-import 'package:prompt/services/usage_stats/usage_stats_service.dart';
-import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/widgets/version_info.dart';
-import 'package:intl/intl.dart';
 
 class PromptDrawer extends StatelessWidget {
   PromptDrawer();
@@ -80,28 +74,27 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.ABOUT_PROMPT);
               }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Session 0",
-          //     onTap: () async {
-          //       await Navigator.pushReplacementNamed(
-          //           context, RouteNames.SESSION_ZERO);
-          //     }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Kontroll Reminder",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(context, RouteNames.REMINDER_DEFAULT);
-          //     }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Befragung Morgens",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(
-          //           context, RouteNames.ASSESSMENT_MORNING);
-          //     }),
+          Divider(),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "AutoRegistrierung",
+              onTap: () async {
+                await Navigator.pushReplacementNamed(
+                    context, RouteNames.RANDOM_LOGIN);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Login",
+              onTap: () async {
+                await Navigator.pushNamed(context, RouteNames.LOG_IN);
+              }),
+          Divider(),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Session 0",
+              onTap: () async {
+                await Navigator.pushNamed(context, RouteNames.SESSION_ZERO);
+              }),
           // Divider(),
           // _buildDrawerItem(
           //     icon: Icons.add_box,

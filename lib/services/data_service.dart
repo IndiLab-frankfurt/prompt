@@ -1,8 +1,8 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:prompt/models/assessment.dart';
-import 'package:prompt/models/assessment_item.dart';
+import 'package:prompt/models/questionnaire.dart';
+import 'package:prompt/models/question.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
@@ -265,13 +265,12 @@ class DataService {
         await rootBundle.loadString("assets/assessments/assessment_$name.json");
     var json = jsonDecode(data);
 
-    var ass = Assessment();
-    ass.id = json["id"];
-    ass.title = json["title"];
-    ass.items = [];
+    var ass = Questionnaire(id: json["id"], title: json["title"], items: []);
     for (var question in json["questions"]) {
-      ass.items.add(AssessmentItem(question["questionText"],
-          Map<String, String>.from(question["labels"]), question["id"]));
+      ass.items.add(Question(
+          questionText: question["questionText"],
+          id: question["id"],
+          labels: Map<String, String>.from(question["labels"])));
     }
 
     return ass;

@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       // debugShowMaterialGrid: true,
       title: 'Serene',
       theme: ThemeData(
-          scaffoldBackgroundColor: Colors.orange[50],
+          scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
           canvasColor: Colors.white,
           selectedRowColor: Colors.orange[200],
           textTheme: TextTheme(

@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/viewmodels/registration_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/viewmodels/login_view_model.dart';
 
-class LoginScreen extends StatefulWidget {
+class RegistrationScreen extends StatefulWidget {
   final Color backgroundColor1;
   final Color backgroundColor2;
   final Color highlightColor;
   final Color foregroundColor;
 
-  LoginScreen({
+  RegistrationScreen({
     Key? k,
     required this.backgroundColor1,
     required this.backgroundColor2,
@@ -21,10 +20,10 @@ class LoginScreen extends StatefulWidget {
   });
 
   @override
-  _LoginScreenState createState() => _LoginScreenState();
+  _RegistrationScreenState createState() => _RegistrationScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _RegistrationScreenState extends State<RegistrationScreen> {
   late TextEditingController _userIdTextController = TextEditingController();
   late TextEditingController _passwordTextController = TextEditingController();
 
@@ -35,7 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
     Future.delayed(Duration.zero).then((val) {
       _userIdTextController.text =
-          Provider.of<LoginViewModel>(context, listen: false).email;
+          Provider.of<RegistrationViewModel>(context, listen: false).email;
     });
   }
 
@@ -58,8 +57,20 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  _signInClick(LoginViewModel vm, BuildContext context) async {
-    var registered = await vm.signIn(
+  _registerClick(RegistrationViewModel vm, BuildContext context) async {
+    if (!vm.validatePassword(_passwordTextController.text)) {
+      _buildErrorDialog("Ungültiges Passwort",
+          "Das Passwort muss mindestens 6 Zeichen lang sein.");
+      return;
+    }
+
+    if (!vm.validateEmail(_userIdTextController.text)) {
+      _buildErrorDialog("Ungültige Email Adresse",
+          "Bitte gib eine gültige Email Adresse ein.");
+      return;
+    }
+
+    var registered = await vm.register(
         _userIdTextController.text, _passwordTextController.text);
     if (registered == RegistrationCodes.SUCCESS) {
       vm.submit();
@@ -73,6 +84,45 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: buildControls(context),
+    );
+  }
+
+  Widget buildControls(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment(
+                1.0, 0.0), // 10% of the width, so there are ten blinds.
+            colors: [
+              this.widget.backgroundColor1,
+              this.widget.backgroundColor2
+            ],
+          ),
+        ),
+        height: MediaQuery.of(context).size.height,
+        child: ListView(
+          children: <Widget>[
+            UIHelper.verticalSpaceLarge(),
+            buildEmailField(context),
+            buildPasswordField(context),
+            UIHelper.verticalSpaceMedium(),
+            buildSwitchToLogin(),
+            new Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
+              alignment: Alignment.center,
+              child: new Row(
+                children: <Widget>[
+                  new Expanded(child: buildSubmitButton(context)),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -93,7 +143,7 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  buildUserIdField(BuildContext context) {
+  buildEmailField(BuildContext context) {
     return new Container(
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.only(left: 40.0, right: 40.0),
@@ -119,7 +169,7 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               validator: (String? arg) {
                 if (arg!.length != 6) {
-                  return "Dein Code sollte aus sechs Zeichen bestehen";
+                  return "Der Code sollte aus sechs Zeichen bestehen";
                 } else {
                   return null;
                 }
@@ -128,49 +178,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 labelText: "Email",
                 alignLabelWithHint: true,
                 border: InputBorder.none,
-              ),
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  buildSubmitButton(BuildContext context) {
-    var vm = Provider.of<LoginViewModel>(context);
-    return new ElevatedButton(
-      style: ElevatedButton.styleFrom(minimumSize: Size(200, 50)),
-      onPressed: () async {
-        if (vm.state != ViewState.idle) return;
-        if (_userIdTextController.text.length != 6) {
-          _buildErrorDialog("Der Code besteht aus 6 Ziffern", "");
-        } else {
-          await _signInClick(vm, context);
-        }
-      },
-      child: vm.state == ViewState.idle
-          ? Text("Anmelden")
-          : CircularProgressIndicator(
-              backgroundColor: Colors.blue,
-            ),
-    );
-  }
-
-  buildSwitchToRegister() {
-    return new Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
-      alignment: Alignment.center,
-      child: new Row(
-        children: <Widget>[
-          new Expanded(
-            child: new TextButton(
-              onPressed: () {
-                Navigator.pushNamed(context, RouteNames.REGISTER);
-              },
-              child: new Text(
-                "Sie haben noch keinen Account? Hier klicken um sich zu registrieren.",
-                textAlign: TextAlign.center,
+                // hintText: "Email Adresse eingeben",
               ),
             ),
           ),
@@ -203,7 +211,9 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: _passwordTextController,
               keyboardType: TextInputType.visiblePassword,
               textAlign: TextAlign.center,
-              onChanged: (text) {},
+              onChanged: (text) {
+                // Provider.of<LoginState>(context).userId =
+              },
               validator: (String? arg) {
                 if (arg!.length < 6) {
                   return "Das Passwort sollte mindestens 6 Zeichen lang sein";
@@ -212,9 +222,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               decoration: InputDecoration(
-                labelText: "Password",
+                labelText: "Passwort",
                 alignLabelWithHint: true,
                 border: InputBorder.none,
+                hintText: "Mindestens 6 Zeichen",
               ),
             ),
           ),
@@ -223,43 +234,47 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget buildControls(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment(
-                1.0, 0.0), // 10% of the width, so there are ten blinds.
-            colors: [
-              this.widget.backgroundColor1,
-              this.widget.backgroundColor2
-            ], // whitish to gray
-            // tileMode: TileMode.repeated, // repeats the gradient over the canvas
-          ),
-        ),
-        height: MediaQuery.of(context).size.height,
-        child: ListView(
-          children: <Widget>[
-            UIHelper.verticalSpaceLarge(),
-            buildUserIdField(context),
-            buildPasswordField(context),
-            UIHelper.verticalSpaceLarge(),
-            buildSwitchToRegister(),
-            new Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
-              alignment: Alignment.center,
-              child: new Row(
-                children: <Widget>[
-                  new Expanded(child: buildSubmitButton(context)),
-                ],
+  buildSwitchToLogin() {
+    return new Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
+      alignment: Alignment.center,
+      child: new Row(
+        children: <Widget>[
+          new Expanded(
+            child: new TextButton(
+              onPressed: () {
+                Navigator.pushNamed(context, RouteNames.LOG_IN);
+              },
+              child: new Text(
+                "Du hast bereits einen Account? Hier klicken zum einzuloggen.",
+                textAlign: TextAlign.center,
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+
+  buildSubmitButton(BuildContext context) {
+    var vm = Provider.of<RegistrationViewModel>(context);
+    return new ElevatedButton(
+      style: ElevatedButton.styleFrom(minimumSize: Size(200, 50)),
+      onPressed: () async {
+        if (vm.state != ViewState.idle) return;
+        if (!await vm.isEmailAlreadyRegistered(_userIdTextController.text)) {
+          _buildErrorDialog("Email bereits registriert",
+              "Die Email Adresse ist bereits registriert. Bitte logge dich mit deinem Passwort ein.");
+        } else {
+          _registerClick(vm, context);
+        }
+      },
+      child: vm.state == ViewState.idle
+          ? Text("Registrieren")
+          : CircularProgressIndicator(
+              backgroundColor: Colors.blue,
+            ),
     );
   }
 }

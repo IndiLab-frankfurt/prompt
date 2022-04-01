@@ -1,5 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:prompt/models/assessment.dart';
+import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -13,7 +13,7 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   int step = 0;
   int initialStep = 0;
 
-  Assessment lastAssessment = Assessment();
+  Questionnaire? lastQuestionnaire;
   DateTime startDate = DateTime.now();
 
   String nextButtonText = "Weiter";
@@ -44,16 +44,16 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void onAssessmentCompleted(Assessment assessment) {
+  void onAssessmentCompleted(Questionnaire assessment) {
     currentAssessmentIsFilledOut = true;
 
     notifyListeners();
   }
 
-  Future<Assessment> getAssessment(AssessmentTypes assessmentType) async {
+  Future<Questionnaire> getAssessment(AssessmentTypes assessmentType) async {
     String name = describeEnum(assessmentType);
-    Assessment assessment = await dataService.getAssessment(name);
-    lastAssessment = assessment;
+    Questionnaire assessment = await dataService.getAssessment(name);
+    lastQuestionnaire = assessment;
     currentAssessmentResults = {};
     return assessment;
   }
@@ -86,12 +86,12 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   }
 
   clearCurrent() {
-    lastAssessment = Assessment();
+    lastQuestionnaire = null;
     currentAssessmentResults = {};
   }
 
-  onAssessmentLoaded(Assessment assessment) {
-    lastAssessment = assessment;
+  onAssessmentLoaded(Questionnaire assessment) {
+    lastQuestionnaire = assessment;
     currentAssessmentResults = {};
   }
 

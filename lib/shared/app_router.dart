@@ -3,14 +3,11 @@ import 'package:prompt/locator.dart';
 import 'package:prompt/screens/about_screen.dart';
 import 'package:prompt/screens/about_video_screen.dart';
 import 'package:prompt/screens/assessments/disributed_learning_video_screen.dart';
-import 'package:prompt/screens/assessments/evening_assessment_screen.dart';
-import 'package:prompt/screens/assessments/final_assessment_screen.dart';
+import 'package:prompt/screens/auth/random_user_login_screen.dart';
 import 'package:prompt/screens/change_mascot_screen.dart';
-import 'package:prompt/screens/internalisation/daily_internalisation_screen.dart';
-import 'package:prompt/screens/internalisation/default_reminder_screen.dart';
-import 'package:prompt/screens/login_screen.dart';
-import 'package:prompt/screens/no_task_screen.dart';
-import 'package:prompt/screens/registration_screen.dart';
+import 'package:prompt/screens/auth/login_screen.dart';
+import 'package:prompt/screens/dashboard_screen.dart';
+import 'package:prompt/screens/auth/registration_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
 import 'package:prompt/screens/study_complete_screen.dart';
@@ -22,11 +19,9 @@ import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/change_mascot_view_model.dart';
-import 'package:prompt/viewmodels/daily_internalisation_view_model.dart';
-import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
-import 'package:prompt/viewmodels/final_asssessment_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
-import 'package:prompt/viewmodels/no_task_view_model.dart';
+import 'package:prompt/viewmodels/dashboard_view_model.dart';
+import 'package:prompt/viewmodels/random_user_login_view_model.dart';
 import 'package:prompt/viewmodels/registration_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
@@ -60,14 +55,22 @@ class AppRouter {
                   foregroundColor: Color(0xFFFFF3E0),
                 )));
 
+      case RouteNames.RANDOM_LOGIN:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => RandomUserLoginViewModel(
+                    locator.get<UserService>(),
+                    locator.get<NavigationService>()),
+                child: RandomUserLoginScreen()));
+
       case RouteNames.NO_TASKS:
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
-                  create: (_) => NoTaskViewModel(
+                  create: (_) => DashboardViewModel(
                       locator.get<ExperimentService>(),
                       locator.get<DataService>(),
                       locator.get<NavigationService>()),
-                  child: NoTasksScreen(),
+                  child: DashboardScreen(),
                 ));
 
       case RouteNames.SESSION_ZERO:
@@ -79,30 +82,6 @@ class AppRouter {
                     locator.get<RewardService>()),
                 child: SessionZeroScreen()));
 
-      case RouteNames.DAILY_INTERNALISATION:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => DailyInternalisationViewModel(
-                    locator.get<ExperimentService>(),
-                    locator.get<DataService>()),
-                child: DailyInternalisationScreen()));
-
-      case RouteNames.ASSESSMENT_EVENING:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => EveningAssessmentViewModel(
-                    locator.get<ExperimentService>(),
-                    locator.get<DataService>()),
-                child: EveningAssessmentScreen()));
-
-      case RouteNames.ASSESSMENT_FINAL:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => FinalAssessmentViewModel(
-                    locator.get<DataService>(),
-                    locator.get<ExperimentService>()),
-                child: FinalAssessmentScreen()));
-
       case RouteNames.MASCOT_CHANGE:
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
@@ -112,9 +91,6 @@ class AppRouter {
 
       case RouteNames.REWARD_SELECTION:
         return MaterialPageRoute(builder: (_) => RewardSelectionScreen());
-
-      case RouteNames.REMINDER_DEFAULT:
-        return MaterialPageRoute(builder: (_) => DefaultReminderScreen());
 
       case RouteNames.VIDEO_DISTRIBUTED_LEARNING:
         return MaterialPageRoute(builder: (_) => DistributedLearningVideo());

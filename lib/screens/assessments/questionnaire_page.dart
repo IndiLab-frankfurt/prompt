@@ -1,30 +1,32 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/models/assessment.dart';
-import 'package:prompt/models/assessment_item.dart';
+import 'package:prompt/models/questionnaire.dart';
+import 'package:prompt/models/question.dart';
 import 'package:prompt/screens/assessments/interval_scale.dart';
+import 'package:prompt/screens/assessments/questionnaire_text_input.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
 typedef void ItemSelectedCallback(
     String assessment, String itemId, String value);
 
-typedef void OnAssessmentCompletedCallback(Assessment assessment);
+typedef void OnAssessmentCompletedCallback(Questionnaire assessment);
 
-typedef void OnLoadedCallback(Assessment assessment);
+typedef void OnLoadedCallback(Questionnaire assessment);
 
-class Questionnaire extends StatefulWidget {
-  final Assessment assessment;
-  final ItemSelectedCallback onFinished;
+class QuestionnairePage extends StatefulWidget {
+  final Questionnaire assessment;
+  final ItemSelectedCallback onItemSelected;
   final OnLoadedCallback onLoaded;
   final OnAssessmentCompletedCallback? onAssessmentCompleted;
-  const Questionnaire(this.assessment, this.onFinished,
+  const QuestionnairePage(this.assessment, this.onItemSelected,
       {required this.onLoaded, this.onAssessmentCompleted, Key? key})
       : super(key: key);
 
   @override
-  _QuestionnaireState createState() => _QuestionnaireState();
+  _QuestionnairePageState createState() => _QuestionnairePageState();
 }
 
-class _QuestionnaireState extends State<Questionnaire> {
+class _QuestionnairePageState extends State<QuestionnairePage> {
   Map<String, String> _results = {};
 
   @override
@@ -84,7 +86,27 @@ class _QuestionnaireState extends State<Questionnaire> {
     }
   }
 
-  buildQuestionCard(AssessmentItem assessment, int index) {
+  buildQuestionCard(Question assessmentItem, int index) {
+    Widget questionWidget = Text("Something went wrong, check your code!");
+
+    if (assessmentItem.type == QuestionType.single) {
+      questionWidget = buildIntervalScale(assessmentItem, index);
+    }
+    if (assessmentItem.type == QuestionType.text_numeric) {
+      questionWidget = buildTextInput(assessmentItem, index);
+    }
+
+    return Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: questionWidget,
+        ));
+  }
+
+  Widget buildIntervalScale(Question assessmentItem, int index) {
     var groupValue = -1;
     if (_results.containsKey(widget.assessment.items[index].id)) {
       var parseResult =
@@ -94,28 +116,39 @@ class _QuestionnaireState extends State<Questionnaire> {
       }
     }
 
-    return Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: IntervalScale(
-            title: assessment.title,
-            labels: assessment.labels,
-            id: assessment.id,
-            groupValue: groupValue,
-            // groupValue: vm.getResultForIndex(index),
-            callback: (val) {
-              print("Changed Assessment value to: $val");
-              setState(() {
-                this.widget.onFinished(widget.assessment.id,
-                    widget.assessment.items[index].id, val);
-                _results[widget.assessment.items[index].id] = val;
-              });
-            },
-          ),
-        ));
+    return IntervalScale(
+      title: assessmentItem.questionText,
+      labels: assessmentItem.labels,
+      id: assessmentItem.id,
+      groupValue: groupValue,
+      callback: (val) {
+        print("Changed Assessment value to: $val");
+        setState(() {
+          this.widget.onItemSelected(
+              widget.assessment.id, widget.assessment.items[index].id, val);
+          _results[widget.assessment.items[index].id] = val;
+        });
+      },
+    );
+  }
+
+  Widget buildTextInput(Question item, int index) {
+    TextInputType inputType = TextInputType.text;
+    if (item.type == QuestionType.text_numeric) {
+      inputType = TextInputType.number;
+    }
+    return QuestionnaireTextInput(
+      question: item.questionText,
+      textInputType: inputType,
+      callback: (val) {
+        print("Text question $index changed to: $val");
+        setState(() {
+          this.widget.onItemSelected(
+              widget.assessment.id, widget.assessment.items[index].id, val);
+          _results[widget.assessment.items[index].id] = val;
+        });
+      },
+    );
   }
 
   bool _isFilledOut() {

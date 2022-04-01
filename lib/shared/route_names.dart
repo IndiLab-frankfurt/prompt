@@ -6,6 +6,7 @@ class RouteNames {
 
   static const REGISTER = "/register";
   static const LOG_IN = "/login";
+  static const RANDOM_LOGIN = "/randomlogin";
 
   static const REWARD_SELECTION = "/rewardselection";
 

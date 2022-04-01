@@ -70,7 +70,6 @@ class _IntervalScaleState extends State<IntervalScale> {
             groupValue: _groupValue,
             value: groupValue,
             onChanged: (value) {
-              // FocusScope.of(context).unfocus();
               if (value is int) {
                 _onChanged(value, groupValue.toString());
               }
@@ -112,7 +111,6 @@ class _IntervalScaleState extends State<IntervalScale> {
             ],
           ),
           onTap: () {
-            // FocusScope.of(context).nextFocus();
             FocusScope.of(context).nextFocus();
             _onChanged(groupValue, text);
           },
