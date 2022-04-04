@@ -166,8 +166,9 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   _buildTimerButton() {
     return Container(
-      child: ElevatedButton(
-        child: Text("Lernen", style: TextStyle(fontSize: 20)),
+      child: ElevatedButton.icon(
+        icon: Icon(Icons.timer),
+        label: Text("Lernuhr", style: TextStyle(fontSize: 20)),
         onPressed: () {
           vm.showDaysLearned = false;
           vm.showTimerConfiguration = true;
@@ -180,16 +181,16 @@ class _DashboardScreenState extends State<DashboardScreen>
     return Container(
       child: Column(
         children: [
-          Text("${vm.timerGoal.toInt().toString()} Minuten",
+          Text("${vm.timerGoalSeconds.toInt().toString()} Minuten",
               style: TextStyle(fontSize: 30)),
           Slider(
-              value: vm.timerGoal,
+              value: vm.timerGoalSeconds,
               onChanged: (newTimerValue) {
                 setState(() {
-                  vm.timerGoal = newTimerValue;
+                  vm.timerGoalSeconds = newTimerValue;
                 });
               },
-              label: "${vm.timerGoal.toInt()}",
+              label: "${vm.timerGoalSeconds.toInt()}",
               min: 0,
               max: 120),
           UIHelper.verticalSpaceMedium(),
@@ -205,7 +206,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         child: Text("Start"),
         onPressed: () {
           vm.showTimerConfiguration = false;
-          vm.startTimer(vm.timerGoal);
+          vm.startTimer(vm.timerGoalSeconds * 60);
           vm.showTimerControls = true;
         },
       ),
@@ -213,19 +214,31 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   _buildTimerControls() {
+    var minutes = vm.timerProgressSeconds ~/ 60;
+    var seconds = vm.timerProgressSeconds % 60;
+
     return Container(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        Text("${vm.timerProgress}", style: TextStyle(fontSize: 30)),
-        Center(
-            child: Row(
-          children: [
-            _buildTimerPause(),
-            _buildTimeStop(),
-          ],
-        ))
-      ],
+        child: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // format the timerprogress float as minutes:seconds
+          Text("$minutes:${seconds.toString().padLeft(2, "0")}",
+              style: TextStyle(fontSize: 30)),
+          Center(
+              child: Row(
+            mainAxisAlignment:
+                MainAxisAlignment.center, //Center Row contents horizontally,
+            crossAxisAlignment:
+                CrossAxisAlignment.center, //Center Row contents vertically,
+            children: [
+              _buildTimerPause(),
+              _buildTimeStop(),
+            ],
+          ))
+        ],
+      ),
     ));
   }
 

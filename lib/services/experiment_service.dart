@@ -79,9 +79,9 @@ class ExperimentService {
 
   nextScreen(String currentScreen) async {
     if (currentScreen == RouteNames.SESSION_ZERO) {
-      if (Platform.isAndroid) {
-        UsageStatsService.grantUsagePermission();
-      }
+      // if (Platform.isAndroid) {
+      //   UsageStatsService.grantUsagePermission();
+      // }
       return await _navigationService
           .navigateWithReplacement(RouteNames.NO_TASKS);
     }

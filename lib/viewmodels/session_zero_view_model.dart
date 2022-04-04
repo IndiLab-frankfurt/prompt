@@ -25,18 +25,15 @@ enum SessionZeroStep {
   planDisplay,
   planInternalisationWaiting,
   planInternalisationEmoji,
-  obstacleList,
   outcomeEnter,
   obstacleEnter,
   copingPlanCreation,
-  mascotSelection,
+  // mascotSelection,
 }
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   static List<SessionZeroStep> getScreenOrder(int group) {
     List<SessionZeroStep> screenOrder = [
-      SessionZeroStep.outcomeEnter,
-      SessionZeroStep.obstacleEnter,
       SessionZeroStep.welcome,
       SessionZeroStep.whoAreYou,
       SessionZeroStep.video_introduction,
@@ -49,6 +46,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planDisplay,
       SessionZeroStep.planInternalisationWaiting,
       SessionZeroStep.planInternalisationEmoji,
+      SessionZeroStep.outcomeEnter,
+      SessionZeroStep.obstacleEnter,
     ];
 
     return screenOrder;
@@ -78,7 +77,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   String _plan = "";
   String get plan => _plan;
   set plan(String plan) {
-    plan = "Wenn ich $plan, dann lerne ich mit cabuu!";
     this._plan = plan;
     internalisationViewmodelEmoji.plan = plan;
     internalisationViewmodelWaiting.plan = plan;
@@ -228,9 +226,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.planInternalisationWaiting:
       case SessionZeroStep.planDisplay:
         break;
-      case SessionZeroStep.mascotSelection:
-        _dataService.setSelectedMascot(selectedMascot);
-        break;
+      // case SessionZeroStep.mascotSelection:
+      //   _dataService.setSelectedMascot(selectedMascot);
+      //   break;
       case SessionZeroStep.planCreation:
         _dataService.savePlan(plan);
         break;
@@ -250,9 +248,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         // TODO: Handle this case.
         break;
       case SessionZeroStep.introduction_planning:
-        // TODO: Handle this case.
-        break;
-      case SessionZeroStep.obstacleList:
         // TODO: Handle this case.
         break;
       case SessionZeroStep.copingPlanCreation:
@@ -280,7 +275,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.planDisplay:
       case SessionZeroStep.video_introduction:
       case SessionZeroStep.welcome:
-      case SessionZeroStep.mascotSelection:
       case SessionZeroStep.video_planning:
       case SessionZeroStep.video_distributedLearning:
       case SessionZeroStep.planCreation:
@@ -289,7 +283,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.questions_sociodemographics:
       case SessionZeroStep.introduction_distributedLearning:
       case SessionZeroStep.introduction_planning:
-      case SessionZeroStep.obstacleList:
       case SessionZeroStep.copingPlanCreation:
       case SessionZeroStep.outcomeEnter:
       case SessionZeroStep.obstacleEnter:
@@ -306,7 +299,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     switch (stepKey) {
       case SessionZeroStep.welcome:
       case SessionZeroStep.planDisplay:
-      case SessionZeroStep.mascotSelection:
         return true;
       case SessionZeroStep.video_planning:
         return _videoPlanningCompleted;

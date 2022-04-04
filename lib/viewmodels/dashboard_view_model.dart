@@ -34,14 +34,14 @@ class DashboardViewModel extends BaseViewModel {
 
   late int daysActive = _experimentService.getDaysSinceStart();
 
-  double _timerGoal = 5;
-  double get timerGoal => _timerGoal;
-  set timerGoal(double timerGoal) {
-    _timerGoal = timerGoal;
+  double _timerGoalInSeconds = 5;
+  double get timerGoalSeconds => _timerGoalInSeconds;
+  set timerGoalSeconds(double timerGoal) {
+    _timerGoalInSeconds = timerGoal;
     notifyListeners();
   }
 
-  double timerProgress = 0;
+  double timerProgressSeconds = 0;
 
   DashboardViewModel(
       this._experimentService, this._dataService, this._navigationService);
@@ -68,11 +68,11 @@ class DashboardViewModel extends BaseViewModel {
 
   startTimer(duration) {
     timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
-      timerProgress += 1;
+      timerProgressSeconds += 1;
       notifyListeners();
-      if (timerProgress >= timerGoal) {
+      if (timerProgressSeconds >= timerGoalSeconds) {
         t.cancel();
-        timerProgress = 0;
+        timerProgressSeconds = 0;
       }
     });
   }
@@ -83,7 +83,7 @@ class DashboardViewModel extends BaseViewModel {
 
   stopTimer() {
     timer?.cancel();
-    timerProgress = 0;
+    timerProgressSeconds = 0;
     timer = null;
     notifyListeners();
   }

@@ -37,7 +37,7 @@ class AppStrings {
 
   // Session Zero Plan Creation
   static const String PlanCreation_LetsCreatePlan =
-      "Erstelle jetzt für dich selbst einen Plan.\nÜberlege dir einen Zeitpunkt oder Ort, der möglichst jeden Tag passt, um mit cabuu zu lernen (z.B. morgens nach dem Zähneputzen, mittags an der Bushaltestelle).\nVervollständige den Plan:";
+      "Erstelle jetzt für dich selbst einen Plan.\nÜberlege dir einen Zeitpunkt oder Ort, der möglichst jeden Tag passt, um Vokabeln zu lernen (z.B. morgens nach dem Zähneputzen, mittags an der Bushaltestelle).\nVervollständige den Plan:";
   static const String ThinkOfSomething =
       "Überlege dir etwas, das du jeden Tag tust, möglichst auch am Wochenende. Schreibe es in 1-3 Stichworten auf:";
   static const String GotTimeBeforeOrAfter =

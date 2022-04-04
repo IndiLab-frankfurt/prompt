@@ -33,7 +33,8 @@ class _WaitingInternalisationScreenState
   @override
   void initState() {
     super.initState();
-    initTimer();
+    // TODO: Remember that the timer is commented out for testing
+    // initTimer();
   }
 
   void initTimer() {

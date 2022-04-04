@@ -2,14 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:prompt/data/questions.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
-import 'package:prompt/screens/assessments/questionnaire_page.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
-import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
 import 'package:prompt/screens/session_zero/obstacle_enter_screen.dart';
 import 'package:prompt/screens/session_zero/outcome_enter_screen.dart';
-import 'package:prompt/screens/session_zero/outcome_selection_screen.dart';
-import 'package:prompt/screens/session_zero/outcome_sorting_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
 import 'package:prompt/screens/session_zero/text_screen.dart';
@@ -20,7 +16,6 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
-import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:async/async.dart';
 
@@ -109,8 +104,9 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         return WhoAreYouScreen(key: key);
 
       case SessionZeroStep.video_introduction:
-        return VideoScreen('assets/videos/videoPlanning.mp4',
-            key: key, onVideoCompleted: vm.videoPlanningCompleted);
+        return TextScreen(paragraphs: ["Hier Einführungsvideo"], key: key);
+      // return VideoScreen('assets/videos/videoPlanning.mp4',
+      //     key: key, onVideoCompleted: vm.videoPlanningCompleted);
 
       case SessionZeroStep.questions_sociodemographics:
         return MultiStepQuestionnairePage(
@@ -125,8 +121,10 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         ], key: key);
 
       case SessionZeroStep.video_distributedLearning:
-        return VideoScreen('assets/videos/videoDistributedLearning.mp4',
-            key: key, onVideoCompleted: vm.videoDistributedLearningCompleted);
+        return TextScreen(
+            paragraphs: ["Hier Video über verteiltes Lernen"], key: key);
+      //return VideoScreen('assets/videos/videoDistributedLearning.mp4',
+      //    key: key, onVideoCompleted: vm.videoDistributedLearningCompleted);
 
       case SessionZeroStep.introduction_planning:
         return TextScreen(
@@ -134,8 +132,10 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
             key: key);
 
       case SessionZeroStep.video_planning:
-        return VideoScreen('assets/videos/videoPlanning.mp4',
-            key: key, onVideoCompleted: vm.videoPlanningCompleted);
+        return TextScreen(
+            paragraphs: ["Hier Video über Wenn-dann-Pläne"], key: key);
+      // return VideoScreen('assets/videos/videoPlanning.mp4',
+      //     key: key, onVideoCompleted: vm.videoPlanningCompleted);
 
       case SessionZeroStep.planCreation:
         return PlanCreationScreen(key: key);
@@ -161,17 +161,13 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
                 emojiInputThen: true,
                 key: ValueKey(SessionZeroStep.planInternalisationEmoji)));
 
-      case SessionZeroStep.obstacleList:
-        return TextScreen(
-            paragraphs: ["Hier kommt die Obstacle List hin"], key: key);
-
       case SessionZeroStep.copingPlanCreation:
         return TextScreen(
             paragraphs: ["Hier kommt die Coping Plan Erstellung hin"],
             key: key);
 
-      case SessionZeroStep.mascotSelection:
-        return MascotSelectionScreen(key: key);
+      // case SessionZeroStep.mascotSelection:
+      //   return MascotSelectionScreen(key: key);
 
       case SessionZeroStep.outcomeEnter:
         return OutcomeEnterScreen(key: key);
