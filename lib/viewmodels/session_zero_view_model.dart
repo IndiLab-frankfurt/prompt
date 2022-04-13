@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
 import 'package:prompt/data/obstacles.dart';
 import 'package:prompt/data/outcomes.dart';
@@ -28,7 +29,7 @@ enum SessionZeroStep {
   outcomeEnter,
   obstacleEnter,
   copingPlanCreation,
-  // mascotSelection,
+  permissionRequest
 }
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
@@ -48,6 +49,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planInternalisationEmoji,
       SessionZeroStep.outcomeEnter,
       SessionZeroStep.obstacleEnter,
+      SessionZeroStep.permissionRequest
     ];
 
     return screenOrder;
@@ -64,6 +66,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   SortableListViewModel obstacleSelectionViewModel =
       SortableListViewModel.withInitialItems(obstacles);
   List<String> submittedResults = [];
+
+  Duration waitingDuration = Duration(seconds: 1);
 
   String _selectedMascot = "1";
   String get selectedMascot => _selectedMascot;
@@ -137,6 +141,14 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
+  void onPermissionRequest() {
+    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+      if (!isAllowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+  }
+
   final ExperimentService _experimentService;
   final DataService _dataService;
   final RewardService _rewardService;
@@ -161,10 +173,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     if (plan != null) {
       this.plan = plan.plan;
     }
-
-    // var ud = _dataService.getUserDataCache();
-    // initialStep = ud.initSessionStep;
-
     return true;
   }
 
@@ -259,6 +267,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.obstacleEnter:
         // TODO: Handle this case.
         break;
+      case SessionZeroStep.permissionRequest:
+        onPermissionRequest();
+        break;
     }
   }
 
@@ -286,6 +297,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.copingPlanCreation:
       case SessionZeroStep.outcomeEnter:
       case SessionZeroStep.obstacleEnter:
+      case SessionZeroStep.permissionRequest:
         return true;
     }
   }

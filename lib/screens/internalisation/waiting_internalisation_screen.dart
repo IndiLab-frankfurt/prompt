@@ -33,8 +33,7 @@ class _WaitingInternalisationScreenState
   @override
   void initState() {
     super.initState();
-    // TODO: Remember that the timer is commented out for testing
-    // initTimer();
+    initTimer();
   }
 
   void initTimer() {
@@ -76,7 +75,6 @@ class _WaitingInternalisationScreenState
             value: animation.value,
           ),
           UIHelper.verticalSpaceMedium(),
-          // if (_done) _buildSubmitButton()
         ],
       ),
     );

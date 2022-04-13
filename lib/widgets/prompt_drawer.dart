@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/locator.dart';
+import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/widgets/version_info.dart';
@@ -95,14 +96,13 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.SESSION_ZERO);
               }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Befragung Abends",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(
-          //           context, RouteNames.ASSESSMENT_EVENING);
-          //     }),
+          Divider(),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Notification Test",
+              onTap: () async {
+                locator.get<NotificationService>().sendDebugNotification();
+              }),
           // Divider(),
           // Column(
           //   children: [

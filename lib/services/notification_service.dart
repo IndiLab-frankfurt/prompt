@@ -5,6 +5,7 @@ import 'package:prompt/services/logging_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:collection/collection.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 class NotificationService {
   late FlutterLocalNotificationsPlugin localNotifications;
@@ -27,15 +28,7 @@ class NotificationService {
       "Strategie Erinnerung";
   static const String PAYLOAD_BOOSTER_PROMPT = "PAYLOAD_STRATEGIE_REMINDER";
 
-  static const String CHANNEL_ID_FINAL_REMINDER =
-      "Erinnerung Abschlussbefragung";
-  static const String CHANNEL_NAME_FINAL_REMINDER =
-      "Erinnerung Abschlussbefragung";
-  static const String CHANNEL_DESCRIPTION_FINAL_REMINDER =
-      "Erinnerung Abschlussbefragung";
-  static const String PAYLOAD_FINAL_REMINDER = "PAYLOAD_FINAL_REMINDER";
-
-  static const int ID_LDT_REMINDER = 87;
+  static const int ID_BOOST_PROMPT = 2389;
   static const int ID_MORNING = 6969;
   static const int ID_TASK_REMINDER = 42;
   static const int ID_FINAL_TASK_REMINDER = 1901;
@@ -95,7 +88,6 @@ class NotificationService {
 
   Future<void> _configureLocalTimeZone() async {
     tz.initializeTimeZones();
-    // final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
     tz.setLocalLocation(tz.getLocation("Europe/Berlin"));
   }
 
@@ -110,9 +102,6 @@ class NotificationService {
       }
       if (payload == PAYLOAD_EVENING) {
         locator.get<LoggingService>().logEvent("NotificationClickRecallTask");
-      }
-      if (payload == PAYLOAD_FINAL_REMINDER) {
-        locator.get<LoggingService>().logEvent("NotificationClickFinalTask");
       }
     }
   }
@@ -202,62 +191,27 @@ class NotificationService {
         tz.local, time.year, time.month, time.day, time.hour, time.minute);
 
     await localNotifications.zonedSchedule(
-        ID_LDT_REMINDER, title, body, scheduledDate, notificationDetails,
+        ID_BOOST_PROMPT, title, body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         payload: PAYLOAD_BOOSTER_PROMPT,
         androidAllowWhileIdle: true);
   }
 
-  scheduleFinalTaskReminder(DateTime dateTime) async {
-    await deleteScheduledFinalReminderTask();
-
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_FINAL_REMINDER, CHANNEL_NAME_FINAL_REMINDER,
-        channelDescription: CHANNEL_DESCRIPTION_FINAL_REMINDER, ongoing: true);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
-
-    var scheduledDate = tz.TZDateTime(tz.local, dateTime.year, dateTime.month,
-        dateTime.day, dateTime.hour, dateTime.minute);
-
-    String title = "Wir haben noch ein paar Fragen an dich!";
-    String body =
-        "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎";
-
-    await localNotifications.zonedSchedule(
-        ID_FINAL_TASK_REMINDER, title, body, scheduledDate, notificationDetails,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOAD_FINAL_REMINDER,
-        androidAllowWhileIdle: true);
-  }
-
-  sendDebugReminder() async {
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        "WURST", CHANNEL_NAME_EVENING,
-        channelDescription: CHANNEL_DESCRIPTION_EVENING);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
-
-    var now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month,
-        now.day, now.hour, now.minute, now.second + 20);
-
-    await localNotifications.zonedSchedule(
-        123123123,
-        "Ich bin eine Benachrichtigung",
-        "Ich bin eine Benachrichtigung",
-        scheduledDate,
-        notificationDetails,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOAD_EVENING,
-        androidAllowWhileIdle: true);
+  sendDebugNotification() async {
+    // send a test notification after ten seconds
+    await Future.delayed(Duration(seconds: 10));
+    AwesomeNotifications().createNotification(
+        actionButtons: [
+          NotificationActionButton(key: "DID_LEARN_TODAY", label: "Ja"),
+          NotificationActionButton(key: "DID_NOT_LEARN_TODAY", label: "Nein")
+        ],
+        content: NotificationContent(
+            id: 10,
+            channelKey: 'basic_channel',
+            title: 'Hast du heute Vokabeln gelernt?',
+            category: NotificationCategory.Social,
+            body: ''));
   }
 
   Future<List<PendingNotificationRequest>> getPendingNotifications() async {

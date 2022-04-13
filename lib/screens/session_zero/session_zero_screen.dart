@@ -6,6 +6,7 @@ import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
 import 'package:prompt/screens/session_zero/obstacle_enter_screen.dart';
 import 'package:prompt/screens/session_zero/outcome_enter_screen.dart';
+import 'package:prompt/screens/session_zero/permission_request_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
 import 'package:prompt/screens/session_zero/text_screen.dart';
@@ -36,23 +37,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // Map<SessionZeroStep, Widget> _stepScreenMap = {
-    //   SessionZeroStep.welcome: welcomeScreen,
-    //   SessionZeroStep.whoAreYou: whoAreYouScreen,
-    //   SessionZeroStep.video_introduction: introductionVideo,
-    //   SessionZeroStep.questions_sociodemographics: questions_sociodemographic,
-    //   SessionZeroStep.mascotSelection: mascotSelectionScreen,
-    //   SessionZeroStep.video_distributedLearning: videoDistributedLearning,
-    //   SessionZeroStep.video_planning: videoPlanning,
-    //   SessionZeroStep.planCreation: planCreation,
-    //   SessionZeroStep.planDisplay: planDisplay,
-    //   SessionZeroStep.planInternalisationEmoji: planInternalisationEmoji,
-    //   SessionZeroStep.planInternalisationWaiting: planInternalisationWaiting,
-    //   SessionZeroStep.outcomeSelection: outcomeSelection
-    // };
 
     _pages = [];
-
     for (var screen in vm.screenOrder) {
       _pages.add(getScreen(screen));
     }
@@ -147,7 +133,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         return ChangeNotifierProvider.value(
             value: vm.internalisationViewmodelWaiting,
             key: ValueKey(SessionZeroStep.planInternalisationWaiting),
-            child: WaitingInternalisationScreen(Duration(seconds: 15),
+            child: WaitingInternalisationScreen(vm.waitingDuration,
                 onCompleted: vm.onWaitingInternalisationCompleted,
                 key: ValueKey(SessionZeroStep.planInternalisationWaiting)));
 
@@ -174,6 +160,9 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
       case SessionZeroStep.obstacleEnter:
         return ObstacleEnterScreen(key: key);
+
+      case SessionZeroStep.permissionRequest:
+        return PermissionRequestScreen(key: key);
     }
   }
 }
