@@ -8,6 +8,7 @@ import 'package:prompt/screens/change_mascot_screen.dart';
 import 'package:prompt/screens/auth/login_screen.dart';
 import 'package:prompt/screens/dashboard_screen.dart';
 import 'package:prompt/screens/auth/registration_screen.dart';
+import 'package:prompt/screens/learning_tips_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
 import 'package:prompt/screens/study_complete_screen.dart';
@@ -103,6 +104,9 @@ class AppRouter {
 
       case RouteNames.STUDY_COMPLETE:
         return MaterialPageRoute(builder: (_) => StudyCompleteScreen());
+
+      case RouteNames.LEARNING_TIPS:
+        return MaterialPageRoute(builder: (_) => LearningTipsScreen());
 
       default:
         return MaterialPageRoute(builder: (_) {

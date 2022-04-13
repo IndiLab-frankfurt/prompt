@@ -152,3 +152,26 @@ class AppStrings {
 
   static const String Dashboard_daysLearned = "Tage gelernt";
 }
+
+const Map<String, String> LearningTips = {
+  "1. Tipp: Lerne Verteilt":
+      "Lerne lieber jeden Tag für ein paar Minuten statt ganz viel auf einmal. Wiederhole dabei öfter die Vokabeln, die du noch nicht so gut kannst. So wirst du dir die Vokabeln viel besser und länger merken.",
+  "2. Tipp: Teste dich":
+      "Lerne die Vokabeln so oft es geht unter Testbedingungen. Setze dir ein bestimmtes Zeitfenster und versuche die Vokabeln ohne Hilfestellungen wiederzugeben. Dadurch wirst du dir die Vokabeln viel besser merken können.",
+  "3. Tipp: Lerne mit allen Sinnen":
+      "Das Vokabellernen funktioniert umso besser, je mehr Sinne du in das Lernen miteinbeziehst. Zum Beispiel kannst du die Vokabeln laut vorlesen oder passende Bilder betrachten. Besonders effektiv ist es auch, das Wort mit einer Geste auszudrücken.",
+  "4. Tipp: Finde die passende Technik":
+      "Lernst du am besten mit Karteikarten, mit einem Lernpartner, überall verteilten Zetteln oder mit einer Vokabellern-App? Probiere aus, was für dich funktioniert und dir Spaß macht. Wechsle immer mal wieder deine Lerntechnik.",
+  "5. Tipp: Konzentriere dich":
+      "Konzentriere dich in den Lernphasen nur auf das Vokabellernen. Sorge dafür, dass du an einem ruhigen, aufgeräumten Ort lernst, wo dich nichts ablenkt.",
+  "6. Tipp: Mache es direkt richtig":
+      "Lerne nicht nur die Übersetzung, sondern auch andere Details wie zum Beispiel die genaue Schreibweise oder unregelmäßige Verbformen am besten direkt.",
+  "7. Tipp: Baue Brücken auf":
+      "Das Vokabellernen wird dir leichter fallen, wenn du neue Vokabeln mit bereits bekannten Vokabeln verknüpfst. Dabei kannst du beim Vokabellernen gezielt darauf achten, Ähnlichkeiten oder Unterschiede zwischen den Wörtern zu finden.",
+  "8. Tipp: Wende die Vokabeln an":
+      "Lass dein neues Wissen auch mal raus! Führe Selbstgespräche oder sprich mit Freunden und Familie, indem du die neuen Vokabeln benutzt. Das Vokabellernen ist besonders nachhaltig, wenn du das Wissen auch gleich anwendest.",
+  "9. Tipp: Tipp: Sei allzeit bereit":
+      "Hast du gerade ein paar Minuten Zeit? Ob an der Bushaltestelle, im Wartezimmer beim Arzt oder während der Werbung beim Fernsehschauen: Sorge dafür, dass du überall und jederzeit eine kleine Lerneinheit einlegen kannst.",
+  "10. Tipp: Finde deine Motivation":
+      "Keine Lust, Vokabeln zu lernen? Mache dir klar, warum du langfristig lernst – also nicht nur für den nächsten Test, sondern auf lange Sicht für dich persönlich. Frage dich zum Beispiel, wo du die Sprache überall einsetzen kannst – und wie toll es sich anfühlt, sie richtig gut zu beherrschen.",
+};

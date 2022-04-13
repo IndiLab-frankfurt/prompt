@@ -102,6 +102,14 @@ class _DashboardScreenState extends State<DashboardScreen>
                         fit: BoxFit.contain,
                         alignment: Alignment.bottomCenter)),
                 child: Scaffold(
+                    // floatingActionButtonLocation:
+                    //     FloatingActionButtonLocation.centerDocked,
+                    // floatingActionButton: FloatingActionButton(
+                    //   child: const Icon(Icons.add),
+                    //   onPressed: () {
+                    //   },
+                    // ),
+                    // bottomNavigationBar: _buildBottomAppBar(),
                     backgroundColor: Colors.transparent,
                     appBar: PromptAppBar(showBackButton: true),
                     drawer: _getDrawer(),
@@ -137,6 +145,27 @@ class _DashboardScreenState extends State<DashboardScreen>
                     ))),
           ],
         ));
+  }
+
+  _buildBottomAppBar() {
+    return BottomAppBar(
+      shape: CircularNotchedRectangle(),
+      notchMargin: 4.0,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          IconButton(
+            icon: Icon(Icons.menu),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: Icon(Icons.search),
+            onPressed: () {},
+          )
+        ],
+      ),
+    );
   }
 
   _buildStatistics() {
@@ -202,13 +231,32 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   _buildStartTimerButton() {
     return Container(
-      child: ElevatedButton(
-        child: Text("Start"),
-        onPressed: () {
-          vm.showTimerConfiguration = false;
-          vm.startTimer(vm.timerGoalSeconds * 60);
-          vm.showTimerControls = true;
-        },
+      child: Center(
+        child: Column(
+          mainAxisAlignment:
+              MainAxisAlignment.center, //Center Row contents horizontally,
+          crossAxisAlignment:
+              CrossAxisAlignment.center, //Center Row contents vertically,
+          children: [
+            ElevatedButton(
+              child: Text("Start"),
+              onPressed: () {
+                vm.showTimerConfiguration = false;
+                vm.startTimer(vm.timerGoalSeconds * 60);
+                vm.showTimerControls = true;
+              },
+            ),
+            ElevatedButton(
+              child: Text("Abbrechen"),
+              onPressed: () {
+                vm.stopTimer();
+                vm.showDaysLearned = true;
+                vm.showTimerConfiguration = false;
+                vm.showTimerControls = false;
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
