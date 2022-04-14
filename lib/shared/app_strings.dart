@@ -25,7 +25,7 @@ class AppStrings {
   // Session Zero Welcome Screen
   static const String Welcome_WelcomeToPROMPT = "Willkommen bei PROMPT!";
   static const String Welcome_IntroductionTakeYourTime =
-      "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.";
+      "Auf den nächsten Seiten geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.";
 
   // Session Zero Cabuu Link
   static const String CabuuLink_WantToParticipate =
