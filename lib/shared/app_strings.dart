@@ -37,7 +37,7 @@ class AppStrings {
 
   // Session Zero Plan Creation
   static const String PlanCreation_LetsCreatePlan =
-      "Erstelle jetzt für dich selbst einen Plan.\nÜberlege dir einen Zeitpunkt oder Ort, der möglichst jeden Tag passt, um Vokabeln zu lernen (z.B. morgens nach dem Zähneputzen, mittags an der Bushaltestelle).\nVervollständige den Plan:";
+      "Erstelle jetzt für dich selbst einen Plan.\nÜberlege dir einen Zeitpunkt oder Ort, um Vokabeln zu lernen.\nVervollständige den Plan:";
   static const String ThinkOfSomething =
       "Überlege dir etwas, das du jeden Tag tust, möglichst auch am Wochenende. Schreibe es in 1-3 Stichworten auf:";
   static const String GotTimeBeforeOrAfter =
@@ -47,13 +47,13 @@ class AppStrings {
   static const String Neither = "Weder noch";
 
   static const String SessionZero_Introduction_DistributedLearning_1 = """
-  Beim Vokabellernen kann man Strategien anwernden, die einem beim Lernen und Erinnern helfen. 
-  Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.
+  Auf der nächsten Seite siehst du ein Video, in dem dir das Monster einen Trick erklärt, mit dem es sich Vokabeln besonders gut und lange merken kann.
 """;
 
   static const String SessionZero_Introduction_Planning_1 = """
-  Es kann schwierig sein, jeden Tag daran zu denken, Vokabeln zu lernen. 
-  Auf der nächsten Seite zeit dir unser Monster einen Trick, der dir dabei hilft, dieses Ziel zu erreichen.
+  Der Trick des Monsters ist also: Möglichst oft ein paar Vokabeln!
+  Aber wie schafft man das im Alltag? 
+  Auch dafür hat das Monster einen Trick, den es dir auf der nächsten Seite zeigt!
 """;
 
   // Session Zero Plan Display
@@ -62,9 +62,9 @@ class AppStrings {
   static const String PlanDisplay_RememberYourPlan = "Merke dir den Plan gut!";
 
   static const String SessionZero_ObstacleEnter_1 =
-      "Was wären mögliche **Hindernisse**, die dich davon abhalten könnten, deine Ziele zu erreichen?";
+      "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:";
   static const String SessionZero_OutcomeEnter_1 =
-      "Denk mal nach: Warum ist es für dich wichtig, Englischvokabeln zu lernen? Wie könnte es für dich auch außerhalb der Schule gut sein, viele Englischvokabeln zu kennen?";
+      "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:";
 
   static const String GoalIntention_ParagraphOne =
       "Damit du es schaffst, regelmäßig Vokabeln zu lernen, solltest du dir ein **Ziel** setzen";
