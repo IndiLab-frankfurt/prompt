@@ -18,6 +18,8 @@ enum SessionZeroStep {
   whoAreYou,
   video_introduction,
   questions_sociodemographics,
+  questions_vocablearning,
+  questions_usability,
   introduction_distributedLearning,
   video_distributedLearning,
   introduction_planning,
@@ -39,6 +41,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.whoAreYou,
       SessionZeroStep.video_introduction,
       SessionZeroStep.questions_sociodemographics,
+      SessionZeroStep.questions_vocablearning,
       SessionZeroStep.introduction_distributedLearning,
       SessionZeroStep.video_distributedLearning,
       SessionZeroStep.introduction_planning,
@@ -49,6 +52,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planInternalisationEmoji,
       SessionZeroStep.outcomeEnter,
       SessionZeroStep.obstacleEnter,
+      SessionZeroStep.copingPlanCreation,
+      SessionZeroStep.questions_usability,
       SessionZeroStep.permissionRequest
     ];
 
@@ -103,15 +108,22 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   String _outcome = "";
   String get outcome => _outcome;
-  set outcome(String vocabValue) {
-    _outcome = vocabValue;
+  set outcome(String value) {
+    _outcome = value;
     notifyListeners();
   }
 
   String _obstacle = "";
-  String get obstacle => _outcome;
-  set obstacle(String vocabValue) {
-    _outcome = vocabValue;
+  String get obstacle => _obstacle;
+  set obstacle(String value) {
+    _obstacle = value;
+    notifyListeners();
+  }
+
+  String _copingPlan = "";
+  String get copingPlan => _copingPlan;
+  set copingPlan(String value) {
+    _copingPlan = value;
     notifyListeners();
   }
 
@@ -252,6 +264,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.questions_sociodemographics:
         // TODO: Handle this case.
         break;
+      case SessionZeroStep.questions_vocablearning:
+      case SessionZeroStep.questions_usability:
+        break;
       case SessionZeroStep.introduction_distributedLearning:
         // TODO: Handle this case.
         break;
@@ -292,6 +307,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.planInternalisationEmoji:
       case SessionZeroStep.planInternalisationWaiting:
       case SessionZeroStep.questions_sociodemographics:
+      case SessionZeroStep.questions_vocablearning:
+      case SessionZeroStep.questions_usability:
       case SessionZeroStep.introduction_distributedLearning:
       case SessionZeroStep.introduction_planning:
       case SessionZeroStep.copingPlanCreation:

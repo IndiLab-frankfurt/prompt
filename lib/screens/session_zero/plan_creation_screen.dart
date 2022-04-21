@@ -55,8 +55,8 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
       MarkdownBody(data: '### _Wenn_'),
       buildIfPart(),
       UIHelper.verticalSpaceSmall(),
-      MarkdownBody(data: '### _dann_'),
-      buildThenPart(),
+      MarkdownBody(data: '### dann lerne ich Vokabeln!'),
+      // buildThenPart(),
     ]);
   }
 
@@ -65,7 +65,7 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
     return TextField(
         controller: _textControllerIfPart,
         onChanged: (newText) {
-          var fullPlan = "Wenn $newText dann ${_textControllerIfPart.text}";
+          var fullPlan = "Wenn $newText dann lerne ich Vokabeln!";
           vm.plan = fullPlan;
         },
         decoration: new InputDecoration(hintText: '...'),

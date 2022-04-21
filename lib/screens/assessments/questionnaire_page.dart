@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/models/question.dart';
-import 'package:prompt/screens/assessments/interval_scale.dart';
+import 'package:prompt/screens/assessments/multiple_selection_question.dart';
+import 'package:prompt/screens/assessments/single_selection_question.dart';
 import 'package:prompt/screens/assessments/questionnaire_text_input.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
@@ -27,11 +28,15 @@ class QuestionnairePage extends StatefulWidget {
 }
 
 class _QuestionnairePageState extends State<QuestionnairePage> {
-  Map<String, String> _results = {};
+  Map<String, List<String>> _results = {};
 
   @override
   void initState() {
     super.initState();
+
+    for (var item in widget.assessment.items) {
+      _results[item.id] = [];
+    }
   }
 
   @override
@@ -90,7 +95,10 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     Widget questionWidget = Text("Something went wrong, check your code!");
 
     if (assessmentItem.type == QuestionType.single) {
-      questionWidget = buildIntervalScale(assessmentItem, index);
+      questionWidget = buildSingleSelectionQuestion(assessmentItem, index);
+    }
+    if (assessmentItem.type == QuestionType.multiple) {
+      questionWidget = buildMultipleSelectionQuestion(assessmentItem, index);
     }
     if (assessmentItem.type == QuestionType.text_numeric) {
       questionWidget = buildTextInput(assessmentItem, index);
@@ -106,27 +114,61 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
         ));
   }
 
-  Widget buildIntervalScale(Question assessmentItem, int index) {
+  Widget buildMultipleSelectionQuestion(Question question, int index) {
+    var selectedValues = [];
+
+    return MultipleSelectionQuestion(
+      id: question.id,
+      labels: question.labels,
+      callback: (itemId, selectedValue) {
+        setState(() {
+          widget.onItemSelected(
+              widget.assessment.title, itemId, selectedValue.toString());
+          if (selectedValue != null) {
+            if (selectedValue) {
+              _results[question.id]!.add(selectedValue.toString());
+            } else {
+              _results[question.id]!.remove(selectedValue.toString());
+            }
+          } else {
+            _results[question.id]!.remove(selectedValue.toString());
+          }
+        });
+      },
+      selectedValues: _results[question.id]!,
+    );
+  }
+
+  Widget buildSingleSelectionQuestion(Question question, int index) {
     var groupValue = -1;
-    if (_results.containsKey(widget.assessment.items[index].id)) {
-      var parseResult =
-          int.tryParse(_results[widget.assessment.items[index].id]!);
-      if (parseResult is int) {
-        groupValue = parseResult;
+    if (_results[question.id]!.length > 0) {
+      if (_results.containsKey(widget.assessment.items[index].id)) {
+        var parseResult =
+            int.tryParse(_results[widget.assessment.items[index].id]![0]);
+        if (parseResult is int) {
+          groupValue = parseResult;
+        }
       }
     }
+    // if (_results.containsKey(widget.assessment.items[index].id)) {
+    //   var parseResult =
+    //       int.tryParse(_results[widget.assessment.items[index].id]![0]);
+    //   if (parseResult is int) {
+    //     groupValue = parseResult;
+    //   }
+    // }
 
-    return IntervalScale(
-      title: assessmentItem.questionText,
-      labels: assessmentItem.labels,
-      id: assessmentItem.id,
+    return SingleSelectionQuestion(
+      title: question.questionText,
+      labels: question.labels,
+      id: question.id,
       groupValue: groupValue,
       callback: (val) {
         print("Changed Assessment value to: $val");
         setState(() {
           this.widget.onItemSelected(
               widget.assessment.id, widget.assessment.items[index].id, val);
-          _results[widget.assessment.items[index].id] = val;
+          _results[widget.assessment.items[index].id]!.add(val);
         });
       },
     );
@@ -145,7 +187,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
         setState(() {
           this.widget.onItemSelected(
               widget.assessment.id, widget.assessment.items[index].id, val);
-          _results[widget.assessment.items[index].id] = val;
+          _results[widget.assessment.items[index].id] = [val];
         });
       },
     );
@@ -154,7 +196,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   bool _isFilledOut() {
     bool canSubmit = true;
     for (var assessmentItem in widget.assessment.items) {
-      if (!_results.containsKey(assessmentItem.id)) canSubmit = false;
+      if (_results[assessmentItem.id]!.length == 0) canSubmit = false;
     }
 
     return canSubmit;

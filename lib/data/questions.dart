@@ -15,3 +15,42 @@ late var sociodemographicQuestions =
       questionText: "Ich bin...",
       labels: {"boy": "Junge", "girl": "Mädchen", "other": "Weder noch"})
 ]);
+
+late var vocabQuestions = Questionnaire(
+    id: "vocab_questions",
+    title: "Fragen zum Vokabellernen",
+    items: [
+      Question(
+          id: "how_often_vocab",
+          type: QuestionType.single,
+          questionText: "Wie oft lernst du Vobakeln?",
+          labels: {
+            "1": "(fast) jeden Tag",
+            "2": "4-6 mal pro Woche",
+            "3": "1-3 mal pro Woche",
+            "4": "weniger als 1 Tag pro Woche",
+          }),
+      Question(
+          id: "which_languages_vocab",
+          type: QuestionType.multiple,
+          questionText: "Für welche Sprache(n) lernst du Vokabeln?",
+          labels: {
+            "english": "Englisch",
+            "french": "Französisch",
+            "spanish": "Spanisch",
+            "dutch": "Niederländisch",
+            "turkish": "Türkisch",
+            "italian": "Italienisch",
+            "other": "Andere"
+          }),
+      Question(
+          id: "vocab_stratagies",
+          type: QuestionType.multiple,
+          questionText: "Welche der folgenden Aussagen trifft auf dich zu?",
+          labels: {
+            "how_often":
+                "Ich habe ein genaues Ziel, wie oft ich Vokabeln lernen will",
+            "when": "Ich habe einen genauen Plan, wann ich Vokabeln lerne",
+            "where": "Ich habe einen genauen Plan, wann ich Vokabeln lerne",
+          })
+    ]);

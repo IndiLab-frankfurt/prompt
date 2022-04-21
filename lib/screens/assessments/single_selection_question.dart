@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-typedef void IntervalScaleCallback(String val);
+typedef void SingleSelectionQuestionCallback(String val);
 
-class IntervalScale extends StatefulWidget {
+class SingleSelectionQuestion extends StatefulWidget {
   @override
-  _IntervalScaleState createState() => _IntervalScaleState();
+  _SingleSelectionQuestionState createState() =>
+      _SingleSelectionQuestionState();
 
   final String title;
   final Map<String, String> labels;
   final String id;
-  final IntervalScaleCallback callback;
+  final SingleSelectionQuestionCallback callback;
   final int groupValue;
   final bool randomize;
 
-  IntervalScale(
+  SingleSelectionQuestion(
       {Key? key,
       this.title = "",
       required this.labels,
@@ -25,7 +26,7 @@ class IntervalScale extends StatefulWidget {
       : super(key: key);
 }
 
-class _IntervalScaleState extends State<IntervalScale> {
+class _SingleSelectionQuestionState extends State<SingleSelectionQuestion> {
   int _groupValue = -1;
   Map<String, String> items = {};
 
@@ -77,7 +78,7 @@ class _IntervalScaleState extends State<IntervalScale> {
           ),
           Expanded(
             child: MarkdownBody(
-              data: text,
+              data: "### " + text,
             ),
           )
         ],

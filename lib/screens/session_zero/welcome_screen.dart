@@ -11,7 +11,7 @@ class WelcomeScreen extends StatelessWidget {
       margin: UIHelper.getContainerMargin(),
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/illustrations/mascots_group.png"),
+              image: AssetImage("assets/illustrations/mascot_1_bare.png"),
               fit: BoxFit.fitWidth,
               alignment: Alignment.bottomCenter)),
       child: Column(

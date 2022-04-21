@@ -43,33 +43,33 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Serene',
       theme: ThemeData(
-          scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
-          canvasColor: Colors.white,
-          selectedRowColor: Colors.orange[200],
-          textTheme: TextTheme(
-            bodyText1: GoogleFonts.quicksand(fontSize: 15),
-            bodyText2: GoogleFonts.quicksand(
-                fontSize: 15, fontWeight: FontWeight.w700),
-            subtitle1: GoogleFonts.quicksand(
-                fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-          // GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
-          buttonTheme: ButtonThemeData(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)))),
-          iconTheme: IconThemeData(color: Colors.black),
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)
-              .copyWith(secondary: Color(0xfff96d15))),
+        scaffoldBackgroundColor: Colors.transparent,
+        canvasColor: Colors.white,
+        selectedRowColor: Colors.orange[200],
+        textTheme: TextTheme(
+          bodyText1: GoogleFonts.quicksand(fontSize: 15),
+          bodyText2:
+              GoogleFonts.quicksand(fontSize: 15, fontWeight: FontWeight.w700),
+          subtitle1:
+              GoogleFonts.quicksand(fontSize: 20, fontWeight: FontWeight.w600),
+        ),
+        // GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
+        buttonTheme: ButtonThemeData(
+          buttonColor: Colors.white,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)))),
+        iconTheme: IconThemeData(color: Colors.black),
+        // colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)
+        //     .copyWith(secondary: Color(0xfff96d15))
+      ),
       onGenerateRoute: AppRouter.generateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
       home: StartupScreen(),
-      // initialRoute: initialRoute,
-      // routes: Router.getRoutes(),
     );
   }
 

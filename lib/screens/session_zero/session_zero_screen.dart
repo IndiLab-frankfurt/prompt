@@ -4,6 +4,7 @@ import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
+import 'package:prompt/screens/session_zero/coping_plan_enter_screen.dart';
 import 'package:prompt/screens/session_zero/obstacle_enter_screen.dart';
 import 'package:prompt/screens/session_zero/outcome_enter_screen.dart';
 import 'package:prompt/screens/session_zero/permission_request_screen.dart';
@@ -55,29 +56,32 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async => false,
-        child: Scaffold(
-            appBar: PromptAppBar(showBackButton: true),
-            drawer: PromptDrawer(),
-            body: SafeArea(
-              child: FutureBuilder(
-                future: init(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  if (snapshot.hasData) {
-                    return Container(
-                        margin: UIHelper.containerMargin,
-                        child: MultiStepAssessment(
-                          vm,
-                          _pages,
-                        ));
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-            )));
+        child: Container(
+          decoration: UIHelper.defaultBoxDecoration,
+          child: Scaffold(
+              appBar: PromptAppBar(showBackButton: true),
+              drawer: PromptDrawer(),
+              body: SafeArea(
+                child: FutureBuilder(
+                  future: init(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.hasData) {
+                      return Container(
+                          margin: UIHelper.containerMargin,
+                          child: MultiStepAssessment(
+                            vm,
+                            _pages,
+                          ));
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                  },
+                ),
+              )),
+        ));
   }
 
   Widget getScreen(SessionZeroStep step) {
@@ -100,6 +104,16 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
           vm: vm,
           questionnaire: sociodemographicQuestions,
         );
+
+      case SessionZeroStep.questions_vocablearning:
+        return MultiStepQuestionnairePage(
+          key: key,
+          vm: vm,
+          questionnaire: vocabQuestions,
+        );
+
+      case SessionZeroStep.questions_usability:
+        return TextScreen(paragraphs: ["Hier Usability Fragen"], key: key);
 
       case SessionZeroStep.introduction_distributedLearning:
         return TextScreen(paragraphs: [
@@ -148,9 +162,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
                 key: ValueKey(SessionZeroStep.planInternalisationEmoji)));
 
       case SessionZeroStep.copingPlanCreation:
-        return TextScreen(
-            paragraphs: ["Hier kommt die Coping Plan Erstellung hin"],
-            key: key);
+        return CopingPlanEnterScreen(key: key);
 
       // case SessionZeroStep.mascotSelection:
       //   return MascotSelectionScreen(key: key);

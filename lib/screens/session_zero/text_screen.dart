@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
 class TextScreen extends StatelessWidget {
@@ -13,7 +12,7 @@ class TextScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     List<Widget> children = [];
     for (var text in paragraphs) {
-      children.add(MarkdownBody(data: text));
+      children.add(Text(text, style: Theme.of(context).textTheme.subtitle1));
       children.add(UIHelper.verticalSpaceMedium());
     }
 

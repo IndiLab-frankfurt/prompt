@@ -5,14 +5,14 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
 
-class OutcomeEnterScreen extends StatefulWidget {
-  OutcomeEnterScreen({Key? key}) : super(key: key);
+class CopingPlanEnterScreen extends StatefulWidget {
+  CopingPlanEnterScreen({Key? key}) : super(key: key);
 
   @override
-  _OutcomeEnterScreenState createState() => _OutcomeEnterScreenState();
+  _CopingPlanEnterScreenState createState() => _CopingPlanEnterScreenState();
 }
 
-class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
+class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
   @override
   void initState() {
     super.initState();
@@ -25,7 +25,7 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
     return Container(
       child: Column(
         children: [
-          MarkdownBody(data: "### ${AppStrings.SessionZero_OutcomeEnter_1}"),
+          MarkdownBody(data: "### ${AppStrings.SessionZero_CopingPlanEnter_1}"),
           UIHelper.verticalSpaceMedium(),
           Flexible(
             flex: 9,

@@ -58,6 +58,12 @@ class PromptDrawer extends StatelessWidget {
           ),
           Divider(),
           _buildDrawerItem(
+              icon: Icons.home,
+              text: "Hauptbildschirm",
+              onTap: () async {
+                await Navigator.pushNamed(context, RouteNames.NO_TASKS);
+              }),
+          _buildDrawerItem(
               icon: Icons.image_outlined,
               text: "Hintergrund ändern",
               onTap: () async {

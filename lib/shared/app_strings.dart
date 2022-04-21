@@ -46,14 +46,16 @@ class AppStrings {
   static const String After = "Danach";
   static const String Neither = "Weder noch";
 
-  static const String SessionZero_Introduction_DistributedLearning_1 = """
-  Auf der nächsten Seite siehst du ein Video, in dem dir das Monster einen Trick erklärt, mit dem es sich Vokabeln besonders gut und lange merken kann.
+  static const String SessionZero_Introduction_DistributedLearning_1 =
+      """Auf der nächsten Seite siehst du ein Video, in dem dir das Monster einen Trick erklärt, mit dem es sich Vokabeln besonders gut und lange merken kann.
 """;
 
-  static const String SessionZero_Introduction_Planning_1 = """
-  Der Trick des Monsters ist also: Möglichst oft ein paar Vokabeln!
-  Aber wie schafft man das im Alltag? 
-  Auch dafür hat das Monster einen Trick, den es dir auf der nächsten Seite zeigt!
+  static const String SessionZero_Introduction_Planning_1 =
+      """Der Trick des Monsters ist also: Möglichst oft ein paar Vokabeln!
+  
+Aber wie schafft man das im Alltag? 
+
+Auch dafür hat das Monster einen Trick, den es dir auf der nächsten Seite zeigt!
 """;
 
   // Session Zero Plan Display
@@ -65,6 +67,8 @@ class AppStrings {
       "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:";
   static const String SessionZero_OutcomeEnter_1 =
       "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:";
+  static const String SessionZero_CopingPlanEnter_1 =
+      "Wie könntest du dieses Hindernis überwinden? Notier hier, was du tun könntest:";
 
   static const String GoalIntention_ParagraphOne =
       "Damit du es schaffst, regelmäßig Vokabeln zu lernen, solltest du dir ein **Ziel** setzen";

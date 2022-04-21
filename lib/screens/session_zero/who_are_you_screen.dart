@@ -38,7 +38,10 @@ class _WhoAreYouScreenState extends State<WhoAreYouScreen> {
     return Container(
       child: ListView(
         children: [
-          Text('Wer bist du?'),
+          Text(
+            'Wer bist du?',
+            style: TextStyle(fontSize: 20),
+          ),
           // Create four toggle buttons below each other
           // with the same group value.
           UIHelper.verticalSpaceLarge(),
@@ -47,7 +50,9 @@ class _WhoAreYouScreenState extends State<WhoAreYouScreen> {
             borderColor: Colors.black,
             selectedBorderColor: Colors.orange,
             fillColor: Colors.white,
+            textStyle: TextStyle(fontSize: 20),
             selectedColor: Colors.black,
+            borderRadius: BorderRadius.all(Radius.circular(10)),
             borderWidth: 1,
             children: buttons,
             onPressed: (int index) {

@@ -39,6 +39,7 @@ class _PromptAppBarState extends State<PromptAppBar> {
     return AppBar(
       backgroundColor: Colors.transparent,
       automaticallyImplyLeading: widget.showBackButton,
+      iconTheme: IconThemeData(color: Colors.black),
       elevation: 0,
       actions: [
         // _buildAboutButton(),
