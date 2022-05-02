@@ -68,7 +68,7 @@ Auch dafür hat das Monster einen Trick, den es dir auf der nächsten Seite zeig
   static const String SessionZero_OutcomeEnter_1 =
       "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:";
   static const String SessionZero_CopingPlanEnter_1 =
-      "Wie könntest du dieses Hindernis überwinden? Notier hier, was du tun könntest:";
+      "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:";
 
   static const String GoalIntention_ParagraphOne =
       "Damit du es schaffst, regelmäßig Vokabeln zu lernen, solltest du dir ein **Ziel** setzen";

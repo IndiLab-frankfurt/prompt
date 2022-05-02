@@ -30,7 +30,9 @@ class MultipleSelectionQuestion extends StatefulWidget {
 class _MultipleSelectionQuestionState extends State<MultipleSelectionQuestion> {
   List<String> _selectedValues = [];
 
-  MultipleSelectionQuestionnaireState() {
+  @override
+  void initState() {
+    super.initState();
     if (widget.selectedValues != null) {
       _selectedValues = widget.selectedValues!;
     }
@@ -55,7 +57,7 @@ class _MultipleSelectionQuestionState extends State<MultipleSelectionQuestion> {
   buildCheckboxItem(String key, String text) {
     var selected = _selectedValues.contains(key);
     return CheckboxListTile(
-      title: MarkdownBody(data: "### " + text),
+      title: MarkdownBody(data: "## " + text),
       value: selected,
       onChanged: (bool? newValue) {
         if (newValue != null) {

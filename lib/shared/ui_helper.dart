@@ -26,11 +26,14 @@ class UIHelper {
       border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))));
 
+  static Color bgGradientStart = Color(0xfff2994a);
+  static Color bgGradientEnd = Color(0xfff2c94c);
+
   static BoxDecoration defaultBoxDecoration = BoxDecoration(
     gradient: LinearGradient(
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
-        colors: [Color(0xfff2994a), Color(0xfff2c94c)]),
+        colors: [bgGradientStart, bgGradientEnd]),
   );
 
   static Widget verticalSpaceSmall() {

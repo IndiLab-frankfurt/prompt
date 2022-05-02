@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/sortable_list_view_model.dart';
 import 'package:provider/provider.dart';

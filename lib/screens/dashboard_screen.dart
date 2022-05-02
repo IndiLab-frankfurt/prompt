@@ -4,8 +4,10 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
+import 'package:prompt/widgets/full_width_button.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +46,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   void onResumed() {
     print("on resumed");
     setState(() {
-      vm.getNextTask();
+      vm.initialize();
     });
   }
 
@@ -102,43 +104,18 @@ class _DashboardScreenState extends State<DashboardScreen>
                         fit: BoxFit.contain,
                         alignment: Alignment.bottomCenter)),
                 child: Scaffold(
-                    // floatingActionButtonLocation:
-                    //     FloatingActionButtonLocation.centerDocked,
-                    // floatingActionButton: FloatingActionButton(
-                    //   child: const Icon(Icons.add),
-                    //   onPressed: () {
-                    //   },
-                    // ),
+                    floatingActionButtonLocation:
+                        FloatingActionButtonLocation.centerFloat,
+                    // floatingActionButton: _buildFloatingActionButton(),
                     // bottomNavigationBar: _buildBottomAppBar(),
                     backgroundColor: Colors.transparent,
                     appBar: PromptAppBar(showBackButton: true),
                     drawer: _getDrawer(),
                     body: FutureBuilder(
-                      future: vm.getNextTask(),
+                      future: vm.initialize(),
                       builder: (_, snapshot) {
                         if (snapshot.hasData) {
-                          return Container(
-                              child: Align(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      UIHelper.verticalSpaceLarge(),
-                                      UIHelper.verticalSpaceMedium(),
-                                      // Divider(),
-                                      if (vm.showDaysLearned)
-                                        _buildStatistics(),
-                                      UIHelper.verticalSpaceMedium(),
-                                      if (vm.showDaysLearned)
-                                        _buildHabitButton(),
-                                      if (vm.showDaysLearned)
-                                        _buildTimerButton(),
-                                      if (vm.showTimerConfiguration)
-                                        _buildTimerConfiguration(),
-                                      if (vm.showTimerControls)
-                                        _buildTimerControls()
-                                    ],
-                                  ),
-                                  alignment: Alignment(0.0, 0.6)));
+                          return _buildBody();
                         }
                         return Center(child: CircularProgressIndicator());
                       },
@@ -147,24 +124,106 @@ class _DashboardScreenState extends State<DashboardScreen>
         ));
   }
 
+  _buildBody() {
+    return Container(
+        margin: UIHelper.getContainerMargin(),
+        child: Stack(children: [
+          Align(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  // UIHelper.verticalSpaceLarge(),
+                  // UIHelper.verticalSpaceMedium(),
+                  _buildStatistics(),
+                  // UIHelper.verticalSpaceMedium(),
+                  // if (vm.showHabitButton)
+                  // _buildHabitButton(),
+                  // if (vm.showDaysLearned)
+                  //   _buildTimerButton(),
+                  // _buildTaskList(),
+                  // if (vm.showTimerConfiguration)
+                  //   _buildTimerConfiguration(),
+                  // if (vm.showTimerControls)
+                  //   _buildTimerControls()
+                  Spacer(),
+                  ..._getTasks(),
+                  UIHelper.verticalSpaceSmall()
+                ],
+              ),
+              alignment: Alignment(0.0, 0.6)),
+          // Align(alignment: Alignment.bottomCenter, child: _buildTaskList())
+        ]));
+  }
+
+  _buildTaskList() {
+    return ListView(children: [
+      _buildHabitButton(),
+      _buildHabitButton(),
+      _buildHabitButton(),
+    ]);
+  }
+
+  _getTasks() {
+    return [
+      Container(
+          padding: EdgeInsets.all(10),
+          child: _buildOutlinedHeader("Deine Aufgaben:")),
+      UIHelper.verticalSpaceSmall(),
+      _buildToDistributedLearningButton(),
+      UIHelper.verticalSpaceSmall(),
+      _buildToMentalContrasting(),
+      UIHelper.verticalSpaceSmall(),
+      if (vm.showHabitButton) _buildHabitButton()
+    ];
+  }
+
+  _buildOutlinedHeader(String text) {
+    return Stack(children: [
+      Text("Deine Aufgaben:",
+          style: TextStyle(
+              fontSize: 22,
+              foreground: Paint()
+                ..style = PaintingStyle.stroke
+                ..strokeWidth = 2
+                ..color = Colors.white)),
+      Text("Deine Aufgaben:",
+          style: TextStyle(fontSize: 22, color: Colors.black))
+    ]);
+  }
+
+  _buildFloatingActionButton() {
+    return FloatingActionButton.extended(
+      label: Text('Ich habe heute Vokabeln gelernt'),
+      icon: null, // const Icon(Icons.add),
+      onPressed: () {},
+    );
+  }
+
+  _buildToDistributedLearningButton() {
+    return FullWidthButton(
+      text: "Lerntipp anschauen",
+      onPressed: () {
+        Navigator.pushNamed(context, RouteNames.DISTRIBUTED_LEARNING);
+      },
+    );
+  }
+
+  _buildToMentalContrasting() {
+    return FullWidthButton(
+      text: "Problemlöser anschauen",
+      onPressed: () {
+        Navigator.pushNamed(context, RouteNames.MENTAL_CONTRASTING);
+      },
+    );
+  }
+
   _buildBottomAppBar() {
-    return BottomAppBar(
-      shape: CircularNotchedRectangle(),
-      notchMargin: 4.0,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          IconButton(
-            icon: Icon(Icons.menu),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {},
-          )
-        ],
-      ),
+    return BottomNavigationBar(
+      items: [
+        BottomNavigationBarItem(
+            icon: Icon(Icons.place_rounded), label: "Planen"),
+        BottomNavigationBarItem(icon: Icon(Icons.timer), label: "Lernuhr"),
+      ],
     );
   }
 
@@ -183,11 +242,22 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   _buildHabitButton() {
+    return FullWidthButton(
+      text: "Vokabeln gelernt",
+      onPressed: () {
+        vm.addDaysLearned(1);
+      },
+    );
+  }
+
+  _buildToPlanningButton() {
     return Container(
-      child: ElevatedButton(
-        child: Text("Ich habe heute gelernt", style: TextStyle(fontSize: 20)),
+      child: ElevatedButton.icon(
+        icon: Icon(Icons.timer),
+        label: Text("Planen", style: TextStyle(fontSize: 20)),
         onPressed: () {
-          vm.addDaysLearned(1);
+          vm.showDaysLearned = false;
+          vm.showTimerConfiguration = true;
         },
       ),
     );

@@ -28,9 +28,7 @@ enum SessionZeroStep {
   planDisplay,
   planInternalisationWaiting,
   planInternalisationEmoji,
-  outcomeEnter,
-  obstacleEnter,
-  copingPlanCreation,
+
   permissionRequest
 }
 
@@ -41,20 +39,12 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.whoAreYou,
       SessionZeroStep.video_introduction,
       SessionZeroStep.questions_sociodemographics,
-      SessionZeroStep.questions_vocablearning,
-      SessionZeroStep.introduction_distributedLearning,
-      SessionZeroStep.video_distributedLearning,
       SessionZeroStep.introduction_planning,
       SessionZeroStep.video_planning,
       SessionZeroStep.planCreation,
       SessionZeroStep.planDisplay,
       SessionZeroStep.planInternalisationWaiting,
       SessionZeroStep.planInternalisationEmoji,
-      SessionZeroStep.outcomeEnter,
-      SessionZeroStep.obstacleEnter,
-      SessionZeroStep.copingPlanCreation,
-      SessionZeroStep.questions_usability,
-      SessionZeroStep.permissionRequest
     ];
 
     return screenOrder;
@@ -273,15 +263,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.introduction_planning:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.copingPlanCreation:
-        // TODO: Handle this case.
-        break;
-      case SessionZeroStep.outcomeEnter:
-        // TODO: Handle this case.
-        break;
-      case SessionZeroStep.obstacleEnter:
-        // TODO: Handle this case.
-        break;
       case SessionZeroStep.permissionRequest:
         onPermissionRequest();
         break;
@@ -311,9 +292,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.questions_usability:
       case SessionZeroStep.introduction_distributedLearning:
       case SessionZeroStep.introduction_planning:
-      case SessionZeroStep.copingPlanCreation:
-      case SessionZeroStep.outcomeEnter:
-      case SessionZeroStep.obstacleEnter:
       case SessionZeroStep.permissionRequest:
         return true;
     }

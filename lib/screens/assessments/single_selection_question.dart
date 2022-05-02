@@ -78,7 +78,7 @@ class _SingleSelectionQuestionState extends State<SingleSelectionQuestion> {
           ),
           Expanded(
             child: MarkdownBody(
-              data: "### " + text,
+              data: "## " + text,
             ),
           )
         ],

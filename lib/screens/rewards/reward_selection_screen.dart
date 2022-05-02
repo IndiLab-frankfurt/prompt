@@ -3,8 +3,10 @@ import 'package:prompt/locator.dart';
 import 'package:prompt/screens/rewards/timeline.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/models/unlockable_background.dart';
+import 'package:prompt/widgets/prompt_drawer.dart';
 
 class RewardSelectionScreen extends StatefulWidget {
   RewardSelectionScreen() : super();
@@ -23,18 +25,23 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
       unlockItems.add(_buildUnlockItem(bg, rewardService.daysActive));
     }
 
-    return Scaffold(
-      appBar: PromptAppBar(
-        title: "Wähle einen neuen Hintergrud",
-        showBackButton: true,
+    return Container(
+      decoration: UIHelper.defaultBoxDecoration,
+      child: Scaffold(
+        appBar: PromptAppBar(
+          title: "Wähle einen neuen Hintergrud",
+          showBackButton: true,
+        ),
+        // drawer: PromptDrawer(),
+        backgroundColor: Colors.transparent,
+        body: Container(
+            child: Timeline(
+                indicatorColor: Theme.of(context).primaryColor,
+                indicatorColorInactive: Colors.grey,
+                lineColor: Theme.of(context).primaryColor,
+                progress: ((rewardService.daysActive + 5) / 27),
+                children: [...unlockItems])),
       ),
-      body: Container(
-          child: Timeline(
-              indicatorColor: Theme.of(context).primaryColor,
-              indicatorColorInactive: Colors.grey,
-              lineColor: Theme.of(context).primaryColor,
-              progress: ((rewardService.daysActive + 5) / 27),
-              children: [...unlockItems])),
     );
   }
 

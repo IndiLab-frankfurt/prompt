@@ -132,4 +132,23 @@ class MockFirebaseService implements IDatabaseService {
   Future saveBoosterPromptReadTimes(Map<String, dynamic> map) {
     throw UnimplementedError();
   }
+
+  @override
+  Future saveDateLearned(DateTime dateLearned, String userid) {
+    // TODO: implement saveDateLearnd
+    throw UnimplementedError();
+  }
+
+  @override
+  Future getDatesLearned(String userid) {
+    // TODO: implement getDatesLearnd
+    throw UnimplementedError();
+  }
+
+  @override
+  saveSimpleValueWithTimestamp(
+      String value, String collection, DateTime dateTime, String userid) {
+    // TODO: implement saveSimpleValueWithTimestamp
+    throw UnimplementedError();
+  }
 }

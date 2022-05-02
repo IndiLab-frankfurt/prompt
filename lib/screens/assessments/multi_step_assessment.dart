@@ -9,7 +9,7 @@ class MultiStepAssessment extends StatefulWidget {
   final MultiStepAssessmentViewModel vm;
   final List<Widget> pages;
   final int initialStep;
-  // final VoidCallback onSubmit;
+
   MultiStepAssessment(this.vm, this.pages, {this.initialStep = 0, Key? key})
       : super(key: key);
 
@@ -77,16 +77,20 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
   }
 
   _buildSubmitButton() {
-    if (widget.vm.state == ViewState.idle) {
-      return FullWidthButton(
-        onPressed: () async {
-          widget.vm.submit();
-        },
-        text: "Weiter",
-      );
-    } else {
-      return Center(child: CircularProgressIndicator());
+    if (widget.vm.canMoveNext(_keyOfCurrent())) {
+      if (widget.vm.state == ViewState.idle) {
+        return FullWidthButton(
+          onPressed: () async {
+            widget.vm.submit();
+          },
+          text: "Weiter",
+        );
+      } else {
+        return Center(child: CircularProgressIndicator());
+      }
     }
+
+    return Container();
   }
 
   _buildBottomNavigation() {
@@ -99,8 +103,8 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
             maintainSize: true,
             maintainAnimation: true,
             maintainState: true,
-            visible: widget.vm.canMoveBack(
-                _keyOfCurrent()), // _index > 1 && _index < _pages.length - 1,
+            visible: widget.vm.canMoveBack(_keyOfCurrent()) &&
+                widget.vm.step > 0, // _index > 1 && _index < _pages.length - 1,
             child: TextButton(
               child: Row(
                 children: <Widget>[

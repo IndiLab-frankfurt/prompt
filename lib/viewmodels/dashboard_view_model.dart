@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/navigation_service.dart';
+import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
 class DashboardViewModel extends BaseViewModel {
   final ExperimentService _experimentService;
   final DataService _dataService;
   final NavigationService _navigationService;
+  int daysActive = 0;
   Timer? timer;
 
   bool _showTimerConfiguration = false;
@@ -32,7 +34,12 @@ class DashboardViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  late int daysActive = _experimentService.getDaysSinceStart();
+  bool _showHabitButton = true;
+  bool get showHabitButton => _showHabitButton;
+  set showHabitButton(bool value) {
+    _showHabitButton = value;
+    notifyListeners();
+  }
 
   double _timerGoalInSeconds = 5;
   double get timerGoalSeconds => _timerGoalInSeconds;
@@ -51,18 +58,27 @@ class DashboardViewModel extends BaseViewModel {
     return _experimentService.finalAssessmentDay[group]!;
   }
 
-  Future<void> initialize() async {
-    await _dataService.getAssessmentResults();
+  Future<bool> initialize() async {
+    await Future.wait([_dataService.getDatesLearned()]);
+
+    var datesLearned = await _dataService.getDatesLearned();
+    if (datesLearned != null) {
+      showHabitButton = !datesLearned.last.isToday();
+      daysActive = datesLearned.length;
+    } else {
+      showHabitButton = true;
+      daysActive = 0;
+    }
+
+    return true;
   }
 
-  Future<bool> getNextTask() async {
-    await initialize();
-
-    return false;
-  }
-
-  addDaysLearned(int days) {
+  addDaysLearned(int days) async {
     daysActive += days;
+
+    await _dataService.saveDateLearned(DateTime.now());
+
+    showHabitButton = false;
     notifyListeners();
   }
 

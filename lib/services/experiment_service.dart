@@ -84,18 +84,14 @@ class ExperimentService {
       // }
       return await _navigationService
           .navigateWithReplacement(RouteNames.NO_TASKS);
-    }
-
-    if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
-      await _navigationService.navigateTo(RouteNames.NO_TASKS);
-    }
-
-    if (currentScreen == RouteNames.ASSESSMENT_FINAL) {
-      await _navigationService.navigateTo(RouteNames.NO_TASKS);
-    }
-
-    if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
+    } else if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
+    } else if (currentScreen == RouteNames.ASSESSMENT_FINAL) {
+      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
+    } else if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
+      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
+    } else {
+      await _navigationService.navigateWithReplacement(RouteNames.NO_TASKS);
     }
   }
 

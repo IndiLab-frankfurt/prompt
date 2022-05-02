@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/viewmodels/mental_contrasting_view_model.dart';
 import 'package:provider/provider.dart';
 
 class ObstacleEnterScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _ObstacleEnterScreenState extends State<ObstacleEnterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var vm = Provider.of<SessionZeroViewModel>(context, listen: false);
+    var vm = Provider.of<MentalContrastingViewModel>(context, listen: false);
 
     return Container(
       child: Column(

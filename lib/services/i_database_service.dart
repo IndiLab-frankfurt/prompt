@@ -32,13 +32,15 @@ abstract class IDatabaseService {
 
   Future<void> saveInitSessionStepCompleted(String userid, int step);
 
-  Future<void> setStreakDays(String username, int value);
+  Future<void> setStreakDays(String userid, int value);
 
-  Future saveDaysAcive(String username, int daysActive);
+  Future saveDaysAcive(String userid, int daysActive);
 
   Future setRegistrationDate(String username, String dateString);
 
-  Future saveVocabValue(Plan plan, String userid);
+  Future saveDateLearned(DateTime dateLearned, String userid);
+
+  Future getDatesLearned(String userid);
 
   Future saveInternalisation(Internalisation internalisation, String email);
 
@@ -56,4 +58,7 @@ abstract class IDatabaseService {
   Future saveUserDataProperty(String username, String key, dynamic value);
 
   Future saveBoosterPromptReadTimes(Map<String, dynamic> map);
+
+  saveSimpleValueWithTimestamp(
+      String value, String collection, DateTime dateTime, String userid);
 }

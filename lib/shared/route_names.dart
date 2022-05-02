@@ -20,7 +20,8 @@ class RouteNames {
   static const ASSESSMENT_EVENING = "/assessmentevening";
   static const ASSESSMENT_FINAL = "/assessmentfinal";
 
-  static const VIDEO_DISTRIBUTED_LEARNING = "/videodistributedlearning";
+  static const DISTRIBUTED_LEARNING = "/distributedlearning";
+  static const MENTAL_CONTRASTING = "/mentalcontrasting";
 
   static const ABOUT_PROMPT = "/aboutprompt";
   static const ABOUT_PROMPT_VIDEO = "/aboutpromptvideo";

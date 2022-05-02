@@ -24,6 +24,7 @@ class DataService {
   UserData? _userDataCache;
   AssessmentResult? _lastAssessmentResultCache;
   List<AssessmentResult>? _assessmentResultsCache;
+  List<DateTime>? _datesLearnedCache;
 
   DataService(this._databaseService, this._userService,
       this._localDatabaseService, this._settingsService);
@@ -157,6 +158,18 @@ class DataService {
     }
   }
 
+  Future saveSimpleValueWithTimestamp(String value, String collection) async {
+    var ud = await getUserData();
+    if (ud != null) {
+      await _databaseService.saveSimpleValueWithTimestamp(
+        value,
+        collection,
+        DateTime.now(),
+        _userService.getUsername(),
+      );
+    }
+  }
+
   savePlan(String plan) async {
     var planModel = Plan(plan);
     var ud = getUserDataCache();
@@ -168,12 +181,6 @@ class DataService {
 
     await _databaseService.saveUserDataProperty(ud.user, propertyname, value);
     _userDataCache = await _databaseService.getUserData(ud.user);
-  }
-
-  saveVocabValue(String vocabValue) async {
-    var planModel = Plan(vocabValue);
-    var ud = await getUserData();
-    await _databaseService.saveVocabValue(planModel, ud!.user);
   }
 
   Future<Plan?> getLastPlan() async {
@@ -239,6 +246,30 @@ class DataService {
         .join(",");
     _localDatabaseService.upsertSetting(
         SettingsKeys.backgroundColors, colorString);
+  }
+
+  Future saveDateLearned(DateTime dateLearned) async {
+    if (_datesLearnedCache == null) {
+      _datesLearnedCache =
+          await _databaseService.getDatesLearned(_userService.getUsername());
+      if (_datesLearnedCache == null) {
+        _datesLearnedCache = [dateLearned];
+      }
+    } else {
+      _datesLearnedCache!.add(dateLearned);
+    }
+
+    await _databaseService.saveDateLearned(
+        dateLearned, _userService.getUsername());
+  }
+
+  Future<List<DateTime>?> getDatesLearned() async {
+    if (_datesLearnedCache == null) {
+      _datesLearnedCache =
+          await _databaseService.getDatesLearned(_userService.getUsername());
+    }
+
+    return _datesLearnedCache;
   }
 
   saveInternalisation(Internalisation internalisation) async {

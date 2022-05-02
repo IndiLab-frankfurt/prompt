@@ -40,7 +40,7 @@ class FirebaseService implements IDatabaseService {
   static const String COLLECTION_LOGS = "logs";
   static const String COLLECTION_LDT = "ldt";
   static const String COLLECTION_INITSESSION = "initSession";
-  static const String COLLECTION_VOCABVALUE = "vocabValue";
+  static const String COLLECTION_DATES_LEARNED = "datesLearned";
   static const String COLLECTION_USAGESTATS = "usageStats";
 
   static const Duration timeoutDuration = Duration(seconds: 30);
@@ -164,6 +164,23 @@ class FirebaseService implements IDatabaseService {
         .then((res) => res);
   }
 
+  saveSimpleValueWithTimestamp(
+      String value, String collection, DateTime dateTime, String userid) async {
+    var map = {
+      "value": value,
+      "date": dateTime.toIso8601String(),
+    };
+
+    //     var dateString = dateLearned.toIso8601String();
+    // _databaseReference.collection(COLLECTION_DATES_LEARNED).doc(userid).set({
+    //   "dates": FieldValue.arrayUnion([dateString])
+    // }, SetOptions(merge: true)).then((value) => true);
+
+    return _databaseReference.collection(collection).doc(userid).set({
+      "values": FieldValue.arrayUnion([map])
+    }, SetOptions(merge: true)).then((res) => res);
+  }
+
   Future<AssessmentResult?> getLastAssessmentResult(String userid) async {
     return _databaseReference
         .collection(COLLECTION_ASSESSMENTS)
@@ -284,17 +301,6 @@ class FirebaseService implements IDatabaseService {
   }
 
   @override
-  Future saveVocabValue(Plan plan, String userid) async {
-    var map = plan.toMap();
-    map["user"] = userid;
-    _databaseReference
-        .collection(COLLECTION_VOCABVALUE)
-        .doc(userid)
-        .set(map, SetOptions(merge: true))
-        .then((res) => res);
-  }
-
-  @override
   Future saveUsageStats(Map<String, dynamic> usageInfo, String userid) async {
     _databaseReference.collection(COLLECTION_USAGESTATS).add(usageInfo);
   }
@@ -305,5 +311,23 @@ class FirebaseService implements IDatabaseService {
         .collection("boosterPromptTimes")
         .add(map)
         .then((res) => res);
+  }
+
+  @override
+  Future saveDateLearned(DateTime dateLearned, String userid) async {
+    var dateString = dateLearned.toIso8601String();
+    _databaseReference.collection(COLLECTION_DATES_LEARNED).doc(userid).set({
+      "dates": FieldValue.arrayUnion([dateString])
+    }, SetOptions(merge: true)).then((value) => true);
+  }
+
+  Future<List<DateTime>?> getDatesLearned(String userid) async {
+    return _databaseReference
+        .collection(COLLECTION_DATES_LEARNED)
+        .doc(userid)
+        .get()
+        .then((value) =>
+            value.data()?["dates"].map((e) => DateTime.parse(e)).toList())
+        .then((value) => List<DateTime>.from(value));
   }
 }

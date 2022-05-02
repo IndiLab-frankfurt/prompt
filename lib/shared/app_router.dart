@@ -9,6 +9,8 @@ import 'package:prompt/screens/auth/login_screen.dart';
 import 'package:prompt/screens/dashboard_screen.dart';
 import 'package:prompt/screens/auth/registration_screen.dart';
 import 'package:prompt/screens/learning_tips_screen.dart';
+import 'package:prompt/screens/main/distributed_learning_screens.dart';
+import 'package:prompt/screens/main/mental_contrasting_screens.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
 import 'package:prompt/screens/study_complete_screen.dart';
@@ -20,8 +22,10 @@ import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/change_mascot_view_model.dart';
+import 'package:prompt/viewmodels/distributed_learning_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
+import 'package:prompt/viewmodels/mental_contrasting_view_model.dart';
 import 'package:prompt/viewmodels/random_user_login_view_model.dart';
 import 'package:prompt/viewmodels/registration_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
@@ -93,8 +97,23 @@ class AppRouter {
       case RouteNames.REWARD_SELECTION:
         return MaterialPageRoute(builder: (_) => RewardSelectionScreen());
 
-      case RouteNames.VIDEO_DISTRIBUTED_LEARNING:
-        return MaterialPageRoute(builder: (_) => DistributedLearningVideo());
+      case RouteNames.DISTRIBUTED_LEARNING:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                  child: DistributedLearningScreens(),
+                  create: (_) => DistributedLearningViewModel(
+                      locator.get<DataService>(),
+                      locator.get<ExperimentService>()),
+                ));
+
+      case RouteNames.MENTAL_CONTRASTING:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                  child: MentalContrastingScreens(),
+                  create: (_) => MentalContrastingViewModel(
+                      locator.get<DataService>(),
+                      locator.get<ExperimentService>()),
+                ));
 
       case RouteNames.ABOUT_PROMPT:
         return MaterialPageRoute(builder: (_) => AboutScreen());

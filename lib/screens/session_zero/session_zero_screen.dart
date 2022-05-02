@@ -4,9 +4,6 @@ import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
-import 'package:prompt/screens/session_zero/coping_plan_enter_screen.dart';
-import 'package:prompt/screens/session_zero/obstacle_enter_screen.dart';
-import 'package:prompt/screens/session_zero/outcome_enter_screen.dart';
 import 'package:prompt/screens/session_zero/permission_request_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
@@ -160,18 +157,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
                 emojiInputIf: true,
                 emojiInputThen: true,
                 key: ValueKey(SessionZeroStep.planInternalisationEmoji)));
-
-      case SessionZeroStep.copingPlanCreation:
-        return CopingPlanEnterScreen(key: key);
-
-      // case SessionZeroStep.mascotSelection:
-      //   return MascotSelectionScreen(key: key);
-
-      case SessionZeroStep.outcomeEnter:
-        return OutcomeEnterScreen(key: key);
-
-      case SessionZeroStep.obstacleEnter:
-        return ObstacleEnterScreen(key: key);
 
       case SessionZeroStep.permissionRequest:
         return PermissionRequestScreen(key: key);

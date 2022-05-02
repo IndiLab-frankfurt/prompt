@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:prompt/models/unlockable_background.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/logging_service.dart';
+import 'package:prompt/shared/ui_helper.dart';
 
 class RewardService {
   late StreamController<int> controller = StreamController.broadcast();
@@ -150,7 +151,8 @@ class RewardService {
           "Monster",
           "assets/illustrations/mascot_${mascotId}_bare.png",
           getUnlockDays("Monster", grp),
-          LinearGradient(colors: [backgroundBase, backgroundBase])),
+          LinearGradient(
+              colors: [UIHelper.bgGradientStart, UIHelper.bgGradientEnd])),
       UnlockableBackground(
           "Flugzeug",
           "assets/illustrations/mascot_${mascotId}_plane_2.png",
