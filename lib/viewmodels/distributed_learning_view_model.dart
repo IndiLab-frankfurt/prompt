@@ -59,13 +59,15 @@ class DistributedLearningViewModel extends MultiStepAssessmentViewModel {
   }
 
   @override
-  void submit() {
+  void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
       var oneBigAssessment = this.getOneBisAssessment("DistributedLearning");
 
       _experimentService.submitAssessment(
           oneBigAssessment, "DistributedLearning");
+
+      await _experimentService.onDistributedLearningComplete();
 
       _experimentService.nextScreen(RouteNames.DISTRIBUTED_LEARNING);
     }

@@ -88,8 +88,14 @@ class DashboardViewModel extends BaseViewModel {
     await Future.wait([_dataService.getDatesLearned()]);
 
     var datesLearned = await _dataService.getDatesLearned();
-    hasLearnedToday = datesLearned.length > 0 && datesLearned.last.isToday();
-    daysActive = datesLearned.length;
+    hasLearnedToday = datesLearned.length > 0 &&
+        datesLearned.last.date.isToday() &&
+        datesLearned.last.value == true;
+
+    daysActive = datesLearned.where((element) => element.value == true).length;
+
+    var shouldWatchDistributedLearning =
+        await _dataService.getValuesWithDates("distributedLearning");
 
     return true;
   }

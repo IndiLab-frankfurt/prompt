@@ -8,6 +8,7 @@ import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:collection/collection.dart';
+import 'package:prompt/models/value_with_date.dart';
 import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/settings_service.dart';
@@ -24,7 +25,8 @@ class DataService {
   UserData? _userDataCache;
   AssessmentResult? _lastAssessmentResultCache;
   List<AssessmentResult>? _assessmentResultsCache;
-  List<DateTime>? _datesLearnedCache;
+  List<ValueWithDate>? _datesLearnedCache;
+  List<ValueWithDate>? _copingPlansCache;
 
   DataService(this._databaseService, this._userService,
       this._localDatabaseService, this._settingsService);
@@ -170,18 +172,28 @@ class DataService {
     }
   }
 
-  Future<List<dynamic>> getSimpleValuesWithTimestamp(String collection) async {
-    var ud = await getUserData();
-    if (ud != null) {
-      var values = await _databaseService.getSimpleValuesWithTimestamp(
-        collection,
-        _userService.getUsername(),
-      );
-      if (values is List<dynamic>) {
+  Future<List<ValueWithDate>> getValuesWithDates(String collection) async {
+    try {
+      var ud = await getUserData();
+      if (ud != null) {
+        var values = await _databaseService.getValuesWithDates(
+          collection,
+          _userService.getUsername(),
+        );
         return values;
       }
+    } catch (e) {
+      return [];
     }
     return [];
+  }
+
+  Future<List<ValueWithDate>> getCopingPlans() async {
+    if (_copingPlansCache == null) {
+      _copingPlansCache = await getValuesWithDates("copingPlans");
+    }
+
+    return _copingPlansCache!;
   }
 
   savePlan(String plan) async {
@@ -262,35 +274,29 @@ class DataService {
         SettingsKeys.backgroundColors, colorString);
   }
 
-  Future saveDateLearned(DateTime dateLearned) async {
+  Future saveDateLearned(DateTime dateLearned, bool didLearn) async {
+    var dateLearnedData = ValueWithDate(didLearn, dateLearned);
+
     if (_datesLearnedCache == null) {
       _datesLearnedCache =
           await _databaseService.getDatesLearned(_userService.getUsername());
       if (_datesLearnedCache == null) {
-        _datesLearnedCache = [dateLearned];
+        _datesLearnedCache = [dateLearnedData];
       }
     } else {
-      _datesLearnedCache!.add(dateLearned);
+      _datesLearnedCache!.add(dateLearnedData);
     }
 
     await _databaseService.saveDateLearned(
-        dateLearned, _userService.getUsername());
+        dateLearned, didLearn, _userService.getUsername());
   }
 
-  Future<List<DateTime>> getDatesLearned() async {
+  Future<List<ValueWithDate>> getDatesLearned() async {
     if (_datesLearnedCache == null) {
       _datesLearnedCache =
           await _databaseService.getDatesLearned(_userService.getUsername());
-
-      if (_datesLearnedCache == null) {
-        _datesLearnedCache = [];
-      }
     }
-    if (_datesLearnedCache is List<DateTime>) {
-      return _datesLearnedCache!;
-    } else {
-      return [];
-    }
+    return _datesLearnedCache!;
   }
 
   saveInternalisation(Internalisation internalisation) async {

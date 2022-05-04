@@ -24,8 +24,6 @@ class _HabitToggleButtonsState extends State<HabitToggleButtons> {
     super.initState();
     if (widget.initialValues != null) {
       isSelected = widget.initialValues!;
-
-      disabled = isSelected[0];
     }
   }
 
@@ -42,6 +40,8 @@ class _HabitToggleButtonsState extends State<HabitToggleButtons> {
       toggleButton(context, "Ja"),
       toggleButton(context, "Nein"),
     ];
+
+    disabled = isSelected[0];
 
     return Container(
       child: Column(

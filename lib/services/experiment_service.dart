@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/logging_service.dart';
@@ -77,6 +78,23 @@ class ExperimentService {
   ExperimentService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
 
+  Future onSessionZeroComplete() async {
+    var dt = DateTime.now();
+    await _notificationService.scheduleMorningReminder(dt, 2);
+  }
+
+  Future onDistributedLearningComplete() async {
+    await _rewardService.addPoints(5);
+    await _dataService.saveSimpleValueWithTimestamp(
+        "distributedLearning", "distributedLearning");
+  }
+
+  Future onMentalContrastingComplete() async {
+    await _rewardService.addPoints(5);
+    await _dataService.saveSimpleValueWithTimestamp(
+        "mentalContrasting", "mentalContrasting");
+  }
+
   nextScreen(String currentScreen) async {
     if (currentScreen == RouteNames.SESSION_ZERO) {
       return await _navigationService
@@ -90,10 +108,6 @@ class ExperimentService {
     } else {
       await _navigationService.navigateWithReplacement(RouteNames.NO_TASKS);
     }
-  }
-
-  bool didCompleteFinal() {
-    return _dataService.getUserDataCache().finalQuestionsCompleted;
   }
 
   int getDaysSinceStart() {
@@ -129,10 +143,6 @@ class ExperimentService {
   Future<void> submitAssessment(
       AssessmentResult assessment, String type) async {
     await this._dataService.saveAssessment(assessment);
-
-    if (type == "DistributedLearning") {
-      await _rewardService.addPoints(5);
-    }
   }
 
   bool isFirstDay() {
@@ -142,11 +152,15 @@ class ExperimentService {
   }
 
   Future<void> addDayLearned() async {
-    // await _dataService.saveDateLearned(DateTime.now());
-    // await _rewardService.addPoints(5);
-
     await Future.wait(<Future>[
-      _dataService.saveDateLearned(DateTime.now()),
+      _dataService.saveDateLearned(DateTime.now(), true),
+      _rewardService.addPoints(5)
+    ]);
+  }
+
+  Future<void> addDayNotLearned() async {
+    await Future.wait(<Future>[
+      _dataService.saveDateLearned(DateTime.now(), false),
       _rewardService.addPoints(5)
     ]);
   }
@@ -158,18 +172,28 @@ class ExperimentService {
     return internalisationPrompts[userData.group]!.contains(daysAgo);
   }
 
-  isTimeForFinalQuestions() {
-    var group = _dataService.getUserDataCache().group;
-    var daysAgo = getDaysSinceStart();
-    if (!didCompleteFinal()) {
-      if ([2, 3, 4, 5, 6, 7].contains(group) && daysAgo >= 36) {
-        return true;
-      }
-      if (group == 1 && daysAgo >= 54) {
-        return true;
-      }
+  void reactToNotifications(context) {
+    try {
+      AwesomeNotifications()
+          .actionStream
+          .listen((ReceivedNotification receivedNotification) {
+        print('Received notification ${receivedNotification.title}');
+        if (receivedNotification is ReceivedAction) {
+          var pressedButton = receivedNotification.buttonKeyPressed;
+
+          if (pressedButton ==
+              NotificationService.BUTTON_ACTION_LEARNED_TODAY) {
+            addDayLearned();
+          }
+          if (pressedButton ==
+              NotificationService.BUTTON_ACTION_NOT_LEARNED_TODAY) {
+            addDayNotLearned();
+          }
+        }
+      });
+    } catch (e) {
+      print(e);
     }
-    return false;
   }
 
   isDistributedLearningDay() {

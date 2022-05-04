@@ -75,20 +75,20 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.LEARNING_TIPS);
               }),
-          _buildDrawerItem(
-              icon: Icons.info_outlined,
-              text: "Über PROMPT",
-              onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.ABOUT_PROMPT);
-              }),
+          // _buildDrawerItem(
+          //     icon: Icons.info_outlined,
+          //     text: "Über PROMPT",
+          //     onTap: () async {
+          //       await Navigator.pushNamed(context, RouteNames.ABOUT_PROMPT);
+          //     }),
           Divider(),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "AutoRegistrierung",
-              onTap: () async {
-                await Navigator.pushReplacementNamed(
-                    context, RouteNames.RANDOM_LOGIN);
-              }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "AutoRegistrierung",
+          //     onTap: () async {
+          //       await Navigator.pushReplacementNamed(
+          //           context, RouteNames.RANDOM_LOGIN);
+          //     }),
           _buildDrawerItem(
               icon: Icons.add_box,
               text: "Plan Reminder",

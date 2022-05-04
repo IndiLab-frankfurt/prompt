@@ -7,6 +7,7 @@ import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:flutter/services.dart';
+import 'package:prompt/models/value_with_date.dart';
 import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/user_service.dart';
@@ -176,19 +177,17 @@ class FirebaseService implements IDatabaseService {
     }, SetOptions(merge: true)).then((res) => res);
   }
 
-  Future<dynamic> getSimpleValuesWithTimestamp(
+  Future<List<ValueWithDate>> getValuesWithDates(
       String collection, String userid) async {
     return _databaseReference
         .collection(collection)
         .doc(userid)
         .get()
-        .then((doc) {
-      if (doc.data() == null) return [];
-      return doc.data()!["values"];
-    }).catchError((error) {
-      handleError(error, data: "Trying to get simple values");
-      return [];
-    });
+        .then((value) => value
+            .data()?["values"]
+            .map((e) => ValueWithDate.fromDocument(e))
+            .toList())
+        .then((value) => value != null ? List<ValueWithDate>.from(value) : []);
   }
 
   Future<AssessmentResult?> getLastAssessmentResult(String userid) async {
@@ -324,20 +323,27 @@ class FirebaseService implements IDatabaseService {
   }
 
   @override
-  Future saveDateLearned(DateTime dateLearned, String userid) async {
+  Future saveDateLearned(
+      DateTime dateLearned, bool didLearn, String userid) async {
     var dateString = dateLearned.toIso8601String();
+    var map = {
+      "date": dateString,
+      "value": didLearn,
+    };
     _databaseReference.collection(COLLECTION_DATES_LEARNED).doc(userid).set({
-      "dates": FieldValue.arrayUnion([dateString])
+      "dates": FieldValue.arrayUnion([map])
     }, SetOptions(merge: true)).then((value) => true);
   }
 
-  Future<List<DateTime>?> getDatesLearned(String userid) async {
+  Future<List<ValueWithDate>> getDatesLearned(String userid) async {
     return _databaseReference
         .collection(COLLECTION_DATES_LEARNED)
         .doc(userid)
         .get()
-        .then((value) =>
-            value.data()?["dates"].map((e) => DateTime.parse(e)).toList())
-        .then((value) => value != null ? List<DateTime>.from(value) : []);
+        .then((value) => value
+            .data()?["dates"]
+            .map((e) => ValueWithDate.fromDocument(e))
+            .toList())
+        .then((value) => value != null ? List<ValueWithDate>.from(value) : []);
   }
 }

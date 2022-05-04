@@ -129,7 +129,7 @@ class MockFirebaseService implements IDatabaseService {
   }
 
   @override
-  Future saveDateLearned(DateTime dateLearned, String userid) {
+  Future saveDateLearned(DateTime dateLearned, bool didLearn, String userid) {
     throw UnimplementedError();
   }
 
@@ -145,7 +145,7 @@ class MockFirebaseService implements IDatabaseService {
   }
 
   @override
-  getSimpleValuesWithTimestamp(String collection, String userid) {
+  getValuesWithDates(String collection, String userid) {
     // TODO: implement getSimpleValuesWithTimestamp
     throw UnimplementedError();
   }

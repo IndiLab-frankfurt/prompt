@@ -324,6 +324,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
       _experimentService.submitAssessment(oneBigAssessment, SESSION_ZERO);
 
+      await _experimentService.onSessionZeroComplete();
+
       _experimentService.nextScreen(RouteNames.SESSION_ZERO);
     }
   }

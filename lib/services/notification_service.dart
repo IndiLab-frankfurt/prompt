@@ -33,6 +33,9 @@ class NotificationService {
   static const int ID_TASK_REMINDER = 42;
   static const int ID_FINAL_TASK_REMINDER = 1901;
 
+  static const String BUTTON_ACTION_LEARNED_TODAY = "LEARNED_TODAY";
+  static const String BUTTON_ACTION_NOT_LEARNED_TODAY = "NOT_LEARNED_TODAY";
+
   Future initialize() async {
     localNotifications = FlutterLocalNotificationsPlugin();
 
@@ -112,6 +115,12 @@ class NotificationService {
     String utcTimeZone =
         await AwesomeNotifications().getLocalTimeZoneIdentifier();
     await AwesomeNotifications().createNotification(
+        actionButtons: [
+          NotificationActionButton(
+              key: BUTTON_ACTION_LEARNED_TODAY, label: "Ja"),
+          NotificationActionButton(
+              key: BUTTON_ACTION_NOT_LEARNED_TODAY, label: "Nein")
+        ],
         content: NotificationContent(
             id: id,
             channelKey: 'scheduled',
@@ -199,8 +208,10 @@ class NotificationService {
     await Future.delayed(Duration(seconds: 10));
     AwesomeNotifications().createNotification(
         actionButtons: [
-          NotificationActionButton(key: "DID_LEARN_TODAY", label: "Ja"),
-          NotificationActionButton(key: "DID_NOT_LEARN_TODAY", label: "Nein")
+          NotificationActionButton(
+              key: BUTTON_ACTION_LEARNED_TODAY, label: "Ja"),
+          NotificationActionButton(
+              key: BUTTON_ACTION_NOT_LEARNED_TODAY, label: "Nein")
         ],
         content: NotificationContent(
             id: 10,

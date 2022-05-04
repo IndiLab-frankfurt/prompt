@@ -26,7 +26,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver {
   late DashboardViewModel vm = Provider.of<DashboardViewModel>(context);
   Timer? updateRegularlyTimer;
-
+  late Future initialize = vm.initialize();
   late ConfettiController _controllerTopCenter;
 
   @override
@@ -122,7 +122,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                     appBar: PromptAppBar(showBackButton: true),
                     drawer: _getDrawer(),
                     body: FutureBuilder(
-                      future: vm.initialize(),
+                      future: initialize,
                       builder: (_, snapshot) {
                         if (snapshot.hasData) {
                           return _buildBody();
@@ -190,8 +190,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     if (vm.openTasks.contains(OpenTasks.ViewDistributedLearning)) {
       tasks.add(_buildToDistributedLearningButton());
       tasks.add(UIHelper.verticalSpaceSmall());
-    }
-    if (vm.openTasks.contains(OpenTasks.ViewMentalContrasting)) {
+    } else if (vm.openTasks.contains(OpenTasks.ViewMentalContrasting)) {
       tasks.add(_buildToMentalContrasting());
       tasks.add(UIHelper.verticalSpaceSmall());
     }
@@ -265,7 +264,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     return HabitToggleButtons(
       callback: (newValue) {
-        if (newValue) {
+        if (newValue && !vm.hasLearnedToday) {
           vm.addDaysLearned(1);
           _controllerTopCenter.play();
         }

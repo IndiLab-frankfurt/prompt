@@ -77,12 +77,12 @@ class MentalContrastingViewModel extends MultiStepAssessmentViewModel {
   void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-      var oneBigAssessment = this.getOneBisAssessment("MentalContrasting");
 
       await Future.wait([
         dataService.saveSimpleValueWithTimestamp(obstacle, "obstacles"),
         dataService.saveSimpleValueWithTimestamp(outcome, "outcomes"),
         dataService.saveSimpleValueWithTimestamp(copingPlan, "copingPlans"),
+        _experimentService.onMentalContrastingComplete()
       ]);
 
       _experimentService.nextScreen(RouteNames.DISTRIBUTED_LEARNING);
