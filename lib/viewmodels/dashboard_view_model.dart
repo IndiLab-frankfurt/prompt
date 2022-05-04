@@ -6,6 +6,12 @@ import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
+enum OpenTasks {
+  LearnVocabulary,
+  ViewDistributedLearning,
+  ViewMentalContrasting
+}
+
 class DashboardViewModel extends BaseViewModel {
   final ExperimentService _experimentService;
   final DataService _dataService;
@@ -34,10 +40,10 @@ class DashboardViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  bool _showHabitButton = true;
-  bool get showHabitButton => _showHabitButton;
-  set showHabitButton(bool value) {
-    _showHabitButton = value;
+  bool _hasLearnedToday = false;
+  bool get hasLearnedToday => _hasLearnedToday;
+  set hasLearnedToday(bool value) {
+    _hasLearnedToday = value;
     notifyListeners();
   }
 
@@ -46,6 +52,26 @@ class DashboardViewModel extends BaseViewModel {
   set timerGoalSeconds(double timerGoal) {
     _timerGoalInSeconds = timerGoal;
     notifyListeners();
+  }
+
+  List<OpenTasks> openTasks = [
+    OpenTasks.LearnVocabulary,
+    OpenTasks.ViewDistributedLearning,
+    OpenTasks.ViewMentalContrasting
+  ];
+
+  addTask(OpenTasks task) {
+    if (!openTasks.contains(task)) {
+      openTasks.add(task);
+      notifyListeners();
+    }
+  }
+
+  removeTask(OpenTasks task) {
+    if (openTasks.contains(task)) {
+      openTasks.remove(task);
+      notifyListeners();
+    }
   }
 
   double timerProgressSeconds = 0;
@@ -62,13 +88,8 @@ class DashboardViewModel extends BaseViewModel {
     await Future.wait([_dataService.getDatesLearned()]);
 
     var datesLearned = await _dataService.getDatesLearned();
-    if (datesLearned != null) {
-      showHabitButton = !datesLearned.last.isToday();
-      daysActive = datesLearned.length;
-    } else {
-      showHabitButton = true;
-      daysActive = 0;
-    }
+    hasLearnedToday = datesLearned.length > 0 && datesLearned.last.isToday();
+    daysActive = datesLearned.length;
 
     return true;
   }
@@ -76,9 +97,10 @@ class DashboardViewModel extends BaseViewModel {
   addDaysLearned(int days) async {
     daysActive += days;
 
-    await _dataService.saveDateLearned(DateTime.now());
+    _experimentService.addDayLearned();
 
-    showHabitButton = false;
+    hasLearnedToday = true;
+
     notifyListeners();
   }
 

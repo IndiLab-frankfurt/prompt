@@ -19,9 +19,9 @@ class DistributedLearningViewModel extends MultiStepAssessmentViewModel {
 
   static List<DistributedLearningStep> getScreenOrder(int group) {
     List<DistributedLearningStep> screenOrder = [
-      DistributedLearningStep.questions_vocablearning,
       DistributedLearningStep.introduction_distributedLearning,
       DistributedLearningStep.video_distributedLearning,
+      DistributedLearningStep.questions_vocablearning,
     ];
 
     return screenOrder;
@@ -52,7 +52,7 @@ class DistributedLearningViewModel extends MultiStepAssessmentViewModel {
       case DistributedLearningStep.introduction_distributedLearning:
         return true;
       case DistributedLearningStep.video_distributedLearning:
-        return _videoDistributedLearningCompleted;
+        return true;
       case DistributedLearningStep.questions_vocablearning:
         return currentAssessmentIsFilledOut;
     }
@@ -64,7 +64,8 @@ class DistributedLearningViewModel extends MultiStepAssessmentViewModel {
       setState(ViewState.busy);
       var oneBigAssessment = this.getOneBisAssessment("DistributedLearning");
 
-      _experimentService.submitAssessment(oneBigAssessment, SESSION_ZERO);
+      _experimentService.submitAssessment(
+          oneBigAssessment, "DistributedLearning");
 
       _experimentService.nextScreen(RouteNames.DISTRIBUTED_LEARNING);
     }

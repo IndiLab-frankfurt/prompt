@@ -29,6 +29,11 @@ class UIHelper {
   static Color bgGradientStart = Color(0xfff2994a);
   static Color bgGradientEnd = Color(0xfff2c94c);
 
+  static List<Color> baseGradient = [
+    UIHelper.bgGradientStart,
+    UIHelper.bgGradientStart
+  ];
+
   static BoxDecoration defaultBoxDecoration = BoxDecoration(
     gradient: LinearGradient(
         begin: Alignment.topLeft,

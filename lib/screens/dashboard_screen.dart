@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:math';
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/locator.dart';
@@ -8,6 +10,7 @@ import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
 import 'package:prompt/widgets/full_width_button.dart';
+import 'package:prompt/widgets/habit_toggle_button.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:provider/provider.dart';
@@ -23,16 +26,23 @@ class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver {
   late DashboardViewModel vm = Provider.of<DashboardViewModel>(context);
   Timer? updateRegularlyTimer;
+
+  late ConfettiController _controllerTopCenter;
+
   @override
   void initState() {
     super.initState();
 
     WidgetsBinding.instance!.addObserver(this);
+
+    _controllerTopCenter =
+        ConfettiController(duration: const Duration(seconds: 2));
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance!.removeObserver(this);
+    _controllerTopCenter.dispose();
     super.dispose();
   }
 
@@ -151,30 +161,60 @@ class _DashboardScreenState extends State<DashboardScreen>
                 ],
               ),
               alignment: Alignment(0.0, 0.6)),
+          _buildConfettiTop()
           // Align(alignment: Alignment.bottomCenter, child: _buildTaskList())
         ]));
   }
 
-  _buildTaskList() {
-    return ListView(children: [
-      _buildHabitButton(),
-      _buildHabitButton(),
-      _buildHabitButton(),
-    ]);
+  _getTasks() {
+    // return Container(
+    //   child: ListView.separated(
+    //       shrinkWrap: true,
+    //       itemCount: 2,
+    //       itemBuilder: (context, index) {
+    //         return Expanded(
+    //             child: ListView(
+    //           children: [
+    //             _buildToDistributedLearningButton(),
+    //             _buildToMentalContrasting(),
+    //           ],
+    //           shrinkWrap: true,
+    //         ));
+    //       },
+    //       separatorBuilder: (context, index) => SizedBox(
+    //             height: 10,
+    //           )),
+    // );
+    List<Widget> tasks = [];
+
+    if (vm.openTasks.contains(OpenTasks.ViewDistributedLearning)) {
+      tasks.add(_buildToDistributedLearningButton());
+      tasks.add(UIHelper.verticalSpaceSmall());
+    }
+    if (vm.openTasks.contains(OpenTasks.ViewMentalContrasting)) {
+      tasks.add(_buildToMentalContrasting());
+      tasks.add(UIHelper.verticalSpaceSmall());
+    }
+
+    return tasks;
   }
 
-  _getTasks() {
-    return [
-      Container(
-          padding: EdgeInsets.all(10),
-          child: _buildOutlinedHeader("Deine Aufgaben:")),
-      UIHelper.verticalSpaceSmall(),
-      _buildToDistributedLearningButton(),
-      UIHelper.verticalSpaceSmall(),
-      _buildToMentalContrasting(),
-      UIHelper.verticalSpaceSmall(),
-      if (vm.showHabitButton) _buildHabitButton()
-    ];
+  _buildTaskButton({text, required GestureTapCallback onPressed}) {
+    return SizedBox(
+        width: 300,
+        height: 40,
+        child: Stack(
+          children: [
+            ElevatedButton(
+              onPressed: onPressed,
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(15.0)),
+              ),
+              child: Text(text, style: TextStyle(fontSize: 20)),
+            ),
+          ],
+        ));
   }
 
   _buildOutlinedHeader(String text) {
@@ -200,7 +240,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   _buildToDistributedLearningButton() {
-    return FullWidthButton(
+    return _buildTaskButton(
       text: "Lerntipp anschauen",
       onPressed: () {
         Navigator.pushNamed(context, RouteNames.DISTRIBUTED_LEARNING);
@@ -209,11 +249,28 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   _buildToMentalContrasting() {
-    return FullWidthButton(
+    return _buildTaskButton(
       text: "Problemlöser anschauen",
       onPressed: () {
         Navigator.pushNamed(context, RouteNames.MENTAL_CONTRASTING);
       },
+    );
+  }
+
+  _buildHabitButton() {
+    List<bool>? initialValues;
+    if (vm.hasLearnedToday) {
+      initialValues = [true, false];
+    }
+
+    return HabitToggleButtons(
+      callback: (newValue) {
+        if (newValue) {
+          vm.addDaysLearned(1);
+          _controllerTopCenter.play();
+        }
+      },
+      initialValues: initialValues,
     );
   }
 
@@ -236,29 +293,22 @@ class _DashboardScreenState extends State<DashboardScreen>
         UIHelper.verticalSpaceSmall(),
         Center(child: Text("${vm.daysActive}", style: TextStyle(fontSize: 30))),
         UIHelper.verticalSpaceMedium(),
-        UIHelper.verticalSpaceMedium(),
+        _buildHabitButton()
       ],
     );
   }
 
-  _buildHabitButton() {
-    return FullWidthButton(
-      text: "Vokabeln gelernt",
-      onPressed: () {
-        vm.addDaysLearned(1);
-      },
-    );
-  }
-
-  _buildToPlanningButton() {
-    return Container(
-      child: ElevatedButton.icon(
-        icon: Icon(Icons.timer),
-        label: Text("Planen", style: TextStyle(fontSize: 20)),
-        onPressed: () {
-          vm.showDaysLearned = false;
-          vm.showTimerConfiguration = true;
-        },
+  _buildConfettiTop() {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: ConfettiWidget(
+        confettiController: _controllerTopCenter,
+        blastDirection: pi / 2,
+        maxBlastForce: 5, // set a lower max blast force
+        minBlastForce: 2, // set a lower min blast force
+        emissionFrequency: 0.1,
+        numberOfParticles: 50, // a lot of particles at once
+        gravity: 0.9,
       ),
     );
   }

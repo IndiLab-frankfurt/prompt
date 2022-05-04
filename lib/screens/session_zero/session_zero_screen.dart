@@ -4,6 +4,7 @@ import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
+import 'package:prompt/screens/session_zero/instructions_implementation_intentions.dart';
 import 'package:prompt/screens/session_zero/permission_request_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
@@ -124,9 +125,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       //    key: key, onVideoCompleted: vm.videoDistributedLearningCompleted);
 
       case SessionZeroStep.introduction_planning:
-        return TextScreen(
-            paragraphs: [AppStrings.SessionZero_Introduction_Planning_1],
-            key: key);
+        return InstructionsImplementationIntentions(key: key);
 
       case SessionZeroStep.video_planning:
         return TextScreen(
@@ -135,7 +134,12 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       //     key: key, onVideoCompleted: vm.videoPlanningCompleted);
 
       case SessionZeroStep.planCreation:
-        return PlanCreationScreen(key: key);
+        return ChangeNotifierProvider.value(
+            value: vm.planCreationViewModel,
+            key: ValueKey(SessionZeroStep.planCreation),
+            child: PlanCreationScreen(
+                onCompleted: vm.onPlanCreationCompleted,
+                key: ValueKey(SessionZeroStep.planInternalisationWaiting)));
 
       case SessionZeroStep.planDisplay:
         return PlanDisplayScreen(key: key);

@@ -171,14 +171,24 @@ class FirebaseService implements IDatabaseService {
       "date": dateTime.toIso8601String(),
     };
 
-    //     var dateString = dateLearned.toIso8601String();
-    // _databaseReference.collection(COLLECTION_DATES_LEARNED).doc(userid).set({
-    //   "dates": FieldValue.arrayUnion([dateString])
-    // }, SetOptions(merge: true)).then((value) => true);
-
     return _databaseReference.collection(collection).doc(userid).set({
       "values": FieldValue.arrayUnion([map])
     }, SetOptions(merge: true)).then((res) => res);
+  }
+
+  Future<dynamic> getSimpleValuesWithTimestamp(
+      String collection, String userid) async {
+    return _databaseReference
+        .collection(collection)
+        .doc(userid)
+        .get()
+        .then((doc) {
+      if (doc.data() == null) return [];
+      return doc.data()!["values"];
+    }).catchError((error) {
+      handleError(error, data: "Trying to get simple values");
+      return [];
+    });
   }
 
   Future<AssessmentResult?> getLastAssessmentResult(String userid) async {
@@ -328,6 +338,6 @@ class FirebaseService implements IDatabaseService {
         .get()
         .then((value) =>
             value.data()?["dates"].map((e) => DateTime.parse(e)).toList())
-        .then((value) => List<DateTime>.from(value));
+        .then((value) => value != null ? List<DateTime>.from(value) : []);
   }
 }

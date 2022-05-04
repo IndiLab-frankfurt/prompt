@@ -22,6 +22,7 @@ class RouteNames {
 
   static const DISTRIBUTED_LEARNING = "/distributedlearning";
   static const MENTAL_CONTRASTING = "/mentalcontrasting";
+  static const PLAN_REMINDER = "/planreminder";
 
   static const ABOUT_PROMPT = "/aboutprompt";
   static const ABOUT_PROMPT_VIDEO = "/aboutpromptvideo";

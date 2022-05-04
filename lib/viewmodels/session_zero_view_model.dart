@@ -1,7 +1,6 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
-import 'package:prompt/data/obstacles.dart';
-import 'package:prompt/data/outcomes.dart';
+import 'package:prompt/data/questions.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/services/data_service.dart';
@@ -11,7 +10,7 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
-import 'package:prompt/viewmodels/sortable_list_view_model.dart';
+import 'package:prompt/viewmodels/plan_view_model.dart';
 
 enum SessionZeroStep {
   welcome,
@@ -53,13 +52,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 // ignore: non_constant_identifier_names
   List<SessionZeroStep> screenOrder = [];
   InternalisationViewModel internalisationViewmodelEmoji =
-      InternalisationViewModel();
+      InternalisationViewModel.withCondition(InternalisationCondition.emojiIf);
   InternalisationViewModel internalisationViewmodelWaiting =
-      InternalisationViewModel();
-  SortableListViewModel outcomeSelectionViewModel =
-      SortableListViewModel.withInitialItems(outcomes);
-  SortableListViewModel obstacleSelectionViewModel =
-      SortableListViewModel.withInitialItems(obstacles);
+      InternalisationViewModel.withCondition(InternalisationCondition.waiting);
+  PlanViewModel planCreationViewModel = PlanViewModel();
   List<String> submittedResults = [];
 
   Duration waitingDuration = Duration(seconds: 1);
@@ -70,15 +66,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     this._selectedMascot = selected;
     _dataService.setSelectedMascot(selected);
     _rewardService.changeMascot(selected);
-    notifyListeners();
-  }
-
-  String _plan = "";
-  String get plan => _plan;
-  set plan(String plan) {
-    this._plan = plan;
-    internalisationViewmodelEmoji.plan = plan;
-    internalisationViewmodelWaiting.plan = plan;
     notifyListeners();
   }
 
@@ -143,6 +130,12 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
+  void onPlanCreationCompleted(String result) {
+    internalisationViewmodelEmoji.plan = result;
+    internalisationViewmodelWaiting.plan = result;
+    notifyListeners();
+  }
+
   void onPermissionRequest() {
     AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
       if (!isAllowed) {
@@ -173,8 +166,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   Future<bool> getInitialValues() async {
     var plan = await _dataService.getLastPlan();
     if (plan != null) {
-      this.plan = plan.plan;
+      planCreationViewModel.plan = plan.plan;
+      internalisationViewmodelEmoji.plan = plan.plan;
+      internalisationViewmodelWaiting.plan = plan.plan;
     }
+
     return true;
   }
 
@@ -194,12 +190,15 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     }
   }
 
-  void submitAssessmentResult(key) {
-    var assessmentResult =
-        AssessmentResult(allAssessmentResults[key]!, key, DateTime.now());
+  void submitAssessmentResult(assessmentName) {
+    if (!allAssessmentResults.containsKey(assessmentName)) {
+      return;
+    }
+    var assessmentResult = AssessmentResult(
+        allAssessmentResults[assessmentName]!, assessmentName, DateTime.now());
     assessmentResult.startDate = this.startDate;
     _dataService.saveAssessment(assessmentResult);
-    submittedResults.add(key);
+    submittedResults.add(assessmentName);
   }
 
   @override
@@ -218,7 +217,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     var internalisation = Internalisation(
         startDate: DateTime.now(),
         completionDate: DateTime.now(),
-        plan: this.plan,
+        plan: this.planCreationViewModel.plan,
         condition: InternalisationCondition.emojiIf.toString(),
         input: this.internalisationViewmodelEmoji.input);
     _dataService.saveInternalisation(internalisation);
@@ -235,12 +234,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.video_distributedLearning:
       case SessionZeroStep.planInternalisationWaiting:
       case SessionZeroStep.planDisplay:
+      case SessionZeroStep.video_introduction:
         break;
-      // case SessionZeroStep.mascotSelection:
-      //   _dataService.setSelectedMascot(selectedMascot);
-      //   break;
       case SessionZeroStep.planCreation:
-        _dataService.savePlan(plan);
+        _dataService.savePlan(planCreationViewModel.plan);
         break;
       case SessionZeroStep.planInternalisationEmoji:
         saveInternalisation();
@@ -248,20 +245,15 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.whoAreYou:
         _dataService.saveUserDataProperty("role", role);
         break;
-      case SessionZeroStep.video_introduction:
-        // TODO: Handle this case.
-        break;
       case SessionZeroStep.questions_sociodemographics:
-        // TODO: Handle this case.
+        submitAssessmentResult(sociodemographicQuestions.id);
         break;
       case SessionZeroStep.questions_vocablearning:
+        submitAssessmentResult(vocabQuestions.id);
+        break;
       case SessionZeroStep.questions_usability:
-        break;
       case SessionZeroStep.introduction_distributedLearning:
-        // TODO: Handle this case.
-        break;
       case SessionZeroStep.introduction_planning:
-        // TODO: Handle this case.
         break;
       case SessionZeroStep.permissionRequest:
         onPermissionRequest();
@@ -312,7 +304,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.video_distributedLearning:
         return _videoDistributedLearningCompleted;
       case SessionZeroStep.planCreation:
-        return plan.isNotEmpty;
+        return planCreationViewModel.plan.isNotEmpty;
       case SessionZeroStep.planInternalisationEmoji:
         return this.internalisationViewmodelEmoji.input.isNotEmpty;
       case SessionZeroStep.planInternalisationWaiting:

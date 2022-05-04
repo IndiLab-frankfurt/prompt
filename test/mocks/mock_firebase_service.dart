@@ -109,11 +109,6 @@ class MockFirebaseService implements IDatabaseService {
   }
 
   @override
-  Future saveVocabValue(Plan plan, String userid) {
-    throw UnimplementedError();
-  }
-
-  @override
   Future saveInternalisation(Internalisation internalisation, String email) {
     throw UnimplementedError();
   }
@@ -135,20 +130,23 @@ class MockFirebaseService implements IDatabaseService {
 
   @override
   Future saveDateLearned(DateTime dateLearned, String userid) {
-    // TODO: implement saveDateLearnd
     throw UnimplementedError();
   }
 
   @override
   Future getDatesLearned(String userid) {
-    // TODO: implement getDatesLearnd
     throw UnimplementedError();
   }
 
   @override
   saveSimpleValueWithTimestamp(
       String value, String collection, DateTime dateTime, String userid) {
-    // TODO: implement saveSimpleValueWithTimestamp
+    throw UnimplementedError();
+  }
+
+  @override
+  getSimpleValuesWithTimestamp(String collection, String userid) {
+    // TODO: implement getSimpleValuesWithTimestamp
     throw UnimplementedError();
   }
 }

@@ -170,6 +170,20 @@ class DataService {
     }
   }
 
+  Future<List<dynamic>> getSimpleValuesWithTimestamp(String collection) async {
+    var ud = await getUserData();
+    if (ud != null) {
+      var values = await _databaseService.getSimpleValuesWithTimestamp(
+        collection,
+        _userService.getUsername(),
+      );
+      if (values is List<dynamic>) {
+        return values;
+      }
+    }
+    return [];
+  }
+
   savePlan(String plan) async {
     var planModel = Plan(plan);
     var ud = getUserDataCache();
@@ -218,7 +232,7 @@ class DataService {
 
       return list;
     } else {
-      return [Color(0xffffffff), Color(0xffffffff)];
+      return [];
     }
   }
 
@@ -263,13 +277,20 @@ class DataService {
         dateLearned, _userService.getUsername());
   }
 
-  Future<List<DateTime>?> getDatesLearned() async {
+  Future<List<DateTime>> getDatesLearned() async {
     if (_datesLearnedCache == null) {
       _datesLearnedCache =
           await _databaseService.getDatesLearned(_userService.getUsername());
-    }
 
-    return _datesLearnedCache;
+      if (_datesLearnedCache == null) {
+        _datesLearnedCache = [];
+      }
+    }
+    if (_datesLearnedCache is List<DateTime>) {
+      return _datesLearnedCache!;
+    } else {
+      return [];
+    }
   }
 
   saveInternalisation(Internalisation internalisation) async {

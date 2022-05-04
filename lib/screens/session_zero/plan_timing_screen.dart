@@ -113,7 +113,7 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
         padding: EdgeInsets.all(10),
         child: ListView(
           children: [
-            SpeechBubble(text: vm.plan),
+            SpeechBubble(text: vm.planCreationViewModel.plan),
             UIHelper.verticalSpaceMedium(),
             MarkdownBody(data: "### Um wie viel Uhr passiert das ungefähr?"),
             UIHelper.verticalSpaceMedium(),

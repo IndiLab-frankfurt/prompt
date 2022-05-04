@@ -6,7 +6,6 @@ import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/models/unlockable_background.dart';
-import 'package:prompt/widgets/prompt_drawer.dart';
 
 class RewardSelectionScreen extends StatefulWidget {
   RewardSelectionScreen() : super();

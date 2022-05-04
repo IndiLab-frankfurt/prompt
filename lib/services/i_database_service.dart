@@ -61,4 +61,6 @@ abstract class IDatabaseService {
 
   saveSimpleValueWithTimestamp(
       String value, String collection, DateTime dateTime, String userid);
+
+  getSimpleValuesWithTimestamp(String collection, String userid);
 }

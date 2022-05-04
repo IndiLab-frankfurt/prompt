@@ -1,32 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/data/questions.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
-import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
-import 'package:prompt/screens/session_zero/text_screen.dart';
-import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/viewmodels/distributed_learning_view_model.dart';
+import 'package:prompt/viewmodels/plan_reminder_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:async/async.dart';
 
-class DistributedLearningScreens extends StatefulWidget {
-  DistributedLearningScreens({Key? key}) : super(key: key);
+class PlanReminderScreens extends StatefulWidget {
+  PlanReminderScreens({Key? key}) : super(key: key);
 
   @override
-  _DistributedLearningScreensState createState() =>
-      _DistributedLearningScreensState();
+  _PlanReminderScreensState createState() => _PlanReminderScreensState();
 }
 
-class _DistributedLearningScreensState
-    extends State<DistributedLearningScreens> {
+class _PlanReminderScreensState extends State<PlanReminderScreens> {
   List<Widget> _pages = [];
 
   final AsyncMemoizer _memoizer = AsyncMemoizer();
 
-  late DistributedLearningViewModel vm =
-      Provider.of<DistributedLearningViewModel>(context);
+  late PlanReminderViewModel vm = Provider.of<PlanReminderViewModel>(context);
 
   @override
   void didChangeDependencies() {
@@ -77,24 +71,20 @@ class _DistributedLearningScreensState
         ));
   }
 
-  Widget getScreen(DistributedLearningStep step) {
+  Widget getScreen(Enum step) {
     var key = ValueKey(step);
-    switch (step) {
-      case DistributedLearningStep.introduction_distributedLearning:
-        return TextScreen(paragraphs: [
-          AppStrings.SessionZero_Introduction_DistributedLearning_1
-        ], key: key);
 
-      case DistributedLearningStep.video_distributedLearning:
-        return TextScreen(
-            paragraphs: ["Hier Video über verteiltes Lernen"], key: key);
-
-      case DistributedLearningStep.questions_vocablearning:
-        return MultiStepQuestionnairePage(
-          key: key,
-          vm: vm,
-          questionnaire: vocabQuestionGoal,
-        );
+    var reminderStep = step as PlanReminderStep;
+    switch (reminderStep) {
+      case PlanReminderStep.planInternalisationEmoji:
+        return ChangeNotifierProvider.value(
+            value: vm.internalisationViewModel,
+            key: key,
+            child: EmojiInternalisationScreen(
+                onCompleted: vm.onInternalisationCompleted,
+                emojiInputIf: true,
+                emojiInputThen: true,
+                key: ValueKey(PlanReminderStep.planInternalisationEmoji)));
     }
   }
 }

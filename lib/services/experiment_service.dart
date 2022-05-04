@@ -79,9 +79,6 @@ class ExperimentService {
 
   nextScreen(String currentScreen) async {
     if (currentScreen == RouteNames.SESSION_ZERO) {
-      // if (Platform.isAndroid) {
-      //   UsageStatsService.grantUsagePermission();
-      // }
       return await _navigationService
           .navigateWithReplacement(RouteNames.NO_TASKS);
     } else if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
@@ -93,24 +90,6 @@ class ExperimentService {
     } else {
       await _navigationService.navigateWithReplacement(RouteNames.NO_TASKS);
     }
-  }
-
-  DateTime getNextVocabTestDate() {
-    var daysAgo = getDaysSinceStart();
-    for (var day in vocabTestDays) {
-      if (day > daysAgo) {
-        return DateTime.now().add(Duration(days: day - daysAgo));
-      }
-    }
-    return DateTime.now();
-  }
-
-  bool isVocabTestDay() {
-    return vocabTestDays.contains(getDaysSinceStart());
-  }
-
-  bool wasVocabDayYesterday() {
-    return vocabTestDays.contains(getDaysSinceStart() - 1);
   }
 
   bool didCompleteFinal() {
@@ -151,17 +130,8 @@ class ExperimentService {
       AssessmentResult assessment, String type) async {
     await this._dataService.saveAssessment(assessment);
 
-    if (type == MORNING_ASSESSMENT) {
-      if (_shouldIncrementStreakDay()) {
-        await _rewardService.addStreakDays(1);
-      } else {
-        await _rewardService.clearStreakDays();
-      }
-      await _rewardService.onMorningAssessment();
-
-      if (Platform.isAndroid) {
-        saveUsageStats();
-      }
+    if (type == "DistributedLearning") {
+      await _rewardService.addPoints(5);
     }
   }
 
@@ -171,11 +141,14 @@ class ExperimentService {
     return daysAgo == 1;
   }
 
-  isBoosterPromptDay() {
-    var userData = _dataService.getUserDataCache();
-    var daysAgo = getDaysSinceStart();
+  Future<void> addDayLearned() async {
+    // await _dataService.saveDateLearned(DateTime.now());
+    // await _rewardService.addPoints(5);
 
-    return boosterPrompts[userData.group]!.contains(daysAgo);
+    await Future.wait(<Future>[
+      _dataService.saveDateLearned(DateTime.now()),
+      _rewardService.addPoints(5)
+    ]);
   }
 
   isInternalisationDay() {

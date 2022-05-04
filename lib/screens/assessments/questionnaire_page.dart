@@ -115,8 +115,6 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   }
 
   Widget buildMultipleSelectionQuestion(Question question, int index) {
-    var selectedValues = [];
-
     return MultipleSelectionQuestion(
       id: question.id,
       labels: question.labels,

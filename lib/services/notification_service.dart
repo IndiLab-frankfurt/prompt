@@ -106,36 +106,32 @@ class NotificationService {
     }
   }
 
-  scheduleMorningReminder(DateTime time, int id) async {
-    var timeoutAfter = getMillisecondsUntilMidnight(time);
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_MORNING_REMINDER, CHANNEL_NAME_MORNING_REMINDER,
-        channelDescription: CHANNEL_DESCRIPTION_MORNING_REMINDER,
-        timeoutAfter: timeoutAfter,
-        ongoing: true);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+  scheduleMorningReminder(DateTime dateTime, int id) async {
+    String localTimeZone =
+        await AwesomeNotifications().getLocalTimeZoneIdentifier();
+    String utcTimeZone =
+        await AwesomeNotifications().getLocalTimeZoneIdentifier();
+    await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            id: id,
+            channelKey: 'scheduled',
+            title: 'wait 5 seconds to show',
+            body: 'now is 5 seconds later',
+            wakeUpScreen: true,
+            category: NotificationCategory.Alarm,
+            groupKey: "daily"),
+        schedule: NotificationCalendar.fromDate(
+          // interval: 60 * 60 * 24,
+          date: dateTime,
+          repeats: true,
+        ));
 
-    locator.get<LoggingService>().logEvent("ScheduleNotificationTaskReminder");
+    locator.get<LoggingService>().logEvent("Schedule Daily Reminder");
+  }
 
-    String title = "Mache jetzt weiter mit PROMPT!";
-    String body = "";
-
-    var scheduledDate = tz.TZDateTime(
-        tz.local, time.year, time.month, time.day, time.hour, time.minute);
-
-    var reminderId = ID_MORNING + id;
-
-    print("Scheduling Morning Reminder for $scheduledDate with id $reminderId");
-
-    await localNotifications.zonedSchedule(
-        reminderId, title, body, scheduledDate, notificationDetails,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        payload: reminderId.toString(),
-        androidAllowWhileIdle: true);
+  cancelMorningReminder() async {
+    await AwesomeNotifications().cancel(ID_MORNING);
+    locator.get<LoggingService>().logEvent("Cancel Daily Reminder");
   }
 
   getMillisecondsUntilMidnight(DateTime time) {

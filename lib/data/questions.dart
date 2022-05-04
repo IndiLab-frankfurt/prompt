@@ -54,3 +54,16 @@ late var vocabQuestions = Questionnaire(
             "where": "Ich habe einen genauen Plan, wann ich Vokabeln lerne",
           })
     ]);
+
+late var vocabQuestionGoal =
+    Questionnaire(id: "vocab_goal", title: "Setze dir ein Ziel!", items: [
+  Question(
+      id: "vocab_goal",
+      type: QuestionType.single,
+      questionText: "Wie oft willst du Vokabeln lernen",
+      labels: {
+        "1": "1-2 mal pro Woche",
+        "2": "3-4 mal pro Woche",
+        "3": "5-6 mal pro Woche",
+      }),
+]);

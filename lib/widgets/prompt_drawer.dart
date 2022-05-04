@@ -91,9 +91,9 @@ class PromptDrawer extends StatelessWidget {
               }),
           _buildDrawerItem(
               icon: Icons.add_box,
-              text: "Login",
+              text: "Plan Reminder",
               onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.LOG_IN);
+                await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
               }),
           Divider(),
           _buildDrawerItem(

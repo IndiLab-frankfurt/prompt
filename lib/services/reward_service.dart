@@ -26,7 +26,7 @@ class RewardService {
   static const int STREAK_THRESHOLD = 5;
 
   LinearGradient backgroundColor = LinearGradient(
-    colors: [Colors.orange, Colors.orange],
+    colors: UIHelper.baseGradient,
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
@@ -97,6 +97,10 @@ class RewardService {
 
   Future<List<Color>> getBackgroundColors() async {
     _dataService.getBackgroundGradientColors().then((colors) {
+      if (colors.isEmpty) {
+        colors = UIHelper.baseGradient;
+      }
+
       var bgColor = LinearGradient(
         colors: colors,
         begin: Alignment.topCenter,
