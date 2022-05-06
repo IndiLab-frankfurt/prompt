@@ -67,3 +67,23 @@ late var vocabQuestionGoal =
         "3": "5-6 mal pro Woche",
       }),
 ]);
+
+late var learningTipQuestions =
+    Questionnaire(id: "learning_tip_feedback", title: "", items: [
+  Question(
+      id: "tip_new",
+      type: QuestionType.single,
+      questionText: "War der Tipp neu für dich?",
+      labels: {
+        "1": "Ja",
+        "2": "Nein",
+      }),
+  Question(
+      id: "tip_new",
+      type: QuestionType.single,
+      questionText: "War der Tipp neu für dich?",
+      labels: {
+        "1": "Ja",
+        "2": "Nein",
+      }),
+]);
