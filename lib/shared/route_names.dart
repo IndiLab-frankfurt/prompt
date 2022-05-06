@@ -31,5 +31,6 @@ class RouteNames {
 
   static const MASCOT_CHANGE = "/mascotselection";
 
+  static const SINGLE_LEARNING_TIP = "/singlelearningtip";
   static const LEARNING_TIPS = "/learningtips";
 }

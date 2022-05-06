@@ -1,22 +1,20 @@
 import 'dart:async';
 
+import 'package:prompt/models/value_with_date.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/navigation_service.dart';
+import 'package:prompt/services/reward_service.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
-
-enum OpenTasks {
-  LearnVocabulary,
-  ViewDistributedLearning,
-  ViewMentalContrasting
-}
 
 class DashboardViewModel extends BaseViewModel {
   final ExperimentService _experimentService;
   final DataService _dataService;
-  final NavigationService _navigationService;
-  int daysActive = 0;
+  final RewardService _rewardService;
+  int daysLearned = 0;
+  int daysNotLearned = 0;
   Timer? timer;
 
   bool _showTimerConfiguration = false;
@@ -54,11 +52,7 @@ class DashboardViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  List<OpenTasks> openTasks = [
-    OpenTasks.LearnVocabulary,
-    OpenTasks.ViewDistributedLearning,
-    OpenTasks.ViewMentalContrasting
-  ];
+  List<OpenTasks> openTasks = [];
 
   addTask(OpenTasks task) {
     if (!openTasks.contains(task)) {
@@ -77,31 +71,53 @@ class DashboardViewModel extends BaseViewModel {
   double timerProgressSeconds = 0;
 
   DashboardViewModel(
-      this._experimentService, this._dataService, this._navigationService);
-
-  int getMaxStudyDays() {
-    var group = _dataService.getUserDataCache().group;
-    return _experimentService.finalAssessmentDay[group]!;
-  }
+      this._experimentService, this._dataService, this._rewardService);
 
   Future<bool> initialize() async {
-    await Future.wait([_dataService.getDatesLearned()]);
+    OpenTasks? openTask;
+    await Future.wait([
+      _dataService.getDatesLearned(),
+      _experimentService.getOpenTask().then((res) => openTask = res),
+    ]);
 
     var datesLearned = await _dataService.getDatesLearned();
     hasLearnedToday = datesLearned.length > 0 &&
         datesLearned.last.date.isToday() &&
         datesLearned.last.value == true;
 
-    daysActive = datesLearned.where((element) => element.value == true).length;
+    var sevenDaysAgo = DateTime.now().subtract(Duration(days: 7));
+    daysLearned = _datesLearnedSince(datesLearned, sevenDaysAgo, true);
+    daysNotLearned = _datesLearnedSince(datesLearned, sevenDaysAgo, false);
 
-    var shouldWatchDistributedLearning =
-        await _dataService.getValuesWithDates("distributedLearning");
+    if (openTask == OpenTasks.ViewDistributedLearning) {
+      addTask(OpenTasks.ViewDistributedLearning);
+    }
+    if (openTask == OpenTasks.ViewDistributedLearning) {
+      addTask(OpenTasks.ViewMentalContrasting);
+    }
 
     return true;
   }
 
+  List<int> getPendingRewards() {
+    return _rewardService.pendingRewardNotifications;
+  }
+
+  void clearPendingRewards() {
+    return _rewardService.pendingRewardNotifications.clear();
+  }
+
+  _datesLearnedSince(
+      List<ValueWithDate> datesLearned, DateTime date, hasLearned) {
+    // Count how many dates have been learned since the given date
+    return datesLearned
+        .where((element) =>
+            element.date.isAfter(date) && element.value == hasLearned)
+        .length;
+  }
+
   addDaysLearned(int days) async {
-    daysActive += days;
+    daysLearned += days;
 
     _experimentService.addDayLearned();
 

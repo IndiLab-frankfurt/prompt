@@ -8,7 +8,6 @@ import 'package:prompt/shared/ui_helper.dart';
 class RewardService {
   late StreamController<int> controller = StreamController.broadcast();
   int scoreValue = 0;
-  int gems = 0;
   int daysActive = 0;
   int streakDays = 0;
   static final pointsForMorningAssessment = 10;
@@ -25,8 +24,10 @@ class RewardService {
   String get selectedMascot => _selectedMascot;
   static const int STREAK_THRESHOLD = 5;
 
+  final List<int> pendingRewardNotifications = [];
+
   LinearGradient backgroundColor = LinearGradient(
-    colors: UIHelper.baseGradient,
+    colors: UIHelper.baseGradientColors,
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );
@@ -98,7 +99,7 @@ class RewardService {
   Future<List<Color>> getBackgroundColors() async {
     _dataService.getBackgroundGradientColors().then((colors) {
       if (colors.isEmpty) {
-        colors = UIHelper.baseGradient;
+        colors = UIHelper.baseGradientColors;
       }
 
       var bgColor = LinearGradient(
@@ -125,25 +126,23 @@ class RewardService {
 
   getUnlockDays(String background, int group) {
     var unlockDays = {
-      "Monster": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0},
-      "Flugzeug": {1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0},
-      "Weltraum 1": {1: 4, 2: 3, 3: 3, 4: 3, 5: 3, 6: 3},
-      "Pyramiden 1": {1: 8, 2: 6, 3: 6, 4: 6, 5: 6, 6: 6},
-      "Vulkan 1": {1: 12, 2: 9, 3: 9, 4: 9, 5: 9, 6: 9},
-      "Wikinger 1": {1: 16, 2: 12, 3: 12, 4: 12, 5: 12, 6: 12},
-      "Ozean 1": {1: 21, 2: 15, 3: 15, 4: 15, 5: 15, 6: 15},
-      "Pyramiden 2": {1: 25, 2: 18, 3: 18, 4: 18, 5: 18, 6: 18},
-      "Zauberei 1": {1: 30, 2: 21, 3: 21, 4: 21, 5: 21, 6: 21},
-      "Weltraum 2": {1: 34, 2: 24, 3: 24, 4: 24, 5: 24, 6: 24},
-      "Vulkan 2": {1: 38, 2: 27, 3: 27, 4: 27, 5: 27, 6: 27},
-      "Ozean 2": {1: 43, 2: 30, 3: 30, 4: 30, 5: 30, 6: 30},
-      "Wikinger 2": {1: 47, 2: 33, 3: 33, 4: 33, 5: 33, 6: 33},
-      "Zauberei 2": {1: 52, 2: 36, 3: 36, 4: 36, 5: 36, 6: 36},
+      "Monster": 0,
+      "Flugzeug": 25,
+      "Weltraum 1": 50,
+      "Pyramiden 1": 75,
+      "Vulkan 1": 100,
+      "Wikinger 1": 125,
+      "Ozean 1": 150,
+      "Pyramiden 2": 175,
+      "Zauberei 1": 200,
+      "Weltraum 2": 225,
+      "Vulkan 2": 250,
+      "Ozean 2": 275,
+      "Wikinger 2": 300,
+      "Zauberei 2": 325
     };
     if (unlockDays.containsKey(background)) {
-      if (unlockDays[background]!.containsKey(group)) {
-        return unlockDays[background]![group];
-      }
+      return unlockDays[background];
     }
     return 0;
   }
@@ -248,6 +247,7 @@ class RewardService {
   addPoints(int points) async {
     scoreValue += points;
     controller.add(scoreValue);
+    pendingRewardNotifications.add(points);
     await _dataService.saveScore(scoreValue);
   }
 

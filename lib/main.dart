@@ -48,12 +48,15 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: Colors.transparent,
         canvasColor: Colors.white,
         selectedRowColor: Colors.orange[200],
-        textTheme: TextTheme(
-          bodyText1: GoogleFonts.quicksand(fontSize: 15),
-          bodyText2:
-              GoogleFonts.quicksand(fontSize: 15, fontWeight: FontWeight.w700),
-          subtitle1:
-              GoogleFonts.quicksand(fontSize: 20, fontWeight: FontWeight.w600),
+        // textTheme: TextTheme(
+        //   bodyText1: GoogleFonts.andikaNewBasic(fontSize: 15),
+        //   bodyText2: GoogleFonts.andikaNewBasic(
+        //       fontSize: 15, fontWeight: FontWeight.w700),
+        //   subtitle1: GoogleFonts.andikaNewBasic(
+        //       fontSize: 20, fontWeight: FontWeight.w600),
+        // ),
+        textTheme: GoogleFonts.andikaNewBasicTextTheme(
+          Theme.of(context).textTheme,
         ),
         // GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
         buttonTheme: ButtonThemeData(

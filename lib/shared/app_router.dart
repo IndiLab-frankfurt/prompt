@@ -10,8 +10,10 @@ import 'package:prompt/screens/dashboard_screen.dart';
 import 'package:prompt/screens/auth/registration_screen.dart';
 import 'package:prompt/screens/learning_tips_screen.dart';
 import 'package:prompt/screens/main/distributed_learning_screens.dart';
+import 'package:prompt/screens/main/learning_tip_screens.dart';
 import 'package:prompt/screens/main/mental_contrasting_screens.dart';
 import 'package:prompt/screens/main/plan_reminder_screens.dart';
+import 'package:prompt/screens/main/single_learning_tip_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
 import 'package:prompt/screens/study_complete_screen.dart';
@@ -24,6 +26,7 @@ import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/change_mascot_view_model.dart';
 import 'package:prompt/viewmodels/distributed_learning_view_model.dart';
+import 'package:prompt/viewmodels/learning_tip_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
 import 'package:prompt/viewmodels/mental_contrasting_view_model.dart';
@@ -76,7 +79,7 @@ class AppRouter {
                   create: (_) => DashboardViewModel(
                       locator.get<ExperimentService>(),
                       locator.get<DataService>(),
-                      locator.get<NavigationService>()),
+                      locator.get<RewardService>()),
                   child: DashboardScreen(),
                 ));
 
@@ -124,6 +127,15 @@ class AppRouter {
                   create: (_) => PlanReminderViewModel(
                       locator.get<DataService>(),
                       locator.get<ExperimentService>()),
+                ));
+
+      case RouteNames.SINGLE_LEARNING_TIP:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                  child: LearningTipScreens(),
+                  create: (_) => LearningTipViewModel(
+                      locator.get<ExperimentService>(),
+                      locator.get<DataService>()),
                 ));
 
       case RouteNames.ABOUT_PROMPT:

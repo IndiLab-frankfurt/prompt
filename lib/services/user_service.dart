@@ -66,19 +66,10 @@ class UserService {
     String buildNumber = packageInfo.buildNumber;
     String appVersion = "v.$version+$buildNumber";
 
-    var group = getGroup();
-    var cabuuCode = "123";
-    var groupCode = await FirebaseService().getInitialData(user);
-    if (groupCode != null) {
-      group = groupCode["group"];
-      cabuuCode = groupCode["cabuuCode"];
-    }
-
     return UserData(
         firebaseId: uid,
         user: user,
-        group: group,
-        cabuuCode: cabuuCode,
+        group: 1,
         score: 0,
         streakDays: 0,
         initSessionStep: 0,
@@ -104,7 +95,7 @@ class UserService {
 
   saveRandomUser() async {
     var uid = _getRandomUsername();
-    return registerUser("$uid@edutec.science", "123456");
+    return registerUser("$uid@prompt.studie", "123456");
   }
 
   _getRandomUsername() {
@@ -123,9 +114,5 @@ class UserService {
 
   bool isSignedIn() {
     return _isSignedIn;
-    // return await FirebaseService().getCurrentUser().l.then((value) {
-    //   if (value == null) return false;
-    //   return true;
-    // });
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/locator.dart';
+import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -71,16 +72,23 @@ class PromptDrawer extends StatelessWidget {
               }),
           _buildDrawerItem(
               icon: Icons.info_outline,
-              text: "Tipps zum Vokabeln lernen",
+              text: "Lerntricks",
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.LEARNING_TIPS);
               }),
-          // _buildDrawerItem(
-          //     icon: Icons.info_outlined,
-          //     text: "Über PROMPT",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(context, RouteNames.ABOUT_PROMPT);
-          //     }),
+          _buildDrawerItem(
+              icon: Icons.edit_notifications_outlined,
+              text: "Erinnerungen anpassen",
+              onTap: () async {
+                await Navigator.pushNamed(context, RouteNames.LEARNING_TIPS);
+              }),
+          _buildDrawerItem(
+              icon: Icons.info_outlined,
+              text: "Lerntip",
+              onTap: () async {
+                await Navigator.pushNamed(
+                    context, RouteNames.SINGLE_LEARNING_TIP);
+              }),
           Divider(),
           // _buildDrawerItem(
           //     icon: Icons.add_box,
@@ -89,26 +97,46 @@ class PromptDrawer extends StatelessWidget {
           //       await Navigator.pushReplacementNamed(
           //           context, RouteNames.RANDOM_LOGIN);
           //     }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Plan Reminder",
-              onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
-              }),
-          Divider(),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Plan Reminder",
+          //     onTap: () async {
+          //       await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
+          //     }),
+          // Divider(),
           _buildDrawerItem(
               icon: Icons.add_box,
               text: "Session 0",
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.SESSION_ZERO);
               }),
-          Divider(),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Notification Test",
-              onTap: () async {
-                locator.get<NotificationService>().sendDebugNotification();
-              }),
+          // Divider(),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Notification Test",
+          //     onTap: () async {
+          //       locator.get<NotificationService>().sendDebugNotification();
+          //     }),
+          // Divider(),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Coping Pläne",
+          //     onTap: () async {
+          //       Navigator.pushNamed(context, RouteNames.MENTAL_CONTRASTING);
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Verteiltes Lernen",
+          //     onTap: () async {
+          //       Navigator.pushNamed(context, RouteNames.DISTRIBUTED_LEARNING);
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Delete Last Date",
+          //     onTap: () async {
+          //       var ds = locator.get<DataService>();
+          //       ds.deleteLastDateLearned();
+          //     }),
           // Divider(),
           // Column(
           //   children: [

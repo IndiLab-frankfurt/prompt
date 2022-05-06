@@ -299,6 +299,18 @@ class DataService {
     return _datesLearnedCache!;
   }
 
+  Future deleteLastDateLearned() async {
+    if (_datesLearnedCache == null) {
+      _datesLearnedCache =
+          await _databaseService.getDatesLearned(_userService.getUsername());
+      if (_datesLearnedCache!.length > 0) {
+        _datesLearnedCache!.removeLast();
+      }
+    }
+
+    await _databaseService.deleteLastDateLearned(_userService.getUsername());
+  }
+
   saveInternalisation(Internalisation internalisation) async {
     return await _databaseService.saveInternalisation(
         internalisation, _userService.getUsername());

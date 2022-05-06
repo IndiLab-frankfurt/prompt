@@ -19,7 +19,7 @@ enum SessionZeroStep {
   questions_sociodemographics,
   questions_vocablearning,
   questions_usability,
-  introduction_distributedLearning,
+  reward_screen,
   video_distributedLearning,
   introduction_planning,
   video_planning,
@@ -27,9 +27,10 @@ enum SessionZeroStep {
   planDisplay,
   planInternalisationWaiting,
   planInternalisationEmoji,
-
   permissionRequest
 }
+
+typedef RewardCallback = void Function(int);
 
 class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   static List<SessionZeroStep> getScreenOrder(int group) {
@@ -41,6 +42,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.introduction_planning,
       SessionZeroStep.video_planning,
       SessionZeroStep.planCreation,
+      SessionZeroStep.reward_screen,
       SessionZeroStep.planDisplay,
       SessionZeroStep.planInternalisationWaiting,
       SessionZeroStep.planInternalisationEmoji,
@@ -57,6 +59,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       InternalisationViewModel.withCondition(InternalisationCondition.waiting);
   PlanViewModel planCreationViewModel = PlanViewModel();
   List<String> submittedResults = [];
+  RewardCallback? onRewardCallback;
 
   Duration waitingDuration = Duration(seconds: 1);
 
@@ -231,13 +234,20 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         videoWelcomeCompleted();
         break;
       case SessionZeroStep.video_planning:
+        break;
       case SessionZeroStep.video_distributedLearning:
+        break;
       case SessionZeroStep.planInternalisationWaiting:
+        break;
       case SessionZeroStep.planDisplay:
+        break;
       case SessionZeroStep.video_introduction:
         break;
       case SessionZeroStep.planCreation:
         _dataService.savePlan(planCreationViewModel.plan);
+        if (_rewardService.scoreValue == 0) {
+          _rewardService.addPoints(20);
+        }
         break;
       case SessionZeroStep.planInternalisationEmoji:
         saveInternalisation();
@@ -252,7 +262,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         submitAssessmentResult(vocabQuestions.id);
         break;
       case SessionZeroStep.questions_usability:
-      case SessionZeroStep.introduction_distributedLearning:
+        break;
+      case SessionZeroStep.reward_screen:
+        break;
       case SessionZeroStep.introduction_planning:
         break;
       case SessionZeroStep.permissionRequest:
@@ -282,7 +294,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.questions_sociodemographics:
       case SessionZeroStep.questions_vocablearning:
       case SessionZeroStep.questions_usability:
-      case SessionZeroStep.introduction_distributedLearning:
+      case SessionZeroStep.reward_screen:
       case SessionZeroStep.introduction_planning:
       case SessionZeroStep.permissionRequest:
         return true;

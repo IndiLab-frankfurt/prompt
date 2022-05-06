@@ -65,4 +65,6 @@ abstract class IDatabaseService {
 
   Future<List<ValueWithDate>> getValuesWithDates(
       String collection, String userid);
+
+  Future deleteLastDateLearned(String userid);
 }

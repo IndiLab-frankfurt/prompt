@@ -8,10 +8,10 @@ import 'package:prompt/screens/session_zero/instructions_implementation_intentio
 import 'package:prompt/screens/session_zero/permission_request_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
+import 'package:prompt/screens/session_zero/rewards_screen_2.dart';
 import 'package:prompt/screens/session_zero/text_screen.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
 import 'package:prompt/screens/session_zero/who_are_you_screen.dart';
-import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
@@ -113,10 +113,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       case SessionZeroStep.questions_usability:
         return TextScreen(paragraphs: ["Hier Usability Fragen"], key: key);
 
-      case SessionZeroStep.introduction_distributedLearning:
-        return TextScreen(paragraphs: [
-          AppStrings.SessionZero_Introduction_DistributedLearning_1
-        ], key: key);
+      case SessionZeroStep.reward_screen:
+        return RewardScreen2(key: key);
 
       case SessionZeroStep.video_distributedLearning:
         return TextScreen(

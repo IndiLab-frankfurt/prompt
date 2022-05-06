@@ -79,9 +79,25 @@ late var learningTipQuestions =
         "2": "Nein",
       }),
   Question(
-      id: "tip_new",
+      id: "tip_already_follow",
       type: QuestionType.single,
-      questionText: "War der Tipp neu für dich?",
+      questionText: "Befolgst du den Tipp bereits beim Lernen?",
+      labels: {
+        "1": "Ja",
+        "2": "Nein",
+      }),
+  Question(
+      id: "tip_good_bad",
+      type: QuestionType.single,
+      questionText: "Glaubst du, der Tipp ist...",
+      labels: {
+        "1": "...gut",
+        "2": "...schlecht",
+      }),
+  Question(
+      id: "tip_thoroughly_read",
+      type: QuestionType.single,
+      questionText: "Hast du dir den Tipp richtig durchgelesen?",
       labels: {
         "1": "Ja",
         "2": "Nein",

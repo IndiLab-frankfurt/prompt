@@ -149,4 +149,10 @@ class MockFirebaseService implements IDatabaseService {
     // TODO: implement getSimpleValuesWithTimestamp
     throw UnimplementedError();
   }
+
+  @override
+  Future deleteLastDateLearned(String userid) {
+    // TODO: implement deleteLastDateLearned
+    throw UnimplementedError();
+  }
 }

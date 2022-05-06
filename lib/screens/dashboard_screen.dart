@@ -3,13 +3,13 @@ import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/dialogs/reward_dialog.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/reward_service.dart';
-import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
-import 'package:prompt/widgets/full_width_button.dart';
 import 'package:prompt/widgets/habit_toggle_button.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
@@ -37,6 +37,28 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     _controllerTopCenter =
         ConfettiController(duration: const Duration(seconds: 2));
+
+    WidgetsBinding.instance
+        ?.addPostFrameCallback((_) => showRewardDialogIfNeeded());
+  }
+
+  void showRewardDialogIfNeeded() {
+    var rewardNotifications = vm.getPendingRewards();
+
+    if (rewardNotifications.isEmpty) {
+      return;
+    } else {
+      for (var reward in rewardNotifications) {
+        // wait two seconds and then show the dialog
+        Future.delayed(const Duration(seconds: 1), () {
+          showDialog(
+            context: context,
+            builder: (context) => RewardDialog(score: reward),
+          );
+        });
+      }
+      vm.clearPendingRewards();
+    }
   }
 
   @override
@@ -142,49 +164,26 @@ class _DashboardScreenState extends State<DashboardScreen>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  // UIHelper.verticalSpaceLarge(),
-                  // UIHelper.verticalSpaceMedium(),
+                  UIHelper.verticalSpaceMedium(),
+                  _buildHabitButton(),
+                  UIHelper.verticalSpaceMedium(),
                   _buildStatistics(),
-                  // UIHelper.verticalSpaceMedium(),
-                  // if (vm.showHabitButton)
-                  // _buildHabitButton(),
-                  // if (vm.showDaysLearned)
-                  //   _buildTimerButton(),
-                  // _buildTaskList(),
-                  // if (vm.showTimerConfiguration)
-                  //   _buildTimerConfiguration(),
-                  // if (vm.showTimerControls)
-                  //   _buildTimerControls()
-                  Spacer(),
+                  UIHelper.verticalSpaceMedium(),
+                  // Spacer(),
                   ..._getTasks(),
                   UIHelper.verticalSpaceSmall()
                 ],
               ),
               alignment: Alignment(0.0, 0.6)),
-          _buildConfettiTop()
-          // Align(alignment: Alignment.bottomCenter, child: _buildTaskList())
+          _buildConfettiTop(),
+          // SizedBox(
+          //     width: double.infinity,
+          //     height: double.infinity,
+          //     child: EmojiRain(numberOfItems: 5)),
         ]));
   }
 
   _getTasks() {
-    // return Container(
-    //   child: ListView.separated(
-    //       shrinkWrap: true,
-    //       itemCount: 2,
-    //       itemBuilder: (context, index) {
-    //         return Expanded(
-    //             child: ListView(
-    //           children: [
-    //             _buildToDistributedLearningButton(),
-    //             _buildToMentalContrasting(),
-    //           ],
-    //           shrinkWrap: true,
-    //         ));
-    //       },
-    //       separatorBuilder: (context, index) => SizedBox(
-    //             height: 10,
-    //           )),
-    // );
     List<Widget> tasks = [];
 
     if (vm.openTasks.contains(OpenTasks.ViewDistributedLearning)) {
@@ -200,18 +199,23 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   _buildTaskButton({text, required GestureTapCallback onPressed}) {
     return SizedBox(
-        width: 300,
+        width: double.infinity,
         height: 40,
         child: Stack(
           children: [
             ElevatedButton(
               onPressed: onPressed,
               style: ElevatedButton.styleFrom(
+                minimumSize: Size(400, 40),
                 shape: RoundedRectangleBorder(
                     borderRadius: new BorderRadius.circular(15.0)),
               ),
-              child: Text(text, style: TextStyle(fontSize: 20)),
+              child: Text("$text", style: TextStyle(fontSize: 20)),
             ),
+            // Positioned(
+            //     right: -10,
+            //     bottom: 0,
+            //     child: Text("💎", style: TextStyle(fontSize: 20)))
           ],
         ));
   }
@@ -240,7 +244,7 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   _buildToDistributedLearningButton() {
     return _buildTaskButton(
-      text: "Lerntipp anschauen",
+      text: "💎 Dein nächster Lerntrick 💎",
       onPressed: () {
         Navigator.pushNamed(context, RouteNames.DISTRIBUTED_LEARNING);
       },
@@ -249,7 +253,16 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   _buildToMentalContrasting() {
     return _buildTaskButton(
-      text: "Problemlöser anschauen",
+      text: "💎 Dein nächster Lerntrick 💎",
+      onPressed: () {
+        Navigator.pushNamed(context, RouteNames.MENTAL_CONTRASTING);
+      },
+    );
+  }
+
+  _buildToLearningTip() {
+    return _buildTaskButton(
+      text: "💎 Dein nächster Lerntrick 💎",
       onPressed: () {
         Navigator.pushNamed(context, RouteNames.MENTAL_CONTRASTING);
       },
@@ -264,9 +277,12 @@ class _DashboardScreenState extends State<DashboardScreen>
 
     return HabitToggleButtons(
       callback: (newValue) {
-        if (newValue && !vm.hasLearnedToday) {
+        if (!vm.hasLearnedToday) {
           vm.addDaysLearned(1);
-          _controllerTopCenter.play();
+          showDialogIfNecessary();
+          if (newValue) {
+            _controllerTopCenter.play();
+          }
         }
       },
       initialValues: initialValues,
@@ -284,17 +300,25 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   _buildStatistics() {
-    return Column(
-      children: [
-        UIHelper.verticalSpaceMedium(),
-        Text("${AppStrings.Dashboard_daysLearned}:",
-            style: TextStyle(fontSize: 20)),
-        UIHelper.verticalSpaceSmall(),
-        Center(child: Text("${vm.daysActive}", style: TextStyle(fontSize: 30))),
-        UIHelper.verticalSpaceMedium(),
-        _buildHabitButton()
-      ],
+    var msg = "";
+    if (vm.daysLearned == 0) {
+      msg = "Du hast bisher noch keine Lerntage eingetragen.";
+    } else if (vm.daysLearned == 1) {
+      msg =
+          "Du hast in den letzten sieben Tagen an ${vm.daysLearned} Tag Vokabeln gelernt";
+    } else {
+      msg =
+          "Du hast in den letzten Tagen an ${vm.daysLearned} Tagen Vokabeln gelernt";
+    }
+
+    return Text(
+      msg,
+      style: TextStyle(fontSize: 20),
+      textAlign: TextAlign.center,
     );
+    // SizedBox(
+    //     width: double.infinity,
+    //     child: Center(child: Markdown(data: "## $msg"))),
   }
 
   _buildConfettiTop() {

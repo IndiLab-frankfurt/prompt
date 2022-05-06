@@ -346,4 +346,26 @@ class FirebaseService implements IDatabaseService {
             .toList())
         .then((value) => value != null ? List<ValueWithDate>.from(value) : []);
   }
+
+  Future deleteLastDateLearned(String userid) async {
+    return _databaseReference
+        .collection(COLLECTION_DATES_LEARNED)
+        .doc(userid)
+        .get()
+        .then((value) => value
+            .data()?["dates"]
+            .map((e) => ValueWithDate.fromDocument(e))
+            .toList())
+        .then((value) => value != null ? List<ValueWithDate>.from(value) : [])
+        .then((value) {
+      if (value.length == 0) return;
+      var lastDate = value.last;
+      _databaseReference
+          .collection(COLLECTION_DATES_LEARNED)
+          .doc(userid)
+          .update({
+        "dates": FieldValue.arrayRemove([lastDate.toMap()])
+      });
+    });
+  }
 }

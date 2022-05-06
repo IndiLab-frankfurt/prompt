@@ -29,8 +29,9 @@ class _HabitToggleButtonsState extends State<HabitToggleButtons> {
 
   Widget toggleButton(BuildContext context, String text) {
     return Container(
-      margin: EdgeInsets.only(top: 10, bottom: 10),
-      child: Text(text),
+      width: 120,
+      margin: EdgeInsets.only(top: 5, bottom: 5),
+      child: Center(child: Text(text)),
     );
   }
 
@@ -54,10 +55,11 @@ class _HabitToggleButtonsState extends State<HabitToggleButtons> {
           ToggleButtons(
             direction: Axis.horizontal,
             borderColor: Colors.black,
-            selectedBorderColor: Colors.orange,
-            fillColor: Colors.white,
+            selectedBorderColor: Colors.black,
+            // fillColor: Colors.blueAccent,
+            fillColor: Theme.of(context).primaryColor,
             textStyle: TextStyle(fontSize: 20),
-            selectedColor: Colors.black,
+            selectedColor: Colors.white,
             borderRadius: BorderRadius.all(Radius.circular(10)),
             borderWidth: 1,
             children: buttons,

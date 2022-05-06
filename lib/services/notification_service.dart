@@ -28,8 +28,8 @@ class NotificationService {
       "Strategie Erinnerung";
   static const String PAYLOAD_BOOSTER_PROMPT = "PAYLOAD_STRATEGIE_REMINDER";
 
-  static const int ID_BOOST_PROMPT = 2389;
-  static const int ID_MORNING = 6969;
+  static const int ID_PLAN_REMINDER = 2389;
+  static const int ID_DAILY = 6969;
   static const int ID_TASK_REMINDER = 42;
   static const int ID_FINAL_TASK_REMINDER = 1901;
 
@@ -65,7 +65,7 @@ class NotificationService {
   deleteReminderWithId(int id) async {
     var pendingNotifications = await getPendingNotifications();
     var reminderExists =
-        pendingNotifications.firstWhereOrNull((n) => n.id == ID_MORNING);
+        pendingNotifications.firstWhereOrNull((n) => n.id == ID_DAILY);
     if (reminderExists == null) {
       localNotifications.cancel(id);
     }
@@ -109,11 +109,15 @@ class NotificationService {
     }
   }
 
-  scheduleMorningReminder(DateTime dateTime, int id) async {
-    String localTimeZone =
-        await AwesomeNotifications().getLocalTimeZoneIdentifier();
-    String utcTimeZone =
-        await AwesomeNotifications().getLocalTimeZoneIdentifier();
+  scheduleDailyReminder(DateTime dateTime, int id) async {
+    String groupKey = "daily";
+    // Check if is already scheduled and cancel all dailies
+    try {
+      await AwesomeNotifications().cancelSchedulesByGroupKey(groupKey);
+    } catch (e) {
+      print(e);
+    }
+
     await AwesomeNotifications().createNotification(
         actionButtons: [
           NotificationActionButton(
@@ -123,23 +127,46 @@ class NotificationService {
         ],
         content: NotificationContent(
             id: id,
-            channelKey: 'scheduled',
-            title: 'wait 5 seconds to show',
-            body: 'now is 5 seconds later',
+            channelKey: 'scheduleddaily',
+            title: 'Hast du heute Vokabeln gelernt?',
+            body: '',
             wakeUpScreen: true,
             category: NotificationCategory.Alarm,
-            groupKey: "daily"),
-        schedule: NotificationCalendar.fromDate(
+            groupKey: groupKey),
+        schedule: NotificationCalendar(
           // interval: 60 * 60 * 24,
-          date: dateTime,
+          hour: dateTime.hour,
+          // date: dateTime,
           repeats: true,
         ));
 
     locator.get<LoggingService>().logEvent("Schedule Daily Reminder");
   }
 
+  schedulePlanReminder(DateTime dateTime) async {
+    String groupKey = "plan";
+
+    await AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            id: ID_PLAN_REMINDER,
+            channelKey: 'planReminder',
+            title: 'Erinnere dich an deinen Plan',
+            body: '',
+            wakeUpScreen: true,
+            category: NotificationCategory.Alarm,
+            groupKey: groupKey),
+        schedule: NotificationCalendar(
+          // interval: 60 * 60 * 24,
+          hour: dateTime.hour,
+          // date: dateTime,
+          repeats: true,
+        ));
+
+    locator.get<LoggingService>().logEvent("Schedule Plan Reminder");
+  }
+
   cancelMorningReminder() async {
-    await AwesomeNotifications().cancel(ID_MORNING);
+    await AwesomeNotifications().cancel(ID_DAILY);
     locator.get<LoggingService>().logEvent("Cancel Daily Reminder");
   }
 
@@ -148,59 +175,6 @@ class NotificationService {
     var midnight = DateTime(now.year, now.month, now.day, 23, 59);
 
     return midnight.difference(now).inMilliseconds;
-  }
-
-  scheduleEveningReminder(DateTime time) async {
-    await deleteScheduledRecallReminderTask();
-
-    var timeoutAfter = getMillisecondsUntilMidnight(time);
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_EVENING, CHANNEL_NAME_EVENING,
-        channelDescription: CHANNEL_DESCRIPTION_EVENING,
-        ongoing: true,
-        timeoutAfter: timeoutAfter);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
-
-    var scheduledDate = tz.TZDateTime(
-        tz.local, time.year, time.month, time.day, time.hour, time.minute);
-
-    String title = "Mache jetzt weiter mit PROMPT!";
-    String body = "";
-
-    locator.get<LoggingService>().logEvent("ScheduleEveningReminder");
-
-    await localNotifications.zonedSchedule(
-        ID_TASK_REMINDER, title, body, scheduledDate, notificationDetails,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOAD_EVENING,
-        androidAllowWhileIdle: true);
-  }
-
-  scheduleBoosterPrompt(DateTime time) async {
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_BOOSTER_PROMPT, CHANNEL_NAME_BOOSTER_PROMPT,
-        channelDescription: CHANNEL_DESCRIPTION_BOOSTER_PROMPT, ongoing: true);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
-
-    String title = "Mache jetzt weiter mit PROMPT!";
-    String body = "";
-
-    var scheduledDate = tz.TZDateTime(
-        tz.local, time.year, time.month, time.day, time.hour, time.minute);
-
-    await localNotifications.zonedSchedule(
-        ID_BOOST_PROMPT, title, body, scheduledDate, notificationDetails,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOAD_BOOSTER_PROMPT,
-        androidAllowWhileIdle: true);
   }
 
   sendDebugNotification() async {

@@ -29,16 +29,18 @@ class UIHelper {
   static Color bgGradientStart = Color(0xfff2994a);
   static Color bgGradientEnd = Color(0xfff2c94c);
 
-  static List<Color> baseGradient = [
+  static List<Color> baseGradientColors = [
     UIHelper.bgGradientStart,
-    UIHelper.bgGradientStart
+    UIHelper.bgGradientEnd
   ];
 
+  static LinearGradient baseGradient = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [bgGradientStart, bgGradientEnd]);
+
   static BoxDecoration defaultBoxDecoration = BoxDecoration(
-    gradient: LinearGradient(
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-        colors: [bgGradientStart, bgGradientEnd]),
+    gradient: baseGradient,
   );
 
   static Widget verticalSpaceSmall() {

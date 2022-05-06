@@ -9,6 +9,13 @@ class SettingsKeys {
   static const String backgroundColors = "backgroundColors";
 }
 
+enum OpenTasks {
+  LearnVocabulary,
+  ViewDistributedLearning,
+  ViewMentalContrasting,
+  LearningTip
+}
+
 enum AppStartupMode {
   normal,
   signin,

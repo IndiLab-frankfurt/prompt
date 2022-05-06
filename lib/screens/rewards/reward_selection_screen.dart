@@ -21,7 +21,7 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
     var rewardService = locator<RewardService>();
 
     for (var bg in rewardService.backgrounds) {
-      unlockItems.add(_buildUnlockItem(bg, rewardService.daysActive));
+      unlockItems.add(_buildUnlockItem(bg, rewardService.scoreValue));
     }
 
     return Container(
@@ -65,11 +65,7 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
     } else {
       String text = "";
       var daysToUnlock = unlockable.requiredDays - daysActive;
-      if (daysToUnlock == 1) {
-        text = "Noch $daysToUnlock Tag alle Aufgaben erledigen";
-      } else {
-        text = "Noch $daysToUnlock Tage alle Aufgaben erledigen";
-      }
+      text = "Du brauchst noch $daysToUnlock 💎";
       unlockButton = ElevatedButton(
         style: ElevatedButton.styleFrom(primary: Colors.grey),
         onPressed: () {
