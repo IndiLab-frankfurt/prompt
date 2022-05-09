@@ -1,6 +1,5 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:prompt/locator.dart';
-import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/user_service.dart';

@@ -22,28 +22,42 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
   Widget build(BuildContext context) {
     var vm = Provider.of<MentalContrastingViewModel>(context, listen: false);
 
+    var bgimg = "assets/illustrations/mascot_1_thoughtbubble.png";
+
     return Container(
-      child: Column(
+      decoration: BoxDecoration(
+          gradient: UIHelper.baseGradient,
+          image: DecorationImage(
+              scale: 5.5,
+              image: AssetImage(bgimg),
+              fit: BoxFit.none,
+              alignment: Alignment.bottomCenter)),
+      child: Stack(
         children: [
-          MarkdownBody(data: "### ${AppStrings.SessionZero_OutcomeEnter_1}"),
-          UIHelper.verticalSpaceMedium(),
-          Flexible(
-            flex: 9,
-            child: TextField(
-                minLines: 5,
-                maxLines: null,
-                onChanged: (text) {
-                  vm.outcome = text;
-                },
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                  labelText:
-                      'Schreibe deine Antwort hier auf (Stichworte genügen)',
-                )),
+          Column(
+            children: [
+              MarkdownBody(
+                  data: "### ${AppStrings.SessionZero_OutcomeEnter_1}"),
+              UIHelper.verticalSpaceMedium(),
+              Flexible(
+                flex: 9,
+                child: TextField(
+                    minLines: 4,
+                    maxLines: null,
+                    onChanged: (text) {
+                      vm.outcome = text;
+                    },
+                    keyboardType: TextInputType.multiline,
+                    decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Colors.white,
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                      labelText:
+                          'Schreibe deine Antwort hier auf (Stichworte genügen)',
+                    )),
+              ),
+            ],
           ),
         ],
       ),

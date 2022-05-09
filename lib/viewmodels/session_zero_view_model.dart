@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/foundation.dart';
 import 'package:prompt/data/questions.dart';
@@ -47,6 +49,10 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planInternalisationWaiting,
       SessionZeroStep.planInternalisationEmoji,
     ];
+
+    if (Platform.isIOS) {
+      screenOrder.add(SessionZeroStep.permissionRequest);
+    }
 
     return screenOrder;
   }
@@ -303,7 +309,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   bool canMoveNext(ValueKey currentPageKey) {
-    return true;
+    // return true;
 
     var stepKey = currentPageKey.value as SessionZeroStep;
 
@@ -311,10 +317,14 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.welcome:
       case SessionZeroStep.planDisplay:
         return true;
+      case SessionZeroStep.whoAreYou:
+        return role.isNotEmpty;
       case SessionZeroStep.video_planning:
-        return _videoPlanningCompleted;
+        return true;
       case SessionZeroStep.video_distributedLearning:
-        return _videoDistributedLearningCompleted;
+        return true;
+      case SessionZeroStep.questions_sociodemographics:
+        return currentAssessmentIsFilledOut;
       case SessionZeroStep.planCreation:
         return planCreationViewModel.plan.isNotEmpty;
       case SessionZeroStep.planInternalisationEmoji:

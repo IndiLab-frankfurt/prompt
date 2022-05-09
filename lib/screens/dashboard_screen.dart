@@ -82,34 +82,10 @@ class _DashboardScreenState extends State<DashboardScreen>
     });
   }
 
-  showDialogIfNecessary() async {
-    String _title = "";
-    String _textReward = "";
-    String _textStreak = "";
-    String _textTotal = "";
-
-    await showDialog<String>(
+  showDialogForDailyLearning(int score) async {
+    showDialog(
       context: context,
-      builder: (BuildContext context) => new AlertDialog(
-        title: new Text(_title),
-        content: new Column(
-          children: [
-            MarkdownBody(data: _textReward),
-            UIHelper.verticalSpaceMedium(),
-            MarkdownBody(data: _textStreak),
-            UIHelper.verticalSpaceMedium(),
-            Text(_textTotal)
-          ],
-        ),
-        actions: <Widget>[
-          new ElevatedButton(
-            child: new Text("OK"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      ),
+      builder: (context) => RewardDialog(score: score),
     );
   }
 
@@ -176,21 +152,20 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
               alignment: Alignment(0.0, 0.6)),
           _buildConfettiTop(),
-          // SizedBox(
-          //     width: double.infinity,
-          //     height: double.infinity,
-          //     child: EmojiRain(numberOfItems: 5)),
         ]));
   }
 
   _getTasks() {
     List<Widget> tasks = [];
-
+    // We show only one task at a time
     if (vm.openTasks.contains(OpenTasks.ViewDistributedLearning)) {
       tasks.add(_buildToDistributedLearningButton());
       tasks.add(UIHelper.verticalSpaceSmall());
     } else if (vm.openTasks.contains(OpenTasks.ViewMentalContrasting)) {
       tasks.add(_buildToMentalContrasting());
+      tasks.add(UIHelper.verticalSpaceSmall());
+    } else if (vm.openTasks.contains(OpenTasks.LearningTip)) {
+      tasks.add(_buildToLearningTip());
       tasks.add(UIHelper.verticalSpaceSmall());
     }
 
@@ -212,10 +187,6 @@ class _DashboardScreenState extends State<DashboardScreen>
               ),
               child: Text("$text", style: TextStyle(fontSize: 20)),
             ),
-            // Positioned(
-            //     right: -10,
-            //     bottom: 0,
-            //     child: Text("💎", style: TextStyle(fontSize: 20)))
           ],
         ));
   }
@@ -264,7 +235,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     return _buildTaskButton(
       text: "💎 Dein nächster Lerntrick 💎",
       onPressed: () {
-        Navigator.pushNamed(context, RouteNames.MENTAL_CONTRASTING);
+        Navigator.pushNamed(context, RouteNames.SINGLE_LEARNING_TIP);
       },
     );
   }
@@ -279,10 +250,10 @@ class _DashboardScreenState extends State<DashboardScreen>
       callback: (newValue) {
         if (!vm.hasLearnedToday) {
           vm.addDaysLearned(1);
-          showDialogIfNecessary();
-          if (newValue) {
-            _controllerTopCenter.play();
-          }
+          showDialogForDailyLearning(2);
+        }
+        if (newValue) {
+          _controllerTopCenter.play();
         }
       },
       initialValues: initialValues,
@@ -308,7 +279,7 @@ class _DashboardScreenState extends State<DashboardScreen>
           "Du hast in den letzten sieben Tagen an ${vm.daysLearned} Tag Vokabeln gelernt";
     } else {
       msg =
-          "Du hast in den letzten Tagen an ${vm.daysLearned} Tagen Vokabeln gelernt";
+          "Du hast in den letzten sieben Tagen an ${vm.daysLearned} Tagen Vokabeln gelernt";
     }
 
     return Text(

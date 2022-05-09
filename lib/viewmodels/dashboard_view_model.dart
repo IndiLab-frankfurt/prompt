@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:prompt/models/value_with_date.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
-import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/extensions.dart';
@@ -92,8 +90,11 @@ class DashboardViewModel extends BaseViewModel {
     if (openTask == OpenTasks.ViewDistributedLearning) {
       addTask(OpenTasks.ViewDistributedLearning);
     }
-    if (openTask == OpenTasks.ViewDistributedLearning) {
+    if (openTask == OpenTasks.ViewMentalContrasting) {
       addTask(OpenTasks.ViewMentalContrasting);
+    }
+    if (openTask == OpenTasks.LearningTip) {
+      addTask(OpenTasks.LearningTip);
     }
 
     return true;

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/data/learning_tips.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
@@ -20,12 +20,15 @@ class LearningTipsScreen extends StatelessWidget {
 
   buildTips(BuildContext context) {
     List<Widget> tipWidgets = [];
-    for (var tip in LearningTips.entries) {
+    for (var tip in LearningTips) {
       tipWidgets.add(
         Card(
-          child: ListTile(
-            title: Text(tip.key),
-            subtitle: Text(tip.value),
+          child: ListTileTheme(
+            contentPadding: EdgeInsets.all(15),
+            child: ListTile(
+              title: Text(tip.title),
+              subtitle: Text(tip.learningTip),
+            ),
           ),
         ),
       );

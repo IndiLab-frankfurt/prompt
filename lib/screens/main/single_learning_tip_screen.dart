@@ -5,8 +5,6 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/learning_tip_view_model.dart';
 import 'package:prompt/widgets/full_width_button.dart';
-import 'package:prompt/widgets/prompt_appbar.dart';
-import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:provider/provider.dart';
 
 class SingleLearningTipScreen extends StatefulWidget {

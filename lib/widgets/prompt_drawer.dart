@@ -78,10 +78,12 @@ class PromptDrawer extends StatelessWidget {
               }),
           _buildDrawerItem(
               icon: Icons.edit_notifications_outlined,
-              text: "Erinnerungen anpassen",
+              text: "Zeitpunkt für Erinnerungen ändern",
               onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.LEARNING_TIPS);
+                await Navigator.pushNamed(
+                    context, RouteNames.CHANGE_REMINDER_TIME);
               }),
+          Divider(),
           _buildDrawerItem(
               icon: Icons.info_outlined,
               text: "Lerntip",
@@ -89,7 +91,6 @@ class PromptDrawer extends StatelessWidget {
                 await Navigator.pushNamed(
                     context, RouteNames.SINGLE_LEARNING_TIP);
               }),
-          Divider(),
           // _buildDrawerItem(
           //     icon: Icons.add_box,
           //     text: "AutoRegistrierung",
@@ -110,33 +111,20 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.SESSION_ZERO);
               }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Notification Test",
-          //     onTap: () async {
-          //       locator.get<NotificationService>().sendDebugNotification();
-          //     }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Coping Pläne",
-          //     onTap: () async {
-          //       Navigator.pushNamed(context, RouteNames.MENTAL_CONTRASTING);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Verteiltes Lernen",
-          //     onTap: () async {
-          //       Navigator.pushNamed(context, RouteNames.DISTRIBUTED_LEARNING);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Delete Last Date",
-          //     onTap: () async {
-          //       var ds = locator.get<DataService>();
-          //       ds.deleteLastDateLearned();
-          //     }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Outcomes/Obstacles",
+              onTap: () async {
+                await Navigator.pushNamed(
+                    context, RouteNames.MENTAL_CONTRASTING);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Delete Last Date",
+              onTap: () async {
+                var ds = locator.get<DataService>();
+                ds.deleteLastDateLearned();
+              }),
           // Divider(),
           // Column(
           //   children: [

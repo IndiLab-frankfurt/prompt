@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:prompt/shared/extensions.dart';
+import 'package:flutter/material.dart';
 
 class UserData {
   String firebaseId = "";
@@ -15,6 +17,7 @@ class UserData {
   String platform = Platform.isAndroid ? "Android" : "iOS";
   bool hasSeenDistributedPracticeIntervention = false;
   bool finalQuestionsCompleted = false;
+  TimeOfDay preferredReminderTime = TimeOfDay(hour: 18, minute: 0);
 
   UserData(
       {required this.firebaseId,
@@ -35,6 +38,7 @@ class UserData {
       "user": this.user,
       "group": this.group,
       "registrationDate": this.registrationDate.toIso8601String(),
+      "preferredReminderTime": this.preferredReminderTime.to24HourString(),
       "streakDays": this.streakDays,
       "score": this.score,
       "daysActive": this.daysActive,
@@ -81,6 +85,9 @@ class UserData {
     }
     if (json.containsKey("finalQuestionsCompleted")) {
       finalQuestionsCompleted = json["finalQuestionsCompleted"];
+    }
+    if (json.containsKey("preferredReminderTime")) {
+      preferredReminderTime = from24HourString(json["preferredReminderTime"]);
     }
   }
 }

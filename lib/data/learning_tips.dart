@@ -1,9 +1,10 @@
 import 'package:prompt/models/learning_tip.dart';
 
+// ignore: non_constant_identifier_names
 List<LearningTip> LearningTips = [
   LearningTip(
       id: "1",
-      title: "Lerne Verteilt",
+      title: "Lerne verteilt",
       learningTip:
           "Lerne lieber jeden Tag für ein paar Minuten statt ganz viel auf einmal. Wiederhole dabei öfter die Vokabeln, die du noch nicht so gut kannst. So wirst du dir die Vokabeln viel besser und länger merken."),
   LearningTip(

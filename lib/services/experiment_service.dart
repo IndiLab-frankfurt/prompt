@@ -64,9 +64,7 @@ class ExperimentService {
       return OpenTasks.ViewMentalContrasting;
     }
 
-    var learningTipsSeen =
-        await _dataService.getValuesWithDates("learningTipsSeen");
-    if (learningTipsSeen.length < LearningTips.length) {
+    if (await isLearningTipDay()) {
       return OpenTasks.LearningTip;
     }
 
@@ -205,6 +203,20 @@ class ExperimentService {
     var distributedLearnings =
         await _dataService.getValuesWithDates("distributedLearning");
     if (distributedLearnings.length == 0) {
+      return true;
+    }
+
+    return false;
+  }
+
+  Future<bool> isLearningTipDay() async {
+    var learningTipsSeen =
+        await _dataService.getValuesWithDates("learningTipsSeen");
+    if (learningTipsSeen.length < LearningTips.length) {
+      if (learningTipsSeen.length > 0) {
+        // Only one learning tip per day
+        return !learningTipsSeen.last.date.isToday();
+      }
       return true;
     }
 

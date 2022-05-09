@@ -1,9 +1,8 @@
-import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/material.dart';
 import 'package:prompt/models/learning_tip.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/route_names.dart';
-import 'package:prompt/viewmodels/base_view_model.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
 enum LearningTipSteps {
@@ -16,7 +15,7 @@ class LearningTipViewModel extends MultiStepAssessmentViewModel {
   ExperimentService _experimentService;
 
   LearningTipViewModel(this._experimentService, DataService _dataService)
-      : super(_dataService) {}
+      : super(_dataService);
 
   static List<LearningTipSteps> getScreenOrder(int group) {
     List<LearningTipSteps> screenOrder = [

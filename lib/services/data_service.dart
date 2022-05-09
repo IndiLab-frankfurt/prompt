@@ -203,10 +203,12 @@ class DataService {
   }
 
   saveUserDataProperty(String propertyname, dynamic value) async {
-    var ud = getUserDataCache();
+    var ud = await getUserData();
 
-    await _databaseService.saveUserDataProperty(ud.user, propertyname, value);
-    _userDataCache = await _databaseService.getUserData(ud.user);
+    if (ud != null) {
+      await _databaseService.saveUserDataProperty(ud.user, propertyname, value);
+      _userDataCache = await _databaseService.getUserData(ud.user);
+    }
   }
 
   Future<Plan?> getLastPlan() async {

@@ -21,8 +21,15 @@ class _ObstacleEnterScreenState extends State<ObstacleEnterScreen> {
   @override
   Widget build(BuildContext context) {
     var vm = Provider.of<MentalContrastingViewModel>(context, listen: false);
-
+    var bgimg = "assets/illustrations/mascot_1_wall.png";
     return Container(
+      decoration: BoxDecoration(
+          gradient: UIHelper.baseGradient,
+          image: DecorationImage(
+              scale: 5.5,
+              image: AssetImage(bgimg),
+              fit: BoxFit.fitWidth,
+              alignment: Alignment.bottomCenter)),
       child: Column(
         children: [
           MarkdownBody(data: "### ${AppStrings.SessionZero_ObstacleEnter_1}"),

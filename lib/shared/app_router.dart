@@ -16,6 +16,7 @@ import 'package:prompt/screens/main/plan_reminder_screens.dart';
 import 'package:prompt/screens/main/single_learning_tip_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
+import 'package:prompt/screens/session_zero/vocab_learn_timing_screen.dart';
 import 'package:prompt/screens/study_complete_screen.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
@@ -34,6 +35,7 @@ import 'package:prompt/viewmodels/plan_reminder_view_model.dart';
 import 'package:prompt/viewmodels/random_user_login_view_model.dart';
 import 'package:prompt/viewmodels/registration_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/viewmodels/vocab_learn_timing_view_model.dart';
 import 'package:provider/provider.dart';
 
 class AppRouter {
@@ -149,6 +151,14 @@ class AppRouter {
 
       case RouteNames.LEARNING_TIPS:
         return MaterialPageRoute(builder: (_) => LearningTipsScreen());
+
+      case RouteNames.CHANGE_REMINDER_TIME:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                  child: VocabLearnTimingScreen(),
+                  create: (_) =>
+                      VocabLearnTimingViewModel(locator.get<DataService>()),
+                ));
 
       default:
         return MaterialPageRoute(builder: (_) {

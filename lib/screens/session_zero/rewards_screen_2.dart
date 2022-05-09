@@ -13,11 +13,11 @@ class RewardScreen2 extends StatelessWidget {
           UIHelper.verticalSpaceLarge(),
           MarkdownBody(
               data:
-                  "### Glückwunsch! Für das Erstellen deines tollen Plans bekommst du 20 💎!"),
+                  "## Glückwunsch! Für das Erstellen deines tollen Plans bekommst du 20 💎!"),
           UIHelper.verticalSpaceLarge(),
           MarkdownBody(
               data:
-                  "### Mit 💎 kannst du dir später viele tolle verschiedene Hintergründe auswählen!"),
+                  "## Mit 💎 kannst du später viele verschiedene Hintergründe auswählen!"),
         ],
       ),
     );
