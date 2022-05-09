@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/shared/ui_helper.dart';
 
 class SingleLearningTipDialog extends StatelessWidget {
   const SingleLearningTipDialog({Key? key}) : super(key: key);

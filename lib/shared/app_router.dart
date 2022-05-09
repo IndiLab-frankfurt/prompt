@@ -22,6 +22,7 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
+import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -156,8 +157,9 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
                   child: VocabLearnTimingScreen(),
-                  create: (_) =>
-                      VocabLearnTimingViewModel(locator.get<DataService>()),
+                  create: (_) => VocabLearnTimingViewModel(
+                      locator.get<DataService>(),
+                      locator.get<NotificationService>()),
                 ));
 
       default:

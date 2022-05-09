@@ -191,20 +191,6 @@ class _DashboardScreenState extends State<DashboardScreen>
         ));
   }
 
-  _buildOutlinedHeader(String text) {
-    return Stack(children: [
-      Text("Deine Aufgaben:",
-          style: TextStyle(
-              fontSize: 22,
-              foreground: Paint()
-                ..style = PaintingStyle.stroke
-                ..strokeWidth = 2
-                ..color = Colors.white)),
-      Text("Deine Aufgaben:",
-          style: TextStyle(fontSize: 22, color: Colors.black))
-    ]);
-  }
-
   _buildFloatingActionButton() {
     return FloatingActionButton.extended(
       label: Text('Ich habe heute Vokabeln gelernt'),
@@ -250,7 +236,7 @@ class _DashboardScreenState extends State<DashboardScreen>
       callback: (newValue) {
         if (!vm.hasLearnedToday) {
           vm.addDaysLearned(1);
-          showDialogForDailyLearning(2);
+          showRewardDialogIfNeeded();
         }
         if (newValue) {
           _controllerTopCenter.play();

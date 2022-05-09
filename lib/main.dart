@@ -7,6 +7,7 @@ import 'package:prompt/locator.dart';
 import 'package:prompt/screens/startup_screen.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/navigation_service.dart';
+import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/shared/app_router.dart';
 
 void main() async {
@@ -24,10 +25,19 @@ void setupAwesomeNotifications() {
       [
         NotificationChannel(
             channelGroupKey: 'basic_channel_group',
-            channelKey: 'basic_channel',
-            channelName: 'Basic notifications',
-            channelDescription: 'Notification channel for basic tests',
-            defaultColor: Color(0xFF9D50DD),
+            channelKey: NotificationService.CHANNEL_ID_DAILY_REMINDER,
+            channelName: NotificationService.CHANNEL_NAME_DAILY_REMINDER,
+            channelDescription:
+                NotificationService.CHANNEL_DESCRIPTION_DAILY_REMINDER,
+            defaultColor: Color.fromARGB(255, 221, 148, 80),
+            ledColor: Colors.white),
+        NotificationChannel(
+            channelGroupKey: 'basic_channel_group',
+            channelKey: NotificationService.CHANNEL_ID_BOOSTER_PROMPT,
+            channelName: NotificationService.CHANNEL_NAME_BOOSTER_PROMPT,
+            channelDescription:
+                NotificationService.CHANNEL_DESCRIPTION_BOOSTER_PROMPT,
+            defaultColor: Color.fromARGB(255, 221, 148, 80),
             ledColor: Colors.white)
       ],
       // Channel groups are only visual and are not required

@@ -68,9 +68,10 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
               },
             ),
           ),
-          if (widget.vm.step < widget.pages.length - 1)
-            _buildBottomNavigation(),
-          if (widget.vm.step == widget.pages.length - 1) _buildSubmitButton()
+          _buildBottomNavigation(),
+          // if (widget.vm.step < widget.pages.length - 1)
+          //   _buildBottomNavigation(),
+          // if (widget.vm.step == widget.pages.length - 1) _buildSubmitButton()
         ],
       ),
     );

@@ -153,63 +153,63 @@ class RewardService {
       UnlockableBackground(
           "Monster",
           "assets/illustrations/mascot_${mascotId}_bare.png",
-          getUnlockDays("Monster", grp),
+          0,
           LinearGradient(
               colors: [UIHelper.bgGradientStart, UIHelper.bgGradientEnd])),
       UnlockableBackground(
           "Flugzeug",
           "assets/illustrations/mascot_${mascotId}_plane_2.png",
-          getUnlockDays("Flugzeug", grp),
+          25,
           LinearGradient(colors: [backgroundBase, backgroundPlane])),
       UnlockableBackground(
           "Weltraum 1",
           "assets/illustrations/mascot_${mascotId}_space_1.png",
-          getUnlockDays("Weltraum 1", grp),
+          50,
           LinearGradient(colors: [backgroundBase, backgroundSpace])),
       UnlockableBackground(
           "Vulkan 1",
           "assets/illustrations/mascot_${mascotId}_vulcan_1.png",
-          getUnlockDays("Vulkan 1", grp),
+          75,
           LinearGradient(colors: [backgroundBase, backgroundVulcan])),
       UnlockableBackground(
           "Pyramiden 1",
           "assets/illustrations/mascot_${mascotId}_pyramid_1.png",
-          getUnlockDays("Pyramiden 1", grp),
+          100,
           LinearGradient(colors: [backgroundBase, backgroundPyramid])),
       UnlockableBackground(
           "Wikinger 1",
           "assets/illustrations/mascot_${mascotId}_viking_1.png",
-          getUnlockDays("Wikinger 1", grp),
+          125,
           LinearGradient(colors: [backgroundBase, backGroundViking])),
       UnlockableBackground(
           "Ozean 1",
           "assets/illustrations/mascot_${mascotId}_ocean_2.png",
-          getUnlockDays("Ozean 1", grp),
+          150,
           LinearGradient(colors: [backgroundBase, backgroundOcean])),
       UnlockableBackground(
           "Pyramiden 2",
           "assets/illustrations/mascot_${mascotId}_pyramid_2.png",
-          getUnlockDays("Pyramiden 2", grp),
+          175,
           LinearGradient(colors: [backgroundBase, backgroundPyramid])),
       UnlockableBackground(
           "Weltraum 2",
           "assets/illustrations/mascot_${mascotId}_space_2.png",
-          getUnlockDays("Weltraum 2", grp),
+          200,
           LinearGradient(colors: [backgroundBase, backgroundSpace])),
       UnlockableBackground(
           "Vulkan 2",
           "assets/illustrations/mascot_${mascotId}_vulcan_2.png",
-          getUnlockDays("Vulkan 2", grp),
+          225,
           LinearGradient(colors: [backgroundBase, backgroundVulcan])),
       UnlockableBackground(
           "Wikinger 2",
           "assets/illustrations/mascot_${mascotId}_viking_2.png",
-          getUnlockDays("Wikinger 2", grp),
+          250,
           LinearGradient(colors: [backgroundBase, backGroundViking])),
       UnlockableBackground(
           "Zauberei 2",
           "assets/illustrations/mascot_${mascotId}_wizard_2.png",
-          getUnlockDays("Zauberei 2", grp),
+          275,
           LinearGradient(colors: [backgroundBase, backgroundWizard])),
     ];
   }

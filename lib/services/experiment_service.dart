@@ -31,7 +31,18 @@ class ExperimentService {
   Future onSessionZeroComplete() async {
     var now = DateTime.now();
     var dt = DateTime(now.year, now.month, now.day, 18, 0, 0);
-    await _notificationService.scheduleDailyReminder(dt, 2);
+
+    _notificationService
+        .scheduleDailyReminder(dt, NotificationService.ID_DAILY)
+        .then((_) => {scheduleNextPlanReminder()});
+  }
+
+  Future scheduleNextPlanReminder() async {
+    var now = DateTime.now();
+    var random = Random().nextInt(4) + 4;
+    var duration = Duration(days: random);
+    var planReminderSchedule = now.add(duration);
+    await _notificationService.schedulePlanReminder(planReminderSchedule);
   }
 
   Future onDistributedLearningComplete() async {
@@ -179,24 +190,46 @@ class ExperimentService {
     } catch (e) {
       print(e);
     }
+
+    try {
+      AwesomeNotifications().dismissedStream.listen((dismissedNotification) {
+        print('Dismissed notification ${dismissedNotification.title}');
+
+        if (dismissedNotification.id == NotificationService.ID_PLAN_REMINDER) {
+          scheduleNextPlanReminder();
+        }
+      });
+    } catch (e) {}
   }
 
   onActionNotification(ReceivedAction receivedAction) async {
     var pressedButton = receivedAction.buttonKeyPressed;
 
     if (pressedButton == NotificationService.BUTTON_ACTION_LEARNED_TODAY) {
-      addDayLearned();
+      if (!await hasLearnedToday()) {
+        addDayLearned();
+      }
+
+      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
     }
     if (pressedButton == NotificationService.BUTTON_ACTION_NOT_LEARNED_TODAY) {
-      addDayNotLearned();
+      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
     }
   }
 
-  onPlanReminderNotificationClicked() {
-    // Get a random number between 4 (inclusive) and 8 (inclusive)
-    var random = Random().nextInt(4) + 4;
+  Future<bool> hasLearnedToday() async {
+    var datesLearned = await _dataService.getDatesLearned();
+    var hasLearnedToday = datesLearned.length > 0 &&
+        datesLearned.last.date.isToday() &&
+        datesLearned.last.value == true;
+    return hasLearnedToday;
+  }
 
-    _navigationService.navigateTo(RouteNames.PLAN_REMINDER);
+  onPlanReminderNotificationClicked() async {
+    scheduleNextPlanReminder().then((value) {
+      _loggingService.logEvent("Scheduled next plan reminder");
+      _navigationService.navigateTo(RouteNames.PLAN_REMINDER);
+    });
   }
 
   Future<bool> isDistributedLearningDay() async {

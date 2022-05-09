@@ -4,18 +4,16 @@ import 'package:prompt/locator.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
-import 'package:collection/collection.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 class NotificationService {
   late FlutterLocalNotificationsPlugin localNotifications;
 
-  static const String CHANNEL_ID_MORNING_REMINDER = "WDP Erinnerung";
-  static const String CHANNEL_NAME_MORNING_REMINDER =
-      "Wenn-Dann-Plan Erinnerung";
-  static const String CHANNEL_DESCRIPTION_MORNING_REMINDER =
-      "Wenn-Dann-Plan Erinnerung";
-  static const String PAYLOAD_MORNING_REMINDER = "PAYLOAD_II_REMINDER";
+  static const String CHANNEL_ID_DAILY_REMINDER = "Tägliche Erinnerung";
+  static const String CHANNEL_NAME_DAILY_REMINDER = "Tägliche Erinnerung";
+  static const String CHANNEL_DESCRIPTION_DAILY_REMINDER =
+      "Tägliche Erinnerung";
+  static const String PAYLOAD_MORNING_REMINDER = "Tägliche Erinnerung";
 
   static const String CHANNEL_ID_EVENING = "Erinnerung Abend";
   static const String CHANNEL_NAME_EVENING = "Erinnerung Abend";
@@ -62,33 +60,6 @@ class NotificationService {
     print("Received Local Notification");
   }
 
-  deleteReminderWithId(int id) async {
-    var pendingNotifications = await getPendingNotifications();
-    var reminderExists =
-        pendingNotifications.firstWhereOrNull((n) => n.id == ID_DAILY);
-    if (reminderExists == null) {
-      localNotifications.cancel(id);
-    }
-  }
-
-  deleteScheduledRecallReminderTask() async {
-    var pendingNotifications = await getPendingNotifications();
-    var taskReminderExists =
-        pendingNotifications.firstWhereOrNull((n) => n.id == ID_TASK_REMINDER);
-    if (taskReminderExists == null) {
-      localNotifications.cancel(ID_TASK_REMINDER);
-    }
-  }
-
-  deleteScheduledFinalReminderTask() async {
-    var pendingNotifications = await getPendingNotifications();
-    var taskReminderExists = pendingNotifications
-        .firstWhereOrNull((n) => n.id == ID_FINAL_TASK_REMINDER);
-    if (taskReminderExists == null) {
-      localNotifications.cancel(ID_FINAL_TASK_REMINDER);
-    }
-  }
-
   Future<void> _configureLocalTimeZone() async {
     tz.initializeTimeZones();
     tz.setLocalLocation(tz.getLocation("Europe/Berlin"));
@@ -109,11 +80,11 @@ class NotificationService {
     }
   }
 
-  scheduleDailyReminder(DateTime dateTime, int id) async {
+  Future scheduleDailyReminder(DateTime dateTime, int id) async {
     String groupKey = "daily";
     // Check if is already scheduled and cancel all dailies
     try {
-      await AwesomeNotifications().cancelSchedulesByGroupKey(groupKey);
+      await AwesomeNotifications().cancel(id);
     } catch (e) {
       print(e);
     }
@@ -127,16 +98,16 @@ class NotificationService {
         ],
         content: NotificationContent(
             id: id,
-            channelKey: 'scheduleddaily',
+            channelKey: NotificationService.CHANNEL_ID_DAILY_REMINDER,
             title: 'Hast du heute Vokabeln gelernt?',
             body: '',
             wakeUpScreen: true,
             category: NotificationCategory.Alarm,
             groupKey: groupKey),
         schedule: NotificationCalendar(
-          // interval: 60 * 60 * 24,
           hour: dateTime.hour,
-          // date: dateTime,
+          minute: dateTime.minute,
+          second: dateTime.second,
           repeats: true,
         ));
 
@@ -149,32 +120,23 @@ class NotificationService {
     await AwesomeNotifications().createNotification(
         content: NotificationContent(
             id: ID_PLAN_REMINDER,
-            channelKey: 'planReminder',
-            title: 'Erinnere dich an deinen Plan',
+            channelKey: CHANNEL_ID_BOOSTER_PROMPT,
+            title: 'Schaue dir nochmal deinen Plan an',
             body: '',
             wakeUpScreen: true,
             category: NotificationCategory.Alarm,
             groupKey: groupKey),
         schedule: NotificationCalendar(
-          // interval: 60 * 60 * 24,
           hour: dateTime.hour,
-          // date: dateTime,
           repeats: true,
         ));
 
     locator.get<LoggingService>().logEvent("Schedule Plan Reminder");
   }
 
-  cancelMorningReminder() async {
+  cancelDailyReminder() async {
     await AwesomeNotifications().cancel(ID_DAILY);
     locator.get<LoggingService>().logEvent("Cancel Daily Reminder");
-  }
-
-  getMillisecondsUntilMidnight(DateTime time) {
-    var now = DateTime.now();
-    var midnight = DateTime(now.year, now.month, now.day, 23, 59);
-
-    return midnight.difference(now).inMilliseconds;
   }
 
   sendDebugNotification() async {

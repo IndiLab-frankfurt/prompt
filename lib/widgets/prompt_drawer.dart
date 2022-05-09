@@ -120,6 +120,13 @@ class PromptDrawer extends StatelessWidget {
               }),
           _buildDrawerItem(
               icon: Icons.add_box,
+              text: "Verteiltes Lernen",
+              onTap: () async {
+                await Navigator.pushNamed(
+                    context, RouteNames.DISTRIBUTED_LEARNING);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
               text: "Delete Last Date",
               onTap: () async {
                 var ds = locator.get<DataService>();

@@ -4,7 +4,6 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
 class DashboardViewModel extends BaseViewModel {
@@ -79,9 +78,7 @@ class DashboardViewModel extends BaseViewModel {
     ]);
 
     var datesLearned = await _dataService.getDatesLearned();
-    hasLearnedToday = datesLearned.length > 0 &&
-        datesLearned.last.date.isToday() &&
-        datesLearned.last.value == true;
+    hasLearnedToday = await _experimentService.hasLearnedToday();
 
     var sevenDaysAgo = DateTime.now().subtract(Duration(days: 7));
     daysLearned = _datesLearnedSince(datesLearned, sevenDaysAgo, true);

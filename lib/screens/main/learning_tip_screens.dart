@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/data/questions.dart';
-import 'package:prompt/dialogs/single_learning_tip_dialog.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/main/single_learning_tip_screen.dart';
-import 'package:prompt/screens/session_zero/text_screen.dart';
-import 'package:prompt/shared/app_strings.dart';
+
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/learning_tip_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';

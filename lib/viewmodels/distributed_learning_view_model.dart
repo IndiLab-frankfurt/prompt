@@ -20,8 +20,8 @@ class DistributedLearningViewModel extends MultiStepAssessmentViewModel {
   static List<DistributedLearningStep> getScreenOrder(int group) {
     List<DistributedLearningStep> screenOrder = [
       DistributedLearningStep.introduction_distributedLearning,
-      DistributedLearningStep.video_distributedLearning,
       DistributedLearningStep.questions_vocablearning,
+      DistributedLearningStep.video_distributedLearning,
     ];
 
     return screenOrder;
