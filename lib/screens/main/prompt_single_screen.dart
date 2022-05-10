@@ -17,7 +17,7 @@ class PromptSingleScreen extends StatelessWidget {
       child: Scaffold(
           appBar: PromptAppBar(showBackButton: true),
           drawer: PromptDrawer(),
-          body: Container(child: this.child)),
+          body: Container(padding: EdgeInsets.all(10), child: this.child)),
     );
   }
 

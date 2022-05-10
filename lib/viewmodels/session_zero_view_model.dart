@@ -184,8 +184,12 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       var androidInfo = await DeviceInfoPlugin().androidInfo;
       var release = androidInfo.version.release;
 
-      if (release != null && release == "12")
-        screenOrder.add(SessionZeroStep.permissionRequest);
+      if (release != null && release == "12") {
+        var permissionList = await AwesomeNotifications().checkPermissionList();
+        if (permissionList.isEmpty) {
+          screenOrder.add(SessionZeroStep.permissionRequest);
+        }
+      }
     }
 
     return true;
@@ -205,17 +209,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         submitAssessmentResult(lastKey);
       }
     }
-  }
-
-  void submitAssessmentResult(assessmentName) {
-    if (!allAssessmentResults.containsKey(assessmentName)) {
-      return;
-    }
-    var assessmentResult = AssessmentResult(
-        allAssessmentResults[assessmentName]!, assessmentName, DateTime.now());
-    assessmentResult.startDate = this.startDate;
-    _dataService.saveAssessment(assessmentResult);
-    submittedResults.add(assessmentName);
   }
 
   @override
@@ -240,6 +233,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     _dataService.saveInternalisation(internalisation);
   }
 
+  @override
   void doStepDependentSubmission(ValueKey currentPageKey) {
     var stepKey = currentPageKey.value as SessionZeroStep;
 

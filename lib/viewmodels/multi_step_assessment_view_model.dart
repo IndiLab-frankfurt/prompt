@@ -31,9 +31,24 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   Map<String, String> currentAssessmentResults = {};
   Map<String, Map<String, String>> allAssessmentResults = {};
   Map<String, Map<String, dynamic>> timings = {};
+  List<String> submittedResults = [];
 
   int getNextPage(ValueKey currentPageKey) {
+    doStepDependentSubmission(currentPageKey);
     return step + 1;
+  }
+
+  void doStepDependentSubmission(ValueKey currentPageKey) {}
+
+  void submitAssessmentResult(assessmentName) {
+    if (!allAssessmentResults.containsKey(assessmentName)) {
+      return;
+    }
+    var assessmentResult = AssessmentResult(
+        allAssessmentResults[assessmentName]!, assessmentName, DateTime.now());
+    assessmentResult.startDate = this.startDate;
+    dataService.saveAssessment(assessmentResult);
+    submittedResults.add(assessmentName);
   }
 
   setAssessmentResult(String assessmentType, String itemId, String value) {

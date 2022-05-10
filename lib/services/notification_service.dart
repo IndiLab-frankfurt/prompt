@@ -36,30 +36,30 @@ class NotificationService {
   static const String BUTTON_ACTION_NOT_LEARNED_TODAY = "NOT_LEARNED_TODAY";
 
   Future initialize() async {
-    localNotifications = FlutterLocalNotificationsPlugin();
+    // localNotifications = FlutterLocalNotificationsPlugin();
 
-    var initSettingsAndroid =
-        new AndroidInitializationSettings('ic_notification');
-    var initSettingsIOS = new IOSInitializationSettings(
-        requestAlertPermission: true,
-        requestBadgePermission: true,
-        requestSoundPermission: true,
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    var initSettings = InitializationSettings(
-        android: initSettingsAndroid, iOS: initSettingsIOS);
+    // var initSettingsAndroid =
+    //     new AndroidInitializationSettings('ic_notification');
+    // var initSettingsIOS = new IOSInitializationSettings(
+    //     requestAlertPermission: true,
+    //     requestBadgePermission: true,
+    //     requestSoundPermission: true,
+    //     onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    // var initSettings = InitializationSettings(
+    //     android: initSettingsAndroid, iOS: initSettingsIOS);
 
-    await _configureLocalTimeZone();
+    // await _configureLocalTimeZone();
 
-    await localNotifications.initialize(initSettings,
-        onSelectNotification: onSelectNotification);
+    // await localNotifications.initialize(initSettings,
+    //     onSelectNotification: onSelectNotification);
 
     return true;
   }
 
-  Future<dynamic> onDidReceiveLocalNotification(
-      int id, String? title, String? body, String? payload) async {
-    print("Received Local Notification");
-  }
+  // Future<dynamic> onDidReceiveLocalNotification(
+  //     int id, String? title, String? body, String? payload) async {
+  //   print("Received Local Notification");
+  // }
 
   Future<void> _configureLocalTimeZone() async {
     tz.initializeTimeZones();
@@ -113,7 +113,10 @@ class NotificationService {
           allowWhileIdle: true,
         ));
 
-    locator.get<LoggingService>().logEvent("Schedule Daily Reminder");
+    locator.get<LoggingService>().logEvent(
+      "Schedule Daily Reminder",
+      data: {"date": dateTime.toString()},
+    );
   }
 
   schedulePlanReminder(DateTime dateTime) async {
@@ -142,7 +145,8 @@ class NotificationService {
             second: dateTime.second,
             allowWhileIdle: true));
 
-    locator.get<LoggingService>().logEvent("Schedule Plan Reminder");
+    locator.get<LoggingService>().logEvent("Schedule Plan Reminder",
+        data: {"date": dateTime.toString()});
   }
 
   cancelDailyReminder() async {

@@ -253,7 +253,9 @@ class FirebaseService implements IDatabaseService {
   }
 
   logEvent(String userid, dynamic data) async {
-    _databaseReference.collection(COLLECTION_LOGS).add(data);
+    _databaseReference.collection(COLLECTION_LOGS).doc(userid).set({
+      "logs": FieldValue.arrayUnion([data])
+    }, SetOptions(merge: true));
   }
 
   saveInternalisation(Internalisation internalisation, String email) async {

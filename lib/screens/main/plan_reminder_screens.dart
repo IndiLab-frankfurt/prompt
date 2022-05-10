@@ -95,6 +95,13 @@ class _PlanReminderScreensState extends State<PlanReminderScreens> {
           vm: vm,
           questionnaire: usabilityQuestions,
         );
+
+      case PlanReminderStep.efficacyQuestions:
+        return MultiStepQuestionnairePage(
+          key: key,
+          vm: vm,
+          questionnaire: promptEfficacyQuestions,
+        );
     }
   }
 }

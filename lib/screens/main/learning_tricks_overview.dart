@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/main/prompt_single_screen.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
@@ -11,12 +12,19 @@ class LearningTricksOverviewScreen extends StatelessWidget {
     return PromptSingleScreen(
       child: ListView(children: [
         UIHelper.verticalSpaceLarge(),
+        Text(
+          AppStrings.LearningTricksOverview_Title,
+          style: TextStyle(fontSize: 20),
+          textAlign: TextAlign.center,
+        ),
+        UIHelper.verticalSpaceLarge(),
         buildNavButton(
             context, "Tipps für das Lernen ansehen", RouteNames.LEARNING_TIPS),
         buildNavButton(
             context, "TODO: Distributed Learning", RouteNames.LEARNING_TIPS),
         buildNavButton(
-            context, "TODO: Mental Contasting", RouteNames.LEARNING_TIPS),
+            context, "TODO: Mental Contrasting", RouteNames.LEARNING_TIPS),
+        buildNavButton(context, "TODO: WDP Video", RouteNames.LEARNING_TIPS),
       ]),
     );
   }

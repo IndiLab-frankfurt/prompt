@@ -147,3 +147,41 @@ late var usabilityQuestions =
       questionText: "Das fand ich nicht so gut an der App:",
       labels: {}),
 ]);
+
+late var promptEfficacyQuestions = Questionnaire(
+    id: "prompt_efficacy",
+    title: "Bitte sag uns, ob du bei den folgenden Aussagen zustimmst.",
+    items: [
+      Question(
+          id: "efficacy_learn_more_often",
+          type: QuestionType.single,
+          questionText: "Seit ich PROMPT benutze, lerne ich an mehr Tagen.",
+          labels: {
+            "1": "Stimme überhaupt nicht zu",
+            "2": "Stimme kaum zu",
+            "3": "Stimme eher zu",
+            "4": "Stimme voll und ganz zu"
+          }),
+      Question(
+          id: "efficacy_better_memorize",
+          type: QuestionType.single,
+          questionText:
+              "Seit ich PROMPT benutze, kann ich mir die Vokabeln besser merken.",
+          labels: {
+            "1": "Stimme überhaupt nicht zu",
+            "2": "Stimme kaum zu",
+            "3": "Stimme eher zu",
+            "4": "Stimme voll und ganz zu"
+          }),
+      Question(
+          id: "efficacy_better_vocab_tests",
+          type: QuestionType.single,
+          questionText:
+              "Seit ich PROMPT benutze, bin ich besser in Vokabeltests.",
+          labels: {
+            "1": "Stimme überhaupt nicht zu",
+            "2": "Stimme kaum zu",
+            "3": "Stimme eher zu",
+            "4": "Stimme voll und ganz zu"
+          }),
+    ]);
