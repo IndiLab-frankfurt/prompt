@@ -12,11 +12,11 @@ class PermissionRequestScreen extends StatelessWidget {
     var vm = Provider.of<SessionZeroViewModel>(context);
     return Container(
         child: Column(children: [
-      Text('Die App braucht die Erlaubnis, um Erinnerungen zu schicken',
+      Text('Die App braucht deine Erlaubnis, um Erinnerungen zu schicken.',
           style: TextStyle(fontSize: 20)),
       UIHelper.verticalSpaceLarge(),
       Text(
-          'Drücke auf "Okay", und erlaube der App dann, dir Benachrichtigungen zu schicken',
+          'Drücke auf "Okay", und der App zu erlauben, dir Erinnerungen zu schicken. Sonst drücke auf "Weiter".',
           style: TextStyle(fontSize: 20)),
       ElevatedButton(
           onPressed: () {
