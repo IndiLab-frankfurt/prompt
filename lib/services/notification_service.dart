@@ -2,6 +2,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/logging_service.dart';
+import 'package:prompt/shared/app_strings.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:awesome_notifications/awesome_notifications.dart';
@@ -99,7 +100,7 @@ class NotificationService {
         content: NotificationContent(
             id: id,
             channelKey: NotificationService.CHANNEL_ID_DAILY_REMINDER,
-            title: 'Hast du heute Vokabeln gelernt?',
+            title: AppStrings.Notification_Title_VocabReminder,
             body: '',
             wakeUpScreen: true,
             category: NotificationCategory.Reminder,
@@ -128,7 +129,7 @@ class NotificationService {
         content: NotificationContent(
             id: ID_PLAN_REMINDER,
             channelKey: CHANNEL_ID_BOOSTER_PROMPT,
-            title: 'Schaue dir nochmal deinen Plan an',
+            title: AppStrings.Notification_Title_PlanReminder,
             body: '',
             wakeUpScreen: true,
             category: NotificationCategory.Reminder,
