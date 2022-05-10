@@ -16,7 +16,7 @@ class PermissionRequestScreen extends StatelessWidget {
           style: TextStyle(fontSize: 20)),
       UIHelper.verticalSpaceLarge(),
       Text(
-          'Drücke auf "Okay", und der App zu erlauben, dir Erinnerungen zu schicken. Sonst drücke auf "Weiter".',
+          'Drücke auf "Okay", und erlaube dann der App, dir Erinnerungen zu schicken. Sonst drücke auf "Weiter".',
           style: TextStyle(fontSize: 20)),
       ElevatedButton(
           onPressed: () {
