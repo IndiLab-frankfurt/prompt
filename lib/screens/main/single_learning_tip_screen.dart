@@ -21,8 +21,6 @@ class _SingleLearningTipScreenState extends State<SingleLearningTipScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var vm = Provider.of<LearningTipViewModel>(context);
-
     return Container(
         decoration: BoxDecoration(
             gradient: UIHelper.baseGradient,

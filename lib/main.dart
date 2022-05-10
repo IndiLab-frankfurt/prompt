@@ -29,7 +29,7 @@ void setupAwesomeNotifications() {
             channelName: NotificationService.CHANNEL_NAME_DAILY_REMINDER,
             channelDescription:
                 NotificationService.CHANNEL_DESCRIPTION_DAILY_REMINDER,
-            defaultColor: Color.fromARGB(255, 221, 148, 80),
+            defaultColor: Color.fromARGB(255, 22, 129, 216),
             ledColor: Colors.white),
         NotificationChannel(
             channelGroupKey: 'basic_channel_group',
@@ -37,7 +37,7 @@ void setupAwesomeNotifications() {
             channelName: NotificationService.CHANNEL_NAME_BOOSTER_PROMPT,
             channelDescription:
                 NotificationService.CHANNEL_DESCRIPTION_BOOSTER_PROMPT,
-            defaultColor: Color.fromARGB(255, 221, 148, 80),
+            defaultColor: Color.fromARGB(255, 22, 129, 216),
             ledColor: Colors.white)
       ],
       // Channel groups are only visual and are not required

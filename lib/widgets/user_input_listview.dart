@@ -11,8 +11,6 @@ class UserInputListView extends StatefulWidget {
 }
 
 class _UserInputListViewState extends State<UserInputListView> {
-  List<TextField> _customOutcomes = [];
-
   @override
   void initState() {
     super.initState();

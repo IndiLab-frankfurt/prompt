@@ -38,7 +38,7 @@ class _EmojiRainState extends State<EmojiRain>
   Widget build(BuildContext context) {
     return Stack(
       children: <Widget>[
-        RaisedButton(
+        ElevatedButton(
           child: Text("Start Dropping"),
           onPressed: makeItems,
         ),

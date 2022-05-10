@@ -29,7 +29,7 @@ class PlanViewModel extends BaseViewModel {
   String getFullPlanFromIfPart(String ifPart) {
     // Attach a comma to the end
     if (ifPart.lastIndexOf(",") != ifPart.length - 1) {
-      ifPart = ifPart + ",";
+      ifPart = ifPart.trimRight() + ",";
     }
     return "Wenn $ifPart dann lerne ich Vokabeln!";
   }

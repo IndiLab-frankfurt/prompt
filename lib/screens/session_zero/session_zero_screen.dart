@@ -36,16 +36,17 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
-    _pages = [];
-    for (var screen in vm.screenOrder) {
-      _pages.add(getScreen(screen));
-    }
   }
 
   init() async {
     return this._memoizer.runOnce(() async {
       await vm.getInitialValues();
+
+      _pages = [];
+      for (var screen in vm.screenOrder) {
+        _pages.add(getScreen(screen));
+      }
+
       return true;
     });
   }

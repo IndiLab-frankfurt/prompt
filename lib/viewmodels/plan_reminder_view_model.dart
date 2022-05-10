@@ -6,7 +6,7 @@ import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
-enum PlanReminderStep { planInternalisationEmoji }
+enum PlanReminderStep { planInternalisationEmoji, usabilityQuestions }
 
 class PlanReminderViewModel extends MultiStepAssessmentViewModel {
   final ExperimentService _experimentService;
@@ -19,6 +19,7 @@ class PlanReminderViewModel extends MultiStepAssessmentViewModel {
   static List<Enum> getScreenOrder(int group) {
     List<Enum> screenOrder = [
       PlanReminderStep.planInternalisationEmoji,
+      PlanReminderStep.usabilityQuestions
     ];
 
     return screenOrder;
@@ -45,7 +46,9 @@ class PlanReminderViewModel extends MultiStepAssessmentViewModel {
 
     switch (stepKey) {
       case PlanReminderStep.planInternalisationEmoji:
-        return true;
+        return internalisationViewModel.completed;
+      case PlanReminderStep.usabilityQuestions:
+        return currentAssessmentIsFilledOut;
     }
   }
 

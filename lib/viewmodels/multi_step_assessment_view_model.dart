@@ -23,7 +23,10 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   bool canMoveBack(ValueKey currentPageKey);
   bool canMoveNext(ValueKey currentPageKey);
 
-  void submit();
+  @mustCallSuper
+  void submit() {
+    setState(ViewState.busy);
+  }
 
   Map<String, String> currentAssessmentResults = {};
   Map<String, Map<String, String>> allAssessmentResults = {};

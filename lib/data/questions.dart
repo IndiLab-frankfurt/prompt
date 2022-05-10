@@ -103,3 +103,15 @@ late var learningTipQuestions =
         "2": "Nein",
       }),
 ]);
+
+late var usabilityQuestions =
+    Questionnaire(id: "usability_questions", title: "", items: [
+  Question(
+      id: "usability_1",
+      type: QuestionType.single,
+      questionText: "App gut?",
+      labels: {
+        "1": "Ja",
+        "2": "Nein",
+      }),
+]);

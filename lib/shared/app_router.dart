@@ -12,8 +12,8 @@ import 'package:prompt/screens/learning_tips_screen.dart';
 import 'package:prompt/screens/main/distributed_learning_screens.dart';
 import 'package:prompt/screens/main/learning_tip_screens.dart';
 import 'package:prompt/screens/main/mental_contrasting_screens.dart';
+import 'package:prompt/screens/main/plan_edit_screen.dart';
 import 'package:prompt/screens/main/plan_reminder_screens.dart';
-import 'package:prompt/screens/main/single_learning_tip_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
 import 'package:prompt/screens/session_zero/vocab_learn_timing_screen.dart';
@@ -32,6 +32,7 @@ import 'package:prompt/viewmodels/learning_tip_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
 import 'package:prompt/viewmodels/mental_contrasting_view_model.dart';
+import 'package:prompt/viewmodels/plan_edit_view_model.dart';
 import 'package:prompt/viewmodels/plan_reminder_view_model.dart';
 import 'package:prompt/viewmodels/random_user_login_view_model.dart';
 import 'package:prompt/viewmodels/registration_view_model.dart';
@@ -152,6 +153,13 @@ class AppRouter {
 
       case RouteNames.LEARNING_TIPS:
         return MaterialPageRoute(builder: (_) => LearningTipsScreen());
+
+      case RouteNames.EDIT_PLAN:
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                child: PlanEditScreen(),
+                create: (_) => PlanEditViewModel(locator.get<DataService>(),
+                    locator.get<ExperimentService>())));
 
       case RouteNames.CHANGE_REMINDER_TIME:
         return MaterialPageRoute(

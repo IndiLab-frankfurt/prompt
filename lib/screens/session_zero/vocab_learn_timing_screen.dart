@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 
 class VocabLearnTimingScreen extends StatelessWidget {
   const VocabLearnTimingScreen({Key? key}) : super(key: key);
-  // TODO: Finish when there is time
   @override
   Widget build(BuildContext context) {
     var vm = Provider.of<VocabLearnTimingViewModel>(context);

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/data/questions.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
+import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
+import 'package:prompt/screens/assessments/questionnaire_page.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/plan_reminder_view_model.dart';
@@ -85,6 +88,13 @@ class _PlanReminderScreensState extends State<PlanReminderScreens> {
                 emojiInputIf: true,
                 emojiInputThen: true,
                 key: ValueKey(PlanReminderStep.planInternalisationEmoji)));
+
+      case PlanReminderStep.usabilityQuestions:
+        return MultiStepQuestionnairePage(
+          key: key,
+          vm: vm,
+          questionnaire: usabilityQuestions,
+        );
     }
   }
 }

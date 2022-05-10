@@ -95,6 +95,9 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
   }
 
   _buildBottomNavigation() {
+    if (widget.vm.state == ViewState.busy) {
+      return Center(child: CircularProgressIndicator());
+    }
     return Container(
       child: Row(
         mainAxisSize: MainAxisSize.max,
@@ -138,6 +141,10 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
                 ],
               ),
               onPressed: () {
+                if (widget.vm.step == widget.pages.length - 1) {
+                  widget.vm.submit();
+                  return;
+                }
                 if (widget.vm.canMoveNext(_keyOfCurrent())) {
                   _controller
                       .jumpToPage(widget.vm.getNextPage(_keyOfCurrent()));

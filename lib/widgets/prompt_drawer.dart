@@ -71,6 +71,12 @@ class PromptDrawer extends StatelessWidget {
                 await Navigator.pushNamed(context, RouteNames.REWARD_SELECTION);
               }),
           _buildDrawerItem(
+              icon: Icons.edit_outlined,
+              text: "Plan ändern",
+              onTap: () async {
+                await Navigator.pushNamed(context, RouteNames.EDIT_PLAN);
+              }),
+          _buildDrawerItem(
               icon: Icons.info_outline,
               text: "Lerntricks",
               onTap: () async {
@@ -131,6 +137,30 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 var ds = locator.get<DataService>();
                 ds.deleteLastDateLearned();
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Trigger Plan Reminder in 1 min.",
+              onTap: () async {
+                // create datetime one minute from now
+                var now = DateTime.now();
+                var oneMinuteFromNow = now.add(Duration(minutes: 1));
+                // set reminder
+                locator
+                    .get<NotificationService>()
+                    .schedulePlanReminder(oneMinuteFromNow);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Plan Reminder",
+              onTap: () async {
+                await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Delete all scheduled reminders",
+              onTap: () async {
+                locator.get<NotificationService>().clearPendingNotifications();
               }),
           // Divider(),
           // Column(

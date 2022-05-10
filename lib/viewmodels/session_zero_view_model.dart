@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:awesome_notifications/awesome_notifications.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:prompt/data/questions.dart';
 import 'package:prompt/models/assessment_result.dart';
@@ -49,10 +50,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planInternalisationWaiting,
       SessionZeroStep.planInternalisationEmoji,
     ];
-
-    if (Platform.isIOS) {
-      screenOrder.add(SessionZeroStep.permissionRequest);
-    }
 
     return screenOrder;
   }
@@ -178,6 +175,17 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       planCreationViewModel.plan = plan.plan;
       internalisationViewmodelEmoji.plan = plan.plan;
       internalisationViewmodelWaiting.plan = plan.plan;
+    }
+
+    if (Platform.isIOS) {
+      screenOrder.add(SessionZeroStep.permissionRequest);
+    }
+    if (Platform.isAndroid) {
+      var androidInfo = await DeviceInfoPlugin().androidInfo;
+      var release = androidInfo.version.release;
+
+      if (release != null && release == "Android 12")
+        screenOrder.add(SessionZeroStep.permissionRequest);
     }
 
     return true;

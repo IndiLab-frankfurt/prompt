@@ -102,13 +102,14 @@ class NotificationService {
             title: 'Hast du heute Vokabeln gelernt?',
             body: '',
             wakeUpScreen: true,
-            category: NotificationCategory.Alarm,
+            category: NotificationCategory.Reminder,
             groupKey: groupKey),
         schedule: NotificationCalendar(
           hour: dateTime.hour,
           minute: dateTime.minute,
           second: dateTime.second,
-          repeats: true,
+          // repeats: true,
+          allowWhileIdle: true,
         ));
 
     locator.get<LoggingService>().logEvent("Schedule Daily Reminder");
@@ -117,6 +118,12 @@ class NotificationService {
   schedulePlanReminder(DateTime dateTime) async {
     String groupKey = "plan";
 
+    try {
+      await AwesomeNotifications().cancel(ID_PLAN_REMINDER);
+    } catch (e) {
+      print(e);
+    }
+
     await AwesomeNotifications().createNotification(
         content: NotificationContent(
             id: ID_PLAN_REMINDER,
@@ -124,12 +131,15 @@ class NotificationService {
             title: 'Schaue dir nochmal deinen Plan an',
             body: '',
             wakeUpScreen: true,
-            category: NotificationCategory.Alarm,
+            category: NotificationCategory.Reminder,
             groupKey: groupKey),
         schedule: NotificationCalendar(
-          hour: dateTime.hour,
-          repeats: true,
-        ));
+            day: dateTime.day,
+            month: dateTime.month,
+            hour: dateTime.hour,
+            minute: dateTime.minute,
+            second: dateTime.second,
+            allowWhileIdle: true));
 
     locator.get<LoggingService>().logEvent("Schedule Plan Reminder");
   }
@@ -162,6 +172,6 @@ class NotificationService {
   }
 
   clearPendingNotifications() async {
-    await localNotifications.cancelAll();
+    await AwesomeNotifications().cancelAll();
   }
 }

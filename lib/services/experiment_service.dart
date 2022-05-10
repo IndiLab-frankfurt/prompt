@@ -64,9 +64,6 @@ class ExperimentService {
   }
 
   Future<OpenTasks?> getOpenTask() async {
-    var distributedLearningSeen =
-        await _dataService.getValuesWithDates("distributedLearning");
-
     if (await isDistributedLearningDay()) {
       return OpenTasks.ViewDistributedLearning;
     }
@@ -82,7 +79,7 @@ class ExperimentService {
     return null;
   }
 
-  nextScreen(String currentScreen) async {
+  Future nextScreen(String currentScreen) async {
     if (currentScreen == RouteNames.SESSION_ZERO) {
       return await _navigationService
           .navigateWithReplacement(RouteNames.NO_TASKS);
@@ -92,6 +89,9 @@ class ExperimentService {
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
     } else if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
       return await _navigationService.navigateTo(RouteNames.NO_TASKS);
+    } else if (currentScreen == RouteNames.EDIT_PLAN) {
+      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
+    } else if (currentScreen == RouteNames.NO_TASKS) {
     } else {
       await _navigationService.navigateWithReplacement(RouteNames.NO_TASKS);
     }

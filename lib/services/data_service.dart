@@ -196,7 +196,7 @@ class DataService {
     return _copingPlansCache!;
   }
 
-  savePlan(String plan) async {
+  Future savePlan(String plan) async {
     var planModel = Plan(plan);
     var ud = getUserDataCache();
     await _databaseService.savePlan(planModel, ud.user);

@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/dialogs/reward_dialog.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/reward_service.dart';
@@ -191,14 +190,6 @@ class _DashboardScreenState extends State<DashboardScreen>
         ));
   }
 
-  _buildFloatingActionButton() {
-    return FloatingActionButton.extended(
-      label: Text('Ich habe heute Vokabeln gelernt'),
-      icon: null, // const Icon(Icons.add),
-      onPressed: () {},
-    );
-  }
-
   _buildToDistributedLearningButton() {
     return _buildTaskButton(
       text: "💎 Dein nächster Lerntrick 💎",
@@ -243,16 +234,6 @@ class _DashboardScreenState extends State<DashboardScreen>
         }
       },
       initialValues: initialValues,
-    );
-  }
-
-  _buildBottomAppBar() {
-    return BottomNavigationBar(
-      items: [
-        BottomNavigationBarItem(
-            icon: Icon(Icons.place_rounded), label: "Planen"),
-        BottomNavigationBarItem(icon: Icon(Icons.timer), label: "Lernuhr"),
-      ],
     );
   }
 
