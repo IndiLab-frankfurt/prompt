@@ -103,7 +103,7 @@ Auch dafür hat das Monster einen Trick, den es dir auf der nächsten Seite zeig
 
   // Emoji Internalisation Screen
   static const String EmojiInternalisation_Instruction =
-      "Erstelle aus Emojis eine Darstellung deines Planes";
+      "Erstelle aus Emojis eine Darstellung deines Plans.";
 
   // Study Info Screen
   static const String InfoScreen_Header1 = "Über PROMPT";
