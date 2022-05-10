@@ -38,7 +38,7 @@ class DataService {
     }
   }
 
-  setUserDataCache(UserData ud) async {
+  setUserDataCache(UserData ud) {
     _userDataCache = ud;
   }
 
@@ -55,13 +55,13 @@ class DataService {
     return _userDataCache!;
   }
 
-  saveScore(int score) async {
+  Future saveScore(int score) async {
     var ud = await getUserData();
     ud?.score = score;
     await _databaseService.saveScore(_userService.getUsername(), score);
   }
 
-  saveSessionZeroStep(int step) async {
+  Future saveSessionZeroStep(int step) async {
     var ud = getUserDataCache();
     ud.initSessionStep = step;
     await _databaseService.saveInitSessionStepCompleted(

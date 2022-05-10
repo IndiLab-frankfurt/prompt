@@ -1,12 +1,15 @@
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:provider/provider.dart';
 
 class PermissionRequestScreen extends StatelessWidget {
   const PermissionRequestScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var vm = Provider.of<SessionZeroViewModel>(context);
     return Container(
         child: Column(children: [
       Text('Die App braucht die Erlaubnis, um Erinnerungen zu schicken',
@@ -17,12 +20,19 @@ class PermissionRequestScreen extends StatelessWidget {
           style: TextStyle(fontSize: 20)),
       ElevatedButton(
           onPressed: () {
-            AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
+            AwesomeNotifications()
+                .isNotificationAllowed()
+                .then((isAllowed) async {
               if (!isAllowed) {
                 // This is just a basic example. For real apps, you must show some
                 // friendly dialog box before call the request method.
                 // This is very important to not harm the user experience
-                AwesomeNotifications().requestPermissionToSendNotifications();
+                return await AwesomeNotifications()
+                    .requestPermissionToSendNotifications();
+              }
+            }).then((value) {
+              if (value != null && value) {
+                vm.submit();
               }
             });
           },

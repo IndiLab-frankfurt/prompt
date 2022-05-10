@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/data/questions.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -19,7 +20,6 @@ class PlanReminderViewModel extends MultiStepAssessmentViewModel {
   static List<Enum> getScreenOrder(int group) {
     List<Enum> screenOrder = [
       PlanReminderStep.planInternalisationEmoji,
-      PlanReminderStep.usabilityQuestions
     ];
 
     return screenOrder;
@@ -28,6 +28,25 @@ class PlanReminderViewModel extends MultiStepAssessmentViewModel {
   List<Enum> screenOrder = getScreenOrder(0);
 
   Future<bool> getInitialValues() async {
+    List<Future> futures = [
+      dataService
+          .getLastPlan()
+          .then((value) => internalisationViewModel.plan = value?.plan ?? ""),
+      _experimentService.isUsabilityDay().then(((value) =>
+          value ? screenOrder.add(PlanReminderStep.usabilityQuestions) : true))
+    ];
+
+    await Future.wait(futures);
+
+    // var plan = await dataService.getLastPlan();
+    // if (plan != null) {
+    //   internalisationViewModel.plan = plan.plan;
+    // }
+
+    // if (await _experimentService.isUsabilityDay()) {
+    //   screenOrder.add(PlanReminderStep.usabilityQuestions);
+    // }
+
     return true;
   }
 
@@ -56,8 +75,13 @@ class PlanReminderViewModel extends MultiStepAssessmentViewModel {
   void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-      // var oneBigAssessment = this.getOneBisAssessment("MentalContrasting");
+      var oneBigAssessment = this.getOneBisAssessment(usabilityQuestions.id);
+      var f1 = _experimentService.submitAssessment(
+          oneBigAssessment, usabilityQuestions.id);
+      var f2 = _experimentService
+          .onPlanReminderComplete(internalisationViewModel.input);
 
+      await Future.wait([f1, f2]);
       // await Future.wait([
       //   dataService.saveSimpleValueWithTimestamp(obstacle, "obstacles"),
       //   dataService.saveSimpleValueWithTimestamp(outcome, "outcomes"),

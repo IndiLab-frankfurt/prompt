@@ -80,7 +80,8 @@ class PromptDrawer extends StatelessWidget {
               icon: Icons.info_outline,
               text: "Lerntricks",
               onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.LEARNING_TIPS);
+                await Navigator.pushNamed(
+                    context, RouteNames.LEARNING_TRICKS_OVERVIEW);
               }),
           _buildDrawerItem(
               icon: Icons.edit_notifications_outlined,
@@ -155,6 +156,30 @@ class PromptDrawer extends StatelessWidget {
               text: "Plan Reminder",
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "List Scheduled Notifications",
+              onTap: () async {
+                var scheduled = await locator
+                    .get<NotificationService>()
+                    .getPendingNotifications();
+                // show a dialog where you can see the list of scheduled notifications
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Scheduled Notifications"),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: scheduled.map((notification) {
+                              return Text(notification.toString());
+                              // return Text(notification.toString());
+                            }).toList(),
+                          ),
+                        ),
+                      );
+                    });
               }),
           _buildDrawerItem(
               icon: Icons.add_box,

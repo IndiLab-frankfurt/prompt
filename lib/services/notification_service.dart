@@ -109,7 +109,7 @@ class NotificationService {
           hour: dateTime.hour,
           minute: dateTime.minute,
           second: dateTime.second,
-          // repeats: true,
+          repeats: true,
           allowWhileIdle: true,
         ));
 
@@ -168,8 +168,10 @@ class NotificationService {
             body: ''));
   }
 
-  Future<List<PendingNotificationRequest>> getPendingNotifications() async {
-    return await localNotifications.pendingNotificationRequests();
+  Future<List<NotificationModel>> getPendingNotifications() async {
+    var scheduled = await AwesomeNotifications().listScheduledNotifications();
+    print(scheduled);
+    return scheduled;
   }
 
   clearPendingNotifications() async {

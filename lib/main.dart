@@ -44,7 +44,7 @@ void setupAwesomeNotifications() {
       channelGroups: [
         NotificationChannelGroup(
             channelGroupkey: 'basic_channel_group',
-            channelGroupName: 'Basic group')
+            channelGroupName: 'PROMPT Erinnerungen')
       ],
       debug: true);
 }

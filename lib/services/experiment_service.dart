@@ -46,24 +46,43 @@ class ExperimentService {
   }
 
   Future onDistributedLearningComplete() async {
-    await _rewardService.addPoints(20);
+    _rewardService.addPoints(20);
+    onLearningTrickComplete("distributedLearning");
     await _dataService.saveSimpleValueWithTimestamp(
         "distributedLearning", "distributedLearning");
   }
 
   Future onMentalContrastingComplete() async {
-    await _rewardService.addPoints(20);
+    _rewardService.addPoints(20);
+    onLearningTrickComplete("mentalContrasting");
     await _dataService.saveSimpleValueWithTimestamp(
         "mentalContrasting", "mentalContrasting");
   }
 
   Future onLearningTipComplete(LearningTip learningTip) async {
-    await _rewardService.addPoints(20);
+    _rewardService.addPoints(20);
+    onLearningTrickComplete(learningTip.id);
     await _dataService.saveSimpleValueWithTimestamp(
         learningTip.id, "learningTipsSeen");
   }
 
+  Future onLearningTrickComplete(String typeOfTrick) async {
+    await _dataService.saveSimpleValueWithTimestamp(
+        typeOfTrick, "learningTricksSeen");
+  }
+
+  Future onPlanReminderComplete(String planInput) async {
+    await _dataService.saveSimpleValueWithTimestamp(planInput, "planReminders");
+  }
+
   Future<OpenTasks?> getOpenTask() async {
+    // First, check if the last learning Trick was seen at least one day ago
+    var learningTrickSeen =
+        await _dataService.getValuesWithDates("lastLearningTrickSeen");
+    if (learningTrickSeen.length > 0 && learningTrickSeen.last.date.isToday()) {
+      return null;
+    }
+
     if (await isDistributedLearningDay()) {
       return OpenTasks.ViewDistributedLearning;
     }
@@ -267,6 +286,12 @@ class ExperimentService {
 
     // TODO: Find actual interval
     return daysAgo >= 14;
+  }
+
+  Future<bool> isUsabilityDay() async {
+    var planReminders = await _dataService.getValuesWithDates("planReminders");
+
+    return (planReminders.length == 0 || planReminders.length == 2);
   }
 
   bool hasCompletedSessionZero() {

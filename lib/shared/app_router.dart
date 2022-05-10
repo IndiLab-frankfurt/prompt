@@ -11,6 +11,7 @@ import 'package:prompt/screens/auth/registration_screen.dart';
 import 'package:prompt/screens/learning_tips_screen.dart';
 import 'package:prompt/screens/main/distributed_learning_screens.dart';
 import 'package:prompt/screens/main/learning_tip_screens.dart';
+import 'package:prompt/screens/main/learning_tricks_overview.dart';
 import 'package:prompt/screens/main/mental_contrasting_screens.dart';
 import 'package:prompt/screens/main/plan_edit_screen.dart';
 import 'package:prompt/screens/main/plan_reminder_screens.dart';
@@ -169,6 +170,10 @@ class AppRouter {
                       locator.get<DataService>(),
                       locator.get<NotificationService>()),
                 ));
+
+      case RouteNames.LEARNING_TRICKS_OVERVIEW:
+        return MaterialPageRoute(
+            builder: (_) => LearningTricksOverviewScreen());
 
       default:
         return MaterialPageRoute(builder: (_) {

@@ -103,6 +103,9 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     if (assessmentItem.type == QuestionType.text_numeric) {
       questionWidget = buildTextInput(assessmentItem, index);
     }
+    if (assessmentItem.type == QuestionType.text) {
+      questionWidget = buildTextInput(assessmentItem, index);
+    }
 
     return Card(
         shape: RoundedRectangleBorder(

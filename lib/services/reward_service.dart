@@ -244,7 +244,7 @@ class RewardService {
     await _dataService.saveDaysActive(daysActive);
   }
 
-  addPoints(int points) async {
+  Future addPoints(int points) async {
     scoreValue += points;
     controller.add(scoreValue);
     pendingRewardNotifications.add(points);

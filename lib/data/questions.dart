@@ -107,11 +107,43 @@ late var learningTipQuestions =
 late var usabilityQuestions =
     Questionnaire(id: "usability_questions", title: "", items: [
   Question(
-      id: "usability_1",
+      id: "usability_fun",
       type: QuestionType.single,
-      questionText: "App gut?",
+      questionText: "Es hat mir Spaß gemacht, die App PROMPT zu nutzen.",
       labels: {
-        "1": "Ja",
-        "2": "Nein",
+        "1": "Trifft überhaupt nicht zu",
+        "2": "Trifft eher nicht zu",
+        "3": "Trifft eher zu",
+        "4": "Trifft voll und ganz zu"
       }),
+  Question(
+      id: "usability_difficult",
+      type: QuestionType.single,
+      questionText: "Ich fand es schwierig, die App PROMPT zu bedienen.",
+      labels: {
+        "1": "Trifft überhaupt nicht zu",
+        "2": "Trifft eher nicht zu",
+        "3": "Trifft eher zu",
+        "4": "Trifft voll und ganz zu"
+      }),
+  Question(
+      id: "usability_helpful",
+      type: QuestionType.single,
+      questionText: "Die App PROMPT hat mir beim Lernen geholfen.",
+      labels: {
+        "1": "Trifft überhaupt nicht zu",
+        "2": "Trifft eher nicht zu",
+        "3": "Trifft eher zu",
+        "4": "Trifft voll und ganz zu"
+      }),
+  Question(
+      id: "usability_good",
+      type: QuestionType.text,
+      questionText: "Das fand ich gut an der App:",
+      labels: {}),
+  Question(
+      id: "usability_bad",
+      type: QuestionType.text,
+      questionText: "Das fand ich nicht so gut an der App:",
+      labels: {}),
 ]);

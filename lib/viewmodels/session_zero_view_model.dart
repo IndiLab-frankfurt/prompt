@@ -184,7 +184,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       var androidInfo = await DeviceInfoPlugin().androidInfo;
       var release = androidInfo.version.release;
 
-      if (release != null && release == "Android 12")
+      if (release != null && release == "12")
         screenOrder.add(SessionZeroStep.permissionRequest);
     }
 
