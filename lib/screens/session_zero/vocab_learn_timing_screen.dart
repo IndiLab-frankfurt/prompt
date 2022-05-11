@@ -15,6 +15,7 @@ class VocabLearnTimingScreen extends StatelessWidget {
     var initialTime = vm.getStoredTime();
 
     return PromptSingleScreen(
+      backgroundImage: AssetImage("assets/illustrations/mascot_1_watch.PNG"),
       child: Container(
           margin: UIHelper.containerMargin,
           child: Column(

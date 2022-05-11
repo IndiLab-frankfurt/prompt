@@ -48,6 +48,7 @@ dependencies:
   confetti: ^0.6.0
 
 dev_dependencies:
+  dart_code_metrics: ^4.15.0
   flutter_test:
     sdk: flutter
 
