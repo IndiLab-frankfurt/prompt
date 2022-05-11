@@ -192,36 +192,49 @@ class ExperimentService {
   }
 
   void reactToNotifications(context) {
-    try {
-      AwesomeNotifications()
-          .actionStream
-          .listen((ReceivedNotification receivedNotification) {
-        print('Received notification ${receivedNotification.title}');
-        _loggingService
-            .logEvent("Received notification ${receivedNotification.title}");
-        if (receivedNotification is ReceivedAction) {
-          onActionNotification(receivedNotification);
-        }
-        if (receivedNotification.id == NotificationService.ID_PLAN_REMINDER) {
-          onPlanReminderNotificationClicked();
-        }
-      });
-    } catch (e) {
-      print(e);
-    }
-
-    try {
-      AwesomeNotifications().dismissedStream.listen((dismissedNotification) {
-        print('Dismissed notification ${dismissedNotification.title}');
-
-        if (dismissedNotification.id == NotificationService.ID_PLAN_REMINDER) {
-          scheduleNextPlanReminder();
-        }
-      });
-    } catch (e) {}
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: onActionNotification,
+        onDismissActionReceivedMethod: onNotificationDismissed);
   }
 
-  onActionNotification(ReceivedAction receivedAction) async {
+  Future<void> onActionReceived(ReceivedAction action) async {}
+
+  //   try {
+  //     AwesomeNotifications()
+  //         .actionStream
+  //         .listen((ReceivedNotification receivedNotification) {
+  //       print('Received notification ${receivedNotification.title}');
+  //       _loggingService
+  //           .logEvent("Received notification ${receivedNotification.title}");
+  //       if (receivedNotification is ReceivedAction) {
+  //         onActionNotification(receivedNotification);
+  //       }
+  //       if (receivedNotification.id == NotificationService.ID_PLAN_REMINDER) {
+  //         onPlanReminderNotificationClicked();
+  //       }
+  //     });
+  //   } catch (e) {
+  //     print(e);
+  //   }
+
+  //   try {
+  //     AwesomeNotifications().dismissedStream.listen((dismissedNotification) {
+  //       print('Dismissed notification ${dismissedNotification.title}');
+
+  //       if (dismissedNotification.id == NotificationService.ID_PLAN_REMINDER) {
+  //         scheduleNextPlanReminder();
+  //       }
+  //     });
+  //   } catch (e) {}
+  // }
+
+  Future<void> onNotificationDismissed(ReceivedAction action) async {
+    if (action.id == NotificationService.ID_PLAN_REMINDER) {
+      scheduleNextPlanReminder();
+    }
+  }
+
+  Future<void> onActionNotification(ReceivedAction receivedAction) async {
     var pressedButton = receivedAction.buttonKeyPressed;
 
     if (pressedButton == NotificationService.BUTTON_ACTION_LEARNED_TODAY) {

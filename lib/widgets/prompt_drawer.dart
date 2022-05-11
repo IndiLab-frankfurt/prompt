@@ -173,7 +173,16 @@ class PromptDrawer extends StatelessWidget {
                         content: SingleChildScrollView(
                           child: ListBody(
                             children: scheduled.map((notification) {
-                              return Text(notification.toString());
+                              var title =
+                                  notification.content?.title ?? "No title";
+                              var schedule = notification.schedule;
+                              return Column(
+                                children: [
+                                  Text(title),
+                                  Text(schedule.toString()),
+                                  Divider(),
+                                ],
+                              );
                               // return Text(notification.toString());
                             }).toList(),
                           ),

@@ -16,7 +16,7 @@ class VocabLearnTimingViewModel extends BaseViewModel {
     return time;
   }
 
-  void setNewTime(TimeOfDay newTime) {
+  void setNewTime(TimeOfDay newTime) async {
     var ud = _dataService.getUserDataCache();
     ud.preferredReminderTime = newTime;
     _dataService.saveUserDataProperty(
@@ -26,6 +26,15 @@ class VocabLearnTimingViewModel extends BaseViewModel {
         DateTime(dt.year, dt.month, dt.day, newTime.hour, newTime.minute);
     _notificationService.scheduleDailyReminder(
         newDate, NotificationService.ID_DAILY);
+
+    // in order to reschedule the plan prompt, we need its previous date
+    var scheduled = await _notificationService.getPendingNotifications();
+    for (var s in scheduled) {
+      if (s.content?.id == NotificationService.ID_PLAN_REMINDER) {
+        var scheduleMap = s.schedule?.toMap();
+        if (scheduleMap != null) {}
+      }
+    }
 
     notifyListeners();
   }

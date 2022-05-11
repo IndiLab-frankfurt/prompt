@@ -90,6 +90,9 @@ class NotificationService {
       print(e);
     }
 
+    var schedule =
+        NotificationAndroidCrontab.daily(referenceDateTime: dateTime);
+
     await AwesomeNotifications().createNotification(
         actionButtons: [
           NotificationActionButton(
@@ -105,13 +108,7 @@ class NotificationService {
             wakeUpScreen: true,
             category: NotificationCategory.Reminder,
             groupKey: groupKey),
-        schedule: NotificationCalendar(
-          hour: dateTime.hour,
-          minute: dateTime.minute,
-          second: dateTime.second,
-          repeats: true,
-          allowWhileIdle: true,
-        ));
+        schedule: schedule);
 
     locator.get<LoggingService>().logEvent(
       "Schedule Daily Reminder",
@@ -137,13 +134,9 @@ class NotificationService {
             wakeUpScreen: true,
             category: NotificationCategory.Reminder,
             groupKey: groupKey),
-        schedule: NotificationCalendar(
-            day: dateTime.day,
-            month: dateTime.month,
-            hour: dateTime.hour,
-            minute: dateTime.minute,
-            second: dateTime.second,
-            allowWhileIdle: true));
+        schedule: NotificationCalendar.fromDate(
+          date: dateTime,
+        ));
 
     locator.get<LoggingService>().logEvent("Schedule Plan Reminder",
         data: {"date": dateTime.toString()});

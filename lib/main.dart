@@ -43,7 +43,7 @@ void setupAwesomeNotifications() {
       // Channel groups are only visual and are not required
       channelGroups: [
         NotificationChannelGroup(
-            channelGroupkey: 'basic_channel_group',
+            channelGroupKey: 'basic_channel_group',
             channelGroupName: 'PROMPT Erinnerungen')
       ],
       debug: true);
