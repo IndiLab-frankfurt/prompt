@@ -20,10 +20,11 @@ class LearningTricksOverviewScreen extends StatelessWidget {
         buildNavButton(
             context, "Tipps für das Lernen ansehen", RouteNames.LEARNING_TIPS),
         buildNavButton(
-            context, "TODO: Distributed Learning", RouteNames.LEARNING_TIPS),
+            context, "Mache dir einen Plan", RouteNames.LEARNING_TIPS),
         buildNavButton(
-            context, "TODO: Mental Contrasting", RouteNames.LEARNING_TIPS),
-        buildNavButton(context, "TODO: WDP Video", RouteNames.LEARNING_TIPS),
+            context, "Lerne verteilt", RouteNames.LEARNING_TIPS),
+        buildNavButton(
+          context, "Überwinde Hindernisse", RouteNames.LEARNING_TIPS),
       ]),
     );
   }
