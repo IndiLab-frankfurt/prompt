@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/main/prompt_single_screen.dart';
-import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
@@ -13,7 +12,7 @@ class LearningTricksOverviewScreen extends StatelessWidget {
       child: ListView(children: [
         UIHelper.verticalSpaceLarge(),
         Text(
-          AppStrings.LearningTricksOverview_Title,
+          "Hier kannst du dir die ganzen Lerntricks anzeigen lassen.",
           style: TextStyle(fontSize: 20),
           textAlign: TextAlign.center,
         ),

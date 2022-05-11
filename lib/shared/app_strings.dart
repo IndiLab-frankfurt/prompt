@@ -160,7 +160,4 @@ Auch dafür hat das Monster einen Trick, den es dir auf der nächsten Seite zeig
       "Schau dir nochmal deinen Plan an!";
   static const String Notification_Title_VocabReminder =
       "Hast du heute Vokabeln gelernt?";
-
-  static const String LearningTricksOverview_Title =
-      "Hier kannst du dir die ganzen Lerntricks anzeigen lassen.";
 }
