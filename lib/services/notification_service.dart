@@ -37,6 +37,13 @@ class NotificationService {
 
   Future initialize() async {
     // localNotifications = FlutterLocalNotificationsPlugin();
+    // const AndroidNotificationDetails androidPlatformChannelSpecifics =
+    // AndroidNotificationDetails('your channel id', 'your channel name',
+    //     channelDescription: 'your channel description',
+    //     importance: Importance.max,
+    //     priority: Priority.high,
+
+    //     ticker: 'ticker');
 
     // var initSettingsAndroid =
     //     new AndroidInitializationSettings('ic_notification');
@@ -85,7 +92,7 @@ class NotificationService {
     String groupKey = "daily";
     // Check if is already scheduled and cancel all dailies
     try {
-      await AwesomeNotifications().cancel(id);
+      await AwesomeNotifications().cancel(ID_DAILY);
     } catch (e) {
       print(e);
     }
@@ -101,7 +108,7 @@ class NotificationService {
               key: BUTTON_ACTION_NOT_LEARNED_TODAY, label: "Nein")
         ],
         content: NotificationContent(
-            id: id,
+            id: ID_DAILY,
             channelKey: NotificationService.CHANNEL_ID_DAILY_REMINDER,
             title: AppStrings.Notification_Title_VocabReminder,
             body: '',

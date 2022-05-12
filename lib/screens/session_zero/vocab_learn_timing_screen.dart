@@ -21,65 +21,36 @@ class VocabLearnTimingScreen extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                "Wann möchtest du an das Vokabellernen erinnert werden??",
+                "Wann möchtest du an das Vokabellernen erinnert werden?",
                 style: TextStyle(fontSize: 20),
                 textAlign: TextAlign.center,
               ),
-              UIHelper.verticalSpaceSmall(),
+              UIHelper.verticalSpaceMedium(),
               ElevatedButton(
                 onPressed: () async {
                   TimeOfDay? pickedTime = await showTimePicker(
                     context: context,
                     initialTime: initialTime,
+                    cancelText: "Abbrechen",
+                    confirmText: "Speichern",
+                    helpText: "Bitte wähle eine Uhrzeit aus.",
                   );
                   if (pickedTime != null) {
                     vm.setNewTime(pickedTime);
                   }
                 },
-                child: Text(vm.getStoredTime().format(context),
-                    style: TextStyle(fontSize: 30)),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 10, right: 10, top: 5, bottom: 5),
+                  child: Text(vm.getStoredTime().format(context),
+                      style: TextStyle(fontSize: 30)),
+                ),
               ),
               // MarkdownBody(
               //     data:
               //         "### Wann möchtest du an das Vokabellernen erinnert werden?"),
             ],
           )),
-    );
-
-    return Container(
-      decoration: UIHelper.defaultBoxDecoration,
-      child: Scaffold(
-        appBar: PromptAppBar(showBackButton: true),
-        drawer: PromptDrawer(),
-        body: Container(
-            margin: UIHelper.containerMargin,
-            child: Column(
-              children: [
-                Text(
-                  "Wann möchtest du an das Vokabellernen erinnert werden?",
-                  style: TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                ),
-                UIHelper.verticalSpaceSmall(),
-                ElevatedButton(
-                  onPressed: () async {
-                    TimeOfDay? pickedTime = await showTimePicker(
-                      context: context,
-                      initialTime: initialTime,
-                    );
-                    if (pickedTime != null) {
-                      vm.setNewTime(pickedTime);
-                    }
-                  },
-                  child: Text(vm.getStoredTime().format(context),
-                      style: TextStyle(fontSize: 30)),
-                ),
-                // MarkdownBody(
-                //     data:
-                //         "### Wann möchtest du an das Vokabellernen erinnert werden?"),
-              ],
-            )),
-      ),
     );
   }
 }

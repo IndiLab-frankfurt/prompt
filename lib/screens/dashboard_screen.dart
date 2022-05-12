@@ -166,6 +166,12 @@ class _DashboardScreenState extends State<DashboardScreen>
     } else if (vm.openTasks.contains(OpenTasks.LearningTip)) {
       tasks.add(_buildToLearningTip());
       tasks.add(UIHelper.verticalSpaceSmall());
+    } else {
+      tasks.add(Text(
+        "Morgen gibt es einen neuen Tipp!",
+        style: TextStyle(fontSize: 20),
+        textAlign: TextAlign.center,
+      ));
     }
 
     return tasks;

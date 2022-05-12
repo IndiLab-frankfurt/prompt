@@ -26,7 +26,7 @@ class PromptSingleScreen extends StatelessWidget {
       return BoxDecoration(
           gradient: UIHelper.baseGradient,
           image: DecorationImage(
-              image: AssetImage("assets/illustrations/mascot_1_lightbulb.png"),
+              image: this.backgroundImage!,
               fit: BoxFit.contain,
               alignment: Alignment.bottomCenter));
     } else {

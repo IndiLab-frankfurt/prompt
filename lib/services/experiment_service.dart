@@ -192,12 +192,40 @@ class ExperimentService {
   }
 
   void reactToNotifications(context) {
-    AwesomeNotifications().setListeners(
-        onActionReceivedMethod: onActionNotification,
-        onDismissActionReceivedMethod: onNotificationDismissed);
+    // AwesomeNotifications().setListeners(
+    //     onActionReceivedMethod: onActionNotification,
+    //     onDismissActionReceivedMethod: onNotificationDismissed);
+
+    try {
+      AwesomeNotifications()
+          .actionStream
+          .listen((ReceivedNotification receivedNotification) {
+        print('Received notification ${receivedNotification.title}');
+        _loggingService
+            .logEvent("Received notification ${receivedNotification.title}");
+        if (receivedNotification is ReceivedAction) {
+          onActionNotification(receivedNotification);
+        }
+        if (receivedNotification.id == NotificationService.ID_PLAN_REMINDER) {
+          onPlanReminderNotificationClicked();
+        }
+      });
+    } catch (e) {
+      print(e);
+    }
+
+    try {
+      AwesomeNotifications().dismissedStream.listen((dismissedNotification) {
+        print('Dismissed notification ${dismissedNotification.title}');
+
+        if (dismissedNotification.id == NotificationService.ID_PLAN_REMINDER) {
+          scheduleNextPlanReminder();
+        }
+      });
+    } catch (e) {}
   }
 
-  Future<void> onActionReceived(ReceivedAction action) async {}
+  // Future<void> onActionReceived(ReceivedAction action) async {}
 
   //   try {
   //     AwesomeNotifications()

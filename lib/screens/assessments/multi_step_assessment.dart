@@ -109,20 +109,24 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
             maintainState: true,
             visible: widget.vm.canMoveBack(_keyOfCurrent()) &&
                 widget.vm.step > 0, // _index > 1 && _index < _pages.length - 1,
-            child: TextButton(
-              child: Row(
-                children: <Widget>[
-                  Icon(Icons.navigate_before),
-                  Text(
-                    "Zurück",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
+            child: SizedBox(
+              height: 50,
+              child: TextButton(
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.navigate_before),
+                    Text(
+                      "Zurück",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  _controller.previousPage(
+                      duration: _kDuration, curve: _kCurve);
+                  FocusScope.of(context).unfocus();
+                },
               ),
-              onPressed: () {
-                _controller.previousPage(duration: _kDuration, curve: _kCurve);
-                FocusScope.of(context).unfocus();
-              },
             ),
           ),
           Visibility(
@@ -130,29 +134,32 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
             maintainAnimation: true,
             maintainState: true,
             visible: widget.vm.canMoveNext(_keyOfCurrent()),
-            child: ElevatedButton(
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    widget.vm.nextButtonText,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Icon(Icons.navigate_next)
-                ],
+            child: SizedBox(
+              height: 50,
+              child: ElevatedButton(
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      widget.vm.nextButtonText,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Icon(Icons.navigate_next)
+                  ],
+                ),
+                onPressed: () {
+                  if (widget.vm.step == widget.pages.length - 1) {
+                    widget.vm.submit();
+                    return;
+                  }
+                  if (widget.vm.canMoveNext(_keyOfCurrent())) {
+                    _controller
+                        .jumpToPage(widget.vm.getNextPage(_keyOfCurrent()));
+                    widget.vm.clearCurrent();
+                  }
+                  setState(() {});
+                  FocusScope.of(context).unfocus();
+                },
               ),
-              onPressed: () {
-                if (widget.vm.step == widget.pages.length - 1) {
-                  widget.vm.submit();
-                  return;
-                }
-                if (widget.vm.canMoveNext(_keyOfCurrent())) {
-                  _controller
-                      .jumpToPage(widget.vm.getNextPage(_keyOfCurrent()));
-                  widget.vm.clearCurrent();
-                }
-                setState(() {});
-                FocusScope.of(context).unfocus();
-              },
             ),
           ),
         ],

@@ -24,7 +24,7 @@ class VocabLearnTimingViewModel extends BaseViewModel {
     var dt = DateTime.now();
     var newDate =
         DateTime(dt.year, dt.month, dt.day, newTime.hour, newTime.minute);
-    _notificationService.scheduleDailyReminder(
+    await _notificationService.scheduleDailyReminder(
         newDate, NotificationService.ID_DAILY);
 
     // in order to reschedule the plan prompt, we need its previous date
@@ -32,7 +32,17 @@ class VocabLearnTimingViewModel extends BaseViewModel {
     for (var s in scheduled) {
       if (s.content?.id == NotificationService.ID_PLAN_REMINDER) {
         var scheduleMap = s.schedule?.toMap();
-        if (scheduleMap != null) {}
+        if (scheduleMap != null) {
+          var now = DateTime.now();
+          var month = scheduleMap["month"];
+          var day = scheduleMap["day"];
+          var hour = scheduleMap["hour"];
+          var minute = scheduleMap["minute"];
+          var second = scheduleMap["second"];
+          var year = scheduleMap["year"];
+          var date = DateTime(year, month, day, hour, minute, second);
+          await _notificationService.schedulePlanReminder(date);
+        }
       }
     }
 

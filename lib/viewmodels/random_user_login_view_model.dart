@@ -13,7 +13,7 @@ class RandomUserLoginViewModel extends BaseViewModel {
   RandomUserLoginViewModel(this._userService, this._navigationService);
 
   Future<bool> loginAsRandomUser() async {
-    var signedIn = await _userService.isSignedIn();
+    var signedIn = _userService.isSignedIn();
     if (signedIn) {
       _navigationService.navigateTo(RouteNames.NO_TASKS);
       return true;

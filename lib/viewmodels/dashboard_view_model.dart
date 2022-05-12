@@ -72,13 +72,16 @@ class DashboardViewModel extends BaseViewModel {
 
   Future<bool> initialize() async {
     OpenTasks? openTask;
+    late List<ValueWithDate> datesLearned;
+
     await Future.wait([
-      _dataService.getDatesLearned(),
+      _dataService.getDatesLearned().then((dl) => datesLearned = dl),
       _experimentService.getOpenTask().then((res) => openTask = res),
+      _experimentService.hasLearnedToday().then((res) => hasLearnedToday = res),
     ]);
 
-    var datesLearned = await _dataService.getDatesLearned();
-    hasLearnedToday = await _experimentService.hasLearnedToday();
+    // var datesLearned = await _dataService.getDatesLearned();
+    // hasLearnedToday = await _experimentService.hasLearnedToday();
 
     var sevenDaysAgo = DateTime.now().subtract(Duration(days: 7));
     daysLearned = _datesLearnedSince(datesLearned, sevenDaysAgo, true);
