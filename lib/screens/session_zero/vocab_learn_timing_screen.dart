@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/main/prompt_single_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/vocab_learn_timing_view_model.dart';
-import 'package:prompt/widgets/prompt_appbar.dart';
-import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:provider/provider.dart';
 
 class VocabLearnTimingScreen extends StatelessWidget {

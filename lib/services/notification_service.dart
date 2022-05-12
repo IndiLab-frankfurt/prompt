@@ -1,14 +1,14 @@
 import 'package:flutter/widgets.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/shared/app_strings.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
+// import 'package:timezone/data/latest.dart' as tz;
+// import 'package:timezone/timezone.dart' as tz;
 import 'package:awesome_notifications/awesome_notifications.dart';
 
 class NotificationService {
-  late FlutterLocalNotificationsPlugin localNotifications;
+  // late FlutterLocalNotificationsPlugin localNotifications;
 
   static const String CHANNEL_ID_DAILY_REMINDER = "Tägliche Erinnerung";
   static const String CHANNEL_NAME_DAILY_REMINDER = "Tägliche Erinnerung";
@@ -68,10 +68,10 @@ class NotificationService {
   //   print("Received Local Notification");
   // }
 
-  Future<void> _configureLocalTimeZone() async {
-    tz.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation("Europe/Berlin"));
-  }
+  // Future<void> _configureLocalTimeZone() async {
+  //   tz.initializeTimeZones();
+  //   tz.setLocalLocation(tz.getLocation("Europe/Berlin"));
+  // }
 
   Future onSelectNotification(String? payload) async {
     if (payload != null) {
