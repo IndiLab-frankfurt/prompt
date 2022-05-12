@@ -32,9 +32,13 @@ class DataService {
       this._localDatabaseService, this._settingsService);
 
   logData(dynamic data) async {
-    data["userid"] = _userService.getUsername();
-    if (_userService.isSignedIn()) {
-      await _databaseService.logEvent(_userService.getUsername(), data);
+    try {
+      data["userid"] = _userService.getUsername();
+      if (_userService.isSignedIn()) {
+        await _databaseService.logEvent(_userService.getUsername(), data);
+      }
+    } catch (e) {
+      print(e);
     }
   }
 

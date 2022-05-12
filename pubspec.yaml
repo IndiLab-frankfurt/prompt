@@ -66,9 +66,7 @@ flutter:
   assets:
     - assets/illustrations/
     - assets/icons/
-    - assets/assessments/
     - assets/videos/
-    - google_fonts/
     - assets/screenshots/
 
   # To add assets to your application, add an assets section, like this:
