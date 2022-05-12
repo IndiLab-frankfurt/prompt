@@ -12,7 +12,7 @@ class LearningTricksOverviewScreen extends StatelessWidget {
       child: ListView(children: [
         UIHelper.verticalSpaceLarge(),
         Text(
-          "Hier kannst du dir die ganzen Lerntricks anzeigen lassen.",
+          "Hier kannst du dir die alle Lerntricks noch mal anschauen.",
           style: TextStyle(fontSize: 20),
           textAlign: TextAlign.center,
         ),
