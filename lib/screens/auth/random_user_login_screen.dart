@@ -10,14 +10,19 @@ class RandomUserLoginScreen extends StatefulWidget {
 }
 
 class _RandomUserLoginScreenState extends State<RandomUserLoginScreen> {
-  late Future<bool> _future = vm.loginAsRandomUser();
+  late Future<bool> _future = vm.isSignedIn();
   late RandomUserLoginViewModel vm;
   @override
   void initState() {
     super.initState();
     // _future = vm.loginAsRandomUser();
-    WidgetsBinding.instance
-        ?.addPostFrameCallback((_) => vm.loginAsRandomUser());
+
+    WidgetsBinding.instance?.addPostFrameCallback((_) => startLogin());
+  }
+
+  void startLogin() {
+    Future.delayed(Duration(seconds: 1))
+        .then((value) => vm.loginAsRandomUser());
   }
 
   @override

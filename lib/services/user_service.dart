@@ -109,7 +109,8 @@ class UserService {
   }
 
   String getUsername() {
-    return _settings.getSetting(SettingsKeys.userId);
+    var userid = _settings.getSetting(SettingsKeys.userId);
+    return userid;
   }
 
   bool isSignedIn() {

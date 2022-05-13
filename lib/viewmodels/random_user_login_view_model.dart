@@ -12,6 +12,11 @@ class RandomUserLoginViewModel extends BaseViewModel {
 
   RandomUserLoginViewModel(this._userService, this._navigationService) {}
 
+  Future<bool> isSignedIn() async {
+    var signedIn = _userService.isSignedIn();
+    return signedIn;
+  }
+
   Future<bool> loginAsRandomUser() async {
     var signedIn = _userService.isSignedIn();
     if (signedIn) {
