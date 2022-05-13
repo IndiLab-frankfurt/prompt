@@ -23,7 +23,7 @@ class VocabLearnTimingViewModel extends BaseViewModel {
         "preferredReminderTime", newTime.to24HourString());
     var dt = DateTime.now();
     var newDate =
-        DateTime(dt.year, dt.month, dt.day, newTime.hour, newTime.minute);
+        DateTime(dt.year, dt.month, dt.day, newTime.hour, newTime.minute, 0);
     await _notificationService.scheduleDailyReminder(
         newDate, NotificationService.ID_DAILY);
 
@@ -34,14 +34,16 @@ class VocabLearnTimingViewModel extends BaseViewModel {
         var scheduleMap = s.schedule?.toMap();
         if (scheduleMap != null) {
           var now = DateTime.now();
-          var month = scheduleMap["month"];
-          var day = scheduleMap["day"];
-          var hour = scheduleMap["hour"];
-          var minute = scheduleMap["minute"];
-          var second = scheduleMap["second"];
-          var year = scheduleMap["year"];
+          var month = scheduleMap["month"] ?? now.month;
+          var day = scheduleMap["day"] ?? 1;
+          var hour = scheduleMap["hour"] ?? 18;
+          var minute = scheduleMap["minute"] ?? 0;
+          var second = scheduleMap["second"] ?? 0;
+          var year = scheduleMap["year"] ?? now.year;
           var date = DateTime(year, month, day, hour, minute, second);
-          await _notificationService.schedulePlanReminder(date);
+          var newDate = DateTime(
+              dt.year, dt.month, dt.day, date.hour, date.minute, date.second);
+          await _notificationService.schedulePlanReminder(newDate);
         }
       }
     }

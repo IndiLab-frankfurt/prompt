@@ -48,7 +48,6 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance!.addPostFrameCallback((_) => afterBuild());
-    print(widget.assessment.title);
     return Scrollbar(
       thickness: 8.0,
       // isAlwaysShown: true,

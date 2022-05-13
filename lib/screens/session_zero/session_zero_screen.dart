@@ -16,6 +16,7 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
+import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:async/async.dart';
 
@@ -93,9 +94,10 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         return WhoAreYouScreen(key: key);
 
       case SessionZeroStep.video_introduction:
-        return TextScreen(paragraphs: ["Hier Einführungsvideo"], key: key);
-      // return VideoScreen('assets/videos/videoPlanning.mp4',
-      //     key: key, onVideoCompleted: vm.videoPlanningCompleted);
+        return VideoScreen(
+            videoURL: 'assets/videos/EinfuehrungII.mp4',
+            key: key,
+            onVideoCompleted: vm.videoPlanningCompleted);
 
       case SessionZeroStep.questions_sociodemographics:
         return MultiStepQuestionnairePage(
@@ -127,10 +129,10 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         return InstructionsImplementationIntentions(key: key);
 
       case SessionZeroStep.video_planning:
-        return TextScreen(
-            paragraphs: ["Hier Video über Wenn-dann-Pläne"], key: key);
-      // return VideoScreen('assets/videos/videoPlanning.mp4',
-      //     key: key, onVideoCompleted: vm.videoPlanningCompleted);
+        return VideoScreen(
+            videoURL: 'assets/videos/WennDannPlan.mp4',
+            key: key,
+            onVideoCompleted: vm.videoPlanningCompleted);
 
       case SessionZeroStep.planCreation:
         return ChangeNotifierProvider.value(

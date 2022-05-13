@@ -79,6 +79,10 @@ class UIHelper {
     return EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 5);
   }
 
+  static EdgeInsets getContainerPadding() {
+    return EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 5);
+  }
+
   static const EdgeInsets containerMargin = EdgeInsets.all(10);
 
   static buildSubHeader(String title) {

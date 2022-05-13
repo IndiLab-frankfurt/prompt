@@ -8,6 +8,7 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/distributed_learning_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
+import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:async/async.dart';
 
@@ -86,8 +87,10 @@ class _DistributedLearningScreensState
         ], key: key);
 
       case DistributedLearningStep.video_distributedLearning:
-        return TextScreen(
-            paragraphs: ["Hier Video über verteiltes Lernen"], key: key);
+        return VideoScreen(
+            videoURL: "assets/videos/EinfuehrungII.mp4",
+            onVideoCompleted: vm.videoDistributedLearningCompleted,
+            key: key);
 
       case DistributedLearningStep.questions_vocablearning:
         return MultiStepQuestionnairePage(

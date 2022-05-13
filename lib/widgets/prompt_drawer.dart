@@ -91,13 +91,13 @@ class PromptDrawer extends StatelessWidget {
                     context, RouteNames.CHANGE_REMINDER_TIME);
               }),
           Divider(),
-          _buildDrawerItem(
-              icon: Icons.info_outlined,
-              text: "Lerntip",
-              onTap: () async {
-                await Navigator.pushNamed(
-                    context, RouteNames.SINGLE_LEARNING_TIP);
-              }),
+          // _buildDrawerItem(
+          //     icon: Icons.info_outlined,
+          //     text: "Lerntip",
+          //     onTap: () async {
+          //       await Navigator.pushNamed(
+          //           context, RouteNames.SINGLE_LEARNING_TIP);
+          //     }),
           // _buildDrawerItem(
           //     icon: Icons.add_box,
           //     text: "AutoRegistrierung",
@@ -114,88 +114,88 @@ class PromptDrawer extends StatelessWidget {
           // Divider(),
           _buildDrawerItem(
               icon: Icons.add_box,
-              text: "Session 0",
+              text: "Einführung",
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.SESSION_ZERO);
               }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Outcomes/Obstacles",
-              onTap: () async {
-                await Navigator.pushNamed(
-                    context, RouteNames.MENTAL_CONTRASTING);
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Verteiltes Lernen",
-              onTap: () async {
-                await Navigator.pushNamed(
-                    context, RouteNames.DISTRIBUTED_LEARNING);
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Delete Last Date",
-              onTap: () async {
-                var ds = locator.get<DataService>();
-                ds.deleteLastDateLearned();
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Trigger Plan Reminder in 1 min.",
-              onTap: () async {
-                // create datetime one minute from now
-                var now = DateTime.now();
-                var oneMinuteFromNow = now.add(Duration(minutes: 1));
-                // set reminder
-                locator
-                    .get<NotificationService>()
-                    .schedulePlanReminder(oneMinuteFromNow);
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Plan Reminder",
-              onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "List Scheduled Notifications",
-              onTap: () async {
-                var scheduled = await locator
-                    .get<NotificationService>()
-                    .getPendingNotifications();
-                // show a dialog where you can see the list of scheduled notifications
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text("Scheduled Notifications"),
-                        content: SingleChildScrollView(
-                          child: ListBody(
-                            children: scheduled.map((notification) {
-                              var title =
-                                  notification.content?.title ?? "No title";
-                              var schedule = notification.schedule;
-                              return Column(
-                                children: [
-                                  Text(title),
-                                  Text(schedule.toString()),
-                                  Divider(),
-                                ],
-                              );
-                              // return Text(notification.toString());
-                            }).toList(),
-                          ),
-                        ),
-                      );
-                    });
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Delete all scheduled reminders",
-              onTap: () async {
-                locator.get<NotificationService>().clearPendingNotifications();
-              }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Outcomes/Obstacles",
+          //     onTap: () async {
+          //       await Navigator.pushNamed(
+          //           context, RouteNames.MENTAL_CONTRASTING);
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Verteiltes Lernen",
+          //     onTap: () async {
+          //       await Navigator.pushNamed(
+          //           context, RouteNames.DISTRIBUTED_LEARNING);
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Delete Last Date",
+          //     onTap: () async {
+          //       var ds = locator.get<DataService>();
+          //       ds.deleteLastDateLearned();
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Trigger Plan Reminder in 1 min.",
+          //     onTap: () async {
+          //       // create datetime one minute from now
+          //       var now = DateTime.now();
+          //       var oneMinuteFromNow = now.add(Duration(minutes: 1));
+          //       // set reminder
+          //       locator
+          //           .get<NotificationService>()
+          //           .schedulePlanReminder(oneMinuteFromNow);
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Plan Reminder",
+          //     onTap: () async {
+          //       await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "List Scheduled Notifications",
+          //     onTap: () async {
+          //       var scheduled = await locator
+          //           .get<NotificationService>()
+          //           .getPendingNotifications();
+          //       // show a dialog where you can see the list of scheduled notifications
+          //       showDialog(
+          //           context: context,
+          //           builder: (context) {
+          //             return AlertDialog(
+          //               title: Text("Scheduled Notifications"),
+          //               content: SingleChildScrollView(
+          //                 child: ListBody(
+          //                   children: scheduled.map((notification) {
+          //                     var title =
+          //                         notification.content?.title ?? "No title";
+          //                     var schedule = notification.schedule;
+          //                     return Column(
+          //                       children: [
+          //                         Text(title),
+          //                         Text(schedule.toString()),
+          //                         Divider(),
+          //                       ],
+          //                     );
+          //                     // return Text(notification.toString());
+          //                   }).toList(),
+          //                 ),
+          //               ),
+          //             );
+          //           });
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Delete all scheduled reminders",
+          //     onTap: () async {
+          //       locator.get<NotificationService>().clearPendingNotifications();
+          //     }),
           // Divider(),
           // Column(
           //   children: [

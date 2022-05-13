@@ -14,12 +14,22 @@ class LearningTipsScreen extends StatelessWidget {
       child: Scaffold(
           appBar: PromptAppBar(showBackButton: true),
           drawer: PromptDrawer(),
-          body: Container(child: ListView(children: buildTips(context)))),
+          body: Container(
+              padding: UIHelper.getContainerPadding(),
+              child: ListView(children: buildTips(context)))),
     );
   }
 
   buildTips(BuildContext context) {
-    List<Widget> tipWidgets = [];
+    List<Widget> tipWidgets = [
+      UIHelper.verticalSpaceMedium(),
+      Text("Hier sind ein paar Lerntipps für dich:",
+          style: TextStyle(fontSize: 20)),
+      UIHelper.verticalSpaceMedium(),
+    ];
+
+    var tips = LearningTips;
+
     for (var tip in LearningTips) {
       tipWidgets.add(
         Card(
