@@ -13,6 +13,7 @@ import 'package:prompt/screens/main/learning_tricks_overview.dart';
 import 'package:prompt/screens/main/mental_contrasting_screens.dart';
 import 'package:prompt/screens/main/plan_edit_screen.dart';
 import 'package:prompt/screens/main/plan_reminder_screens.dart';
+import 'package:prompt/screens/main/video_create_plan_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
 import 'package:prompt/screens/session_zero/vocab_learn_timing_screen.dart';
@@ -169,6 +170,9 @@ class AppRouter {
       case RouteNames.LEARNING_TRICKS_OVERVIEW:
         return MaterialPageRoute(
             builder: (_) => LearningTricksOverviewScreen());
+
+      case RouteNames.VIDEO_CREATEPLAN:
+        return MaterialPageRoute(builder: (_) => VideoCreatePlanScreen());
 
       default:
         return MaterialPageRoute(builder: (_) {

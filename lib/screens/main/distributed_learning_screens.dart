@@ -88,7 +88,7 @@ class _DistributedLearningScreensState
 
       case DistributedLearningStep.video_distributedLearning:
         return VideoScreen(
-            videoURL: "assets/videos/EinfuehrungII.mp4",
+            videoURL: "assets/videos/VerteiltesLernen.mp4",
             onVideoCompleted: vm.videoDistributedLearningCompleted,
             key: key);
 

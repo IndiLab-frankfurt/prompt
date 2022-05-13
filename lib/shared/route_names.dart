@@ -34,6 +34,7 @@ class RouteNames {
   static const SINGLE_LEARNING_TIP = "/singlelearningtip";
   static const LEARNING_TIPS = "/learningtips";
   static const LEARNING_TRICKS_OVERVIEW = "/learningtricksoverview";
+  static const VIDEO_CREATEPLAN = "/videocreateplan";
 
   static const CHANGE_REMINDER_TIME = "/changeremindertime";
 

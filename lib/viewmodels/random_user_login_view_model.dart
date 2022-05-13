@@ -10,22 +10,21 @@ class RandomUserLoginViewModel extends BaseViewModel {
   UserService _userService;
   NavigationService _navigationService;
 
-  RandomUserLoginViewModel(this._userService, this._navigationService) {
-    // loginAsRandomUser();
-  }
+  RandomUserLoginViewModel(this._userService, this._navigationService) {}
 
   Future<bool> loginAsRandomUser() async {
     var signedIn = _userService.isSignedIn();
     if (signedIn) {
-      _navigationService.navigateTo(RouteNames.NO_TASKS);
+      print("Already signed in");
+      await _navigationService.navigateTo(RouteNames.NO_TASKS);
       return true;
     }
-
+    print("Not yet signed in, creating new user");
     try {
       await _userService.saveRandomUser();
       await locator<RewardService>().initialize();
-      locator<DataService>().setRegistrationDate(DateTime.now());
-      _navigationService.navigateTo(RouteNames.SESSION_ZERO);
+      await locator<DataService>().setRegistrationDate(DateTime.now());
+      await _navigationService.navigateTo(RouteNames.SESSION_ZERO);
       return true;
     } catch (e) {
       print("Error logging in as random user: $e");

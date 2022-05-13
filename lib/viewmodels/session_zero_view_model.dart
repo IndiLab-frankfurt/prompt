@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
@@ -63,7 +62,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   List<String> submittedResults = [];
   RewardCallback? onRewardCallback;
 
-  Duration waitingDuration = Duration(seconds: 1);
+  Duration waitingDuration = Duration(seconds: 10);
 
   String _selectedMascot = "1";
   String get selectedMascot => _selectedMascot;
@@ -310,8 +309,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   bool canMoveNext(ValueKey currentPageKey) {
-    // return true;
-
     var stepKey = currentPageKey.value as SessionZeroStep;
 
     switch (stepKey) {
@@ -335,8 +332,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       default:
         return true;
     }
-
-    return true;
   }
 
   @override

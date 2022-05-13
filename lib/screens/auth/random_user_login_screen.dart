@@ -16,6 +16,8 @@ class _RandomUserLoginScreenState extends State<RandomUserLoginScreen> {
   void initState() {
     super.initState();
     // _future = vm.loginAsRandomUser();
+    WidgetsBinding.instance
+        ?.addPostFrameCallback((_) => vm.loginAsRandomUser());
   }
 
   @override
