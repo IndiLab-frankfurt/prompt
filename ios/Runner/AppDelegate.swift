@@ -1,24 +1,13 @@
 import UIKit
-// import FirebaseCore
- import Flutter
-// import Firebase
+import Flutter
 
-// @UIApplicationMain
-
-//   override func application(
-//     _ application: UIApplication,
-//     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-//   ) -> Bool {
-//     FirebaseApp.configure()
-//   }
-// }
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
 //class AppDelegate: UIResponder, UIApplicationDelegate {
 
 //  var window: UIWindow?
 
-  func application(_ application: UIApplication,
+  override func application(_ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions:
         [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //    FirebaseApp.configure()
