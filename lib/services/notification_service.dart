@@ -97,8 +97,8 @@ class NotificationService {
       print(e);
     }
 
-    var schedule =
-        NotificationAndroidCrontab.daily(referenceDateTime: dateTime);
+    var schedule = NotificationAndroidCrontab.daily(
+        referenceDateTime: dateTime, allowWhileIdle: true);
 
     await AwesomeNotifications().createNotification(
         actionButtons: [
@@ -142,6 +142,8 @@ class NotificationService {
             category: NotificationCategory.Reminder,
             groupKey: groupKey),
         schedule: NotificationCalendar.fromDate(
+          allowWhileIdle: true,
+          preciseAlarm: true,
           date: dateTime,
         ));
 

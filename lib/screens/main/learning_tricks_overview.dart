@@ -20,7 +20,7 @@ class LearningTricksOverviewScreen extends StatelessWidget {
         buildNavButton(
             context, "Tipps für das Lernen ansehen", RouteNames.LEARNING_TIPS),
         buildNavButton(
-            context, "Mache dir einen Plan", RouteNames.LEARNING_TIPS),
+            context, "Mache dir einen Plan", RouteNames.VIDEO_CREATEPLAN),
         buildNavButton(
             context, "Lerne verteilt", RouteNames.DISTRIBUTED_LEARNING),
         buildNavButton(

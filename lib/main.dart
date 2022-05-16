@@ -29,12 +29,15 @@ void setupAwesomeNotifications() {
             channelName: NotificationService.CHANNEL_NAME_DAILY_REMINDER,
             channelDescription:
                 NotificationService.CHANNEL_DESCRIPTION_DAILY_REMINDER,
+            importance: NotificationImportance.High,
+            criticalAlerts: true,
             defaultColor: Color.fromARGB(255, 22, 129, 216),
             ledColor: Colors.white),
         NotificationChannel(
             channelGroupKey: 'basic_channel_group',
             channelKey: NotificationService.CHANNEL_ID_BOOSTER_PROMPT,
             channelName: NotificationService.CHANNEL_NAME_BOOSTER_PROMPT,
+            importance: NotificationImportance.High,
             channelDescription:
                 NotificationService.CHANNEL_DESCRIPTION_BOOSTER_PROMPT,
             defaultColor: Color.fromARGB(255, 22, 129, 216),
