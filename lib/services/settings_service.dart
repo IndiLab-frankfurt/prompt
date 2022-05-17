@@ -35,10 +35,6 @@ class SettingsService {
     return _settingsCache[setting];
   }
 
-  getInitSessionStep() {
-    return int.parse(_settingsCache[SettingsKeys.initSessionStep]!);
-  }
-
   setSetting(String setting, String value) async {
     await this
         ._databaseService

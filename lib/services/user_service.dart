@@ -13,6 +13,9 @@ class UserService {
   UserService(this._settings, this._databaseService) {
     _databaseService.getCurrentUser()!.listen((user) {
       _isSignedIn = user != null;
+      if (user != null) {
+        userId = user.email!;
+      }
     });
   }
 
@@ -109,8 +112,8 @@ class UserService {
   }
 
   String getUsername() {
-    var userid = _settings.getSetting(SettingsKeys.userId);
-    return userid;
+    // var userid = _settings.getSetting(SettingsKeys.userId);
+    return userId;
   }
 
   bool isSignedIn() {
