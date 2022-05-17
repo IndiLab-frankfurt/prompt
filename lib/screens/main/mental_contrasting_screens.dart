@@ -7,6 +7,7 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/mental_contrasting_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
+import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:async/async.dart';
 
@@ -78,6 +79,12 @@ class _MentalContrastingScreensState extends State<MentalContrastingScreens> {
   Widget getScreen(MentalContrastingStep step) {
     var key = ValueKey(step);
     switch (step) {
+      case MentalContrastingStep.introductionVideo:
+        return VideoScreen(
+            videoURL: "assets/videos/ObstacleIII.mp4",
+            onVideoCompleted: () => {},
+            key: key);
+
       case MentalContrastingStep.outcomeEnter:
         return OutcomeEnterScreen(key: key);
 

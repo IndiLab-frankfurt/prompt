@@ -6,6 +6,7 @@ import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
 enum MentalContrastingStep {
+  introductionVideo,
   outcomeEnter,
   obstacleEnter,
   copingPlanCreation,
@@ -19,6 +20,7 @@ class MentalContrastingViewModel extends MultiStepAssessmentViewModel {
 
   static List<MentalContrastingStep> getScreenOrder(int group) {
     List<MentalContrastingStep> screenOrder = [
+      MentalContrastingStep.introductionVideo,
       MentalContrastingStep.outcomeEnter,
       MentalContrastingStep.obstacleEnter,
       MentalContrastingStep.copingPlanCreation,
@@ -64,6 +66,8 @@ class MentalContrastingViewModel extends MultiStepAssessmentViewModel {
     var stepKey = currentPageKey.value as MentalContrastingStep;
 
     switch (stepKey) {
+      case MentalContrastingStep.introductionVideo:
+        return true;
       case MentalContrastingStep.obstacleEnter:
         return obstacle.isNotEmpty;
       case MentalContrastingStep.outcomeEnter:
