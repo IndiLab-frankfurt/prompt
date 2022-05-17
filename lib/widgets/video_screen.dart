@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:wakelock/wakelock.dart';
 
 class VideoScreen extends StatefulWidget {
   final String videoURL;
@@ -37,6 +38,8 @@ class _VideoScreenState extends State<VideoScreen> {
         checkIfCompleted();
       }
     });
+    // Prevent the app from going to sleep while the video is playing
+    Wakelock.enable();
   }
 
   void checkIfCompleted() {
@@ -51,6 +54,7 @@ class _VideoScreenState extends State<VideoScreen> {
   void dispose() {
     _videoPlayerController.dispose();
     _chewieController.dispose();
+    Wakelock.disable();
     super.dispose();
   }
 

@@ -148,7 +148,6 @@ class RewardService {
   }
 
   getBackgroundImages(String mascotId) {
-    var grp = _dataService.getUserDataCache().group;
     return [
       UnlockableBackground(
           "Monster",

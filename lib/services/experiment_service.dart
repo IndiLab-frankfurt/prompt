@@ -1,9 +1,10 @@
 import 'dart:math';
-
+import 'package:collection/collection.dart';
 import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:prompt/data/learning_tips.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/learning_tip.dart';
+import 'package:prompt/models/value_with_date.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
@@ -48,22 +49,16 @@ class ExperimentService {
   Future onDistributedLearningComplete() async {
     _rewardService.addPoints(20);
     await onLearningTrickComplete("distributedLearning");
-    await _dataService.saveSimpleValueWithTimestamp(
-        "distributedLearning", "distributedLearning");
   }
 
   Future onMentalContrastingComplete() async {
     _rewardService.addPoints(20);
     await onLearningTrickComplete("mentalContrasting");
-    await _dataService.saveSimpleValueWithTimestamp(
-        "mentalContrasting", "mentalContrasting");
   }
 
   Future onLearningTipComplete(LearningTip learningTip) async {
     _rewardService.addPoints(20);
     await onLearningTrickComplete(learningTip.id);
-    await _dataService.saveSimpleValueWithTimestamp(
-        learningTip.id, "learningTipsSeen");
   }
 
   Future onLearningTrickComplete(String typeOfTrick) async {
@@ -83,11 +78,11 @@ class ExperimentService {
       return null;
     }
 
-    if (await isDistributedLearningDay()) {
+    if (await _isDistributedLearningDay(learningTrickSeen)) {
       return OpenTasks.ViewDistributedLearning;
     }
 
-    if (await isMentalContrastingDay()) {
+    if (await isMentalContrastingDay(learningTrickSeen)) {
       return OpenTasks.ViewMentalContrasting;
     }
 
@@ -292,14 +287,12 @@ class ExperimentService {
     });
   }
 
-  Future<bool> isDistributedLearningDay() async {
-    var distributedLearnings =
-        await _dataService.getValuesWithDates("distributedLearning");
-    if (distributedLearnings.length == 0) {
-      return true;
-    }
-
-    return false;
+  Future<bool> _isDistributedLearningDay(
+      List<ValueWithDate> learningTricksSeen) async {
+    var contains = learningTricksSeen
+        .firstWhereOrNull((element) => element.value == "distributedLearning");
+    // If the value is not in the list, distributed learning was not seen yet
+    return contains == null;
   }
 
   Future<bool> isLearningTipDay() async {
@@ -316,16 +309,16 @@ class ExperimentService {
     return false;
   }
 
-  Future<bool> isMentalContrastingDay() async {
-    var mentalContrastings =
-        await _dataService.getValuesWithDates("mentalContrasting");
-    if (mentalContrastings.length == 0) {
+  Future<bool> isMentalContrastingDay(
+      List<ValueWithDate> learningTricksSeen) async {
+    var last = learningTricksSeen
+        .lastWhereOrNull((element) => element.value == "mentalContrasting");
+    // If the value is not in the list, distributed learning was not seen yet
+    if (last == null) {
       return true;
     }
 
-    var daysAgo = mentalContrastings.last.date.daysAgo();
-
-    // TODO: Find actual interval
+    var daysAgo = last.date.daysAgo();
     return daysAgo >= 14;
   }
 

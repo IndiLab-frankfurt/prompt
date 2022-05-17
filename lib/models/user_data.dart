@@ -13,10 +13,7 @@ class UserData {
   int initSessionStep = 0;
   String appVersion = "";
   String selectedMascot = "1";
-  String cabuuCode = "123";
   String platform = Platform.isAndroid ? "Android" : "iOS";
-  bool hasSeenDistributedPracticeIntervention = false;
-  bool finalQuestionsCompleted = false;
   TimeOfDay preferredReminderTime = TimeOfDay(hour: 18, minute: 0);
 
   UserData(
@@ -24,7 +21,6 @@ class UserData {
       required this.user,
       this.group = 1,
       required this.registrationDate,
-      this.cabuuCode = "123",
       this.streakDays = 0,
       this.score = 0,
       this.initSessionStep = 0,
@@ -45,10 +41,6 @@ class UserData {
       "initSessionStep": this.initSessionStep,
       "appVersion": this.appVersion,
       "selectedMascot": this.selectedMascot,
-      "cabuuCode": this.cabuuCode,
-      "hasSeenDistributedPracticeIntervention":
-          this.hasSeenDistributedPracticeIntervention,
-      "finalQuestionsCompleted": this.finalQuestionsCompleted
     };
   }
 
@@ -75,16 +67,6 @@ class UserData {
     }
     if (json.containsKey("selectedMascot")) {
       selectedMascot = json["selectedMascot"];
-    }
-    if (json.containsKey("cabuuCode")) {
-      cabuuCode = json["cabuuCode"];
-    }
-    if (json.containsKey("hasSeenDistributedPracticeIntervention")) {
-      hasSeenDistributedPracticeIntervention =
-          json["hasSeenDistributedPracticeIntervention"];
-    }
-    if (json.containsKey("finalQuestionsCompleted")) {
-      finalQuestionsCompleted = json["finalQuestionsCompleted"];
     }
     if (json.containsKey("preferredReminderTime")) {
       preferredReminderTime = from24HourString(json["preferredReminderTime"]);
