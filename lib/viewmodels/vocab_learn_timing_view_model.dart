@@ -30,20 +30,13 @@ class VocabLearnTimingViewModel extends BaseViewModel {
     // in order to reschedule the plan prompt, we need its previous date
     var scheduled = await _notificationService.getPendingNotifications();
     for (var s in scheduled) {
-      if (s.content?.id == NotificationService.ID_PLAN_REMINDER) {
-        var scheduleMap = s.schedule?.toMap();
-        if (scheduleMap != null) {
-          var now = DateTime.now();
-          var month = scheduleMap["month"] ?? now.month;
-          var day = scheduleMap["day"] ?? 1;
-          var hour = scheduleMap["hour"] ?? 18;
-          var minute = scheduleMap["minute"] ?? 0;
-          var second = scheduleMap["second"] ?? 0;
-          var year = scheduleMap["year"] ?? now.year;
-          var date = DateTime(year, month, day, hour, minute, second);
-          var newDate = DateTime(
-              dt.year, dt.month, dt.day, date.hour, date.minute, date.second);
-          await _notificationService.schedulePlanReminder(newDate);
+      if (s.id == NotificationService.ID_PLAN_REMINDER) {
+        if (s.payload != null) {
+          var oldPlanDate = DateTime.parse(s.payload!);
+          var newPlanDate = DateTime(oldPlanDate.year, oldPlanDate.month,
+              oldPlanDate.day, newDate.hour, newDate.minute, newDate.second);
+          await _notificationService.schedulePlanReminder(newPlanDate);
+          break;
         }
       }
     }

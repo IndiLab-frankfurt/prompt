@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:prompt/data/questions.dart';
@@ -140,14 +139,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
-  void onPermissionRequest() {
-    AwesomeNotifications().isNotificationAllowed().then((isAllowed) {
-      if (!isAllowed) {
-        AwesomeNotifications().requestPermissionToSendNotifications();
-      }
-    });
-  }
-
   final ExperimentService _experimentService;
   final DataService _dataService;
   final RewardService _rewardService;
@@ -183,10 +174,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       var release = androidInfo.version.release;
 
       if (release != null && release == "12") {
-        var permissionList = await AwesomeNotifications().checkPermissionList();
-        if (permissionList.isEmpty) {
-          screenOrder.add(SessionZeroStep.permissionRequest);
-        }
+        screenOrder.add(SessionZeroStep.permissionRequest);
       }
     }
 
@@ -274,7 +262,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.introduction_planning:
         break;
       case SessionZeroStep.permissionRequest:
-        onPermissionRequest();
         break;
     }
   }

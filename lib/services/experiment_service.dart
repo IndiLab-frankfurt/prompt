@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:collection/collection.dart';
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:prompt/data/learning_tips.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/learning_tip.dart';
@@ -184,92 +183,6 @@ class ExperimentService {
     }
 
     return LearningTips[index + 1];
-  }
-
-  void reactToNotifications(context) {
-    // AwesomeNotifications().setListeners(
-    //     onActionReceivedMethod: onActionNotification,
-    //     onDismissActionReceivedMethod: onNotificationDismissed);
-
-    try {
-      AwesomeNotifications()
-          .actionStream
-          .listen((ReceivedNotification receivedNotification) {
-        print('Received notification ${receivedNotification.title}');
-        _loggingService
-            .logEvent("Received notification ${receivedNotification.title}");
-        if (receivedNotification is ReceivedAction) {
-          onActionNotification(receivedNotification);
-        }
-        if (receivedNotification.id == NotificationService.ID_PLAN_REMINDER) {
-          onPlanReminderNotificationClicked();
-        }
-      });
-    } catch (e) {
-      print(e);
-    }
-
-    try {
-      AwesomeNotifications().dismissedStream.listen((dismissedNotification) {
-        print('Dismissed notification ${dismissedNotification.title}');
-
-        if (dismissedNotification.id == NotificationService.ID_PLAN_REMINDER) {
-          scheduleNextPlanReminder();
-        }
-      });
-    } catch (e) {}
-  }
-
-  // Future<void> onActionReceived(ReceivedAction action) async {}
-
-  //   try {
-  //     AwesomeNotifications()
-  //         .actionStream
-  //         .listen((ReceivedNotification receivedNotification) {
-  //       print('Received notification ${receivedNotification.title}');
-  //       _loggingService
-  //           .logEvent("Received notification ${receivedNotification.title}");
-  //       if (receivedNotification is ReceivedAction) {
-  //         onActionNotification(receivedNotification);
-  //       }
-  //       if (receivedNotification.id == NotificationService.ID_PLAN_REMINDER) {
-  //         onPlanReminderNotificationClicked();
-  //       }
-  //     });
-  //   } catch (e) {
-  //     print(e);
-  //   }
-
-  //   try {
-  //     AwesomeNotifications().dismissedStream.listen((dismissedNotification) {
-  //       print('Dismissed notification ${dismissedNotification.title}');
-
-  //       if (dismissedNotification.id == NotificationService.ID_PLAN_REMINDER) {
-  //         scheduleNextPlanReminder();
-  //       }
-  //     });
-  //   } catch (e) {}
-  // }
-
-  Future<void> onNotificationDismissed(ReceivedAction action) async {
-    if (action.id == NotificationService.ID_PLAN_REMINDER) {
-      scheduleNextPlanReminder();
-    }
-  }
-
-  Future<void> onActionNotification(ReceivedAction receivedAction) async {
-    var pressedButton = receivedAction.buttonKeyPressed;
-
-    if (pressedButton == NotificationService.BUTTON_ACTION_LEARNED_TODAY) {
-      if (!await hasLearnedToday()) {
-        addDayLearned();
-      }
-
-      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
-    }
-    if (pressedButton == NotificationService.BUTTON_ACTION_NOT_LEARNED_TODAY) {
-      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
-    }
   }
 
   Future<bool> hasLearnedToday() async {

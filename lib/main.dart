@@ -1,4 +1,3 @@
-import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -14,42 +13,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   setupLocator();
-  setupAwesomeNotifications();
   runApp(MyApp());
-}
-
-void setupAwesomeNotifications() {
-  AwesomeNotifications().initialize(
-      // set the icon to null if you want to use the default app icon
-      'resource://drawable/ic_notification',
-      [
-        NotificationChannel(
-            channelGroupKey: 'basic_channel_group',
-            channelKey: NotificationService.CHANNEL_ID_DAILY_REMINDER,
-            channelName: NotificationService.CHANNEL_NAME_DAILY_REMINDER,
-            channelDescription:
-                NotificationService.CHANNEL_DESCRIPTION_DAILY_REMINDER,
-            importance: NotificationImportance.High,
-            criticalAlerts: true,
-            defaultColor: Color.fromARGB(255, 22, 129, 216),
-            ledColor: Colors.white),
-        NotificationChannel(
-            channelGroupKey: 'basic_channel_group',
-            channelKey: NotificationService.CHANNEL_ID_BOOSTER_PROMPT,
-            channelName: NotificationService.CHANNEL_NAME_BOOSTER_PROMPT,
-            importance: NotificationImportance.High,
-            channelDescription:
-                NotificationService.CHANNEL_DESCRIPTION_BOOSTER_PROMPT,
-            defaultColor: Color.fromARGB(255, 22, 129, 216),
-            ledColor: Colors.white)
-      ],
-      // Channel groups are only visual and are not required
-      channelGroups: [
-        NotificationChannelGroup(
-            channelGroupkey: 'basic_channel_group',
-            channelGroupName: 'PROMPT Erinnerungen')
-      ],
-      debug: true);
 }
 
 class MyApp extends StatelessWidget {
@@ -97,8 +61,6 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
-    locator<ExperimentService>().reactToNotifications(context);
 
     return buildMaterialApp(context);
   }
