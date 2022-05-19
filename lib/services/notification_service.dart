@@ -2,7 +2,9 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/logging_service.dart';
+import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/shared/route_names.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -77,6 +79,12 @@ class NotificationService {
       if (payload == PAYLOAD_EVENING) {
         locator.get<LoggingService>().logEvent("NotificationClickRecallTask");
       }
+      // this is an annoying hack, but due to the limitations of the flutter
+      // local notifications plugin, we can only use the payload to identify
+      var date = DateTime.tryParse(payload);
+      if (date != null) {
+        locator.get<NavigationService>().navigateTo(RouteNames.PLAN_REMINDER);
+      }
     }
   }
 
@@ -116,11 +124,6 @@ class NotificationService {
       "Schedule Daily Reminder",
       data: {"date": dateTime.toString()},
     );
-
-    locator.get<LoggingService>().logEvent(
-      "Schedule Daily Reminder",
-      data: {"date": dateTime.toString()},
-    );
   }
 
   Future<bool?> requestPermissions() async {
@@ -138,7 +141,7 @@ class NotificationService {
     return midnight.difference(now).inMilliseconds;
   }
 
-  schedulePlanReminder(DateTime dateTime) async {
+  Future<void> schedulePlanReminder(DateTime dateTime) async {
     try {
       await localNotifications.cancel(ID_PLAN_REMINDER);
     } catch (e) {

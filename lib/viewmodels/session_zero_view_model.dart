@@ -2,9 +2,11 @@ import 'dart:io';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:prompt/data/questions.dart';
+import 'package:prompt/locator.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -159,6 +161,11 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   }
 
   Future<bool> getInitialValues() async {
+    if (await _experimentService.isPlanReminderDay()) {
+      await locator<NavigationService>().navigateTo(RouteNames.PLAN_REMINDER);
+      return true;
+    }
+
     var plan = await _dataService.getLastPlan();
     if (plan != null) {
       planCreationViewModel.plan = plan.plan;

@@ -32,9 +32,11 @@ class ExperimentService {
     var now = DateTime.now();
     var dt = DateTime(now.year, now.month, now.day, 18, 0, 0);
 
-    _notificationService
-        .scheduleDailyReminder(dt, NotificationService.ID_DAILY)
-        .then((_) => {scheduleNextPlanReminder()});
+    var f1 = _notificationService.scheduleDailyReminder(
+        dt, NotificationService.ID_DAILY);
+    var f2 = scheduleNextPlanReminder();
+
+    await Future.wait([f1, f2]);
   }
 
   Future scheduleNextPlanReminder() async {
@@ -42,7 +44,10 @@ class ExperimentService {
     var random = Random().nextInt(4) + 4;
     var duration = Duration(days: random);
     var planReminderSchedule = now.add(duration);
-    await _notificationService.schedulePlanReminder(planReminderSchedule);
+    var f1 = _notificationService.schedulePlanReminder(planReminderSchedule);
+    var f2 = _dataService.saveUserDataProperty(
+        "nextPlanReminder", planReminderSchedule.toIso8601String());
+    await Future.wait([f1, f2]);
   }
 
   Future onDistributedLearningComplete() async {
@@ -66,7 +71,10 @@ class ExperimentService {
   }
 
   Future onPlanReminderComplete(String planInput) async {
-    await _dataService.saveSimpleValueWithTimestamp(planInput, "planReminders");
+    var f1 =
+        _dataService.saveSimpleValueWithTimestamp(planInput, "planReminders");
+    var f2 = scheduleNextPlanReminder();
+    await Future.wait([f1, f2]);
   }
 
   Future<OpenTasks?> getOpenTask() async {
@@ -108,6 +116,29 @@ class ExperimentService {
     } else {
       await _navigationService.navigateWithReplacement(RouteNames.NO_TASKS);
     }
+  }
+
+  Future<bool> isPlanReminderDay() async {
+    var userData = await _dataService.getUserData();
+    if (userData != null) {
+      var planReminderDate = userData.nextPlanReminder;
+      var shouldHaveHappened = planReminderDate.isBefore(DateTime.now());
+      // If the plan reminder should have already happened, we check if it actually did
+      if (shouldHaveHappened) {
+        var completedPlanReminders =
+            await _dataService.getValuesWithDates("planReminders");
+        // If none have been completed prior, we return true
+        if (completedPlanReminders.length == 0) {
+          return true;
+        }
+        // If the last one completed was completed before the schedule we return true
+        if (completedPlanReminders.last.date.isBefore(planReminderDate)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   int getDaysSinceStart() {

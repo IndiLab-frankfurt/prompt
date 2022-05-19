@@ -7,6 +7,7 @@ class UserData {
   String user = "";
   int group = 1;
   DateTime registrationDate = DateTime.now();
+  DateTime nextPlanReminder = DateTime.now();
   int streakDays = 0;
   int score = 0;
   int daysActive = 0;
@@ -41,6 +42,7 @@ class UserData {
       "initSessionStep": this.initSessionStep,
       "appVersion": this.appVersion,
       "selectedMascot": this.selectedMascot,
+      "nextPlanReminder": this.nextPlanReminder.toIso8601String(),
     };
   }
 
@@ -70,6 +72,9 @@ class UserData {
     }
     if (json.containsKey("preferredReminderTime")) {
       preferredReminderTime = from24HourString(json["preferredReminderTime"]);
+    }
+    if (json.containsKey("nextPlanReminder")) {
+      nextPlanReminder = DateTime.parse(json["nextPlanReminder"]);
     }
   }
 }

@@ -86,7 +86,7 @@ class _PlanReminderScreensState extends State<PlanReminderScreens> {
             child: EmojiInternalisationScreen(
                 onCompleted: vm.onInternalisationCompleted,
                 emojiInputIf: true,
-                emojiInputThen: true,
+                emojiInputThen: false,
                 key: ValueKey(PlanReminderStep.planInternalisationEmoji)));
 
       case PlanReminderStep.usabilityQuestions:

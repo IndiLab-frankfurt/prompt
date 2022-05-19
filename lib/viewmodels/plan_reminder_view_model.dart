@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/data/questions.dart';
+import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -62,8 +63,21 @@ class PlanReminderViewModel extends MultiStepAssessmentViewModel {
     if (stepKey == PlanReminderStep.usabilityQuestions) {
       submitAssessmentResult(usabilityQuestions.id);
     }
+    if (stepKey == PlanReminderStep.planInternalisationEmoji) {
+      saveInternalisation();
+    }
 
     return true;
+  }
+
+  saveInternalisation() {
+    var internalisation = Internalisation(
+        startDate: DateTime.now(),
+        completionDate: DateTime.now(),
+        plan: this.internalisationViewModel.plan,
+        condition: InternalisationCondition.emojiIf.toString(),
+        input: this.internalisationViewModel.input);
+    dataService.saveInternalisation(internalisation);
   }
 
   @override

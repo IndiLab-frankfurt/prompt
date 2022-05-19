@@ -160,7 +160,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
             child: EmojiInternalisationScreen(
                 onCompleted: vm.onInternalisationCompleted,
                 emojiInputIf: true,
-                emojiInputThen: true,
+                emojiInputThen: false,
                 key: ValueKey(SessionZeroStep.planInternalisationEmoji)));
 
       case SessionZeroStep.permissionRequest:

@@ -88,6 +88,7 @@ class _EmojiInternalisationScreenState
   _buildEmojiPickerCompatibleTextInput() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (this.widget.emojiInputIf) _buildEmojiInputLeft(),
         if (!this.widget.emojiInputIf) _buildIfPart(),
@@ -107,7 +108,9 @@ class _EmojiInternalisationScreenState
     var width = MediaQuery.of(context).size.width * 0.42;
     var thenPart = this.vm.plan.split("dann")[1];
     return Container(
-        width: width, child: MarkdownBody(data: "## ...dann $thenPart"));
+        padding: EdgeInsets.only(top: 20),
+        width: width,
+        child: Center(child: MarkdownBody(data: "## ...dann $thenPart")));
   }
 
   _buildEmojiInputLeft() {

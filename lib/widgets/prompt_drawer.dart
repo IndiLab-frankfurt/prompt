@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/data_service.dart';
@@ -118,20 +119,20 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushNamed(context, RouteNames.SESSION_ZERO);
               }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Outcomes/Obstacles",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(
-          //           context, RouteNames.MENTAL_CONTRASTING);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Verteiltes Lernen",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(
-          //           context, RouteNames.DISTRIBUTED_LEARNING);
-          //     }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Outcomes/Obstacles",
+              onTap: () async {
+                await Navigator.pushNamed(
+                    context, RouteNames.MENTAL_CONTRASTING);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Verteiltes Lernen",
+              onTap: () async {
+                await Navigator.pushNamed(
+                    context, RouteNames.DISTRIBUTED_LEARNING);
+              }),
           // _buildDrawerItem(
           //     icon: Icons.add_box,
           //     text: "Delete Last Date",
@@ -139,24 +140,31 @@ class PromptDrawer extends StatelessWidget {
           //       var ds = locator.get<DataService>();
           //       ds.deleteLastDateLearned();
           //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Trigger Plan Reminder in 1 min.",
-          //     onTap: () async {
-          //       // create datetime one minute from now
-          //       var now = DateTime.now();
-          //       var oneMinuteFromNow = now.add(Duration(minutes: 1));
-          //       // set reminder
-          //       locator
-          //           .get<NotificationService>()
-          //           .schedulePlanReminder(oneMinuteFromNow);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Plan Reminder",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
-          //     }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Trigger Plan Reminder in 1 min.",
+              onTap: () async {
+                // create datetime one minute from now
+                var now = DateTime.now();
+                var oneMinuteFromNow = now.add(Duration(minutes: 1));
+                // set reminder
+                locator
+                    .get<NotificationService>()
+                    .schedulePlanReminder(oneMinuteFromNow);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Plan Reminder",
+              onTap: () async {
+                await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
+              }),
+          _buildDrawerItem(
+              icon: Icons.delete_forever,
+              text: "Mit neuem Nutzer anfangen",
+              onTap: () async {
+                await FirebaseAuth.instance.signOut();
+                await Navigator.pushNamed(context, RouteNames.RANDOM_LOGIN);
+              }),
           // _buildDrawerItem(
           //     icon: Icons.add_box,
           //     text: "List Scheduled Notifications",

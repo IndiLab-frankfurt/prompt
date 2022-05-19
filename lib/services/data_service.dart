@@ -206,7 +206,7 @@ class DataService {
     await _databaseService.savePlan(planModel, ud.user);
   }
 
-  saveUserDataProperty(String propertyname, dynamic value) async {
+  Future<void> saveUserDataProperty(String propertyname, dynamic value) async {
     var ud = await getUserData();
 
     if (ud != null) {
@@ -220,7 +220,7 @@ class DataService {
     return await _databaseService.getLastPlan(ud!.user);
   }
 
-  setSelectedMascot(String mascot) async {
+  Future<void> setSelectedMascot(String mascot) async {
     var ud = await getUserData();
     if (ud != null) {
       ud.selectedMascot = mascot;
