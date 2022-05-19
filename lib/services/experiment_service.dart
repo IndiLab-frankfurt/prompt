@@ -51,21 +51,27 @@ class ExperimentService {
   }
 
   Future onDistributedLearningComplete() async {
-    _rewardService.addPoints(20);
-    await onLearningTrickComplete("distributedLearning");
+    await onLearningTrickComplete("distributedLearning", 20);
   }
 
   Future onMentalContrastingComplete() async {
-    _rewardService.addPoints(20);
-    await onLearningTrickComplete("mentalContrasting");
+    await onLearningTrickComplete("mentalContrasting", 20);
   }
 
   Future onLearningTipComplete(LearningTip learningTip) async {
-    _rewardService.addPoints(20);
-    await onLearningTrickComplete(learningTip.id);
+    await onLearningTrickComplete(learningTip.id, 20);
   }
 
-  Future onLearningTrickComplete(String typeOfTrick) async {
+  Future onLearningTrickFromMenuSeen(String typeOfTrick) async {
+    await _dataService.saveSimpleValueWithTimestamp(
+        typeOfTrick, "learningTricksFromMenu");
+  }
+
+  Future onLearningTrickComplete(String typeOfTrick, int scoreValue) async {
+    var learningTrickSeen = await _dataService.getLearningTricksSeen();
+    if (learningTrickNotSeenYet(learningTrickSeen, typeOfTrick)) {
+      await _rewardService.addPoints(scoreValue);
+    }
     await _dataService.saveSimpleValueWithTimestamp(
         typeOfTrick, "learningTricksSeen");
   }
@@ -79,8 +85,7 @@ class ExperimentService {
 
   Future<OpenTasks?> getOpenTask() async {
     // First, check if the last learning Trick was seen at least one day ago
-    var learningTrickSeen =
-        await _dataService.getValuesWithDates("learningTricksSeen");
+    var learningTrickSeen = await _dataService.getLearningTricksSeen();
     if (learningTrickSeen.length > 0 && learningTrickSeen.last.date.isToday()) {
       return null;
     }

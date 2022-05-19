@@ -34,7 +34,6 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   List<String> submittedResults = [];
 
   int getNextPage(ValueKey currentPageKey) {
-    doStepDependentSubmission(currentPageKey);
     return step + 1;
   }
 

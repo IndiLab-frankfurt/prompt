@@ -103,13 +103,14 @@ class PlanReminderViewModel extends MultiStepAssessmentViewModel {
   void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-      // var oneBigAssessment = this.getOneBisAssessment("usability_efficacy");
-      // var f1 = _experimentService.submitAssessment(
-      //     oneBigAssessment, usabilityQuestions.id);
+
+      var oneBigAssessment = this.getOneBisAssessment("plan_reminder");
+      var f1 = _experimentService.submitAssessment(
+          oneBigAssessment, usabilityQuestions.id);
       var f2 = _experimentService
           .onPlanReminderComplete(internalisationViewModel.input);
 
-      await Future.wait([f2]);
+      await Future.wait([f1, f2]);
       // await Future.wait([
       //   dataService.saveSimpleValueWithTimestamp(obstacle, "obstacles"),
       //   dataService.saveSimpleValueWithTimestamp(outcome, "outcomes"),

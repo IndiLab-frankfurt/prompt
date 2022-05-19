@@ -40,6 +40,17 @@ class DistributedLearningViewModel extends MultiStepAssessmentViewModel {
   }
 
   @override
+  int getNextPage(ValueKey currentPageKey) {
+    step += 1;
+
+    var end = (step < screenOrder.length - 1)
+        ? screenOrder[step].toString()
+        : "complete";
+    addTiming(currentPageKey.value.toString(), end);
+    return step;
+  }
+
+  @override
   bool canMoveBack(ValueKey currentPageKey) {
     return true;
   }

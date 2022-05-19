@@ -336,6 +336,10 @@ class DataService {
         _userService.getUsername(), dateTime.toIso8601String());
   }
 
+  Future<List<ValueWithDate>> getLearningTricksSeen() async {
+    return await getValuesWithDates("learningTricksSeen");
+  }
+
   getAssessment(String name) async {
     String data =
         await rootBundle.loadString("assets/assessments/assessment_$name.json");

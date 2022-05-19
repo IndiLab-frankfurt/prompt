@@ -5,6 +5,7 @@ import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
+import 'package:prompt/viewmodels/plan_view_model.dart';
 import 'package:prompt/widgets/emoji_keyboard/base_emoji.dart';
 import 'package:prompt/widgets/emoji_keyboard/emoji_keyboard_widget.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
@@ -93,7 +94,7 @@ class _EmojiInternalisationScreenState
         if (this.widget.emojiInputIf) _buildEmojiInputLeft(),
         if (!this.widget.emojiInputIf) _buildIfPart(),
         if (this.widget.emojiInputThen) _buildEmojiInputRight(),
-        if (!this.widget.emojiInputThen) _builThenPart()
+        if (!this.widget.emojiInputThen) _buildThenPart()
       ],
     );
   }
@@ -104,7 +105,9 @@ class _EmojiInternalisationScreenState
     return Container(width: width, child: MarkdownBody(data: "## $ifPart..."));
   }
 
-  _builThenPart() {
+  _buildThenPart() {
+    // var pvm = PlanViewModel();
+    // pvm.plan = this.vm.plan;
     var width = MediaQuery.of(context).size.width * 0.42;
     var thenPart = this.vm.plan.split("dann")[1];
     return Container(

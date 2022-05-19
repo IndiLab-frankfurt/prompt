@@ -50,6 +50,17 @@ class MentalContrastingViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
+  @override
+  int getNextPage(ValueKey currentPageKey) {
+    step += 1;
+
+    var end = (step < screenOrder.length - 1)
+        ? screenOrder[step].toString()
+        : "complete";
+    addTiming(currentPageKey.value.toString(), end);
+    return step;
+  }
+
   List<MentalContrastingStep> screenOrder = getScreenOrder(0);
 
   Future<bool> getInitialValues() async {
