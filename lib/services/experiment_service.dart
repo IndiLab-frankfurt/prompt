@@ -85,7 +85,7 @@ class ExperimentService {
       return null;
     }
 
-    if (await _isDistributedLearningDay(learningTrickSeen)) {
+    if (await _distributedLearningNotSeenYet(learningTrickSeen)) {
       return OpenTasks.ViewDistributedLearning;
     }
 
@@ -231,12 +231,18 @@ class ExperimentService {
     });
   }
 
-  Future<bool> _isDistributedLearningDay(
-      List<ValueWithDate> learningTricksSeen) async {
-    var contains = learningTricksSeen
-        .firstWhereOrNull((element) => element.value == "distributedLearning");
-    // If the value is not in the list, distributed learning was not seen yet
+  bool learningTrickNotSeenYet(
+      List<ValueWithDate> learningTricksSeen, String name) {
+    var contains =
+        learningTricksSeen.firstWhereOrNull((element) => element.value == name);
+    // If the value is not in the list, the learning trick was not seen yet
     return contains == null;
+  }
+
+  Future<bool> _distributedLearningNotSeenYet(
+      List<ValueWithDate> learningTricksSeen) async {
+    // If the value is not in the list, distributed learning was not seen yet
+    return learningTrickNotSeenYet(learningTricksSeen, "distributedLearning");
   }
 
   Future<bool> isLearningTipDay() async {

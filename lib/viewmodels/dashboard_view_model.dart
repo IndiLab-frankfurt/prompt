@@ -80,9 +80,6 @@ class DashboardViewModel extends BaseViewModel {
       _experimentService.hasLearnedToday().then((res) => hasLearnedToday = res),
     ]);
 
-    // var datesLearned = await _dataService.getDatesLearned();
-    // hasLearnedToday = await _experimentService.hasLearnedToday();
-
     var sevenDaysAgo = DateTime.now().subtract(Duration(days: 7));
     daysLearned = _datesLearnedSince(datesLearned, sevenDaysAgo, true);
     daysNotLearned = _datesLearnedSince(datesLearned, sevenDaysAgo, false);

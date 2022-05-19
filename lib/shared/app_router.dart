@@ -29,6 +29,7 @@ import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/change_mascot_view_model.dart';
 import 'package:prompt/viewmodels/distributed_learning_view_model.dart';
 import 'package:prompt/viewmodels/learning_tip_view_model.dart';
+import 'package:prompt/viewmodels/learning_tricks_overview_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
 import 'package:prompt/viewmodels/mental_contrasting_view_model.dart';
@@ -169,7 +170,12 @@ class AppRouter {
 
       case RouteNames.LEARNING_TRICKS_OVERVIEW:
         return MaterialPageRoute(
-            builder: (_) => LearningTricksOverviewScreen());
+            builder: (_) => ChangeNotifierProvider(
+                  child: LearningTricksOverviewScreen(),
+                  create: (_) => LearningTricksOverviewViewModel(
+                      locator.get<DataService>(),
+                      locator.get<ExperimentService>()),
+                ));
 
       case RouteNames.VIDEO_CREATEPLAN:
         return MaterialPageRoute(builder: (_) => VideoCreatePlanScreen());

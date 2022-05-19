@@ -65,6 +65,7 @@ late var vocabQuestionGoal =
         "1": "1-2 mal pro Woche",
         "2": "3-4 mal pro Woche",
         "3": "5-6 mal pro Woche",
+        "4": "7 mal pro Woche",
       }),
 ]);
 
