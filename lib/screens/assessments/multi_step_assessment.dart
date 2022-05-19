@@ -146,7 +146,9 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
                     Icon(Icons.navigate_next)
                   ],
                 ),
-                onPressed: () {
+                onPressed: () async {
+                  await widget.vm.doStepDependentSubmission(_keyOfCurrent());
+
                   if (widget.vm.step == widget.pages.length - 1) {
                     widget.vm.submit();
                     return;

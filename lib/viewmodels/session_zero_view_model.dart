@@ -199,7 +199,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   int getNextPage(ValueKey currentPageKey) {
-    doStepDependentSubmission(currentPageKey);
     step += 1;
 
     var end = (step < screenOrder.length - 1)
@@ -220,7 +219,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   }
 
   @override
-  void doStepDependentSubmission(ValueKey currentPageKey) {
+  Future<bool> doStepDependentSubmission(ValueKey currentPageKey) async {
     var stepKey = currentPageKey.value as SessionZeroStep;
 
     switch (stepKey) {
@@ -264,6 +263,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.permissionRequest:
         break;
     }
+
+    return true;
   }
 
   int getStepIndex(SessionZeroStep step) {

@@ -38,16 +38,18 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
     return step + 1;
   }
 
-  void doStepDependentSubmission(ValueKey currentPageKey) {}
+  Future<bool> doStepDependentSubmission(ValueKey currentPageKey) async {
+    return true;
+  }
 
-  void submitAssessmentResult(assessmentName) {
+  Future<void> submitAssessmentResult(assessmentName) async {
     if (!allAssessmentResults.containsKey(assessmentName)) {
       return;
     }
     var assessmentResult = AssessmentResult(
         allAssessmentResults[assessmentName]!, assessmentName, DateTime.now());
     assessmentResult.startDate = this.startDate;
-    dataService.saveAssessment(assessmentResult);
+    await dataService.saveAssessment(assessmentResult);
     submittedResults.add(assessmentName);
   }
 

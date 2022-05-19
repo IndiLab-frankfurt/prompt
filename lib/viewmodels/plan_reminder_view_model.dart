@@ -52,7 +52,7 @@ class PlanReminderViewModel extends MultiStepAssessmentViewModel {
   }
 
   @override
-  void doStepDependentSubmission(ValueKey currentPageKey) {
+  Future<bool> doStepDependentSubmission(ValueKey currentPageKey) async {
     super.doStepDependentSubmission(currentPageKey);
     var stepKey = currentPageKey.value as PlanReminderStep;
 
@@ -62,6 +62,8 @@ class PlanReminderViewModel extends MultiStepAssessmentViewModel {
     if (stepKey == PlanReminderStep.usabilityQuestions) {
       submitAssessmentResult(usabilityQuestions.id);
     }
+
+    return true;
   }
 
   @override

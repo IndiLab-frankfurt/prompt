@@ -173,7 +173,8 @@ class FirebaseService implements IDatabaseService {
     };
 
     return _databaseReference.collection(collection).doc(userid).set({
-      "values": FieldValue.arrayUnion([map])
+      "values": FieldValue.arrayUnion([map]),
+      "user": userid,
     }, SetOptions(merge: true)).then((res) => res);
   }
 
@@ -333,7 +334,8 @@ class FirebaseService implements IDatabaseService {
       "value": didLearn,
     };
     _databaseReference.collection(COLLECTION_DATES_LEARNED).doc(userid).set({
-      "dates": FieldValue.arrayUnion([map])
+      "dates": FieldValue.arrayUnion([map]),
+      "user": userid
     }, SetOptions(merge: true)).then((value) => true);
   }
 
