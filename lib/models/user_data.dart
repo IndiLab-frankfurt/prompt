@@ -7,7 +7,7 @@ class UserData {
   String user = "";
   int group = 1;
   DateTime registrationDate = DateTime.now();
-  DateTime nextPlanReminder = DateTime.now();
+  DateTime nextPlanReminder = DateTime.now().add(Duration(days: 6));
   int streakDays = 0;
   int score = 0;
   int daysActive = 0;

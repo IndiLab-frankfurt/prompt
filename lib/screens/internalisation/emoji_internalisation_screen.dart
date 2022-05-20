@@ -106,10 +106,16 @@ class _EmojiInternalisationScreenState
   }
 
   _buildThenPart() {
-    // var pvm = PlanViewModel();
-    // pvm.plan = this.vm.plan;
+    var thenPart = "lerne ich Vokabeln";
     var width = MediaQuery.of(context).size.width * 0.42;
-    var thenPart = this.vm.plan.split("dann")[1];
+    try {
+      var pvm = PlanViewModel();
+      pvm.plan = this.vm.plan;
+      thenPart = this.vm.plan.split("dann")[1];
+    } catch (e) {
+      print(e);
+    }
+
     return Container(
         padding: EdgeInsets.only(top: 20),
         width: width,

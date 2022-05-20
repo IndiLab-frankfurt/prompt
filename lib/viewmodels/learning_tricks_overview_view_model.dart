@@ -10,16 +10,16 @@ class LearningTricksOverviewViewModel extends BaseViewModel {
 
   List<OpenTasks> openTasks = [];
 
-  bool distributedLearningNotSeen = true;
-  bool mentalConstratingNotSeen = true;
+  bool distributedLearningNotSeen = false;
+  bool mentalConstratingNotSeen = false;
 
   Future<bool> initialize() async {
-    var tricksSeen =
-        await _dataService.getValuesWithDates("learningTricksSeen");
-    distributedLearningNotSeen = _experimentService.learningTrickNotSeenYet(
-        tricksSeen, "distributedLearning");
-    mentalConstratingNotSeen = _experimentService.learningTrickNotSeenYet(
-        tricksSeen, "mentalContrasting");
+    // var tricksSeen =
+    //     await _dataService.getValuesWithDates("learningTricksSeen");
+    // distributedLearningNotSeen = _experimentService.learningTrickNotSeenYet(
+    //     tricksSeen, "distributedLearning");
+    // mentalConstratingNotSeen = _experimentService.learningTrickNotSeenYet(
+    //     tricksSeen, "mentalContrasting");
     return true;
   }
 }

@@ -176,14 +176,14 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     if (Platform.isIOS) {
       screenOrder.add(SessionZeroStep.permissionRequest);
     }
-    if (Platform.isAndroid) {
-      var androidInfo = await DeviceInfoPlugin().androidInfo;
-      var release = androidInfo.version.release;
+    // if (Platform.isAndroid) {
+    //   var androidInfo = await DeviceInfoPlugin().androidInfo;
+    //   var release = androidInfo.version.release;
 
-      if (release != null && release == "12") {
-        screenOrder.add(SessionZeroStep.permissionRequest);
-      }
-    }
+    //   if (release != null && release == "12") {
+    //     screenOrder.add(SessionZeroStep.permissionRequest);
+    //   }
+    // }
 
     return true;
   }

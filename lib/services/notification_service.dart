@@ -126,6 +126,12 @@ class NotificationService {
     );
   }
 
+  // Future<bool> hasPermissions() async {
+  //   var hasPermission = await localNotifications.resolvePlatformSpecificImplementation<
+  //           IOSFlutterLocalNotificationsPlugin>().
+  //   return hasPermission;
+  // }
+
   Future<bool?> requestPermissions() async {
     var result = await localNotifications
         .resolvePlatformSpecificImplementation<
