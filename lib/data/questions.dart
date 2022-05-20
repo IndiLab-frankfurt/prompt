@@ -60,7 +60,7 @@ late var vocabQuestionGoal =
   Question(
       id: "vocab_goal",
       type: QuestionType.single,
-      questionText: "Wie oft willst du Vokabeln lernen",
+      questionText: "Wie oft willst du Vokabeln lernen?",
       labels: {
         "1": "1-2 mal pro Woche",
         "2": "3-4 mal pro Woche",
@@ -110,42 +110,42 @@ late var usabilityQuestions =
   Question(
       id: "usability_fun",
       type: QuestionType.single,
-      questionText: "Es hat mir Spaß gemacht, die App PROMPT zu nutzen.",
+      questionText: "Es macht mir Spaß, die App PROMPT zu nutzen.",
       labels: {
-        "1": "Trifft überhaupt nicht zu",
-        "2": "Trifft eher nicht zu",
-        "3": "Trifft eher zu",
-        "4": "Trifft voll und ganz zu"
+        "1": "Stimme überhaupt nicht zu",
+        "2": "Stimme kaum zu",
+        "3": "Stimme eher zu",
+        "4": "Stimme voll und ganz zu"
       }),
   Question(
       id: "usability_difficult",
       type: QuestionType.single,
-      questionText: "Ich fand es schwierig, die App PROMPT zu bedienen.",
+      questionText: "Ich finde es schwierig, die App PROMPT zu bedienen.",
       labels: {
-        "1": "Trifft überhaupt nicht zu",
-        "2": "Trifft eher nicht zu",
-        "3": "Trifft eher zu",
-        "4": "Trifft voll und ganz zu"
+        "1": "Stimme überhaupt nicht zu",
+        "2": "Stimme kaum zu",
+        "3": "Stimme eher zu",
+        "4": "Stimme voll und ganz zu"
       }),
   Question(
       id: "usability_helpful",
       type: QuestionType.single,
-      questionText: "Die App PROMPT hat mir beim Lernen geholfen.",
+      questionText: "Die App PROMPT hilft mir beim Lernen.",
       labels: {
-        "1": "Trifft überhaupt nicht zu",
-        "2": "Trifft eher nicht zu",
-        "3": "Trifft eher zu",
-        "4": "Trifft voll und ganz zu"
+        "1": "Stimme überhaupt nicht zu",
+        "2": "Stimme kaum zu",
+        "3": "Stimme eher zu",
+        "4": "Stimme voll und ganz zu"
       }),
   Question(
       id: "usability_good",
       type: QuestionType.text,
-      questionText: "Das fand ich gut an der App:",
+      questionText: "Das finde ich gut an der App:",
       labels: {}),
   Question(
       id: "usability_bad",
       type: QuestionType.text,
-      questionText: "Das fand ich nicht so gut an der App:",
+      questionText: "Das finde ich nicht so gut an der App:",
       labels: {}),
 ]);
 
