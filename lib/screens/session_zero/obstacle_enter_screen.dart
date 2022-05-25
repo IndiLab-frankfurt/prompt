@@ -30,7 +30,7 @@ class _ObstacleEnterScreenState extends State<ObstacleEnterScreen> {
               image: AssetImage(bgimg),
               fit: BoxFit.fitWidth,
               alignment: Alignment.bottomCenter)),
-      child: Column(
+      child: ListView(
         children: [
           MarkdownBody(data: "### ${AppStrings.SessionZero_ObstacleEnter_1}"),
           UIHelper.verticalSpaceMedium(),

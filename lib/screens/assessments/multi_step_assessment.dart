@@ -57,7 +57,6 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
     return Container(
       child: Column(
         children: [
-          UIHelper.verticalSpaceMedium(),
           Flexible(
             child: PageView.builder(
               controller: _controller,
@@ -99,6 +98,7 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
       return Center(child: CircularProgressIndicator());
     }
     return Container(
+      color: Colors.transparent,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,

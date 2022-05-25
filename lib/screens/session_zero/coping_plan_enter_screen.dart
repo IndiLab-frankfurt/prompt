@@ -30,7 +30,7 @@ class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
               image: AssetImage(bgimg),
               fit: BoxFit.fitWidth,
               alignment: Alignment.bottomCenter)),
-      child: Column(
+      child: ListView(
         children: [
           MarkdownBody(data: "### ${AppStrings.SessionZero_CopingPlanEnter_1}"),
           UIHelper.verticalSpaceMedium(),
