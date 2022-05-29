@@ -49,12 +49,6 @@ class PromptDrawer extends StatelessWidget {
                       children: [
                         Text(locator<UserService>().getUsername()),
                         VersionInfo(),
-                        // Text(
-                        //     "Gruppe: ${locator.get<DataService>().getUserDataCache().group}"),
-                        // Text(
-                        //     "Registrierung: ${DateFormat('yyyy-MM-dd').format(locator.get<DataService>().getUserDataCache().registrationDate)}"),
-                        // Text(
-                        //     "Vor ${locator.get<DataService>().getUserDataCache().registrationDate.daysAgo()} tagen")
                       ])),
             ),
           ),

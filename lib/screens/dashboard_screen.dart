@@ -38,6 +38,8 @@ class _DashboardScreenState extends State<DashboardScreen>
         ConfettiController(duration: const Duration(seconds: 2));
 
     WidgetsBinding.instance
+        ?.addPostFrameCallback((_) => navigateToPlanReminderIfNeeded());
+    WidgetsBinding.instance
         ?.addPostFrameCallback((_) => showRewardDialogIfNeeded());
   }
 
@@ -58,6 +60,10 @@ class _DashboardScreenState extends State<DashboardScreen>
       }
       vm.clearPendingRewards();
     }
+  }
+
+  Future<void> navigateToPlanReminderIfNeeded() async {
+    vm.navigateToPlanReminderIfNeeded();
   }
 
   @override

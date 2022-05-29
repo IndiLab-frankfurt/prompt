@@ -26,6 +26,7 @@ class VocabLearnTimingScreen extends StatelessWidget {
               ElevatedButton(
                 onPressed: () async {
                   TimeOfDay? pickedTime = await showTimePicker(
+                    // initialEntryMode: TimePickerEntryMode.,
                     context: context,
                     initialTime: initialTime,
                     cancelText: "Abbrechen",

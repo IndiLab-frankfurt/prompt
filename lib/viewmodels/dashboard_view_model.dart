@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'package:prompt/locator.dart';
 import 'package:prompt/models/value_with_date.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
 class DashboardViewModel extends BaseViewModel {
@@ -95,6 +98,12 @@ class DashboardViewModel extends BaseViewModel {
     }
 
     return true;
+  }
+
+  Future<void> navigateToPlanReminderIfNeeded() async {
+    if (await _experimentService.isPlanReminderDay()) {
+      await locator<NavigationService>().navigateTo(RouteNames.PLAN_REMINDER);
+    }
   }
 
   List<int> getPendingRewards() {

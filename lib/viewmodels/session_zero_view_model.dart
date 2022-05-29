@@ -161,11 +161,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   }
 
   Future<bool> getInitialValues() async {
-    if (await _experimentService.isPlanReminderDay()) {
-      await locator<NavigationService>().navigateTo(RouteNames.PLAN_REMINDER);
-      return true;
-    }
-
     var plan = await _dataService.getLastPlan();
     if (plan != null) {
       planCreationViewModel.plan = plan.plan;
