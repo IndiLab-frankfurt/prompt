@@ -5,6 +5,7 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/version_info.dart';
 
 class PromptDrawer extends StatelessWidget {
@@ -36,21 +37,25 @@ class PromptDrawer extends StatelessWidget {
         children: <Widget>[
           ListTile(
             title: Container(
-              padding: EdgeInsets.only(top: 20, bottom: 10.0),
-              child: Container(
-                  height: 140,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/icons/icon_256.png'),
-                          fit: BoxFit.cover)),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(locator<UserService>().getUsername()),
-                        VersionInfo(),
-                      ])),
-            ),
+                padding: EdgeInsets.only(top: 20, bottom: 10.0),
+                child: Text(
+                  "PROMPT",
+                  style: Theme.of(context).textTheme.headline4,
+                )
+                // child: Container(
+                //     height: 140,
+                //     decoration: BoxDecoration(
+                //         image: DecorationImage(
+                //             image: AssetImage('assets/icons/icon_256.png'),
+                //             fit: BoxFit.cover)),
+                //     child: Column(
+                //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                //         crossAxisAlignment: CrossAxisAlignment.start,
+                //         children: [
+                //           Text(locator<UserService>().getUsername()),
+                //           VersionInfo(),
+                //         ])),
+                ),
           ),
           Divider(),
           _buildDrawerItem(
@@ -84,6 +89,58 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushNamed(
                     context, RouteNames.CHANGE_REMINDER_TIME);
+              }),
+          _buildDrawerItem(
+              icon: Icons.info_outline,
+              text: "Info",
+              onTap: () async {
+                showDialog(
+                    context: context,
+                    builder: (context) {
+                      return AlertDialog(
+                        title: Text("Infos"),
+                        content: SingleChildScrollView(
+                          child: ListBody(children: [
+                            Text(
+                              "Kontakt: ",
+                              // style: Theme.of(context).textTheme.,
+                            ),
+                            Text("prompt@idea-frankfurt.de"),
+                            UIHelper.verticalSpaceMedium(),
+                            Text("Benutzer-ID: "),
+                            Text(locator<UserService>().getUsername()),
+                            UIHelper.verticalSpaceMedium(),
+                            Text("Version: "),
+                            VersionInfo(),
+                          ]),
+                        ),
+                      );
+                    });
+                //       showDialog(
+                //           context: context,
+                //           builder: (context) {
+                //             return AlertDialog(
+                //               title: Text("Scheduled Notifications"),
+                //               content: SingleChildScrollView(
+                //                 child: ListBody(
+                //                   children: scheduled.map((notification) {
+                //                     var title =
+                //                         notification.content?.title ?? "No title";
+                //                     var schedule = notification.schedule;
+                //                     return Column(
+                //                       children: [
+                //                         Text(title),
+                //                         Text(schedule.toString()),
+                //                         Divider(),
+                //                       ],
+                //                     );
+                //                     // return Text(notification.toString());
+                //                   }).toList(),
+                //                 ),
+                //               ),
+                //             );
+                //           });
+                //     }),
               }),
           Divider(),
           // _buildDrawerItem(
