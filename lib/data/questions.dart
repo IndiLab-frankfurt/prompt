@@ -90,10 +90,10 @@ late var learningTipQuestions =
   Question(
       id: "tip_good_bad",
       type: QuestionType.single,
-      questionText: "Glaubst du, der Tipp ist...",
+      questionText: "Glaubst du, der Tipp...",
       labels: {
-        "1": "...gut",
-        "2": "...schlecht",
+        "1": "...hilft beim Lernen",
+        "2": "...hilft nicht beim Lernen",
       }),
   Question(
       id: "tip_thoroughly_read",
