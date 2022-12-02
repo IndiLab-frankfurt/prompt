@@ -1,27 +1,27 @@
 import 'dart:io';
+import 'package:prompt/shared/extensions.dart';
+import 'package:flutter/material.dart';
 
 class UserData {
   String firebaseId = "";
   String user = "";
   int group = 1;
   DateTime registrationDate = DateTime.now();
+  DateTime nextPlanReminder = DateTime.now().add(Duration(days: 6));
   int streakDays = 0;
   int score = 0;
   int daysActive = 0;
   int initSessionStep = 0;
   String appVersion = "";
   String selectedMascot = "1";
-  String cabuuCode = "123";
   String platform = Platform.isAndroid ? "Android" : "iOS";
-  bool hasSeenDistributedPracticeIntervention = false;
-  bool finalQuestionsCompleted = false;
+  TimeOfDay preferredReminderTime = TimeOfDay(hour: 18, minute: 0);
 
   UserData(
       {required this.firebaseId,
       required this.user,
       this.group = 1,
       required this.registrationDate,
-      this.cabuuCode = "123",
       this.streakDays = 0,
       this.score = 0,
       this.initSessionStep = 0,
@@ -35,16 +35,14 @@ class UserData {
       "user": this.user,
       "group": this.group,
       "registrationDate": this.registrationDate.toIso8601String(),
+      "preferredReminderTime": this.preferredReminderTime.to24HourString(),
       "streakDays": this.streakDays,
       "score": this.score,
       "daysActive": this.daysActive,
       "initSessionStep": this.initSessionStep,
       "appVersion": this.appVersion,
       "selectedMascot": this.selectedMascot,
-      "cabuuCode": this.cabuuCode,
-      "hasSeenDistributedPracticeIntervention":
-          this.hasSeenDistributedPracticeIntervention,
-      "finalQuestionsCompleted": this.finalQuestionsCompleted
+      "nextPlanReminder": this.nextPlanReminder.toIso8601String(),
     };
   }
 
@@ -72,15 +70,11 @@ class UserData {
     if (json.containsKey("selectedMascot")) {
       selectedMascot = json["selectedMascot"];
     }
-    if (json.containsKey("cabuuCode")) {
-      cabuuCode = json["cabuuCode"];
+    if (json.containsKey("preferredReminderTime")) {
+      preferredReminderTime = from24HourString(json["preferredReminderTime"]);
     }
-    if (json.containsKey("hasSeenDistributedPracticeIntervention")) {
-      hasSeenDistributedPracticeIntervention =
-          json["hasSeenDistributedPracticeIntervention"];
-    }
-    if (json.containsKey("finalQuestionsCompleted")) {
-      finalQuestionsCompleted = json["finalQuestionsCompleted"];
+    if (json.containsKey("nextPlanReminder")) {
+      nextPlanReminder = DateTime.parse(json["nextPlanReminder"]);
     }
   }
 }

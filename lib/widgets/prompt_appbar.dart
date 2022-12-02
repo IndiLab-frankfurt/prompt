@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/ui_helper.dart';
@@ -15,7 +14,7 @@ class PromptAppBar extends StatefulWidget with PreferredSizeWidget {
   _PromptAppBarState createState() => _PromptAppBarState();
 
   @override
-  Size get preferredSize => Size.fromHeight(40);
+  Size get preferredSize => Size.fromHeight(45);
 }
 
 class _PromptAppBarState extends State<PromptAppBar> {
@@ -40,7 +39,11 @@ class _PromptAppBarState extends State<PromptAppBar> {
     return AppBar(
       backgroundColor: Colors.transparent,
       automaticallyImplyLeading: widget.showBackButton,
+      iconTheme: IconThemeData(color: Colors.black),
       elevation: 0,
+      flexibleSpace: Row(
+        children: [],
+      ),
       actions: [
         // _buildAboutButton(),
         UIHelper.horizontalSpaceSmall(),

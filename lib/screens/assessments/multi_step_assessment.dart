@@ -9,7 +9,7 @@ class MultiStepAssessment extends StatefulWidget {
   final MultiStepAssessmentViewModel vm;
   final List<Widget> pages;
   final int initialStep;
-  // final VoidCallback onSubmit;
+
   MultiStepAssessment(this.vm, this.pages, {this.initialStep = 0, Key? key})
       : super(key: key);
 
@@ -57,7 +57,6 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
     return Container(
       child: Column(
         children: [
-          UIHelper.verticalSpaceMedium(),
           Flexible(
             child: PageView.builder(
               controller: _controller,
@@ -68,29 +67,38 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
               },
             ),
           ),
-          if (widget.vm.step < widget.pages.length - 1)
-            _buildBottomNavigation(),
-          if (widget.vm.step == widget.pages.length - 1) _buildSubmitButton()
+          _buildBottomNavigation(),
+          // if (widget.vm.step < widget.pages.length - 1)
+          //   _buildBottomNavigation(),
+          // if (widget.vm.step == widget.pages.length - 1) _buildSubmitButton()
         ],
       ),
     );
   }
 
   _buildSubmitButton() {
-    if (widget.vm.state == ViewState.idle) {
-      return FullWidthButton(
-        onPressed: () async {
-          widget.vm.submit();
-        },
-        text: "Weiter",
-      );
-    } else {
-      return Center(child: CircularProgressIndicator());
+    if (widget.vm.canMoveNext(_keyOfCurrent())) {
+      if (widget.vm.state == ViewState.idle) {
+        return FullWidthButton(
+          onPressed: () async {
+            widget.vm.submit();
+          },
+          text: "Weiter",
+        );
+      } else {
+        return Center(child: CircularProgressIndicator());
+      }
     }
+
+    return Container();
   }
 
   _buildBottomNavigation() {
+    if (widget.vm.state == ViewState.busy) {
+      return Center(child: CircularProgressIndicator());
+    }
     return Container(
+      color: Colors.transparent,
       child: Row(
         mainAxisSize: MainAxisSize.max,
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -99,22 +107,26 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
             maintainSize: true,
             maintainAnimation: true,
             maintainState: true,
-            visible: widget.vm.canMoveBack(
-                _keyOfCurrent()), // _index > 1 && _index < _pages.length - 1,
-            child: TextButton(
-              child: Row(
-                children: <Widget>[
-                  Icon(Icons.navigate_before),
-                  Text(
-                    "Zurück",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ],
+            visible: widget.vm.canMoveBack(_keyOfCurrent()) &&
+                widget.vm.step > 0, // _index > 1 && _index < _pages.length - 1,
+            child: SizedBox(
+              height: 50,
+              child: TextButton(
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.navigate_before),
+                    Text(
+                      "Zurück",
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ],
+                ),
+                onPressed: () {
+                  _controller.previousPage(
+                      duration: _kDuration, curve: _kCurve);
+                  FocusScope.of(context).unfocus();
+                },
               ),
-              onPressed: () {
-                _controller.previousPage(duration: _kDuration, curve: _kCurve);
-                FocusScope.of(context).unfocus();
-              },
             ),
           ),
           Visibility(
@@ -122,25 +134,34 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
             maintainAnimation: true,
             maintainState: true,
             visible: widget.vm.canMoveNext(_keyOfCurrent()),
-            child: ElevatedButton(
-              child: Row(
-                children: <Widget>[
-                  Text(
-                    widget.vm.nextButtonText,
-                    style: TextStyle(fontSize: 20),
-                  ),
-                  Icon(Icons.navigate_next)
-                ],
+            child: SizedBox(
+              height: 50,
+              child: ElevatedButton(
+                child: Row(
+                  children: <Widget>[
+                    Text(
+                      widget.vm.nextButtonText,
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Icon(Icons.navigate_next)
+                  ],
+                ),
+                onPressed: () async {
+                  await widget.vm.doStepDependentSubmission(_keyOfCurrent());
+
+                  if (widget.vm.step == widget.pages.length - 1) {
+                    widget.vm.submit();
+                    return;
+                  }
+                  if (widget.vm.canMoveNext(_keyOfCurrent())) {
+                    _controller
+                        .jumpToPage(widget.vm.getNextPage(_keyOfCurrent()));
+                    widget.vm.clearCurrent();
+                  }
+                  setState(() {});
+                  FocusScope.of(context).unfocus();
+                },
               ),
-              onPressed: () {
-                if (widget.vm.canMoveNext(_keyOfCurrent())) {
-                  _controller
-                      .jumpToPage(widget.vm.getNextPage(_keyOfCurrent()));
-                  widget.vm.clearCurrent();
-                }
-                setState(() {});
-                FocusScope.of(context).unfocus();
-              },
             ),
           ),
         ],

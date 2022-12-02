@@ -20,7 +20,7 @@ class PlanDisplayScreen extends StatelessWidget {
             UIHelper.verticalSpaceMedium(),
             MarkdownBody(data: '### ' + AppStrings.PlanDisplay_YourPlanIs),
             UIHelper.verticalSpaceMedium(),
-            SpeechBubble(text: '"${vm.plan}"'),
+            SpeechBubble(text: '"${vm.planCreationViewModel.plan}"'),
             UIHelper.verticalSpaceMedium(),
             MarkdownBody(data: "### " + AppStrings.PlanDisplay_RememberYourPlan)
           ],

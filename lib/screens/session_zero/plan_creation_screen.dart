@@ -1,20 +1,22 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/viewmodels/plan_view_model.dart';
 import 'package:provider/provider.dart';
 
 class PlanCreationScreen extends StatefulWidget {
-  PlanCreationScreen({Key? key}) : super(key: key);
+  final OnCompletedCallback? onCompleted;
+  PlanCreationScreen({Key? key, this.onCompleted}) : super(key: key);
 
   @override
   _PlanCreationScreenState createState() => _PlanCreationScreenState();
 }
 
 class _PlanCreationScreenState extends State<PlanCreationScreen> {
-  TextEditingController _habitTextController = new TextEditingController();
+  TextEditingController _textControllerIfPart = new TextEditingController();
+  TextEditingController _textControllerThenPart = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,39 +30,53 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
   @override
   void initState() {
     super.initState();
-    _habitTextController.text =
-        Provider.of<SessionZeroViewModel>(context, listen: false)
-            .plan
-            .replaceFirst("Wenn ich ", "")
-            .replaceFirst(", dann lerne ich mit cabuu!", "");
+    var vm = Provider.of<PlanViewModel>(context, listen: false);
+    _textControllerIfPart.text = vm.getIfPart(vm.plan);
+    _textControllerThenPart.text = vm.getThenPart(vm.plan);
   }
 
   Widget buildEnterHabit() {
-    var vm = Provider.of<SessionZeroViewModel>(context);
-
     return ListView(children: [
       MarkdownBody(data: "### " + AppStrings.PlanCreation_LetsCreatePlan),
       UIHelper.verticalSpaceLarge(),
-      MarkdownBody(data: '### "Wenn ich'),
-      TextField(
-          controller: _habitTextController,
-          onChanged: (newText) {
-            vm.plan = newText;
-          },
-          decoration: new InputDecoration(hintText: '...'),
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          )),
+      MarkdownBody(data: '### Wenn'),
+      buildIfPart(),
       UIHelper.verticalSpaceSmall(),
-      MarkdownBody(data: '### , dann lerne ich mit cabuu!"'),
-      // ElevatedButton(
-      //     onPressed: () {
-      //       setState(() {
-      //         _screenState = PlanCreationScreenState.selectTime;
-      //       });
-      //     },
-      //     child: Text(AppStrings.Continue))
+      MarkdownBody(data: '### dann lerne ich Vokabeln!'),
     ]);
+  }
+
+  buildIfPart() {
+    var vm = Provider.of<PlanViewModel>(context);
+    return TextField(
+        controller: _textControllerIfPart,
+        onChanged: (newText) {
+          var fullPlan = vm.getFullPlanFromIfPart(newText);
+          vm.plan = fullPlan;
+
+          widget.onCompleted?.call(fullPlan);
+        },
+        decoration: new InputDecoration(hintText: '...'),
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ));
+  }
+
+  buildThenPart() {
+    var vm = Provider.of<PlanViewModel>(context);
+    return TextField(
+        controller: _textControllerThenPart,
+        onChanged: (newText) {
+          var fullPlan = "Wenn ${_textControllerIfPart.text} dann $newText";
+          vm.plan = fullPlan;
+
+          widget.onCompleted?.call(fullPlan);
+        },
+        decoration: new InputDecoration(hintText: '...'),
+        style: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.w500,
+        ));
   }
 }

@@ -9,6 +9,13 @@ class SettingsKeys {
   static const String backgroundColors = "backgroundColors";
 }
 
+enum OpenTasks {
+  LearnVocabulary,
+  ViewDistributedLearning,
+  ViewMentalContrasting,
+  LearningTip
+}
+
 enum AppStartupMode {
   normal,
   signin,
@@ -62,6 +69,8 @@ enum InternalisationCondition {
   emojiIf,
   emojiThen,
 }
+
+enum QuestionType { single, multiple, text, text_numeric }
 
 const String EVENING_ASSESSMENT = "eveningAssessment";
 const String MORNING_ASSESSMENT = "morningAssessment";

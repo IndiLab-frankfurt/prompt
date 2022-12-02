@@ -4,7 +4,9 @@ class RouteNames {
 
   static const NO_TASKS = "/notasks";
 
+  static const REGISTER = "/register";
   static const LOG_IN = "/login";
+  static const RANDOM_LOGIN = "/randomlogin";
 
   static const REWARD_SELECTION = "/rewardselection";
 
@@ -18,7 +20,9 @@ class RouteNames {
   static const ASSESSMENT_EVENING = "/assessmentevening";
   static const ASSESSMENT_FINAL = "/assessmentfinal";
 
-  static const VIDEO_DISTRIBUTED_LEARNING = "/videodistributedlearning";
+  static const DISTRIBUTED_LEARNING = "/distributedlearning";
+  static const MENTAL_CONTRASTING = "/mentalcontrasting";
+  static const PLAN_REMINDER = "/planreminder";
 
   static const ABOUT_PROMPT = "/aboutprompt";
   static const ABOUT_PROMPT_VIDEO = "/aboutpromptvideo";
@@ -26,4 +30,13 @@ class RouteNames {
   static const STUDY_COMPLETE = "/studycomplete";
 
   static const MASCOT_CHANGE = "/mascotselection";
+
+  static const SINGLE_LEARNING_TIP = "/singlelearningtip";
+  static const LEARNING_TIPS = "/learningtips";
+  static const LEARNING_TRICKS_OVERVIEW = "/learningtricksoverview";
+  static const VIDEO_CREATEPLAN = "/videocreateplan";
+
+  static const CHANGE_REMINDER_TIME = "/changeremindertime";
+
+  static const EDIT_PLAN = "/editplan";
 }

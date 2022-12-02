@@ -3,6 +3,7 @@ import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
+import 'package:prompt/models/value_with_date.dart';
 
 abstract class IDatabaseService {
   Stream<User?>? getCurrentUser();
@@ -32,13 +33,15 @@ abstract class IDatabaseService {
 
   Future<void> saveInitSessionStepCompleted(String userid, int step);
 
-  Future<void> setStreakDays(String username, int value);
+  Future<void> setStreakDays(String userid, int value);
 
-  Future saveDaysAcive(String username, int daysActive);
+  Future saveDaysAcive(String userid, int daysActive);
 
   Future setRegistrationDate(String username, String dateString);
 
-  Future saveVocabValue(Plan plan, String userid);
+  Future saveDateLearned(DateTime dateLearned, bool didLearn, String userid);
+
+  Future getDatesLearned(String userid);
 
   Future saveInternalisation(Internalisation internalisation, String email);
 
@@ -56,4 +59,12 @@ abstract class IDatabaseService {
   Future saveUserDataProperty(String username, String key, dynamic value);
 
   Future saveBoosterPromptReadTimes(Map<String, dynamic> map);
+
+  saveSimpleValueWithTimestamp(
+      String value, String collection, DateTime dateTime, String userid);
+
+  Future<List<ValueWithDate>> getValuesWithDates(
+      String collection, String userid);
+
+  Future deleteLastDateLearned(String userid);
 }

@@ -1,13 +1,14 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:prompt/models/assessment.dart';
-import 'package:prompt/models/assessment_item.dart';
+import 'package:prompt/models/questionnaire.dart';
+import 'package:prompt/models/question.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:collection/collection.dart';
+import 'package:prompt/models/value_with_date.dart';
 import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/settings_service.dart';
@@ -24,18 +25,24 @@ class DataService {
   UserData? _userDataCache;
   AssessmentResult? _lastAssessmentResultCache;
   List<AssessmentResult>? _assessmentResultsCache;
+  List<ValueWithDate>? _datesLearnedCache;
+  List<ValueWithDate>? _copingPlansCache;
 
   DataService(this._databaseService, this._userService,
       this._localDatabaseService, this._settingsService);
 
   logData(dynamic data) async {
-    data["userid"] = _userService.getUsername();
-    if (_userService.isSignedIn()) {
-      await _databaseService.logEvent(_userService.getUsername(), data);
+    try {
+      data["userid"] = _userService.getUsername();
+      if (_userService.isSignedIn()) {
+        await _databaseService.logEvent(_userService.getUsername(), data);
+      }
+    } catch (e) {
+      print(e);
     }
   }
 
-  setUserDataCache(UserData ud) async {
+  setUserDataCache(UserData ud) {
     _userDataCache = ud;
   }
 
@@ -52,13 +59,13 @@ class DataService {
     return _userDataCache!;
   }
 
-  saveScore(int score) async {
+  Future saveScore(int score) async {
     var ud = await getUserData();
     ud?.score = score;
     await _databaseService.saveScore(_userService.getUsername(), score);
   }
 
-  saveSessionZeroStep(int step) async {
+  Future saveSessionZeroStep(int step) async {
     var ud = getUserDataCache();
     ud.initSessionStep = step;
     await _databaseService.saveInitSessionStepCompleted(
@@ -124,12 +131,6 @@ class DataService {
     return _assessmentResultsCache!;
   }
 
-  Future<Map<String, dynamic>?> getInitialData() async {
-    var ud = await getUserData();
-    var initData = await _databaseService.getInitialData(ud!.user);
-    return null;
-  }
-
   AssessmentResult? getLastAssessmentResultCached() {
     return _lastAssessmentResultCache;
   }
@@ -163,32 +164,55 @@ class DataService {
     }
   }
 
-  savePlan(String plan) async {
+  Future saveSimpleValueWithTimestamp(String value, String collection) async {
+    var ud = await getUserData();
+    if (ud != null) {
+      await _databaseService.saveSimpleValueWithTimestamp(
+        value,
+        collection,
+        DateTime.now(),
+        _userService.getUsername(),
+      );
+    }
+  }
+
+  Future<List<ValueWithDate>> getValuesWithDates(String collection) async {
+    try {
+      var ud = await getUserData();
+      if (ud != null) {
+        var values = await _databaseService.getValuesWithDates(
+          collection,
+          _userService.getUsername(),
+        );
+        return values;
+      }
+    } catch (e) {
+      return [];
+    }
+    return [];
+  }
+
+  Future<List<ValueWithDate>> getCopingPlans() async {
+    if (_copingPlansCache == null) {
+      _copingPlansCache = await getValuesWithDates("copingPlans");
+    }
+
+    return _copingPlansCache!;
+  }
+
+  Future savePlan(String plan) async {
     var planModel = Plan(plan);
     var ud = getUserDataCache();
     await _databaseService.savePlan(planModel, ud.user);
   }
 
-  saveUserDataProperty(String propertyname, dynamic value) async {
-    var ud = getUserDataCache();
-
-    await _databaseService.saveUserDataProperty(ud.user, propertyname, value);
-    _userDataCache = await _databaseService.getUserData(ud.user);
-  }
-
-  saveBoosterPromptReadTimes(DateTime start, DateTime end) async {
-    var map = {
-      "user": getUserDataCache().user,
-      "start": start.toIso8601String(),
-      "end": end.toIso8601String()
-    };
-    await _databaseService.saveBoosterPromptReadTimes(map);
-  }
-
-  saveVocabValue(String vocabValue) async {
-    var planModel = Plan(vocabValue);
+  Future<void> saveUserDataProperty(String propertyname, dynamic value) async {
     var ud = await getUserData();
-    await _databaseService.saveVocabValue(planModel, ud!.user);
+
+    if (ud != null) {
+      await _databaseService.saveUserDataProperty(ud.user, propertyname, value);
+      _userDataCache = await _databaseService.getUserData(ud.user);
+    }
   }
 
   Future<Plan?> getLastPlan() async {
@@ -196,7 +220,7 @@ class DataService {
     return await _databaseService.getLastPlan(ud!.user);
   }
 
-  setSelectedMascot(String mascot) async {
+  Future<void> setSelectedMascot(String mascot) async {
     var ud = await getUserData();
     if (ud != null) {
       ud.selectedMascot = mascot;
@@ -226,7 +250,7 @@ class DataService {
 
       return list;
     } else {
-      return [Color(0xffffffff), Color(0xffffffff)];
+      return [];
     }
   }
 
@@ -256,6 +280,43 @@ class DataService {
         SettingsKeys.backgroundColors, colorString);
   }
 
+  Future saveDateLearned(DateTime dateLearned, bool didLearn) async {
+    var dateLearnedData = ValueWithDate(didLearn, dateLearned);
+
+    if (_datesLearnedCache == null) {
+      _datesLearnedCache =
+          await _databaseService.getDatesLearned(_userService.getUsername());
+      if (_datesLearnedCache == null) {
+        _datesLearnedCache = [dateLearnedData];
+      }
+    } else {
+      _datesLearnedCache!.add(dateLearnedData);
+    }
+
+    await _databaseService.saveDateLearned(
+        dateLearned, didLearn, _userService.getUsername());
+  }
+
+  Future<List<ValueWithDate>> getDatesLearned() async {
+    if (_datesLearnedCache == null) {
+      _datesLearnedCache =
+          await _databaseService.getDatesLearned(_userService.getUsername());
+    }
+    return _datesLearnedCache!;
+  }
+
+  Future deleteLastDateLearned() async {
+    if (_datesLearnedCache == null) {
+      _datesLearnedCache =
+          await _databaseService.getDatesLearned(_userService.getUsername());
+      if (_datesLearnedCache!.length > 0) {
+        _datesLearnedCache!.removeLast();
+      }
+    }
+
+    await _databaseService.deleteLastDateLearned(_userService.getUsername());
+  }
+
   saveInternalisation(Internalisation internalisation) async {
     return await _databaseService.saveInternalisation(
         internalisation, _userService.getUsername());
@@ -275,18 +336,21 @@ class DataService {
         _userService.getUsername(), dateTime.toIso8601String());
   }
 
+  Future<List<ValueWithDate>> getLearningTricksSeen() async {
+    return await getValuesWithDates("learningTricksSeen");
+  }
+
   getAssessment(String name) async {
     String data =
         await rootBundle.loadString("assets/assessments/assessment_$name.json");
     var json = jsonDecode(data);
 
-    var ass = Assessment();
-    ass.id = json["id"];
-    ass.title = json["title"];
-    ass.items = [];
+    var ass = Questionnaire(id: json["id"], title: json["title"], items: []);
     for (var question in json["questions"]) {
-      ass.items.add(AssessmentItem(question["questionText"],
-          Map<String, String>.from(question["labels"]), question["id"]));
+      ass.items.add(Question(
+          questionText: question["questionText"],
+          id: question["id"],
+          labels: Map<String, String>.from(question["labels"])));
     }
 
     return ass;

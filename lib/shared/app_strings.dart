@@ -25,7 +25,7 @@ class AppStrings {
   // Session Zero Welcome Screen
   static const String Welcome_WelcomeToPROMPT = "Willkommen bei PROMPT!";
   static const String Welcome_IntroductionTakeYourTime =
-      "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.";
+      "Auf den nächsten Seiten geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.";
 
   // Session Zero Cabuu Link
   static const String CabuuLink_WantToParticipate =
@@ -37,7 +37,7 @@ class AppStrings {
 
   // Session Zero Plan Creation
   static const String PlanCreation_LetsCreatePlan =
-      "Erstelle jetzt für dich selbst einen Plan.\nÜberlege dir einen Zeitpunkt oder Ort, der möglichst jeden Tag passt, um mit cabuu zu lernen (z.B. morgens nach dem Zähneputzen, mittags an der Bushaltestelle).\nVervollständige den Plan:";
+      "Erstelle jetzt für dich selbst einen Plan.\nÜberlege dir einen Zeitpunkt oder Ort, um Vokabeln zu lernen.\nVervollständige den Plan:";
   static const String ThinkOfSomething =
       "Überlege dir etwas, das du jeden Tag tust, möglichst auch am Wochenende. Schreibe es in 1-3 Stichworten auf:";
   static const String GotTimeBeforeOrAfter =
@@ -46,15 +46,29 @@ class AppStrings {
   static const String After = "Danach";
   static const String Neither = "Weder noch";
 
+  static const String SessionZero_Introduction_DistributedLearning_1 =
+      """Auf der nächsten Seite siehst du ein Video, in dem dir das Monster einen Trick erklärt, mit dem es sich Vokabeln besonders gut und lange merken kann.
+""";
+
+  static const String SessionZero_Introduction_Planning_1 =
+      """Der Trick des Monsters ist also: Möglichst oft ein paar Vokabeln!
+  
+Aber wie schafft man das im Alltag? 
+
+Auch dafür hat das Monster einen Trick, den es dir auf der nächsten Seite zeigt!
+""";
+
   // Session Zero Plan Display
   static const String PlanDisplay_Excellent = "Prima!";
   static const String PlanDisplay_YourPlanIs = "Dein Plan lautet also:";
   static const String PlanDisplay_RememberYourPlan = "Merke dir den Plan gut!";
 
-  static const String WhyVocab_ParagraphOne =
-      "In der Studie PROMPT wollen wir dir dabei helfen, Vokabeln so zu lernen, dass du sie dir besonders gut merken kannst.";
-  static const String WhyVocab_ParagraphTwo =
-      "Denk mal nach: Warum ist es für dich wichtig, Englischvokabeln zu lernen? Wie könnte es für dich auch außerhalb der Schule gut sein, viele Englischvokabeln zu kennen?";
+  static const String SessionZero_ObstacleEnter_1 =
+      "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:";
+  static const String SessionZero_OutcomeEnter_1 =
+      "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:";
+  static const String SessionZero_CopingPlanEnter_1 =
+      "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:";
 
   static const String GoalIntention_ParagraphOne =
       "Damit du es schaffst, regelmäßig Vokabeln zu lernen, solltest du dir ein **Ziel** setzen";
@@ -89,7 +103,7 @@ class AppStrings {
 
   // Emoji Internalisation Screen
   static const String EmojiInternalisation_Instruction =
-      "Erstelle aus Emojis eine Darstellung deines Planes";
+      "Erstelle aus Emojis eine Darstellung deines Plans.";
 
   // Study Info Screen
   static const String InfoScreen_Header1 = "Über PROMPT";
@@ -139,4 +153,11 @@ class AppStrings {
       'Heute sollst du in cabuu den letzten Test machen. Klicke dazu in cabuu auf Liste 6 und wähle "Abfrage".';
   static const String MorningAssessment_lastVocab1_2 =
       'Mach bitte den Test und komm danach direkt zurück zu PROMPT, um die letzten Fragen zu beantworten. Danach bist du fertig mit der Studie.';
+
+  static const String Dashboard_daysLearned = "Tage gelernt";
+
+  static const String Notification_Title_PlanReminder =
+      "Schau dir nochmal deinen Plan an!";
+  static const String Notification_Title_VocabReminder =
+      "Hast du heute Vokabeln gelernt?";
 }

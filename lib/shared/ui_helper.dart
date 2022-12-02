@@ -26,6 +26,23 @@ class UIHelper {
       border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))));
 
+  static Color bgGradientStart = Color(0xfff2994a);
+  static Color bgGradientEnd = Color(0xfff2c94c);
+
+  static List<Color> baseGradientColors = [
+    UIHelper.bgGradientStart,
+    UIHelper.bgGradientEnd
+  ];
+
+  static LinearGradient baseGradient = LinearGradient(
+      begin: Alignment.topLeft,
+      end: Alignment.bottomRight,
+      colors: [bgGradientStart, bgGradientEnd]);
+
+  static BoxDecoration defaultBoxDecoration = BoxDecoration(
+    gradient: baseGradient,
+  );
+
   static Widget verticalSpaceSmall() {
     return verticalSpace(_verticalSpaceSmall);
   }
@@ -59,6 +76,10 @@ class UIHelper {
   }
 
   static EdgeInsets getContainerMargin() {
+    return EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 5);
+  }
+
+  static EdgeInsets getContainerPadding() {
     return EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 5);
   }
 

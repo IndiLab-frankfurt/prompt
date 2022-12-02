@@ -1,30 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/data/questions.dart';
 import 'package:prompt/screens/assessments/multi_step_assessment.dart';
 import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
-import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
-import 'package:prompt/screens/session_zero/end_of_session_screen.dart';
-import 'package:prompt/screens/session_zero/instruction_screen_1.dart';
-import 'package:prompt/screens/session_zero/instruction_screen_2.dart';
-import 'package:prompt/screens/session_zero/instruction_screen_3.dart';
-import 'package:prompt/screens/session_zero/instruction_screen_4.dart';
-import 'package:prompt/screens/session_zero/instructions_appPermissions.dart';
-import 'package:prompt/screens/session_zero/instructions_cabuu_1.dart';
-import 'package:prompt/screens/session_zero/instructions_cabuu_2.dart';
-import 'package:prompt/screens/session_zero/instructions_cabuu_3.dart';
-import 'package:prompt/screens/session_zero/instructions_distributed_learning.dart';
 import 'package:prompt/screens/session_zero/instructions_implementation_intentions.dart';
-import 'package:prompt/screens/session_zero/mascot_selection_screen.dart';
-import 'package:prompt/screens/session_zero/plan_commitment_screen.dart';
+import 'package:prompt/screens/session_zero/permission_request_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
-import 'package:prompt/screens/session_zero/plan_timing_screen.dart';
-import 'package:prompt/screens/session_zero/reward_screen_1.dart';
 import 'package:prompt/screens/session_zero/rewards_screen_2.dart';
+import 'package:prompt/screens/session_zero/text_screen.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
-import 'package:prompt/screens/session_zero/why_learn_vocab_screen.dart';
-import 'package:prompt/shared/enums.dart';
+import 'package:prompt/screens/session_zero/who_are_you_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
@@ -50,57 +37,17 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    Map<SessionZeroStep, Widget> _stepScreenMap = {
-      SessionZeroStep.welcome: welcomeScreen,
-      SessionZeroStep.whereCanYouFindThisInformation:
-          whereCanYouFindThisInformation,
-      SessionZeroStep.cabuuCode: cabuuCodeScreen,
-      SessionZeroStep.mascotSelection: mascotSelectionScreen,
-      SessionZeroStep.assessment_motivation: motivationQuestionnaire,
-      SessionZeroStep.assessment_itLiteracy: itLiteracyQuestionnaire,
-      SessionZeroStep.assessment_learningFrequencyDuration:
-          learningFrequencyDuration,
-      SessionZeroStep.assessment_learningExpectations: learningExpectations,
-      SessionZeroStep.assessment_distributedLearning: distributedLearning,
-      SessionZeroStep.videoDistributedLearning: videoDistributedLearning,
-      SessionZeroStep.videoPlanning: videoPlanning,
-      SessionZeroStep.planCreation: planCreation,
-      SessionZeroStep.planDisplay: planDisplay,
-      SessionZeroStep.planInternalisationEmoji: planInternalisationEmoji,
-      SessionZeroStep.planInternalisationWaiting: planInternalisationWaiting,
-      SessionZeroStep.planTiming: planTiming,
-      SessionZeroStep.assessment_selfEfficacy: selfEfficacyQuestionnaire,
-      SessionZeroStep.assessment_planCommitment: planCommitment,
-      SessionZeroStep.valueIntervention: whyLearnVocabs,
-      SessionZeroStep.instructions1: instructionScreen1,
-      SessionZeroStep.instructions2: instructionScreen2,
-      SessionZeroStep.instructions3: instructionScreen3,
-      SessionZeroStep.instructions4: instructionScreen4,
-      SessionZeroStep.instructions_cabuu_1: instructionsCabuu1,
-      SessionZeroStep.instructions_cabuu_2: instructionsCabuu2,
-      SessionZeroStep.instructions_cabuu_3: instructionsCabuu3,
-      SessionZeroStep.instructions_distributedLearning:
-          instructionsDistributedLearning,
-      SessionZeroStep.instructions_implementationIntentions:
-          instructionsImplementationIntentions,
-      SessionZeroStep.instructions_appPermissions: instructionsAppPermissions,
-      SessionZeroStep.endOfSession: endOfSessionScreen,
-      SessionZeroStep.rewardScreen1: rewardScreen1,
-      SessionZeroStep.rewardScreen2: rewardScreen2
-    };
-
-    _pages = [];
-
-    for (var page in vm.screenOrder) {
-      if (_stepScreenMap.containsKey(page)) {
-        _pages.add(_stepScreenMap[page]!);
-      }
-    }
   }
 
   init() async {
     return this._memoizer.runOnce(() async {
       await vm.getInitialValues();
+
+      _pages = [];
+      for (var screen in vm.screenOrder) {
+        _pages.add(getScreen(screen));
+      }
+
       return true;
     });
   }
@@ -109,155 +56,114 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async => false,
-        child: Scaffold(
-            appBar: PromptAppBar(showBackButton: false),
-            drawer: PromptDrawer(),
-            body: SafeArea(
-              child: FutureBuilder(
-                future: init(),
-                builder:
-                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                  if (snapshot.hasData) {
-                    return Container(
-                        margin: UIHelper.containerMargin,
-                        child: MultiStepAssessment(
-                          vm,
-                          _pages,
-                        ));
-                  } else {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-                },
-              ),
-            )));
+        child: Container(
+          decoration: UIHelper.defaultBoxDecoration,
+          child: Scaffold(
+              // appBar: PromptAppBar(showBackButton: true),
+              // drawer: PromptDrawer(),
+              body: SafeArea(
+            child: FutureBuilder(
+              future: init(),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.hasData) {
+                  return Container(
+                      margin: UIHelper.containerMargin,
+                      child: MultiStepAssessment(
+                        vm,
+                        _pages,
+                      ));
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            ),
+          )),
+        ));
   }
 
-  late var welcomeScreen =
-      WelcomeScreen(key: ValueKey(SessionZeroStep.welcome));
+  Widget getScreen(SessionZeroStep step) {
+    var key = ValueKey(step);
+    switch (step) {
+      case SessionZeroStep.welcome:
+        return WelcomeScreen(key: key);
 
-  late var rewardScreen1 =
-      RewardScreen1(key: ValueKey(SessionZeroStep.rewardScreen1));
+      case SessionZeroStep.whoAreYou:
+        return WhoAreYouScreen(key: key);
 
-  late var rewardScreen2 =
-      RewardScreen2(key: ValueKey(SessionZeroStep.rewardScreen2));
+      case SessionZeroStep.video_introduction:
+        return VideoScreen(
+            videoURL: 'assets/videos/EinfuehrungII.mp4',
+            key: key,
+            onVideoCompleted: vm.videoPlanningCompleted);
 
-  late var endOfSessionScreen =
-      EndOfSessionScreen(key: ValueKey(SessionZeroStep.endOfSession));
+      case SessionZeroStep.questions_sociodemographics:
+        return MultiStepQuestionnairePage(
+          key: key,
+          vm: vm,
+          questionnaire: sociodemographicQuestions,
+        );
 
-  late var cabuuCodeScreen =
-      CabuuCodeScreen(key: ValueKey(SessionZeroStep.cabuuCode));
+      case SessionZeroStep.questions_vocablearning:
+        return MultiStepQuestionnairePage(
+          key: key,
+          vm: vm,
+          questionnaire: vocabQuestions,
+        );
 
-  late var instructionsCabuu1 =
-      InstructionsCabuu1(key: ValueKey(SessionZeroStep.instructions_cabuu_1));
+      case SessionZeroStep.questions_usability:
+        return TextScreen(paragraphs: ["Hier Usability Fragen"], key: key);
 
-  late var instructionsCabuu2 =
-      InstructionsCabuu2(key: ValueKey(SessionZeroStep.instructions_cabuu_2));
+      case SessionZeroStep.reward_screen:
+        return RewardScreen2(key: key);
 
-  late var instructionsCabuu3 =
-      InstructionsCabuu3(key: ValueKey(SessionZeroStep.instructions_cabuu_3));
+      case SessionZeroStep.video_distributedLearning:
+        return TextScreen(
+            paragraphs: ["Hier Video über verteiltes Lernen"], key: key);
+      //return VideoScreen('assets/videos/videoDistributedLearning.mp4',
+      //    key: key, onVideoCompleted: vm.videoDistributedLearningCompleted);
 
-  late var instructionsDistributedLearning = InstructionsDistributedLearning(
-      key: ValueKey(SessionZeroStep.instructions_distributedLearning));
+      case SessionZeroStep.introduction_planning:
+        return InstructionsImplementationIntentions(key: key);
 
-  late var instructionScreen1 =
-      InstructionScreen1(key: ValueKey(SessionZeroStep.instructions1));
+      case SessionZeroStep.video_planning:
+        return VideoScreen(
+            videoURL: 'assets/videos/WennDannPlan.mp4',
+            key: key,
+            onVideoCompleted: vm.videoPlanningCompleted);
 
-  late var instructionScreen2 =
-      InstructionScreen2(key: ValueKey(SessionZeroStep.instructions2));
+      case SessionZeroStep.planCreation:
+        return ChangeNotifierProvider.value(
+            value: vm.planCreationViewModel,
+            key: ValueKey(SessionZeroStep.planCreation),
+            child: PlanCreationScreen(
+                onCompleted: vm.onPlanCreationCompleted,
+                key: ValueKey(SessionZeroStep.planInternalisationWaiting)));
 
-  late var instructionScreen3 =
-      InstructionScreen3(key: ValueKey(SessionZeroStep.instructions3));
+      case SessionZeroStep.planDisplay:
+        return PlanDisplayScreen(key: key);
 
-  late var instructionScreen4 =
-      InstructionScreen4(key: ValueKey(SessionZeroStep.instructions4));
+      case SessionZeroStep.planInternalisationWaiting:
+        return ChangeNotifierProvider.value(
+            value: vm.internalisationViewmodelWaiting,
+            key: ValueKey(SessionZeroStep.planInternalisationWaiting),
+            child: WaitingInternalisationScreen(vm.waitingDuration,
+                onCompleted: vm.onWaitingInternalisationCompleted,
+                key: ValueKey(SessionZeroStep.planInternalisationWaiting)));
 
-  late var instructionsAppPermissions = InstructionsAppPermissions(
-      key: ValueKey(SessionZeroStep.instructions_appPermissions));
+      case SessionZeroStep.planInternalisationEmoji:
+        return ChangeNotifierProvider.value(
+            value: vm.internalisationViewmodelEmoji,
+            key: ValueKey(SessionZeroStep.planInternalisationEmoji),
+            child: EmojiInternalisationScreen(
+                onCompleted: vm.onInternalisationCompleted,
+                emojiInputIf: true,
+                emojiInputThen: false,
+                key: ValueKey(SessionZeroStep.planInternalisationEmoji)));
 
-  late var instructionsImplementationIntentions =
-      InstructionsImplementationIntentions(
-          key: ValueKey(SessionZeroStep.instructions_implementationIntentions));
-
-  late var mascotSelectionScreen =
-      MascotSelectionScreen(key: ValueKey(SessionZeroStep.mascotSelection));
-
-  late var videoPlanning = VideoScreen('assets/videos/videoPlanning.mp4',
-      key: ValueKey(SessionZeroStep.videoPlanning),
-      onVideoCompleted: vm.videoPlanningCompleted);
-
-  late var motivationQuestionnaire = MultiStepQuestionnaireFuture(
-      vm: vm,
-      assessmentTypes: AssessmentTypes.motivation,
-      key: ValueKey(SessionZeroStep.assessment_motivation));
-
-  late var selfEfficacyQuestionnaire = MultiStepQuestionnaireFuture(
-      vm: vm,
-      assessmentTypes: AssessmentTypes.selfEfficacy,
-      key: ValueKey(SessionZeroStep.assessment_selfEfficacy));
-
-  late var itLiteracyQuestionnaire = MultiStepQuestionnaireFuture(
-      vm: vm,
-      assessmentTypes: AssessmentTypes.itLiteracy,
-      key: ValueKey(SessionZeroStep.assessment_itLiteracy));
-
-  late var learningFrequencyDuration = MultiStepQuestionnaireFuture(
-      vm: vm,
-      assessmentTypes: AssessmentTypes.learningFrequencyDuration,
-      key: ValueKey(SessionZeroStep.assessment_learningFrequencyDuration));
-
-  late var learningExpectations = MultiStepQuestionnaireFuture(
-      vm: vm,
-      assessmentTypes: AssessmentTypes.learningExpectations,
-      key: ValueKey(SessionZeroStep.assessment_learningExpectations));
-
-  late var planCreation =
-      PlanCreationScreen(key: ValueKey(SessionZeroStep.planCreation));
-
-  late var planDisplay =
-      PlanDisplayScreen(key: ValueKey(SessionZeroStep.planDisplay));
-
-  late var whyLearnVocabs =
-      WhyLearnVocabScreen(key: ValueKey(SessionZeroStep.valueIntervention));
-
-  late var planTiming =
-      PlanTimingScreen(key: ValueKey(SessionZeroStep.planTiming));
-
-  late var planCommitment = PlanCommitmentScreen(
-      key: ValueKey(SessionZeroStep.assessment_planCommitment));
-
-  late var distributedLearning = MultiStepQuestionnaireFuture(
-      vm: vm,
-      assessmentTypes: AssessmentTypes.distributedPractice,
-      key: ValueKey(SessionZeroStep.assessment_distributedLearning));
-
-  late var whereCanYouFindThisInformation = VideoScreen(
-    'assets/videos/intro_prompt_compressed.mp4',
-    onVideoCompleted: vm.videoWelcomeCompleted,
-    key: ValueKey(SessionZeroStep.whereCanYouFindThisInformation),
-  );
-
-  late var planInternalisationEmoji = ChangeNotifierProvider.value(
-    value: vm.internalisationViewmodelEmoji,
-    key: ValueKey(SessionZeroStep.planInternalisationEmoji),
-    child: EmojiInternalisationScreen(
-        onCompleted: vm.onInternalisationCompleted,
-        emojiInputIf: true,
-        emojiInputThen: true,
-        key: ValueKey(SessionZeroStep.planInternalisationEmoji)),
-  );
-
-  late var planInternalisationWaiting = ChangeNotifierProvider.value(
-    value: vm.internalisationViewmodelWaiting,
-    key: ValueKey(SessionZeroStep.planInternalisationWaiting),
-    child: WaitingInternalisationScreen(Duration(seconds: 15),
-        onCompleted: vm.onWaitingInternalisationCompleted,
-        key: ValueKey(SessionZeroStep.planInternalisationWaiting)),
-  );
-
-  late var videoDistributedLearning = VideoScreen(
-      'assets/videos/videoDistributedLearning.mp4',
-      key: ValueKey(SessionZeroStep.videoDistributedLearning),
-      onVideoCompleted: vm.videoDistributedLearningCompleted);
+      case SessionZeroStep.permissionRequest:
+        return PermissionRequestScreen(key: key);
+    }
+  }
 }

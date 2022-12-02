@@ -5,6 +5,7 @@ import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
+import 'package:prompt/viewmodels/plan_view_model.dart';
 import 'package:prompt/widgets/emoji_keyboard/base_emoji.dart';
 import 'package:prompt/widgets/emoji_keyboard/emoji_keyboard_widget.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
@@ -88,11 +89,12 @@ class _EmojiInternalisationScreenState
   _buildEmojiPickerCompatibleTextInput() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         if (this.widget.emojiInputIf) _buildEmojiInputLeft(),
         if (!this.widget.emojiInputIf) _buildIfPart(),
         if (this.widget.emojiInputThen) _buildEmojiInputRight(),
-        if (!this.widget.emojiInputThen) _builThenPart()
+        if (!this.widget.emojiInputThen) _buildThenPart()
       ],
     );
   }
@@ -103,11 +105,21 @@ class _EmojiInternalisationScreenState
     return Container(width: width, child: MarkdownBody(data: "## $ifPart..."));
   }
 
-  _builThenPart() {
+  _buildThenPart() {
+    var thenPart = "lerne ich Vokabeln";
     var width = MediaQuery.of(context).size.width * 0.42;
-    var thenPart = this.vm.plan.split("dann")[1];
+    try {
+      var pvm = PlanViewModel();
+      pvm.plan = this.vm.plan;
+      thenPart = this.vm.plan.split("dann")[1];
+    } catch (e) {
+      print(e);
+    }
+
     return Container(
-        width: width, child: MarkdownBody(data: "## ...dann $thenPart"));
+        padding: EdgeInsets.only(top: 20),
+        width: width,
+        child: Center(child: MarkdownBody(data: "## ...dann $thenPart")));
   }
 
   _buildEmojiInputLeft() {

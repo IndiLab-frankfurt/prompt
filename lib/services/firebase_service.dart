@@ -7,6 +7,7 @@ import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:flutter/services.dart';
+import 'package:prompt/models/value_with_date.dart';
 import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/user_service.dart';
@@ -40,7 +41,7 @@ class FirebaseService implements IDatabaseService {
   static const String COLLECTION_LOGS = "logs";
   static const String COLLECTION_LDT = "ldt";
   static const String COLLECTION_INITSESSION = "initSession";
-  static const String COLLECTION_VOCABVALUE = "vocabValue";
+  static const String COLLECTION_DATES_LEARNED = "datesLearned";
   static const String COLLECTION_USAGESTATS = "usageStats";
 
   static const Duration timeoutDuration = Duration(seconds: 30);
@@ -68,6 +69,14 @@ class FirebaseService implements IDatabaseService {
     //     print('User is signed in!');
     //   }
     // });
+  }
+
+  void resetPassword(String email) async {
+    try {
+      await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    } catch (e) {
+      handleError(e);
+    }
   }
 
   Future<bool> isNameAvailable(String userId) async {
@@ -156,6 +165,32 @@ class FirebaseService implements IDatabaseService {
         .then((res) => res);
   }
 
+  saveSimpleValueWithTimestamp(
+      String value, String collection, DateTime dateTime, String userid) async {
+    var map = {
+      "value": value,
+      "date": dateTime.toIso8601String(),
+    };
+
+    return _databaseReference.collection(collection).doc(userid).set({
+      "values": FieldValue.arrayUnion([map]),
+      "user": userid,
+    }, SetOptions(merge: true)).then((res) => res);
+  }
+
+  Future<List<ValueWithDate>> getValuesWithDates(
+      String collection, String userid) async {
+    return _databaseReference
+        .collection(collection)
+        .doc(userid)
+        .get()
+        .then((value) => value
+            .data()?["values"]
+            .map((e) => ValueWithDate.fromDocument(e))
+            .toList())
+        .then((value) => value != null ? List<ValueWithDate>.from(value) : []);
+  }
+
   Future<AssessmentResult?> getLastAssessmentResult(String userid) async {
     return _databaseReference
         .collection(COLLECTION_ASSESSMENTS)
@@ -219,7 +254,9 @@ class FirebaseService implements IDatabaseService {
   }
 
   logEvent(String userid, dynamic data) async {
-    _databaseReference.collection(COLLECTION_LOGS).add(data);
+    _databaseReference.collection(COLLECTION_LOGS).doc(userid).set({
+      "logs": FieldValue.arrayUnion([data])
+    }, SetOptions(merge: true));
   }
 
   saveInternalisation(Internalisation internalisation, String email) async {
@@ -276,17 +313,6 @@ class FirebaseService implements IDatabaseService {
   }
 
   @override
-  Future saveVocabValue(Plan plan, String userid) async {
-    var map = plan.toMap();
-    map["user"] = userid;
-    _databaseReference
-        .collection(COLLECTION_VOCABVALUE)
-        .doc(userid)
-        .set(map, SetOptions(merge: true))
-        .then((res) => res);
-  }
-
-  @override
   Future saveUsageStats(Map<String, dynamic> usageInfo, String userid) async {
     _databaseReference.collection(COLLECTION_USAGESTATS).add(usageInfo);
   }
@@ -297,5 +323,53 @@ class FirebaseService implements IDatabaseService {
         .collection("boosterPromptTimes")
         .add(map)
         .then((res) => res);
+  }
+
+  @override
+  Future saveDateLearned(
+      DateTime dateLearned, bool didLearn, String userid) async {
+    var dateString = dateLearned.toIso8601String();
+    var map = {
+      "date": dateString,
+      "value": didLearn,
+    };
+    _databaseReference.collection(COLLECTION_DATES_LEARNED).doc(userid).set({
+      "dates": FieldValue.arrayUnion([map]),
+      "user": userid
+    }, SetOptions(merge: true)).then((value) => true);
+  }
+
+  Future<List<ValueWithDate>> getDatesLearned(String userid) async {
+    return _databaseReference
+        .collection(COLLECTION_DATES_LEARNED)
+        .doc(userid)
+        .get()
+        .then((value) => value
+            .data()?["dates"]
+            .map((e) => ValueWithDate.fromDocument(e))
+            .toList())
+        .then((value) => value != null ? List<ValueWithDate>.from(value) : []);
+  }
+
+  Future deleteLastDateLearned(String userid) async {
+    return _databaseReference
+        .collection(COLLECTION_DATES_LEARNED)
+        .doc(userid)
+        .get()
+        .then((value) => value
+            .data()?["dates"]
+            .map((e) => ValueWithDate.fromDocument(e))
+            .toList())
+        .then((value) => value != null ? List<ValueWithDate>.from(value) : [])
+        .then((value) {
+      if (value.length == 0) return;
+      var lastDate = value.last;
+      _databaseReference
+          .collection(COLLECTION_DATES_LEARNED)
+          .doc(userid)
+          .update({
+        "dates": FieldValue.arrayRemove([lastDate.toMap()])
+      });
+    });
   }
 }

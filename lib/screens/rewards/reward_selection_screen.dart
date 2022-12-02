@@ -3,6 +3,7 @@ import 'package:prompt/locator.dart';
 import 'package:prompt/screens/rewards/timeline.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/models/unlockable_background.dart';
 
@@ -20,21 +21,26 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
     var rewardService = locator<RewardService>();
 
     for (var bg in rewardService.backgrounds) {
-      unlockItems.add(_buildUnlockItem(bg, rewardService.daysActive));
+      unlockItems.add(_buildUnlockItem(bg, rewardService.scoreValue));
     }
 
-    return Scaffold(
-      appBar: PromptAppBar(
-        title: "Wähle einen neuen Hintergrud",
-        showBackButton: true,
+    return Container(
+      decoration: UIHelper.defaultBoxDecoration,
+      child: Scaffold(
+        appBar: PromptAppBar(
+          title: "Wähle einen neuen Hintergrud",
+          showBackButton: true,
+        ),
+        // drawer: PromptDrawer(),
+        backgroundColor: Colors.transparent,
+        body: Container(
+            child: Timeline(
+                indicatorColor: Theme.of(context).primaryColor,
+                indicatorColorInactive: Colors.grey,
+                lineColor: Theme.of(context).primaryColor,
+                progress: ((rewardService.daysActive + 5) / 27),
+                children: [...unlockItems])),
       ),
-      body: Container(
-          child: Timeline(
-              indicatorColor: Theme.of(context).primaryColor,
-              indicatorColorInactive: Colors.grey,
-              lineColor: Theme.of(context).primaryColor,
-              progress: ((rewardService.daysActive + 5) / 27),
-              children: [...unlockItems])),
     );
   }
 
@@ -59,11 +65,7 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
     } else {
       String text = "";
       var daysToUnlock = unlockable.requiredDays - daysActive;
-      if (daysToUnlock == 1) {
-        text = "Noch $daysToUnlock Tag alle Aufgaben erledigen";
-      } else {
-        text = "Noch $daysToUnlock Tage alle Aufgaben erledigen";
-      }
+      text = "Du brauchst noch $daysToUnlock 💎";
       unlockButton = ElevatedButton(
         style: ElevatedButton.styleFrom(primary: Colors.grey),
         onPressed: () {

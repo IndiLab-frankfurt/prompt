@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:prompt/models/assessment.dart';
+import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -14,7 +13,7 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   int step = 0;
   int initialStep = 0;
 
-  Assessment lastAssessment = Assessment();
+  Questionnaire? lastQuestionnaire;
   DateTime startDate = DateTime.now();
 
   String nextButtonText = "Weiter";
@@ -24,14 +23,33 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   bool canMoveBack(ValueKey currentPageKey);
   bool canMoveNext(ValueKey currentPageKey);
 
-  void submit();
+  // @mustCallSuper
+  void submit() {
+    setState(ViewState.busy);
+  }
 
   Map<String, String> currentAssessmentResults = {};
   Map<String, Map<String, String>> allAssessmentResults = {};
   Map<String, Map<String, dynamic>> timings = {};
+  List<String> submittedResults = [];
 
   int getNextPage(ValueKey currentPageKey) {
     return step + 1;
+  }
+
+  Future<bool> doStepDependentSubmission(ValueKey currentPageKey) async {
+    return true;
+  }
+
+  Future<void> submitAssessmentResult(assessmentName) async {
+    if (!allAssessmentResults.containsKey(assessmentName)) {
+      return;
+    }
+    var assessmentResult = AssessmentResult(
+        allAssessmentResults[assessmentName]!, assessmentName, DateTime.now());
+    assessmentResult.startDate = this.startDate;
+    await dataService.saveAssessment(assessmentResult);
+    submittedResults.add(assessmentName);
   }
 
   setAssessmentResult(String assessmentType, String itemId, String value) {
@@ -45,16 +63,16 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void onAssessmentCompleted(Assessment assessment) {
+  void onAssessmentCompleted(Questionnaire assessment) {
     currentAssessmentIsFilledOut = true;
 
     notifyListeners();
   }
 
-  Future<Assessment> getAssessment(AssessmentTypes assessmentType) async {
+  Future<Questionnaire> getAssessment(AssessmentTypes assessmentType) async {
     String name = describeEnum(assessmentType);
-    Assessment assessment = await dataService.getAssessment(name);
-    lastAssessment = assessment;
+    Questionnaire assessment = await dataService.getAssessment(name);
+    lastQuestionnaire = assessment;
     currentAssessmentResults = {};
     return assessment;
   }
@@ -87,12 +105,12 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   }
 
   clearCurrent() {
-    lastAssessment = Assessment();
+    lastQuestionnaire = null;
     currentAssessmentResults = {};
   }
 
-  onAssessmentLoaded(Assessment assessment) {
-    lastAssessment = assessment;
+  onAssessmentLoaded(Questionnaire assessment) {
+    lastQuestionnaire = assessment;
     currentAssessmentResults = {};
   }
 

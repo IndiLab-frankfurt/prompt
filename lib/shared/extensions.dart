@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 
 extension PageControllerExtension on PageController {
   int get currentPageOrZero {
@@ -72,4 +72,19 @@ extension DateHelpers on DateTime {
         DateTime(other.year, other.month, other.day, 0, 0, 0);
     return compareDateThis.difference(compareDateOther).inDays;
   }
+}
+
+extension TimeOfDayHelpers on TimeOfDay {
+  String to24HourString() {
+    final hour = this.hour.toString().padLeft(2, "0");
+    final min = this.minute.toString().padLeft(2, "0");
+    return "$hour:$min";
+  }
+}
+
+TimeOfDay from24HourString(String input) {
+  var split = input.split(":");
+  var hour = int.parse(split[0]);
+  var min = int.parse(split[1]);
+  return TimeOfDay(hour: hour, minute: min);
 }

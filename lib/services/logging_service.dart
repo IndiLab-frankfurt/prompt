@@ -20,6 +20,7 @@ class LoggingService {
     };
     logs.add(event);
     _dataService.logData(event);
+    print(event);
   }
 
   logError(String eventName, {String data = ""}) {
