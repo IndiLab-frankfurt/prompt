@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/firebase_service.dart';
@@ -18,6 +19,8 @@ void setupLocator() {
   locator.registerSingleton<LocalDatabaseService>(LocalDatabaseService.db);
 
   locator.registerSingleton<FirebaseService>(FirebaseService());
+
+  locator.registerSingleton<ApiService>(ApiService());
 
   locator.registerSingleton<SettingsService>(
       SettingsService(locator.get<LocalDatabaseService>()));

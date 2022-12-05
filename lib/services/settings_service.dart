@@ -11,7 +11,6 @@ class SettingsKeys {
 }
 
 class SettingsService {
-  // SharedPreferences _prefs;
   LocalDatabaseService _databaseService;
 
   Map<String, String> _settingsCache = {
@@ -49,9 +48,7 @@ class SettingsService {
   }
 
   setSetting(String setting, String value) async {
-    await this
-        ._databaseService
-        .upsertSetting(setting, value); //_prefs.setString(setting, value);
+    await this._databaseService.upsertSetting(setting, value);
     _settingsCache[setting] = value;
   }
 

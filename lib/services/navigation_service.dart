@@ -5,9 +5,7 @@ class NavigationService {
 
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
-  void clearHistory() {
-    // _navigatorKey.currentState.
-  }
+  void clearHistory() {}
 
   void pop() {
     return _navigatorKey.currentState!.pop();

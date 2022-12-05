@@ -57,17 +57,6 @@ class FirebaseService implements IDatabaseService {
 
   Stream<User?> getCurrentUser() {
     return FirebaseAuth.instance.userChanges();
-    // return _firebaseAuth.currentUser;
-    //
-    // return FirebaseAuth.instance.authStateChanges().listen((User user) {
-    //   return user;
-    //   if (user == null) {
-    //     return null;
-    //     print('User is currently signed out!');
-    //   } else {
-    //     print('User is signed in!');
-    //   }
-    // });
   }
 
   Future<bool> isNameAvailable(String userId) async {

@@ -10,11 +10,7 @@ import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/shared/enums.dart';
 
 class UserService {
-  UserService(this._settings, this._databaseService) {
-    // _databaseService.getCurrentUser()!.listen((user) {
-    //   _isSignedIn = user != null;
-    // });
-  }
+  UserService(this._settings, this._databaseService);
 
   final SettingsService _settings;
   final IDatabaseService _databaseService;
@@ -128,9 +124,5 @@ class UserService {
 
   bool isSignedIn() {
     return _isSignedIn;
-    // return await FirebaseService().getCurrentUser().l.then((value) {
-    //   if (value == null) return false;
-    //   return true;
-    // });
   }
 }
