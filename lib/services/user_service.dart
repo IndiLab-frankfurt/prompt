@@ -11,9 +11,9 @@ import 'package:prompt/shared/enums.dart';
 
 class UserService {
   UserService(this._settings, this._databaseService) {
-    _databaseService.getCurrentUser()!.listen((user) {
-      _isSignedIn = user != null;
-    });
+    // _databaseService.getCurrentUser()!.listen((user) {
+    //   _isSignedIn = user != null;
+    // });
   }
 
   final SettingsService _settings;
@@ -22,6 +22,11 @@ class UserService {
   bool _isSignedIn = false;
 
   Future<bool> initialize() async {
+    await _settings.getSetting(SettingsKeys.userId).then((value) {
+      userId = value;
+      _isSignedIn = value.isnotNullOrEmpty;
+    });
+
     var id = getUsername();
     if (id.isEmpty) return false;
     return true;

@@ -179,7 +179,6 @@ class ExperimentService {
   }
 
   bool isFirstDay() {
-    var userData = _dataService.getUserDataCache();
     var daysAgo = getDaysSinceStart();
 
     return daysAgo == 1;

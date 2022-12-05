@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';

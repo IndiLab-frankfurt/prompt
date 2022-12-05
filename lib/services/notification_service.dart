@@ -45,18 +45,11 @@ class NotificationService {
 
     var initSettingsAndroid =
         new AndroidInitializationSettings('ic_notification');
-    var initSettingsIOS = new IOSInitializationSettings(
-        requestAlertPermission: true,
-        requestBadgePermission: true,
-        requestSoundPermission: true,
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    var initSettings = InitializationSettings(
-        android: initSettingsAndroid, iOS: initSettingsIOS);
+    var initSettings = InitializationSettings(android: initSettingsAndroid);
 
     await _configureLocalTimeZone();
 
-    await localNotifications.initialize(initSettings,
-        onSelectNotification: onSelectNotification);
+    await localNotifications.initialize(initSettings);
 
     return true;
   }
@@ -124,10 +117,8 @@ class NotificationService {
         channelDescription: CHANNEL_DESCRIPTION_MORNING_REMINDER,
         timeoutAfter: timeoutAfter,
         ongoing: true);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+    var notificationDetails =
+        new NotificationDetails(android: androidPlatformChannelSpecifics);
 
     locator.get<LoggingService>().logEvent("ScheduleNotificationTaskReminder");
 
@@ -165,10 +156,8 @@ class NotificationService {
         channelDescription: CHANNEL_DESCRIPTION_EVENING,
         ongoing: true,
         timeoutAfter: timeoutAfter);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+    var notificationDetails =
+        new NotificationDetails(android: androidPlatformChannelSpecifics);
 
     var scheduledDate = tz.TZDateTime(
         tz.local, time.year, time.month, time.day, time.hour, time.minute);
@@ -190,10 +179,8 @@ class NotificationService {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         CHANNEL_ID_BOOSTER_PROMPT, CHANNEL_NAME_BOOSTER_PROMPT,
         channelDescription: CHANNEL_DESCRIPTION_BOOSTER_PROMPT, ongoing: true);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+    var notificationDetails =
+        new NotificationDetails(android: androidPlatformChannelSpecifics);
 
     String title = "Mache jetzt weiter mit PROMPT!";
     String body = "";
@@ -215,10 +202,8 @@ class NotificationService {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         CHANNEL_ID_FINAL_REMINDER, CHANNEL_NAME_FINAL_REMINDER,
         channelDescription: CHANNEL_DESCRIPTION_FINAL_REMINDER, ongoing: true);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+    var notificationDetails =
+        new NotificationDetails(android: androidPlatformChannelSpecifics);
 
     var scheduledDate = tz.TZDateTime(tz.local, dateTime.year, dateTime.month,
         dateTime.day, dateTime.hour, dateTime.minute);
@@ -239,10 +224,8 @@ class NotificationService {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         "WURST", CHANNEL_NAME_EVENING,
         channelDescription: CHANNEL_DESCRIPTION_EVENING);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+    var notificationDetails =
+        new NotificationDetails(android: androidPlatformChannelSpecifics);
 
     var now = tz.TZDateTime.now(tz.local);
     tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month,

@@ -1,14 +1,5 @@
 enum ViewState { idle, busy }
 
-class SettingsKeys {
-  static const String userId = "userid";
-  static const String email = "email";
-  static const String timerDurationInSeconds = "timerDurationInSeconds";
-  static const String initSessionStep = "initSessionStep";
-  static const String backGroundImage = "backgroundImage";
-  static const String backgroundColors = "backgroundColors";
-}
-
 enum AppStartupMode {
   normal,
   signin,

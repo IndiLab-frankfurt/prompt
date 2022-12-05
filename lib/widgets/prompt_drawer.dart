@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:prompt/locator.dart';
-import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/notification_service.dart';
-import 'package:prompt/services/usage_stats/usage_stats_service.dart';
-import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/widgets/version_info.dart';
-import 'package:intl/intl.dart';
 
 class PromptDrawer extends StatelessWidget {
   PromptDrawer();

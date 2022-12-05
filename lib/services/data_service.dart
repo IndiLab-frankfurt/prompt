@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_item.dart';
@@ -13,7 +12,6 @@ import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/usage_stats/usage_info.dart';
 import 'package:prompt/services/user_service.dart';
-import 'package:prompt/shared/enums.dart';
 
 class DataService {
   final UserService _userService;
@@ -126,7 +124,7 @@ class DataService {
 
   Future<Map<String, dynamic>?> getInitialData() async {
     var ud = await getUserData();
-    var initData = await _databaseService.getInitialData(ud!.user);
+    await _databaseService.getInitialData(ud!.user);
     return null;
   }
 

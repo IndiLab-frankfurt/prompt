@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/screens/about_screen.dart';
 import 'package:prompt/screens/about_video_screen.dart';

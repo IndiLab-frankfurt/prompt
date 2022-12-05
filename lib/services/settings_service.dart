@@ -1,11 +1,21 @@
 import 'package:prompt/services/local_database_service.dart';
-import 'package:prompt/shared/enums.dart';
+
+class SettingsKeys {
+  static const String userId = "userid";
+  static const String email = "email";
+  static const String jwtToken = "jwtToken";
+  static const String timerDurationInSeconds = "timerDurationInSeconds";
+  static const String initSessionStep = "initSessionStep";
+  static const String backGroundImage = "backgroundImage";
+  static const String backgroundColors = "backgroundColors";
+}
 
 class SettingsService {
   // SharedPreferences _prefs;
   LocalDatabaseService _databaseService;
 
   Map<String, String> _settingsCache = {
+    SettingsKeys.jwtToken: "",
     SettingsKeys.userId: "",
     SettingsKeys.email: "",
     SettingsKeys.timerDurationInSeconds: "1500",
@@ -17,12 +27,6 @@ class SettingsService {
   SettingsService(this._databaseService);
 
   Future<bool> initialize() async {
-    // return SharedPreferences.getInstance().then((prefs) {
-    //   _prefs = prefs;
-    //   return true;
-    // }).catchError((error) {
-    //   return false;
-    // });
     var settings = await _databaseService.getAllSettings();
     for (var setting in settings) {
       print("Setting from db is $setting");
@@ -31,7 +35,12 @@ class SettingsService {
     return true;
   }
 
-  getSetting(String setting) {
+  getSetting(String key) async {
+    var settingsValue = await _databaseService.getSettingsValue(key);
+    return settingsValue;
+  }
+
+  getCachedSetting(String setting) {
     return _settingsCache[setting];
   }
 

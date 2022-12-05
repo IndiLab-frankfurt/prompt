@@ -40,7 +40,7 @@ class _QuestionnaireState extends State<Questionnaire> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((_) => afterBuild());
+    WidgetsBinding.instance.addPostFrameCallback((_) => afterBuild());
     print(widget.assessment.title);
     return Scrollbar(
       thickness: 8.0,

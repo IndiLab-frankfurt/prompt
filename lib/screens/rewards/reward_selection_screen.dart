@@ -65,7 +65,7 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
         text = "Noch $daysToUnlock Tage alle Aufgaben erledigen";
       }
       unlockButton = ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: Colors.grey),
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
         onPressed: () {
           setState(() {
             // rewardService.setBackgroundImagePath(path);
@@ -114,7 +114,8 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
           // Divider(),
           if (isSelected)
             ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.green[300]),
+              style:
+                  ElevatedButton.styleFrom(backgroundColor: Colors.green[300]),
               onPressed: () {
                 setState(() {});
                 Navigator.pushNamed(context, RouteNames.NO_TASKS);

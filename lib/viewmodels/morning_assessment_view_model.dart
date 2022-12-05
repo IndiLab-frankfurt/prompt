@@ -1,9 +1,7 @@
 import 'package:flutter/foundation.dart';
-import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
-import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
@@ -366,8 +364,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   int getNextStepAfterTest2() {
-    var daysAgo = experimentService.getDaysSinceStart();
-
     if (group > 1) {
       if (experimentService.isTimeForFinalQuestions()) {
         return getStepIndex(MorningAssessmentStep.finalPromptDayIntroduction);
@@ -395,8 +391,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   int getNextStepAfterFinal3() {
-    var daysAgo = experimentService.getDaysSinceStart();
-
     if ([2, 3, 7].contains(group)) {
       return getStepIndex(MorningAssessmentStep.finalPromptDayComplete);
     } else if ([
