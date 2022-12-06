@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       // debugShowMaterialGrid: true,
-      title: 'Serene',
+      title: 'Prompt',
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.orange[50],
           canvasColor: Colors.white,

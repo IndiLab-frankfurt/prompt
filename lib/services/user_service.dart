@@ -18,10 +18,10 @@ class UserService {
   bool _isSignedIn = false;
 
   Future<bool> initialize() async {
-    await _settings.getSetting(SettingsKeys.userId).then((value) {
-      userId = value;
-      _isSignedIn = value.isnotNullOrEmpty;
-    });
+    // await _settings.getSetting(SettingsKeys.userId).then((value) {
+    //   userId = value;
+    //   _isSignedIn = value.isnotNullOrEmpty;
+    // });
 
     var id = getUsername();
     if (id.isEmpty) return false;
@@ -119,7 +119,9 @@ class UserService {
   }
 
   String getUsername() {
-    return _settings.getSetting(SettingsKeys.userId);
+    var userid = _settings.getSetting(SettingsKeys.userId);
+    if (userid == null) return "";
+    return userid;
   }
 
   bool isSignedIn() {

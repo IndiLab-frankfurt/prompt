@@ -34,12 +34,12 @@ class SettingsService {
     return true;
   }
 
-  getSetting(String key) async {
+  getSettingUncached(String key) async {
     var settingsValue = await _databaseService.getSettingsValue(key);
     return settingsValue;
   }
 
-  getCachedSetting(String setting) {
+  getSetting(String setting) {
     return _settingsCache[setting];
   }
 

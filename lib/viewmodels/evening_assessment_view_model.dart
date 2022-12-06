@@ -78,9 +78,6 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   int getStepAfterEveningItems() {
-    // TODO: Actual logic
-    bool promptWasCompleted = true;
-
     return getStepIndex(EveningAssessmentStep.completed);
   }
 
