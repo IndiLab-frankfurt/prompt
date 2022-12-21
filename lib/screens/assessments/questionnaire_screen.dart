@@ -11,20 +11,20 @@ typedef void OnAssessmentCompletedCallback(Assessment assessment);
 
 typedef void OnLoadedCallback(Assessment assessment);
 
-class Questionnaire extends StatefulWidget {
+class QuestionnaireScreen extends StatefulWidget {
   final Assessment assessment;
   final ItemSelectedCallback onFinished;
   final OnLoadedCallback onLoaded;
   final OnAssessmentCompletedCallback? onAssessmentCompleted;
-  const Questionnaire(this.assessment, this.onFinished,
+  const QuestionnaireScreen(this.assessment, this.onFinished,
       {required this.onLoaded, this.onAssessmentCompleted, Key? key})
       : super(key: key);
 
   @override
-  _QuestionnaireState createState() => _QuestionnaireState();
+  _QuestionnaireScreenState createState() => _QuestionnaireScreenState();
 }
 
-class _QuestionnaireState extends State<Questionnaire> {
+class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
   Map<String, String> _results = {};
 
   @override
@@ -109,7 +109,7 @@ class _QuestionnaireState extends State<Questionnaire> {
             callback: (val) {
               print("Changed Assessment value to: $val");
               setState(() {
-                this.widget.onFinished(widget.assessment.id,
+                this.widget.onFinished(widget.assessment.name,
                     widget.assessment.items[index].id, val);
                 _results[widget.assessment.items[index].id] = val;
               });

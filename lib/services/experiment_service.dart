@@ -117,10 +117,6 @@ class ExperimentService {
     return vocabTestDays.contains(getDaysSinceStart() - 1);
   }
 
-  bool didCompleteFinal() {
-    return _dataService.getUserDataCache().finalQuestionsCompleted;
-  }
-
   int getDaysSinceStart() {
     var regDate = _dataService.getUserDataCache().registrationDate;
     var compareDate =
@@ -199,16 +195,6 @@ class ExperimentService {
   }
 
   isTimeForFinalQuestions() {
-    var group = _dataService.getUserDataCache().group;
-    var daysAgo = getDaysSinceStart();
-    if (!didCompleteFinal()) {
-      if ([2, 3, 4, 5, 6, 7].contains(group) && daysAgo >= 36) {
-        return true;
-      }
-      if (group == 1 && daysAgo >= 54) {
-        return true;
-      }
-    }
     return false;
   }
 
@@ -216,9 +202,7 @@ class ExperimentService {
     var userData = _dataService.getUserDataCache();
     var daysAgo = getDaysSinceStart();
 
-    var hasSeen = userData.hasSeenDistributedPracticeIntervention;
-
-    return (daysAgo >= 18) && (userData.group == 1) && !hasSeen;
+    return (daysAgo >= 18) && (userData.group == "1");
   }
 
   bool hasCompletedSessionZero() {
@@ -277,25 +261,10 @@ class ExperimentService {
   bool shouldShowDistributedLearningVideo() {
     var ud = _dataService.getUserDataCache();
     var daysAgo = getDaysSinceStart();
-    return (ud.group == 1) && (daysAgo == 18);
+    return (ud.group == "1") && (daysAgo == 18);
   }
 
-  InternalisationCondition getInternalisationCondition() {
-    var userData = _dataService.getUserDataCache();
-    var daysAgo = getDaysSinceStart();
-
-    var condition =
-        getInternalisationConditionForGroupAndDay(daysAgo, userData.group);
-    return InternalisationCondition.values[condition];
-  }
-
-  int getInternalisationConditionForGroupAndDay(int group, int day) {
-    var number = (group + day) % InternalisationCondition.values.length;
-
-    return number;
-  }
-
-  schedulePrompts(int group) {
+  schedulePrompts(String group) {
     var now = DateTime.now();
     var reminderHour = 5;
     var schedule = DateTime(now.year, now.month, now.day, reminderHour, 00);

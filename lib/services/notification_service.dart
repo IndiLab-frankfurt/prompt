@@ -7,7 +7,8 @@ import 'package:timezone/timezone.dart' as tz;
 import 'package:collection/collection.dart';
 
 class NotificationService {
-  late FlutterLocalNotificationsPlugin localNotifications;
+  FlutterLocalNotificationsPlugin localNotifications =
+      FlutterLocalNotificationsPlugin();
 
   static const String CHANNEL_ID_MORNING_REMINDER = "WDP Erinnerung";
   static const String CHANNEL_NAME_MORNING_REMINDER =

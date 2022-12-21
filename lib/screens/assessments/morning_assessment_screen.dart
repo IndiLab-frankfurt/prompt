@@ -116,7 +116,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
   }
 
   dynamic internalisation() {
-    var condition = vm.getInternalisationCondition();
+    var condition = InternalisationCondition.emojiIf;
 
     Widget internalisation = Text("");
     switch (condition) {

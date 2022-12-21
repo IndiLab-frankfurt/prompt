@@ -26,7 +26,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _userIdTextController = TextEditingController();
   late TextEditingController _passwordTextController = TextEditingController();
-
+  bool _obscurePassword = true;
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -113,9 +113,7 @@ class _LoginScreenState extends State<LoginScreen> {
               controller: _userIdTextController,
               keyboardType: TextInputType.number,
               textAlign: TextAlign.center,
-              onChanged: (text) {
-                // Provider.of<LoginState>(context).userId =
-              },
+              onChanged: (text) {},
               validator: (String? arg) {
                 if (arg!.length != 6) {
                   return "Dein Code sollte aus sechs Zeichen bestehen";
@@ -124,11 +122,82 @@ class _LoginScreenState extends State<LoginScreen> {
                 }
               },
               decoration: InputDecoration(
-                // labelText: "Email",
-                // alignLabelWithHint: true,
                 border: InputBorder.none,
                 hintText: AppStrings.LoginScreen_EnterCode,
               ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildPasswordField(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(left: 40.0, right: 40.0),
+      alignment: Alignment.center,
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+              color: Colors.black, width: 0.5, style: BorderStyle.solid),
+        ),
+      ),
+      padding: const EdgeInsets.only(left: 0.0, right: 10.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Expanded(
+            child: TextFormField(
+              obscureText: _obscurePassword,
+              controller: _passwordTextController,
+              textAlign: TextAlign.center,
+              validator: (value) {
+                if (value!.isEmpty) {
+                  return 'Bitte gib dein Passwort ein';
+                }
+                return null;
+              },
+              decoration: InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Passwort eingeben',
+                suffixIcon: IconButton(
+                  icon: Icon(_obscurePassword
+                      ? Icons.visibility
+                      : Icons.visibility_off),
+                  onPressed: () {
+                    setState(() {
+                      _obscurePassword = !_obscurePassword;
+                    });
+                  },
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildForgotPassword(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(left: 40.0, right: 40.0),
+      alignment: Alignment.center,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Expanded(
+            child: TextButton(
+              child: Text(
+                AppStrings.Login_ForgotPassword,
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, '/forgotPassword');
+              },
             ),
           ),
         ],
@@ -177,7 +246,7 @@ class _LoginScreenState extends State<LoginScreen> {
           children: <Widget>[
             UIHelper.verticalSpaceLarge(),
             buildUserIdField(context),
-            // buildPasswordInput(context),
+            buildPasswordField(context),
             new Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
@@ -188,6 +257,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
+            UIHelper.verticalSpaceLarge(),
+            buildForgotPassword(context),
           ],
         ),
       ),

@@ -1,9 +1,12 @@
 import 'package:prompt/services/local_database_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SettingsKeys {
-  static const String userId = "userid";
+  static const String username = "userid";
   static const String email = "email";
-  static const String jwtToken = "jwtToken";
+  static const String password = "";
+  static const String accessToken = "accessToken";
+  static const String refreshToken = "refreshToken";
   static const String timerDurationInSeconds = "timerDurationInSeconds";
   static const String initSessionStep = "initSessionStep";
   static const String backGroundImage = "backgroundImage";
@@ -11,31 +14,37 @@ class SettingsKeys {
 }
 
 class SettingsService {
-  LocalDatabaseService _databaseService;
+  // LocalDatabaseService _databaseService;
+
+  final storage = new FlutterSecureStorage();
 
   Map<String, String> _settingsCache = {
-    SettingsKeys.jwtToken: "",
-    SettingsKeys.userId: "",
+    SettingsKeys.accessToken: "",
+    SettingsKeys.username: "",
     SettingsKeys.email: "",
+    SettingsKeys.refreshToken: "",
     SettingsKeys.timerDurationInSeconds: "1500",
     SettingsKeys.initSessionStep: "0",
     SettingsKeys.backGroundImage: "",
     SettingsKeys.backgroundColors: "ffffff,ffffff"
   };
 
-  SettingsService(this._databaseService);
+  // TODO: MIGRATE TO SECURE STORAGE
+  SettingsService();
 
   Future<bool> initialize() async {
-    var settings = await _databaseService.getAllSettings();
-    for (var setting in settings) {
-      print("Setting from db is $setting");
-      _settingsCache[setting["key"]] = setting["value"].toString();
-    }
+    Map<String, String> allValues = await storage.readAll();
+
+    _settingsCache = {
+      ..._settingsCache,
+      ...allValues,
+    };
+
     return true;
   }
 
   getSettingUncached(String key) async {
-    var settingsValue = await _databaseService.getSettingsValue(key);
+    var settingsValue = await storage.read(key: key);
     return settingsValue;
   }
 
@@ -43,17 +52,13 @@ class SettingsService {
     return _settingsCache[setting];
   }
 
-  getInitSessionStep() {
-    return int.parse(_settingsCache[SettingsKeys.initSessionStep]!);
-  }
-
   setSetting(String setting, String value) async {
-    await this._databaseService.upsertSetting(setting, value);
+    await this.storage.write(key: setting, value: value);
     _settingsCache[setting] = value;
   }
 
   deleteSetting(String setting) async {
-    await this._databaseService.deleteSetting(setting);
+    await this.storage.delete(key: setting);
     _settingsCache.remove(setting);
   }
 }

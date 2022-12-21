@@ -133,8 +133,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     var group = ud.group;
 
     screenOrder = getScreenOrder(group);
-
-    notifyListeners();
   }
 
   Future<bool> getInitialValues() async {
@@ -150,7 +148,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     return true;
   }
 
-  static List<SessionZeroStep> getScreenOrder(int group) {
+  static List<SessionZeroStep> getScreenOrder(String group) {
     List<SessionZeroStep> screenOrder = [];
 
     List<SessionZeroStep> firstScreens = [
@@ -194,30 +192,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planInternalisationEmoji,
       SessionZeroStep.planTiming,
     ];
-
-    if (group == 1) {
-      screenOrder = [...firstScreens, ...finalSteps];
-    } else if (group == 2 || group == 3) {
-      screenOrder = [...firstScreens, ...distributedLearning, ...finalSteps];
-    } else if (group == 5 || group == 6 || group == 4) {
-      screenOrder = [
-        ...firstScreens,
-        ...distributedLearning,
-        ...internalisationSteps,
-        ...finalSteps
-      ];
-    } else if (group == 7) {
-      screenOrder = [...firstScreens, ...distributedLearning, ...finalSteps];
-    } else {
-      throw Exception(
-          "Attempting to request data for a group that does not exist ");
-    }
-
-    if (Platform.isAndroid) {
-      screenOrder.add(SessionZeroStep.instructions_appPermissions);
-    }
-
-    // screenOrder.removeRange(0, firstStep);
 
     return screenOrder;
   }

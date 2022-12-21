@@ -11,8 +11,6 @@ class UsageStatsService {
   static Future<void> grantUsagePermission() async {
     var result = await _channel.invokeMethod('grantUsagePermission');
     print(result);
-    locator<LoggingService>()
-        .logEvent("UsagePermissions", data: {"result": result});
   }
 
   static Future<List<UsageInfo>> queryUsageStats(

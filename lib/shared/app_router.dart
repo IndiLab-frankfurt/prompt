@@ -33,8 +33,7 @@ import 'package:provider/provider.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    locator<LoggingService>().logEvent("navigation",
-        data: {"routeName": settings.name, "routeArgs": settings.arguments});
+    locator<LoggingService>().logEvent("navigation", data: settings.name ?? "");
     switch (settings.name) {
       case RouteNames.LOG_IN:
         return MaterialPageRoute(

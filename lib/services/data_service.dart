@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_item.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/authentication_response.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
@@ -14,23 +15,17 @@ import 'package:prompt/services/usage_stats/usage_info.dart';
 import 'package:prompt/services/user_service.dart';
 
 class DataService {
-  final UserService _userService;
   final IDatabaseService _databaseService;
-  final LocalDatabaseService _localDatabaseService;
   final SettingsService _settingsService;
 
   UserData? _userDataCache;
   AssessmentResult? _lastAssessmentResultCache;
   List<AssessmentResult>? _assessmentResultsCache;
 
-  DataService(this._databaseService, this._userService,
-      this._localDatabaseService, this._settingsService);
+  DataService(this._databaseService, this._settingsService);
 
-  logData(dynamic data) async {
-    data["userid"] = _userService.getUsername();
-    if (_userService.isSignedIn()) {
-      await _databaseService.logEvent(_userService.getUsername(), data);
-    }
+  logData(Map<String, String> data) async {
+    _databaseService.logEvent(data);
   }
 
   setUserDataCache(UserData ud) async {
@@ -38,11 +33,10 @@ class DataService {
   }
 
   Future<UserData?> getUserData() async {
-    var username = _userService.getUsername();
-    if (username.isEmpty) return null;
     if (_userDataCache == null) {
-      _userDataCache = (await _databaseService.getUserData(username));
+      _userDataCache = (await _databaseService.getUserData());
     }
+
     return _userDataCache;
   }
 
@@ -51,16 +45,18 @@ class DataService {
   }
 
   saveScore(int score) async {
-    var ud = await getUserData();
-    ud?.score = score;
-    await _databaseService.saveScore(_userService.getUsername(), score);
+    throw Exception("Not implemented");
+    // var ud = await getUserData();
+    // ud?.score = score;
+    // await _databaseService.saveScore(_userService.getUsername(), score);
   }
 
   saveSessionZeroStep(int step) async {
-    var ud = getUserDataCache();
-    ud.initSessionStep = step;
-    await _databaseService.saveInitSessionStepCompleted(
-        _userService.getUsername(), step);
+    throw Exception("Not implemented");
+    // var ud = getUserDataCache();
+    // ud.initSessionStep = step;
+    // await _databaseService.saveInitSessionStepCompleted(
+    //     _userService.getUsername(), step);
   }
 
   Future<int> getDaysActive() async {
@@ -153,12 +149,13 @@ class DataService {
   }
 
   saveDaysActive(int daysActive) async {
-    var ud = await getUserData();
-    if (ud != null) {
-      ud.daysActive = daysActive;
-      await _databaseService.saveDaysAcive(
-          _userService.getUsername(), daysActive);
-    }
+    throw Exception("Not implemented");
+    // var ud = await getUserData();
+    // if (ud != null) {
+    //   ud.daysActive = daysActive;
+    //   await _databaseService.saveDaysAcive(
+    //       _userService.getUsername(), daysActive);
+    // }
   }
 
   savePlan(String plan) async {
@@ -171,7 +168,7 @@ class DataService {
     var ud = getUserDataCache();
 
     await _databaseService.saveUserDataProperty(ud.user, propertyname, value);
-    _userDataCache = await _databaseService.getUserData(ud.user);
+    _userDataCache = await _databaseService.getUserData();
   }
 
   saveBoosterPromptReadTimes(DateTime start, DateTime end) async {
@@ -215,8 +212,8 @@ class DataService {
   }
 
   Future<List<Color>> getBackgroundGradientColors() async {
-    var colorString = await _localDatabaseService
-        .getSettingsValue(SettingsKeys.backgroundColors);
+    var colorString =
+        await _settingsService.getSetting(SettingsKeys.backgroundColors);
     if (colorString != null) {
       List<String> colorStringList = colorString.split(",");
       var list =
@@ -237,8 +234,7 @@ class DataService {
   }
 
   Future<void> setBackgroundImage(String imagePath) async {
-    await _localDatabaseService.upsertSetting(
-        SettingsKeys.backGroundImage, imagePath);
+    await _settingsService.setSetting(SettingsKeys.backGroundImage, imagePath);
   }
 
   Future<String?> getBackgroundImagePath() async {
@@ -250,27 +246,29 @@ class DataService {
         .map((e) => e.toString().split('(0x')[1].split(')')[0])
         .toList()
         .join(",");
-    _localDatabaseService.upsertSetting(
-        SettingsKeys.backgroundColors, colorString);
+    _settingsService.setSetting(SettingsKeys.backgroundColors, colorString);
   }
 
   saveInternalisation(Internalisation internalisation) async {
-    return await _databaseService.saveInternalisation(
-        internalisation, _userService.getUsername());
+    throw Exception("Not implemented");
+    // return await _databaseService.saveInternalisation(
+    //     internalisation, _userService.getUsername());
   }
 
   Future<void> setStreakDays(int value) async {
-    var ud = await getUserData();
-    ud?.streakDays = value;
-    return await _databaseService.setStreakDays(
-        _userService.getUsername(), value);
+    throw Exception("Not implemented");
+    // var ud = await getUserData();
+    // ud?.streakDays = value;
+    // return await _databaseService.setStreakDays(
+    //     _userService.getUsername(), value);
   }
 
   setRegistrationDate(DateTime dateTime) async {
-    var ud = await getUserData();
-    ud?.registrationDate = dateTime;
-    return await _databaseService.setRegistrationDate(
-        _userService.getUsername(), dateTime.toIso8601String());
+    throw Exception("Not implemented");
+    // var ud = await getUserData();
+    // ud?.registrationDate = dateTime;
+    // return await _databaseService.setRegistrationDate(
+    //     _userService.getUsername(), dateTime.toIso8601String());
   }
 
   getAssessment(String name) async {
@@ -279,7 +277,7 @@ class DataService {
     var json = jsonDecode(data);
 
     var ass = Assessment();
-    ass.id = json["id"];
+    ass.name = json["id"];
     ass.title = json["title"];
     ass.items = [];
     for (var question in json["questions"]) {
@@ -288,5 +286,10 @@ class DataService {
     }
 
     return ass;
+  }
+
+  Future<AuthenticationResponse?> signInUser(
+      String username, String password) async {
+    return await _databaseService.signInUser(username, password);
   }
 }

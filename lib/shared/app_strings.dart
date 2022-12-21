@@ -139,4 +139,7 @@ class AppStrings {
       'Heute sollst du in cabuu den letzten Test machen. Klicke dazu in cabuu auf Liste 6 und wähle "Abfrage".';
   static const String MorningAssessment_lastVocab1_2 =
       'Mach bitte den Test und komm danach direkt zurück zu PROMPT, um die letzten Fragen zu beantworten. Danach bist du fertig mit der Studie.';
+
+  static const String Login_ForgotPassword =
+      "Passwort vergessen? Klicke hier und wir erklären dir, was zu tun ist.";
 }

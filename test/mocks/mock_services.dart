@@ -1,3 +1,4 @@
+import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/i_database_service.dart';
@@ -9,15 +10,11 @@ import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/user_service.dart';
 
-import 'mock_firebase_service.dart';
-
-IDatabaseService mockFirebaseService = MockFirebaseService();
 LocalDatabaseService mockLocalDatabaseService = LocalDatabaseService.db;
-SettingsService mockSettingsService = SettingsService(mockLocalDatabaseService);
-UserService mockUserService =
-    UserService(mockSettingsService, mockFirebaseService);
-DataService mockDataService = DataService(mockFirebaseService, mockUserService,
-    mockLocalDatabaseService, mockSettingsService);
+SettingsService mockSettingsService = SettingsService();
+IDatabaseService apiService = ApiService(mockSettingsService);
+DataService mockDataService = DataService(apiService, mockSettingsService);
+UserService mockUserService = UserService(mockSettingsService, mockDataService);
 LoggingService mockLoggingService = LoggingService(mockDataService);
 NotificationService mockNotificationService = NotificationService();
 RewardService mockRewardService =

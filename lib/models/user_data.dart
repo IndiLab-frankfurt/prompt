@@ -1,9 +1,11 @@
+import 'package:json_annotation/json_annotation.dart';
 import 'dart:io';
 
+// part 'UserData.g.dart';
+@JsonSerializable()
 class UserData {
-  String firebaseId = "";
   String user = "";
-  int group = 1;
+  String group = "1";
   DateTime registrationDate = DateTime.now();
   int streakDays = 0;
   int score = 0;
@@ -13,13 +15,10 @@ class UserData {
   String selectedMascot = "1";
   String cabuuCode = "123";
   String platform = Platform.isAndroid ? "Android" : "iOS";
-  bool hasSeenDistributedPracticeIntervention = false;
-  bool finalQuestionsCompleted = false;
 
   UserData(
-      {required this.firebaseId,
-      required this.user,
-      this.group = 1,
+      {required this.user,
+      this.group = "1",
       required this.registrationDate,
       this.cabuuCode = "123",
       this.streakDays = 0,
@@ -31,7 +30,6 @@ class UserData {
 
   Map<String, dynamic> toMap() {
     return {
-      "firebaseId": this.firebaseId,
       "user": this.user,
       "group": this.group,
       "registrationDate": this.registrationDate.toIso8601String(),
@@ -39,48 +37,17 @@ class UserData {
       "score": this.score,
       "daysActive": this.daysActive,
       "initSessionStep": this.initSessionStep,
-      "appVersion": this.appVersion,
+      "app_version": this.appVersion,
       "selectedMascot": this.selectedMascot,
       "cabuuCode": this.cabuuCode,
-      "hasSeenDistributedPracticeIntervention":
-          this.hasSeenDistributedPracticeIntervention,
-      "finalQuestionsCompleted": this.finalQuestionsCompleted
     };
   }
 
   UserData.fromJson(Map<String, dynamic> json) {
-    user = json["user"];
-    firebaseId = json["firebaseId"];
+    user = json["user"].toString();
     group = json["group"];
-    registrationDate = DateTime.parse(json["registrationDate"]);
-
-    if (json.containsKey("score")) {
-      score = json["score"];
-    }
-    if (json.containsKey("streakDays")) {
-      streakDays = json["streakDays"];
-    }
-    if (json.containsKey("daysActive")) {
-      daysActive = json["daysActive"];
-    }
-    if (json.containsKey("initSessionStep")) {
-      initSessionStep = json["initSessionStep"];
-    }
-    if (json.containsKey("appVersion")) {
-      appVersion = json["appVersion"];
-    }
-    if (json.containsKey("selectedMascot")) {
-      selectedMascot = json["selectedMascot"];
-    }
-    if (json.containsKey("cabuuCode")) {
-      cabuuCode = json["cabuuCode"];
-    }
-    if (json.containsKey("hasSeenDistributedPracticeIntervention")) {
-      hasSeenDistributedPracticeIntervention =
-          json["hasSeenDistributedPracticeIntervention"];
-    }
-    if (json.containsKey("finalQuestionsCompleted")) {
-      finalQuestionsCompleted = json["finalQuestionsCompleted"];
-    }
+    appVersion = json["app_version"];
+    initSessionStep = json["init_step"];
+    score = json["score"];
   }
 }

@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/authentication_response.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/user_data.dart';
@@ -16,9 +17,9 @@ abstract class IDatabaseService {
 
   saveScrambleCorrections(dynamic corrections);
 
-  Future<UserData?> getUserData(String email);
+  Future<UserData?> getUserData();
 
-  Future<User?> signInUser(String userId, String password);
+  Future<AuthenticationResponse?> signInUser(String userId, String password);
 
   saveAssessment(AssessmentResult assessment, String userid);
 
@@ -28,7 +29,7 @@ abstract class IDatabaseService {
 
   Future<void> saveScore(String userid, int score);
 
-  logEvent(String userid, dynamic data);
+  logEvent(Map<String, String> data);
 
   Future<void> saveInitSessionStepCompleted(String userid, int step);
 

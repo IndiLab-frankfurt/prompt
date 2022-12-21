@@ -1,9 +1,10 @@
 const srl = {
   "title": "Gib an, wie oft folgende Aussagen auf dich zutreffen.",
-  "id": "srl",
+  "name": "srl",
+  "type": "single",
   "questions": [
     {
-      "id": "srl_1",
+      "name": "srl_1",
       "questionText": "Wann ich Vokabeln lerne, lege ich vorher fest.",
       "labels": {
         "1": "(Fast) nie",
@@ -14,7 +15,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_2",
+      "name": "srl_2",
       "questionText": "Beim Vokabellernen bin ich ängstlich und nervös.",
       "labels": {
         "1": "(Fast) nie",
@@ -25,7 +26,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_3",
+      "name": "srl_3",
       "questionText":
           "Ich vergesse, Vokabeln zu lernen, obwohl ich es eigentlich vorhatte.",
       "labels": {
@@ -37,7 +38,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_4",
+      "name": "srl_4",
       "questionText":
           "Ich will Vokabeln lernen, aber dann kommt mir etwas dazwischen.",
       "labels": {
@@ -49,7 +50,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_5",
+      "name": "srl_5",
       "questionText": "Beim Vokabellernen ist mir langweilig.",
       "labels": {
         "1": "(Fast) nie",
@@ -60,7 +61,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_6",
+      "name": "srl_6",
       "questionText":
           "Beim Lernen von Vokabeln kann ich mich nur schlecht konzentrieren.",
       "labels": {
@@ -72,7 +73,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_7",
+      "name": "srl_7",
       "questionText":
           "Ich verspreche mir oft selbst, Vokabeln zu lernen, lege dann aber meine Füße hoch.",
       "labels": {
@@ -84,7 +85,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_8",
+      "name": "srl_8",
       "questionText":
           "Wenn ich keine Lust habe, kann ich mich trotzdem zum Vokabellernen überwinden.",
       "labels": {
@@ -96,7 +97,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_9",
+      "name": "srl_9",
       "questionText":
           "Zum Lernen von Vokabeln suche ich mir einen ruhigen Ort.",
       "labels": {
@@ -108,7 +109,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_10",
+      "name": "srl_10",
       "questionText": "Ich entscheide ganz spontan, wann ich Vokabeln lerne.",
       "labels": {
         "1": "(Fast) nie",
@@ -119,7 +120,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_11",
+      "name": "srl_11",
       "questionText": "Beim Lernen von Vokabeln bin ich frustriert.",
       "labels": {
         "1": "(Fast) nie",
@@ -130,7 +131,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_12",
+      "name": "srl_12",
       "questionText":
           "Ich nehme mir vor, Vokabeln zu lernen, vergesse es dann aber.",
       "labels": {
@@ -142,7 +143,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_13",
+      "name": "srl_13",
       "questionText":
           "Ich habe so viel anderes zu tun, dass ich gar nicht zum Lernen von Vokabeln komme.",
       "labels": {
@@ -154,7 +155,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_14",
+      "name": "srl_14",
       "questionText": "Ich denke während des Vokabellernens an andere Dinge.",
       "labels": {
         "1": "(Fast) nie",
@@ -165,7 +166,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_15",
+      "name": "srl_15",
       "questionText": "Beim Lernen von Vokabeln mache ich mir Sorgen.",
       "labels": {
         "1": "(Fast) nie",
@@ -176,7 +177,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_16",
+      "name": "srl_16",
       "questionText":
           "Während ich Vokabeln lerne, mache ich nebenbei andere Dinge (z.B. Fernsehen, Musik hören).",
       "labels": {
@@ -188,7 +189,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_17",
+      "name": "srl_17",
       "questionText":
           "Auch wenn ich es hasse, dass ich mit dem Vokabellernen nicht in die Gänge komme, kann ich es nicht ändern.",
       "labels": {
@@ -200,7 +201,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_18",
+      "name": "srl_18",
       "questionText":
           "Wenn mir beim Vokabellernen langweilig ist, höre ich auf oder gebe mir keine Mühe mehr.",
       "labels": {
@@ -212,7 +213,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_19",
+      "name": "srl_19",
       "questionText":
           "Ich sorge dafür, dass beim Vokabellernen so wenige Ablenkungen wie möglich auftreten.",
       "labels": {
@@ -224,7 +225,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_20",
+      "name": "srl_20",
       "questionText": "Beim Vokabellernen ärgere ich mich.",
       "labels": {
         "1": "(Fast) nie",
@@ -235,7 +236,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_21",
+      "name": "srl_21",
       "questionText":
           "Ich weiß genau, wie oft oder an welchen Tagen ich Vokabeln lernen will.",
       "labels": {
@@ -247,7 +248,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_22",
+      "name": "srl_22",
       "questionText": "Ich denke einfach nicht daran, Vokabeln zu lernen.",
       "labels": {
         "1": "(Fast) nie",
@@ -258,7 +259,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_23",
+      "name": "srl_23",
       "questionText": "Zum Lernen von Vokabeln fehlt mir die Zeit.",
       "labels": {
         "1": "(Fast) nie",
@@ -269,7 +270,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_24",
+      "name": "srl_24",
       "questionText": "Beim Vokabellernen habe ich Spaß.",
       "labels": {
         "1": "(Fast) nie",
@@ -280,7 +281,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_25",
+      "name": "srl_25",
       "questionText":
           "Während ich Vokabeln lerne, schweifen meine Gedanken ab.",
       "labels": {
@@ -292,7 +293,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_26",
+      "name": "srl_26",
       "questionText":
           "Ich schiebe das Vokabellernen auf, sogar wenn es mir wichtig ist.",
       "labels": {
@@ -304,7 +305,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_27",
+      "name": "srl_27",
       "questionText":
           "Wenn ich beim Vokabellernen die Lust verliere, fällt es mir schwer, weiterzumachen.",
       "labels": {
@@ -316,7 +317,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_28",
+      "name": "srl_28",
       "questionText":
           "Nachdem ich Vokabeln gelernt habe, bin ich stolz auf mich.",
       "labels": {
@@ -328,7 +329,7 @@ const srl = {
       }
     },
     {
-      "id": "srl_29",
+      "name": "srl_29",
       "questionText":
           "Ich sehe zu, dass ich alle möglichen Ablenkungen beseitige, bevor ich anfange, Vokabeln zu lernen.",
       "labels": {

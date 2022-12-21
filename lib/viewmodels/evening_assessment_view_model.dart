@@ -60,7 +60,7 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
     }
   }
 
-  int group = 0;
+  String group = "0";
 
   int getStepIndex(EveningAssessmentStep step) {
     return screenOrder.indexOf(step);

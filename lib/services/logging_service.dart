@@ -5,14 +5,12 @@ class LoggingService {
   DataService _dataService;
   LoggingService(this._dataService);
 
-  getTimestamp() {
+  String getTimestamp() {
     return DateTime.now().toIso8601String();
   }
 
-  logData(String data) {}
-
-  logEvent(String eventName, {Map<String, dynamic>? data}) {
-    Map<String, dynamic> event = {
+  logEvent(String eventName, {String data = ""}) {
+    Map<String, String> event = {
       "type": "event",
       "time": getTimestamp(),
       "name": eventName,

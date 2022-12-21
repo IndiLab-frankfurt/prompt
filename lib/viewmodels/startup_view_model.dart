@@ -50,10 +50,6 @@ class StartupViewModel extends BaseViewModel {
 
   Future<AppStartupMode> initialize() async {
     await locator<SettingsService>().initialize();
-    addDebugText("Initialized Settings Service");
-    await locator<NotificationService>().initialize();
-    addDebugText("Initialized Notification Service");
-    await locator<RewardService>().initialize();
 
     bool userInitialized = await locator<UserService>().initialize();
     addDebugText("User Initialized: $userInitialized");
@@ -61,6 +57,11 @@ class StartupViewModel extends BaseViewModel {
     if (!userInitialized || !signedIn) {
       return AppStartupMode.firstLaunch;
     }
+
+    addDebugText("Initialized Settings Service");
+    await locator<NotificationService>().initialize();
+    addDebugText("Initialized Notification Service");
+    await locator<RewardService>().initialize();
 
     var userData = await locator<DataService>().getUserData();
     if (userData == null) {

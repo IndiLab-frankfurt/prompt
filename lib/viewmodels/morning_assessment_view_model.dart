@@ -59,7 +59,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
   InternalisationViewModel internalisationViewmodel =
       InternalisationViewModel();
 
-  int group = 0;
+  String group = "0";
 
   final Duration boosterPromptDuration = Duration(seconds: 10);
   final Duration waitingInternalisationDuration = Duration(seconds: 15);
@@ -109,7 +109,7 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     return experimentService.getNextVocabListNumber();
   }
 
-  List<MorningAssessmentStep> getScreenOrder(int group) {
+  List<MorningAssessmentStep> getScreenOrder(String group) {
     List<MorningAssessmentStep> order = [];
     // order.addAll(MorningAssessmentStep.values);
     // return order;
@@ -170,34 +170,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         MorningAssessmentStep.distributedLearningVideo,
         MorningAssessmentStep.assessment_distributedLearning,
       ]);
-    }
-
-    if (experimentService.isTimeForFinalQuestions()) {
-      if ([2, 3, 4, 5, 6].contains(group)) {
-        order.addAll([
-          MorningAssessmentStep.finalPromptDayIntroduction,
-          MorningAssessmentStep.assessment_finalSession_1,
-          MorningAssessmentStep.assessment_finalSession_2,
-          MorningAssessmentStep.assessment_finalSession_3,
-          MorningAssessmentStep.planDisplay,
-          MorningAssessmentStep.assessment_finalSession_4,
-          MorningAssessmentStep.finalPromptDayComplete,
-        ]);
-      } else if (group == 7) {
-        order.addAll([
-          MorningAssessmentStep.finalPromptDayIntroduction,
-          MorningAssessmentStep.assessment_finalSession_1,
-          MorningAssessmentStep.assessment_finalSession_2,
-          MorningAssessmentStep.assessment_finalSession_3,
-          MorningAssessmentStep.finalPromptDayComplete,
-        ]);
-      } else if (group == 1) {
-        order.addAll([
-          MorningAssessmentStep.assessment_finalSession_1,
-          MorningAssessmentStep.assessment_finalSession_2,
-          MorningAssessmentStep.assessment_finalSession_3,
-        ]);
-      }
     }
 
     if (experimentService.isLastVocabTestDay()) {
@@ -349,37 +321,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     }
   }
 
-  int getNextStepAfterTestFailureOrSuccess() {
-    var daysAgo = experimentService.getDaysSinceStart();
-
-    if (daysAgo < 54) {
-      return getStepIndex(MorningAssessmentStep.assessment_afterTest_2);
-    } else {
-      if (group == 1) {
-        return getStepIndex(MorningAssessmentStep.assessment_finalSession_1);
-      } else {
-        return getStepIndex(MorningAssessmentStep.last_screen);
-      }
-    }
-  }
-
-  int getNextStepAfterTest2() {
-    if (group > 1) {
-      if (experimentService.isTimeForFinalQuestions()) {
-        return getStepIndex(MorningAssessmentStep.finalPromptDayIntroduction);
-      } else {
-        return getStepIndex(MorningAssessmentStep.completed);
-      }
-    } else {
-      if (experimentService.isDistributedLearningDay()) {
-        return getStepIndex(
-            MorningAssessmentStep.distributedLearningIntermediate);
-      }
-    }
-
-    return getStepIndex(MorningAssessmentStep.completed);
-  }
-
   void addFreeFeedbackToResults() {
     var results = {
       "good": finalFeedbackGood,
@@ -469,15 +410,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.assessment_afterTest:
         step = getNextStepForAfterTest();
         break;
-      case MorningAssessmentStep.assessment_afterTest_success:
-        step = getNextStepAfterTestFailureOrSuccess();
-        break;
-      case MorningAssessmentStep.assessment_afterTest_failure:
-        step = getNextStepAfterTestFailureOrSuccess();
-        break;
-      case MorningAssessmentStep.assessment_afterTest_2:
-        step = getNextStepAfterTest2();
-        break;
       case MorningAssessmentStep.assessment_morningIntention:
         step = getStepForMorningIntention();
         break;
@@ -540,16 +472,20 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.assessment_distributedLearning:
         step = getStepIndex(MorningAssessmentStep.completed);
         break;
+      case MorningAssessmentStep.assessment_afterTest_success:
+        // TODO: Handle this case.
+        break;
+      case MorningAssessmentStep.assessment_afterTest_failure:
+        // TODO: Handle this case.
+        break;
+      case MorningAssessmentStep.assessment_afterTest_2:
+        // TODO: Handle this case.
+        break;
     }
 
     addTiming(pageKey.toString(), screenOrder[step].toString());
 
     return step;
-  }
-
-  InternalisationCondition getInternalisationCondition() {
-    _internalisationCondition = experimentService.getInternalisationCondition();
-    return _internalisationCondition;
   }
 
   bool _boosterPromptCompleted = false;

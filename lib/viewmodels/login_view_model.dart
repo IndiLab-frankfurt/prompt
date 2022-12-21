@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:prompt/locator.dart';
+import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
@@ -29,27 +30,20 @@ class LoginViewModel extends BaseViewModel {
     }
   }
 
-  Future<String> signIn(String input, String password) async {
-    var email = input;
-    if (!validateEmail(email)) {
-      email = "$email@prompt.studie";
-    }
-    if (password.isEmpty) {
-      password = getDefaultPassword(input);
-    }
+  Future<String> signIn(String username, String password) async {
     setState(ViewState.busy);
-    var signin = await _userService.signInUser(email, password);
+    var signin = await _userService.signInUser(username, password);
     if (signin == null) {
       setState(ViewState.idle);
       return RegistrationCodes.USER_NOT_FOUND;
-    } else {
-      await locator<RewardService>().initialize();
-      await locator<NotificationService>().clearPendingNotifications();
-      locator<ExperimentService>().schedulePrompts(signin.group);
-
-      setState(ViewState.idle);
-      return RegistrationCodes.SUCCESS;
     }
+
+    // await locator<RewardService>().initialize();
+    // await locator<NotificationService>().clearPendingNotifications();
+    // locator<ExperimentService>().schedulePrompts(signin.group);
+
+    setState(ViewState.idle);
+    return RegistrationCodes.SUCCESS;
   }
 
   getDefaultPassword(String userid) {
@@ -57,12 +51,8 @@ class LoginViewModel extends BaseViewModel {
   }
 
   submit() async {
-    locator<DataService>().setRegistrationDate(DateTime.now());
+    // locator<DataService>().setRegistrationDate(DateTime.now());
     _navigationService.navigateTo(RouteNames.SESSION_ZERO);
-  }
-
-  progressWithoutUsername() async {
-    await _userService.saveRandomUser();
   }
 
   validateEmail(String userid) {

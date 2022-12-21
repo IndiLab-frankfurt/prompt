@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="de.dipf.prompt">
   <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
   <uses-permission android:name="android.permission.PACKAGE_USAGE_STATS" />
-
+  <uses-permission android:name="android.permission.INTERNET" />
 
   <queries>
     <!-- If your app opens https URLs -->

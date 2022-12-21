@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:prompt/models/authentication_response.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/internalisation.dart';
@@ -7,28 +8,61 @@ import 'package:prompt/models/assessment_result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prompt/services/i_database_service.dart';
 import 'package:http/http.dart' as http;
+import 'package:prompt/services/settings_service.dart';
 
 class ApiService implements IDatabaseService {
-  static String endpoint = "127.0.0.1:8000/api";
+  static String serverUrl = "http://10.0.2.2:8000";
 
-  Future<void> getToken() async {
-    var userid = "daniel";
-    var password = "muhmuh";
-    var url = Uri.parse("http://$endpoint/api/token/");
-    var response = await http.post(url,
-        headers: {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        },
-        body: ({"username": userid, "password": password}));
-    if (response.statusCode == 200) {
-      var data = response.body;
-      var accessToken = jsonDecode(data)["access"];
-      print(accessToken);
-    } else {
-      print(response.statusCode);
+  final SettingsService _settingsService;
+
+  Map<String, String> getHeaders() {
+    var username = _settingsService.getSetting(SettingsKeys.username);
+    var password = _settingsService.getSetting(SettingsKeys.password);
+    String basicAuth =
+        "Basic " + base64Encode(utf8.encode('$username:$password'));
+    Map<String, String> headers = {
+      "Content-Type": "application/json",
+      "Accept": "application/json",
+      "authorization": basicAuth
+    };
+    return headers;
+  }
+
+  Future<dynamic> getAsync(String endpoint) async {
+    var url = Uri.parse("$serverUrl$endpoint");
+    try {
+      var response = await http.get(url, headers: getHeaders());
+      return response;
+    } catch (e) {
+      print(e);
+      return null;
     }
   }
+
+  Future<dynamic> postAsync(String endpoint, dynamic data) async {
+    var url = Uri.parse("$serverUrl$endpoint");
+
+    try {
+      var response =
+          await http.post(url, headers: getHeaders(), body: jsonEncode(data));
+      return response;
+    } on ArgumentError catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  Future<bool> submitQuestionnaireResponses(dynamic responses) {
+    return postAsync("/api/questionnaires/", responses).then((response) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
+  ApiService(this._settingsService);
 
   @override
   Future<List<AssessmentResult>> getAssessmentResults(String userid) {
@@ -68,9 +102,16 @@ class ApiService implements IDatabaseService {
   }
 
   @override
-  Future<UserData?> getUserData(String email) {
-    // TODO: implement getUserData
-    throw UnimplementedError();
+  Future<UserData?> getUserData() async {
+    var response = await getAsync("/api/user/profile/");
+    if (response.statusCode == 200) {
+      var data = response.body;
+      var userData = UserData.fromJson(jsonDecode(data));
+      return userData;
+    } else {
+      print(response.statusCode);
+      return null;
+    }
   }
 
   @override
@@ -86,9 +127,8 @@ class ApiService implements IDatabaseService {
   }
 
   @override
-  logEvent(String userid, data) {
-    // TODO: implement logEvent
-    throw UnimplementedError();
+  logEvent(Map<String, String> data) async {
+    return postAsync("/api/applogs/", data);
   }
 
   @override
@@ -177,8 +217,18 @@ class ApiService implements IDatabaseService {
   }
 
   @override
-  Future<User?> signInUser(String userId, String password) {
-    // TODO: implement signInUser
-    throw UnimplementedError();
+  Future<AuthenticationResponse?> signInUser(
+      String userId, String password) async {
+    var result = await postAsync(
+        "/api/token/", {"username": userId, "password": password});
+    if (result.statusCode == 200) {
+      var data = result.body;
+      var accessToken = jsonDecode(data)["access"];
+      var refreshToken = jsonDecode(data)["refresh"];
+      return AuthenticationResponse(
+          accessToken: accessToken, refreshToken: refreshToken);
+    } else {
+      return null;
+    }
   }
 }

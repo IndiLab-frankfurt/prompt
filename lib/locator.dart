@@ -2,7 +2,6 @@ import 'package:get_it/get_it.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
-import 'package:prompt/services/firebase_service.dart';
 import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
@@ -15,29 +14,21 @@ GetIt locator = GetIt.instance;
 
 void setupLocator() {
   locator.registerSingleton<NavigationService>(NavigationService());
-
+  locator.registerSingleton<NotificationService>(NotificationService());
   locator.registerSingleton<LocalDatabaseService>(LocalDatabaseService.db);
+  locator.registerSingleton<SettingsService>(SettingsService());
 
-  locator.registerSingleton<FirebaseService>(FirebaseService());
+  locator.registerSingleton<ApiService>(
+      ApiService(locator.get<SettingsService>()));
 
-  locator.registerSingleton<ApiService>(ApiService());
+  locator.registerSingleton<DataService>(
+      DataService(locator.get<ApiService>(), locator.get<SettingsService>()));
 
-  locator.registerSingleton<SettingsService>(
-      SettingsService(locator.get<LocalDatabaseService>()));
-
-  locator.registerSingleton<UserService>(UserService(
-      locator.get<SettingsService>(), locator.get<FirebaseService>()));
-
-  locator.registerSingleton<DataService>(DataService(
-      locator.get<FirebaseService>(),
-      locator.get<UserService>(),
-      locator.get<LocalDatabaseService>(),
-      locator.get<SettingsService>()));
+  locator.registerSingleton<UserService>(
+      UserService(locator.get<SettingsService>(), locator.get<DataService>()));
 
   locator.registerSingleton<LoggingService>(
       LoggingService(locator.get<DataService>()));
-
-  locator.registerSingleton<NotificationService>(NotificationService());
 
   locator.registerSingleton<RewardService>(
       RewardService(locator.get<DataService>(), locator.get<LoggingService>()));
