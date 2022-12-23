@@ -23,7 +23,7 @@ class _PlanCommitmentScreenState extends State<PlanCommitmentScreen> {
         SpeechBubble(text: vm.plan),
         MultiStepQuestionnaireFuture(
           vm: vm,
-          assessmentTypes: AssessmentTypes.planCommitment,
+          questionnaireName: AssessmentTypes.planCommitment,
         )
       ],
     ));

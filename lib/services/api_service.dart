@@ -1,8 +1,8 @@
 import 'dart:convert';
 
 import 'package:prompt/models/authentication_response.dart';
+import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
-import 'package:prompt/models/plan.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -33,7 +33,7 @@ class ApiService implements IDatabaseService {
     try {
       var response = await http.get(url, headers: getHeaders());
       return response;
-    } catch (e) {
+    } on ArgumentError catch (e) {
       print(e);
       return null;
     }
@@ -83,22 +83,27 @@ class ApiService implements IDatabaseService {
   }
 
   @override
-  Future<AssessmentResult?> getLastAssessmentResult(String userid) {
-    // TODO: implement getLastAssessmentResult
-    throw UnimplementedError();
+  Future<QuestionnaireResponse?> getLastQuestionnaireResponse(
+      String questionName) async {
+    var response = await getAsync("/api/responses/$questionName/?latest=True");
+    var data = response.body;
+    if (data != null && data != "" && data != "[]") {
+      var questionnaireResponse =
+          QuestionnaireResponse.fromJson(jsonDecode(data)[0]);
+      return questionnaireResponse;
+    } else {
+      return null;
+    }
   }
 
   @override
-  Future<AssessmentResult?> getLastAssessmentResultFor(
-      String userid, String assessmentName) {
-    // TODO: implement getLastAssessmentResultFor
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Plan?> getLastPlan(String userid) {
-    // TODO: implement getLastPlan
-    throw UnimplementedError();
+  Future<String?> getLastPlan() async {
+    var result = await getLastQuestionnaireResponse("plan");
+    if (result != null) {
+      return result.response;
+    } else {
+      return null;
+    }
   }
 
   @override
@@ -115,20 +120,26 @@ class ApiService implements IDatabaseService {
   }
 
   @override
-  insertUserData(UserData userData) {
-    // TODO: implement insertUserData
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool?> isNameAvailable(String userId) {
-    // TODO: implement isNameAvailable
-    throw UnimplementedError();
+  updateUserData(UserData userData) {
+    return postAsync("/api/user/profile/", userData.toMap());
   }
 
   @override
   logEvent(Map<String, String> data) async {
     return postAsync("/api/applogs/", data);
+  }
+
+  @override
+  Future<bool> saveQuestionnaireResponses(
+      List<QuestionnaireResponse> responses) {
+    var responseJson = responses.map((e) => e.toJson()).toList();
+    return postAsync("/api/responses/", responseJson).then((response) {
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        return true;
+      } else {
+        return false;
+      }
+    });
   }
 
   @override
@@ -169,7 +180,7 @@ class ApiService implements IDatabaseService {
   }
 
   @override
-  savePlan(Plan plan, String userid) {
+  Future<void> savePlan(String plan) {
     // TODO: implement savePlan
     throw UnimplementedError();
   }
@@ -199,7 +210,7 @@ class ApiService implements IDatabaseService {
   }
 
   @override
-  Future saveVocabValue(Plan plan, String userid) {
+  Future saveVocabValue(String input) {
     // TODO: implement saveVocabValue
     throw UnimplementedError();
   }

@@ -5,14 +5,12 @@ import 'package:prompt/models/assessment_item.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/authentication_response.dart';
 import 'package:prompt/models/internalisation.dart';
-import 'package:prompt/models/plan.dart';
+import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:collection/collection.dart';
 import 'package:prompt/services/i_database_service.dart';
-import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/usage_stats/usage_info.dart';
-import 'package:prompt/services/user_service.dart';
 
 class DataService {
   final IDatabaseService _databaseService;
@@ -45,18 +43,15 @@ class DataService {
   }
 
   saveScore(int score) async {
-    throw Exception("Not implemented");
-    // var ud = await getUserData();
-    // ud?.score = score;
-    // await _databaseService.saveScore(_userService.getUsername(), score);
+    var userData = getUserDataCache();
+    userData.score = score;
+    await _databaseService.updateUserData(userData);
   }
 
   saveSessionZeroStep(int step) async {
-    throw Exception("Not implemented");
-    // var ud = getUserDataCache();
-    // ud.initSessionStep = step;
-    // await _databaseService.saveInitSessionStepCompleted(
-    //     _userService.getUsername(), step);
+    var userData = getUserDataCache();
+    userData.initSessionStep = step;
+    await _databaseService.updateUserData(userData);
   }
 
   Future<int> getDaysActive() async {
@@ -88,36 +83,6 @@ class DataService {
     return _assessmentResultsCache;
   }
 
-  Future<AssessmentResult?> getLastAssessmentResultFor(
-      String assessmentName) async {
-    List<AssessmentResult> lastResults = [];
-
-    if (_lastAssessmentResultCache == null) {
-      lastResults = await getAssessmentResults();
-    }
-    lastResults.sortBy((element) => element.submissionDate);
-    return lastResults
-        .lastWhereOrNull((element) => element.assessmentType == assessmentName);
-  }
-
-  Future<AssessmentResult?> getLastAssessmentResult() async {
-    List<AssessmentResult> lastResults = [];
-    if (_lastAssessmentResultCache == null) {
-      lastResults = await getAssessmentResults();
-    }
-    if (lastResults.length == 0) return null;
-    return lastResults.sortedBy((element) => element.submissionDate).last;
-  }
-
-  Future<List<AssessmentResult>> getAssessmentResults() async {
-    if (_assessmentResultsCache == null) {
-      var ud = await getUserData();
-      _assessmentResultsCache =
-          await _databaseService.getAssessmentResults(ud!.user);
-    }
-    return _assessmentResultsCache!;
-  }
-
   Future<Map<String, dynamic>?> getInitialData() async {
     var ud = await getUserData();
     await _databaseService.getInitialData(ud!.user);
@@ -126,6 +91,12 @@ class DataService {
 
   AssessmentResult? getLastAssessmentResultCached() {
     return _lastAssessmentResultCache;
+  }
+
+  Future<QuestionnaireResponse?> getLatestQuestionnaireResponse(
+      String questionnaireName) async {
+    return await _databaseService
+        .getLastQuestionnaireResponse(questionnaireName);
   }
 
   saveUsageStats(List<UsageInfo> usageStatInfo, DateTime startDate,
@@ -158,12 +129,6 @@ class DataService {
     // }
   }
 
-  savePlan(String plan) async {
-    var planModel = Plan(plan);
-    var ud = getUserDataCache();
-    await _databaseService.savePlan(planModel, ud.user);
-  }
-
   saveUserDataProperty(String propertyname, dynamic value) async {
     var ud = getUserDataCache();
 
@@ -171,24 +136,17 @@ class DataService {
     _userDataCache = await _databaseService.getUserData();
   }
 
-  saveBoosterPromptReadTimes(DateTime start, DateTime end) async {
-    var map = {
-      "user": getUserDataCache().user,
-      "start": start.toIso8601String(),
-      "end": end.toIso8601String()
-    };
-    await _databaseService.saveBoosterPromptReadTimes(map);
+  Future<bool> saveQuestionnaireResponse(QuestionnaireResponse response) async {
+    return await _databaseService.saveQuestionnaireResponses([response]);
   }
 
-  saveVocabValue(String vocabValue) async {
-    var planModel = Plan(vocabValue);
-    var ud = await getUserData();
-    await _databaseService.saveVocabValue(planModel, ud!.user);
+  Future<bool> saveQuestionnaireResponses(
+      List<QuestionnaireResponse> responses) async {
+    return await _databaseService.saveQuestionnaireResponses(responses);
   }
 
-  Future<Plan?> getLastPlan() async {
-    var ud = await getUserData();
-    return await _databaseService.getLastPlan(ud!.user);
+  Future<String?> getLastPlan() async {
+    return await _databaseService.getLastPlan();
   }
 
   setSelectedMascot(String mascot) async {
@@ -223,14 +181,6 @@ class DataService {
     } else {
       return [Color(0xffffffff), Color(0xffffffff)];
     }
-  }
-
-  Future<void> saveAssessment(AssessmentResult assessment) async {
-    var arCache = await getAssessmentResults();
-    arCache.add(assessment);
-
-    var ud = await getUserData();
-    await _databaseService.saveAssessment(assessment, ud!.user);
   }
 
   Future<void> setBackgroundImage(String imagePath) async {

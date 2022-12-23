@@ -71,7 +71,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       SessionZeroStep.planTiming: planTiming,
       SessionZeroStep.assessment_selfEfficacy: selfEfficacyQuestionnaire,
       SessionZeroStep.assessment_planCommitment: planCommitment,
-      SessionZeroStep.valueIntervention: whyLearnVocabs,
+      SessionZeroStep.whyLearnVocabScreen: whyLearnVocabs,
       SessionZeroStep.instructions1: instructionScreen1,
       SessionZeroStep.instructions2: instructionScreen2,
       SessionZeroStep.instructions3: instructionScreen3,
@@ -189,27 +189,27 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   late var motivationQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.motivation,
+      questionnaireName: AssessmentTypes.motivation,
       key: ValueKey(SessionZeroStep.assessment_motivation));
 
   late var selfEfficacyQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.selfEfficacy,
+      questionnaireName: AssessmentTypes.selfEfficacy,
       key: ValueKey(SessionZeroStep.assessment_selfEfficacy));
 
   late var itLiteracyQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.itLiteracy,
+      questionnaireName: AssessmentTypes.itLiteracy,
       key: ValueKey(SessionZeroStep.assessment_itLiteracy));
 
   late var learningFrequencyDuration = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.learningFrequencyDuration,
+      questionnaireName: AssessmentTypes.learningFrequencyDuration,
       key: ValueKey(SessionZeroStep.assessment_learningFrequencyDuration));
 
   late var learningExpectations = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.learningExpectations,
+      questionnaireName: AssessmentTypes.learningExpectations,
       key: ValueKey(SessionZeroStep.assessment_learningExpectations));
 
   late var planCreation =
@@ -219,7 +219,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       PlanDisplayScreen(key: ValueKey(SessionZeroStep.planDisplay));
 
   late var whyLearnVocabs =
-      WhyLearnVocabScreen(key: ValueKey(SessionZeroStep.valueIntervention));
+      WhyLearnVocabScreen(key: ValueKey(SessionZeroStep.whyLearnVocabScreen));
 
   late var planTiming =
       PlanTimingScreen(key: ValueKey(SessionZeroStep.planTiming));
@@ -229,7 +229,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   late var distributedLearning = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.distributedPractice,
+      questionnaireName: AssessmentTypes.distributedPractice,
       key: ValueKey(SessionZeroStep.assessment_distributedLearning));
 
   late var whereCanYouFindThisInformation = VideoScreen(

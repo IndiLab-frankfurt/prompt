@@ -185,7 +185,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
 
   late var distributedLearning = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.distributedPractice,
+      questionnaireName: AssessmentTypes.distributedPractice,
       key: ValueKey(MorningAssessmentStep.assessment_distributedLearning));
 
   late var distributedLearningIntermediate = ListView(
@@ -219,79 +219,79 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
 
   late var alternativeItems = MultiStepQuestionnaireFuture(
     vm: vm,
-    assessmentTypes: AssessmentTypes.evening_alternative,
+    questionnaireName: AssessmentTypes.evening_alternative,
     key: ValueKey(MorningAssessmentStep.alternativeItems),
   );
 
   late var morningIntention = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.morning_intention,
+      questionnaireName: AssessmentTypes.morning_intention,
       key: ValueKey(MorningAssessmentStep.assessment_morningIntention));
 
   late var morningWithIntention = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.morning_with_intention,
+      questionnaireName: AssessmentTypes.morning_with_intention,
       key: ValueKey(MorningAssessmentStep.assessment_morning_with_intention));
 
   late var morningWithoutIntention = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.morning_without_intention,
+      questionnaireName: AssessmentTypes.morning_without_intention,
       key:
           ValueKey(MorningAssessmentStep.assessment_morning_without_intention));
 
   late var eveningAlternative = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.evening_alternative,
+      questionnaireName: AssessmentTypes.evening_alternative,
       key: ValueKey(MorningAssessmentStep.assessment_evening_alternative));
 
   late var evening1 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.evening_1,
+      questionnaireName: AssessmentTypes.evening_1,
       key: ValueKey(MorningAssessmentStep.assessment_evening_1));
 
   late var evening1yesterday = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.evening_1_yesterday,
+      questionnaireName: AssessmentTypes.evening_1_yesterday,
       key: ValueKey(MorningAssessmentStep.assessment_evening_1_yesterday));
 
   late var evening2yesterday = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.evening_2_yesterday,
+      questionnaireName: AssessmentTypes.evening_2_yesterday,
       key: ValueKey(MorningAssessmentStep.assessment_evening_2_yesterday));
 
   late var evening3yesterday = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.evening_3_yesterday,
+      questionnaireName: AssessmentTypes.evening_3_yesterday,
       key: ValueKey(MorningAssessmentStep.assessment_evening_3_yesterday));
 
   late var evening2 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.evening_2,
+      questionnaireName: AssessmentTypes.evening_2,
       key: ValueKey(MorningAssessmentStep.assessment_evening_2));
 
   late var evening3 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.evening_3,
+      questionnaireName: AssessmentTypes.evening_3,
       key: ValueKey(MorningAssessmentStep.assessment_evening_3));
 
   late var afterTest1 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.afterTest,
+      questionnaireName: AssessmentTypes.afterTest,
       key: ValueKey(MorningAssessmentStep.assessment_afterTest));
 
   late var afterTest2 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.afterTest_2,
+      questionnaireName: AssessmentTypes.afterTest_2,
       key: ValueKey(MorningAssessmentStep.assessment_afterTest_2));
 
   late var afterTestFailure = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.afterTest_failure,
+      questionnaireName: AssessmentTypes.afterTest_failure,
       key: ValueKey(MorningAssessmentStep.assessment_afterTest_failure));
 
   late var afterTestSuccess = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.afterTest_success,
+      questionnaireName: AssessmentTypes.afterTest_success,
       key: ValueKey(MorningAssessmentStep.assessment_afterTest_success));
 
   late var preVocab = PreVocabScreen2(
@@ -309,12 +309,12 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
 
   late var finalSession1 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.finalSession_1,
+      questionnaireName: AssessmentTypes.finalSession_1,
       key: ValueKey(MorningAssessmentStep.assessment_finalSession_1));
 
   late var finalSession2 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.finalSession_2,
+      questionnaireName: AssessmentTypes.finalSession_2,
       key: ValueKey(MorningAssessmentStep.assessment_finalSession_2));
 
   late var finalSession3 = FinalFeedbackFreeText(
@@ -322,7 +322,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
 
   late var finalSession4 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.finalSession_4,
+      questionnaireName: AssessmentTypes.finalSession_4,
       key: ValueKey(MorningAssessmentStep.assessment_finalSession_4));
 
   late var planDisplay = FutureBuilder(
@@ -384,7 +384,7 @@ class MorningAssessmentScreenState extends State<MorningAssessmentScreen> {
 
   late var didLearnQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.didLearnWhen,
+      questionnaireName: AssessmentTypes.didLearnWhen,
       key: ValueKey(MorningAssessmentStep.didLearn));
 
   late var finalPromptDayIntroduction = ListView(

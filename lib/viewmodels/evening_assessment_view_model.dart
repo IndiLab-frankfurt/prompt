@@ -91,15 +91,6 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
 
     switch (pageKey) {
       case EveningAssessmentStep.didLearnCabuuToday:
-        var answer = allAssessmentResults["didLearnToday"]!["didLearnToday_1"];
-        // did learn with cabuu today
-        if (answer == "1") {
-          step = getStepIndex(EveningAssessmentStep.assessment_evening_1);
-        }
-        // did not learn with cabuu today
-        else {
-          step = getStepIndex(EveningAssessmentStep.continueAfterCabuu);
-        }
         break;
       case EveningAssessmentStep.continueAfterCabuu:
         continueWithoutSubmission();
@@ -127,9 +118,8 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
 
-      var oneBigAssessment = this.getOneBisAssessment(EVENING_ASSESSMENT);
-
-      experimentService.submitAssessment(oneBigAssessment, EVENING_ASSESSMENT);
+      experimentService.submitResponses(
+          questionnaireResponses, EVENING_ASSESSMENT);
 
       experimentService.nextScreen(RouteNames.ASSESSMENT_EVENING);
       setState(ViewState.idle);

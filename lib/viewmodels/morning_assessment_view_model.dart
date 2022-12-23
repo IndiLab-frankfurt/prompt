@@ -251,64 +251,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     return (last.submissionDate.daysAgo() <= 1);
   }
 
-  int getNextStepForAfterTest() {
-    var step = 0;
-
-    var answer = allAssessmentResults["after_test"]!["success_perception"];
-
-    if (answer == "1") {
-      step = getStepIndex(MorningAssessmentStep.assessment_afterTest_success);
-    }
-    if (answer == "2") {
-      step = getStepIndex(MorningAssessmentStep.assessment_afterTest_failure);
-    }
-
-    return step;
-  }
-
-  int getStepForMorningIntention() {
-    var answer = allAssessmentResults["morning_intention"]!["intention"];
-    if (answer == "1") {
-      return getStepIndex(
-          MorningAssessmentStep.assessment_morning_with_intention);
-    } else {
-      return getStepIndex(
-          MorningAssessmentStep.assessment_morning_without_intention);
-    }
-  }
-
-  int getNextStepForDidLearn() {
-    var step = 0;
-
-    var answer = allAssessmentResults["didLearnWhen"]!["didLearnWhen_1"];
-
-    // did learn cabuu today
-    if (answer == "1") {
-      step = getStepIndex(MorningAssessmentStep.rememberToUsePromptBeforeCabuu);
-    }
-
-    // did learn yesterday
-    else if (answer == "2") {
-      if (didCompleteEveningItemsYesterday()) {
-        step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
-      } else {
-        step =
-            getStepIndex(MorningAssessmentStep.rememberToUsePromptAfterCabuu);
-      }
-    }
-
-    // did learn some other time
-    else if (answer == "3") {
-      if (didCompleteEveningItemsYesterday()) {
-        step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
-      } else {
-        step = getStepIndex(MorningAssessmentStep.alternativeItems);
-      }
-    }
-
-    return step;
-  }
-
   int getStepAfterMorningIntention() {
     if (experimentService.isBoosterPromptDay()) {
       boosterPromptStart = DateTime.now();
@@ -318,30 +260,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
           MorningAssessmentStep.distributedLearningIntermediate);
     } else {
       return getStepIndex(MorningAssessmentStep.completed);
-    }
-  }
-
-  void addFreeFeedbackToResults() {
-    var results = {
-      "good": finalFeedbackGood,
-      "bad": finalFeedbackBad,
-      "open": finalFeedbackOpen
-    };
-    // var res = AssessmentResult(results, "finalfeedback", DateTime.now());
-    allAssessmentResults["finalfeedback"] = results;
-  }
-
-  int getNextStepAfterFinal3() {
-    if ([2, 3, 7].contains(group)) {
-      return getStepIndex(MorningAssessmentStep.finalPromptDayComplete);
-    } else if ([
-      4,
-      5,
-      6,
-    ].contains(group)) {
-      return getStepIndex(MorningAssessmentStep.planDisplay);
-    } else {
-      return getStepIndex(MorningAssessmentStep.last_screen);
     }
   }
 
@@ -357,7 +275,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
       case MorningAssessmentStep.finalPromptDayComplete:
         break;
       case MorningAssessmentStep.didLearn:
-        step = getNextStepForDidLearn();
         break;
       case MorningAssessmentStep.rememberToUsePromptAfterCabuu:
         step =
@@ -367,15 +284,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getStepIndex(MorningAssessmentStep.assessment_morningIntention);
         break;
       case MorningAssessmentStep.boosterPrompt:
-        boosterPromptComplete = DateTime.now();
-        dataService.saveBoosterPromptReadTimes(
-            boosterPromptStart, boosterPromptComplete);
-        if (experimentService.isInternalisationDay()) {
-          this.internalisationViewmodel.startDate = DateTime.now();
-          step = getStepIndex(MorningAssessmentStep.internalisation);
-        } else {
-          step = getStepIndex(MorningAssessmentStep.completed);
-        }
         break;
       case MorningAssessmentStep.internalisation:
         step = getStepIndex(MorningAssessmentStep.completed);
@@ -408,10 +316,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getStepAfterMorningIntention();
         break;
       case MorningAssessmentStep.assessment_afterTest:
-        step = getNextStepForAfterTest();
         break;
       case MorningAssessmentStep.assessment_morningIntention:
-        step = getStepForMorningIntention();
         break;
       case MorningAssessmentStep.assessment_morning_with_intention:
         step = getStepAfterMorningIntention();
@@ -448,8 +354,6 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
         dataService.saveUserDataProperty("finalQuestionsCompleted", true);
         break;
       case MorningAssessmentStep.assessment_finalSession_3:
-        addFreeFeedbackToResults();
-        step = getNextStepAfterFinal3();
         break;
       case MorningAssessmentStep.finalPromptDayIntroduction:
         step = getStepIndex(MorningAssessmentStep.assessment_finalSession_1);
@@ -510,8 +414,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     var lastPlan = await dataService.getLastPlan();
 
     if (lastPlan != null) {
-      internalisationViewmodel.plan = lastPlan.plan;
-      return lastPlan.plan;
+      internalisationViewmodel.plan = lastPlan;
+      return lastPlan;
     }
     return "";
   }
@@ -521,10 +425,8 @@ class MorningAssessmentViewModel extends MultiStepAssessmentViewModel {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
 
-      var oneBigAssessment = this.getOneBisAssessment(MORNING_ASSESSMENT);
-
-      await experimentService.submitAssessment(
-          oneBigAssessment, MORNING_ASSESSMENT);
+      await experimentService.submitResponses(
+          questionnaireResponses, MORNING_ASSESSMENT);
 
       experimentService.nextScreen(RouteNames.ASSESSMENT_MORNING);
       setState(ViewState.idle);

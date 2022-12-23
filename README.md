@@ -8,8 +8,10 @@ In order to build this project, clone the repository and run
 
 ``flutter run``
 
-This should be sufficient to build the app.
+To generate the data classes for the JSON files, run
+
+``flutter pub run build_runner build``
 
 # Backend
 
-The backend of this project is fully in Firebase
+Since the version for study 3, the backend of this project is written in Django and is available at https://github.com/Dabieder/prompt_backend

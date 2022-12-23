@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/internalisation.dart';
+import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/reward_service.dart';
@@ -23,7 +24,7 @@ enum SessionZeroStep {
   assessment_learningExpectations,
   assessment_distributedLearning,
   assessment_selfEfficacy,
-  valueIntervention,
+  whyLearnVocabScreen,
   videoPlanning,
   videoDistributedLearning,
   planCreation,
@@ -138,7 +139,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   Future<bool> getInitialValues() async {
     var plan = await _dataService.getLastPlan();
     if (plan != null) {
-      this.plan = plan.plan;
+      this.plan = plan;
     }
 
     var ud = _dataService.getUserDataCache();
@@ -149,21 +150,17 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   }
 
   static List<SessionZeroStep> getScreenOrder(String group) {
-    List<SessionZeroStep> screenOrder = [];
-
-    List<SessionZeroStep> firstScreens = [
+    List<SessionZeroStep> screenOrder = [
       SessionZeroStep.welcome,
       SessionZeroStep.whereCanYouFindThisInformation,
-      SessionZeroStep.rewardScreen1,
       SessionZeroStep.instructions1,
-      SessionZeroStep.instructions2,
-      SessionZeroStep.instructions3,
-      SessionZeroStep.instructions4,
+      SessionZeroStep.rewardScreen1,
+      SessionZeroStep.videoDistributedLearning,
       SessionZeroStep.assessment_itLiteracy,
       SessionZeroStep.assessment_learningFrequencyDuration,
       SessionZeroStep.assessment_motivation,
       SessionZeroStep.assessment_distributedLearning,
-      SessionZeroStep.valueIntervention,
+      SessionZeroStep.whyLearnVocabScreen,
       SessionZeroStep.instructions_cabuu_1,
       SessionZeroStep.instructions_cabuu_2,
       SessionZeroStep.instructions_cabuu_3,
@@ -172,7 +169,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
     List<SessionZeroStep> distributedLearning = [
       SessionZeroStep.instructions_distributedLearning,
-      SessionZeroStep.videoDistributedLearning,
       SessionZeroStep.assessment_distributedLearning,
     ];
 
@@ -201,23 +197,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     this._dataService.saveSessionZeroStep(step);
 
     super.onPageChange();
-  }
-
-  void checkIfAssessmentNeedsSubmission() {
-    if (allAssessmentResults.length > 0) {
-      var lastKey = allAssessmentResults.keys.last;
-      if (!submittedResults.contains(lastKey)) {
-        submitAssessmentResult(lastKey);
-      }
-    }
-  }
-
-  void submitAssessmentResult(key) {
-    var assessmentResult =
-        AssessmentResult(allAssessmentResults[key]!, key, DateTime.now());
-    assessmentResult.startDate = this.startDate;
-    _dataService.saveAssessment(assessmentResult);
-    submittedResults.add(key);
   }
 
   @override
@@ -282,13 +261,24 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.assessment_distributedLearning:
       case SessionZeroStep.assessment_selfEfficacy:
       case SessionZeroStep.planTiming:
-        checkIfAssessmentNeedsSubmission();
         break;
-      case SessionZeroStep.valueIntervention:
-        _dataService.saveVocabValue(vocabValue);
+      case SessionZeroStep.whyLearnVocabScreen:
+        var vocabValueResponse = QuestionnaireResponse(
+            name: "vocabValue",
+            questionnaireName: "vocabvalue",
+            questionText: "",
+            response: vocabValue,
+            dateSubmitted: DateTime.now());
+        _dataService.saveQuestionnaireResponse(vocabValueResponse);
         break;
       case SessionZeroStep.planCreation:
-        _dataService.savePlan(plan);
+        var planResponse = QuestionnaireResponse(
+            name: AssessmentTypes.plan,
+            questionnaireName: AssessmentTypes.plan,
+            questionText: "",
+            response: vocabValue,
+            dateSubmitted: DateTime.now());
+        _dataService.saveQuestionnaireResponse(planResponse);
         break;
       case SessionZeroStep.planInternalisationEmoji:
         saveInternalisation();
@@ -342,7 +332,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.instructions_implementationIntentions:
       case SessionZeroStep.instructions_appPermissions:
       case SessionZeroStep.endOfSession:
-      case SessionZeroStep.valueIntervention:
+      case SessionZeroStep.whyLearnVocabScreen:
       case SessionZeroStep.planInternalisationWaiting:
       case SessionZeroStep.rewardScreen2:
         return false;
@@ -369,7 +359,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.assessment_selfEfficacy:
       case SessionZeroStep.assessment_distributedLearning:
         return currentAssessmentIsFilledOut;
-      case SessionZeroStep.valueIntervention:
+      case SessionZeroStep.whyLearnVocabScreen:
         return vocabValue.isNotEmpty;
       case SessionZeroStep.videoPlanning:
         return _videoPlanningCompleted;
@@ -394,9 +384,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-      var oneBigAssessment = this.getOneBisAssessment(SESSION_ZERO);
-
-      _experimentService.submitAssessment(oneBigAssessment, SESSION_ZERO);
+      _experimentService.submitResponses(questionnaireResponses, SESSION_ZERO);
 
       _experimentService.nextScreen(RouteNames.SESSION_ZERO);
     }

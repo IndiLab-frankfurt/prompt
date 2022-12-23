@@ -130,7 +130,7 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
     setState(() {
       _groupValue = groupValue;
 
-      vm.setAssessmentResult(
+      vm.saveQuestionnaireResponse(
           "planTiming", groupValue.toString(), selectedValue);
     });
   }

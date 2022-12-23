@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class InstructionsCabuu2 extends StatelessWidget {
   const InstructionsCabuu2({Key? key}) : super(key: key);
@@ -25,8 +25,8 @@ class InstructionsCabuu2 extends StatelessWidget {
                 data: "# **https://youtu.be/k47mVYRf-yU**",
                 selectable: true,
                 onTapLink: (_, __, ___) async {
-                  if (await canLaunch(url)) {
-                    await launch('https://youtu.be/k47mVYRf-yU');
+                  if (await canLaunchUrlString(url)) {
+                    await launchUrlString('https://youtu.be/k47mVYRf-yU');
                   }
                 })),
         UIHelper.verticalSpaceMedium(),

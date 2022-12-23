@@ -1,6 +1,5 @@
 import 'dart:io';
-
-import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
@@ -147,9 +146,9 @@ class ExperimentService {
     }
   }
 
-  Future<void> submitAssessment(
-      AssessmentResult assessment, String type) async {
-    await this._dataService.saveAssessment(assessment);
+  Future<void> submitResponses(
+      List<QuestionnaireResponse> responses, String type) async {
+    await this._dataService.saveQuestionnaireResponses(responses);
 
     if (type == MORNING_ASSESSMENT) {
       if (_shouldIncrementStreakDay()) {
@@ -215,7 +214,7 @@ class ExperimentService {
 
   Future<bool> isTimeForMorningAssessment() async {
     var lastMorningAssessment =
-        await _dataService.getLastAssessmentResultFor(MORNING_ASSESSMENT);
+        await _dataService.getLatestQuestionnaireResponse(MORNING_ASSESSMENT);
 
     var userData = _dataService.getUserDataCache();
 
@@ -226,7 +225,7 @@ class ExperimentService {
     // If there is no last result, none has been submitted, so the first should be done
     if (lastMorningAssessment == null) return true;
 
-    if (lastMorningAssessment.submissionDate.isToday()) {
+    if (lastMorningAssessment.dateSubmitted.isToday()) {
       return false;
     }
 
@@ -237,17 +236,17 @@ class ExperimentService {
 
   Future<bool> isTimeForEveningAssessment() async {
     var lastMorningAssessment =
-        await _dataService.getLastAssessmentResultFor(MORNING_ASSESSMENT);
+        await _dataService.getLatestQuestionnaireResponse(MORNING_ASSESSMENT);
 
     var lastEveningAssessment =
-        await _dataService.getLastAssessmentResultFor(EVENING_ASSESSMENT);
+        await _dataService.getLatestQuestionnaireResponse(EVENING_ASSESSMENT);
     // If there is no prior morning assessment, this should be done first.
     if (lastMorningAssessment == null) return false;
     // If the morning assessment has been completed today
-    if (lastMorningAssessment.submissionDate.isToday()) {
+    if (lastMorningAssessment.dateSubmitted.isToday()) {
       // Check if the evening assessment has been completed today as well
       if (lastEveningAssessment != null) {
-        if (lastEveningAssessment.submissionDate.isToday()) {
+        if (lastEveningAssessment.dateSubmitted.isToday()) {
           return false;
         } else {
           return true;

@@ -69,22 +69,22 @@ class EveningAssessmentScreenState extends State<EveningAssessmentScreen> {
 
   late var didLearnCabuuTodayQuestionnaire = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.didLearnToday,
+      questionnaireName: AssessmentTypes.didLearnToday,
       key: ValueKey(EveningAssessmentStep.didLearnCabuuToday));
 
   late var evening1 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.evening_1,
+      questionnaireName: AssessmentTypes.evening_1,
       key: ValueKey(EveningAssessmentStep.assessment_evening_1));
 
   late var evening2 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.evening_2,
+      questionnaireName: AssessmentTypes.evening_2,
       key: ValueKey(EveningAssessmentStep.assessment_evening_2));
 
   late var evening3 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.evening_3,
+      questionnaireName: AssessmentTypes.evening_3,
       key: ValueKey(EveningAssessmentStep.assessment_evening_3));
 
   late var completed = ListView(children: [

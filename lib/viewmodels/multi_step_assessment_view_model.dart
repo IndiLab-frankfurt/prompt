@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_result.dart';
+import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
-import 'package:prompt/shared/enums.dart';
+import 'package:collection/collection.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
 abstract class MultiStepAssessmentViewModel extends BaseViewModel {
@@ -25,21 +26,32 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
 
   void submit();
 
-  Map<String, String> currentAssessmentResults = {};
-  Map<String, Map<String, String>> allAssessmentResults = {};
+  QuestionnaireResponse? currentResponse;
+  List<QuestionnaireResponse> questionnaireResponses = [];
   Map<String, Map<String, dynamic>> timings = {};
 
   int getNextPage(ValueKey currentPageKey) {
     return step + 1;
   }
 
-  setAssessmentResult(String assessmentType, String itemId, String value) {
-    currentAssessmentResults[itemId] = value;
+  saveQuestionnaireResponse(
+      String questionnaireName, String itemName, String response) {
+    // check if there is already a response for this questionnaire and item id
+    var existingResponse = questionnaireResponses.firstWhereOrNull((element) =>
+        element.questionnaireName == questionnaireName &&
+        element.name == itemName);
 
-    if (!allAssessmentResults.containsKey(assessmentType)) {
-      allAssessmentResults[assessmentType] = {itemId: value};
+    if (existingResponse != null) {
+      questionnaireResponses.remove(existingResponse);
     }
-    allAssessmentResults[assessmentType]![itemId] = value;
+    var newResponse = QuestionnaireResponse(
+        questionnaireName: questionnaireName,
+        name: itemName,
+        questionText: "",
+        response: response,
+        dateSubmitted: DateTime.now());
+
+    questionnaireResponses.add(newResponse);
 
     notifyListeners();
   }
@@ -50,25 +62,11 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future<Assessment> getAssessment(AssessmentTypes assessmentType) async {
-    String name = describeEnum(assessmentType);
+  Future<Assessment> getQuestionnaire(String name) async {
     Assessment assessment = await dataService.getAssessment(name);
     lastAssessment = assessment;
-    currentAssessmentResults = {};
+    currentResponse = null;
     return assessment;
-  }
-
-  AssessmentResult getOneBisAssessment(String assessmentName) {
-    Map<String, String> results = {};
-    for (var result in allAssessmentResults.values) {
-      results.addAll(result);
-    }
-    var oneBigAssessment =
-        AssessmentResult(results, assessmentName, DateTime.now());
-    oneBigAssessment.startDate = this.startDate;
-    oneBigAssessment.timings = this.timings;
-
-    return oneBigAssessment;
   }
 
   addTiming(String previous, String next) {
@@ -87,12 +85,12 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
 
   clearCurrent() {
     lastAssessment = Assessment();
-    currentAssessmentResults = {};
+    currentResponse = null;
   }
 
   onAssessmentLoaded(Assessment assessment) {
     lastAssessment = assessment;
-    currentAssessmentResults = {};
+    currentResponse = null;
   }
 
   onPageChange() {

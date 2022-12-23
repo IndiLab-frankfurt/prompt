@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -75,13 +74,6 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
         step = getStepIndex(FinalAssessmentStep.assessment_finalSession_1);
         break;
       case FinalAssessmentStep.assessment_finalSession_1:
-        var answer =
-            allAssessmentResults["final_1"]!["mc_distributed_practice_1"];
-        if (["1", "2"].contains(answer)) {
-          step = getStepIndex(FinalAssessmentStep.assessment_finalSession_2);
-        } else {
-          step = getStepIndex(FinalAssessmentStep.assessment_finalSession_3);
-        }
         break;
       case FinalAssessmentStep.assessment_finalSession_2:
         step = getStepIndex(FinalAssessmentStep.assessment_finalSession_3);
@@ -105,7 +97,7 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
   Future<String> getPlan() async {
     var lastPlan = await dataService.getLastPlan();
     if (lastPlan != null) {
-      return lastPlan.plan;
+      return lastPlan;
     } else {
       return "";
     }
@@ -113,15 +105,7 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
 
   @override
   void submit() {
-    Map<String, String> results = {};
-    for (var result in allAssessmentResults.values) {
-      results.addAll(result);
-    }
-    var oneBigAssessment =
-        AssessmentResult(results, FINAL_ASSESSMENT, DateTime.now());
-    oneBigAssessment.startDate = this.startDate;
-
-    experimentService.submitAssessment(oneBigAssessment, FINAL_ASSESSMENT);
+    experimentService.submitResponses(questionnaireResponses, FINAL_ASSESSMENT);
 
     experimentService.nextScreen(RouteNames.ASSESSMENT_FINAL);
   }

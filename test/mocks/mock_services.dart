@@ -27,3 +27,15 @@ ExperimentService mockExperimentService = ExperimentService(
     mockLoggingService,
     mockRewardService,
     mockNavigationService);
+
+Future<SettingsService> getMockSettingsService() async {
+  var settingsService = SettingsService();
+  await settingsService.setSetting(SettingsKeys.username, "123456");
+  await settingsService.setSetting(SettingsKeys.password, "Prompt1234");
+  return mockSettingsService;
+}
+
+Future<ApiService> getMockApiService() async {
+  var settingsService = await getMockSettingsService();
+  return ApiService(settingsService);
+}

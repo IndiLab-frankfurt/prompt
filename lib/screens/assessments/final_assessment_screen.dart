@@ -72,22 +72,22 @@ class _FinalAssessmentScreenState extends State<FinalAssessmentScreen> {
 
   late var finalSession1 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.finalSession_1,
+      questionnaireName: AssessmentTypes.finalSession_1,
       key: ValueKey(FinalAssessmentStep.assessment_finalSession_1));
 
   late var finalSession2 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.finalSession_2,
+      questionnaireName: AssessmentTypes.finalSession_2,
       key: ValueKey(FinalAssessmentStep.assessment_finalSession_2));
 
   late var finalSession3 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.finalSession_3,
+      questionnaireName: AssessmentTypes.finalSession_3,
       key: ValueKey(FinalAssessmentStep.assessment_finalSession_3));
 
   late var finalSession4 = MultiStepQuestionnaireFuture(
       vm: vm,
-      assessmentTypes: AssessmentTypes.finalSession_4,
+      questionnaireName: AssessmentTypes.finalSession_4,
       key: ValueKey(FinalAssessmentStep.assessment_finalSession_4));
 
   late var planDisplay = FutureBuilder(

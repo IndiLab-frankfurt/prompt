@@ -54,9 +54,7 @@ class NoTaskViewModel extends BaseViewModel {
     return _experimentService.finalAssessmentDay[group]!;
   }
 
-  Future<void> initialize() async {
-    await _dataService.getAssessmentResults();
-  }
+  Future<void> initialize() async {}
 
   Future<bool> getNextTask() async {
     await initialize();
