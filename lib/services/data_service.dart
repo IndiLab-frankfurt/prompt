@@ -200,7 +200,13 @@ class DataService {
   }
 
   saveInternalisation(Internalisation internalisation) async {
-    throw Exception("Not implemented");
+    var response = QuestionnaireResponse(
+        name: internalisation.condition,
+        questionnaireName: "internalisation",
+        questionText: internalisation.plan,
+        response: internalisation.input,
+        dateSubmitted: DateTime.now());
+    await saveQuestionnaireResponse(response);
     // return await _databaseService.saveInternalisation(
     //     internalisation, _userService.getUsername());
   }

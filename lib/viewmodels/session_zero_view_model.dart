@@ -213,7 +213,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   int getNextPage(ValueKey currentPageKey) {
-    doStepDependentSubmission(currentPageKey);
     step += 1;
 
     var end = (step < screenOrder.length - 1)

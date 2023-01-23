@@ -77,7 +77,6 @@ class _EmojiInternalisationScreenState
               ],
             ),
           ),
-          // if (_done) _buildSubmitButton()
         ],
       ),
     );
@@ -109,111 +108,73 @@ class _EmojiInternalisationScreenState
   }
 
   _buildEmojiInputLeft() {
-    var width = MediaQuery.of(context).size.width * 0.42;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Wenn...", style: Theme.of(context).textTheme.headline6),
-        Container(
-            width: width,
-            child: Stack(children: [
-              TextField(
-                minLines: 1,
-                maxLines: 3,
-                controller: _controllerLeft,
-                autofocus: true,
-                autocorrect: false,
-                readOnly: true,
-                enableSuggestions: false,
-                enableInteractiveSelection: false,
-                style: Theme.of(context).textTheme.headline6,
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                ),
-                onChanged: (text) {
-                  setState(() {});
-                },
-                onTap: () {
-                  setState(() {
-                    _activeController = _controllerLeft;
-                    _checkIfIsDone();
-                  });
-                },
-              ),
-              Positioned(
-                  top: 0.0,
-                  right: 0.0,
-                  child: IconButton(
-                      icon: Icon(Icons.backspace),
-                      onPressed: () {
-                        if (emojiNamesLeft.length > 0) {
-                          emojiNamesLeft.removeAt(emojiNamesLeft.length - 1);
-                        }
-                        _controllerLeft.text =
-                            textFromEmojiList(emojiNamesLeft);
-                        //
-                        _checkIfIsDone();
-                      })),
-            ])),
+        _buildEmojiInput(_controllerLeft, emojiNamesLeft),
       ],
     );
   }
 
   _buildEmojiInputRight() {
-    var width = MediaQuery.of(context).size.width * 0.42;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("dann...", style: Theme.of(context).textTheme.headline6),
-        Container(
-            width: width,
-            child: Stack(children: [
-              TextField(
-                minLines: 1,
-                maxLines: 3,
-                controller: _controllerRight,
-                autofocus: true,
-                autocorrect: false,
-                readOnly: true,
-                enableSuggestions: false,
-                enableInteractiveSelection: false,
-                style: Theme.of(context).textTheme.headline6,
-                decoration: InputDecoration(
-                  fillColor: Colors.white,
-                  filled: true,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
-                ),
-                onChanged: (text) {
-                  setState(() {});
-                },
-                onTap: () {
-                  setState(() {
-                    _activeController = _controllerRight;
-                    _checkIfIsDone();
-                  });
-                },
-              ),
-              Positioned(
-                  top: 0.0,
-                  right: 0.0,
-                  child: IconButton(
-                      icon: Icon(Icons.backspace),
-                      onPressed: () {
-                        if (emojiNamesRight.length > 0) {
-                          emojiNamesRight.removeAt(emojiNamesRight.length - 1);
-                        }
-                        _controllerRight.text =
-                            textFromEmojiList(emojiNamesRight);
-                        //
-                        _checkIfIsDone();
-                      })),
-            ])),
+        _buildEmojiInput(_controllerRight, emojiNamesRight),
       ],
     );
+  }
+
+  Widget _buildEmojiInput(
+      TextEditingController controller, List<Emoji> activeEmojiList) {
+    var width = MediaQuery.of(context).size.width * 0.42;
+    return Container(
+        width: width,
+        child: Stack(children: [
+          TextField(
+            minLines: 3,
+            maxLines: 3,
+            controller: controller,
+            autofocus: true,
+            autocorrect: false,
+            readOnly: true,
+            enableSuggestions: false,
+            enableInteractiveSelection: false,
+            style: Theme.of(context).textTheme.headline6,
+            decoration: InputDecoration(
+              fillColor: Colors.white,
+              filled: true,
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+            ),
+            onChanged: (text) {
+              setState(() {
+                _checkIfIsDone();
+              });
+            },
+            onTap: () {
+              setState(() {
+                _activeController = controller;
+                _checkIfIsDone();
+              });
+            },
+          ),
+          Positioned(
+              top: 0.0,
+              right: 0.0,
+              child: IconButton(
+                  icon: Icon(Icons.backspace),
+                  onPressed: () {
+                    if (activeEmojiList.length > 0) {
+                      activeEmojiList.removeAt(activeEmojiList.length - 1);
+                    }
+                    controller.text = textFromEmojiList(activeEmojiList);
+
+                    _checkIfIsDone();
+                  })),
+        ]));
   }
 
   String textFromEmojiList(List<Emoji> emojiList) {
@@ -230,6 +191,17 @@ class _EmojiInternalisationScreenState
     return SizedBox(
       height: 300,
       child: EmojiPicker(
+        onEmojiSelected: (category, emoji) => {
+          setState(() {
+            // custom logic to enable backspace in the textfield
+            if (_activeController == _controllerLeft) {
+              emojiNamesLeft.add(emoji);
+            } else {
+              emojiNamesRight.add(emoji);
+            }
+            _checkIfIsDone();
+          })
+        },
         textEditingController: _activeController,
         config: Config(
           columns: 8,
@@ -260,7 +232,6 @@ class _EmojiInternalisationScreenState
           ),
           loadingIndicator: const SizedBox.shrink(),
           tabIndicatorAnimDuration: kTabScrollDuration,
-          // categoryIcons: const CategoryIcons(),
           buttonMode: ButtonMode.MATERIAL,
           checkPlatformCompatibility: true,
         ),
@@ -283,20 +254,6 @@ class _EmojiInternalisationScreenState
     // );
     // return emojiKeyboard;
   }
-
-  // _buildSubmitButton() {
-  //   return Align(
-  //       alignment: Alignment.bottomCenter,
-  //       child: FullWidthButton(
-  //         text: AppStrings.Continue,
-  //         height: 40,
-  //         onPressed: () async {
-  //           var emojiInfoLeft = emojiNamesFromEmojiList(emojiNamesLeft);
-  //           var emojiInfoRight = emojiNamesFromEmojiList(emojiNamesRight);
-  //           var emojiInfo = "L:$emojiInfoLe      ft | R:$emojiInfoRight";
-  //         },
-  //       ));
-  // }
 
   String _getEmojiInput() {
     var rawInput =

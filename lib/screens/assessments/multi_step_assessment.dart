@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/widgets/full_width_button.dart';
