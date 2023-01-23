@@ -87,6 +87,13 @@ class AppStrings {
   // Shared Across Many Screens
   static const String Continue = "Weiter";
 
+  static const String SessionZero_ObstacleEnter_1 =
+      "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:";
+  static const String SessionZero_OutcomeEnter_1 =
+      "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:";
+  static const String SessionZero_CopingPlanEnter_1 =
+      "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:";
+
   // Emoji Internalisation Screen
   static const String EmojiInternalisation_Instruction =
       "Erstelle aus Emojis eine Darstellung deines Planes";

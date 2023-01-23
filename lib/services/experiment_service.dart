@@ -157,10 +157,6 @@ class ExperimentService {
         await _rewardService.clearStreakDays();
       }
       await _rewardService.onMorningAssessment();
-
-      if (Platform.isAndroid) {
-        saveUsageStats();
-      }
     }
   }
 

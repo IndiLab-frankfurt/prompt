@@ -52,7 +52,6 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
       case FinalAssessmentStep.assessment_finalSession_4:
         return currentAssessmentIsFilledOut;
       case FinalAssessmentStep.completed:
-        // TODO: Handle this case.
         break;
     }
 

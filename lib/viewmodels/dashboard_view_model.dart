@@ -6,7 +6,7 @@ import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
-class NoTaskViewModel extends BaseViewModel {
+class DashboardViewModel extends BaseViewModel {
   final ExperimentService _experimentService;
   final DataService _dataService;
   final NavigationService _navigationService;
@@ -24,7 +24,7 @@ class NoTaskViewModel extends BaseViewModel {
   String messageContinueAfterCabuu = AppStrings.NoTask_Continue_After_Cabuu;
   String messageContinueTomorrow = AppStrings.NoTask_ContinueTomorrow;
 
-  NoTaskViewModel(
+  DashboardViewModel(
       this._experimentService, this._dataService, this._navigationService) {
     print("Constructor of no task viewmodel");
     // getNextTask();
@@ -50,8 +50,7 @@ class NoTaskViewModel extends BaseViewModel {
   }
 
   int getMaxStudyDays() {
-    var group = _dataService.getUserDataCache().group;
-    return _experimentService.finalAssessmentDay[group]!;
+    return 200;
   }
 
   Future<void> initialize() async {}

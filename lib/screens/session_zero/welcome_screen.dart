@@ -8,10 +8,9 @@ class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: UIHelper.getContainerMargin(),
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/illustrations/mascots_group.png"),
+              image: AssetImage("assets/illustrations/mascot_1_bare.png"),
               fit: BoxFit.fitWidth,
               alignment: Alignment.bottomCenter)),
       child: Column(
@@ -25,23 +24,6 @@ class WelcomeScreen extends StatelessWidget {
             AppStrings.Welcome_IntroductionTakeYourTime,
             style: Theme.of(context).textTheme.subtitle1,
           ),
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.start,
-          //   children: <Widget>[
-          //     Checkbox(
-          //         tristate: false,
-          //         onChanged: (value) {
-          //           vm.consented = value!;
-          //         },
-          //         value: vm.consented),
-          //     Flexible(
-          //       child: Text(
-          //         AppStrings.CabuuLink_WantToParticipate,
-          //         style: Theme.of(context).textTheme.subtitle1,
-          //       ),
-          //     ),
-          //   ],
-          // ),
         ],
       ),
     );

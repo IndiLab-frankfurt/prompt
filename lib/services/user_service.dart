@@ -1,12 +1,9 @@
 import 'dart:math';
 import 'package:package_info/package_info.dart';
-import 'package:prompt/locator.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
-import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/settings_service.dart';
-import 'package:prompt/shared/enums.dart';
 
 class UserService {
   UserService(this._settings, this._dataService);
@@ -24,16 +21,12 @@ class UserService {
 
     var id = getUsername();
     if (id.isEmpty) return false;
+    _isSignedIn = true;
     return true;
   }
 
   saveUsername(String username) async {
     await _settings.setSetting(SettingsKeys.username, username);
-  }
-
-  int _generateGroupNumber() {
-    var rng = new Random();
-    return rng.nextInt(ExperimentService.NUM_GROUPS) + 1;
   }
 
   static String getGroup() {
@@ -101,16 +94,6 @@ class UserService {
     // } else {
     //   return null;
     // }
-  }
-
-  _getRandomUsername() {
-    var chars = "abcdefghijklmnopqrstuvwxyz0123456789";
-    Random rnd = new Random(new DateTime.now().millisecondsSinceEpoch);
-    String result = "";
-    for (var i = 0; i < 12; i++) {
-      result += chars[rnd.nextInt(chars.length)];
-    }
-    return result;
   }
 
   String getUsername() {

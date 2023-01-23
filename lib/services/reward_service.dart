@@ -96,15 +96,17 @@ class RewardService {
 
   Future<List<Color>> getBackgroundColors() async {
     _dataService.getBackgroundGradientColors().then((colors) {
-      var bgColor = LinearGradient(
-        colors: colors,
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-      );
+      if (colors != null) {
+        var bgColor = LinearGradient(
+          colors: colors,
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+        );
 
-      this.backgroundColor = bgColor;
+        this.backgroundColor = bgColor;
 
-      return colors;
+        return colors;
+      }
     });
     return backgroundColor.colors;
   }

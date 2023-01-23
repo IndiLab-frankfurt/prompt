@@ -51,7 +51,6 @@ class LoginViewModel extends BaseViewModel {
   }
 
   submit() async {
-    // locator<DataService>().setRegistrationDate(DateTime.now());
     _navigationService.navigateTo(RouteNames.SESSION_ZERO);
   }
 

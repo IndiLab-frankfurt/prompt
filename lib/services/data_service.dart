@@ -169,7 +169,7 @@ class DataService {
     return userData.selectedMascot;
   }
 
-  Future<List<Color>> getBackgroundGradientColors() async {
+  Future<List<Color>?> getBackgroundGradientColors() async {
     var colorString =
         await _settingsService.getSetting(SettingsKeys.backgroundColors);
     if (colorString != null) {
@@ -179,7 +179,7 @@ class DataService {
 
       return list;
     } else {
-      return [Color(0xffffffff), Color(0xffffffff)];
+      return null;
     }
   }
 

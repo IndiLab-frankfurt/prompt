@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
@@ -13,24 +11,26 @@ import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
 
 enum SessionZeroStep {
   welcome,
+  video_introduction,
   rewardScreen1,
-  whereCanYouFindThisInformation,
-  cabuuCode,
-  mascotSelection,
-  assessment_planCommitment,
+  video_distributedLearning,
+  outcome,
+  obstacle,
+  copingPlan,
+  instructions_implementationIntentions,
+  video_Planning,
+  planInternalisationEmoji,
   assessment_itLiteracy,
   assessment_learningFrequencyDuration,
   assessment_motivation,
   assessment_learningExpectations,
   assessment_distributedLearning,
   assessment_selfEfficacy,
+  cabuuCode,
   whyLearnVocabScreen,
-  videoPlanning,
-  videoDistributedLearning,
   planCreation,
   planDisplay,
   planInternalisationWaiting,
-  planInternalisationEmoji,
   planTiming,
   instructions1,
   instructions2,
@@ -40,8 +40,6 @@ enum SessionZeroStep {
   instructions_cabuu_2,
   instructions_cabuu_3,
   instructions_distributedLearning,
-  instructions_implementationIntentions,
-  instructions_appPermissions,
   rewardScreen2,
   endOfSession
 }
@@ -78,6 +76,27 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   }
 
   String cabuuCode = "123";
+
+  String _obstacle = "";
+  String get obstacle => _obstacle;
+  set obstacle(String obstacle) {
+    _obstacle = obstacle;
+    notifyListeners();
+  }
+
+  String _outcome = "";
+  String get outcome => _outcome;
+  set outcome(String outcome) {
+    _outcome = outcome;
+    notifyListeners();
+  }
+
+  String _copingPlan = "";
+  String get copingPlan => _copingPlan;
+  set copingPlan(String copingPlan) {
+    _copingPlan = copingPlan;
+    notifyListeners();
+  }
 
   bool _consented = false;
   bool get consented => _consented;
@@ -152,41 +171,34 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   static List<SessionZeroStep> getScreenOrder(String group) {
     List<SessionZeroStep> screenOrder = [
       SessionZeroStep.welcome,
-      SessionZeroStep.whereCanYouFindThisInformation,
-      SessionZeroStep.instructions1,
+      // SessionZeroStep.whereCanYouFindThisInformation,
+      // SessionZeroStep.instructions1,
+      // SessionZeroStep.videoDistributedLearning,
+      // SessionZeroStep.assessment_itLiteracy,
+      // SessionZeroStep.assessment_learningFrequencyDuration,
+      // SessionZeroStep.assessment_motivation,
+      // SessionZeroStep.assessment_distributedLearning,
       SessionZeroStep.rewardScreen1,
-      SessionZeroStep.videoDistributedLearning,
-      SessionZeroStep.assessment_itLiteracy,
-      SessionZeroStep.assessment_learningFrequencyDuration,
-      SessionZeroStep.assessment_motivation,
-      SessionZeroStep.assessment_distributedLearning,
-      SessionZeroStep.whyLearnVocabScreen,
+      SessionZeroStep.outcome,
+      SessionZeroStep.obstacle,
+      SessionZeroStep.copingPlan,
+      SessionZeroStep.instructions_implementationIntentions,
+      SessionZeroStep.video_Planning,
+      SessionZeroStep.planCreation,
+      SessionZeroStep.planDisplay,
+      SessionZeroStep.planInternalisationEmoji,
+      SessionZeroStep.planTiming,
       SessionZeroStep.instructions_cabuu_1,
       SessionZeroStep.instructions_cabuu_2,
       SessionZeroStep.instructions_cabuu_3,
       SessionZeroStep.assessment_learningExpectations,
+      SessionZeroStep.endOfSession,
+      SessionZeroStep.rewardScreen2,
     ];
 
     List<SessionZeroStep> distributedLearning = [
       SessionZeroStep.instructions_distributedLearning,
       SessionZeroStep.assessment_distributedLearning,
-    ];
-
-    List<SessionZeroStep> finalSteps = [
-      // SessionZeroStep.selfEfficacy,
-      SessionZeroStep.endOfSession,
-      SessionZeroStep.rewardScreen2,
-    ];
-
-    List<SessionZeroStep> internalisationSteps = [
-      SessionZeroStep.instructions_implementationIntentions,
-      SessionZeroStep.videoPlanning,
-      SessionZeroStep.planCreation,
-      SessionZeroStep.planDisplay,
-      SessionZeroStep.assessment_planCommitment,
-      SessionZeroStep.planInternalisationWaiting,
-      SessionZeroStep.planInternalisationEmoji,
-      SessionZeroStep.planTiming,
     ];
 
     return screenOrder;
@@ -221,14 +233,15 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     _dataService.saveInternalisation(internalisation);
   }
 
-  void doStepDependentSubmission(ValueKey currentPageKey) {
+  @override
+  Future<bool> doStepDependentSubmission(ValueKey currentPageKey) async {
     var stepKey = currentPageKey.value as SessionZeroStep;
 
     switch (stepKey) {
       case SessionZeroStep.welcome:
       case SessionZeroStep.cabuuCode:
-      case SessionZeroStep.videoPlanning:
-      case SessionZeroStep.videoDistributedLearning:
+      case SessionZeroStep.video_Planning:
+      case SessionZeroStep.video_distributedLearning:
       case SessionZeroStep.instructions1:
       case SessionZeroStep.instructions2:
       case SessionZeroStep.instructions3:
@@ -237,23 +250,18 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.instructions_cabuu_2:
       case SessionZeroStep.instructions_cabuu_3:
       case SessionZeroStep.instructions_distributedLearning:
-      case SessionZeroStep.instructions_appPermissions:
       case SessionZeroStep.instructions_implementationIntentions:
       case SessionZeroStep.rewardScreen1:
       case SessionZeroStep.planInternalisationWaiting:
       case SessionZeroStep.rewardScreen2:
       case SessionZeroStep.planDisplay:
         break;
-      case SessionZeroStep.whereCanYouFindThisInformation:
+      case SessionZeroStep.video_introduction:
         if (!_firstPointsReceived) {
           _rewardService.addPoints(5);
           _firstPointsReceived = true;
         }
         break;
-      case SessionZeroStep.mascotSelection:
-        _dataService.setSelectedMascot(selectedMascot);
-        break;
-      case SessionZeroStep.assessment_planCommitment:
       case SessionZeroStep.assessment_itLiteracy:
       case SessionZeroStep.assessment_learningFrequencyDuration:
       case SessionZeroStep.assessment_motivation:
@@ -290,7 +298,18 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         }
 
         break;
+      case SessionZeroStep.outcome:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.obstacle:
+        // TODO: Handle this case.
+        break;
+      case SessionZeroStep.copingPlan:
+        // TODO: Handle this case.
+        break;
     }
+
+    return true;
   }
 
   int getStepIndex(SessionZeroStep step) {
@@ -300,29 +319,27 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   @override
   bool canMoveBack(ValueKey currentPageKey) {
     var stepKey = currentPageKey.value as SessionZeroStep;
-
+    return true;
     switch (stepKey) {
       case SessionZeroStep.rewardScreen1:
       case SessionZeroStep.instructions_cabuu_2:
       case SessionZeroStep.instructions_cabuu_3:
       case SessionZeroStep.instructions2:
       case SessionZeroStep.instructions3:
-      case SessionZeroStep.whereCanYouFindThisInformation:
+      case SessionZeroStep.video_introduction:
       case SessionZeroStep.planDisplay:
         return true;
       case SessionZeroStep.cabuuCode:
       case SessionZeroStep.welcome:
       case SessionZeroStep.instructions_cabuu_1:
-      case SessionZeroStep.mascotSelection:
-      case SessionZeroStep.assessment_planCommitment:
       case SessionZeroStep.assessment_itLiteracy:
       case SessionZeroStep.assessment_learningFrequencyDuration:
       case SessionZeroStep.assessment_motivation:
       case SessionZeroStep.assessment_learningExpectations:
       case SessionZeroStep.assessment_selfEfficacy:
       case SessionZeroStep.assessment_distributedLearning:
-      case SessionZeroStep.videoPlanning:
-      case SessionZeroStep.videoDistributedLearning:
+      case SessionZeroStep.video_Planning:
+      case SessionZeroStep.video_distributedLearning:
       case SessionZeroStep.planCreation:
       case SessionZeroStep.planInternalisationEmoji:
       case SessionZeroStep.planTiming:
@@ -330,12 +347,17 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.instructions4:
       case SessionZeroStep.instructions_distributedLearning:
       case SessionZeroStep.instructions_implementationIntentions:
-      case SessionZeroStep.instructions_appPermissions:
       case SessionZeroStep.endOfSession:
       case SessionZeroStep.whyLearnVocabScreen:
       case SessionZeroStep.planInternalisationWaiting:
       case SessionZeroStep.rewardScreen2:
         return false;
+      case SessionZeroStep.outcome:
+        return outcome.isNotEmpty;
+      case SessionZeroStep.obstacle:
+        return obstacle.isNotEmpty;
+      case SessionZeroStep.copingPlan:
+        return copingPlan.isNotEmpty;
     }
   }
 
@@ -344,14 +366,12 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     var stepKey = currentPageKey.value as SessionZeroStep;
 
     switch (stepKey) {
-      case SessionZeroStep.whereCanYouFindThisInformation:
+      case SessionZeroStep.video_introduction:
         return _videoWelcomeCompleted;
       case SessionZeroStep.welcome:
       case SessionZeroStep.cabuuCode:
       case SessionZeroStep.planDisplay:
-      case SessionZeroStep.mascotSelection:
         return true;
-      case SessionZeroStep.assessment_planCommitment:
       case SessionZeroStep.assessment_itLiteracy:
       case SessionZeroStep.assessment_learningFrequencyDuration:
       case SessionZeroStep.assessment_motivation:
@@ -361,9 +381,9 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         return currentAssessmentIsFilledOut;
       case SessionZeroStep.whyLearnVocabScreen:
         return vocabValue.isNotEmpty;
-      case SessionZeroStep.videoPlanning:
+      case SessionZeroStep.video_Planning:
         return _videoPlanningCompleted;
-      case SessionZeroStep.videoDistributedLearning:
+      case SessionZeroStep.video_distributedLearning:
         return _videoDistributedLearningCompleted;
       case SessionZeroStep.planCreation:
         return plan.isNotEmpty;

@@ -6,29 +6,27 @@ import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/viewmodels/no_task_view_model.dart';
+import 'package:prompt/viewmodels/dashboard_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:provider/provider.dart';
 
-class NoTasksScreen extends StatefulWidget {
-  const NoTasksScreen({Key? key}) : super(key: key);
+class DashboardScreen extends StatefulWidget {
+  const DashboardScreen({Key? key}) : super(key: key);
 
   @override
-  _NoTasksScreenState createState() => _NoTasksScreenState();
+  _DashboardScreenState createState() => _DashboardScreenState();
 }
 
-class _NoTasksScreenState extends State<NoTasksScreen>
+class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver {
-  late NoTaskViewModel vm = Provider.of<NoTaskViewModel>(context);
+  late DashboardViewModel vm = Provider.of<DashboardViewModel>(context);
   Timer? updateRegularlyTimer;
   @override
   void initState() {
     super.initState();
 
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // await showDialogIfNecessary();
-    });
+    WidgetsBinding.instance.addPostFrameCallback((_) async {});
 
     WidgetsBinding.instance.addObserver(this);
   }

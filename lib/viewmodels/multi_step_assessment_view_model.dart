@@ -96,4 +96,8 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
   onPageChange() {
     currentAssessmentIsFilledOut = false;
   }
+
+  Future<bool> doStepDependentSubmission(ValueKey currentPageKey) async {
+    return true;
+  }
 }

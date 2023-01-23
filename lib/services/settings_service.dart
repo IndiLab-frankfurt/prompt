@@ -1,4 +1,3 @@
-import 'package:prompt/services/local_database_service.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class SettingsKeys {
@@ -26,7 +25,7 @@ class SettingsService {
     SettingsKeys.timerDurationInSeconds: "1500",
     SettingsKeys.initSessionStep: "0",
     SettingsKeys.backGroundImage: "",
-    SettingsKeys.backgroundColors: "ffffff,ffffff"
+    SettingsKeys.backgroundColors: "ffff55,ffff55"
   };
 
   // TODO: MIGRATE TO SECURE STORAGE

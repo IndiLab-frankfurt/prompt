@@ -10,7 +10,7 @@ import 'package:prompt/screens/internalisation/daily_internalisation_screen.dart
 import 'package:prompt/screens/internalisation/default_reminder_screen.dart';
 import 'package:prompt/screens/assessments/morning_assessment_screen.dart';
 import 'package:prompt/screens/login_screen.dart';
-import 'package:prompt/screens/no_task_screen.dart';
+import 'package:prompt/screens/dashboard_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
 import 'package:prompt/screens/study_complete_screen.dart';
@@ -27,7 +27,7 @@ import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:prompt/viewmodels/final_asssessment_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
-import 'package:prompt/viewmodels/no_task_view_model.dart';
+import 'package:prompt/viewmodels/dashboard_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -50,11 +50,11 @@ class AppRouter {
       case RouteNames.NO_TASKS:
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
-                  create: (_) => NoTaskViewModel(
+                  create: (_) => DashboardViewModel(
                       locator.get<ExperimentService>(),
                       locator.get<DataService>(),
                       locator.get<NavigationService>()),
-                  child: NoTasksScreen(),
+                  child: DashboardScreen(),
                 ));
 
       case RouteNames.SESSION_ZERO:

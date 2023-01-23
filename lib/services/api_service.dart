@@ -88,9 +88,15 @@ class ApiService implements IDatabaseService {
     var response = await getAsync("/api/responses/$questionName/?latest=True");
     var data = response.body;
     if (data != null && data != "" && data != "[]") {
-      var questionnaireResponse =
-          QuestionnaireResponse.fromJson(jsonDecode(data)[0]);
-      return questionnaireResponse;
+      try {
+        var questionnaireResponse =
+            QuestionnaireResponse.fromJson(jsonDecode(data)[0]);
+        return questionnaireResponse;
+      } catch (e) {
+        logEvent(
+            {"data": "error parsing questionnaire response", "error": "$e"});
+        return null;
+      }
     } else {
       return null;
     }
