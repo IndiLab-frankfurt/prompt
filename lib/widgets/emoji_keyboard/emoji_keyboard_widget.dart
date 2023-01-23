@@ -1,4 +1,6 @@
 // From https://github.com/i-Naji/emoji_keyboard/blob/master/lib/src/emoji_keyboard_widget.dart
+import 'package:prompt/widgets/emoji_keyboard/emoji_cell.dart';
+
 import 'compatible_emojis.dart';
 import 'base_emoji.dart';
 import 'package:flutter/cupertino.dart';
@@ -69,14 +71,24 @@ class EmojiKeyboard extends StatelessWidget {
     categoryKeyStore[index] = key;
   }
 
+  late final Future<List<List<Emoji>>> emojis = getEmojis();
+
   @override
   Widget build(BuildContext context) {
     return Container(
+      // // add rounded corners
+      // decoration: BoxDecoration(
+      //   color: color,
+      //   borderRadius: BorderRadius.only(
+      //     topLeft: Radius.circular(20),
+      //     topRight: Radius.circular(20),
+      //   ),
+      // ),
       color: color,
       height: height,
       child: NestedScrollView(
         key: PageStorageKey<Type>(NestedScrollView),
-        //floatHeaderSlivers: true,
+        //floatHeaderSlivers:  true,
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           // These are the slivers that show up in the "outer" scroll view.
           return <Widget>[
@@ -99,7 +111,7 @@ class EmojiKeyboard extends StatelessWidget {
           ];
         },
         body: FutureBuilder<List<List<Emoji>>>(
-          future: getEmojis(useDiversity: false),
+          future: emojis,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.done) {
               return CustomScrollView(
@@ -140,20 +152,9 @@ class EmojiKeyboard extends StatelessWidget {
                             ),
                             delegate: SliverChildListDelegate.fixed(
                               snapshot.data![index ~/ 2].map((Emoji emoji) {
-                                return CupertinoButton(
-                                  key: ValueKey('${emoji.text}'),
-                                  pressedOpacity: 0.4,
-                                  padding: EdgeInsets.all(0),
-                                  child: Center(
-                                    child: Text(
-                                      '${emoji.text}',
-                                      style: TextStyle(
-                                        fontSize: 26,
-                                      ),
-                                    ),
-                                  ),
-                                  onPressed: () => onEmojiSelected(emoji),
-                                );
+                                return EmojiCell(
+                                    emoji: emoji,
+                                    onEmojiSelected: onEmojiSelected);
                               }).toList(),
                             ),
                           );

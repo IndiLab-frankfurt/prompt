@@ -71,8 +71,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
           child: Scaffold(
               appBar: PromptAppBar(showBackButton: false),
               drawer: PromptDrawer(),
+              extendBodyBehindAppBar: true,
               resizeToAvoidBottomInset: false,
-              // extendBodyBehindAppBar: true,
               body: SafeArea(
                 child: FutureBuilder(
                   future: init(),
@@ -134,12 +134,12 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       case SessionZeroStep.planInternalisationEmoji:
         return ChangeNotifierProvider.value(
           value: vm.internalisationViewmodelEmoji,
-          key: ValueKey(SessionZeroStep.planInternalisationEmoji),
+          key: key,
           child: EmojiInternalisationScreen(
               onCompleted: vm.onInternalisationCompleted,
               emojiInputIf: true,
               emojiInputThen: true,
-              key: ValueKey(SessionZeroStep.planInternalisationEmoji)),
+              key: key),
         );
       case SessionZeroStep.assessment_itLiteracy:
         // TODO: Handle this case.

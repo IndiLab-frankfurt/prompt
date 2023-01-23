@@ -364,7 +364,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   @override
   bool canMoveNext(ValueKey currentPageKey) {
     var stepKey = currentPageKey.value as SessionZeroStep;
-
+    return true;
     switch (stepKey) {
       case SessionZeroStep.video_introduction:
         return _videoWelcomeCompleted;

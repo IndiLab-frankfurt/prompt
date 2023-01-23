@@ -4,10 +4,11 @@ import 'package:flutter/widgets.dart';
 extension PageControllerExtension on PageController {
   int get currentPageOrZero {
     if (this.hasClients) {
-      return this.page!.toInt();
-    } else {
-      return this.initialPage;
+      if (this.page != null) {
+        return this.page!.toInt();
+      }
     }
+    return this.initialPage;
   }
 }
 

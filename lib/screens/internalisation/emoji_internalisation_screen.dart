@@ -1,3 +1,4 @@
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/internalisation/internalisation_screen.dart';
@@ -5,10 +6,11 @@ import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
-import 'package:prompt/widgets/emoji_keyboard/base_emoji.dart';
-import 'package:prompt/widgets/emoji_keyboard/emoji_keyboard_widget.dart';
+// import 'package:prompt/widgets/emoji_keyboard/base_emoji.dart';
+// import 'package:prompt/widgets/emoji_keyboard/emoji_keyboard_widget.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter/foundation.dart' as foundation;
 
 class EmojiInternalisationScreen extends StatefulWidget {
   final OnCompletedCallback? onCompleted;
@@ -56,31 +58,27 @@ class _EmojiInternalisationScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
-        // margin: UIHelper.getContainerMargin(),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Expanded(
-              child: ListView(
-                children: [
-                  MarkdownBody(
-                      data:
-                          "## " + AppStrings.EmojiInternalisation_Instruction),
-                  UIHelper.verticalSpaceSmall(),
-                  SpeechBubble(text: '"${vm.plan}"'),
-                  UIHelper.verticalSpaceMedium(),
-                  _buildEmojiPickerCompatibleTextInput(),
-                  UIHelper.verticalSpaceMedium(),
-                  _buildEmojiPicker(),
-                  UIHelper.verticalSpaceMedium(),
-                ],
-              ),
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                MarkdownBody(
+                    data: "## " + AppStrings.EmojiInternalisation_Instruction),
+                UIHelper.verticalSpaceSmall(),
+                SpeechBubble(text: '"${vm.plan}"'),
+                UIHelper.verticalSpaceMedium(),
+                _buildEmojiPickerCompatibleTextInput(),
+                UIHelper.verticalSpaceMedium(),
+                _buildEmojiPicker(),
+                UIHelper.verticalSpaceMedium(),
+              ],
             ),
-            // if (_done) _buildSubmitButton()
-          ],
-        ),
+          ),
+          // if (_done) _buildSubmitButton()
+        ],
       ),
     );
   }
@@ -220,7 +218,7 @@ class _EmojiInternalisationScreenState
 
   String textFromEmojiList(List<Emoji> emojiList) {
     if (emojiList.length == 0) return "";
-    return emojiList.map((e) => e.text).toList().join("");
+    return emojiList.map((e) => e.emoji).toList().join("");
   }
 
   String emojiNamesFromEmojiList(List<Emoji> emojiList) {
@@ -229,22 +227,61 @@ class _EmojiInternalisationScreenState
   }
 
   _buildEmojiPicker() {
-    var emojiKeyboard = EmojiKeyboard(
-      onEmojiSelected: (Emoji emoji) {
-        setState(() {
-          _activeController.text += emoji.text;
-          // Log whether the emoji was left or right
-          var left = _activeController == _controllerLeft;
-          if (left) {
-            emojiNamesLeft.add(emoji);
-          } else {
-            emojiNamesRight.add(emoji);
-          }
-        });
-        _checkIfIsDone();
-      },
+    return SizedBox(
+      height: 300,
+      child: EmojiPicker(
+        textEditingController: _activeController,
+        config: Config(
+          columns: 8,
+          // Issue: https://github.com/flutter/flutter/issues/28894
+          emojiSizeMax: 32 *
+              (foundation.defaultTargetPlatform == TargetPlatform.iOS
+                  ? 1.30
+                  : 1.0),
+          verticalSpacing: 0,
+          horizontalSpacing: 0,
+          gridPadding: EdgeInsets.zero,
+          initCategory: Category.RECENT,
+          bgColor: const Color(0xFFF2F2F2),
+          indicatorColor: Colors.blue,
+          iconColor: Colors.grey,
+          iconColorSelected: Colors.blue,
+          backspaceColor: Colors.blue,
+          skinToneDialogBgColor: Colors.white,
+          skinToneIndicatorColor: Colors.grey,
+          enableSkinTones: false,
+          showRecentsTab: false,
+          recentsLimit: 28,
+          replaceEmojiOnLimitExceed: false,
+          noRecents: const Text(
+            'No Recents',
+            style: TextStyle(fontSize: 20, color: Colors.black26),
+            textAlign: TextAlign.center,
+          ),
+          loadingIndicator: const SizedBox.shrink(),
+          tabIndicatorAnimDuration: kTabScrollDuration,
+          // categoryIcons: const CategoryIcons(),
+          buttonMode: ButtonMode.MATERIAL,
+          checkPlatformCompatibility: true,
+        ),
+      ),
     );
-    return emojiKeyboard;
+    // var emojiKeyboard = EmojiKeyboard(
+    //   onEmojiSelected: (Emoji emoji) {
+    //     setState(() {
+    //       _activeController.text += emoji.text;
+    //       // Log whether the emoji was left or right
+    //       var left = _activeController == _controllerLeft;
+    //       if (left) {
+    //         emojiNamesLeft.add(emoji);
+    //       } else {
+    //         emojiNamesRight.add(emoji);
+    //       }
+    //     });
+    //     _checkIfIsDone();
+    //   },
+    // );
+    // return emojiKeyboard;
   }
 
   // _buildSubmitButton() {
@@ -256,7 +293,7 @@ class _EmojiInternalisationScreenState
   //         onPressed: () async {
   //           var emojiInfoLeft = emojiNamesFromEmojiList(emojiNamesLeft);
   //           var emojiInfoRight = emojiNamesFromEmojiList(emojiNamesRight);
-  //           var emojiInfo = "L:$emojiInfoLeft | R:$emojiInfoRight";
+  //           var emojiInfo = "L:$emojiInfoLe      ft | R:$emojiInfoRight";
   //         },
   //       ));
   // }
