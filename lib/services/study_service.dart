@@ -140,14 +140,6 @@ class StudyService {
     return (daysAgo >= 18) && (userData.group == "1");
   }
 
-  bool hasCompletedSessionZero() {
-    var userData = _dataService.getUserDataCache();
-    var group = userData.group;
-    var numSteps = SessionZeroViewModel.getScreenOrder(group).length;
-
-    return (userData.initStep > (numSteps - 5));
-  }
-
   bool shouldShowDistributedLearningVideo() {
     var ud = _dataService.getUserDataCache();
     var daysAgo = getDaysSinceStart();

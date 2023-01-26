@@ -4,7 +4,7 @@ import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/services/study_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
 
@@ -82,7 +82,7 @@ class EveningAssessmentViewModel extends MultiPageViewModel {
   }
 
   @override
-  int nextPage(ValueKey currentPageKey) {
+  int getNextPage(ValueKey currentPageKey) {
     page += 1;
 
     page += 1;

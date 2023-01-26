@@ -2,7 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -162,7 +162,7 @@ class SessionZeroViewModel extends MultiPageViewModel {
     return true;
   }
 
-  static List<SessionZeroStep> getScreenOrder(String group) {
+  List<SessionZeroStep> getScreenOrder(String group) {
     List<SessionZeroStep> screenOrder = [
       SessionZeroStep.welcome,
       SessionZeroStep.video_introduction,
@@ -195,7 +195,7 @@ class SessionZeroViewModel extends MultiPageViewModel {
   }
 
   @override
-  int nextPage(ValueKey currentPageKey) {
+  int getNextPage(ValueKey currentPageKey) {
     page += 1;
 
     var end = (page < pages.length - 1) ? pages[page].toString() : "complete";
@@ -399,7 +399,8 @@ class SessionZeroViewModel extends MultiPageViewModel {
   void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-      _experimentService.submitResponses(questionnaireResponses, SESSION_ZERO);
+      await _experimentService.submitResponses(
+          questionnaireResponses, SESSION_ZERO);
 
       _experimentService.nextScreen(RouteNames.SESSION_ZERO);
     }

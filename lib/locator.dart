@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';

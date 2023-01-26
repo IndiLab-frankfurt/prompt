@@ -41,8 +41,6 @@ class SessionZeroScreen extends StatefulWidget {
 }
 
 class _SessionZeroScreenState extends State<SessionZeroScreen> {
-  List<Widget> _screens = [];
-
   final AsyncMemoizer _memoizer = AsyncMemoizer();
 
   late SessionZeroViewModel vm = Provider.of<SessionZeroViewModel>(context);
@@ -51,13 +49,13 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
     return this._memoizer.runOnce(() async {
       await vm.getInitialValues();
 
-      _screens = [];
+      List<Widget> _pages = [];
 
       for (var screen in vm.pages) {
-        _screens.add(getScreen(screen));
+        _pages.add(getScreen(screen));
       }
 
-      return true;
+      return _pages;
     });
   }
 
@@ -82,7 +80,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
                         padding: UIHelper.containerPadding,
                         child: MultiPageScreen(
                           vm,
-                          _screens,
+                          snapshot.data,
                         ));
                   } else {
                     return Center(

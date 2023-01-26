@@ -1,5 +1,5 @@
 import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/extensions.dart';
@@ -7,7 +7,7 @@ import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
 class DashboardViewModel extends BaseViewModel {
-  final StudyService _experimentService;
+  final StudyService _studyService;
   final DataService _dataService;
   final NavigationService _navigationService;
 
@@ -17,7 +17,7 @@ class DashboardViewModel extends BaseViewModel {
   bool showFinalAssessmentButton = false;
   bool startTomorrow = false;
 
-  late int daysActive = _experimentService.getDaysSinceStart();
+  late int daysActive = _studyService.getDaysSinceStart();
 
   late double studyProgress = daysActive / 36;
 
@@ -25,13 +25,10 @@ class DashboardViewModel extends BaseViewModel {
   String messageContinueTomorrow = AppStrings.NoTask_ContinueTomorrow;
 
   DashboardViewModel(
-      this._experimentService, this._dataService, this._navigationService) {
-    print("Constructor of no task viewmodel");
-    // getNextTask();
-  }
+      this._studyService, this._dataService, this._navigationService);
 
   String daysUntilVocabTestString() {
-    var nextDate = _experimentService.getNextVocabTestDate();
+    var nextDate = _studyService.getNextVocabTestDate();
     var difference = nextDate.weekDaysAgo(DateTime.now());
 
     if (nextDate.isToday()) {
@@ -45,7 +42,7 @@ class DashboardViewModel extends BaseViewModel {
   }
 
   int daysUntilVocabTest() {
-    var nextDate = _experimentService.getNextVocabTestDate();
+    var nextDate = _studyService.getNextVocabTestDate();
     return nextDate.weekDaysAgo(DateTime.now());
   }
 
@@ -61,12 +58,7 @@ class DashboardViewModel extends BaseViewModel {
     showLearnedWithCabuuButton = false;
     showVocabularyTestReminder = false;
 
-    if (!_experimentService.hasCompletedSessionZero()) {
-      this._navigationService.navigateTo(RouteNames.SESSION_ZERO);
-    }
-
     if (daysActive == 0) {
-      // notifyListeners();
       startTomorrow = true;
       return true;
     }

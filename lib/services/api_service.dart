@@ -9,7 +9,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prompt/services/i_database_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:prompt/services/settings_service.dart';
-import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 
 class ApiService implements IDatabaseService {
@@ -82,12 +81,6 @@ class ApiService implements IDatabaseService {
   @override
   Stream<User?>? getCurrentUser() {
     // TODO: implement getCurrentUser
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Map<String, dynamic>?> getInitialData(String userid) {
-    // TODO: implement getInitialData
     throw UnimplementedError();
   }
 

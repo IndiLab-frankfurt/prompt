@@ -16,7 +16,7 @@ import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/session_zero/session_zero_screen.dart';
 import 'package:prompt/screens/study_complete_screen.dart';
 import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/reward_service.dart';

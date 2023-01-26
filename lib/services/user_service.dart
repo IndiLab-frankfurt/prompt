@@ -2,7 +2,6 @@ import 'dart:math';
 import 'package:package_info/package_info.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/services/settings_service.dart';
 
 class UserService {
@@ -14,11 +13,6 @@ class UserService {
   bool _isSignedIn = false;
 
   Future<bool> initialize() async {
-    // await _settings.getSetting(SettingsKeys.userId).then((value) {
-    //   userId = value;
-    //   _isSignedIn = value.isnotNullOrEmpty;
-    // });
-
     var id = getUsername();
     if (id.isEmpty) return false;
     _isSignedIn = true;
@@ -82,18 +76,6 @@ class UserService {
     var userData = await _dataService.getUserData();
 
     return userData;
-    // if (user != null) {
-    //   await saveUsername(email);
-    //   var userData = await FirebaseService().getUserData(email);
-    //   if (userData == null) {
-    //     userData = await getDefaultUserData(email, uid: user.uid);
-    //     await FirebaseService().insertUserData(userData);
-    //   }
-    //   locator<DataService>().setUserDataCache(userData);
-    //   return userData;
-    // } else {
-    //   return null;
-    // }
   }
 
   String getUsername() {

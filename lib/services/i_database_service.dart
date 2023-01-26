@@ -44,8 +44,6 @@ abstract class IDatabaseService {
 
   Future<List<AssessmentResult>> getAssessmentResults(String userid);
 
-  Future<Map<String, dynamic>?> getInitialData(String userid);
-
   Future saveUserDataProperty(String key, dynamic value);
 
   Future saveBoosterPromptReadTimes(Map<String, dynamic> map);

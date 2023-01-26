@@ -155,7 +155,8 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
                     return;
                   }
                   if (widget.vm.canMoveNext(_keyOfCurrent())) {
-                    _controller.jumpToPage(widget.vm.nextPage(_keyOfCurrent()));
+                    _controller
+                        .jumpToPage(widget.vm.getNextPage(_keyOfCurrent()));
                     widget.vm.clearCurrent();
                   }
                   setState(() {});

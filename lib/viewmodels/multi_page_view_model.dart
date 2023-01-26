@@ -45,21 +45,24 @@ abstract class MultiPageViewModel extends BaseViewModel {
 
   void submit();
 
-  int nextPage(ValueKey currentPageKey) {
+  setPage(int page) {
+    this.page = page;
+    currentPage.add(page);
+  }
+
+  int getNextPage(ValueKey currentPageKey) {
     if (page >= pages.length - 1) {
       return page;
     }
-    page += 1;
-    currentPage.add(page);
+    setPage(page + 1);
     return page;
   }
 
-  int previousPage(ValueKey currentPageKey) {
+  int getPreviousPage(ValueKey currentPageKey) {
     if (page <= 0) {
       return page;
     }
-    page -= 1;
-    currentPage.add(page);
+    setPage(page - 1);
     return page;
   }
 
