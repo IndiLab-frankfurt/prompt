@@ -57,7 +57,7 @@ class UserService {
         cabuuCode: cabuuCode,
         score: 0,
         streakDays: 0,
-        initSessionStep: 0,
+        initStep: 0,
         appVersion: appVersion,
         registrationDate: DateTime.now());
   }

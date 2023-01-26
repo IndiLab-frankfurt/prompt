@@ -12,7 +12,7 @@ class RewardScreen2 extends StatelessWidget {
         children: [
           UIHelper.verticalSpaceLarge(),
           MarkdownBody(
-              data: "### Glückwunsch, du hast noch einmal 5 💎 verdient!")
+              data: "### Glückwunsch, du hast noch einmal 20 💎 verdient!"),
         ],
       ),
     );

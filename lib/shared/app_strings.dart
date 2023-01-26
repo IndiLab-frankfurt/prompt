@@ -37,7 +37,11 @@ class AppStrings {
 
   // Session Zero Plan Creation
   static const String PlanCreation_LetsCreatePlan =
-      "Erstelle jetzt für dich selbst einen Plan.\nÜberlege dir einen Zeitpunkt oder Ort, der möglichst jeden Tag passt, um mit cabuu zu lernen (z.B. morgens nach dem Zähneputzen, mittags an der Bushaltestelle).\nVervollständige den Plan:";
+      "Erstelle jetzt für dich selbst einen Plan.";
+  static const String PlanCreation_PlanCreationExplanation =
+      "Überlege dir einen Zeitpunkt oder Ort, der möglichst jeden Tag passt, um mit cabuu zu lernen (z.B. morgens nach dem Zähneputzen, mittags an der Bushaltestelle).";
+  static const String PlanCreation_CompleteThePlan =
+      "Vervollständige den Plan:";
   static const String ThinkOfSomething =
       "Überlege dir etwas, das du jeden Tag tust, möglichst auch am Wochenende. Schreibe es in 1-3 Stichworten auf:";
   static const String GotTimeBeforeOrAfter =
@@ -149,4 +153,10 @@ class AppStrings {
 
   static const String Login_ForgotPassword =
       "Passwort vergessen? Klicke hier und wir erklären dir, was zu tun ist.";
+
+  static const String PlanTiming_Paragraph1 =
+      "Ab morgen sollst du die App PROMPT jeden Abend einmal benutzen, Das dauert auch nur 3 Minuten.";
+
+  static const String PlanTiming_Paragraph2 =
+      "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.";
 }

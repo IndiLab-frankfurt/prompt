@@ -26,4 +26,6 @@ class RouteNames {
   static const STUDY_COMPLETE = "/studycomplete";
 
   static const MASCOT_CHANGE = "/mascotselection";
+
+  static const QUESTIONNAIRE = "/questionnaire";
 }

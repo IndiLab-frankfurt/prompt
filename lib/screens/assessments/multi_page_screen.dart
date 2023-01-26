@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
+import 'package:prompt/viewmodels/multi_page_view_model.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/widgets/full_width_button.dart';
 
-class MultiStepAssessment extends StatefulWidget {
-  final MultiStepAssessmentViewModel vm;
+class MultiPageScreen extends StatefulWidget {
+  final MultiPageViewModel vm;
   final List<Widget> pages;
   final int initialStep;
-  // final VoidCallback onSubmit;
-  MultiStepAssessment(this.vm, this.pages, {this.initialStep = 0, Key? key})
+  MultiPageScreen(this.vm, this.pages, {this.initialStep = 0, Key? key})
       : super(key: key);
 
   @override
-  _MultiStepAssessmentState createState() => _MultiStepAssessmentState();
+  _MultiPageScreenState createState() => _MultiPageScreenState();
 }
 
-class _MultiStepAssessmentState extends State<MultiStepAssessment> {
+class _MultiPageScreenState extends State<MultiPageScreen> {
   var _controller = new PageController();
   final _kDuration = const Duration(milliseconds: 100);
   final _kCurve = Curves.ease;
@@ -27,17 +26,21 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
 
     _controller = new PageController();
     _controller.addListener(() {
-      int step = 0;
+      int page = 0;
       if (_controller.page != null) {
-        step = _controller.page!.round();
+        page = _controller.page!.round();
       }
-      widget.vm.step = step;
+      widget.vm.page = page;
       widget.vm.onPageChange();
     });
 
     Future.delayed(Duration(milliseconds: 1), (() {
-      print("Jumping to page ${widget.vm.initialStep}");
-      _controller.jumpToPage(widget.vm.initialStep);
+      print("Jumping to page ${widget.vm.initialPage}");
+      _controller.jumpToPage(widget.vm.initialPage);
+      widget.vm.currentPageStream.listen((index) {
+        _controller.animateToPage(index,
+            duration: const Duration(milliseconds: 1000), curve: Curves.ease);
+      });
     }));
   }
 
@@ -67,8 +70,8 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
             ),
           ),
           _buildBottomNavigation(),
-          if (widget.vm.step < widget.pages.length - 1)
-            if (widget.vm.step == widget.pages.length - 1) _buildSubmitButton()
+          if (widget.vm.page < widget.pages.length - 1)
+            if (widget.vm.page == widget.pages.length - 1) _buildSubmitButton()
         ],
       ),
     );
@@ -106,7 +109,7 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
             maintainAnimation: true,
             maintainState: true,
             visible:
-                widget.vm.canMoveBack(_keyOfCurrent()) && widget.vm.step > 0,
+                widget.vm.canMoveBack(_keyOfCurrent()) && widget.vm.page > 0,
             child: SizedBox(
               height: 50,
               child: TextButton(
@@ -138,7 +141,7 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
                 child: Row(
                   children: <Widget>[
                     Text(
-                      widget.vm.nextButtonText,
+                      "Weiter",
                       style: TextStyle(fontSize: 20),
                     ),
                     Icon(Icons.navigate_next)
@@ -147,13 +150,12 @@ class _MultiStepAssessmentState extends State<MultiStepAssessment> {
                 onPressed: () async {
                   await widget.vm.doStepDependentSubmission(_keyOfCurrent());
 
-                  if (widget.vm.step == widget.pages.length - 1) {
+                  if (widget.vm.page == widget.pages.length - 1) {
                     widget.vm.submit();
                     return;
                   }
                   if (widget.vm.canMoveNext(_keyOfCurrent())) {
-                    _controller
-                        .jumpToPage(widget.vm.getNextPage(_keyOfCurrent()));
+                    _controller.jumpToPage(widget.vm.nextPage(_keyOfCurrent()));
                     widget.vm.clearCurrent();
                   }
                   setState(() {});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_item.dart';
-import 'package:prompt/screens/assessments/interval_scale.dart';
+import 'package:prompt/screens/assessments/single_choice_question.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
 typedef void ItemSelectedCallback(
@@ -11,20 +11,20 @@ typedef void OnAssessmentCompletedCallback(Assessment assessment);
 
 typedef void OnLoadedCallback(Assessment assessment);
 
-class QuestionnaireScreen extends StatefulWidget {
+class VerticalQuestionnaire extends StatefulWidget {
   final Assessment assessment;
   final ItemSelectedCallback onFinished;
   final OnLoadedCallback onLoaded;
   final OnAssessmentCompletedCallback? onAssessmentCompleted;
-  const QuestionnaireScreen(this.assessment, this.onFinished,
+  const VerticalQuestionnaire(this.assessment, this.onFinished,
       {required this.onLoaded, this.onAssessmentCompleted, Key? key})
       : super(key: key);
 
   @override
-  _QuestionnaireScreenState createState() => _QuestionnaireScreenState();
+  _VerticalQuestionnaireState createState() => _VerticalQuestionnaireState();
 }
 
-class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
+class _VerticalQuestionnaireState extends State<VerticalQuestionnaire> {
   Map<String, String> _results = {};
 
   @override
@@ -44,7 +44,6 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
     print(widget.assessment.title);
     return Scrollbar(
       thickness: 8.0,
-      // isAlwaysShown: true,
       child: ListView(
         padding: EdgeInsets.only(top: 10, bottom: 10),
         shrinkWrap: true,
@@ -100,13 +99,12 @@ class _QuestionnaireScreenState extends State<QuestionnaireScreen> {
         ),
         child: Container(
           padding: EdgeInsets.all(10),
-          child: IntervalScale(
+          child: SingleChoiceQuestion(
             title: assessment.title,
             labels: assessment.labels,
             id: assessment.id,
             groupValue: groupValue,
-            // groupValue: vm.getResultForIndex(index),
-            callback: (val) {
+            onSelection: (val) {
               print("Changed Assessment value to: $val");
               setState(() {
                 this.widget.onFinished(widget.assessment.name,

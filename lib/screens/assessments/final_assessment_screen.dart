@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/assessments/final_plan_display.dart';
-import 'package:prompt/screens/assessments/multi_step_assessment.dart';
-import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
+import 'package:prompt/screens/assessments/multi_page_screen.dart';
+import 'package:prompt/screens/assessments/step_questionnaire_future.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/final_asssessment_view_model.dart';
@@ -53,7 +53,7 @@ class _FinalAssessmentScreenState extends State<FinalAssessmentScreen> {
         child: Scaffold(
             body: Container(
                 margin: UIHelper.containerMargin,
-                child: MultiStepAssessment(
+                child: MultiPageScreen(
                   vm,
                   _pages,
                 ))));
@@ -70,22 +70,22 @@ class _FinalAssessmentScreenState extends State<FinalAssessmentScreen> {
             "Wir haben jetzt noch ein paar Fragen dazu, wie die Studie bisher für dich gewesen ist."),
   ]);
 
-  late var finalSession1 = MultiStepQuestionnaireFuture(
+  late var finalSession1 = StepQuestionnaireFuture(
       vm: vm,
       questionnaireName: AssessmentTypes.finalSession_1,
       key: ValueKey(FinalAssessmentStep.assessment_finalSession_1));
 
-  late var finalSession2 = MultiStepQuestionnaireFuture(
+  late var finalSession2 = StepQuestionnaireFuture(
       vm: vm,
       questionnaireName: AssessmentTypes.finalSession_2,
       key: ValueKey(FinalAssessmentStep.assessment_finalSession_2));
 
-  late var finalSession3 = MultiStepQuestionnaireFuture(
+  late var finalSession3 = StepQuestionnaireFuture(
       vm: vm,
       questionnaireName: AssessmentTypes.finalSession_3,
       key: ValueKey(FinalAssessmentStep.assessment_finalSession_3));
 
-  late var finalSession4 = MultiStepQuestionnaireFuture(
+  late var finalSession4 = StepQuestionnaireFuture(
       vm: vm,
       questionnaireName: AssessmentTypes.finalSession_4,
       key: ValueKey(FinalAssessmentStep.assessment_finalSession_4));

@@ -6,7 +6,7 @@ import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/route_names.dart';
-import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
+import 'package:prompt/viewmodels/multi_page_view_model.dart';
 
 const String eveningItems = "eveningItems";
 const String didLearnCabuuToday = "didLearnCabuuToday";
@@ -22,8 +22,8 @@ enum EveningAssessmentStep {
   completed
 }
 
-class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
-  final ExperimentService experimentService;
+class EveningAssessmentViewModel extends MultiPageViewModel {
+  final StudyService experimentService;
 
   List<EveningAssessmentStep> screenOrder = [
     EveningAssessmentStep.didLearnCabuuToday,
@@ -82,10 +82,10 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   @override
-  int getNextPage(ValueKey currentPageKey) {
-    step += 1;
+  int nextPage(ValueKey currentPageKey) {
+    page += 1;
 
-    step += 1;
+    page += 1;
 
     var pageKey = currentPageKey.value as EveningAssessmentStep;
 
@@ -96,21 +96,21 @@ class EveningAssessmentViewModel extends MultiStepAssessmentViewModel {
         continueWithoutSubmission();
         break;
       case EveningAssessmentStep.assessment_evening_1:
-        step = getStepIndex(EveningAssessmentStep.assessment_evening_2);
+        page = getStepIndex(EveningAssessmentStep.assessment_evening_2);
         break;
       case EveningAssessmentStep.assessment_evening_2:
-        step = getStepIndex(EveningAssessmentStep.assessment_evening_3);
+        page = getStepIndex(EveningAssessmentStep.assessment_evening_3);
         break;
       case EveningAssessmentStep.assessment_evening_3:
-        step = getStepAfterEveningItems();
+        page = getStepAfterEveningItems();
         break;
       case EveningAssessmentStep.completed:
         break;
     }
 
-    addTiming(pageKey.toString(), screenOrder[step].toString());
+    addTiming(pageKey.toString(), screenOrder[page].toString());
 
-    return step;
+    return page;
   }
 
   @override

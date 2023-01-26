@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/locator.dart';
+import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/screens/about_screen.dart';
 import 'package:prompt/screens/about_video_screen.dart';
 import 'package:prompt/screens/assessments/disributed_learning_video_screen.dart';
 import 'package:prompt/screens/assessments/evening_assessment_screen.dart';
 import 'package:prompt/screens/assessments/final_assessment_screen.dart';
+import 'package:prompt/screens/assessments/multi_page_questionnaire_screen.dart';
 import 'package:prompt/screens/change_mascot_screen.dart';
 import 'package:prompt/screens/internalisation/daily_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/default_reminder_screen.dart';
-import 'package:prompt/screens/assessments/morning_assessment_screen.dart';
 import 'package:prompt/screens/login_screen.dart';
 import 'package:prompt/screens/dashboard_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
@@ -26,8 +27,8 @@ import 'package:prompt/viewmodels/daily_internalisation_view_model.dart';
 import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:prompt/viewmodels/final_asssessment_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
-import 'package:prompt/viewmodels/morning_assessment_view_model.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
+import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -51,7 +52,7 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
                   create: (_) => DashboardViewModel(
-                      locator.get<ExperimentService>(),
+                      locator.get<StudyService>(),
                       locator.get<DataService>(),
                       locator.get<NavigationService>()),
                   child: DashboardScreen(),
@@ -60,42 +61,29 @@ class AppRouter {
       case RouteNames.SESSION_ZERO:
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
-                create: (_) => SessionZeroViewModel(
-                    locator.get<ExperimentService>(),
-                    locator.get<DataService>(),
-                    locator.get<RewardService>()),
+                create: (_) => SessionZeroViewModel(locator.get<StudyService>(),
+                    locator.get<DataService>(), locator.get<RewardService>()),
                 child: SessionZeroScreen()));
 
       case RouteNames.DAILY_INTERNALISATION:
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => DailyInternalisationViewModel(
-                    locator.get<ExperimentService>(),
-                    locator.get<DataService>()),
+                    locator.get<StudyService>(), locator.get<DataService>()),
                 child: DailyInternalisationScreen()));
-
-      case RouteNames.ASSESSMENT_MORNING:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => MorningAssessmentViewModel(
-                    locator.get<ExperimentService>(),
-                    locator.get<DataService>()),
-                child: MorningAssessmentScreen()));
 
       case RouteNames.ASSESSMENT_EVENING:
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => EveningAssessmentViewModel(
-                    locator.get<ExperimentService>(),
-                    locator.get<DataService>()),
+                    locator.get<StudyService>(), locator.get<DataService>()),
                 child: EveningAssessmentScreen()));
 
       case RouteNames.ASSESSMENT_FINAL:
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => FinalAssessmentViewModel(
-                    locator.get<DataService>(),
-                    locator.get<ExperimentService>()),
+                    locator.get<DataService>(), locator.get<StudyService>()),
                 child: FinalAssessmentScreen()));
 
       case RouteNames.MASCOT_CHANGE:
@@ -122,6 +110,15 @@ class AppRouter {
 
       case RouteNames.STUDY_COMPLETE:
         return MaterialPageRoute(builder: (_) => StudyCompleteScreen());
+
+      case RouteNames.QUESTIONNAIRE:
+        final questionnaire = settings.arguments as Questionnaire;
+        return MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => MultiPageQuestionnaireViewModel(
+                    locator.get<DataService>(),
+                    questionnaire: questionnaire),
+                child: MultiPageQuestionnaire()));
 
       default:
         return MaterialPageRoute(builder: (_) {

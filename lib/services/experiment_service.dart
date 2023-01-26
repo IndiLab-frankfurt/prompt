@@ -11,7 +11,7 @@ import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 
-class ExperimentService {
+class StudyService {
   static const int NUM_GROUPS = 7;
   static const Duration MAX_STUDY_DURATION = Duration(days: 56);
 
@@ -21,60 +21,14 @@ class ExperimentService {
   final RewardService _rewardService;
   final NavigationService _navigationService;
 
-  late Map<int, List<int>> reminderNotificationDays = {
-    1: List<int>.generate(54, (int index) => 1 + index),
-    2: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
-    3: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
-    4: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
-    5: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
-    6: [...List<int>.generate(36, (int index) => 1 + index), 45, 54],
-    7: [...List<int>.generate(36, (int index) => 1 + index), 45, 54]
-  };
-
-  final Map<int, List<int>> boosterPrompts = {
-    1: [],
-    2: [1, 2, 3, 7, 8, 13, 14, 15, 19, 20, 21, 25, 26, 31, 32, 33],
-    3: [4, 5, 6, 10, 11, 12, 16, 17, 22, 23, 24, 28, 29, 30, 34, 35],
-    4: [],
-    5: [1, 2, 3, 7, 8, 13, 14, 15, 19, 20, 21, 25, 26, 31, 32, 33],
-    6: [4, 5, 6, 10, 11, 12, 16, 17, 22, 23, 24, 28, 29, 30, 34, 35],
-    7: [],
-  };
-
-  final Map<int, List<int>> internalisationPrompts = {
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-    5: [1, 2, 3, 7, 8, 13, 14, 15, 19, 20, 21, 25, 26, 31, 32, 33],
-    6: [4, 5, 6, 10, 11, 12, 16, 17, 22, 23, 24, 28, 29, 30, 34, 35],
-    7: [],
-  };
-
-  final Map<int, List<int>> vocabTestReminder = {
-    1: [],
-    2: [],
-    3: [],
-    4: [],
-    5: [1, 2, 3, 7, 8, 9, 13, 14, 15, 19, 20, 21, 25, 26, 27, 31, 32, 33],
-    6: [4, 5, 6, 10, 11, 12, 16, 17, 18, 22, 23, 24, 28, 29, 30, 34, 35, 36],
-    7: [],
-  };
-
-  final Map<int, int> finalAssessmentDay = {
-    1: 54,
-    2: 36,
-    3: 36,
-    4: 36,
-    5: 36,
-    6: 36,
-    7: 36
-  };
-
   final List<int> vocabTestDays = [9, 18, 27, 36, 45, 54];
 
-  ExperimentService(this._dataService, this._notificationService,
+  StudyService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
+
+  getNextState(StudyState currentState) {
+    print(currentState.toString());
+  }
 
   nextScreen(String currentScreen) async {
     if (currentScreen == RouteNames.SESSION_ZERO) {
@@ -175,20 +129,6 @@ class ExperimentService {
     return daysAgo == 1;
   }
 
-  isBoosterPromptDay() {
-    var userData = _dataService.getUserDataCache();
-    var daysAgo = getDaysSinceStart();
-
-    return boosterPrompts[userData.group]!.contains(daysAgo);
-  }
-
-  isInternalisationDay() {
-    var userData = _dataService.getUserDataCache();
-    var daysAgo = getDaysSinceStart();
-
-    return internalisationPrompts[userData.group]!.contains(daysAgo);
-  }
-
   isTimeForFinalQuestions() {
     return false;
   }
@@ -205,52 +145,7 @@ class ExperimentService {
     var group = userData.group;
     var numSteps = SessionZeroViewModel.getScreenOrder(group).length;
 
-    return (userData.initSessionStep > (numSteps - 5));
-  }
-
-  Future<bool> isTimeForMorningAssessment() async {
-    var lastMorningAssessment =
-        await _dataService.getLatestQuestionnaireResponse(MORNING_ASSESSMENT);
-
-    var userData = _dataService.getUserDataCache();
-
-    // If the user has only registered today, then there should be no assessment yet
-    if (userData.registrationDate.isToday()) {
-      return false;
-    }
-    // If there is no last result, none has been submitted, so the first should be done
-    if (lastMorningAssessment == null) return true;
-
-    if (lastMorningAssessment.dateSubmitted.isToday()) {
-      return false;
-    }
-
-    var daysAgo = getDaysSinceStart();
-
-    return reminderNotificationDays[userData.group]!.contains(daysAgo);
-  }
-
-  Future<bool> isTimeForEveningAssessment() async {
-    var lastMorningAssessment =
-        await _dataService.getLatestQuestionnaireResponse(MORNING_ASSESSMENT);
-
-    var lastEveningAssessment =
-        await _dataService.getLatestQuestionnaireResponse(EVENING_ASSESSMENT);
-    // If there is no prior morning assessment, this should be done first.
-    if (lastMorningAssessment == null) return false;
-    // If the morning assessment has been completed today
-    if (lastMorningAssessment.dateSubmitted.isToday()) {
-      // Check if the evening assessment has been completed today as well
-      if (lastEveningAssessment != null) {
-        if (lastEveningAssessment.dateSubmitted.isToday()) {
-          return false;
-        } else {
-          return true;
-        }
-      }
-    }
-
-    return true;
+    return (userData.initStep > (numSteps - 5));
   }
 
   bool shouldShowDistributedLearningVideo() {
@@ -259,28 +154,8 @@ class ExperimentService {
     return (ud.group == "1") && (daysAgo == 18);
   }
 
-  schedulePrompts(String group) {
-    var now = DateTime.now();
-    var reminderHour = 5;
-    var schedule = DateTime(now.year, now.month, now.day, reminderHour, 00);
-
-    var numReminders = 1;
-    for (var day in reminderNotificationDays[group]!) {
-      var scheduleDay = schedule.add(Duration(days: day));
-      // In order to prevent hour of day skips during winter/summer time, explictly set the hour again
-      var scheduleDayWithTime = DateTime(scheduleDay.year, scheduleDay.month,
-          scheduleDay.day, reminderHour, 00);
-      _notificationService.scheduleMorningReminder(scheduleDayWithTime, day);
-
-      print("Scheduled Reminder ${numReminders++}");
-    }
-
-    // scheduleFinalTaskReminder();
-  }
-
   scheduleFinalTaskReminder() {
-    var dayAfterFinal =
-        DateTime.now().add(ExperimentService.MAX_STUDY_DURATION);
+    var dayAfterFinal = DateTime.now().add(StudyService.MAX_STUDY_DURATION);
     print(
         "scheduling final task reminder for ${dayAfterFinal.toIso8601String()}");
     _notificationService.scheduleFinalTaskReminder(dayAfterFinal);

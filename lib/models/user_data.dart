@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
 // part 'UserData.g.dart';
 @JsonSerializable()
@@ -10,11 +11,11 @@ class UserData {
   int streakDays = 0;
   int score = 0;
   int daysActive = 0;
-  int initSessionStep = 0;
+  int initStep = 0;
   String appVersion = "";
   String selectedMascot = "1";
   String cabuuCode = "123";
-  String platform = Platform.isAndroid ? "Android" : "iOS";
+  String platform = kIsWeb ? "Web" : (Platform.isAndroid ? "Android" : "iOS");
 
   UserData(
       {required this.user,
@@ -23,7 +24,7 @@ class UserData {
       this.cabuuCode = "123",
       this.streakDays = 0,
       this.score = 0,
-      this.initSessionStep = 0,
+      this.initStep = 0,
       this.appVersion = "",
       this.selectedMascot = "1",
       this.daysActive = 0});
@@ -36,7 +37,7 @@ class UserData {
       "streakDays": this.streakDays,
       "score": this.score,
       "daysActive": this.daysActive,
-      "initSessionStep": this.initSessionStep,
+      "initSessionStep": this.initStep,
       "app_version": this.appVersion,
       "selectedMascot": this.selectedMascot,
       "cabuuCode": this.cabuuCode,
@@ -47,7 +48,7 @@ class UserData {
     user = json["user"].toString();
     group = json["group"];
     appVersion = json["app_version"];
-    initSessionStep = json["init_step"];
+    initStep = json["init_step"];
     score = json["score"];
   }
 }

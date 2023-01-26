@@ -50,8 +50,8 @@ class DataService {
 
   saveSessionZeroStep(int step) async {
     var userData = getUserDataCache();
-    userData.initSessionStep = step;
-    await _databaseService.updateUserData(userData);
+    userData.initStep = step;
+    await _databaseService.saveUserDataProperty("init_step", step);
   }
 
   Future<int> getDaysActive() async {
@@ -130,9 +130,7 @@ class DataService {
   }
 
   saveUserDataProperty(String propertyname, dynamic value) async {
-    var ud = getUserDataCache();
-
-    await _databaseService.saveUserDataProperty(ud.user, propertyname, value);
+    await _databaseService.saveUserDataProperty(propertyname, value);
     _userDataCache = await _databaseService.getUserData();
   }
 

@@ -1,4 +1,5 @@
 import 'package:prompt/locator.dart';
+import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
@@ -50,6 +51,7 @@ class StartupViewModel extends BaseViewModel {
 
   Future<AppStartupMode> initialize() async {
     await locator<SettingsService>().initialize();
+    await locator<ApiService>().initialize();
 
     bool userInitialized = await locator<UserService>().initialize();
     addDebugText("User Initialized: $userInitialized");

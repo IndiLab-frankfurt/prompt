@@ -3,7 +3,7 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/experiment_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
-import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
+import 'package:prompt/viewmodels/multi_page_view_model.dart';
 
 enum FinalAssessmentStep {
   introduction,
@@ -15,7 +15,7 @@ enum FinalAssessmentStep {
   completed
 }
 
-class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
+class FinalAssessmentViewModel extends MultiPageViewModel {
   List<FinalAssessmentStep> screenOrder = [
     FinalAssessmentStep.introduction,
     FinalAssessmentStep.assessment_finalSession_1,
@@ -26,7 +26,7 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
     FinalAssessmentStep.completed
   ];
 
-  final ExperimentService experimentService;
+  final StudyService experimentService;
 
   int group = 0;
 
@@ -63,34 +63,34 @@ class FinalAssessmentViewModel extends MultiStepAssessmentViewModel {
   }
 
   @override
-  int getNextPage(ValueKey currentPageKey) {
-    step += 1;
+  int nextPage(ValueKey currentPageKey) {
+    page += 1;
 
     var pageKey = currentPageKey.value as FinalAssessmentStep;
 
     switch (pageKey) {
       case FinalAssessmentStep.introduction:
-        step = getStepIndex(FinalAssessmentStep.assessment_finalSession_1);
+        page = getStepIndex(FinalAssessmentStep.assessment_finalSession_1);
         break;
       case FinalAssessmentStep.assessment_finalSession_1:
         break;
       case FinalAssessmentStep.assessment_finalSession_2:
-        step = getStepIndex(FinalAssessmentStep.assessment_finalSession_3);
+        page = getStepIndex(FinalAssessmentStep.assessment_finalSession_3);
         break;
       case FinalAssessmentStep.assessment_finalSession_3:
-        step = getStepIndex(FinalAssessmentStep.assessment_finalSession_4);
+        page = getStepIndex(FinalAssessmentStep.assessment_finalSession_4);
         break;
       case FinalAssessmentStep.assessment_finalSession_4:
-        step = getStepIndex(FinalAssessmentStep.completed);
+        page = getStepIndex(FinalAssessmentStep.completed);
         break;
       case FinalAssessmentStep.completed:
         break;
       case FinalAssessmentStep.planDisplay:
-        step = getStepIndex(FinalAssessmentStep.assessment_finalSession_4);
+        page = getStepIndex(FinalAssessmentStep.assessment_finalSession_4);
         break;
     }
 
-    return step;
+    return page;
   }
 
   Future<String> getPlan() async {

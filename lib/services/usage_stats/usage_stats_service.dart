@@ -1,6 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:prompt/locator.dart';
-import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/usage_stats/usage_info.dart';
 
 class UsageStatsService {

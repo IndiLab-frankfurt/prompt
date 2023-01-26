@@ -4,6 +4,7 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:provider/provider.dart';
+import 'package:prompt/shared/app_strings.dart';
 
 class PlanTimingScreen extends StatefulWidget {
   const PlanTimingScreen({Key? key}) : super(key: key);
@@ -14,40 +15,36 @@ class PlanTimingScreen extends StatefulWidget {
 
 class _PlanTimingScreenState extends State<PlanTimingScreen> {
   late final vm = Provider.of<SessionZeroViewModel>(context);
-  int _groupValue = -1;
+  TextEditingController _timeDisplayController =
+      TextEditingController(text: "18 Uhr");
 
   TimeOfDay? selectedTime;
 
-  buildRegularItem(int groupValue, String text) {
-    return InkWell(
-      child: Row(
-        children: <Widget>[
-          Radio(
-            groupValue: _groupValue,
-            value: groupValue,
-            onChanged: (value) {
-              if (value is int) {
-                _onChanged(value, groupValue.toString());
-              }
-            },
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(10),
+      child: ListView(
+        children: [
+          SpeechBubble(text: vm.plan),
+          UIHelper.verticalSpaceMedium(),
+          MarkdownBody(data: "### " + AppStrings.PlanTiming_Paragraph1),
+          UIHelper.verticalSpaceMedium(),
+          Text(
+            AppStrings.PlanTiming_Paragraph2,
+            style: Theme.of(context).textTheme.subtitle1,
           ),
-          Expanded(
-            child: MarkdownBody(
-              data: text,
-            ),
-          )
+          UIHelper.verticalSpaceMedium(),
+          buildTimeSelector()
         ],
       ),
-      onTap: () {
-        _onChanged(groupValue, groupValue.toString());
-      },
     );
   }
 
-  buildTimeItem(int groupValue, String text) {
+  buildTimeSelector() {
     var selectTime = () async {
       TimeOfDay? time = await showTimePicker(
-        initialTime: TimeOfDay.now(),
+        initialTime: TimeOfDay(hour: 18, minute: 0),
         context: context,
         initialEntryMode: TimePickerEntryMode.input,
         builder: (BuildContext context, Widget? child) {
@@ -66,72 +63,53 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
 
       if (selectedTime != null) {
         final localizations = MaterialLocalizations.of(context);
-        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!);
-
-        _onChanged(groupValue, formattedTimeOfDay);
+        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!,
+            alwaysUse24HourFormat: true);
+        _timeDisplayController.text = formattedTimeOfDay;
+        _onChanged(formattedTimeOfDay);
       }
     };
-
-    return InkWell(
-      child: Row(
-        children: <Widget>[
-          Radio(
-            groupValue: _groupValue,
-            value: groupValue,
-            onChanged: (value) {
-              // FocusScope.of(context).unfocus();
-              selectTime();
-            },
-          ),
-          Expanded(
-            child: MarkdownBody(
-              data: text,
-            ),
-          )
-        ],
-      ),
+    // Textfield to select time
+    return TextField(
+      controller: _timeDisplayController,
+      readOnly: true,
       onTap: () async {
         selectTime();
       },
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    var timeDisplay = "Drücke hier um eine Uhrzeit auszuwählen.";
-    if (selectedTime != null) {
-      final localizations = MaterialLocalizations.of(context);
-      final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!,
-          alwaysUse24HourFormat: true);
-      timeDisplay = "um $formattedTimeOfDay";
-    }
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-      ),
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: ListView(
-          children: [
-            SpeechBubble(text: vm.plan),
-            UIHelper.verticalSpaceMedium(),
-            MarkdownBody(data: "### Um wie viel Uhr passiert das ungefähr?"),
-            UIHelper.verticalSpaceMedium(),
-            buildTimeItem(1, timeDisplay),
-            buildRegularItem(6, "Ist jeden Tag ganz unterschiedlich"),
-            buildRegularItem(7, "Weiß ich nicht"),
-          ],
-        ),
+      decoration: InputDecoration(
+        labelText: "Uhrzeit",
+        suffixIcon: Icon(Icons.access_time),
+        hintText: "Uhrzeit",
       ),
     );
+
+    // return InkWell(
+    //   child: Row(
+    //     children: <Widget>[
+    //       Radio(
+    //         groupValue: _groupValue,
+    //         value: groupValue,
+    //         onChanged: (value) {
+    //           // FocusScope.of(context).unfocus();
+    //           selectTime();
+    //         },
+    //       ),
+    //       Expanded(
+    //         child: MarkdownBody(
+    //           data: text,
+    //         ),
+    //       )
+    //     ],
+    //   ),
+    //   onTap: () async {
+    //     selectTime();
+    //   },
+    // );
   }
 
-  _onChanged(int groupValue, String selectedValue) {
+  _onChanged(String selectedValue) {
     setState(() {
-      _groupValue = groupValue;
-
-      vm.saveQuestionnaireResponse(
-          "planTiming", groupValue.toString(), selectedValue);
+      vm.saveQuestionnaireResponse("planTiming", "planTiming", selectedValue);
     });
   }
 }

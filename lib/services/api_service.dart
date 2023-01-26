@@ -9,11 +9,20 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:prompt/services/i_database_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:prompt/services/settings_service.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 
 class ApiService implements IDatabaseService {
   static String serverUrl = "http://10.0.2.2:8000";
 
   final SettingsService _settingsService;
+
+  Future<bool> initialize() {
+    if (kIsWeb && kDebugMode) {
+      serverUrl = "http://127.0.0.1:8000";
+    }
+    return Future.value(true);
+  }
 
   Map<String, String> getHeaders() {
     var username = _settingsService.getSetting(SettingsKeys.username);
@@ -131,6 +140,11 @@ class ApiService implements IDatabaseService {
   }
 
   @override
+  Future saveUserDataProperty(String key, dynamic value) {
+    return postAsync("/api/user/profile/", {key: value});
+  }
+
+  @override
   logEvent(Map<String, String> data) async {
     return postAsync("/api/applogs/", data);
   }
@@ -206,12 +220,6 @@ class ApiService implements IDatabaseService {
   @override
   Future saveUsageStats(Map<String, dynamic> usageInfo, String userid) {
     // TODO: implement saveUsageStats
-    throw UnimplementedError();
-  }
-
-  @override
-  Future saveUserDataProperty(String username, String key, value) {
-    // TODO: implement saveUserDataProperty
     throw UnimplementedError();
   }
 

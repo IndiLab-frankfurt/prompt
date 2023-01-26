@@ -7,7 +7,7 @@ import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
 class DashboardViewModel extends BaseViewModel {
-  final ExperimentService _experimentService;
+  final StudyService _experimentService;
   final DataService _dataService;
   final NavigationService _navigationService;
 
@@ -68,27 +68,6 @@ class DashboardViewModel extends BaseViewModel {
     if (daysActive == 0) {
       // notifyListeners();
       startTomorrow = true;
-      return true;
-    }
-
-    if (_experimentService.isVocabTestDay()) {
-      if (await _experimentService.isTimeForMorningAssessment()) {
-        showLearnedWithCabuuButton = false;
-        showVocabularyTestReminder = true;
-        // notifyListeners();
-        return true;
-      } else {
-        return false;
-      }
-    }
-
-    if (await _experimentService.isTimeForMorningAssessment()) {
-      this._navigationService.navigateTo(RouteNames.ASSESSMENT_MORNING);
-    }
-
-    if (await _experimentService.isTimeForEveningAssessment()) {
-      showLearnedWithCabuuButton = true;
-      // notifyListeners();
       return true;
     }
 

@@ -1,3 +1,46 @@
+import 'package:prompt/models/question.dart';
+import 'package:prompt/models/questionnaire.dart';
+
+var questionnaireSrl = Questionnaire(
+    title: "Gib an, wie oft folgende Aussagen auf dich zutreffen.",
+    name: "srl",
+    questions: [
+      ChoiceQuestion(
+          name: "srl_1",
+          questionText: "Wann ich Vokabeln lerne, lege ich vorher fest.",
+          choices: {
+            "1": "(Fast) nie",
+            "2": "Selten",
+            "3": "Hin und wieder",
+            "4": "Oft",
+            "5": "(Fast) immer"
+          }),
+      ChoiceQuestion(
+          name: "srl_2",
+          questionText: "Beim Vokabellernen bin ich ängstlich und nervös.",
+          choices: {
+            "1": "(Fast) nie",
+            "2": "Selten",
+            "3": "Hin und wieder",
+            "4": "Oft",
+            "5": "(Fast) immer"
+          }),
+      ChoiceQuestion(name: "srl_3", questionText: "SRL 3", choices: {
+        "1": "(Fast) nie",
+        "2": "Selten",
+        "3": "Hin und wieder",
+        "4": "Oft",
+        "5": "(Fast) immer"
+      }),
+      ChoiceQuestion(name: "srl_4", questionText: "SRL 4", choices: {
+        "1": "(Fast) nie",
+        "2": "Selten",
+        "3": "Hin und wieder",
+        "4": "Oft",
+        "5": "(Fast) immer"
+      })
+    ]);
+
 const srl = {
   "title": "Gib an, wie oft folgende Aussagen auf dich zutreffen.",
   "name": "srl",

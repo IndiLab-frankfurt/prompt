@@ -56,6 +56,10 @@ enum InternalisationCondition {
   emojiThen,
 }
 
+enum StudyState {
+  startScreen,
+}
+
 const String EVENING_ASSESSMENT = "eveningAssessment";
 const String MORNING_ASSESSMENT = "morningAssessment";
 const String FINAL_ASSESSMENT = "finalAssessment";

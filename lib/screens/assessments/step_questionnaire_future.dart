@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/models/assessment.dart';
-import 'package:prompt/screens/assessments/questionnaire_screen.dart';
+import 'package:prompt/screens/assessments/vertical_questionnaire.dart';
 
-import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
+import 'package:prompt/viewmodels/multi_page_view_model.dart';
 
-class MultiStepQuestionnaireFuture extends StatelessWidget {
-  final MultiStepAssessmentViewModel vm;
+class StepQuestionnaireFuture extends StatelessWidget {
+  final MultiPageViewModel vm;
   final String questionnaireName;
 
-  const MultiStepQuestionnaireFuture(
+  const StepQuestionnaireFuture(
       {Key? key, required this.vm, required this.questionnaireName})
       : super(key: key);
 
@@ -21,7 +21,7 @@ class MultiStepQuestionnaireFuture extends StatelessWidget {
           if (snapshot.hasData) {
             if (snapshot.data is Assessment) {
               var assessment = snapshot.data as Assessment;
-              return QuestionnaireScreen(
+              return VerticalQuestionnaire(
                   assessment, vm.saveQuestionnaireResponse,
                   onAssessmentCompleted: vm.onAssessmentCompleted,
                   onLoaded: vm.onAssessmentLoaded,

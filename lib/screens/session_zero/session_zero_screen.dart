@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/screens/assessments/multi_step_assessment.dart';
-import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
+import 'package:prompt/screens/assessments/multi_page_screen.dart';
+import 'package:prompt/screens/assessments/step_questionnaire_future.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
 import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
@@ -17,7 +17,6 @@ import 'package:prompt/screens/session_zero/instructions_distributed_learning.da
 import 'package:prompt/screens/session_zero/instructions_implementation_intentions.dart';
 import 'package:prompt/screens/session_zero/obstacle_enter_screen.dart';
 import 'package:prompt/screens/session_zero/outcome_enter_screen.dart';
-import 'package:prompt/screens/session_zero/plan_commitment_screen.dart';
 import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
 import 'package:prompt/screens/session_zero/plan_display_screen.dart';
 import 'package:prompt/screens/session_zero/plan_timing_screen.dart';
@@ -54,7 +53,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
       _screens = [];
 
-      for (var screen in vm.screenOrder) {
+      for (var screen in vm.pages) {
         _screens.add(getScreen(screen));
       }
 
@@ -69,30 +68,28 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         child: Container(
           decoration: UIHelper.defaultBoxDecoration,
           child: Scaffold(
-              appBar: PromptAppBar(showBackButton: false),
+              appBar: PromptAppBar(showBackButton: true),
               drawer: PromptDrawer(),
               extendBodyBehindAppBar: true,
               resizeToAvoidBottomInset: false,
-              body: SafeArea(
-                child: FutureBuilder(
-                  future: init(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    if (snapshot.hasData) {
-                      return Container(
-                          decoration: UIHelper.defaultBoxDecoration,
-                          padding: UIHelper.containerPadding,
-                          child: MultiStepAssessment(
-                            vm,
-                            _screens,
-                          ));
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                ),
+              body: FutureBuilder(
+                future: init(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                  if (snapshot.hasData) {
+                    return Container(
+                        decoration: UIHelper.defaultBoxDecoration,
+                        padding: UIHelper.containerPadding,
+                        child: MultiPageScreen(
+                          vm,
+                          _screens,
+                        ));
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               )),
         ));
   }
@@ -141,6 +138,8 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
               emojiInputThen: true,
               key: key),
         );
+      case SessionZeroStep.rewardScreen2:
+        return RewardScreen2(key: key);
       case SessionZeroStep.assessment_itLiteracy:
         // TODO: Handle this case.
         break;
@@ -169,8 +168,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         break;
 
       case SessionZeroStep.planTiming:
-        // TODO: Handle this case.
-        break;
+        return PlanTimingScreen(key: key);
       case SessionZeroStep.instructions1:
         // TODO: Handle this case.
         break;
@@ -196,9 +194,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         // TODO: Handle this case.
         break;
 
-      case SessionZeroStep.rewardScreen2:
-        // TODO: Handle this case.
-        break;
       case SessionZeroStep.endOfSession:
         // TODO: Handle this case.
         break;
@@ -243,27 +238,27 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       InstructionsImplementationIntentions(
           key: ValueKey(SessionZeroStep.instructions_implementationIntentions));
 
-  late var motivationQuestionnaire = MultiStepQuestionnaireFuture(
+  late var motivationQuestionnaire = StepQuestionnaireFuture(
       vm: vm,
       questionnaireName: AssessmentTypes.motivation,
       key: ValueKey(SessionZeroStep.assessment_motivation));
 
-  late var selfEfficacyQuestionnaire = MultiStepQuestionnaireFuture(
+  late var selfEfficacyQuestionnaire = StepQuestionnaireFuture(
       vm: vm,
       questionnaireName: AssessmentTypes.selfEfficacy,
       key: ValueKey(SessionZeroStep.assessment_selfEfficacy));
 
-  late var itLiteracyQuestionnaire = MultiStepQuestionnaireFuture(
+  late var itLiteracyQuestionnaire = StepQuestionnaireFuture(
       vm: vm,
       questionnaireName: AssessmentTypes.itLiteracy,
       key: ValueKey(SessionZeroStep.assessment_itLiteracy));
 
-  late var learningFrequencyDuration = MultiStepQuestionnaireFuture(
+  late var learningFrequencyDuration = StepQuestionnaireFuture(
       vm: vm,
       questionnaireName: AssessmentTypes.learningFrequencyDuration,
       key: ValueKey(SessionZeroStep.assessment_learningFrequencyDuration));
 
-  late var learningExpectations = MultiStepQuestionnaireFuture(
+  late var learningExpectations = StepQuestionnaireFuture(
       vm: vm,
       questionnaireName: AssessmentTypes.learningExpectations,
       key: ValueKey(SessionZeroStep.assessment_learningExpectations));
@@ -277,13 +272,7 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   late var whyLearnVocabs =
       WhyLearnVocabScreen(key: ValueKey(SessionZeroStep.whyLearnVocabScreen));
 
-  late var planTiming =
-      PlanTimingScreen(key: ValueKey(SessionZeroStep.planTiming));
-
-  // late var planCommitment = PlanCommitmentScreen(
-  //     key: ValueKey(SessionZeroStep.assessment_planCommitment));
-
-  late var distributedLearning = MultiStepQuestionnaireFuture(
+  late var distributedLearning = StepQuestionnaireFuture(
       vm: vm,
       questionnaireName: AssessmentTypes.distributedPractice,
       key: ValueKey(SessionZeroStep.assessment_distributedLearning));

@@ -11,10 +11,6 @@ class SpeechBubble extends StatelessWidget {
       child: MarkdownBody(
         data: "## " + text,
       ),
-      // child: Text(
-      //   this.text,
-      //   style: Theme.of(context).textTheme.headline6,
-      // ),
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
         boxShadow: [

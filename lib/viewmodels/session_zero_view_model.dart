@@ -7,7 +7,7 @@ import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
-import 'package:prompt/viewmodels/multi_step_assessment_view_model.dart';
+import 'package:prompt/viewmodels/multi_page_view_model.dart';
 
 enum SessionZeroStep {
   welcome,
@@ -44,23 +44,18 @@ enum SessionZeroStep {
   endOfSession
 }
 
-class SessionZeroViewModel extends MultiStepAssessmentViewModel {
-// ignore: non_constant_identifier_names
-  List<SessionZeroStep> screenOrder = [];
+class SessionZeroViewModel extends MultiPageViewModel {
   InternalisationViewModel internalisationViewmodelEmoji =
       InternalisationViewModel();
   InternalisationViewModel internalisationViewmodelWaiting =
       InternalisationViewModel();
   List<String> submittedResults = [];
 
-  bool _firstPointsReceived = false;
-  bool _secondPointsReceived = false;
-
   String _selectedMascot = "1";
   String get selectedMascot => _selectedMascot;
   set selectedMascot(String selected) {
     this._selectedMascot = selected;
-    _dataService.setSelectedMascot(selected);
+    dataService.setSelectedMascot(selected);
     _rewardService.changeMascot(selected);
     notifyListeners();
   }
@@ -138,31 +133,30 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
     notifyListeners();
   }
 
-  final ExperimentService _experimentService;
-  final DataService _dataService;
+  final StudyService _experimentService;
   final RewardService _rewardService;
 
   SessionZeroViewModel(
-      this._experimentService, this._dataService, this._rewardService)
-      : super(_dataService) {
+      this._experimentService, DataService dataService, this._rewardService)
+      : super(dataService) {
     generateScreenOrder();
   }
 
   void generateScreenOrder() {
-    var ud = _dataService.getUserDataCache();
+    var ud = dataService.getUserDataCache();
     var group = ud.group;
 
-    screenOrder = getScreenOrder(group);
+    pages = getScreenOrder(group);
   }
 
   Future<bool> getInitialValues() async {
-    var plan = await _dataService.getLastPlan();
+    var plan = await dataService.getLastPlan();
     if (plan != null) {
       this.plan = plan;
     }
 
-    var ud = _dataService.getUserDataCache();
-    initialStep = ud.initSessionStep;
+    var ud = dataService.getUserDataCache();
+    initialPage = ud.initStep;
     cabuuCode = ud.cabuuCode;
 
     return true;
@@ -171,13 +165,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   static List<SessionZeroStep> getScreenOrder(String group) {
     List<SessionZeroStep> screenOrder = [
       SessionZeroStep.welcome,
-      // SessionZeroStep.whereCanYouFindThisInformation,
-      // SessionZeroStep.instructions1,
-      // SessionZeroStep.videoDistributedLearning,
-      // SessionZeroStep.assessment_itLiteracy,
-      // SessionZeroStep.assessment_learningFrequencyDuration,
-      // SessionZeroStep.assessment_motivation,
-      // SessionZeroStep.assessment_distributedLearning,
+      SessionZeroStep.video_introduction,
       SessionZeroStep.rewardScreen1,
       SessionZeroStep.outcome,
       SessionZeroStep.obstacle,
@@ -187,18 +175,13 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       SessionZeroStep.planCreation,
       SessionZeroStep.planDisplay,
       SessionZeroStep.planInternalisationEmoji,
-      SessionZeroStep.planTiming,
-      SessionZeroStep.instructions_cabuu_1,
-      SessionZeroStep.instructions_cabuu_2,
-      SessionZeroStep.instructions_cabuu_3,
-      SessionZeroStep.assessment_learningExpectations,
-      SessionZeroStep.endOfSession,
       SessionZeroStep.rewardScreen2,
-    ];
-
-    List<SessionZeroStep> distributedLearning = [
-      SessionZeroStep.instructions_distributedLearning,
-      SessionZeroStep.assessment_distributedLearning,
+      SessionZeroStep.planTiming,
+      // SessionZeroStep.instructions_cabuu_1,
+      // SessionZeroStep.instructions_cabuu_2,
+      // SessionZeroStep.instructions_cabuu_3,
+      // SessionZeroStep.assessment_learningExpectations,
+      // SessionZeroStep.endOfSession,
     ];
 
     return screenOrder;
@@ -206,20 +189,18 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
 
   @override
   onPageChange() {
-    this._dataService.saveSessionZeroStep(step);
+    this.dataService.saveSessionZeroStep(page);
 
     super.onPageChange();
   }
 
   @override
-  int getNextPage(ValueKey currentPageKey) {
-    step += 1;
+  int nextPage(ValueKey currentPageKey) {
+    page += 1;
 
-    var end = (step < screenOrder.length - 1)
-        ? screenOrder[step].toString()
-        : "complete";
+    var end = (page < pages.length - 1) ? pages[page].toString() : "complete";
     addTiming(currentPageKey.value.toString(), end);
-    return step;
+    return page;
   }
 
   saveInternalisation() {
@@ -229,7 +210,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
         plan: this.plan,
         condition: InternalisationCondition.emojiIf.toString(),
         input: this.internalisationViewmodelEmoji.input);
-    _dataService.saveInternalisation(internalisation);
+    dataService.saveInternalisation(internalisation);
   }
 
   @override
@@ -256,9 +237,8 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.planDisplay:
         break;
       case SessionZeroStep.video_introduction:
-        if (!_firstPointsReceived) {
+        if (_rewardService.scoreValue < 5) {
           _rewardService.addPoints(5);
-          _firstPointsReceived = true;
         }
         break;
       case SessionZeroStep.assessment_itLiteracy:
@@ -276,7 +256,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
             questionText: "",
             response: vocabValue,
             dateSubmitted: DateTime.now());
-        _dataService.saveQuestionnaireResponse(vocabValueResponse);
+        dataService.saveQuestionnaireResponse(vocabValueResponse);
         break;
       case SessionZeroStep.planCreation:
         var planResponse = QuestionnaireResponse(
@@ -285,26 +265,43 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
             questionText: "",
             response: vocabValue,
             dateSubmitted: DateTime.now());
-        _dataService.saveQuestionnaireResponse(planResponse);
+        dataService.saveQuestionnaireResponse(planResponse);
         break;
       case SessionZeroStep.planInternalisationEmoji:
         saveInternalisation();
-        break;
-      case SessionZeroStep.endOfSession:
-        if (!_secondPointsReceived) {
-          _rewardService.addPoints(5);
-          _secondPointsReceived = true;
+        if (_rewardService.scoreValue < 10) {
+          _rewardService.addPoints(20);
         }
 
         break;
+      case SessionZeroStep.endOfSession:
+        break;
       case SessionZeroStep.outcome:
-        // TODO: Handle this case.
+        var outcomeResponse = QuestionnaireResponse(
+            name: "outcome",
+            questionnaireName: "outcome",
+            questionText: "",
+            response: outcome,
+            dateSubmitted: DateTime.now());
+        dataService.saveQuestionnaireResponse(outcomeResponse);
         break;
       case SessionZeroStep.obstacle:
-        // TODO: Handle this case.
+        var obstacleResponse = QuestionnaireResponse(
+            name: "obstacle",
+            questionnaireName: "obstacle",
+            questionText: "",
+            response: obstacle,
+            dateSubmitted: DateTime.now());
+        dataService.saveQuestionnaireResponse(obstacleResponse);
         break;
       case SessionZeroStep.copingPlan:
-        // TODO: Handle this case.
+        var copingPlanResponse = QuestionnaireResponse(
+            name: "copingPlan",
+            questionnaireName: "copingPlan",
+            questionText: "",
+            response: copingPlan,
+            dateSubmitted: DateTime.now());
+        dataService.saveQuestionnaireResponse(copingPlanResponse);
         break;
     }
 
@@ -312,7 +309,7 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
   }
 
   int getStepIndex(SessionZeroStep step) {
-    return screenOrder.indexOf(step);
+    return pages.indexOf(step);
   }
 
   @override
@@ -327,7 +324,6 @@ class SessionZeroViewModel extends MultiStepAssessmentViewModel {
       case SessionZeroStep.instructions3:
       case SessionZeroStep.video_introduction:
       case SessionZeroStep.planDisplay:
-        return true;
       case SessionZeroStep.cabuuCode:
       case SessionZeroStep.welcome:
       case SessionZeroStep.instructions_cabuu_1:

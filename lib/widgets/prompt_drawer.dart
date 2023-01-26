@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/data/assessments.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -80,6 +81,14 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushReplacementNamed(
                     context, RouteNames.SESSION_ZERO);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Questionnaire Test",
+              onTap: () async {
+                await Navigator.pushReplacementNamed(
+                    context, RouteNames.QUESTIONNAIRE,
+                    arguments: questionnaireSrl);
               }),
           // Divider(),
           // _buildDrawerItem(

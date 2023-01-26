@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_result.dart';
@@ -6,32 +8,59 @@ import 'package:prompt/services/data_service.dart';
 import 'package:collection/collection.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
-abstract class MultiStepAssessmentViewModel extends BaseViewModel {
+abstract class MultiPageViewModel extends BaseViewModel {
   final DataService dataService;
+
+  List<dynamic> pages = [];
 
   bool currentAssessmentIsFilledOut = false;
 
-  int step = 0;
-  int initialStep = 0;
+  final StreamController _currentPageController =
+      StreamController<int>.broadcast();
+
+  Sink get currentPage => _currentPageController.sink;
+
+  Stream<int> get currentPageStream =>
+      _currentPageController.stream.map((currentIndex) => currentIndex);
+
+  int page = 0;
+
+  int initialPage = 0;
 
   Assessment lastAssessment = Assessment();
+
   DateTime startDate = DateTime.now();
 
-  String nextButtonText = "Weiter";
+  QuestionnaireResponse? currentResponse;
 
-  MultiStepAssessmentViewModel(this.dataService);
+  List<QuestionnaireResponse> questionnaireResponses = [];
+
+  Map<String, Map<String, dynamic>> timings = {};
+
+  MultiPageViewModel(this.dataService);
 
   bool canMoveBack(ValueKey currentPageKey);
+
   bool canMoveNext(ValueKey currentPageKey);
 
   void submit();
 
-  QuestionnaireResponse? currentResponse;
-  List<QuestionnaireResponse> questionnaireResponses = [];
-  Map<String, Map<String, dynamic>> timings = {};
+  int nextPage(ValueKey currentPageKey) {
+    if (page >= pages.length - 1) {
+      return page;
+    }
+    page += 1;
+    currentPage.add(page);
+    return page;
+  }
 
-  int getNextPage(ValueKey currentPageKey) {
-    return step + 1;
+  int previousPage(ValueKey currentPageKey) {
+    if (page <= 0) {
+      return page;
+    }
+    page -= 1;
+    currentPage.add(page);
+    return page;
   }
 
   saveQuestionnaireResponse(
@@ -60,6 +89,12 @@ abstract class MultiStepAssessmentViewModel extends BaseViewModel {
     currentAssessmentIsFilledOut = true;
 
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _currentPageController.close();
+    super.dispose();
   }
 
   Future<Assessment> getQuestionnaire(String name) async {

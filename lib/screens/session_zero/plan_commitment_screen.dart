@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/screens/assessments/multi_step_questionnaire_future.dart';
+import 'package:prompt/screens/assessments/step_questionnaire_future.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
@@ -21,7 +21,7 @@ class _PlanCommitmentScreenState extends State<PlanCommitmentScreen> {
         child: ListView(
       children: [
         SpeechBubble(text: vm.plan),
-        MultiStepQuestionnaireFuture(
+        StepQuestionnaireFuture(
           vm: vm,
           questionnaireName: AssessmentTypes.planCommitment,
         )

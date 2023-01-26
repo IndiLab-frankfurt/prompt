@@ -1,16 +1,10 @@
-import 'package:json_annotation/json_annotation.dart';
-part 'questionnaire.g.dart';
+import 'package:prompt/models/question.dart';
 
-@JsonSerializable()
 class Questionnaire {
   final String title;
-  final String type;
   final String name;
+  final List<Question> questions;
 
-  Questionnaire({required this.title, required this.type, required this.name});
-
-  factory Questionnaire.fromJson(Map<String, dynamic> json) =>
-      _$QuestionnaireFromJson(json);
-
-  Map<String, dynamic> toJson() => _$QuestionnaireToJson(this);
+  Questionnaire(
+      {required this.title, required this.name, required this.questions});
 }

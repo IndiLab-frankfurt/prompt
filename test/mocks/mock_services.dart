@@ -21,7 +21,7 @@ RewardService mockRewardService =
     RewardService(mockDataService, mockLoggingService);
 NavigationService mockNavigationService = NavigationService();
 
-ExperimentService mockExperimentService = ExperimentService(
+StudyService mockExperimentService = StudyService(
     mockDataService,
     mockNotificationService,
     mockLoggingService,

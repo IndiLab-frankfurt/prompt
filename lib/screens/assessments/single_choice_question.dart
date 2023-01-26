@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
-typedef void IntervalScaleCallback(String val);
+typedef void ChoiceQuestionCallback(String val);
 
-class IntervalScale extends StatefulWidget {
+class SingleChoiceQuestion extends StatefulWidget {
   @override
-  _IntervalScaleState createState() => _IntervalScaleState();
+  _SingleChoiceQuestionState createState() => _SingleChoiceQuestionState();
 
   final String title;
-  final Map<String, String> labels;
   final String id;
-  final IntervalScaleCallback callback;
   final int groupValue;
   final bool randomize;
+  final Map<String, String> labels;
+  final ChoiceQuestionCallback onSelection;
 
-  IntervalScale(
+  SingleChoiceQuestion(
       {Key? key,
       this.title = "",
       required this.labels,
       this.groupValue = -1,
       this.id = "",
       this.randomize = false,
-      required this.callback})
+      required this.onSelection})
       : super(key: key);
 }
 
-class _IntervalScaleState extends State<IntervalScale> {
+class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
   int _groupValue = -1;
   Map<String, String> items = {};
 
@@ -59,7 +59,7 @@ class _IntervalScaleState extends State<IntervalScale> {
       _groupValue = groupValue;
     });
 
-    widget.callback(selectedValue);
+    widget.onSelection(selectedValue);
   }
 
   buildStaticItem(int groupValue, String text) {
@@ -70,7 +70,6 @@ class _IntervalScaleState extends State<IntervalScale> {
             groupValue: _groupValue,
             value: groupValue,
             onChanged: (value) {
-              // FocusScope.of(context).unfocus();
               if (value is int) {
                 _onChanged(value, groupValue.toString());
               }
@@ -112,7 +111,6 @@ class _IntervalScaleState extends State<IntervalScale> {
             ],
           ),
           onTap: () {
-            // FocusScope.of(context).nextFocus();
             FocusScope.of(context).nextFocus();
             _onChanged(groupValue, text);
           },

@@ -39,20 +39,50 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
 
     return ListView(children: [
       MarkdownBody(data: "### " + AppStrings.PlanCreation_LetsCreatePlan),
-      UIHelper.verticalSpaceLarge(),
-      MarkdownBody(data: '### "Wenn ich'),
-      TextField(
-          controller: _habitTextController,
-          onChanged: (newText) {
-            vm.plan = newText;
-          },
-          decoration: new InputDecoration(hintText: '...'),
-          style: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w500,
-          )),
       UIHelper.verticalSpaceSmall(),
-      MarkdownBody(data: '### , dann lerne ich mit cabuu!"'),
+      MarkdownBody(
+          data: "### " + AppStrings.PlanCreation_PlanCreationExplanation),
+      UIHelper.verticalSpaceLarge(),
+      MarkdownBody(data: "### " + AppStrings.PlanCreation_CompleteThePlan),
+      UIHelper.verticalSpaceMedium(),
+      Container(
+        padding: EdgeInsets.all(10),
+        // round corners and white background
+        decoration: BoxDecoration(
+          color: Theme.of(context).selectedRowColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(
+            children: [
+              MarkdownBody(data: '### " Wenn ich  '),
+              UIHelper.horizontalSpaceSmall(),
+              Expanded(
+                child: TextField(
+                    maxLines: 3,
+                    minLines: 1,
+                    controller: _habitTextController,
+                    onChanged: (newText) {
+                      vm.plan = newText;
+                    },
+                    keyboardType: TextInputType.text,
+                    decoration: new InputDecoration(
+                        fillColor: Colors.white.withAlpha(100),
+                        filled: true,
+                        hintText: '   ...'),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
+                    )),
+              ),
+              MarkdownBody(data: '### ,'),
+            ],
+          ),
+          UIHelper.verticalSpaceSmall(),
+          MarkdownBody(data: '### dann lerne ich mit cabuu! "'),
+        ]),
+      )
+
       // ElevatedButton(
       //     onPressed: () {
       //       setState(() {

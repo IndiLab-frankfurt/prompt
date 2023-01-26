@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:prompt/locator.dart';
@@ -52,7 +53,43 @@ class NotificationService {
 
     await localNotifications.initialize(initSettings);
 
+    await initPushNotifications();
+
     return true;
+  }
+
+  static final FirebaseMessaging _firebaseMessaging =
+      FirebaseMessaging.instance;
+  initPushNotifications() async {
+    _firebaseMessaging.subscribeToTopic("daily");
+    RemoteMessage? initialMessage =
+        await FirebaseMessaging.instance.getInitialMessage();
+
+    if (initialMessage != null) {
+      _handleFirebaseMessage(initialMessage);
+    }
+    // Also handle any interaction when the app is in the background via a
+    // Stream listener
+    FirebaseMessaging.onMessageOpenedApp.listen(_handleFirebaseMessage);
+
+    FirebaseMessaging.instance.getToken().then((token) {
+      print("FCM TOKEN: $token");
+    });
+
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      print('Got a message whilst in the foreground!');
+      print('Message data: ${message.data}');
+
+      if (message.notification != null) {
+        print('Message also contained a notification: ${message.notification}');
+      }
+    });
+  }
+
+  void _handleFirebaseMessage(RemoteMessage message) {
+    print("Handling Firebase Message");
+    print(message.data);
+    print(message.notification);
   }
 
   Future<dynamic> onDidReceiveLocalNotification(

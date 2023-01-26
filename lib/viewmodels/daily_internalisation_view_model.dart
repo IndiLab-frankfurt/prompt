@@ -7,7 +7,7 @@ import 'package:prompt/viewmodels/internalisation_view_model.dart';
 class DailyInternalisationViewModel extends BaseViewModel {
   InternalisationViewModel internalisation = InternalisationViewModel();
 
-  final ExperimentService experimentService;
+  final StudyService experimentService;
   final DataService dataService;
 
   DailyInternalisationViewModel(
