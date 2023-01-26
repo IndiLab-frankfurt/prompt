@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prompt/locator.dart';
@@ -6,9 +7,21 @@ import 'package:prompt/screens/startup_screen.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_router.dart';
 
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Handling a background message: ${message.messageId}");
+}
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  await Firebase.initializeApp(
+      name: 'prompt',
+      options: FirebaseOptions(
+          apiKey: "AIzaSyAPqtpv-07sGIT7rPVVKYJ0nKmvB-zPpV4",
+          appId: "1:972973871566:web:207f4b7287a6bdd95b9b9f",
+          messagingSenderId: "972973871566",
+          projectId: "prompt-942ca"));
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   setupLocator();
   runApp(MyApp());
 }
@@ -17,7 +30,6 @@ class MyApp extends StatelessWidget {
   buildMaterialApp(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      // debugShowMaterialGrid: true,
       title: 'Prompt',
       theme: ThemeData(
           scaffoldBackgroundColor: Colors.orange[50],
@@ -30,7 +42,6 @@ class MyApp extends StatelessWidget {
             subtitle1: GoogleFonts.quicksand(
                 fontSize: 20, fontWeight: FontWeight.w600),
           ),
-          // GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
           buttonTheme: ButtonThemeData(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
