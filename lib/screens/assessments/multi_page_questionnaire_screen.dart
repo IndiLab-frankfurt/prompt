@@ -33,10 +33,7 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
               mainAxisAlignment: MainAxisAlignment.center,
               key: ValueKey(question.name),
               children: [
-                SingleChoiceQuestion(
-                    title: question.questionText,
-                    labels: question.choices,
-                    onSelection: (_) {}),
+                SingleChoiceQuestion(question: question, onSelection: (_) {}),
               ]));
         }
       }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/models/question.dart';
 
 typedef void ChoiceQuestionCallback(String val);
 
@@ -7,26 +8,22 @@ class SingleChoiceQuestion extends StatefulWidget {
   @override
   _SingleChoiceQuestionState createState() => _SingleChoiceQuestionState();
 
-  final String title;
-  final String id;
-  final int groupValue;
+  final ChoiceQuestion question;
+  final int selectecValue;
   final bool randomize;
-  final Map<String, String> labels;
   final ChoiceQuestionCallback onSelection;
 
   SingleChoiceQuestion(
       {Key? key,
-      this.title = "",
-      required this.labels,
-      this.groupValue = -1,
-      this.id = "",
+      required this.question,
+      this.selectecValue = -1,
       this.randomize = false,
       required this.onSelection})
       : super(key: key);
 }
 
 class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
-  int _groupValue = -1;
+  int _selectedValue = -1;
   Map<String, String> items = {};
 
   randomizeMap(Map<String, String> map) {
@@ -34,8 +31,8 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
     var list = List<int>.generate(map.length, (i) => i + 1);
     list.shuffle();
     for (var i in list) {
-      var existingKey = widget.labels.keys.elementAt(i);
-      var existingValue = widget.labels.values.elementAt(i);
+      var existingKey = widget.question.choices.keys.elementAt(i);
+      var existingValue = widget.question.choices.values.elementAt(i);
       newmap[existingKey] = existingValue;
     }
 
@@ -45,20 +42,20 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
   @override
   void initState() {
     super.initState();
-    _groupValue = widget.groupValue;
+    _selectedValue = widget.selectecValue;
 
     if (widget.randomize) {
-      items = randomizeMap(widget.labels);
+      items = randomizeMap(widget.question.choices);
     } else {
-      items = widget.labels;
+      items = widget.question.choices;
     }
   }
 
   _onChanged(int groupValue, String selectedValue) {
     setState(() {
-      _groupValue = groupValue;
+      _selectedValue = groupValue;
     });
-
+    widget.question.selectedChoices = [selectedValue];
     widget.onSelection(selectedValue);
   }
 
@@ -67,7 +64,7 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
       child: Row(
         children: <Widget>[
           Radio(
-            groupValue: _groupValue,
+            groupValue: _selectedValue,
             value: groupValue,
             onChanged: (value) {
               if (value is int) {
@@ -97,7 +94,7 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
           child: Row(
             children: <Widget>[
               Radio(
-                groupValue: _groupValue,
+                groupValue: _selectedValue,
                 value: groupValue,
                 onChanged: (val) {
                   if (val is int) {
@@ -121,7 +118,7 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
             decoration: InputDecoration(border: OutlineInputBorder()),
             onTap: () {
               setState(() {
-                _groupValue = groupValue;
+                _selectedValue = groupValue;
               });
             },
             onChanged: (text) {
@@ -144,7 +141,7 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
                 border: OutlineInputBorder(), label: Text(hintText)),
             onTap: () {
               setState(() {
-                _groupValue = groupValue;
+                _selectedValue = groupValue;
               });
             },
             onChanged: (text) {
@@ -157,8 +154,8 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
   }
 
   String? getLabel(String key) {
-    if (widget.labels.containsKey(key)) {
-      return widget.labels[key];
+    if (widget.question.choices.containsKey(key)) {
+      return widget.question.choices[key];
     }
     return "MISSING LABEL";
   }
@@ -168,25 +165,27 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
     List<Widget> items = [];
 
     int displayGroupValue = 1;
-    for (var key in widget.labels.keys) {
+    for (var key in widget.question.choices.keys) {
       if (key.contains("TEXTINPUT")) {
-        if (widget.labels.length == 1) {
-          items.add(buildTextInputItem(displayGroupValue, widget.labels[key]!,
-              hintText: widget.labels[key]!));
+        if (widget.question.choices.length == 1) {
+          items.add(buildTextInputItem(
+              displayGroupValue, widget.question.choices[key]!,
+              hintText: widget.question.choices[key]!));
         } else {
           items.add(buildSingleTextInputItemWithSelector(
-              displayGroupValue, widget.labels[key]!));
-          _groupValue = displayGroupValue;
+              displayGroupValue, widget.question.choices[key]!));
+          _selectedValue = displayGroupValue;
         }
       } else {
-        items.add(buildStaticItem(displayGroupValue, widget.labels[key]!));
+        items.add(
+            buildStaticItem(displayGroupValue, widget.question.choices[key]!));
       }
       displayGroupValue += 1;
     }
 
     return Column(children: <Widget>[
       MarkdownBody(
-        data: "## " + widget.title,
+        data: "## " + widget.question.questionText,
       ),
       Column(mainAxisAlignment: MainAxisAlignment.start, children: items)
     ]);

@@ -8,6 +8,7 @@ abstract class Question {
 class ChoiceQuestion extends Question {
   final bool singleChoice;
   final Map<String, String> choices;
+  List<String> selectedChoices = [];
 
   ChoiceQuestion(
       {required this.choices,

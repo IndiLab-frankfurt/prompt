@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
-import 'package:prompt/screens/assessments/step_questionnaire_future.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
-import 'package:prompt/screens/internalisation/waiting_internalisation_screen.dart';
 import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
 import 'package:prompt/screens/session_zero/copingplan_enter_screen.dart';
-import 'package:prompt/screens/session_zero/end_of_session_screen.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_1.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_2.dart';
 import 'package:prompt/screens/session_zero/instruction_screen_3.dart';
@@ -24,7 +21,6 @@ import 'package:prompt/screens/session_zero/reward_screen_1.dart';
 import 'package:prompt/screens/session_zero/rewards_screen_2.dart';
 import 'package:prompt/screens/session_zero/welcome_screen.dart';
 import 'package:prompt/screens/session_zero/why_learn_vocab_screen.dart';
-import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/session_zero_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
@@ -205,9 +201,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   late var rewardScreen2 =
       RewardScreen2(key: ValueKey(SessionZeroStep.rewardScreen2));
 
-  late var endOfSessionScreen =
-      EndOfSessionScreen(key: ValueKey(SessionZeroStep.endOfSession));
-
   late var instructionsCabuu1 =
       InstructionsCabuu1(key: ValueKey(SessionZeroStep.instructions_cabuu_1));
 
@@ -236,31 +229,6 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
       InstructionsImplementationIntentions(
           key: ValueKey(SessionZeroStep.instructions_implementationIntentions));
 
-  late var motivationQuestionnaire = StepQuestionnaireFuture(
-      vm: vm,
-      questionnaireName: AssessmentTypes.motivation,
-      key: ValueKey(SessionZeroStep.assessment_motivation));
-
-  late var selfEfficacyQuestionnaire = StepQuestionnaireFuture(
-      vm: vm,
-      questionnaireName: AssessmentTypes.selfEfficacy,
-      key: ValueKey(SessionZeroStep.assessment_selfEfficacy));
-
-  late var itLiteracyQuestionnaire = StepQuestionnaireFuture(
-      vm: vm,
-      questionnaireName: AssessmentTypes.itLiteracy,
-      key: ValueKey(SessionZeroStep.assessment_itLiteracy));
-
-  late var learningFrequencyDuration = StepQuestionnaireFuture(
-      vm: vm,
-      questionnaireName: AssessmentTypes.learningFrequencyDuration,
-      key: ValueKey(SessionZeroStep.assessment_learningFrequencyDuration));
-
-  late var learningExpectations = StepQuestionnaireFuture(
-      vm: vm,
-      questionnaireName: AssessmentTypes.learningExpectations,
-      key: ValueKey(SessionZeroStep.assessment_learningExpectations));
-
   late var planCreation =
       PlanCreationScreen(key: ValueKey(SessionZeroStep.planCreation));
 
@@ -269,17 +237,4 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
 
   late var whyLearnVocabs =
       WhyLearnVocabScreen(key: ValueKey(SessionZeroStep.whyLearnVocabScreen));
-
-  late var distributedLearning = StepQuestionnaireFuture(
-      vm: vm,
-      questionnaireName: AssessmentTypes.distributedPractice,
-      key: ValueKey(SessionZeroStep.assessment_distributedLearning));
-
-  late var planInternalisationWaiting = ChangeNotifierProvider.value(
-    value: vm.internalisationViewmodelWaiting,
-    key: ValueKey(SessionZeroStep.planInternalisationWaiting),
-    child: WaitingInternalisationScreen(Duration(seconds: 15),
-        onCompleted: vm.onWaitingInternalisationCompleted,
-        key: ValueKey(SessionZeroStep.planInternalisationWaiting)),
-  );
 }

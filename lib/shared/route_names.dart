@@ -28,4 +28,5 @@ class RouteNames {
   static const MASCOT_CHANGE = "/mascotselection";
 
   static const QUESTIONNAIRE = "/questionnaire";
+  static const QUESTIONNAIRE_DIDYOULEARN = "/questionnaire/didyoulearn";
 }

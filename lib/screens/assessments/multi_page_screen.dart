@@ -34,13 +34,14 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
       widget.vm.onPageChange();
     });
 
+    widget.vm.currentPageStream.listen((index) {
+      _controller.animateToPage(index, duration: _kDuration, curve: _kCurve);
+      setState(() {});
+    });
+
     Future.delayed(Duration(milliseconds: 1), (() {
       print("Jumping to page ${widget.vm.initialPage}");
       _controller.jumpToPage(widget.vm.initialPage);
-      widget.vm.currentPageStream.listen((index) {
-        _controller.animateToPage(index,
-            duration: const Duration(milliseconds: 1000), curve: Curves.ease);
-      });
     }));
   }
 
@@ -122,10 +123,8 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
                     ),
                   ],
                 ),
-                onPressed: () {
-                  _controller.previousPage(
-                      duration: _kDuration, curve: _kCurve);
-                  FocusScope.of(context).unfocus();
+                onPressed: () async {
+                  await widget.vm.previousPage();
                 },
               ),
             ),
@@ -148,19 +147,20 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
                   ],
                 ),
                 onPressed: () async {
-                  await widget.vm.doStepDependentSubmission(_keyOfCurrent());
+                  await widget.vm.nextPage();
+                  // await widget.vm.doStepDependentSubmission(_keyOfCurrent());
 
-                  if (widget.vm.page == widget.pages.length - 1) {
-                    widget.vm.submit();
-                    return;
-                  }
-                  if (widget.vm.canMoveNext(_keyOfCurrent())) {
-                    _controller
-                        .jumpToPage(widget.vm.getNextPage(_keyOfCurrent()));
-                    widget.vm.clearCurrent();
-                  }
-                  setState(() {});
-                  FocusScope.of(context).unfocus();
+                  // if (widget.vm.page == widget.pages.length - 1) {
+                  //   widget.vm.submit();
+                  //   return;
+                  // }
+                  // if (widget.vm.canMoveNext(_keyOfCurrent())) {
+                  //   _controller
+                  //       .jumpToPage(widget.vm.getNextPage(_keyOfCurrent()));
+                  //   widget.vm.clearCurrent();
+                  // }
+                  // setState(() {});
+                  // FocusScope.of(context).unfocus();
                 },
               ),
             ),

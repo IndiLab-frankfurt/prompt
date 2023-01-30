@@ -34,13 +34,13 @@ class FinalAssessmentViewModel extends MultiPageViewModel {
       : super(dataService);
 
   @override
-  bool canMoveBack(ValueKey currentPageKey) {
+  bool canMoveBack(ValueKey? currentPageKey) {
     return false;
   }
 
   @override
-  bool canMoveNext(ValueKey currentPageKey) {
-    var key = currentPageKey.value as FinalAssessmentStep;
+  bool canMoveNext(ValueKey? currentPageKey) {
+    var key = currentPageKey!.value as FinalAssessmentStep;
 
     switch (key) {
       case FinalAssessmentStep.introduction:
@@ -63,10 +63,10 @@ class FinalAssessmentViewModel extends MultiPageViewModel {
   }
 
   @override
-  int getNextPage(ValueKey currentPageKey) {
+  int getNextPage(ValueKey? currentPageKey) {
     page += 1;
 
-    var pageKey = currentPageKey.value as FinalAssessmentStep;
+    var pageKey = currentPageKey!.value as FinalAssessmentStep;
 
     switch (pageKey) {
       case FinalAssessmentStep.introduction:

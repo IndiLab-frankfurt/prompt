@@ -26,11 +26,21 @@ class StudyService {
   StudyService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
 
-  getNextState(StudyState currentState) {
+  Future<dynamic> getNextState(dynamic currentState) async {
     print(currentState.toString());
+
+    if (currentState == null) {
+      return RouteNames.NO_TASKS;
+    }
+    if (currentState == AppScreen.srlQuestionnaire) {
+      return RouteNames.QUESTIONNAIRE_DIDYOULEARN;
+    }
   }
 
   nextScreen(String currentScreen) async {
+    return await _navigationService
+        .navigateTo(RouteNames.QUESTIONNAIRE_DIDYOULEARN);
+
     if (currentScreen == RouteNames.SESSION_ZERO) {
       if (Platform.isAndroid) {
         UsageStatsService.grantUsagePermission();

@@ -1,38 +1,76 @@
 import 'package:prompt/models/question.dart';
 import 'package:prompt/models/questionnaire.dart';
 
+var questionnaireDidYouLearn = Questionnaire(
+    title: "Hast du heute mit cabuu Vokabeln gelernt?",
+    name: "aa_didyoulearntoday",
+    questions: [
+      ChoiceQuestion(
+          choices: {"1": "Ja", "2": "Nein"},
+          name: "aa_didyoulearntoday",
+          questionText: "Hast du heute mit cabuu Vokabeln gelernt?"),
+    ]);
+
 var questionnaireSrl = Questionnaire(
     title: "Gib an, wie oft folgende Aussagen auf dich zutreffen.",
     name: "srl",
     questions: [
-      ChoiceQuestion(
-          name: "srl_1",
-          questionText: "Wann ich Vokabeln lerne, lege ich vorher fest.",
-          choices: {
-            "1": "(Fast) nie",
-            "2": "Selten",
-            "3": "Hin und wieder",
-            "4": "Oft",
-            "5": "(Fast) immer"
-          }),
-      ChoiceQuestion(
-          name: "srl_2",
-          questionText: "Beim Vokabellernen bin ich ängstlich und nervös.",
-          choices: {
-            "1": "(Fast) nie",
-            "2": "Selten",
-            "3": "Hin und wieder",
-            "4": "Oft",
-            "5": "(Fast) immer"
-          }),
-      ChoiceQuestion(name: "srl_3", questionText: "SRL 3", choices: {
+      ChoiceQuestion(name: "srl_1", questionText: "SRL PAGE 0", choices: {
         "1": "(Fast) nie",
         "2": "Selten",
         "3": "Hin und wieder",
         "4": "Oft",
         "5": "(Fast) immer"
       }),
-      ChoiceQuestion(name: "srl_4", questionText: "SRL 4", choices: {
+      ChoiceQuestion(name: "srl_2", questionText: "SRL PAGE 1", choices: {
+        "1": "(Fast) nie",
+        "2": "Selten",
+        "3": "Hin und wieder",
+        "4": "Oft",
+        "5": "(Fast) immer"
+      }),
+      ChoiceQuestion(name: "srl_3", questionText: "SRL PAGE 2", choices: {
+        "1": "(Fast) nie",
+        "2": "Selten",
+        "3": "Hin und wieder",
+        "4": "Oft",
+        "5": "(Fast) immer"
+      }),
+      ChoiceQuestion(name: "srl_4", questionText: "SRL PAGE 3", choices: {
+        "1": "(Fast) nie",
+        "2": "Selten",
+        "3": "Hin und wieder",
+        "4": "Oft",
+        "5": "(Fast) immer"
+      })
+    ]);
+
+var questionnaireSelfEfficacy = Questionnaire(
+    title: "Gib an, wie oft folgende Aussagen auf dich zutreffen.",
+    name: "srl",
+    questions: [
+      ChoiceQuestion(name: "se_0", questionText: "EFFICACY PAGE 0", choices: {
+        "1": "(Fast) nie",
+        "2": "Selten",
+        "3": "Hin und wieder",
+        "4": "Oft",
+        "5": "(Fast) immer"
+      }),
+      ChoiceQuestion(name: "se_1", questionText: "EFFICACY PAGE 1", choices: {
+        "1": "(Fast) nie",
+        "2": "Selten",
+        "3": "Hin und wieder",
+        "4": "Oft",
+        "5": "(Fast) immer"
+      }),
+      ChoiceQuestion(name: "se_2", questionText: "EFFICACY PAGE 2", choices: {
+        "1": "(Fast) nie",
+        "2": "Selten",
+        "3": "Hin und wieder",
+        "4": "Oft",
+        "5": "(Fast) immer"
+      }),
+      ChoiceQuestion(name: "se_3", questionText: "EFFICACY PAGE 3", choices: {
         "1": "(Fast) nie",
         "2": "Selten",
         "3": "Hin und wieder",

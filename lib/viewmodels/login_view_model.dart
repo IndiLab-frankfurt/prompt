@@ -3,8 +3,6 @@ import 'package:prompt/locator.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/navigation_service.dart';
-import 'package:prompt/services/notification_service.dart';
-import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/route_names.dart';
@@ -37,10 +35,6 @@ class LoginViewModel extends BaseViewModel {
       setState(ViewState.idle);
       return RegistrationCodes.USER_NOT_FOUND;
     }
-
-    // await locator<RewardService>().initialize();
-    // await locator<NotificationService>().clearPendingNotifications();
-    // locator<ExperimentService>().schedulePrompts(signin.group);
 
     setState(ViewState.idle);
     return RegistrationCodes.SUCCESS;

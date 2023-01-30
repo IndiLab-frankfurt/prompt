@@ -1,10 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:prompt/data/assessments.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/screens/about_screen.dart';
 import 'package:prompt/screens/about_video_screen.dart';
 import 'package:prompt/screens/assessments/disributed_learning_video_screen.dart';
-import 'package:prompt/screens/assessments/evening_assessment_screen.dart';
 import 'package:prompt/screens/assessments/final_assessment_screen.dart';
 import 'package:prompt/screens/assessments/multi_page_questionnaire_screen.dart';
 import 'package:prompt/screens/change_mascot_screen.dart';
@@ -24,7 +25,6 @@ import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/change_mascot_view_model.dart';
 import 'package:prompt/viewmodels/daily_internalisation_view_model.dart';
-import 'package:prompt/viewmodels/evening_assessment_view_model.dart';
 import 'package:prompt/viewmodels/final_asssessment_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
@@ -72,13 +72,6 @@ class AppRouter {
                     locator.get<StudyService>(), locator.get<DataService>()),
                 child: DailyInternalisationScreen()));
 
-      case RouteNames.ASSESSMENT_EVENING:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => EveningAssessmentViewModel(
-                    locator.get<StudyService>(), locator.get<DataService>()),
-                child: EveningAssessmentScreen()));
-
       case RouteNames.ASSESSMENT_FINAL:
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
@@ -117,7 +110,17 @@ class AppRouter {
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => MultiPageQuestionnaireViewModel(
                     locator.get<DataService>(),
+                    studyService: locator.get<StudyService>(),
                     questionnaire: questionnaire),
+                child: MultiPageQuestionnaire()));
+
+      case RouteNames.QUESTIONNAIRE_DIDYOULEARN:
+        return CupertinoPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => MultiPageQuestionnaireViewModel(
+                    locator.get<DataService>(),
+                    studyService: locator.get<StudyService>(),
+                    questionnaire: questionnaireDidYouLearn),
                 child: MultiPageQuestionnaire()));
 
       default:

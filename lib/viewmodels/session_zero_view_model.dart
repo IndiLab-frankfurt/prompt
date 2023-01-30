@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/questionnaire_response.dart';
@@ -47,18 +48,6 @@ enum SessionZeroStep {
 class SessionZeroViewModel extends MultiPageViewModel {
   InternalisationViewModel internalisationViewmodelEmoji =
       InternalisationViewModel();
-  InternalisationViewModel internalisationViewmodelWaiting =
-      InternalisationViewModel();
-  List<String> submittedResults = [];
-
-  String _selectedMascot = "1";
-  String get selectedMascot => _selectedMascot;
-  set selectedMascot(String selected) {
-    this._selectedMascot = selected;
-    dataService.setSelectedMascot(selected);
-    _rewardService.changeMascot(selected);
-    notifyListeners();
-  }
 
   String _plan = "";
   String get plan => _plan;
@@ -66,7 +55,6 @@ class SessionZeroViewModel extends MultiPageViewModel {
     plan = "Wenn ich $plan, dann lerne ich mit cabuu!";
     this._plan = plan;
     internalisationViewmodelEmoji.plan = plan;
-    internalisationViewmodelWaiting.plan = plan;
     notifyListeners();
   }
 
@@ -143,10 +131,7 @@ class SessionZeroViewModel extends MultiPageViewModel {
   }
 
   void generateScreenOrder() {
-    var ud = dataService.getUserDataCache();
-    var group = ud.group;
-
-    pages = getScreenOrder(group);
+    pages = getScreenOrder();
   }
 
   Future<bool> getInitialValues() async {
@@ -156,13 +141,13 @@ class SessionZeroViewModel extends MultiPageViewModel {
     }
 
     var ud = dataService.getUserDataCache();
-    initialPage = ud.initStep;
+    initialPage = max(ud.initStep, pages.length - 1);
     cabuuCode = ud.cabuuCode;
 
     return true;
   }
 
-  List<SessionZeroStep> getScreenOrder(String group) {
+  List<SessionZeroStep> getScreenOrder() {
     List<SessionZeroStep> screenOrder = [
       SessionZeroStep.welcome,
       SessionZeroStep.video_introduction,
@@ -177,11 +162,6 @@ class SessionZeroViewModel extends MultiPageViewModel {
       SessionZeroStep.planInternalisationEmoji,
       SessionZeroStep.rewardScreen2,
       SessionZeroStep.planTiming,
-      // SessionZeroStep.instructions_cabuu_1,
-      // SessionZeroStep.instructions_cabuu_2,
-      // SessionZeroStep.instructions_cabuu_3,
-      // SessionZeroStep.assessment_learningExpectations,
-      // SessionZeroStep.endOfSession,
     ];
 
     return screenOrder;
@@ -195,11 +175,14 @@ class SessionZeroViewModel extends MultiPageViewModel {
   }
 
   @override
-  int getNextPage(ValueKey currentPageKey) {
+  int getNextPage(ValueKey? currentPageKey) {
     page += 1;
 
     var end = (page < pages.length - 1) ? pages[page].toString() : "complete";
-    addTiming(currentPageKey.value.toString(), end);
+    if (currentPageKey != null) {
+      addTiming(currentPageKey.value.toString(), end);
+    }
+
     return page;
   }
 
@@ -313,8 +296,9 @@ class SessionZeroViewModel extends MultiPageViewModel {
   }
 
   @override
-  bool canMoveBack(ValueKey currentPageKey) {
-    var stepKey = currentPageKey.value as SessionZeroStep;
+  bool canMoveBack(ValueKey? currentPageKey) {
+    var stepKey = pages[page];
+
     return true;
     switch (stepKey) {
       case SessionZeroStep.rewardScreen1:
@@ -357,8 +341,8 @@ class SessionZeroViewModel extends MultiPageViewModel {
   }
 
   @override
-  bool canMoveNext(ValueKey currentPageKey) {
-    var stepKey = currentPageKey.value as SessionZeroStep;
+  bool canMoveNext(ValueKey? currentPageKey) {
+    var stepKey = pages[page]; //currentPageKey!.value as SessionZeroStep;
     return true;
     switch (stepKey) {
       case SessionZeroStep.video_introduction:
@@ -384,8 +368,6 @@ class SessionZeroViewModel extends MultiPageViewModel {
         return plan.isNotEmpty;
       case SessionZeroStep.planInternalisationEmoji:
         return this.internalisationViewmodelEmoji.input.isNotEmpty;
-      case SessionZeroStep.planInternalisationWaiting:
-        return this.internalisationViewmodelWaiting.completed;
       case SessionZeroStep.planTiming:
         break;
       default:

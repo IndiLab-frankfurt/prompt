@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/models/assessment.dart';
-import 'package:prompt/models/assessment_item.dart';
+import 'package:prompt/models/question.dart';
+import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/screens/assessments/single_choice_question.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
 typedef void ItemSelectedCallback(
     String assessment, String itemId, String value);
 
-typedef void OnAssessmentCompletedCallback(Assessment assessment);
+typedef void OnAssessmentCompletedCallback(Questionnaire questionnaire);
 
-typedef void OnLoadedCallback(Assessment assessment);
+typedef void OnLoadedCallback(Questionnaire questionnaire);
 
 class VerticalQuestionnaire extends StatefulWidget {
-  final Assessment assessment;
+  final Questionnaire questionnaire;
   final ItemSelectedCallback onFinished;
   final OnLoadedCallback onLoaded;
   final OnAssessmentCompletedCallback? onAssessmentCompleted;
-  const VerticalQuestionnaire(this.assessment, this.onFinished,
+  const VerticalQuestionnaire(this.questionnaire, this.onFinished,
       {required this.onLoaded, this.onAssessmentCompleted, Key? key})
       : super(key: key);
 
@@ -35,13 +35,13 @@ class _VerticalQuestionnaireState extends State<VerticalQuestionnaire> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    widget.onLoaded(widget.assessment);
+    widget.onLoaded(widget.questionnaire);
   }
 
   @override
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) => afterBuild());
-    print(widget.assessment.title);
+    print(widget.questionnaire.title);
     return Scrollbar(
       thickness: 8.0,
       child: ListView(
@@ -49,21 +49,23 @@ class _VerticalQuestionnaireState extends State<VerticalQuestionnaire> {
         shrinkWrap: true,
         children: <Widget>[
           Visibility(
-            visible: widget.assessment.title.isNotEmpty,
+            visible: widget.questionnaire.title.isNotEmpty,
             child: Card(
                 child: Container(
               padding: EdgeInsets.all(10),
               child: SizedBox(
                   width: double.infinity,
                   child: Text(
-                    widget.assessment.title,
+                    widget.questionnaire.title,
                     textAlign: TextAlign.center,
                     style: (TextStyle(fontSize: 18)),
                   )),
             )),
           ),
-          for (var index = 0; index < widget.assessment.items.length; index++)
-            buildQuestionCard(widget.assessment.items[index], index),
+          for (var index = 0;
+              index < widget.questionnaire.questions.length;
+              index++)
+            buildQuestionCard(widget.questionnaire.questions[index], index),
           UIHelper.verticalSpaceMedium(),
           Visibility(
             visible: !_isFilledOut(),
@@ -78,48 +80,50 @@ class _VerticalQuestionnaireState extends State<VerticalQuestionnaire> {
   void afterBuild() {
     if (_isFilledOut()) {
       if (this.widget.onAssessmentCompleted != null) {
-        this.widget.onAssessmentCompleted!(this.widget.assessment);
+        this.widget.onAssessmentCompleted!(this.widget.questionnaire);
       }
     }
   }
 
-  buildQuestionCard(AssessmentItem assessment, int index) {
+  buildQuestionCard(Question question, int index) {
     var groupValue = -1;
-    if (_results.containsKey(widget.assessment.items[index].id)) {
+    if (_results.containsKey(widget.questionnaire.questions[index].name)) {
       var parseResult =
-          int.tryParse(_results[widget.assessment.items[index].id]!);
+          int.tryParse(_results[widget.questionnaire.questions[index].name]!);
       if (parseResult is int) {
         groupValue = parseResult;
       }
     }
 
-    return Card(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(15.0),
-        ),
-        child: Container(
-          padding: EdgeInsets.all(10),
-          child: SingleChoiceQuestion(
-            title: assessment.title,
-            labels: assessment.labels,
-            id: assessment.id,
-            groupValue: groupValue,
-            onSelection: (val) {
-              print("Changed Assessment value to: $val");
-              setState(() {
-                this.widget.onFinished(widget.assessment.name,
-                    widget.assessment.items[index].id, val);
-                _results[widget.assessment.items[index].id] = val;
-              });
-            },
+    if (question is SingleChoiceQuestion) {
+      // cast question  to SingleChoiceQuestion
+      var singleChoiceQuestion = question as ChoiceQuestion;
+      return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
           ),
-        ));
+          child: Container(
+            padding: EdgeInsets.all(10),
+            child: SingleChoiceQuestion(
+              question: singleChoiceQuestion,
+              selectecValue: groupValue,
+              onSelection: (val) {
+                print("Changed Assessment value to: $val");
+                setState(() {
+                  this.widget.onFinished(widget.questionnaire.name,
+                      widget.questionnaire.questions[index].name, val);
+                  _results[widget.questionnaire.questions[index].name] = val;
+                });
+              },
+            ),
+          ));
+    }
   }
 
   bool _isFilledOut() {
     bool canSubmit = true;
-    for (var assessmentItem in widget.assessment.items) {
-      if (!_results.containsKey(assessmentItem.id)) canSubmit = false;
+    for (var assessmentItem in widget.questionnaire.questions) {
+      if (!_results.containsKey(assessmentItem.name)) canSubmit = false;
     }
 
     return canSubmit;

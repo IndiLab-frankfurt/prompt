@@ -56,8 +56,13 @@ enum InternalisationCondition {
   emojiThen,
 }
 
-enum StudyState {
+enum AppScreen {
   startScreen,
+  srlQuestionnaire,
+  AA_DidYouLearn,
+  AA_WhyNotLearn,
+  AA_PreviousStudySession,
+  AA_NextStudySession,
 }
 
 const String EVENING_ASSESSMENT = "eveningAssessment";

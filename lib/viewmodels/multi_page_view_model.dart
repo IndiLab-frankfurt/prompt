@@ -1,8 +1,6 @@
 import 'dart:async';
-
 import 'package:flutter/foundation.dart';
 import 'package:prompt/models/assessment.dart';
-import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:collection/collection.dart';
@@ -39,9 +37,9 @@ abstract class MultiPageViewModel extends BaseViewModel {
 
   MultiPageViewModel(this.dataService);
 
-  bool canMoveBack(ValueKey currentPageKey);
+  bool canMoveBack(ValueKey? currentPageKey);
 
-  bool canMoveNext(ValueKey currentPageKey);
+  bool canMoveNext(ValueKey? currentPageKey);
 
   void submit();
 
@@ -50,20 +48,34 @@ abstract class MultiPageViewModel extends BaseViewModel {
     currentPage.add(page);
   }
 
-  int getNextPage(ValueKey currentPageKey) {
+  Future<void> previousPage() async {
+    if (canMoveBack(null)) {
+      setPage(getPreviousPage(null));
+    }
+  }
+
+  Future<void> nextPage() async {
+    if (canMoveNext(null)) {
+      setPage(getNextPage(null));
+    }
+
+    if (page == pages.length - 1) {
+      submit();
+    }
+  }
+
+  int getNextPage(ValueKey? currentPageKey) {
     if (page >= pages.length - 1) {
       return page;
     }
-    setPage(page + 1);
-    return page;
+    return page + 1;
   }
 
-  int getPreviousPage(ValueKey currentPageKey) {
+  int getPreviousPage(ValueKey? currentPageKey) {
     if (page <= 0) {
       return page;
     }
-    setPage(page - 1);
-    return page;
+    return page - 1;
   }
 
   saveQuestionnaireResponse(
