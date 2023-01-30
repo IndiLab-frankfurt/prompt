@@ -6,12 +6,11 @@ import 'package:prompt/models/user_data.dart';
 import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:prompt/services/i_database_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:prompt/services/settings_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 
-class ApiService implements IDatabaseService {
+class ApiService {
   static String serverUrl = "http://10.0.2.2:8000";
 
   final SettingsService _settingsService;
@@ -72,19 +71,16 @@ class ApiService implements IDatabaseService {
 
   ApiService(this._settingsService);
 
-  @override
   Future<List<AssessmentResult>> getAssessmentResults(String userid) {
     // TODO: implement getAssessmentResults
     throw UnimplementedError();
   }
 
-  @override
   Stream<User?>? getCurrentUser() {
     // TODO: implement getCurrentUser
     throw UnimplementedError();
   }
 
-  @override
   Future<QuestionnaireResponse?> getLastQuestionnaireResponse(
       String questionName) async {
     var response = await getAsync("/api/responses/$questionName/?latest=True");
@@ -104,7 +100,6 @@ class ApiService implements IDatabaseService {
     }
   }
 
-  @override
   Future<String?> getLastPlan() async {
     var result = await getLastQuestionnaireResponse("plan");
     if (result != null) {

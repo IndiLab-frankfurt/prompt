@@ -8,12 +8,12 @@ import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:collection/collection.dart';
-import 'package:prompt/services/i_database_service.dart';
+import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/usage_stats/usage_info.dart';
 
 class DataService {
-  final IDatabaseService _databaseService;
+  final ApiService _databaseService;
   final SettingsService _settingsService;
 
   UserData? _userDataCache;
@@ -205,18 +205,10 @@ class DataService {
 
   Future<void> setStreakDays(int value) async {
     throw Exception("Not implemented");
-    // var ud = await getUserData();
-    // ud?.streakDays = value;
-    // return await _databaseService.setStreakDays(
-    //     _userService.getUsername(), value);
   }
 
   setRegistrationDate(DateTime dateTime) async {
     throw Exception("Not implemented");
-    // var ud = await getUserData();
-    // ud?.registrationDate = dateTime;
-    // return await _databaseService.setRegistrationDate(
-    //     _userService.getUsername(), dateTime.toIso8601String());
   }
 
   getAssessment(String name) async {

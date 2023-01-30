@@ -1,7 +1,6 @@
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
-import 'package:prompt/services/i_database_service.dart';
 import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
@@ -12,7 +11,7 @@ import 'package:prompt/services/user_service.dart';
 
 LocalDatabaseService mockLocalDatabaseService = LocalDatabaseService.db;
 SettingsService mockSettingsService = SettingsService();
-IDatabaseService apiService = ApiService(mockSettingsService);
+ApiService apiService = ApiService(mockSettingsService);
 DataService mockDataService = DataService(apiService, mockSettingsService);
 UserService mockUserService = UserService(mockSettingsService, mockDataService);
 LoggingService mockLoggingService = LoggingService(mockDataService);
