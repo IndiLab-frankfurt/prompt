@@ -1,15 +1,11 @@
-import 'dart:io';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
-import 'package:prompt/services/usage_stats/usage_stats_service.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/extensions.dart';
-import 'package:prompt/viewmodels/session_zero_view_model.dart';
 
 class StudyService {
   static const int NUM_GROUPS = 7;
@@ -26,40 +22,11 @@ class StudyService {
   StudyService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
 
-  Future<dynamic> getNextState(dynamic currentState) async {
-    print(currentState.toString());
+  nextScreen(AppScreen currentScreen) async {
+    _loggingService.logEvent("nextScreen", data: currentScreen.name);
+    var nextState = await _dataService.getNextState(currentScreen);
 
-    if (currentState == null) {
-      return RouteNames.NO_TASKS;
-    }
-    if (currentState == AppScreen.srlQuestionnaire) {
-      return RouteNames.QUESTIONNAIRE_DIDYOULEARN;
-    }
-  }
-
-  nextScreen(String currentScreen) async {
-    return await _navigationService
-        .navigateTo(RouteNames.QUESTIONNAIRE_DIDYOULEARN);
-
-    if (currentScreen == RouteNames.SESSION_ZERO) {
-      if (Platform.isAndroid) {
-        UsageStatsService.grantUsagePermission();
-      }
-      return await _navigationService
-          .navigateWithReplacement(RouteNames.NO_TASKS);
-    }
-
-    if (currentScreen == RouteNames.ASSESSMENT_EVENING) {
-      await _navigationService.navigateTo(RouteNames.NO_TASKS);
-    }
-
-    if (currentScreen == RouteNames.ASSESSMENT_FINAL) {
-      await _navigationService.navigateTo(RouteNames.NO_TASKS);
-    }
-
-    if (currentScreen == RouteNames.ASSESSMENT_MORNING) {
-      return await _navigationService.navigateTo(RouteNames.NO_TASKS);
-    }
+    return await _navigationService.navigateTo(nextState);
   }
 
   DateTime getNextVocabTestDate() {
@@ -143,31 +110,10 @@ class StudyService {
     return false;
   }
 
-  isDistributedLearningDay() {
-    var userData = _dataService.getUserDataCache();
-    var daysAgo = getDaysSinceStart();
-
-    return (daysAgo >= 18) && (userData.group == "1");
-  }
-
-  bool shouldShowDistributedLearningVideo() {
-    var ud = _dataService.getUserDataCache();
-    var daysAgo = getDaysSinceStart();
-    return (ud.group == "1") && (daysAgo == 18);
-  }
-
   scheduleFinalTaskReminder() {
     var dayAfterFinal = DateTime.now().add(StudyService.MAX_STUDY_DURATION);
     print(
         "scheduling final task reminder for ${dayAfterFinal.toIso8601String()}");
     _notificationService.scheduleFinalTaskReminder(dayAfterFinal);
-  }
-
-  saveUsageStats() async {
-    var startDate = DateTime.now().subtract(Duration(days: 35));
-    var endDate = DateTime.now();
-    var stats =
-        await UsageStatsService.queryUsageStats(startDate, DateTime.now());
-    _dataService.saveUsageStats(stats, startDate, endDate);
   }
 }

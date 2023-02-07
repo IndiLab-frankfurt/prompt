@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/data/assessments.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/user_service.dart';
-import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/widgets/version_info.dart';
 
 class PromptDrawer extends StatelessWidget {
@@ -46,13 +45,7 @@ class PromptDrawer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(locator<UserService>().getUsername()),
-                        VersionInfo(),
-                        // Text(
-                        //     "Gruppe: ${locator.get<DataService>().getUserDataCache().group}"),
-                        // Text(
-                        //     "Registrierung: ${DateFormat('yyyy-MM-dd').format(locator.get<DataService>().getUserDataCache().registrationDate)}"),
-                        // Text(
-                        //     "Vor ${locator.get<DataService>().getUserDataCache().registrationDate.daysAgo()} tagen")
+                        // VersionInfo(),
                       ])),
             ),
           ),
@@ -61,161 +54,23 @@ class PromptDrawer extends StatelessWidget {
               icon: Icons.image_outlined,
               text: "Hintergrund ändern",
               onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.REWARD_SELECTION);
-              }),
-          _buildDrawerItem(
-              icon: Icons.pets_outlined,
-              text: "Monster ändern",
-              onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.MASCOT_CHANGE);
-              }),
-          _buildDrawerItem(
-              icon: Icons.info_outlined,
-              text: "Über PROMPT",
-              onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.ABOUT_PROMPT);
+                await Navigator.pushNamed(
+                    context, AppScreen.RewardSelection.name);
               }),
           _buildDrawerItem(
               icon: Icons.add_box,
-              text: "Session 0",
+              text: "Onboarding",
               onTap: () async {
                 await Navigator.pushReplacementNamed(
-                    context, RouteNames.SESSION_ZERO);
+                    context, AppScreen.Onboarding.name);
               }),
           _buildDrawerItem(
               icon: Icons.add_box,
               text: "Questionnaire Test",
               onTap: () async {
                 await Navigator.pushReplacementNamed(
-                    context, RouteNames.QUESTIONNAIRE,
-                    arguments: questionnaireSrl);
+                    context, AppScreen.AA_DidYouLearn.name);
               }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Kontroll Reminder",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(context, RouteNames.REMINDER_DEFAULT);
-          //     }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Befragung Morgens",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(
-          //           context, RouteNames.ASSESSMENT_MORNING);
-          //     }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Befragung Abends",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(
-          //           context, RouteNames.ASSESSMENT_EVENING);
-          //     }),
-          // Divider(),
-          // Column(
-          //   children: [
-          //     Text("Gruppe ändern"),
-          //     TextFormField(
-          //       textAlign: TextAlign.center,
-          //       keyboardType: TextInputType.number,
-          //       maxLength: 1,
-          //       initialValue: locator
-          //           .get<DataService>()
-          //           .getUserDataCache()
-          //           .group
-          //           .toString(),
-          //       onChanged: (value) {
-          //         if (value.isNotEmpty) {
-          //           var group = int.parse(value);
-          //           if (group <= 7) {
-          //             locator.get<DataService>().getUserDataCache().group =
-          //                 group;
-          //           }
-          //         }
-          //       },
-          //     ),
-          //     // ElevatedButton(onPressed: () {}, child: Text("Ändern"))
-          //   ],
-          // ),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.calendar_today,
-          //     text: "Registrierungsdatum setzen",
-          //     onTap: () async {
-          //       var regDate = locator
-          //           .get<DataService>()
-          //           .getUserDataCache()
-          //           .registrationDate;
-
-          //       var picked = await showDatePicker(
-          //         context: context,
-          //         initialDate: regDate,
-          //         firstDate: DateTime.now().subtract(Duration(days: 120)),
-          //         lastDate: DateTime.now().add(Duration(days: 120)),
-          //         builder: (context, child) {
-          //           return Theme(
-          //             data:
-          //                 ThemeData.dark(), // This will change to light theme.
-          //             child: child!,
-          //           );
-          //         },
-          //       );
-
-          //       if (picked != null) {
-          //         locator
-          //             .get<DataService>()
-          //             .getUserDataCache()
-          //             .registrationDate = picked;
-          //       }
-
-          //       await Navigator.pushReplacementNamed(
-          //           context, RouteNames.NO_TASKS);
-          //     }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Login",
-          //     onTap: () async {
-          //       await Navigator.pushReplacementNamed(
-          //           context, RouteNames.LOG_IN);
-          //     }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Usage Stats",
-          //     onTap: () async {
-          //       var startDate = DateTime.now().subtract(Duration(days: 20));
-          //       UsageStatsService.queryUsageStats(startDate, DateTime.now());
-          //     }),
-          // Column(
-          //   children: [
-          //     Text("Sesion 0 Schritt"),
-          //     TextFormField(
-          //       textAlign: TextAlign.center,
-          //       keyboardType: TextInputType.number,
-          //       maxLength: 2,
-          //       initialValue: "",
-          //       onChanged: (value) {
-          //         if (value.isNotEmpty) {
-          //           var group = int.parse(value);
-          //           locator.get<DataService>().saveSessionZeroStep(group);
-          //         }
-          //       },
-          //     ),
-          //   ],
-          // ),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Scheduled Notifications",
-          //     onTap: () async {
-          //       var pending = await locator<NotificationService>()
-          //           .getPendingNotifications();
-
-          //       print(pending);
-          //     }),
         ],
       ),
     );

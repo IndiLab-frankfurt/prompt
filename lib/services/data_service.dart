@@ -10,7 +10,7 @@ import 'package:prompt/models/user_data.dart';
 import 'package:collection/collection.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/settings_service.dart';
-import 'package:prompt/services/usage_stats/usage_info.dart';
+import 'package:prompt/shared/enums.dart';
 
 class DataService {
   final ApiService _databaseService;
@@ -91,26 +91,6 @@ class DataService {
       String questionnaireName) async {
     return await _databaseService
         .getLastQuestionnaireResponse(questionnaireName);
-  }
-
-  saveUsageStats(List<UsageInfo> usageStatInfo, DateTime startDate,
-      DateTime endDate) async {
-    var ud = getUserDataCache();
-    Map<String, dynamic> dbObject = {
-      "user": ud.user,
-      "submissionDate": DateTime.now().toIso8601String()
-    };
-    List<dynamic> listForDb = [];
-    for (var usi in usageStatInfo) {
-      if (usi.totalTimeInForeground > 0) {
-        listForDb.add(usi.toMap());
-      }
-    }
-    dbObject["info"] = listForDb;
-    dbObject["start"] = startDate.toIso8601String();
-    dbObject["end"] = endDate.toIso8601String();
-
-    await _databaseService.saveUsageStats(dbObject, ud.user);
   }
 
   saveDaysActive(int daysActive) async {
@@ -207,8 +187,15 @@ class DataService {
     throw Exception("Not implemented");
   }
 
-  setRegistrationDate(DateTime dateTime) async {
-    throw Exception("Not implemented");
+  Future<AppScreen> getNextState(AppScreen currentScreen) async {
+    var response = await _databaseService.getNextState(currentScreen.name);
+
+    try {
+      return AppScreen.values.byName(response);
+    } catch (e) {
+      logData({"data": "Error getting next state: $e"});
+      return AppScreen.Mainscreen;
+    }
   }
 
   getAssessment(String name) async {

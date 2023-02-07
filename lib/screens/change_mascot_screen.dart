@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/change_mascot_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
@@ -21,7 +21,7 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () {
-        Navigator.pushNamed(context, RouteNames.NO_TASKS);
+        Navigator.pushNamed(context, AppScreen.Mainscreen.name);
         return Future.value(true);
       },
       child: Scaffold(
@@ -47,7 +47,8 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                         iconSize: iconSize,
                         onPressed: () {
                           vm.selectedMascot = "1";
-                          Navigator.pushNamed(context, RouteNames.NO_TASKS);
+                          Navigator.pushNamed(
+                              context, AppScreen.Mainscreen.name);
                         },
                       ),
                     ),
@@ -63,7 +64,8 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                         iconSize: iconSize,
                         onPressed: () {
                           vm.selectedMascot = "2";
-                          Navigator.pushNamed(context, RouteNames.NO_TASKS);
+                          Navigator.pushNamed(
+                              context, AppScreen.Mainscreen.name);
                         },
                       ),
                     ),
@@ -82,7 +84,8 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                         iconSize: 180,
                         onPressed: () {
                           vm.selectedMascot = "3";
-                          Navigator.pushNamed(context, RouteNames.NO_TASKS);
+                          Navigator.pushNamed(
+                              context, AppScreen.Mainscreen.name);
                         },
                       ),
                     )

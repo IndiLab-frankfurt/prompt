@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/full_width_button.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
@@ -17,12 +16,6 @@ class _AboutScreenState extends State<AboutScreen> {
   @override
   void initState() {
     super.initState();
-    // BetterPlayerDataSource betterPlayerDataSource = BetterPlayerDataSource(
-    //     BetterPlayerDataSourceType.file,
-    //     'assets/videos/cabuu_test_lernplan.mp4');
-    // _betterPlayerController = BetterPlayerController(
-    //     BetterPlayerConfiguration(),
-    //     betterPlayerDataSource: betterPlayerDataSource);
   }
 
   @override
@@ -38,8 +31,7 @@ class _AboutScreenState extends State<AboutScreen> {
               FullWidthButton(
                   text: "Drücke hier, um das Einführungsvideo anzusehen.",
                   onPressed: () async {
-                    await Navigator.pushNamed(
-                        context, RouteNames.ABOUT_PROMPT_VIDEO);
+                    // TODO: Add video back in
                   }),
               UIHelper.verticalSpaceMedium(),
               MarkdownBody(data: "# Was ist PROMPT?"),

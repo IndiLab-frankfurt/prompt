@@ -57,12 +57,28 @@ enum InternalisationCondition {
 }
 
 enum AppScreen {
-  startScreen,
-  srlQuestionnaire,
-  AA_DidYouLearn,
-  AA_WhyNotLearn,
-  AA_PreviousStudySession,
-  AA_NextStudySession,
+  Mainscreen("/main"),
+  Login("/login"),
+  Onboarding("/onboarding"),
+  Internalisation("/internalisation"),
+  AboutPrompt("/aboutprompt"),
+  AA_DidYouLearn("aa/didyoulearn"),
+  AA_NextStudySession("aa/nextstudysession"),
+  AA_PreviousStudySession("aa/previousstudysession"),
+  AA_WhyNotLearn("aa/whynotlearn"),
+  ReminderTestTomorrow("/remindertesttomorrow"),
+  WeeklyQuestions("/weeklyquestions"),
+  RememberToLearn("/remembertolearn"),
+  DidYouTest("/didyoutest"),
+  ReminderTestToday("/remindertesttoday"),
+  ReminderNextList("/remindernextlist"),
+  PlanPrompt("/planprompt"),
+  FinalQuestionnaire("/finalquestionnaire"),
+  Questionnaire("/aa"),
+  RewardSelection("/rewardselection");
+
+  const AppScreen(this.routeName);
+  final String routeName;
 }
 
 const String EVENING_ASSESSMENT = "eveningAssessment";

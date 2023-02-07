@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
 
 class MultiPageQuestionnaireViewModel extends MultiPageViewModel {
@@ -9,10 +10,13 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel {
 
   final StudyService studyService;
 
+  final AppScreen screenName;
+
   MultiPageQuestionnaireViewModel(
     DataService dataService, {
     required this.questionnaire,
     required this.studyService,
+    required this.screenName,
   }) : super(dataService) {
     pages = questionnaire.questions.toList();
   }
@@ -30,6 +34,6 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel {
   @override
   void submit() async {
     await this.studyService.submitResponses([], "");
-    this.studyService.nextScreen("currentScreen");
+    this.studyService.nextScreen(this.screenName);
   }
 }

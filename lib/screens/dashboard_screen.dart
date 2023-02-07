@@ -4,7 +4,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/app_strings.dart';
-import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
@@ -209,8 +208,6 @@ class _DashboardScreenState extends State<DashboardScreen>
             Text("Denk dran, heute in cabuu den Test zu machen."),
             OutlinedButton(
               onPressed: () async {
-                await Navigator.pushNamed(
-                    context, RouteNames.ASSESSMENT_MORNING);
                 setState(() {});
               },
               child: Text(
@@ -253,7 +250,6 @@ class _DashboardScreenState extends State<DashboardScreen>
         margin: EdgeInsets.all(10),
         child: OutlinedButton(
           onPressed: () async {
-            await Navigator.pushNamed(context, RouteNames.ASSESSMENT_EVENING);
             setState(() {});
           },
           child: Text(

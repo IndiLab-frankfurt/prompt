@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
-import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/full_width_button.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
@@ -25,7 +25,7 @@ class DefaultReminderScreen extends StatelessWidget {
           Align(
             alignment: Alignment.bottomCenter,
             child: FullWidthButton(onPressed: () async {
-              await Navigator.pushNamed(context, RouteNames.NO_TASKS);
+              await Navigator.pushNamed(context, AppScreen.Mainscreen.name);
             }),
           )
         ]),

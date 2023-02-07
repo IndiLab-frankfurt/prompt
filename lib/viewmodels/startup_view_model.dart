@@ -6,7 +6,6 @@ import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/user_service.dart';
-import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 import 'package:prompt/shared/enums.dart';
 
@@ -27,19 +26,19 @@ class StartupViewModel extends BaseViewModel {
   Future<void> startApp(AppStartupMode appStartupMode) async {
     print("Navigating to ${appStartupMode.toString()}");
     var nav = locator<NavigationService>();
-    // return nav.navigateAndRemove(RouteNames.NO_TASKS);
+
     switch (appStartupMode) {
       case AppStartupMode.normal:
-        nav.navigateAndRemove(RouteNames.MAIN);
+        nav.navigateAndRemove(AppScreen.Mainscreen);
         break;
       case AppStartupMode.signin:
-        nav.navigateAndRemove(RouteNames.LOG_IN);
+        nav.navigateAndRemove(AppScreen.Login);
         break;
       case AppStartupMode.firstLaunch:
-        nav.navigateAndRemove(RouteNames.LOG_IN);
+        nav.navigateAndRemove(AppScreen.Login);
         break;
       case AppStartupMode.noTasks:
-        nav.navigateAndRemove(RouteNames.NO_TASKS);
+        nav.navigateAndRemove(AppScreen.Mainscreen);
         break;
     }
   }

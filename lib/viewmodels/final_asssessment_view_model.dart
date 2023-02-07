@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
 
 enum FinalAssessmentStep {
@@ -106,6 +105,6 @@ class FinalAssessmentViewModel extends MultiPageViewModel {
   void submit() {
     experimentService.submitResponses(questionnaireResponses, FINAL_ASSESSMENT);
 
-    experimentService.nextScreen(RouteNames.ASSESSMENT_FINAL);
+    experimentService.nextScreen(AppScreen.FinalQuestionnaire);
   }
 }

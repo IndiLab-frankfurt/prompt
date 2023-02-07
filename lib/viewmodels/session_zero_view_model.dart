@@ -6,7 +6,6 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
 
@@ -384,7 +383,7 @@ class SessionZeroViewModel extends MultiPageViewModel {
       await _experimentService.submitResponses(
           questionnaireResponses, SESSION_ZERO);
 
-      _experimentService.nextScreen(RouteNames.SESSION_ZERO);
+      _experimentService.nextScreen(AppScreen.Onboarding);
     }
   }
 }

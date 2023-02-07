@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/shared/app_strings.dart';
-import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/daily_internalisation_view_model.dart';
 import 'package:prompt/widgets/full_width_button.dart';
@@ -30,7 +30,6 @@ class _DailyInternalisationScreenState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: ,
       body: Container(
         margin: UIHelper.containerMargin,
         child: ListView(children: [
@@ -45,7 +44,7 @@ class _DailyInternalisationScreenState
           Align(
             alignment: Alignment.bottomCenter,
             child: FullWidthButton(onPressed: () async {
-              await Navigator.pushNamed(context, RouteNames.NO_TASKS);
+              await Navigator.pushNamed(context, AppScreen.Mainscreen.name);
             }),
           )
         ]),

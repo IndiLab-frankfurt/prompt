@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/screens/rewards/timeline.dart';
 import 'package:prompt/services/reward_service.dart';
-import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/models/unlockable_background.dart';
 
@@ -51,7 +51,7 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
 
             rewardService.setBackgroundColor(unlockable.backgroundColor);
 
-            Navigator.pushNamed(context, RouteNames.NO_TASKS);
+            Navigator.pushNamed(context, AppScreen.Mainscreen.name);
           });
         },
         child: Text("Aktivieren"),
@@ -67,9 +67,7 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
       unlockButton = ElevatedButton(
         style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
         onPressed: () {
-          setState(() {
-            // rewardService.setBackgroundImagePath(path);
-          });
+          setState(() {});
         },
         child: Text(text),
       );
@@ -89,10 +87,6 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Column(
         children: [
-          // Text(
-          //   unlockable.name,
-          //   style: Theme.of(context).textTheme.headline6,
-          // ),
           if (unlocked)
             Image(
               image: AssetImage(unlockable.path),
@@ -111,14 +105,13 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
                 height: 110,
               ),
             ),
-          // Divider(),
           if (isSelected)
             ElevatedButton(
               style:
                   ElevatedButton.styleFrom(backgroundColor: Colors.green[300]),
               onPressed: () {
                 setState(() {});
-                Navigator.pushNamed(context, RouteNames.NO_TASKS);
+                Navigator.pushNamed(context, AppScreen.Mainscreen.name);
               },
               child: Text("Ausgewählt"),
             ),

@@ -83,21 +83,21 @@ class ApiService {
 
   Future<QuestionnaireResponse?> getLastQuestionnaireResponse(
       String questionName) async {
-    var response = await getAsync("/api/responses/$questionName/?latest=True");
-    var data = response.body;
-    if (data != null && data != "" && data != "[]") {
-      try {
-        var questionnaireResponse =
-            QuestionnaireResponse.fromJson(jsonDecode(data)[0]);
-        return questionnaireResponse;
-      } catch (e) {
-        logEvent(
-            {"data": "error parsing questionnaire response", "error": "$e"});
+    return getAsync("/api/responses/$questionName/?latest=True")
+        .then((response) {
+      var data = response.body;
+      if (data != null && data != "" && data != "[]") {
+        try {
+          return QuestionnaireResponse.fromJson(jsonDecode(data)[0]);
+        } catch (e) {
+          logEvent(
+              {"data": "error parsing questionnaire response", "error": "$e"});
+          return null;
+        }
+      } else {
         return null;
       }
-    } else {
-      return null;
-    }
+    });
   }
 
   Future<String?> getLastPlan() async {
@@ -109,7 +109,6 @@ class ApiService {
     }
   }
 
-  @override
   Future<UserData?> getUserData() async {
     var response = await getAsync("/api/user/profile/");
     if (response.statusCode == 200) {
@@ -122,22 +121,18 @@ class ApiService {
     }
   }
 
-  @override
   updateUserData(UserData userData) {
     return postAsync("/api/user/profile/", userData.toMap());
   }
 
-  @override
   Future saveUserDataProperty(String key, dynamic value) {
     return postAsync("/api/user/profile/", {key: value});
   }
 
-  @override
   logEvent(Map<String, String> data) async {
     return postAsync("/api/applogs/", data);
   }
 
-  @override
   Future<bool> saveQuestionnaireResponses(
       List<QuestionnaireResponse> responses) {
     var responseJson = responses.map((e) => e.toJson()).toList();
@@ -150,22 +145,9 @@ class ApiService {
     });
   }
 
-  @override
   Future<UserData?> registerUser(
       String userId, String password, int internalisationCondition) {
     // TODO: implement registerUser
-    throw UnimplementedError();
-  }
-
-  @override
-  saveAssessment(AssessmentResult assessment, String userid) {
-    // TODO: implement saveAssessment
-    throw UnimplementedError();
-  }
-
-  @override
-  Future saveBoosterPromptReadTimes(Map<String, dynamic> map) {
-    // TODO: implement saveBoosterPromptReadTimes
     throw UnimplementedError();
   }
 
@@ -199,37 +181,17 @@ class ApiService {
     throw UnimplementedError();
   }
 
-  @override
   saveScrambleCorrections(corrections) {
-    // TODO: implement saveScrambleCorrections
     throw UnimplementedError();
   }
 
-  @override
-  Future saveUsageStats(Map<String, dynamic> usageInfo, String userid) {
-    // TODO: implement saveUsageStats
-    throw UnimplementedError();
+  Future<String> getNextState(String currentState) async {
+    return getAsync("/api/nextstate/$currentState/").then((response) =>
+        response.statusCode == 200
+            ? jsonDecode(response.body)["next_state"]
+            : "");
   }
 
-  @override
-  Future saveVocabValue(String input) {
-    // TODO: implement saveVocabValue
-    throw UnimplementedError();
-  }
-
-  @override
-  Future setRegistrationDate(String username, String dateString) {
-    // TODO: implement setRegistrationDate
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> setStreakDays(String username, int value) {
-    // TODO: implement setStreakDays
-    throw UnimplementedError();
-  }
-
-  @override
   Future<AuthenticationResponse?> signInUser(
       String userId, String password) async {
     var result = await postAsync(

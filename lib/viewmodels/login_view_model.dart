@@ -1,13 +1,8 @@
 import 'package:email_validator/email_validator.dart';
-import 'package:prompt/locator.dart';
-import 'package:prompt/services/api_service.dart';
-import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
-import 'package:prompt/services/data_service.dart';
 
 class LoginViewModel extends BaseViewModel {
   String _email = "";
@@ -45,7 +40,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   submit() async {
-    _navigationService.navigateTo(RouteNames.SESSION_ZERO);
+    _navigationService.navigateTo(AppScreen.Onboarding);
   }
 
   validateEmail(String userid) {

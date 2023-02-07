@@ -42,7 +42,6 @@ class LocalDatabaseService {
 
   _onCreate(Database db, int version) async {
     await db.execute("CREATE TABLE $TABLE_SETTINGS(key STRING PRIMARY KEY, " +
-        // "key STRING, " +
         "value STRING " +
         ")");
   }
@@ -52,7 +51,6 @@ class LocalDatabaseService {
     if (oldVersion != newVersion) {
       await db.execute(
           "CREATE TABLE IF NOT EXISTS $TABLE_SETTINGS(key STRING PRIMARY KEY, " +
-              // "key STRING, " +
               "value STRING " +
               ")");
     }
@@ -79,12 +77,6 @@ class LocalDatabaseService {
       existing = await db!
           .rawQuery("SELECT value FROM $TABLE_SETTINGS where key = ?", [key]);
 
-      // existing.forEach((row) {
-      //   print(row);
-      // });
-      // existing = await db.query(TABLE_SETTINGS,
-      //     columns: ["key", "value"], where: '"key" = ?', whereArgs: [key]);
-
       if (existing == null) return null;
       if (existing.length == 0) return null;
       return existing.first["value"];
@@ -104,11 +96,5 @@ class LocalDatabaseService {
     final Database db = (await database)!;
 
     await db.delete(TABLE_GOALS);
-  }
-
-  clearUser() async {
-    // final Database db = await database;
-
-    // await db.delete(TABLE_GOALS, where: "id = ?", whereArgs: [goal.id]);
   }
 }

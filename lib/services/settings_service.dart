@@ -28,16 +28,15 @@ class SettingsService {
     SettingsKeys.backgroundColors: "ffff55,ffff55"
   };
 
-  // TODO: MIGRATE TO SECURE STORAGE
   SettingsService();
 
   Future<bool> initialize() async {
-    Map<String, String> allValues = await storage.readAll();
-
-    _settingsCache = {
-      ..._settingsCache,
-      ...allValues,
-    };
+    // iterate over all keys from _settingsCache and read them from secure storage.
+    // We are using the explicit method, because readAll() does not work on all platforms
+    for (var key in _settingsCache.keys) {
+      var value = await storage.read(key: key);
+      _settingsCache[key] = value ?? _settingsCache[key]!;
+    }
 
     return true;
   }

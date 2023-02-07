@@ -1,15 +1,10 @@
-import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
-import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/extensions.dart';
-import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
 class DashboardViewModel extends BaseViewModel {
   final StudyService _studyService;
-  final DataService _dataService;
-  final NavigationService _navigationService;
 
   bool showLearnedWithCabuuButton = false;
   bool showVocabularyTestReminder = false;
@@ -24,8 +19,7 @@ class DashboardViewModel extends BaseViewModel {
   String messageContinueAfterCabuu = AppStrings.NoTask_Continue_After_Cabuu;
   String messageContinueTomorrow = AppStrings.NoTask_ContinueTomorrow;
 
-  DashboardViewModel(
-      this._studyService, this._dataService, this._navigationService);
+  DashboardViewModel(this._studyService);
 
   String daysUntilVocabTestString() {
     var nextDate = _studyService.getNextVocabTestDate();

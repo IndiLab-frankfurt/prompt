@@ -15,13 +15,13 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
-      name: 'prompt',
+      name: 'prompt-942ca',
       options: FirebaseOptions(
           apiKey: "AIzaSyAPqtpv-07sGIT7rPVVKYJ0nKmvB-zPpV4",
           appId: "1:972973871566:web:207f4b7287a6bdd95b9b9f",
           messagingSenderId: "972973871566",
           projectId: "prompt-942ca"));
-  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   setupLocator();
   runApp(MyApp());
 }

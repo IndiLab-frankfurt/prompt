@@ -112,13 +112,6 @@ abstract class MultiPageViewModel extends BaseViewModel {
     super.dispose();
   }
 
-  Future<Assessment> getQuestionnaire(String name) async {
-    Assessment assessment = await dataService.getAssessment(name);
-    lastAssessment = assessment;
-    currentResponse = null;
-    return assessment;
-  }
-
   addTiming(String previous, String next) {
     var nowString = DateTime.now().toIso8601String();
 
