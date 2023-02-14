@@ -70,3 +70,10 @@ Questionnaire AA_NextStudySession = Questionnaire(
           },
           name: "${AppScreen.AA_NextStudySession.name}_importance"),
     ]);
+
+Questionnaire RememberToLearn =
+    Questionnaire(title: "", name: AppScreen.RememberToLearn.name, questions: [
+  QuestionInfoPage(
+      name: "${AppScreen.RememberToLearn.name}_1",
+      infoText: [" Denk daran, morgen Vokabeln zu lernen! "])
+]);

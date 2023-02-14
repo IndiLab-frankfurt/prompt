@@ -85,7 +85,7 @@ class _VerticalQuestionnaireState extends State<VerticalQuestionnaire> {
     }
   }
 
-  buildQuestionCard(Question question, int index) {
+  buildQuestionCard(QuestionnairePage question, int index) {
     var groupValue = -1;
     if (_results.containsKey(widget.questionnaire.questions[index].name)) {
       var parseResult =

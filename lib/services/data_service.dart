@@ -94,12 +94,6 @@ class DataService {
 
   saveDaysActive(int daysActive) async {
     throw Exception("Not implemented");
-    // var ud = await getUserData();
-    // if (ud != null) {
-    //   ud.daysActive = daysActive;
-    //   await _databaseService.saveDaysAcive(
-    //       _userService.getUsername(), daysActive);
-    // }
   }
 
   saveUserDataProperty(String propertyname, dynamic value) async {

@@ -21,35 +21,25 @@ class QuestionnaireResponse {
   });
 
   static List<QuestionnaireResponse> fromQuestionnaire(Questionnaire q) {
-    return q.questions.map((q) {
+    List<QuestionnaireResponse> responses = [];
+    for (var q in q.questions) {
       if (q is ChoiceQuestion) {
+        var response = "";
         if (q.selectedChoices.length > 1) {
-          return QuestionnaireResponse(
-            name: q.name,
-            questionnaireName: q.name,
-            questionText: q.questionText,
-            response: q.selectedChoices.join(", "),
-            dateSubmitted: DateTime.now().toLocal(),
-          );
+          response = q.selectedChoices.join(", ");
         } else {
-          return QuestionnaireResponse(
-            name: q.name,
-            questionnaireName: q.name,
-            questionText: q.questionText,
-            response: q.selectedChoices.first,
-            dateSubmitted: DateTime.now().toLocal(),
-          );
+          response = q.selectedChoices.first;
         }
-      } else {
-        return QuestionnaireResponse(
+        responses.add(QuestionnaireResponse(
           name: q.name,
           questionnaireName: q.name,
           questionText: q.questionText,
-          response: "",
+          response: response,
           dateSubmitted: DateTime.now().toLocal(),
-        );
+        ));
       }
-    }).toList();
+    }
+    return responses;
   }
 
   factory QuestionnaireResponse.fromJson(Map<String, dynamic> json) =>
