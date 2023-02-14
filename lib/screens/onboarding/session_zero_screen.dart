@@ -1,28 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
-import 'package:prompt/screens/session_zero/cabuu_code_screen.dart';
-import 'package:prompt/screens/session_zero/copingplan_enter_screen.dart';
-import 'package:prompt/screens/session_zero/instruction_screen_1.dart';
-import 'package:prompt/screens/session_zero/instruction_screen_2.dart';
-import 'package:prompt/screens/session_zero/instruction_screen_3.dart';
-import 'package:prompt/screens/session_zero/instruction_screen_4.dart';
-import 'package:prompt/screens/session_zero/instructions_cabuu_1.dart';
-import 'package:prompt/screens/session_zero/instructions_cabuu_2.dart';
-import 'package:prompt/screens/session_zero/instructions_cabuu_3.dart';
-import 'package:prompt/screens/session_zero/instructions_distributed_learning.dart';
-import 'package:prompt/screens/session_zero/instructions_implementation_intentions.dart';
-import 'package:prompt/screens/session_zero/obstacle_enter_screen.dart';
-import 'package:prompt/screens/session_zero/outcome_enter_screen.dart';
-import 'package:prompt/screens/session_zero/plan_creation_screen.dart';
-import 'package:prompt/screens/session_zero/plan_display_screen.dart';
-import 'package:prompt/screens/session_zero/plan_timing_screen.dart';
-import 'package:prompt/screens/session_zero/reward_screen_1.dart';
-import 'package:prompt/screens/session_zero/rewards_screen_2.dart';
-import 'package:prompt/screens/session_zero/welcome_screen.dart';
-import 'package:prompt/screens/session_zero/why_learn_vocab_screen.dart';
+import 'package:prompt/screens/onboarding/cabuu_code_screen.dart';
+import 'package:prompt/screens/onboarding/copingplan_enter_screen.dart';
+import 'package:prompt/screens/onboarding/instruction_screen_1.dart';
+import 'package:prompt/screens/onboarding/instruction_screen_2.dart';
+import 'package:prompt/screens/onboarding/instruction_screen_3.dart';
+import 'package:prompt/screens/onboarding/instruction_screen_4.dart';
+import 'package:prompt/screens/onboarding/instructions_cabuu_1.dart';
+import 'package:prompt/screens/onboarding/instructions_cabuu_2.dart';
+import 'package:prompt/screens/onboarding/instructions_cabuu_3.dart';
+import 'package:prompt/screens/onboarding/instructions_distributed_learning.dart';
+import 'package:prompt/screens/onboarding/instructions_implementation_intentions.dart';
+import 'package:prompt/screens/onboarding/obstacle_enter_screen.dart';
+import 'package:prompt/screens/onboarding/outcome_enter_screen.dart';
+import 'package:prompt/screens/onboarding/plan_creation_screen.dart';
+import 'package:prompt/screens/onboarding/plan_display_screen.dart';
+import 'package:prompt/screens/onboarding/plan_timing_screen.dart';
+import 'package:prompt/screens/onboarding/reward_screen_1.dart';
+import 'package:prompt/screens/onboarding/rewards_screen_2.dart';
+import 'package:prompt/screens/onboarding/welcome_screen.dart';
+import 'package:prompt/screens/onboarding/why_learn_vocab_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:prompt/widgets/video_screen.dart';
@@ -39,7 +39,7 @@ class SessionZeroScreen extends StatefulWidget {
 class _SessionZeroScreenState extends State<SessionZeroScreen> {
   final AsyncMemoizer _memoizer = AsyncMemoizer();
 
-  late SessionZeroViewModel vm = Provider.of<SessionZeroViewModel>(context);
+  late OnboardingViewModel vm = Provider.of<OnboardingViewModel>(context);
 
   init() async {
     return this._memoizer.runOnce(() async {
@@ -88,41 +88,41 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
         ));
   }
 
-  Widget getScreen(SessionZeroStep step) {
+  Widget getScreen(OnboardingStep step) {
     var key = ValueKey(step);
     switch (step) {
-      case SessionZeroStep.welcome:
+      case OnboardingStep.welcome:
         return WelcomeScreen(key: key);
-      case SessionZeroStep.rewardScreen1:
+      case OnboardingStep.rewardScreen1:
         return RewardScreen1(key: key);
-      case SessionZeroStep.video_introduction:
+      case OnboardingStep.video_introduction:
         return VideoScreen(
           'assets/videos/intro_prompt_compressed.mp4',
           onVideoCompleted: vm.videoWelcomeCompleted,
           key: key,
         );
-      case SessionZeroStep.cabuuCode:
+      case OnboardingStep.cabuuCode:
         return CabuuCodeScreen(key: key);
-      case SessionZeroStep.video_distributedLearning:
+      case OnboardingStep.video_distributedLearning:
         return VideoScreen('assets/videos/videoDistributedLearning.mp4',
             key: key, onVideoCompleted: vm.videoDistributedLearningCompleted);
-      case SessionZeroStep.outcome:
+      case OnboardingStep.outcome:
         return OutcomeEnterScreen(key: key);
-      case SessionZeroStep.obstacle:
+      case OnboardingStep.obstacle:
         return ObstacleEnterScreen(key: key);
-      case SessionZeroStep.copingPlan:
+      case OnboardingStep.copingPlan:
         return CopingPlanEnterScreen(key: key);
-      case SessionZeroStep.instructions_implementationIntentions:
+      case OnboardingStep.instructions_implementationIntentions:
         return InstructionsImplementationIntentions(key: key);
-      case SessionZeroStep.video_Planning:
+      case OnboardingStep.video_Planning:
         return VideoScreen('assets/videos/videoPlanning.mp4',
             key: key, onVideoCompleted: vm.videoPlanningCompleted);
-      case SessionZeroStep.planCreation:
+      case OnboardingStep.planCreation:
         return PlanCreationScreen(key: key);
 
-      case SessionZeroStep.planDisplay:
+      case OnboardingStep.planDisplay:
         return PlanDisplayScreen(key: key);
-      case SessionZeroStep.planInternalisationEmoji:
+      case OnboardingStep.planInternalisationEmoji:
         return ChangeNotifierProvider.value(
           value: vm.internalisationViewmodelEmoji,
           key: key,
@@ -132,63 +132,63 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
               emojiInputThen: true,
               key: key),
         );
-      case SessionZeroStep.rewardScreen2:
+      case OnboardingStep.rewardScreen2:
         return RewardScreen2(key: key);
-      case SessionZeroStep.assessment_itLiteracy:
+      case OnboardingStep.assessment_itLiteracy:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.assessment_learningFrequencyDuration:
+      case OnboardingStep.assessment_learningFrequencyDuration:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.assessment_motivation:
+      case OnboardingStep.assessment_motivation:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.assessment_learningExpectations:
+      case OnboardingStep.assessment_learningExpectations:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.assessment_distributedLearning:
+      case OnboardingStep.assessment_distributedLearning:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.assessment_selfEfficacy:
-        // TODO: Handle this case.
-        break;
-
-      case SessionZeroStep.whyLearnVocabScreen:
+      case OnboardingStep.assessment_selfEfficacy:
         // TODO: Handle this case.
         break;
 
-      case SessionZeroStep.planInternalisationWaiting:
+      case OnboardingStep.whyLearnVocabScreen:
         // TODO: Handle this case.
         break;
 
-      case SessionZeroStep.planTiming:
+      case OnboardingStep.planInternalisationWaiting:
+        // TODO: Handle this case.
+        break;
+
+      case OnboardingStep.planTiming:
         return PlanTimingScreen(key: key);
-      case SessionZeroStep.instructions1:
+      case OnboardingStep.instructions1:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.instructions2:
+      case OnboardingStep.instructions2:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.instructions3:
+      case OnboardingStep.instructions3:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.instructions4:
+      case OnboardingStep.instructions4:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.instructions_cabuu_1:
+      case OnboardingStep.instructions_cabuu_1:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.instructions_cabuu_2:
+      case OnboardingStep.instructions_cabuu_2:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.instructions_cabuu_3:
+      case OnboardingStep.instructions_cabuu_3:
         // TODO: Handle this case.
         break;
-      case SessionZeroStep.instructions_distributedLearning:
+      case OnboardingStep.instructions_distributedLearning:
         // TODO: Handle this case.
         break;
 
-      case SessionZeroStep.endOfSession:
+      case OnboardingStep.endOfSession:
         // TODO: Handle this case.
         break;
     }
@@ -199,42 +199,42 @@ class _SessionZeroScreenState extends State<SessionZeroScreen> {
   }
 
   late var rewardScreen2 =
-      RewardScreen2(key: ValueKey(SessionZeroStep.rewardScreen2));
+      RewardScreen2(key: ValueKey(OnboardingStep.rewardScreen2));
 
   late var instructionsCabuu1 =
-      InstructionsCabuu1(key: ValueKey(SessionZeroStep.instructions_cabuu_1));
+      InstructionsCabuu1(key: ValueKey(OnboardingStep.instructions_cabuu_1));
 
   late var instructionsCabuu2 =
-      InstructionsCabuu2(key: ValueKey(SessionZeroStep.instructions_cabuu_2));
+      InstructionsCabuu2(key: ValueKey(OnboardingStep.instructions_cabuu_2));
 
   late var instructionsCabuu3 =
-      InstructionsCabuu3(key: ValueKey(SessionZeroStep.instructions_cabuu_3));
+      InstructionsCabuu3(key: ValueKey(OnboardingStep.instructions_cabuu_3));
 
   late var instructionsDistributedLearning = InstructionsDistributedLearning(
-      key: ValueKey(SessionZeroStep.instructions_distributedLearning));
+      key: ValueKey(OnboardingStep.instructions_distributedLearning));
 
   late var instructionScreen1 =
-      InstructionScreen1(key: ValueKey(SessionZeroStep.instructions1));
+      InstructionScreen1(key: ValueKey(OnboardingStep.instructions1));
 
   late var instructionScreen2 =
-      InstructionScreen2(key: ValueKey(SessionZeroStep.instructions2));
+      InstructionScreen2(key: ValueKey(OnboardingStep.instructions2));
 
   late var instructionScreen3 =
-      InstructionScreen3(key: ValueKey(SessionZeroStep.instructions3));
+      InstructionScreen3(key: ValueKey(OnboardingStep.instructions3));
 
   late var instructionScreen4 =
-      InstructionScreen4(key: ValueKey(SessionZeroStep.instructions4));
+      InstructionScreen4(key: ValueKey(OnboardingStep.instructions4));
 
   late var instructionsImplementationIntentions =
       InstructionsImplementationIntentions(
-          key: ValueKey(SessionZeroStep.instructions_implementationIntentions));
+          key: ValueKey(OnboardingStep.instructions_implementationIntentions));
 
   late var planCreation =
-      PlanCreationScreen(key: ValueKey(SessionZeroStep.planCreation));
+      PlanCreationScreen(key: ValueKey(OnboardingStep.planCreation));
 
   late var planDisplay =
-      PlanDisplayScreen(key: ValueKey(SessionZeroStep.planDisplay));
+      PlanDisplayScreen(key: ValueKey(OnboardingStep.planDisplay));
 
   late var whyLearnVocabs =
-      WhyLearnVocabScreen(key: ValueKey(SessionZeroStep.whyLearnVocabScreen));
+      WhyLearnVocabScreen(key: ValueKey(OnboardingStep.whyLearnVocabScreen));
 }

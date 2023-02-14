@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:provider/provider.dart';
 
 class PlanCreationScreen extends StatefulWidget {
@@ -28,14 +28,14 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
   void initState() {
     super.initState();
     _habitTextController.text =
-        Provider.of<SessionZeroViewModel>(context, listen: false)
+        Provider.of<OnboardingViewModel>(context, listen: false)
             .plan
             .replaceFirst("Wenn ich ", "")
             .replaceFirst(", dann lerne ich mit cabuu!", "");
   }
 
   Widget buildEnterHabit() {
-    var vm = Provider.of<SessionZeroViewModel>(context);
+    var vm = Provider.of<OnboardingViewModel>(context);
 
     return ListView(children: [
       MarkdownBody(data: "### " + AppStrings.PlanCreation_LetsCreatePlan),

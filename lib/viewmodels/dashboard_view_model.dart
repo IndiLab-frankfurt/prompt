@@ -14,7 +14,7 @@ class DashboardViewModel extends BaseViewModel {
 
   late int daysActive = _studyService.getDaysSinceStart();
 
-  late double studyProgress = daysActive / 36;
+  late double studyProgress = daysActive / getMaxStudyDays();
 
   String messageContinueAfterCabuu = AppStrings.NoTask_Continue_After_Cabuu;
   String messageContinueTomorrow = AppStrings.NoTask_ContinueTomorrow;
@@ -35,13 +35,31 @@ class DashboardViewModel extends BaseViewModel {
     }
   }
 
+  Future<String> getButtonText() async {
+    var daysAgo = _studyService.getDaysSinceStart();
+
+    if (daysAgo == 0) {
+      return AppStrings.Dashboard_MainMessage_FirstDay;
+    } else if (daysAgo > getMaxStudyDays()) {
+      return "";
+    }
+    if (daysAgo >= 1 && daysAgo < getMaxStudyDays()) {
+      // show message only if it is earlier than 6pm
+      if (DateTime.now().hour < 18) {
+        return AppStrings.Dashboard_MainMessage_BeforeEvening;
+      }
+    }
+
+    return "";
+  }
+
   int daysUntilVocabTest() {
     var nextDate = _studyService.getNextVocabTestDate();
     return nextDate.weekDaysAgo(DateTime.now());
   }
 
   int getMaxStudyDays() {
-    return 200;
+    return StudyService.STUDY_DURATION.inDays;
   }
 
   Future<void> initialize() async {}

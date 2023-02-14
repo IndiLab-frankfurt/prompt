@@ -9,7 +9,7 @@ import 'package:prompt/shared/extensions.dart';
 
 class StudyService {
   static const int NUM_GROUPS = 7;
-  static const Duration MAX_STUDY_DURATION = Duration(days: 56);
+  static const Duration STUDY_DURATION = Duration(days: 42);
 
   final DataService _dataService;
   final NotificationService _notificationService;
@@ -24,8 +24,13 @@ class StudyService {
 
   nextScreen(AppScreen currentScreen) async {
     _loggingService.logEvent("nextScreen", data: currentScreen.name);
-    var nextState = await _dataService.getNextState(currentScreen);
-
+    var nextState = AppScreen.Mainscreen;
+    try {
+      nextState = await _dataService.getNextState(currentScreen);
+    } catch (e) {
+      _loggingService.logError("Error trying to navigate to next state",
+          data: "Error getting next state: $e");
+    }
     return await _navigationService.navigateTo(nextState);
   }
 
@@ -111,7 +116,7 @@ class StudyService {
   }
 
   scheduleFinalTaskReminder() {
-    var dayAfterFinal = DateTime.now().add(StudyService.MAX_STUDY_DURATION);
+    var dayAfterFinal = DateTime.now().add(StudyService.STUDY_DURATION);
     print(
         "scheduling final task reminder for ${dayAfterFinal.toIso8601String()}");
     _notificationService.scheduleFinalTaskReminder(dayAfterFinal);

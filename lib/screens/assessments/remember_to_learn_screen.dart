@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class StudyCompleteScreen extends StatelessWidget {
-  const StudyCompleteScreen({Key? key}) : super(key: key);
+class RememberToLearnScreen extends StatelessWidget {
+  const RememberToLearnScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

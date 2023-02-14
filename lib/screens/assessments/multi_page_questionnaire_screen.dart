@@ -52,7 +52,6 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
               appBar: PromptAppBar(showBackButton: true),
               drawer: PromptDrawer(),
               extendBodyBehindAppBar: true,
-              resizeToAvoidBottomInset: false,
               body: FutureBuilder(
                 future: init(),
                 builder:

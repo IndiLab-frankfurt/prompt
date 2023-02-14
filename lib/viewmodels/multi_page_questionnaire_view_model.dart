@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:prompt/models/questionnaire.dart';
+import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -33,7 +34,9 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel {
 
   @override
   void submit() async {
-    await this.studyService.submitResponses([], "");
+    this.setState(ViewState.busy);
+    await this.studyService.submitResponses(
+        QuestionnaireResponse.fromQuestionnaire(this.questionnaire), "");
     this.studyService.nextScreen(this.screenName);
   }
 }

@@ -1,3 +1,4 @@
+import 'package:mockito/mockito.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
@@ -20,7 +21,7 @@ RewardService mockRewardService =
     RewardService(mockDataService, mockLoggingService);
 NavigationService mockNavigationService = NavigationService();
 
-StudyService mockExperimentService = StudyService(
+StudyService mockStudyService = StudyService(
     mockDataService,
     mockNotificationService,
     mockLoggingService,
@@ -37,4 +38,12 @@ Future<SettingsService> getMockSettingsService() async {
 Future<ApiService> getMockApiService() async {
   var settingsService = await getMockSettingsService();
   return ApiService(settingsService);
+}
+
+class MockStudyService extends Fake implements StudyService {
+  int daysSinceStart = 1;
+  @override
+  int getDaysSinceStart() {
+    return 1;
+  }
 }

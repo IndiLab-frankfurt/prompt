@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:provider/provider.dart';
 import 'package:prompt/shared/app_strings.dart';
@@ -14,7 +14,7 @@ class PlanTimingScreen extends StatefulWidget {
 }
 
 class _PlanTimingScreenState extends State<PlanTimingScreen> {
-  late final vm = Provider.of<SessionZeroViewModel>(context);
+  late final vm = Provider.of<OnboardingViewModel>(context);
   TextEditingController _timeDisplayController =
       TextEditingController(text: "18 Uhr");
 

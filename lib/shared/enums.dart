@@ -75,6 +75,7 @@ enum AppScreen {
   PlanPrompt("/planprompt"),
   FinalQuestionnaire("/finalquestionnaire"),
   Questionnaire("/aa"),
+  ScreenSelect("/screenselect"),
   RewardSelection("/rewardselection");
 
   const AppScreen(this.routeName);

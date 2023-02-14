@@ -4,7 +4,6 @@ import 'package:prompt/models/assessment.dart';
 import 'package:prompt/models/assessment_item.dart';
 import 'package:prompt/models/assessment_result.dart';
 import 'package:prompt/models/authentication_response.dart';
-import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:collection/collection.dart';
@@ -171,18 +170,6 @@ class DataService {
     _settingsService.setSetting(SettingsKeys.backgroundColors, colorString);
   }
 
-  saveInternalisation(Internalisation internalisation) async {
-    var response = QuestionnaireResponse(
-        name: internalisation.condition,
-        questionnaireName: "internalisation",
-        questionText: internalisation.plan,
-        response: internalisation.input,
-        dateSubmitted: DateTime.now());
-    await saveQuestionnaireResponse(response);
-    // return await _databaseService.saveInternalisation(
-    //     internalisation, _userService.getUsername());
-  }
-
   Future<void> setStreakDays(int value) async {
     throw Exception("Not implemented");
   }
@@ -190,12 +177,7 @@ class DataService {
   Future<AppScreen> getNextState(AppScreen currentScreen) async {
     var response = await _databaseService.getNextState(currentScreen.name);
 
-    try {
-      return AppScreen.values.byName(response);
-    } catch (e) {
-      logData({"data": "Error getting next state: $e"});
-      return AppScreen.Mainscreen;
-    }
+    return AppScreen.values.byName(response);
   }
 
   getAssessment(String name) async {

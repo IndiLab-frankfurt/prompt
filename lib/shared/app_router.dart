@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:prompt/data/assessments.dart';
 import 'package:prompt/locator.dart';
 import 'package:prompt/models/questionnaire.dart';
-import 'package:prompt/screens/about_screen.dart';
 import 'package:prompt/screens/assessments/multi_page_questionnaire_screen.dart';
-import 'package:prompt/screens/login_screen.dart';
-import 'package:prompt/screens/dashboard_screen.dart';
+import 'package:prompt/screens/main/about_screen.dart';
+import 'package:prompt/screens/main/screen_selection.dart';
+import 'package:prompt/screens/onboarding/dashboard_screen.dart';
+import 'package:prompt/screens/onboarding/login_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
-import 'package:prompt/screens/session_zero/session_zero_screen.dart';
+import 'package:prompt/screens/onboarding/session_zero_screen.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/logging_service.dart';
@@ -19,7 +20,7 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
-import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:provider/provider.dart';
 
 class AppRouter {
@@ -58,7 +59,7 @@ class AppRouter {
       case AppScreen.Onboarding:
         return MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
-                create: (_) => SessionZeroViewModel(locator.get<StudyService>(),
+                create: (_) => OnboardingViewModel(locator.get<StudyService>(),
                     locator.get<DataService>(), locator.get<RewardService>()),
                 child: SessionZeroScreen()));
 
@@ -86,8 +87,41 @@ class AppRouter {
                     locator.get<DataService>(),
                     studyService: locator.get<StudyService>(),
                     screenName: appScreen,
-                    questionnaire: questionnaireDidYouLearn),
+                    questionnaire: AA_DidYouLearn),
                 child: MultiPageQuestionnaire()));
+
+      case AppScreen.AA_WhyNotLearn:
+        return CupertinoPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => MultiPageQuestionnaireViewModel(
+                    locator.get<DataService>(),
+                    studyService: locator.get<StudyService>(),
+                    screenName: appScreen,
+                    questionnaire: AA_WhyNotLearn),
+                child: MultiPageQuestionnaire()));
+
+      case AppScreen.AA_NextStudySession:
+        return CupertinoPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => MultiPageQuestionnaireViewModel(
+                    locator.get<DataService>(),
+                    studyService: locator.get<StudyService>(),
+                    screenName: appScreen,
+                    questionnaire: AA_NextStudySession),
+                child: MultiPageQuestionnaire()));
+
+      case AppScreen.AA_PreviousStudySession:
+        return CupertinoPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => MultiPageQuestionnaireViewModel(
+                    locator.get<DataService>(),
+                    studyService: locator.get<StudyService>(),
+                    screenName: appScreen,
+                    questionnaire: AA_PreviousStudySession),
+                child: MultiPageQuestionnaire()));
+
+      case AppScreen.ScreenSelect:
+        return CupertinoPageRoute(builder: (_) => ScreenSelectionScreen());
 
       default:
         return MaterialPageRoute(builder: (_) {

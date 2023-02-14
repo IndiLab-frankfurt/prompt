@@ -71,6 +71,13 @@ class PromptDrawer extends StatelessWidget {
                 await Navigator.pushReplacementNamed(
                     context, AppScreen.AA_DidYouLearn.name);
               }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Screen Select",
+              onTap: () async {
+                await Navigator.pushReplacementNamed(
+                    context, AppScreen.ScreenSelect.name);
+              }),
         ],
       ),
     );

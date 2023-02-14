@@ -23,11 +23,4 @@ class UsageStatsService {
     print(result);
     return result;
   }
-
-  // static List<UsageInfo> filterForegroundApps(List<UsageInfo> usageInfos) {
-  //   // return usageInfos
-  //   //     .map((e) => (int.parse(e.totalTimeInForeground)))
-  //   //     .where((element) => element > 0)
-  //   //     .toList();
-  // }
 }

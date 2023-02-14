@@ -3,9 +3,6 @@ import 'dart:convert';
 import 'package:prompt/models/authentication_response.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
-import 'package:prompt/models/internalisation.dart';
-import 'package:prompt/models/assessment_result.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:prompt/services/settings_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
@@ -71,16 +68,6 @@ class ApiService {
 
   ApiService(this._settingsService);
 
-  Future<List<AssessmentResult>> getAssessmentResults(String userid) {
-    // TODO: implement getAssessmentResults
-    throw UnimplementedError();
-  }
-
-  Stream<User?>? getCurrentUser() {
-    // TODO: implement getCurrentUser
-    throw UnimplementedError();
-  }
-
   Future<QuestionnaireResponse?> getLastQuestionnaireResponse(
       String questionName) async {
     return getAsync("/api/responses/$questionName/?latest=True")
@@ -145,37 +132,21 @@ class ApiService {
     });
   }
 
-  Future<UserData?> registerUser(
-      String userId, String password, int internalisationCondition) {
-    // TODO: implement registerUser
-    throw UnimplementedError();
-  }
-
-  @override
   Future saveDaysAcive(String username, int daysActive) {
     // TODO: implement saveDaysAcive
     throw UnimplementedError();
   }
 
-  @override
-  Future<void> saveInitSessionStepCompleted(String userid, int step) {
+  Future<void> saveOnboardingStepCompleted(String userid, int step) {
     // TODO: implement saveInitSessionStepCompleted
     throw UnimplementedError();
   }
 
-  @override
-  Future saveInternalisation(Internalisation internalisation, String email) {
-    // TODO: implement saveInternalisation
-    throw UnimplementedError();
-  }
-
-  @override
   Future<void> savePlan(String plan) {
     // TODO: implement savePlan
     throw UnimplementedError();
   }
 
-  @override
   Future<void> saveScore(String userid, int score) {
     // TODO: implement saveScore
     throw UnimplementedError();

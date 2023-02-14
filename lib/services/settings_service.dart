@@ -21,6 +21,7 @@ class SettingsService {
     SettingsKeys.accessToken: "",
     SettingsKeys.username: "",
     SettingsKeys.email: "",
+    SettingsKeys.password: "",
     SettingsKeys.refreshToken: "",
     SettingsKeys.timerDurationInSeconds: "1500",
     SettingsKeys.initSessionStep: "0",

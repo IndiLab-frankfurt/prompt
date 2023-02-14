@@ -159,4 +159,9 @@ class AppStrings {
 
   static const String PlanTiming_Paragraph2 =
       "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.";
+
+  static const String Dashboard_MainMessage_FirstDay =
+      "Morgen geht es richtig los!";
+  static const String Dashboard_MainMessage_BeforeEvening =
+      "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.";
 }

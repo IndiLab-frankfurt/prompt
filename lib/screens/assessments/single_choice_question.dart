@@ -55,8 +55,12 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
     setState(() {
       _selectedValue = groupValue;
     });
-    widget.question.selectedChoices = [selectedValue];
-    widget.onSelection(selectedValue);
+    // map the groupValue to the index of the choice in the list of choices
+    if (groupValue >= 0 && groupValue <= widget.question.choices.length) {
+      var choice = widget.question.choices.keys.toList()[groupValue - 1];
+      widget.question.selectedChoices = [choice];
+      widget.onSelection(choice);
+    }
   }
 
   buildStaticItem(int groupValue, String text) {
@@ -87,7 +91,6 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
 
   buildSingleTextInputItemWithSelector(int groupValue, String text,
       {String hintText = ""}) {
-    text = groupValue.toString();
     return Column(
       children: [
         InkWell(

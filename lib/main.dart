@@ -3,9 +3,10 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prompt/locator.dart';
-import 'package:prompt/screens/startup_screen.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_router.dart';
+
+import 'screens/main/startup_screen.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -21,7 +22,6 @@ void main() async {
           appId: "1:972973871566:web:207f4b7287a6bdd95b9b9f",
           messagingSenderId: "972973871566",
           projectId: "prompt-942ca"));
-  // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   setupLocator();
   runApp(MyApp());
 }

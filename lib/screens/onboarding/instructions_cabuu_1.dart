@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:intl/intl.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:provider/provider.dart';
 
 class InstructionsCabuu1 extends StatelessWidget {
@@ -12,7 +12,7 @@ class InstructionsCabuu1 extends StatelessWidget {
   Widget build(BuildContext context) {
     var format = new DateFormat("dd.MM.yyyy");
     var targetDate = format.format(DateTime.now().add(Duration(days: 8)));
-    late var vm = Provider.of<SessionZeroViewModel>(context);
+    late var vm = Provider.of<OnboardingViewModel>(context);
     return Container(
         child: ListView(
       children: [

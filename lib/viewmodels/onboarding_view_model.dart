@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:flutter/foundation.dart';
-import 'package:prompt/models/internalisation.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
@@ -9,7 +8,7 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
 
-enum SessionZeroStep {
+enum OnboardingStep {
   welcome,
   video_introduction,
   rewardScreen1,
@@ -44,7 +43,7 @@ enum SessionZeroStep {
   endOfSession
 }
 
-class SessionZeroViewModel extends MultiPageViewModel {
+class OnboardingViewModel extends MultiPageViewModel {
   InternalisationViewModel internalisationViewmodelEmoji =
       InternalisationViewModel();
 
@@ -123,7 +122,7 @@ class SessionZeroViewModel extends MultiPageViewModel {
   final StudyService _experimentService;
   final RewardService _rewardService;
 
-  SessionZeroViewModel(
+  OnboardingViewModel(
       this._experimentService, DataService dataService, this._rewardService)
       : super(dataService) {
     generateScreenOrder();
@@ -146,21 +145,21 @@ class SessionZeroViewModel extends MultiPageViewModel {
     return true;
   }
 
-  List<SessionZeroStep> getScreenOrder() {
-    List<SessionZeroStep> screenOrder = [
-      SessionZeroStep.welcome,
-      SessionZeroStep.video_introduction,
-      SessionZeroStep.rewardScreen1,
-      SessionZeroStep.outcome,
-      SessionZeroStep.obstacle,
-      SessionZeroStep.copingPlan,
-      SessionZeroStep.instructions_implementationIntentions,
-      SessionZeroStep.video_Planning,
-      SessionZeroStep.planCreation,
-      SessionZeroStep.planDisplay,
-      SessionZeroStep.planInternalisationEmoji,
-      SessionZeroStep.rewardScreen2,
-      SessionZeroStep.planTiming,
+  List<OnboardingStep> getScreenOrder() {
+    List<OnboardingStep> screenOrder = [
+      OnboardingStep.welcome,
+      OnboardingStep.video_introduction,
+      OnboardingStep.rewardScreen1,
+      OnboardingStep.outcome,
+      OnboardingStep.obstacle,
+      OnboardingStep.copingPlan,
+      OnboardingStep.instructions_implementationIntentions,
+      OnboardingStep.video_Planning,
+      OnboardingStep.planCreation,
+      OnboardingStep.planDisplay,
+      OnboardingStep.planInternalisationEmoji,
+      OnboardingStep.rewardScreen2,
+      OnboardingStep.planTiming,
     ];
 
     return screenOrder;
@@ -186,52 +185,52 @@ class SessionZeroViewModel extends MultiPageViewModel {
   }
 
   saveInternalisation() {
-    var internalisation = Internalisation(
-        startDate: DateTime.now(),
-        completionDate: DateTime.now(),
-        plan: this.plan,
-        condition: InternalisationCondition.emojiIf.toString(),
-        input: this.internalisationViewmodelEmoji.input);
-    dataService.saveInternalisation(internalisation);
+    var response = QuestionnaireResponse(
+        name: InternalisationCondition.emojiIf.name,
+        questionnaireName: "internalisation",
+        questionText: internalisationViewmodelEmoji.plan,
+        response: internalisationViewmodelEmoji.input,
+        dateSubmitted: DateTime.now());
+    dataService.saveQuestionnaireResponse(response);
   }
 
   @override
   Future<bool> doStepDependentSubmission(ValueKey currentPageKey) async {
-    var stepKey = currentPageKey.value as SessionZeroStep;
+    var stepKey = currentPageKey.value as OnboardingStep;
 
     switch (stepKey) {
-      case SessionZeroStep.welcome:
-      case SessionZeroStep.cabuuCode:
-      case SessionZeroStep.video_Planning:
-      case SessionZeroStep.video_distributedLearning:
-      case SessionZeroStep.instructions1:
-      case SessionZeroStep.instructions2:
-      case SessionZeroStep.instructions3:
-      case SessionZeroStep.instructions4:
-      case SessionZeroStep.instructions_cabuu_1:
-      case SessionZeroStep.instructions_cabuu_2:
-      case SessionZeroStep.instructions_cabuu_3:
-      case SessionZeroStep.instructions_distributedLearning:
-      case SessionZeroStep.instructions_implementationIntentions:
-      case SessionZeroStep.rewardScreen1:
-      case SessionZeroStep.planInternalisationWaiting:
-      case SessionZeroStep.rewardScreen2:
-      case SessionZeroStep.planDisplay:
+      case OnboardingStep.welcome:
+      case OnboardingStep.cabuuCode:
+      case OnboardingStep.video_Planning:
+      case OnboardingStep.video_distributedLearning:
+      case OnboardingStep.instructions1:
+      case OnboardingStep.instructions2:
+      case OnboardingStep.instructions3:
+      case OnboardingStep.instructions4:
+      case OnboardingStep.instructions_cabuu_1:
+      case OnboardingStep.instructions_cabuu_2:
+      case OnboardingStep.instructions_cabuu_3:
+      case OnboardingStep.instructions_distributedLearning:
+      case OnboardingStep.instructions_implementationIntentions:
+      case OnboardingStep.rewardScreen1:
+      case OnboardingStep.planInternalisationWaiting:
+      case OnboardingStep.rewardScreen2:
+      case OnboardingStep.planDisplay:
         break;
-      case SessionZeroStep.video_introduction:
+      case OnboardingStep.video_introduction:
         if (_rewardService.scoreValue < 5) {
           _rewardService.addPoints(5);
         }
         break;
-      case SessionZeroStep.assessment_itLiteracy:
-      case SessionZeroStep.assessment_learningFrequencyDuration:
-      case SessionZeroStep.assessment_motivation:
-      case SessionZeroStep.assessment_learningExpectations:
-      case SessionZeroStep.assessment_distributedLearning:
-      case SessionZeroStep.assessment_selfEfficacy:
-      case SessionZeroStep.planTiming:
+      case OnboardingStep.assessment_itLiteracy:
+      case OnboardingStep.assessment_learningFrequencyDuration:
+      case OnboardingStep.assessment_motivation:
+      case OnboardingStep.assessment_learningExpectations:
+      case OnboardingStep.assessment_distributedLearning:
+      case OnboardingStep.assessment_selfEfficacy:
+      case OnboardingStep.planTiming:
         break;
-      case SessionZeroStep.whyLearnVocabScreen:
+      case OnboardingStep.whyLearnVocabScreen:
         var vocabValueResponse = QuestionnaireResponse(
             name: "vocabValue",
             questionnaireName: "vocabvalue",
@@ -240,7 +239,7 @@ class SessionZeroViewModel extends MultiPageViewModel {
             dateSubmitted: DateTime.now());
         dataService.saveQuestionnaireResponse(vocabValueResponse);
         break;
-      case SessionZeroStep.planCreation:
+      case OnboardingStep.planCreation:
         var planResponse = QuestionnaireResponse(
             name: AssessmentTypes.plan,
             questionnaireName: AssessmentTypes.plan,
@@ -249,16 +248,16 @@ class SessionZeroViewModel extends MultiPageViewModel {
             dateSubmitted: DateTime.now());
         dataService.saveQuestionnaireResponse(planResponse);
         break;
-      case SessionZeroStep.planInternalisationEmoji:
+      case OnboardingStep.planInternalisationEmoji:
         saveInternalisation();
         if (_rewardService.scoreValue < 10) {
           _rewardService.addPoints(20);
         }
 
         break;
-      case SessionZeroStep.endOfSession:
+      case OnboardingStep.endOfSession:
         break;
-      case SessionZeroStep.outcome:
+      case OnboardingStep.outcome:
         var outcomeResponse = QuestionnaireResponse(
             name: "outcome",
             questionnaireName: "outcome",
@@ -267,7 +266,7 @@ class SessionZeroViewModel extends MultiPageViewModel {
             dateSubmitted: DateTime.now());
         dataService.saveQuestionnaireResponse(outcomeResponse);
         break;
-      case SessionZeroStep.obstacle:
+      case OnboardingStep.obstacle:
         var obstacleResponse = QuestionnaireResponse(
             name: "obstacle",
             questionnaireName: "obstacle",
@@ -276,7 +275,7 @@ class SessionZeroViewModel extends MultiPageViewModel {
             dateSubmitted: DateTime.now());
         dataService.saveQuestionnaireResponse(obstacleResponse);
         break;
-      case SessionZeroStep.copingPlan:
+      case OnboardingStep.copingPlan:
         var copingPlanResponse = QuestionnaireResponse(
             name: "copingPlan",
             questionnaireName: "copingPlan",
@@ -290,7 +289,7 @@ class SessionZeroViewModel extends MultiPageViewModel {
     return true;
   }
 
-  int getStepIndex(SessionZeroStep step) {
+  int getStepIndex(OnboardingStep step) {
     return pages.indexOf(step);
   }
 
@@ -300,41 +299,41 @@ class SessionZeroViewModel extends MultiPageViewModel {
 
     return true;
     switch (stepKey) {
-      case SessionZeroStep.rewardScreen1:
-      case SessionZeroStep.instructions_cabuu_2:
-      case SessionZeroStep.instructions_cabuu_3:
-      case SessionZeroStep.instructions2:
-      case SessionZeroStep.instructions3:
-      case SessionZeroStep.video_introduction:
-      case SessionZeroStep.planDisplay:
-      case SessionZeroStep.cabuuCode:
-      case SessionZeroStep.welcome:
-      case SessionZeroStep.instructions_cabuu_1:
-      case SessionZeroStep.assessment_itLiteracy:
-      case SessionZeroStep.assessment_learningFrequencyDuration:
-      case SessionZeroStep.assessment_motivation:
-      case SessionZeroStep.assessment_learningExpectations:
-      case SessionZeroStep.assessment_selfEfficacy:
-      case SessionZeroStep.assessment_distributedLearning:
-      case SessionZeroStep.video_Planning:
-      case SessionZeroStep.video_distributedLearning:
-      case SessionZeroStep.planCreation:
-      case SessionZeroStep.planInternalisationEmoji:
-      case SessionZeroStep.planTiming:
-      case SessionZeroStep.instructions1:
-      case SessionZeroStep.instructions4:
-      case SessionZeroStep.instructions_distributedLearning:
-      case SessionZeroStep.instructions_implementationIntentions:
-      case SessionZeroStep.endOfSession:
-      case SessionZeroStep.whyLearnVocabScreen:
-      case SessionZeroStep.planInternalisationWaiting:
-      case SessionZeroStep.rewardScreen2:
+      case OnboardingStep.rewardScreen1:
+      case OnboardingStep.instructions_cabuu_2:
+      case OnboardingStep.instructions_cabuu_3:
+      case OnboardingStep.instructions2:
+      case OnboardingStep.instructions3:
+      case OnboardingStep.video_introduction:
+      case OnboardingStep.planDisplay:
+      case OnboardingStep.cabuuCode:
+      case OnboardingStep.welcome:
+      case OnboardingStep.instructions_cabuu_1:
+      case OnboardingStep.assessment_itLiteracy:
+      case OnboardingStep.assessment_learningFrequencyDuration:
+      case OnboardingStep.assessment_motivation:
+      case OnboardingStep.assessment_learningExpectations:
+      case OnboardingStep.assessment_selfEfficacy:
+      case OnboardingStep.assessment_distributedLearning:
+      case OnboardingStep.video_Planning:
+      case OnboardingStep.video_distributedLearning:
+      case OnboardingStep.planCreation:
+      case OnboardingStep.planInternalisationEmoji:
+      case OnboardingStep.planTiming:
+      case OnboardingStep.instructions1:
+      case OnboardingStep.instructions4:
+      case OnboardingStep.instructions_distributedLearning:
+      case OnboardingStep.instructions_implementationIntentions:
+      case OnboardingStep.endOfSession:
+      case OnboardingStep.whyLearnVocabScreen:
+      case OnboardingStep.planInternalisationWaiting:
+      case OnboardingStep.rewardScreen2:
         return false;
-      case SessionZeroStep.outcome:
+      case OnboardingStep.outcome:
         return outcome.isNotEmpty;
-      case SessionZeroStep.obstacle:
+      case OnboardingStep.obstacle:
         return obstacle.isNotEmpty;
-      case SessionZeroStep.copingPlan:
+      case OnboardingStep.copingPlan:
         return copingPlan.isNotEmpty;
     }
   }
@@ -344,30 +343,30 @@ class SessionZeroViewModel extends MultiPageViewModel {
     var stepKey = pages[page]; //currentPageKey!.value as SessionZeroStep;
     return true;
     switch (stepKey) {
-      case SessionZeroStep.video_introduction:
+      case OnboardingStep.video_introduction:
         return _videoWelcomeCompleted;
-      case SessionZeroStep.welcome:
-      case SessionZeroStep.cabuuCode:
-      case SessionZeroStep.planDisplay:
+      case OnboardingStep.welcome:
+      case OnboardingStep.cabuuCode:
+      case OnboardingStep.planDisplay:
         return true;
-      case SessionZeroStep.assessment_itLiteracy:
-      case SessionZeroStep.assessment_learningFrequencyDuration:
-      case SessionZeroStep.assessment_motivation:
-      case SessionZeroStep.assessment_learningExpectations:
-      case SessionZeroStep.assessment_selfEfficacy:
-      case SessionZeroStep.assessment_distributedLearning:
+      case OnboardingStep.assessment_itLiteracy:
+      case OnboardingStep.assessment_learningFrequencyDuration:
+      case OnboardingStep.assessment_motivation:
+      case OnboardingStep.assessment_learningExpectations:
+      case OnboardingStep.assessment_selfEfficacy:
+      case OnboardingStep.assessment_distributedLearning:
         return currentAssessmentIsFilledOut;
-      case SessionZeroStep.whyLearnVocabScreen:
+      case OnboardingStep.whyLearnVocabScreen:
         return vocabValue.isNotEmpty;
-      case SessionZeroStep.video_Planning:
+      case OnboardingStep.video_Planning:
         return _videoPlanningCompleted;
-      case SessionZeroStep.video_distributedLearning:
+      case OnboardingStep.video_distributedLearning:
         return _videoDistributedLearningCompleted;
-      case SessionZeroStep.planCreation:
+      case OnboardingStep.planCreation:
         return plan.isNotEmpty;
-      case SessionZeroStep.planInternalisationEmoji:
+      case OnboardingStep.planInternalisationEmoji:
         return this.internalisationViewmodelEmoji.input.isNotEmpty;
-      case SessionZeroStep.planTiming:
+      case OnboardingStep.planTiming:
         break;
       default:
         return true;

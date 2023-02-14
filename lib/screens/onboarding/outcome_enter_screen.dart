@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/viewmodels/session_zero_view_model.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:provider/provider.dart';
 
-class CopingPlanEnterScreen extends StatefulWidget {
-  CopingPlanEnterScreen({Key? key}) : super(key: key);
+class OutcomeEnterScreen extends StatefulWidget {
+  OutcomeEnterScreen({Key? key}) : super(key: key);
 
   @override
-  _CopingPlanEnterScreenState createState() => _CopingPlanEnterScreenState();
+  _OutcomeEnterScreenState createState() => _OutcomeEnterScreenState();
 }
 
-class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
+class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
   @override
   void initState() {
     super.initState();
@@ -20,25 +20,27 @@ class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var vm = Provider.of<SessionZeroViewModel>(context, listen: false);
-    var bgimg = "assets/illustrations/mascot_1_ladder.png";
+    var vm = Provider.of<OnboardingViewModel>(context, listen: false);
+
+    var bgimg = "assets/illustrations/mascot_1_thoughtbubble.png";
+
     return Container(
       decoration: BoxDecoration(
           gradient: UIHelper.baseGradient,
           image: DecorationImage(
               scale: 5.5,
               image: AssetImage(bgimg),
-              fit: BoxFit.fitWidth,
+              fit: BoxFit.none,
               alignment: Alignment.bottomCenter)),
       child: ListView(
         children: [
-          MarkdownBody(data: "### ${AppStrings.SessionZero_CopingPlanEnter_1}"),
+          MarkdownBody(data: "### ${AppStrings.SessionZero_OutcomeEnter_1}"),
           UIHelper.verticalSpaceMedium(),
           TextField(
-              minLines: 5,
+              minLines: 4,
               maxLines: null,
               onChanged: (text) {
-                vm.copingPlan = text;
+                vm.outcome = text;
               },
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(

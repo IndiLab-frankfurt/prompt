@@ -57,8 +57,7 @@ extension DateHelpers on DateTime {
         yesterday.year == this.year;
   }
 
-  /// Returns the days since this date NOT assuming full 24 hour days but
-  /// rather days of the weeek.
+  /// Returns the days since this date in terms of days of the weeek.
   /// For example, if this date is Thursday, 21.01.2021, 15:40 and it is
   /// Friday, 22.02.2021, 14:10, this function returns 1 as the number
   /// of days
