@@ -14,7 +14,8 @@ class ApiService {
 
   Future<bool> initialize() {
     if (kIsWeb && kDebugMode) {
-      serverUrl = "http://127.0.0.1:8000";
+      // serverUrl = "http://127.0.0.1:8000";
+      serverUrl = "https://prompt-app.eu";
     }
     return Future.value(true);
   }

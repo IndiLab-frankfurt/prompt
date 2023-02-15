@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/locator.dart';
 import 'package:prompt/models/question.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/assessments/questionnaire_text_screen.dart';
 import 'package:prompt/screens/assessments/single_choice_question.dart';
-import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
@@ -26,6 +24,7 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
 
   late MultiPageQuestionnaireViewModel vm =
       Provider.of<MultiPageQuestionnaireViewModel>(context);
+
   init() async {
     return this._memoizer.runOnce(() async {
       _screens = [];
@@ -53,7 +52,6 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
 
   @override
   Widget build(BuildContext context) {
-    var rewardService = locator.get<RewardService>();
     return WillPopScope(
         onWillPop: () async => false,
         child: Container(
@@ -68,10 +66,10 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
                   if (snapshot.hasData) {
                     return Container(
                         decoration: BoxDecoration(
-                            gradient: rewardService.backgroundColor,
+                            gradient: vm.rewardService.backgroundColor,
                             image: DecorationImage(
                                 image: AssetImage(
-                                    rewardService.backgroundImagePath),
+                                    vm.rewardService.backgroundImagePath),
                                 fit: BoxFit.contain,
                                 alignment: Alignment.bottomCenter)),
                         padding: UIHelper.containerPadding,

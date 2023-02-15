@@ -47,3 +47,7 @@ class MockStudyService extends Fake implements StudyService {
     return 1;
   }
 }
+
+class MockDataService extends Fake implements DataService {}
+
+class MockRewardService extends Fake implements RewardService {}

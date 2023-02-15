@@ -75,6 +75,7 @@ class AppRouter {
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => MultiPageQuestionnaireViewModel(
                     locator.get<DataService>(),
+                    rewardService: locator.get<RewardService>(),
                     studyService: locator.get<StudyService>(),
                     screenName: appScreen,
                     questionnaire: questionnaire),
@@ -85,6 +86,7 @@ class AppRouter {
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => MultiPageQuestionnaireViewModel(
                     locator.get<DataService>(),
+                    rewardService: locator.get<RewardService>(),
                     studyService: locator.get<StudyService>(),
                     screenName: appScreen,
                     questionnaire: AA_DidYouLearn),
@@ -95,6 +97,7 @@ class AppRouter {
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => MultiPageQuestionnaireViewModel(
                     locator.get<DataService>(),
+                    rewardService: locator.get<RewardService>(),
                     studyService: locator.get<StudyService>(),
                     screenName: appScreen,
                     questionnaire: AA_WhyNotLearn),
@@ -105,6 +108,7 @@ class AppRouter {
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => MultiPageQuestionnaireViewModel(
                     locator.get<DataService>(),
+                    rewardService: locator.get<RewardService>(),
                     studyService: locator.get<StudyService>(),
                     screenName: appScreen,
                     questionnaire: AA_NextStudySession),
@@ -115,6 +119,7 @@ class AppRouter {
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => MultiPageQuestionnaireViewModel(
                     locator.get<DataService>(),
+                    rewardService: locator.get<RewardService>(),
                     studyService: locator.get<StudyService>(),
                     screenName: appScreen,
                     questionnaire: AA_PreviousStudySession),
@@ -125,6 +130,7 @@ class AppRouter {
             builder: (_) => ChangeNotifierProvider(
                 create: (_) => MultiPageQuestionnaireViewModel(
                     locator.get<DataService>(),
+                    rewardService: locator.get<RewardService>(),
                     studyService: locator.get<StudyService>(),
                     screenName: appScreen,
                     questionnaire: RememberToLearn),
