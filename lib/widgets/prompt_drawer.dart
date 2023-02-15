@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/locator.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/widgets/version_info.dart';
@@ -56,6 +56,13 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushNamed(
                     context, AppScreen.RewardSelection.name);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Login",
+              onTap: () async {
+                await Navigator.pushReplacementNamed(
+                    context, AppScreen.Login.name);
               }),
           _buildDrawerItem(
               icon: Icons.add_box,

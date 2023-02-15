@@ -1,4 +1,4 @@
-import 'package:prompt/locator.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/navigation_service.dart';

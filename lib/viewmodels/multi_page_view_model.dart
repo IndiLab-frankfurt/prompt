@@ -55,12 +55,10 @@ abstract class MultiPageViewModel extends BaseViewModel {
   }
 
   Future<void> nextPage() async {
-    if (canMoveNext(null)) {
-      setPage(getNextPage(null));
-    }
-
     if (page == pages.length - 1) {
       submit();
+    } else if (canMoveNext(null)) {
+      setPage(getNextPage(null));
     }
   }
 
@@ -126,18 +124,9 @@ abstract class MultiPageViewModel extends BaseViewModel {
     timings[previous]!["end"] = nowString;
   }
 
-  clearCurrent() {
-    lastAssessment = Assessment();
-    currentResponse = null;
-  }
-
   onAssessmentLoaded(Assessment assessment) {
     lastAssessment = assessment;
     currentResponse = null;
-  }
-
-  onPageChange() {
-    currentAssessmentIsFilledOut = false;
   }
 
   Future<bool> doStepDependentSubmission(ValueKey currentPageKey) async {

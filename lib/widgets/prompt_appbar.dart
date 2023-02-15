@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/locator.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
@@ -69,8 +69,6 @@ class _PromptAppBarState extends State<PromptAppBar> {
         UIHelper.horizontalSpaceMedium()
       ],
       title: Text(""),
-      // textTheme:
-      //     TextTheme(headline6: TextStyle(color: Colors.black, fontSize: 22)),
       centerTitle: true,
     );
   }

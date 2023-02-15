@@ -8,7 +8,7 @@ import 'package:prompt/services/settings_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 
 class ApiService {
-  static String serverUrl = "http://10.0.2.2:8000";
+  static String serverUrl = "https://prompt-app.eu";
 
   final SettingsService _settingsService;
 

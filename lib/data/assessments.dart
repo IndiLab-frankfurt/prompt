@@ -75,5 +75,5 @@ Questionnaire RememberToLearn =
     Questionnaire(title: "", name: AppScreen.RememberToLearn.name, questions: [
   QuestionnaireText(
       name: "${AppScreen.RememberToLearn.name}_1",
-      text: [" Denk daran, morgen Vokabeln zu lernen! "])
+      text: ["## Denk daran, morgen Vokabeln zu lernen! "])
 ]);

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/locator.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/screens/rewards/timeline.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';

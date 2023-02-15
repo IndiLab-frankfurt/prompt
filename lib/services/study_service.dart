@@ -22,8 +22,14 @@ class StudyService {
   StudyService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
 
-  nextScreen(AppScreen currentScreen) async {
-    _loggingService.logEvent("nextScreen", data: currentScreen.name);
+  nextScreen() async {
+    var currentScreen = _navigationService.getRouteName();
+    if (currentScreen?.isEmpty ?? true) {
+      _loggingService
+          .logError("nextScreen called with empty current route name");
+    }
+
+    _loggingService.logEvent("nextScreen", data: currentScreen!);
     var nextState = AppScreen.Mainscreen;
     try {
       nextState = await _dataService.getNextState(currentScreen);

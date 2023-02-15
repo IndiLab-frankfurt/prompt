@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:prompt/data/assessments.dart';
-import 'package:prompt/locator.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/screens/assessments/multi_page_questionnaire_screen.dart';
 import 'package:prompt/screens/main/about_screen.dart';
@@ -35,109 +34,106 @@ class AppRouter {
       });
     }
     var appScreen = AppScreen.values.byName(settings.name!);
+    Widget screen;
     switch (appScreen) {
       case AppScreen.Login:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider<LoginViewModel>(
-                create: (_) => LoginViewModel(locator.get<UserService>(),
-                    locator.get<NavigationService>()),
-                child: LoginScreen(
-                  backgroundColor1: Color(0xFFFFF3E0),
-                  backgroundColor2: Color(0xFFFFF3E0),
-                  highlightColor: Colors.blue,
-                  foregroundColor: Color(0xFFFFF3E0),
-                )));
+        screen = ChangeNotifierProvider<LoginViewModel>(
+            create: (_) => LoginViewModel(
+                locator.get<UserService>(), locator.get<NavigationService>()),
+            child: LoginScreen(
+              backgroundColor1: Color(0xFFFFF3E0),
+              backgroundColor2: Color(0xFFFFF3E0),
+              highlightColor: Colors.blue,
+              foregroundColor: Color(0xFFFFF3E0),
+            ));
+        break;
 
       case AppScreen.Mainscreen:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                  create: (_) =>
-                      DashboardViewModel(locator.get<StudyService>()),
-                  child: DashboardScreen(),
-                ));
+        screen = ChangeNotifierProvider(
+          create: (_) => DashboardViewModel(locator.get<StudyService>()),
+          child: DashboardScreen(),
+        );
+        break;
 
       case AppScreen.Onboarding:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => OnboardingViewModel(locator.get<StudyService>(),
-                    locator.get<DataService>(), locator.get<RewardService>()),
-                child: SessionZeroScreen()));
+        screen = ChangeNotifierProvider(
+            create: (_) => OnboardingViewModel(locator.get<StudyService>(),
+                locator.get<DataService>(), locator.get<RewardService>()),
+            child: SessionZeroScreen());
+        break;
 
       case AppScreen.RewardSelection:
-        return MaterialPageRoute(builder: (_) => RewardSelectionScreen());
+        screen = RewardSelectionScreen();
+        break;
 
       case AppScreen.AboutPrompt:
-        return MaterialPageRoute(builder: (_) => AboutScreen());
+        screen = AboutScreen();
+        break;
 
       case AppScreen.Questionnaire:
         final questionnaire = settings.arguments as Questionnaire;
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => MultiPageQuestionnaireViewModel(
-                    locator.get<DataService>(),
-                    rewardService: locator.get<RewardService>(),
-                    studyService: locator.get<StudyService>(),
-                    screenName: appScreen,
-                    questionnaire: questionnaire),
-                child: MultiPageQuestionnaire()));
+        screen = ChangeNotifierProvider(
+            create: (_) => MultiPageQuestionnaireViewModel(
+                locator.get<DataService>(),
+                rewardService: locator.get<RewardService>(),
+                studyService: locator.get<StudyService>(),
+                questionnaire: questionnaire),
+            child: MultiPageQuestionnaire());
+        break;
 
       case AppScreen.AA_DidYouLearn:
-        return CupertinoPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => MultiPageQuestionnaireViewModel(
-                    locator.get<DataService>(),
-                    rewardService: locator.get<RewardService>(),
-                    studyService: locator.get<StudyService>(),
-                    screenName: appScreen,
-                    questionnaire: AA_DidYouLearn),
-                child: MultiPageQuestionnaire()));
+        screen = ChangeNotifierProvider(
+            create: (_) => MultiPageQuestionnaireViewModel(
+                locator.get<DataService>(),
+                rewardService: locator.get<RewardService>(),
+                studyService: locator.get<StudyService>(),
+                questionnaire: AA_DidYouLearn),
+            child: MultiPageQuestionnaire());
+        break;
 
       case AppScreen.AA_WhyNotLearn:
-        return CupertinoPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => MultiPageQuestionnaireViewModel(
-                    locator.get<DataService>(),
-                    rewardService: locator.get<RewardService>(),
-                    studyService: locator.get<StudyService>(),
-                    screenName: appScreen,
-                    questionnaire: AA_WhyNotLearn),
-                child: MultiPageQuestionnaire()));
+        screen = ChangeNotifierProvider(
+            create: (_) => MultiPageQuestionnaireViewModel(
+                locator.get<DataService>(),
+                rewardService: locator.get<RewardService>(),
+                studyService: locator.get<StudyService>(),
+                questionnaire: AA_WhyNotLearn),
+            child: MultiPageQuestionnaire());
+        break;
 
       case AppScreen.AA_NextStudySession:
-        return CupertinoPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => MultiPageQuestionnaireViewModel(
-                    locator.get<DataService>(),
-                    rewardService: locator.get<RewardService>(),
-                    studyService: locator.get<StudyService>(),
-                    screenName: appScreen,
-                    questionnaire: AA_NextStudySession),
-                child: MultiPageQuestionnaire()));
+        screen = ChangeNotifierProvider(
+            create: (_) => MultiPageQuestionnaireViewModel(
+                locator.get<DataService>(),
+                rewardService: locator.get<RewardService>(),
+                studyService: locator.get<StudyService>(),
+                questionnaire: AA_NextStudySession),
+            child: MultiPageQuestionnaire());
+        break;
 
       case AppScreen.AA_PreviousStudySession:
-        return CupertinoPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => MultiPageQuestionnaireViewModel(
-                    locator.get<DataService>(),
-                    rewardService: locator.get<RewardService>(),
-                    studyService: locator.get<StudyService>(),
-                    screenName: appScreen,
-                    questionnaire: AA_PreviousStudySession),
-                child: MultiPageQuestionnaire()));
+        screen = ChangeNotifierProvider(
+            create: (_) => MultiPageQuestionnaireViewModel(
+                locator.get<DataService>(),
+                rewardService: locator.get<RewardService>(),
+                studyService: locator.get<StudyService>(),
+                questionnaire: AA_PreviousStudySession),
+            child: MultiPageQuestionnaire());
+        break;
 
       case AppScreen.RememberToLearn:
-        return CupertinoPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => MultiPageQuestionnaireViewModel(
-                    locator.get<DataService>(),
-                    rewardService: locator.get<RewardService>(),
-                    studyService: locator.get<StudyService>(),
-                    screenName: appScreen,
-                    questionnaire: RememberToLearn),
-                child: MultiPageQuestionnaire()));
+        screen = ChangeNotifierProvider(
+            create: (_) => MultiPageQuestionnaireViewModel(
+                locator.get<DataService>(),
+                rewardService: locator.get<RewardService>(),
+                studyService: locator.get<StudyService>(),
+                questionnaire: RememberToLearn),
+            child: MultiPageQuestionnaire());
+        break;
 
       case AppScreen.ScreenSelect:
-        return CupertinoPageRoute(builder: (_) => ScreenSelectionScreen());
+        screen = ScreenSelectionScreen();
+        break;
 
       default:
         return MaterialPageRoute(builder: (_) {
@@ -147,5 +143,8 @@ class AppRouter {
           ));
         });
     }
+
+    return MaterialPageRoute(
+        settings: RouteSettings(name: appScreen.name), builder: (_) => screen);
   }
 }

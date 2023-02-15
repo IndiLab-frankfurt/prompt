@@ -166,13 +166,6 @@ class OnboardingViewModel extends MultiPageViewModel {
   }
 
   @override
-  onPageChange() {
-    this.dataService.saveSessionZeroStep(page);
-
-    super.onPageChange();
-  }
-
-  @override
   int getNextPage(ValueKey? currentPageKey) {
     page += 1;
 
@@ -382,7 +375,7 @@ class OnboardingViewModel extends MultiPageViewModel {
       await _experimentService.submitResponses(
           questionnaireResponses, SESSION_ZERO);
 
-      _experimentService.nextScreen(AppScreen.Onboarding);
+      _experimentService.nextScreen();
     }
   }
 }

@@ -168,8 +168,8 @@ class DataService {
     throw Exception("Not implemented");
   }
 
-  Future<AppScreen> getNextState(AppScreen currentScreen) async {
-    var response = await _databaseService.getNextState(currentScreen.name);
+  Future<AppScreen> getNextState(String currentScreen) async {
+    var response = await _databaseService.getNextState(currentScreen);
 
     return AppScreen.values.byName(response);
   }

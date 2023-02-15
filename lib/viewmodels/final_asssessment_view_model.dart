@@ -105,6 +105,6 @@ class FinalAssessmentViewModel extends MultiPageViewModel {
   void submit() {
     experimentService.submitResponses(questionnaireResponses, FINAL_ASSESSMENT);
 
-    experimentService.nextScreen(AppScreen.FinalQuestionnaire);
+    experimentService.nextScreen();
   }
 }

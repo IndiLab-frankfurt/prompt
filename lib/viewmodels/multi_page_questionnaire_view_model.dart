@@ -13,14 +13,11 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel {
   final StudyService studyService;
   final RewardService rewardService;
 
-  final AppScreen screenName;
-
   MultiPageQuestionnaireViewModel(
     DataService dataService, {
     required this.rewardService,
     required this.questionnaire,
     required this.studyService,
-    required this.screenName,
   }) : super(dataService) {
     pages = questionnaire.questions.toList();
   }
@@ -40,6 +37,6 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel {
     this.setState(ViewState.busy);
     await this.studyService.submitResponses(
         QuestionnaireResponse.fromQuestionnaire(this.questionnaire), "");
-    this.studyService.nextScreen(this.screenName);
+    this.studyService.nextScreen();
   }
 }

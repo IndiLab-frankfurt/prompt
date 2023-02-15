@@ -82,6 +82,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
     if (widget.vm.canMoveNext(_keyOfCurrent())) {
       if (widget.vm.state == ViewState.idle) {
         return FullWidthButton(
+          key: ValueKey("submitButton"),
           onPressed: () async {
             widget.vm.submit();
           },
@@ -114,6 +115,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
             child: SizedBox(
               height: 50,
               child: TextButton(
+                key: ValueKey("backButton"),
                 child: Row(
                   children: <Widget>[
                     Icon(Icons.navigate_before),
@@ -137,6 +139,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
             child: SizedBox(
               height: 50,
               child: ElevatedButton(
+                key: ValueKey("nextButton"),
                 child: Row(
                   children: <Widget>[
                     Text(
