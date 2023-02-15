@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/locator.dart';
 import 'package:prompt/models/question.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
+import 'package:prompt/screens/assessments/questionnaire_text_screen.dart';
 import 'package:prompt/screens/assessments/single_choice_question.dart';
+import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
@@ -36,6 +39,12 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
                 SingleChoiceQuestion(question: question, onSelection: (_) {}),
               ]));
         }
+        if (question is QuestionnaireText) {
+          _screens.add(Column(children: [
+            QuestionnaireTextScreen(
+                text: question.text, key: ValueKey(question.name)),
+          ]));
+        }
       }
 
       return true;
@@ -44,10 +53,10 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
 
   @override
   Widget build(BuildContext context) {
+    var rewardService = locator.get<RewardService>();
     return WillPopScope(
         onWillPop: () async => false,
         child: Container(
-          decoration: UIHelper.defaultBoxDecoration,
           child: Scaffold(
               appBar: PromptAppBar(showBackButton: true),
               drawer: PromptDrawer(),
@@ -58,7 +67,13 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.hasData) {
                     return Container(
-                        decoration: UIHelper.defaultBoxDecoration,
+                        decoration: BoxDecoration(
+                            gradient: rewardService.backgroundColor,
+                            image: DecorationImage(
+                                image: AssetImage(
+                                    rewardService.backgroundImagePath),
+                                fit: BoxFit.contain,
+                                alignment: Alignment.bottomCenter)),
                         padding: UIHelper.containerPadding,
                         child: MultiPageScreen(
                           vm,

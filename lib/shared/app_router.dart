@@ -120,6 +120,16 @@ class AppRouter {
                     questionnaire: AA_PreviousStudySession),
                 child: MultiPageQuestionnaire()));
 
+      case AppScreen.RememberToLearn:
+        return CupertinoPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+                create: (_) => MultiPageQuestionnaireViewModel(
+                    locator.get<DataService>(),
+                    studyService: locator.get<StudyService>(),
+                    screenName: appScreen,
+                    questionnaire: RememberToLearn),
+                child: MultiPageQuestionnaire()));
+
       case AppScreen.ScreenSelect:
         return CupertinoPageRoute(builder: (_) => ScreenSelectionScreen());
 

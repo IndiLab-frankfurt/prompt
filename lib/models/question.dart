@@ -1,13 +1,20 @@
+import 'package:flutter/material.dart';
+
 abstract class QuestionnairePage {
   final String name;
   QuestionnairePage(this.name);
 }
 
-class QuestionInfoPage extends QuestionnairePage {
-  final List<String> infoText;
+class QuestionnaireText extends QuestionnairePage {
+  final List<String> text;
 
-  QuestionInfoPage({required this.infoText, required String name})
-      : super(name);
+  QuestionnaireText({required this.text, required String name}) : super(name);
+}
+
+class WidgetDisplayPage extends QuestionnairePage {
+  final Widget widget;
+
+  WidgetDisplayPage({required this.widget, required String name}) : super(name);
 }
 
 class ChoiceQuestion extends QuestionnairePage {

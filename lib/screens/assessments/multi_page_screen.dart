@@ -25,14 +25,14 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
     super.initState();
 
     _controller = new PageController();
-    _controller.addListener(() {
-      int page = 0;
-      if (_controller.page != null) {
-        page = _controller.page!.round();
-      }
-      widget.vm.page = page;
-      widget.vm.onPageChange();
-    });
+    // _controller.addListener(() {
+    //   int page = 0;
+    //   if (_controller.page != null) {
+    //     page = _controller.page!.round();
+    //   }
+    //   widget.vm.page = page;
+    //   widget.vm.onPageChange();
+    // });
 
     widget.vm.currentPageStream.listen((index) {
       _controller.animateToPage(index, duration: _kDuration, curve: _kCurve);
@@ -148,19 +148,6 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
                 ),
                 onPressed: () async {
                   await widget.vm.nextPage();
-                  // await widget.vm.doStepDependentSubmission(_keyOfCurrent());
-
-                  // if (widget.vm.page == widget.pages.length - 1) {
-                  //   widget.vm.submit();
-                  //   return;
-                  // }
-                  // if (widget.vm.canMoveNext(_keyOfCurrent())) {
-                  //   _controller
-                  //       .jumpToPage(widget.vm.getNextPage(_keyOfCurrent()));
-                  //   widget.vm.clearCurrent();
-                  // }
-                  // setState(() {});
-                  // FocusScope.of(context).unfocus();
                 },
               ),
             ),
