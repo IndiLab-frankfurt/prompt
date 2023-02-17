@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/questionnaire_submission.dart';
 import 'package:prompt/services/api_service.dart';
-import 'package:prompt/services/settings_service.dart';
+import 'package:prompt/shared/enums.dart';
 
 import 'experiment_service_test.dart';
 

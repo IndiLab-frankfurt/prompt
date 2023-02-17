@@ -1,23 +1,12 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
-class SettingsKeys {
-  static const String username = "userid";
-  static const String email = "email";
-  static const String password = "";
-  static const String accessToken = "accessToken";
-  static const String refreshToken = "refreshToken";
-  static const String timerDurationInSeconds = "timerDurationInSeconds";
-  static const String initSessionStep = "initSessionStep";
-  static const String backGroundImage = "backgroundImage";
-  static const String backgroundColors = "backgroundColors";
-}
+import 'package:prompt/shared/enums.dart';
 
 class SettingsService {
   // LocalDatabaseService _databaseService;
 
   final storage = new FlutterSecureStorage();
 
-  Map<String, String> _settingsCache = {
+  Map<SettingsKeys, String> _settingsCache = {
     SettingsKeys.accessToken: "",
     SettingsKeys.username: "",
     SettingsKeys.email: "",
@@ -35,7 +24,7 @@ class SettingsService {
     // iterate over all keys from _settingsCache and read them from secure storage.
     // We are using the explicit method, because readAll() does not work on all platforms
     for (var key in _settingsCache.keys) {
-      var value = await storage.read(key: key);
+      var value = await storage.read(key: key.name);
       _settingsCache[key] = value ?? _settingsCache[key]!;
     }
 
@@ -47,13 +36,17 @@ class SettingsService {
     return settingsValue;
   }
 
-  getSetting(String setting) {
+  getSetting(SettingsKeys setting) {
     return _settingsCache[setting];
   }
 
-  setSetting(String setting, String value) async {
-    await this.storage.write(key: setting, value: value);
-    _settingsCache[setting] = value;
+  setSetting(SettingsKeys key, String value) async {
+    try {
+      await this.storage.write(key: key.name, value: value);
+      _settingsCache[key] = value;
+    } catch (e) {
+      throw Exception("Invalid setting key");
+    }
   }
 
   deleteSetting(String setting) async {

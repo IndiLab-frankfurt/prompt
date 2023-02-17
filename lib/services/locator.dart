@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
+import 'package:prompt/services/push_notification_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/logging_service.dart';
@@ -14,9 +15,15 @@ GetIt locator = GetIt.instance;
 
 void setupLocator() {
   locator.registerSingleton<NavigationService>(NavigationService());
+
   locator.registerSingleton<NotificationService>(NotificationService());
+
   locator.registerSingleton<LocalDatabaseService>(LocalDatabaseService.db);
+
   locator.registerSingleton<SettingsService>(SettingsService());
+
+  locator.registerSingleton<PushNotificationService>(
+      PushNotificationService(locator.get<SettingsService>()));
 
   locator.registerSingleton<ApiService>(
       ApiService(locator.get<SettingsService>()));

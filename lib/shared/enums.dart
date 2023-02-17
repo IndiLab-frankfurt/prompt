@@ -82,6 +82,19 @@ enum AppScreen {
   final String routeName;
 }
 
+enum SettingsKeys {
+  username,
+  email,
+  password,
+  accessToken,
+  refreshToken,
+  timerDurationInSeconds,
+  initSessionStep,
+  backGroundImage,
+  backgroundColors,
+  fcmToken,
+}
+
 const String EVENING_ASSESSMENT = "eveningAssessment";
 const String MORNING_ASSESSMENT = "morningAssessment";
 const String FINAL_ASSESSMENT = "finalAssessment";

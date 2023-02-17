@@ -1,14 +1,15 @@
 import 'dart:convert';
-
 import 'package:prompt/models/authentication_response.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:http/http.dart' as http;
 import 'package:prompt/services/settings_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
+import 'package:prompt/shared/enums.dart';
 
 class ApiService {
-  static String serverUrl = "https://prompt-app.eu";
+  // static String serverUrl = "https://prompt-app.eu";
+  static String serverUrl = "http://10.0.2.2:8000";
 
   final SettingsService _settingsService;
 

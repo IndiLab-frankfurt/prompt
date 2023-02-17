@@ -9,6 +9,7 @@ import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/user_service.dart';
+import 'package:prompt/shared/enums.dart';
 
 LocalDatabaseService mockLocalDatabaseService = LocalDatabaseService.db;
 SettingsService mockSettingsService = SettingsService();

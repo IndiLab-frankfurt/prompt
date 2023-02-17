@@ -28,11 +28,9 @@ class StudyService {
       _loggingService
           .logError("nextScreen called with empty current route name");
     }
-
-    _loggingService.logEvent("nextScreen", data: currentScreen!);
     var nextState = AppScreen.Mainscreen;
     try {
-      nextState = await _dataService.getNextState(currentScreen);
+      nextState = await _dataService.getNextState(currentScreen!);
     } catch (e) {
       _loggingService.logError("Error trying to navigate to next state",
           data: "Error getting next state: $e");

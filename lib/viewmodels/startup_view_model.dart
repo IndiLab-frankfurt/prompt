@@ -3,6 +3,7 @@ import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
+import 'package:prompt/services/push_notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/user_service.dart';
@@ -50,18 +51,20 @@ class StartupViewModel extends BaseViewModel {
 
   Future<AppStartupMode> initialize() async {
     await locator<SettingsService>().initialize();
+
     await locator<ApiService>().initialize();
 
+    await locator<PushNotificationService>().initialize();
+
     bool userInitialized = await locator<UserService>().initialize();
-    addDebugText("User Initialized: $userInitialized");
-    bool signedIn = locator<UserService>().isSignedIn();
+
+    bool signedIn = await locator<UserService>().isSignedIn();
     if (!userInitialized || !signedIn) {
       return AppStartupMode.firstLaunch;
     }
 
-    addDebugText("Initialized Settings Service");
     await locator<NotificationService>().initialize();
-    addDebugText("Initialized Notification Service");
+
     await locator<RewardService>().initialize();
 
     var userData = await locator<DataService>().getUserData();
