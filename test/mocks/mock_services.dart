@@ -17,7 +17,8 @@ ApiService apiService = ApiService(mockSettingsService);
 DataService mockDataService = DataService(apiService, mockSettingsService);
 UserService mockUserService = UserService(mockSettingsService, mockDataService);
 LoggingService mockLoggingService = LoggingService(mockDataService);
-NotificationService mockNotificationService = NotificationService();
+NotificationService mockNotificationService =
+    NotificationService(mockLoggingService);
 RewardService mockRewardService =
     RewardService(mockDataService, mockLoggingService);
 NavigationService mockNavigationService = NavigationService();

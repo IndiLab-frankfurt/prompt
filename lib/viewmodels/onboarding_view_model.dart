@@ -139,7 +139,8 @@ class OnboardingViewModel extends MultiPageViewModel {
     }
 
     var ud = dataService.getUserDataCache();
-    initialPage = max(ud.initStep, pages.length - 1);
+    // initialPage = max(ud.initStep, pages.length - 1);
+    initialPage = 0;
     cabuuCode = ud.cabuuCode;
 
     return true;

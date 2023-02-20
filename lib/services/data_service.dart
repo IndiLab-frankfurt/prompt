@@ -8,10 +8,11 @@ import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:collection/collection.dart';
 import 'package:prompt/services/api_service.dart';
+import 'package:prompt/services/base_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/shared/enums.dart';
 
-class DataService {
+class DataService implements BaseService {
   final ApiService _databaseService;
   final SettingsService _settingsService;
 
@@ -49,7 +50,7 @@ class DataService {
 
   saveSessionZeroStep(int step) async {
     var userData = getUserDataCache();
-    userData.initStep = step;
+    userData.onboardingStep = step;
     await _databaseService.saveUserDataProperty("init_step", step);
   }
 
@@ -194,5 +195,10 @@ class DataService {
   Future<AuthenticationResponse?> signInUser(
       String username, String password) async {
     return await _databaseService.signInUser(username, password);
+  }
+
+  @override
+  Future<bool> initialize() async {
+    return true;
   }
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/widgets/version_info.dart';
 
 class PromptDrawer extends StatelessWidget {
   PromptDrawer();
@@ -45,7 +44,6 @@ class PromptDrawer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(locator<UserService>().getUsername()),
-                        // VersionInfo(),
                       ])),
             ),
           ),

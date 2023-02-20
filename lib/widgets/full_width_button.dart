@@ -11,8 +11,6 @@ class FullWidthButton extends StatelessWidget {
       this.text = "Abschicken",
       this.height = 60});
 
-  // const FullWidthButton({Key key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(

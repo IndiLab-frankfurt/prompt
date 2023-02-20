@@ -1,13 +1,16 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:prompt/services/base_service.dart';
-import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:collection/collection.dart';
 
 class NotificationService implements BaseService {
+  final LoggingService _loggingService;
+
+  NotificationService(this._loggingService);
+
   FlutterLocalNotificationsPlugin localNotifications =
       FlutterLocalNotificationsPlugin();
 
@@ -37,10 +40,10 @@ class NotificationService implements BaseService {
       "Erinnerung Abschlussbefragung";
   static const String PAYLOAD_FINAL_REMINDER = "PAYLOAD_FINAL_REMINDER";
 
-  static const int ID_LDT_REMINDER = 87;
   static const int ID_MORNING = 6969;
   static const int ID_TASK_REMINDER = 42;
   static const int ID_FINAL_TASK_REMINDER = 1901;
+  static const int ID_BOOSTER_PROMPT = 329;
 
   @override
   Future<bool> initialize() async {
@@ -91,7 +94,7 @@ class NotificationService implements BaseService {
 
   Future<void> _configureLocalTimeZone() async {
     tz.initializeTimeZones();
-    // final String timeZoneName = await FlutterNativeTimezone.getLocalTimezone();
+    // TODO: Get the user's time zone
     tz.setLocalLocation(tz.getLocation("Europe/Berlin"));
   }
 
@@ -100,15 +103,13 @@ class NotificationService implements BaseService {
       debugPrint('notification payload: ' + payload);
 
       if (payload == PAYLOAD_MORNING_REMINDER) {
-        locator
-            .get<LoggingService>()
-            .logEvent("NotificationClickInternalisation");
+        _loggingService.logEvent("NotificationClickInternalisation");
       }
       if (payload == PAYLOAD_EVENING) {
-        locator.get<LoggingService>().logEvent("NotificationClickRecallTask");
+        _loggingService.logEvent("NotificationClickRecallTask");
       }
       if (payload == PAYLOAD_FINAL_REMINDER) {
-        locator.get<LoggingService>().logEvent("NotificationClickFinalTask");
+        _loggingService.logEvent("NotificationClickFinalTask");
       }
     }
   }
@@ -123,7 +124,7 @@ class NotificationService implements BaseService {
     var notificationDetails =
         new NotificationDetails(android: androidPlatformChannelSpecifics);
 
-    locator.get<LoggingService>().logEvent("ScheduleNotificationTaskReminder");
+    _loggingService.logEvent("ScheduleNotificationTaskReminder");
 
     String title = "Mache jetzt weiter mit PROMPT!";
     String body = "";
@@ -168,7 +169,7 @@ class NotificationService implements BaseService {
     String title = "Mache jetzt weiter mit PROMPT!";
     String body = "";
 
-    locator.get<LoggingService>().logEvent("ScheduleEveningReminder");
+    _loggingService.logEvent("ScheduleEveningReminder");
 
     await localNotifications.zonedSchedule(
         ID_TASK_REMINDER, title, body, scheduledDate, notificationDetails,
@@ -192,7 +193,7 @@ class NotificationService implements BaseService {
         tz.local, time.year, time.month, time.day, time.hour, time.minute);
 
     await localNotifications.zonedSchedule(
-        ID_LDT_REMINDER, title, body, scheduledDate, notificationDetails,
+        ID_BOOSTER_PROMPT, title, body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
         payload: PAYLOAD_BOOSTER_PROMPT,

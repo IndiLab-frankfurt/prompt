@@ -16,8 +16,6 @@ GetIt locator = GetIt.instance;
 void setupLocator() {
   locator.registerSingleton<NavigationService>(NavigationService());
 
-  locator.registerSingleton<NotificationService>(NotificationService());
-
   locator.registerSingleton<LocalDatabaseService>(LocalDatabaseService.db);
 
   locator.registerSingleton<SettingsService>(SettingsService());
@@ -39,6 +37,9 @@ void setupLocator() {
 
   locator.registerSingleton<RewardService>(
       RewardService(locator.get<DataService>(), locator.get<LoggingService>()));
+
+  locator.registerSingleton<NotificationService>(
+      NotificationService(locator.get<LoggingService>()));
 
   locator.registerSingleton<StudyService>(StudyService(
       locator.get<DataService>(),

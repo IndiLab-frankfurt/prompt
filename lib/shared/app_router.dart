@@ -8,7 +8,7 @@ import 'package:prompt/screens/main/screen_selection.dart';
 import 'package:prompt/screens/onboarding/dashboard_screen.dart';
 import 'package:prompt/screens/onboarding/login_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
-import 'package:prompt/screens/onboarding/session_zero_screen.dart';
+import 'package:prompt/screens/onboarding/onboarding_screen.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/logging_service.dart';
@@ -59,7 +59,7 @@ class AppRouter {
         screen = ChangeNotifierProvider(
             create: (_) => OnboardingViewModel(locator.get<StudyService>(),
                 locator.get<DataService>(), locator.get<RewardService>()),
-            child: SessionZeroScreen());
+            child: OnboardingScreen());
         break;
 
       case AppScreen.RewardSelection:

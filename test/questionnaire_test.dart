@@ -4,11 +4,10 @@ import 'package:prompt/models/questionnaire_submission.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/shared/enums.dart';
 
-import 'experiment_service_test.dart';
+import 'mocks/mock_services.dart';
 
 void main() {
   test("JSON gets built correctly", () {
-    // const questionnaire =
     var date = DateTime.now();
 
     var response = QuestionnaireResponse(
@@ -25,7 +24,6 @@ void main() {
   });
 
   test("JSON gets submitted correctly", () async {
-    // const questionnaire =
     var date = DateTime.now();
     var questionnaireid = "questionnaire1";
 

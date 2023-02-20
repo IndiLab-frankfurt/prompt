@@ -29,14 +29,14 @@ import 'package:prompt/widgets/video_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:async/async.dart';
 
-class SessionZeroScreen extends StatefulWidget {
-  SessionZeroScreen({Key? key}) : super(key: key);
+class OnboardingScreen extends StatefulWidget {
+  OnboardingScreen({Key? key}) : super(key: key);
 
   @override
-  _SessionZeroScreenState createState() => _SessionZeroScreenState();
+  _OnboardingScreenState createState() => _OnboardingScreenState();
 }
 
-class _SessionZeroScreenState extends State<SessionZeroScreen> {
+class _OnboardingScreenState extends State<OnboardingScreen> {
   final AsyncMemoizer _memoizer = AsyncMemoizer();
 
   late OnboardingViewModel vm = Provider.of<OnboardingViewModel>(context);

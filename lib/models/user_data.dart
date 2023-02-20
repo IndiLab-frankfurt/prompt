@@ -11,7 +11,7 @@ class UserData {
   int streakDays = 0;
   int score = 0;
   int daysActive = 0;
-  int initStep = 0;
+  int onboardingStep = 0;
   String appVersion = "";
   String selectedMascot = "1";
   String cabuuCode = "123";
@@ -24,7 +24,7 @@ class UserData {
       this.cabuuCode = "123",
       this.streakDays = 0,
       this.score = 0,
-      this.initStep = 0,
+      this.onboardingStep = 0,
       this.appVersion = "",
       this.selectedMascot = "1",
       this.daysActive = 0});
@@ -37,7 +37,7 @@ class UserData {
       "streakDays": this.streakDays,
       "score": this.score,
       "daysActive": this.daysActive,
-      "initSessionStep": this.initStep,
+      "initSessionStep": this.onboardingStep,
       "app_version": this.appVersion,
       "selectedMascot": this.selectedMascot,
       "cabuuCode": this.cabuuCode,
@@ -48,7 +48,7 @@ class UserData {
     user = json["user"].toString();
     group = json["group"];
     appVersion = json["app_version"];
-    initStep = json["init_step"];
+    onboardingStep = json["init_step"];
     score = json["score"];
   }
 }

@@ -1,27 +1,7 @@
 // This is a basic Flutter widget test.
 //
 import 'package:flutter_test/flutter_test.dart';
-import 'package:prompt/services/api_service.dart';
-import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/local_database_service.dart';
-import 'package:prompt/services/logging_service.dart';
-import 'package:prompt/services/navigation_service.dart';
-import 'package:prompt/services/notification_service.dart';
-import 'package:prompt/services/reward_service.dart';
-import 'package:prompt/services/settings_service.dart';
-import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/extensions.dart';
-
-LocalDatabaseService mockLocalDatabaseService = LocalDatabaseService.db;
-SettingsService mockSettingsService = SettingsService();
-ApiService apiService = ApiService(mockSettingsService);
-DataService mockDataService = DataService(apiService, mockSettingsService);
-UserService mockUserService = UserService(mockSettingsService, mockDataService);
-LoggingService mockLoggingService = LoggingService(mockDataService);
-NotificationService mockNotificationService = NotificationService();
-RewardService mockRewardService =
-    RewardService(mockDataService, mockLoggingService);
-NavigationService mockNavigationService = NavigationService();
 
 void main() {
   test('Experiment Service should schedule days', () {
