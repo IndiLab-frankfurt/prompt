@@ -10,7 +10,7 @@ class RewardScreen2 extends StatelessWidget {
     return Container(
       child: ListView(
         children: [
-          UIHelper.verticalSpaceLarge(),
+          UIHelper.verticalSpaceLarge,
           MarkdownBody(
               data: "### Glückwunsch, du hast noch einmal 20 💎 verdient!"),
         ],

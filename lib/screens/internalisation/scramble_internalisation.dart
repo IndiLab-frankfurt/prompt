@@ -128,9 +128,9 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
           Expanded(
             child: ListView(
               children: <Widget>[
-                UIHelper.verticalSpaceMedium(),
+                UIHelper.verticalSpaceMedium,
                 _buildCorrectText(_originalSentence),
-                UIHelper.verticalSpaceMedium(),
+                UIHelper.verticalSpaceMedium,
                 Container(
                   height: MediaQuery.of(context).size.height / 4,
                   child: Column(
@@ -141,7 +141,7 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
                             if (s.isSelected) buildWordBox(s),
                         ],
                       ),
-                      UIHelper.verticalSpaceMedium(),
+                      UIHelper.verticalSpaceMedium,
                       Visibility(
                         maintainSize: true,
                         maintainAnimation: true,
@@ -171,7 +171,7 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
                     ],
                   ),
                 ),
-                UIHelper.verticalSpaceLarge(),
+                UIHelper.verticalSpaceLarge,
               ],
             ),
           ),
@@ -246,7 +246,7 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
           child: Row(
             children: [
               Icon(Icons.backspace),
-              UIHelper.horizontalSpaceMedium(),
+              UIHelper.horizontalSpaceMedium,
               Text(
                 "Letzte Eingabe Löschen",
                 style: TextStyle(color: Colors.black),
@@ -290,7 +290,7 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
               "Merke dir folgenden Satz, und puzzle ihn dann gleich zusammen:",
               style: Theme.of(context).textTheme.headline6,
             ),
-            UIHelper.verticalSpaceMedium(),
+            UIHelper.verticalSpaceMedium,
             SpeechBubble(text: text),
           ],
         ));

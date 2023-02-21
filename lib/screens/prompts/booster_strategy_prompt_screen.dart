@@ -55,22 +55,22 @@ class _BoosterStrategyPromptScreenState
     return Container(
       child: ListView(
         children: [
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           Image(
             image: AssetImage('assets/illustrations/distributed_calendar.png'),
           ),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           MarkdownBody(
               data: '# Lies dir den Lerntrick des Monsters genau durch:'),
-          UIHelper.verticalSpaceSmall(),
+          UIHelper.verticalSpaceSmall,
           MarkdownBody(
               data:
                   '# Du kannst dir die Vokabeln am besten merken, wenn du jeden Tag lernst.'),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           LinearProgressIndicator(
             value: animation.value,
           ),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           Image(
             image: AssetImage(
                 'assets/illustrations/distributed_mascot_shield.png'),

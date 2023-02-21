@@ -244,7 +244,7 @@ class _LoginScreenState extends State<LoginScreen> {
         height: MediaQuery.of(context).size.height,
         child: ListView(
           children: <Widget>[
-            UIHelper.verticalSpaceLarge(),
+            UIHelper.verticalSpaceLarge,
             buildUserIdField(context),
             buildPasswordField(context),
             new Container(
@@ -257,7 +257,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
             ),
-            UIHelper.verticalSpaceLarge(),
+            UIHelper.verticalSpaceLarge,
             buildForgotPassword(context),
           ],
         ),

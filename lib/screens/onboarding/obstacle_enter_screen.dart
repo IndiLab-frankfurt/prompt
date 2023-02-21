@@ -23,17 +23,17 @@ class _ObstacleEnterScreenState extends State<ObstacleEnterScreen> {
     var bgimg = "assets/illustrations/mascot_1_wall.png";
     var vm = Provider.of<OnboardingViewModel>(context);
     return Container(
+      padding: const EdgeInsets.only(top: 20),
       decoration: BoxDecoration(
           gradient: UIHelper.baseGradient,
           image: DecorationImage(
-              scale: 5.5,
               image: AssetImage(bgimg),
               fit: BoxFit.fitWidth,
               alignment: Alignment.bottomCenter)),
       child: ListView(
         children: [
           MarkdownBody(data: "### ${AppStrings.SessionZero_ObstacleEnter_1}"),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           TextField(
               minLines: 5,
               maxLines: null,

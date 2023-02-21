@@ -15,11 +15,11 @@ class InstructionsCabuu2 extends StatelessWidget {
         MarkdownBody(
             data:
                 "### Im Laufe unserer Studie sollst du cabuu auf eine ganz bestimmte Art benutzen. Deshalb ist es sehr wichtig, dass du dich genau an unsere Anleitung hältst."),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         MarkdownBody(
             data:
                 "### Unser Video, in dem wir alles erklären, schaust du dir am besten auf einem anderen Gerät (z.B. Computer) an, damit du gleichzeitig auf diesem Handy cabuu installieren kannst. Den Link zum Video findest du in der E-Mail, die wir an deine Eltern geschickt haben. Von dort kannst du ihn auf einem anderen Gerät öffnen. Hier ist der Link noch mal:"),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         Center(
             child: MarkdownBody(
                 data: "# **https://youtu.be/k47mVYRf-yU**",
@@ -29,7 +29,7 @@ class InstructionsCabuu2 extends StatelessWidget {
                     await launchUrlString('https://youtu.be/k47mVYRf-yU');
                   }
                 })),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         MarkdownBody(
             data:
                 "### Komme hierher zurück und klicke auf “Weiter”, wenn du damit fertig bist.")

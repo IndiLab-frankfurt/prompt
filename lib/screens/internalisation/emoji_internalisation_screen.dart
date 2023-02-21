@@ -67,13 +67,13 @@ class _EmojiInternalisationScreenState
               children: [
                 MarkdownBody(
                     data: "## " + AppStrings.EmojiInternalisation_Instruction),
-                UIHelper.verticalSpaceSmall(),
+                UIHelper.verticalSpaceSmall,
                 SpeechBubble(text: '"${vm.plan}"'),
-                UIHelper.verticalSpaceMedium(),
+                UIHelper.verticalSpaceMedium,
                 _buildEmojiPickerCompatibleTextInput(),
-                UIHelper.verticalSpaceMedium(),
+                UIHelper.verticalSpaceMedium,
                 _buildEmojiPicker(),
-                UIHelper.verticalSpaceMedium(),
+                UIHelper.verticalSpaceMedium,
               ],
             ),
           ),

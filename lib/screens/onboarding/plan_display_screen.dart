@@ -17,11 +17,11 @@ class PlanDisplayScreen extends StatelessWidget {
         child: ListView(
           children: [
             MarkdownBody(data: "### " + AppStrings.PlanDisplay_Excellent),
-            UIHelper.verticalSpaceMedium(),
+            UIHelper.verticalSpaceMedium,
             MarkdownBody(data: '### ' + AppStrings.PlanDisplay_YourPlanIs),
-            UIHelper.verticalSpaceMedium(),
+            UIHelper.verticalSpaceMedium,
             SpeechBubble(text: '"${vm.plan}"'),
-            UIHelper.verticalSpaceMedium(),
+            UIHelper.verticalSpaceMedium,
             MarkdownBody(data: "### " + AppStrings.PlanDisplay_RememberYourPlan)
           ],
         ));

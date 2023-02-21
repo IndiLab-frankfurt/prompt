@@ -22,34 +22,38 @@ class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
   Widget build(BuildContext context) {
     var vm = Provider.of<OnboardingViewModel>(context, listen: false);
     var bgimg = "assets/illustrations/mascot_1_ladder.png";
-    return Container(
-      decoration: BoxDecoration(
-          gradient: UIHelper.baseGradient,
-          image: DecorationImage(
-              scale: 5.5,
-              image: AssetImage(bgimg),
-              fit: BoxFit.fitWidth,
-              alignment: Alignment.bottomCenter)),
-      child: ListView(
-        children: [
-          MarkdownBody(data: "### ${AppStrings.SessionZero_CopingPlanEnter_1}"),
-          UIHelper.verticalSpaceMedium(),
-          TextField(
-              minLines: 5,
-              maxLines: null,
-              onChanged: (text) {
-                vm.copingPlan = text;
-              },
-              keyboardType: TextInputType.multiline,
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                labelText:
-                    'Schreibe deine Antwort hier auf (Stichworte genügen)',
-              )),
-        ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 20),
+      child: Container(
+        decoration: BoxDecoration(
+            gradient: UIHelper.baseGradient,
+            image: DecorationImage(
+                scale: 5.5,
+                image: AssetImage(bgimg),
+                fit: BoxFit.fitWidth,
+                alignment: Alignment.bottomCenter)),
+        child: ListView(
+          children: [
+            MarkdownBody(
+                data: "### ${AppStrings.SessionZero_CopingPlanEnter_1}"),
+            UIHelper.verticalSpaceMedium,
+            TextField(
+                minLines: 5,
+                maxLines: null,
+                onChanged: (text) {
+                  vm.copingPlan = text;
+                },
+                keyboardType: TextInputType.multiline,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                  labelText:
+                      'Schreibe deine Antwort hier auf (Stichworte genügen)',
+                )),
+          ],
+        ),
       ),
     );
   }

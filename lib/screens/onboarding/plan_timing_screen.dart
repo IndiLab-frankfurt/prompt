@@ -27,14 +27,14 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
       child: ListView(
         children: [
           SpeechBubble(text: vm.plan),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           MarkdownBody(data: "### " + AppStrings.PlanTiming_Paragraph1),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           Text(
             AppStrings.PlanTiming_Paragraph2,
             style: Theme.of(context).textTheme.subtitle1,
           ),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           buildTimeSelector()
         ],
       ),

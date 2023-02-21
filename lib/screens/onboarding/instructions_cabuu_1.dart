@@ -19,20 +19,20 @@ class InstructionsCabuu1 extends StatelessWidget {
         MarkdownBody(
             data:
                 "### Jetzt zeigen wir dir, wie du deinen cabuu-Zugang aktivierst und die Vokabeln eingibst."),
-        UIHelper.verticalSpaceSmall(),
+        UIHelper.verticalSpaceSmall,
         MarkdownBody(data: "### Dein Cabuu Code lautet:"),
-        UIHelper.verticalSpaceSmall(),
+        UIHelper.verticalSpaceSmall,
         Center(child: MarkdownBody(data: '> # ' + vm.cabuuCode)),
-        UIHelper.verticalSpaceSmall(),
+        UIHelper.verticalSpaceSmall,
         MarkdownBody(
             data:
                 "### Schreibe dir diesen Code auf. Du brauchst ihn gleich, um cabuu freizuschalten."),
-        UIHelper.verticalSpaceLarge(),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceLarge,
+        UIHelper.verticalSpaceMedium,
         MarkdownBody(data: "### Schreibe dir außerdem dieses Datum auf:"),
-        UIHelper.verticalSpaceSmall(),
+        UIHelper.verticalSpaceSmall,
         Center(child: MarkdownBody(data: "# **$targetDate**")),
-        UIHelper.verticalSpaceSmall(),
+        UIHelper.verticalSpaceSmall,
         MarkdownBody(data: "### Wofür du das brauchst, erfährst du gleich."),
       ],
     ));

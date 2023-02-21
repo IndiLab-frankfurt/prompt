@@ -22,9 +22,9 @@ class _InternalisationScreenState extends State<InternalisationScreen> {
       child: ListView(
         children: [
           Text(AppStrings.Internalisation_ThinkAboutYourGoal),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           Text("Ich will jeden Tag Vokabeln lernen!"),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           Text(AppStrings.Internalisation_ToReachYourGoal),
           Text(vm.plan)
         ],

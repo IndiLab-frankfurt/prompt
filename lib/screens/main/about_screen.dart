@@ -33,12 +33,12 @@ class _AboutScreenState extends State<AboutScreen> {
                   onPressed: () async {
                     // TODO: Add video back in
                   }),
-              UIHelper.verticalSpaceMedium(),
+              UIHelper.verticalSpaceMedium,
               MarkdownBody(data: "# Was ist PROMPT?"),
               MarkdownBody(
                   data:
                       "PROMPT ist eine Studie des DIPF | Leibniz-Institut für Bildungsforschung und Bildungsinformation. Mit deiner Hilfe wollen wir herausfinden, wie wir Kinder am besten beim Lernen mit Apps - wie zum Beispiel cabuu - unterstützen können. "),
-              UIHelper.verticalSpaceMedium(),
+              UIHelper.verticalSpaceMedium,
               MarkdownBody(data: "# Wie läuft PROMPT ab?"),
               MarkdownBody(
                   data: "Während der Studie sollst du 2 Apps benutzen: "),
@@ -57,7 +57,7 @@ class _AboutScreenState extends State<AboutScreen> {
               MarkdownBody(
                   data:
                       "Obwohl wir dich dazu ermuntern wollen, jeden Tag ein paar Vokabeln in cabuu zu lernen, schaffst du das vielleicht nicht immer. Das ist nicht schlimm. Ganz wichtig ist aber, dass du daran denkst, die App PROMPT jeden Tag zu benutzen - und zwar möglichst noch morgens vor der Schule und auch am Wochenende. An Tagen, an denen du mit cabuu lernst, benutzt du PROMPT danach noch einmal, um uns zu erzählen, wie das Lernen mit cabuu gelaufen ist. An Tagen, an denen du nicht mit cabuu lernst, benutzt du PROMPT erst wieder am nächsten Morgen. Wie viele Tage du schon gemacht hast und wie viele noch fehlen, kannst du in deiner Fortschrittsanzeige sehen. "),
-              UIHelper.verticalSpaceMedium(),
+              UIHelper.verticalSpaceMedium,
               MarkdownBody(data: "# Was bekomme ich dafür?"),
               MarkdownBody(
                   data:
@@ -68,12 +68,12 @@ class _AboutScreenState extends State<AboutScreen> {
               MarkdownBody(
                   data:
                       "Alle paar Tage kannst du außerdem neue Hintergründe mit dem Monster, das du dir ausgesucht hast, in der App freischalten."),
-              UIHelper.verticalSpaceMedium(),
+              UIHelper.verticalSpaceMedium,
               MarkdownBody(data: "# Neuigkeiten zu PROMPT"),
               MarkdownBody(
                   data:
                       "Neuigkeiten zu PROMPT veröffentlichen wir hier: https://indilearn.de/prompt/ Falls du eine Frage hast, kannst du auch immer gucken, ob sie vielleicht dort schon beantwortet wurde. Falls nicht, kannst du dich aber natürlich jederzeit an uns wenden. Schreibe uns dazu eine E-Mail an prompt@idea-frankfurt.eu"),
-              UIHelper.verticalSpaceMedium(),
+              UIHelper.verticalSpaceMedium,
               MarkdownBody(data: "# Freiwilligkeit und Datenschutz"),
               MarkdownBody(
                   data:

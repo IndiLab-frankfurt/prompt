@@ -19,7 +19,7 @@ class WelcomeScreen extends StatelessWidget {
             AppStrings.Welcome_WelcomeToPROMPT,
             style: Theme.of(context).textTheme.headline4,
           ),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           Text(
             AppStrings.Welcome_IntroductionTakeYourTime,
             style: Theme.of(context).textTheme.subtitle1,

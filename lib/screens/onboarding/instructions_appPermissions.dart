@@ -13,7 +13,7 @@ class InstructionsAppPermissions extends StatelessWidget {
         MarkdownBody(
             data:
                 "### Du wirst als nächstes von der PROMPT App zu den Einstellungen deines Telefons geschickt. Das sieht dann ungefährt so aus: "),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         Container(
             decoration: BoxDecoration(
               color: Colors.white,
@@ -33,11 +33,11 @@ class InstructionsAppPermissions extends StatelessWidget {
             ),
             child: Image(
                 image: AssetImage("assets/screenshots/appPermissions_1.png"))),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         MarkdownBody(
             data:
                 "### Wähle dort bitte 'PROMPT' aus und dann aktiviere auf dem nächsten Bildschirm die Option mit dem Schieberegler. So, wie du es auf dem nächsten Bild sehen kannst."),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         Container(
             decoration: BoxDecoration(
               color: Colors.white,

@@ -16,12 +16,12 @@ class DefaultReminderScreen extends StatelessWidget {
       body: Container(
         margin: UIHelper.containerMargin,
         child: ListView(children: [
-          UIHelper.verticalSpaceLarge(),
+          UIHelper.verticalSpaceLarge,
           MarkdownBody(data: "# " + AppStrings.ThinkAboutYourGoal),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           SpeechBubble(
               text: '"Ich will jeden Tag ein paar Vokabeln mit cabuu lernen!"'),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           Align(
             alignment: Alignment.bottomCenter,
             child: FullWidthButton(onPressed: () async {

@@ -23,9 +23,9 @@ class _WhyLearnVocabScreenState extends State<WhyLearnVocabScreen> {
       child: ListView(
         children: [
           MarkdownBody(data: "### " + AppStrings.WhyVocab_ParagraphOne),
-          UIHelper.verticalSpaceSmall(),
+          UIHelper.verticalSpaceSmall,
           MarkdownBody(data: "### " + AppStrings.WhyVocab_ParagraphTwo),
-          UIHelper.verticalSpaceSmall(),
+          UIHelper.verticalSpaceSmall,
           TextField(
               controller: _controller,
               minLines: 5,

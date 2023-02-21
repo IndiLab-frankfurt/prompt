@@ -18,11 +18,11 @@ class PreVocabScreen2 extends StatelessWidget {
     return Container(
         child: ListView(
       children: [
-        UIHelper.verticalSpaceLarge(),
+        UIHelper.verticalSpaceLarge,
         MarkdownBody(
             data:
                 "### Heute sollst du in cabuu den Vokabeltest machen. Drücke dazu in cabuu auf Liste $nextListNumber und wähle 'Abfrage'."),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         if (nextListNumber < 6)
           MarkdownBody(
               data:
@@ -30,7 +30,7 @@ class PreVocabScreen2 extends StatelessWidget {
         if (nextListNumber < 6)
           MarkdownBody(
               data: "### Dein nächster Lernplan endet am: $targetDate"),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         if (nextListNumber < 6)
           MarkdownBody(
               data:

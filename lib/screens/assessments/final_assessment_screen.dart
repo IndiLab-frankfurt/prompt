@@ -54,11 +54,11 @@ class _FinalAssessmentScreenState extends State<FinalAssessmentScreen> {
   }
 
   late var introduction = ListView(children: [
-    UIHelper.verticalSpaceLarge(),
+    UIHelper.verticalSpaceLarge,
     MarkdownBody(
         data: "### " +
             "Heute ist der letzte Tag, an dem du PROMPT jeden Tag benutzen solltest."),
-    UIHelper.verticalSpaceMedium(),
+    UIHelper.verticalSpaceMedium,
     MarkdownBody(
         data: "### " +
             "Wir haben jetzt noch ein paar Fragen dazu, wie die Studie bisher für dich gewesen ist."),
@@ -77,13 +77,13 @@ class _FinalAssessmentScreenState extends State<FinalAssessmentScreen> {
       });
 
   late var completed = ListView(children: [
-    UIHelper.verticalSpaceLarge(),
+    UIHelper.verticalSpaceLarge,
     MarkdownBody(data: "### " + "Danke!"),
-    UIHelper.verticalSpaceMedium(),
+    UIHelper.verticalSpaceMedium,
     MarkdownBody(
         data: "### " +
             "Die letzten beiden Vokabellisten sollst du nun alleine lernen. Ab morgen musst du also nicht mehr täglich PROMPT benutzen. Nur an den Tagen, an denen du den Vokabeltest machst, sollst du noch einmal Fragen beantworten."),
-    UIHelper.verticalSpaceMedium(),
+    UIHelper.verticalSpaceMedium,
     MarkdownBody(
         data: "### " +
             "**Wichtig:** Behalte die App PROMPT auf dem Handy. An den Tagen, an denen du den Vokabeltest machen sollst, schicken wir dir eine Notification."),

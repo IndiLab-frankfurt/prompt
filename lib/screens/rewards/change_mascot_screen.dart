@@ -35,7 +35,7 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                 child: ListView(
                   children: [
                     MarkdownBody(data: "# Hier kannst du dein Monster ändern"),
-                    UIHelper.verticalSpaceMedium(),
+                    UIHelper.verticalSpaceMedium,
                     CircleAvatar(
                       radius: 70,
                       backgroundColor: vm.selectedMascot == "1"
@@ -52,7 +52,7 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                         },
                       ),
                     ),
-                    UIHelper.verticalSpaceMedium(),
+                    UIHelper.verticalSpaceMedium,
                     CircleAvatar(
                       radius: 70,
                       backgroundColor: vm.selectedMascot == "2"
@@ -69,7 +69,7 @@ class _ChangeMascotScreenState extends State<ChangeMascotScreen> {
                         },
                       ),
                     ),
-                    UIHelper.verticalSpaceMedium(),
+                    UIHelper.verticalSpaceMedium,
                     CircleAvatar(
                       radius: 70,
                       backgroundColor: vm.selectedMascot == "3"

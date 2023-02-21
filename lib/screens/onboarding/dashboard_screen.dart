@@ -86,9 +86,9 @@ class _DashboardScreenState extends State<DashboardScreen>
         content: new Column(
           children: [
             MarkdownBody(data: _textReward),
-            UIHelper.verticalSpaceMedium(),
+            UIHelper.verticalSpaceMedium,
             MarkdownBody(data: _textStreak),
-            UIHelper.verticalSpaceMedium(),
+            UIHelper.verticalSpaceMedium,
             Text(_textTotal)
           ],
         ),
@@ -139,7 +139,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
-                                      UIHelper.verticalSpaceSmall(),
+                                      UIHelper.verticalSpaceSmall,
                                       if (vm.showLearnedWithCabuuButton)
                                         _buildToNextTaskButton(),
                                       if (vm.showVocabularyTestReminder)
@@ -148,9 +148,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         _buildReturnTomorrowButton(),
                                       if (vm.startTomorrow)
                                         _buildStartTomorrow(),
-                                      UIHelper.verticalSpaceSmall(),
+                                      UIHelper.verticalSpaceSmall,
                                       // _buildChangeBackgroundButton(),
-                                      UIHelper.verticalSpaceMedium(),
+                                      UIHelper.verticalSpaceMedium,
                                       // Divider(),
                                       _buildStatistics()
                                     ],
@@ -170,9 +170,9 @@ class _DashboardScreenState extends State<DashboardScreen>
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         Text(AppStrings.daysOfTotal(vm.daysActive, vm.getMaxStudyDays())),
-        UIHelper.verticalSpaceSmall(),
+        UIHelper.verticalSpaceSmall,
         SizedBox(
           width: 300,
           child: LinearProgressIndicator(
@@ -181,11 +181,11 @@ class _DashboardScreenState extends State<DashboardScreen>
             value: vm.studyProgress,
           ),
         ),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         Text(nextVocab),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         // Text(AppStrings.progressToReward(vm.daysActive, daysToNextReward)),
-        // UIHelper.verticalSpaceSmall(),
+        // UIHelper.verticalSpaceSmall,
         SizedBox(
           width: 300,
           child: LinearProgressIndicator(

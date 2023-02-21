@@ -66,7 +66,7 @@ class _VerticalQuestionnaireState extends State<VerticalQuestionnaire> {
               index < widget.questionnaire.questions.length;
               index++)
             buildQuestionCard(widget.questionnaire.questions[index], index),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           Visibility(
             visible: !_isFilledOut(),
             child: Text(

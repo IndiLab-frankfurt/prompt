@@ -34,8 +34,9 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
               alignment: Alignment.bottomCenter)),
       child: ListView(
         children: [
+          UIHelper.verticalSpaceLarge,
           MarkdownBody(data: "### ${AppStrings.SessionZero_OutcomeEnter_1}"),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceLarge,
           TextField(
               minLines: 4,
               maxLines: null,

@@ -38,13 +38,14 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
     var vm = Provider.of<OnboardingViewModel>(context);
 
     return ListView(children: [
+      UIHelper.verticalSpaceLarge,
       MarkdownBody(data: "### " + AppStrings.PlanCreation_LetsCreatePlan),
-      UIHelper.verticalSpaceSmall(),
+      UIHelper.verticalSpaceSmall,
       MarkdownBody(
           data: "### " + AppStrings.PlanCreation_PlanCreationExplanation),
-      UIHelper.verticalSpaceLarge(),
+      UIHelper.verticalSpaceLarge,
       MarkdownBody(data: "### " + AppStrings.PlanCreation_CompleteThePlan),
-      UIHelper.verticalSpaceMedium(),
+      UIHelper.verticalSpaceMedium,
       Container(
         padding: EdgeInsets.all(10),
         // round corners and white background
@@ -56,7 +57,7 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
           Row(
             children: [
               MarkdownBody(data: '### " Wenn ich  '),
-              UIHelper.horizontalSpaceSmall(),
+              UIHelper.horizontalSpaceSmall,
               Expanded(
                 child: TextField(
                     maxLines: 3,
@@ -78,7 +79,7 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
               MarkdownBody(data: '### ,'),
             ],
           ),
-          UIHelper.verticalSpaceSmall(),
+          UIHelper.verticalSpaceSmall,
           MarkdownBody(data: '### dann lerne ich mit cabuu! "'),
         ]),
       )

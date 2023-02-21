@@ -43,33 +43,21 @@ class UIHelper {
     gradient: baseGradient,
   );
 
-  static Widget verticalSpaceSmall() {
-    return verticalSpace(_verticalSpaceSmall);
-  }
+  static Widget verticalSpaceSmall = verticalSpace(_verticalSpaceSmall);
 
-  static Widget verticalSpaceMedium() {
-    return verticalSpace(_verticalSpaceMedium);
-  }
+  static Widget verticalSpaceMedium = verticalSpace(_verticalSpaceMedium);
 
-  static Widget verticalSpaceLarge() {
-    return verticalSpace(_verticalSpaceLarge);
-  }
+  static Widget verticalSpaceLarge = verticalSpace(_verticalSpaceLarge);
 
   static Widget verticalSpace(double height) {
     return SizedBox(height: height);
   }
 
-  static Widget horizontalSpaceSmall() {
-    return horizontalSpace(_horizontalSpaceSmall);
-  }
+  static Widget horizontalSpaceSmall = horizontalSpace(_horizontalSpaceSmall);
 
-  static Widget horizontalSpaceMedium() {
-    return horizontalSpace(_horizontalSpaceMedium);
-  }
+  static Widget horizontalSpaceMedium = horizontalSpace(_horizontalSpaceMedium);
 
-  static Widget horizontalSpaceLarge() {
-    return horizontalSpace(_horizontalSpaceLarge);
-  }
+  static Widget horizontalSpaceLarge = horizontalSpace(_horizontalSpaceLarge);
 
   static Widget horizontalSpace(double width) {
     return SizedBox(width: width);

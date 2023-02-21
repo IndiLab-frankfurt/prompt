@@ -18,16 +18,16 @@ class PreVocabScreen extends StatelessWidget {
     return Container(
         child: ListView(
       children: [
-        UIHelper.verticalSpaceLarge(),
+        UIHelper.verticalSpaceLarge,
         MarkdownBody(
             data:
                 "### Heute sollst du in cabuu den Vokabeltest machen. Drücke dazu in cabuu auf Liste $listNumber"),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         MarkdownBody(
             data:
                 "### Nachdem du den test gemacht hast, sollst du schon einmal den Lernplan für Liste ${listNumber + 1} aktivieren. Klicke dazu auf die Liste und wähle 'Lernplan'."),
         MarkdownBody(data: "### Dein nächster Lernplan endet am: $targetDate"),
-        UIHelper.verticalSpaceMedium(),
+        UIHelper.verticalSpaceMedium,
         MarkdownBody(
             data:
                 "### Mach bitte den Test und lege den Lernplan an. Komme danach direkt zurück zu PROMPT, um ein paar Fragen zu beantworten."),
