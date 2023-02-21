@@ -3,13 +3,7 @@ import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/onboarding/cabuu_code_screen.dart';
 import 'package:prompt/screens/onboarding/copingplan_enter_screen.dart';
-import 'package:prompt/screens/onboarding/instruction_screen_1.dart';
-import 'package:prompt/screens/onboarding/instruction_screen_2.dart';
-import 'package:prompt/screens/onboarding/instruction_screen_3.dart';
-import 'package:prompt/screens/onboarding/instruction_screen_4.dart';
-import 'package:prompt/screens/onboarding/instructions_cabuu_1.dart';
-import 'package:prompt/screens/onboarding/instructions_cabuu_2.dart';
-import 'package:prompt/screens/onboarding/instructions_cabuu_3.dart';
+import 'package:prompt/screens/onboarding/horizontal_questionnaire.dart';
 import 'package:prompt/screens/onboarding/instructions_distributed_learning.dart';
 import 'package:prompt/screens/onboarding/instructions_implementation_intentions.dart';
 import 'package:prompt/screens/onboarding/obstacle_enter_screen.dart';
@@ -20,12 +14,12 @@ import 'package:prompt/screens/onboarding/plan_timing_screen.dart';
 import 'package:prompt/screens/onboarding/reward_screen_1.dart';
 import 'package:prompt/screens/onboarding/rewards_screen_2.dart';
 import 'package:prompt/screens/onboarding/welcome_screen.dart';
-import 'package:prompt/screens/onboarding/why_learn_vocab_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
+import 'package:prompt/widgets/keep_alive_page.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
-import 'package:prompt/widgets/video_screen.dart';
+import 'package:prompt/screens/main/video_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:async/async.dart';
 
@@ -62,9 +56,13 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         child: Container(
           decoration: UIHelper.defaultBoxDecoration,
           child: Scaffold(
-              appBar: PromptAppBar(showBackButton: true),
+              appBar: PromptAppBar(
+                showBackButton: true,
+                title: vm.pages[vm.page]
+                    .toString()
+                    .replaceAll("OnboardingStep.", ""),
+              ),
               drawer: PromptDrawer(),
-              extendBodyBehindAppBar: true,
               resizeToAvoidBottomInset: false,
               body: FutureBuilder(
                 future: init(),
@@ -119,7 +117,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             key: key, onVideoCompleted: vm.videoPlanningCompleted);
       case OnboardingStep.planCreation:
         return PlanCreationScreen(key: key);
-
       case OnboardingStep.planDisplay:
         return PlanDisplayScreen(key: key);
       case OnboardingStep.planInternalisationEmoji:
@@ -134,47 +131,28 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         );
       case OnboardingStep.rewardScreen2:
         return RewardScreen2(key: key);
-      case OnboardingStep.assessment_itLiteracy:
-        // TODO: Handle this case.
-        break;
-      case OnboardingStep.assessment_learningFrequencyDuration:
-        // TODO: Handle this case.
-        break;
-      case OnboardingStep.assessment_motivation:
-        // TODO: Handle this case.
-        break;
-      case OnboardingStep.assessment_learningExpectations:
-        // TODO: Handle this case.
-        break;
-      case OnboardingStep.assessment_distributedLearning:
-        // TODO: Handle this case.
-        break;
-      case OnboardingStep.assessment_selfEfficacy:
-        // TODO: Handle this case.
-        break;
+      case OnboardingStep.assessment_vocabRoutine:
+        return KeepAlivePage(
+            child: ChangeNotifierProvider(
+                create: (_) => vm.questionnaireVocabRoutine,
+                child: HorizontalQuestionnaire()));
 
+      case OnboardingStep.instructions_distributedLearning:
+        return InstructionsDistributedLearning(key: key);
+      case OnboardingStep.assessment_motivation:
+        return ChangeNotifierProvider(
+            create: (_) => vm.questionnaireMotivation,
+            child: HorizontalQuestionnaire());
+      case OnboardingStep.assessment_ToB:
+        return ChangeNotifierProvider(
+            create: (_) => vm.questionnaireToB,
+            child: HorizontalQuestionnaire());
+        break;
       case OnboardingStep.whyLearnVocabScreen:
         // TODO: Handle this case.
         break;
-
-      case OnboardingStep.planInternalisationWaiting:
-        // TODO: Handle this case.
-        break;
-
       case OnboardingStep.planTiming:
         return PlanTimingScreen(key: key);
-      case OnboardingStep.instructions1:
-        // TODO: Handle this case.
-        break;
-      case OnboardingStep.instructions2:
-        // TODO: Handle this case.
-        break;
-      case OnboardingStep.instructions3:
-        // TODO: Handle this case.
-        break;
-      case OnboardingStep.instructions4:
-        // TODO: Handle this case.
-        break;
       case OnboardingStep.instructions_cabuu_1:
         // TODO: Handle this case.
         break;
@@ -182,9 +160,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         // TODO: Handle this case.
         break;
       case OnboardingStep.instructions_cabuu_3:
-        // TODO: Handle this case.
-        break;
-      case OnboardingStep.instructions_distributedLearning:
         // TODO: Handle this case.
         break;
 
@@ -197,44 +172,4 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       child: Text('Not implemented: $step'),
     );
   }
-
-  late var rewardScreen2 =
-      RewardScreen2(key: ValueKey(OnboardingStep.rewardScreen2));
-
-  late var instructionsCabuu1 =
-      InstructionsCabuu1(key: ValueKey(OnboardingStep.instructions_cabuu_1));
-
-  late var instructionsCabuu2 =
-      InstructionsCabuu2(key: ValueKey(OnboardingStep.instructions_cabuu_2));
-
-  late var instructionsCabuu3 =
-      InstructionsCabuu3(key: ValueKey(OnboardingStep.instructions_cabuu_3));
-
-  late var instructionsDistributedLearning = InstructionsDistributedLearning(
-      key: ValueKey(OnboardingStep.instructions_distributedLearning));
-
-  late var instructionScreen1 =
-      InstructionScreen1(key: ValueKey(OnboardingStep.instructions1));
-
-  late var instructionScreen2 =
-      InstructionScreen2(key: ValueKey(OnboardingStep.instructions2));
-
-  late var instructionScreen3 =
-      InstructionScreen3(key: ValueKey(OnboardingStep.instructions3));
-
-  late var instructionScreen4 =
-      InstructionScreen4(key: ValueKey(OnboardingStep.instructions4));
-
-  late var instructionsImplementationIntentions =
-      InstructionsImplementationIntentions(
-          key: ValueKey(OnboardingStep.instructions_implementationIntentions));
-
-  late var planCreation =
-      PlanCreationScreen(key: ValueKey(OnboardingStep.planCreation));
-
-  late var planDisplay =
-      PlanDisplayScreen(key: ValueKey(OnboardingStep.planDisplay));
-
-  late var whyLearnVocabs =
-      WhyLearnVocabScreen(key: ValueKey(OnboardingStep.whyLearnVocabScreen));
 }

@@ -1,5 +1,5 @@
-import 'dart:math';
 import 'package:flutter/foundation.dart';
+import 'package:prompt/data/assessments.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
@@ -7,45 +7,56 @@ import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
+import 'package:prompt/viewmodels/onboarding_questionnaire_view_model.dart';
+import 'package:collection/collection.dart';
 
 enum OnboardingStep {
   welcome,
   video_introduction,
   rewardScreen1,
+  assessment_vocabRoutine,
+  instructions_distributedLearning,
   video_distributedLearning,
+  assessment_motivation,
   outcome,
   obstacle,
   copingPlan,
+  assessment_ToB,
   instructions_implementationIntentions,
   video_Planning,
-  planInternalisationEmoji,
-  assessment_itLiteracy,
-  assessment_learningFrequencyDuration,
-  assessment_motivation,
-  assessment_learningExpectations,
-  assessment_distributedLearning,
-  assessment_selfEfficacy,
-  cabuuCode,
-  whyLearnVocabScreen,
   planCreation,
-  planDisplay,
-  planInternalisationWaiting,
-  planTiming,
-  instructions1,
-  instructions2,
-  instructions3,
-  instructions4,
+  planInternalisationEmoji,
+  rewardScreen2,
   instructions_cabuu_1,
   instructions_cabuu_2,
   instructions_cabuu_3,
-  instructions_distributedLearning,
-  rewardScreen2,
+  cabuuCode,
+  whyLearnVocabScreen,
+  planDisplay,
+  planTiming,
   endOfSession
 }
 
 class OnboardingViewModel extends MultiPageViewModel {
   InternalisationViewModel internalisationViewmodelEmoji =
       InternalisationViewModel();
+
+  late OnboardingQuestionnaireViewModel questionnaireVocabRoutine =
+      OnboardingQuestionnaireViewModel(
+    questionnaire: OB_VocabRoutine,
+  );
+
+  late OnboardingQuestionnaireViewModel questionnaireMotivation =
+      OnboardingQuestionnaireViewModel(
+    questionnaire: OB_Motivation,
+  );
+
+  late OnboardingQuestionnaireViewModel questionnaireToB =
+      OnboardingQuestionnaireViewModel(
+    questionnaire: OB_ToB,
+  );
+
+  List<QuestionnaireResponse> _questionnaireResponses = [];
 
   String _plan = "";
   String get plan => _plan;
@@ -121,10 +132,10 @@ class OnboardingViewModel extends MultiPageViewModel {
 
   final StudyService _experimentService;
   final RewardService _rewardService;
+  final DataService _dataService;
 
   OnboardingViewModel(
-      this._experimentService, DataService dataService, this._rewardService)
-      : super(dataService) {
+      this._experimentService, this._dataService, this._rewardService) {
     generateScreenOrder();
   }
 
@@ -133,12 +144,13 @@ class OnboardingViewModel extends MultiPageViewModel {
   }
 
   Future<bool> getInitialValues() async {
-    var plan = await dataService.getLastPlan();
+    var plan = await _dataService.getLastPlan();
     if (plan != null) {
       this.plan = plan;
     }
 
-    var ud = dataService.getUserDataCache();
+    var ud = _dataService.getUserDataCache();
+    // TODO: Restore after testing
     // initialPage = max(ud.initStep, pages.length - 1);
     initialPage = 0;
     cabuuCode = ud.cabuuCode;
@@ -147,35 +159,53 @@ class OnboardingViewModel extends MultiPageViewModel {
   }
 
   List<OnboardingStep> getScreenOrder() {
-    List<OnboardingStep> screenOrder = [
-      OnboardingStep.welcome,
-      OnboardingStep.video_introduction,
-      OnboardingStep.rewardScreen1,
-      OnboardingStep.outcome,
-      OnboardingStep.obstacle,
-      OnboardingStep.copingPlan,
-      OnboardingStep.instructions_implementationIntentions,
-      OnboardingStep.video_Planning,
-      OnboardingStep.planCreation,
-      OnboardingStep.planDisplay,
-      OnboardingStep.planInternalisationEmoji,
-      OnboardingStep.rewardScreen2,
-      OnboardingStep.planTiming,
-    ];
+    return OnboardingStep.values.toList();
+  }
 
-    return screenOrder;
+  int getNextSubQuestionnairePage(OnboardingQuestionnaireViewModel vm) {
+    if (vm.page < vm.pages.length - 1) {
+      vm.nextPage();
+      return page;
+    }
+    return page + 1;
+  }
+
+  int getPreviousSubQuestionnairePage(OnboardingQuestionnaireViewModel vm) {
+    if (vm.page > 0) {
+      vm.previousPage();
+      return page;
+    }
+    return page - 1;
   }
 
   @override
-  int getNextPage(ValueKey? currentPageKey) {
-    page += 1;
+  int getNextPage() {
+    var currentPage = pages[page];
 
-    var end = (page < pages.length - 1) ? pages[page].toString() : "complete";
-    if (currentPageKey != null) {
-      addTiming(currentPageKey.value.toString(), end);
+    // Multi page questionnaires need special handling because they themselves consist of multiple pages
+    if (currentPage == OnboardingStep.assessment_vocabRoutine) {
+      return getNextSubQuestionnairePage(questionnaireVocabRoutine);
+    }
+    if (currentPage == OnboardingStep.assessment_vocabRoutine) {
+      return getNextSubQuestionnairePage(questionnaireMotivation);
     }
 
-    return page;
+    return super.getNextPage();
+  }
+
+  @override
+  int getPreviousPage() {
+    var currentPage = pages[page];
+
+    // Multi page questionnaires need special handling because they themselves consist of multiple pages
+    if (currentPage == OnboardingStep.assessment_vocabRoutine) {
+      return getPreviousSubQuestionnairePage(questionnaireVocabRoutine);
+    }
+    if (currentPage == OnboardingStep.assessment_vocabRoutine) {
+      return getPreviousSubQuestionnairePage(questionnaireMotivation);
+    }
+
+    return super.getPreviousPage();
   }
 
   saveInternalisation() {
@@ -185,10 +215,9 @@ class OnboardingViewModel extends MultiPageViewModel {
         questionText: internalisationViewmodelEmoji.plan,
         response: internalisationViewmodelEmoji.input,
         dateSubmitted: DateTime.now());
-    dataService.saveQuestionnaireResponse(response);
+    _dataService.saveQuestionnaireResponse(response);
   }
 
-  @override
   Future<bool> doStepDependentSubmission(ValueKey currentPageKey) async {
     var stepKey = currentPageKey.value as OnboardingStep;
 
@@ -197,17 +226,12 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.cabuuCode:
       case OnboardingStep.video_Planning:
       case OnboardingStep.video_distributedLearning:
-      case OnboardingStep.instructions1:
-      case OnboardingStep.instructions2:
-      case OnboardingStep.instructions3:
-      case OnboardingStep.instructions4:
       case OnboardingStep.instructions_cabuu_1:
       case OnboardingStep.instructions_cabuu_2:
       case OnboardingStep.instructions_cabuu_3:
       case OnboardingStep.instructions_distributedLearning:
       case OnboardingStep.instructions_implementationIntentions:
       case OnboardingStep.rewardScreen1:
-      case OnboardingStep.planInternalisationWaiting:
       case OnboardingStep.rewardScreen2:
       case OnboardingStep.planDisplay:
         break;
@@ -216,12 +240,9 @@ class OnboardingViewModel extends MultiPageViewModel {
           _rewardService.addPoints(5);
         }
         break;
-      case OnboardingStep.assessment_itLiteracy:
-      case OnboardingStep.assessment_learningFrequencyDuration:
+      case OnboardingStep.assessment_vocabRoutine:
+      case OnboardingStep.assessment_ToB:
       case OnboardingStep.assessment_motivation:
-      case OnboardingStep.assessment_learningExpectations:
-      case OnboardingStep.assessment_distributedLearning:
-      case OnboardingStep.assessment_selfEfficacy:
       case OnboardingStep.planTiming:
         break;
       case OnboardingStep.whyLearnVocabScreen:
@@ -231,7 +252,7 @@ class OnboardingViewModel extends MultiPageViewModel {
             questionText: "",
             response: vocabValue,
             dateSubmitted: DateTime.now());
-        dataService.saveQuestionnaireResponse(vocabValueResponse);
+        _dataService.saveQuestionnaireResponse(vocabValueResponse);
         break;
       case OnboardingStep.planCreation:
         var planResponse = QuestionnaireResponse(
@@ -240,7 +261,7 @@ class OnboardingViewModel extends MultiPageViewModel {
             questionText: "",
             response: vocabValue,
             dateSubmitted: DateTime.now());
-        dataService.saveQuestionnaireResponse(planResponse);
+        _dataService.saveQuestionnaireResponse(planResponse);
         break;
       case OnboardingStep.planInternalisationEmoji:
         saveInternalisation();
@@ -258,7 +279,7 @@ class OnboardingViewModel extends MultiPageViewModel {
             questionText: "",
             response: outcome,
             dateSubmitted: DateTime.now());
-        dataService.saveQuestionnaireResponse(outcomeResponse);
+        _dataService.saveQuestionnaireResponse(outcomeResponse);
         break;
       case OnboardingStep.obstacle:
         var obstacleResponse = QuestionnaireResponse(
@@ -267,7 +288,7 @@ class OnboardingViewModel extends MultiPageViewModel {
             questionText: "",
             response: obstacle,
             dateSubmitted: DateTime.now());
-        dataService.saveQuestionnaireResponse(obstacleResponse);
+        _dataService.saveQuestionnaireResponse(obstacleResponse);
         break;
       case OnboardingStep.copingPlan:
         var copingPlanResponse = QuestionnaireResponse(
@@ -276,7 +297,7 @@ class OnboardingViewModel extends MultiPageViewModel {
             questionText: "",
             response: copingPlan,
             dateSubmitted: DateTime.now());
-        dataService.saveQuestionnaireResponse(copingPlanResponse);
+        _dataService.saveQuestionnaireResponse(copingPlanResponse);
         break;
     }
 
@@ -288,7 +309,7 @@ class OnboardingViewModel extends MultiPageViewModel {
   }
 
   @override
-  bool canMoveBack(ValueKey? currentPageKey) {
+  bool canMoveBack() {
     var stepKey = pages[page];
 
     return true;
@@ -296,31 +317,23 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.rewardScreen1:
       case OnboardingStep.instructions_cabuu_2:
       case OnboardingStep.instructions_cabuu_3:
-      case OnboardingStep.instructions2:
-      case OnboardingStep.instructions3:
       case OnboardingStep.video_introduction:
       case OnboardingStep.planDisplay:
       case OnboardingStep.cabuuCode:
       case OnboardingStep.welcome:
       case OnboardingStep.instructions_cabuu_1:
-      case OnboardingStep.assessment_itLiteracy:
-      case OnboardingStep.assessment_learningFrequencyDuration:
+      case OnboardingStep.assessment_vocabRoutine:
+      case OnboardingStep.assessment_ToB:
       case OnboardingStep.assessment_motivation:
-      case OnboardingStep.assessment_learningExpectations:
-      case OnboardingStep.assessment_selfEfficacy:
-      case OnboardingStep.assessment_distributedLearning:
       case OnboardingStep.video_Planning:
       case OnboardingStep.video_distributedLearning:
       case OnboardingStep.planCreation:
       case OnboardingStep.planInternalisationEmoji:
       case OnboardingStep.planTiming:
-      case OnboardingStep.instructions1:
-      case OnboardingStep.instructions4:
       case OnboardingStep.instructions_distributedLearning:
       case OnboardingStep.instructions_implementationIntentions:
       case OnboardingStep.endOfSession:
       case OnboardingStep.whyLearnVocabScreen:
-      case OnboardingStep.planInternalisationWaiting:
       case OnboardingStep.rewardScreen2:
         return false;
       case OnboardingStep.outcome:
@@ -333,7 +346,7 @@ class OnboardingViewModel extends MultiPageViewModel {
   }
 
   @override
-  bool canMoveNext(ValueKey? currentPageKey) {
+  bool canMoveNext() {
     var stepKey = pages[page]; //currentPageKey!.value as SessionZeroStep;
     return true;
     switch (stepKey) {
@@ -343,13 +356,10 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.cabuuCode:
       case OnboardingStep.planDisplay:
         return true;
-      case OnboardingStep.assessment_itLiteracy:
-      case OnboardingStep.assessment_learningFrequencyDuration:
+      case OnboardingStep.assessment_vocabRoutine:
+      case OnboardingStep.assessment_ToB:
       case OnboardingStep.assessment_motivation:
-      case OnboardingStep.assessment_learningExpectations:
-      case OnboardingStep.assessment_selfEfficacy:
-      case OnboardingStep.assessment_distributedLearning:
-        return currentAssessmentIsFilledOut;
+        return true;
       case OnboardingStep.whyLearnVocabScreen:
         return vocabValue.isNotEmpty;
       case OnboardingStep.video_Planning:
@@ -369,12 +379,35 @@ class OnboardingViewModel extends MultiPageViewModel {
     return true;
   }
 
+  saveQuestionnaireResponse(
+      String questionnaireName, String itemName, String response) {
+    // check if there is already a response for this questionnaire and item id
+    var existingResponse = _questionnaireResponses.firstWhereOrNull((element) =>
+        element.questionnaireName == questionnaireName &&
+        element.name == itemName);
+
+    if (existingResponse != null) {
+      _questionnaireResponses.remove(existingResponse);
+    }
+    var newResponse = QuestionnaireResponse(
+        questionnaireName: questionnaireName,
+        name: itemName,
+        questionText: "",
+        response: response,
+        dateSubmitted: DateTime.now());
+
+    _questionnaireResponses.add(newResponse);
+
+    notifyListeners();
+  }
+
   @override
   void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-      await _experimentService.submitResponses(
-          questionnaireResponses, SESSION_ZERO);
+      // TODO: Submit responses
+      // await _experimentService.submitResponses(
+      //     questionnaireResponses, SESSION_ZERO);
 
       _experimentService.nextScreen();
     }

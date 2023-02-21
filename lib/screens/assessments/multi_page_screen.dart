@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
-import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/widgets/full_width_button.dart';
+import 'package:prompt/widgets/keep_alive_page.dart';
 
 class MultiPageScreen extends StatefulWidget {
   final MultiPageViewModel vm;
   final List<Widget> pages;
   final int initialStep;
-  MultiPageScreen(this.vm, this.pages, {this.initialStep = 0, Key? key})
+  final bool showBottomBar;
+  MultiPageScreen(this.vm, this.pages,
+      {this.initialStep = 0, this.showBottomBar = true, Key? key})
       : super(key: key);
 
   @override
@@ -24,15 +26,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
   void initState() {
     super.initState();
 
-    _controller = new PageController();
-    // _controller.addListener(() {
-    //   int page = 0;
-    //   if (_controller.page != null) {
-    //     page = _controller.page!.round();
-    //   }
-    //   widget.vm.page = page;
-    //   widget.vm.onPageChange();
-    // });
+    _controller = new PageController(keepPage: true);
 
     widget.vm.currentPageStream.listen((index) {
       _controller.animateToPage(index, duration: _kDuration, curve: _kCurve);
@@ -66,11 +60,11 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
               physics: NeverScrollableScrollPhysics(),
               itemCount: widget.pages.length,
               itemBuilder: (context, index) {
-                return widget.pages[index];
+                return KeepAlivePage(child: widget.pages[index]);
               },
             ),
           ),
-          _buildBottomNavigation(),
+          if (widget.showBottomBar) _buildBottomNavigation(),
           if (widget.vm.page < widget.pages.length - 1)
             if (widget.vm.page == widget.pages.length - 1) _buildSubmitButton()
         ],
@@ -79,7 +73,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
   }
 
   _buildSubmitButton() {
-    if (widget.vm.canMoveNext(_keyOfCurrent())) {
+    if (widget.vm.canMoveNext()) {
       if (widget.vm.state == ViewState.idle) {
         return FullWidthButton(
           key: ValueKey("submitButton"),
@@ -110,8 +104,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
             maintainSize: true,
             maintainAnimation: true,
             maintainState: true,
-            visible:
-                widget.vm.canMoveBack(_keyOfCurrent()) && widget.vm.page > 0,
+            visible: widget.vm.canMoveBack() && widget.vm.page > 0,
             child: SizedBox(
               height: 50,
               child: TextButton(
@@ -135,7 +128,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
             maintainSize: true,
             maintainAnimation: true,
             maintainState: true,
-            visible: widget.vm.canMoveNext(_keyOfCurrent()),
+            visible: widget.vm.canMoveNext(),
             child: SizedBox(
               height: 50,
               child: ElevatedButton(
@@ -158,12 +151,5 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
         ],
       ),
     );
-  }
-
-  _keyOfCurrent() {
-    if (widget.pages.length > 0) {
-      return widget.pages[_controller.currentPageOrZero].key;
-    }
-    return ValueKey("");
   }
 }

@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Prompt',
       theme: ThemeData(
-          scaffoldBackgroundColor: Colors.orange[50],
+          scaffoldBackgroundColor: Color(0xfff2994a),
           canvasColor: Colors.white,
           selectedRowColor: Colors.orange[200],
           textTheme: TextTheme(

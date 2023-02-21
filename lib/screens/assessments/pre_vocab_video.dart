@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:intl/intl.dart';
-import 'package:prompt/widgets/video_screen.dart';
+import 'package:prompt/screens/main/video_screen.dart';
 
 class PreVocabVideo extends StatefulWidget {
   final VoidCallback onVideoCompleted;

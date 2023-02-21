@@ -68,7 +68,7 @@ class _PromptAppBarState extends State<PromptAppBar> {
             }),
         UIHelper.horizontalSpaceMedium()
       ],
-      title: Text(""),
+      title: Text(this.widget.title),
       centerTitle: true,
     );
   }

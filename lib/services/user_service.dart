@@ -1,4 +1,3 @@
-import 'dart:math';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/services/base_service.dart';
 import 'package:prompt/services/data_service.dart';
@@ -10,23 +9,10 @@ class UserService implements BaseService {
 
   final SettingsService _settings;
   final DataService _dataService;
-  bool _isSignedIn = false;
 
   @override
   Future<bool> initialize() async {
     return true;
-  }
-
-  static String getGroup() {
-    var rng = Random();
-    var isControlGroup = rng.nextInt(2);
-    if (isControlGroup == 1) {
-      return "1";
-    } else {
-      var condition = rng.nextInt(5);
-      condition += 2;
-      return condition.toString();
-    }
   }
 
   Future<UserData?> signInUser(String email, String password) async {

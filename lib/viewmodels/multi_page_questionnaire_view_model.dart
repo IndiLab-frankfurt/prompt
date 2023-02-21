@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
@@ -18,17 +17,17 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel {
     required this.rewardService,
     required this.questionnaire,
     required this.studyService,
-  }) : super(dataService) {
+  }) {
     pages = questionnaire.questions.toList();
   }
 
   @override
-  bool canMoveBack(ValueKey? currentPageKey) {
+  bool canMoveBack() {
     return true;
   }
 
   @override
-  bool canMoveNext(ValueKey? currentPageKey) {
+  bool canMoveNext() {
     return true;
   }
 

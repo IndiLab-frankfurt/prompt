@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/widgets/video_screen.dart';
+import 'package:prompt/screens/main/video_screen.dart';
 
 class DistributedLearningVideo extends StatefulWidget {
   DistributedLearningVideo({Key? key}) : super(key: key);

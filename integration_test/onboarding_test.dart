@@ -1,8 +1,9 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:integration_test/integration_test.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/screens/onboarding/onboarding_screen.dart';
+import 'package:prompt/screens/onboarding/welcome_screen.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/locator.dart';
@@ -35,15 +36,20 @@ void main() {
 
   group('onboarding test', () {
     testWidgets('Verify Screen Sequence', (tester) async {
-      var screen = ChangeNotifierProvider(
-          create: (_) => OnboardingViewModel(locator.get<StudyService>(),
-              locator.get<DataService>(), locator.get<RewardService>()),
-          child: OnboardingScreen());
+      var vm = OnboardingViewModel(locator.get<StudyService>(),
+          locator.get<DataService>(), locator.get<RewardService>());
+      var screen =
+          ChangeNotifierProvider(create: (_) => vm, child: OnboardingScreen());
 
-      await tester.pumpWidget(screen);
+      var app = MaterialApp(
+        home: screen,
+      );
+
+      await tester.pumpWidget(app);
+      await tester.pumpAndSettle();
 
       // Verify that the first page is the welcome screen
-      expect(find.byKey(ValueKey(OnboardingStep.welcome)), findsOneWidget);
+      expect(find.byType(WelcomeScreen), findsOneWidget);
 
       // Finds the next button
       final Finder nextButton = find.text('Weiter');
