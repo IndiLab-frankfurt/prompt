@@ -42,7 +42,7 @@ class _PromptAppBarState extends State<PromptAppBar> {
       elevation: 0,
       actions: [
         // _buildAboutButton(),
-        UIHelper.horizontalSpaceSmall(),
+        UIHelper.horizontalSpaceSmall,
         StreamBuilder(
             stream: rewardService.controller.stream,
             builder: (context, snapshot) {
@@ -66,7 +66,7 @@ class _PromptAppBarState extends State<PromptAppBar> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black));
             }),
-        UIHelper.horizontalSpaceMedium()
+        UIHelper.horizontalSpaceMedium
       ],
       title: Text(this.widget.title),
       centerTitle: true,

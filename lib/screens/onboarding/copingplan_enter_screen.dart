@@ -3,6 +3,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
+import 'package:prompt/widgets/onboarding_container.dart';
 import 'package:provider/provider.dart';
 
 class CopingPlanEnterScreen extends StatefulWidget {
@@ -22,38 +23,28 @@ class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
   Widget build(BuildContext context) {
     var vm = Provider.of<OnboardingViewModel>(context, listen: false);
     var bgimg = "assets/illustrations/mascot_1_ladder.png";
-    return Padding(
-      padding: const EdgeInsets.only(top: 20),
-      child: Container(
-        decoration: BoxDecoration(
-            gradient: UIHelper.baseGradient,
-            image: DecorationImage(
-                scale: 5.5,
-                image: AssetImage(bgimg),
-                fit: BoxFit.fitWidth,
-                alignment: Alignment.bottomCenter)),
-        child: ListView(
-          children: [
-            MarkdownBody(
-                data: "### ${AppStrings.SessionZero_CopingPlanEnter_1}"),
-            UIHelper.verticalSpaceMedium,
-            TextField(
-                minLines: 5,
-                maxLines: null,
-                onChanged: (text) {
-                  vm.copingPlan = text;
-                },
-                keyboardType: TextInputType.multiline,
-                decoration: InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                  labelText:
-                      'Schreibe deine Antwort hier auf (Stichworte genügen)',
-                )),
-          ],
-        ),
+    return OnboardingContainer(
+      bgimg: bgimg,
+      child: ListView(
+        children: [
+          MarkdownBody(data: "### ${AppStrings.SessionZero_CopingPlanEnter_1}"),
+          UIHelper.verticalSpaceMedium,
+          TextField(
+              minLines: 5,
+              maxLines: null,
+              onChanged: (text) {
+                vm.copingPlan = text;
+              },
+              keyboardType: TextInputType.multiline,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(5.0))),
+                labelText:
+                    'Schreibe deine Antwort hier auf (Stichworte genügen)',
+              )),
+        ],
       ),
     );
   }
