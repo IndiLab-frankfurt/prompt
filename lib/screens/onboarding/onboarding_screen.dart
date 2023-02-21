@@ -12,7 +12,6 @@ import 'package:prompt/screens/onboarding/plan_creation_screen.dart';
 import 'package:prompt/screens/onboarding/plan_display_screen.dart';
 import 'package:prompt/screens/onboarding/plan_timing_screen.dart';
 import 'package:prompt/screens/onboarding/reward_screen_1.dart';
-import 'package:prompt/screens/onboarding/rewards_screen_2.dart';
 import 'package:prompt/screens/onboarding/welcome_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
@@ -129,8 +128,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               emojiInputThen: true,
               key: key),
         );
-      case OnboardingStep.rewardScreen2:
-        return RewardScreen2(key: key);
       case OnboardingStep.assessment_vocabRoutine:
         return KeepAlivePage(
             child: ChangeNotifierProvider(

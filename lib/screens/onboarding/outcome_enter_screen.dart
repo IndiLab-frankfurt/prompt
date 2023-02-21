@@ -26,7 +26,11 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
     var bgimg = "assets/illustrations/mascot_1_thoughtbubble.png";
 
     return OnboardingContainer(
-      bgimg: bgimg,
+      decorationImage: DecorationImage(
+          image: AssetImage(bgimg),
+          fit: BoxFit.none,
+          scale: 5,
+          alignment: Alignment.bottomCenter),
       child: ListView(
         children: [
           MarkdownBody(data: "### ${AppStrings.SessionZero_OutcomeEnter_1}"),

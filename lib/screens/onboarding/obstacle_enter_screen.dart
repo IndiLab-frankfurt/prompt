@@ -24,7 +24,10 @@ class _ObstacleEnterScreenState extends State<ObstacleEnterScreen> {
     var bgimg = "assets/illustrations/mascot_1_wall.png";
     var vm = Provider.of<OnboardingViewModel>(context);
     return OnboardingContainer(
-      bgimg: bgimg,
+      decorationImage: DecorationImage(
+          image: AssetImage(bgimg),
+          fit: BoxFit.fitWidth,
+          alignment: Alignment.bottomCenter),
       child: ListView(
         children: [
           MarkdownBody(data: "### ${AppStrings.SessionZero_ObstacleEnter_1}"),

@@ -26,14 +26,13 @@ enum OnboardingStep {
   video_Planning,
   planCreation,
   planInternalisationEmoji,
-  rewardScreen2,
+  planTiming,
   instructions_cabuu_1,
   instructions_cabuu_2,
   instructions_cabuu_3,
   cabuuCode,
   whyLearnVocabScreen,
   planDisplay,
-  planTiming,
   endOfSession
 }
 
@@ -186,8 +185,11 @@ class OnboardingViewModel extends MultiPageViewModel {
     if (currentPage == OnboardingStep.assessment_vocabRoutine) {
       return getNextSubQuestionnairePage(questionnaireVocabRoutine);
     }
-    if (currentPage == OnboardingStep.assessment_vocabRoutine) {
+    if (currentPage == OnboardingStep.assessment_motivation) {
       return getNextSubQuestionnairePage(questionnaireMotivation);
+    }
+    if (currentPage == OnboardingStep.assessment_ToB) {
+      return getNextSubQuestionnairePage(questionnaireToB);
     }
 
     return super.getNextPage();
@@ -201,10 +203,12 @@ class OnboardingViewModel extends MultiPageViewModel {
     if (currentPage == OnboardingStep.assessment_vocabRoutine) {
       return getPreviousSubQuestionnairePage(questionnaireVocabRoutine);
     }
-    if (currentPage == OnboardingStep.assessment_vocabRoutine) {
+    if (currentPage == OnboardingStep.assessment_motivation) {
       return getPreviousSubQuestionnairePage(questionnaireMotivation);
     }
-
+    if (currentPage == OnboardingStep.assessment_ToB) {
+      return getPreviousSubQuestionnairePage(questionnaireToB);
+    }
     return super.getPreviousPage();
   }
 
@@ -232,7 +236,6 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.instructions_distributedLearning:
       case OnboardingStep.instructions_implementationIntentions:
       case OnboardingStep.rewardScreen1:
-      case OnboardingStep.rewardScreen2:
       case OnboardingStep.planDisplay:
         break;
       case OnboardingStep.video_introduction:
@@ -334,7 +337,6 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.instructions_implementationIntentions:
       case OnboardingStep.endOfSession:
       case OnboardingStep.whyLearnVocabScreen:
-      case OnboardingStep.rewardScreen2:
         return false;
       case OnboardingStep.outcome:
         return outcome.isNotEmpty;

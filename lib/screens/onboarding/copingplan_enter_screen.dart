@@ -24,7 +24,11 @@ class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
     var vm = Provider.of<OnboardingViewModel>(context, listen: false);
     var bgimg = "assets/illustrations/mascot_1_ladder.png";
     return OnboardingContainer(
-      bgimg: bgimg,
+      decorationImage: DecorationImage(
+        image: AssetImage(bgimg),
+        fit: BoxFit.fitWidth,
+        alignment: Alignment.bottomCenter,
+      ),
       child: ListView(
         children: [
           MarkdownBody(data: "### ${AppStrings.SessionZero_CopingPlanEnter_1}"),
