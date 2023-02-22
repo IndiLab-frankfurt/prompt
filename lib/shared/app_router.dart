@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/data/assessments.dart';
+import 'package:prompt/screens/main/data_privacy_screen.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/screens/assessments/multi_page_questionnaire_screen.dart';
@@ -133,6 +134,10 @@ class AppRouter {
 
       case AppScreen.ScreenSelect:
         screen = ScreenSelectionScreen();
+        break;
+
+      case AppScreen.DataPrivacy:
+        screen = DataPrivacyScreen();
         break;
 
       default:

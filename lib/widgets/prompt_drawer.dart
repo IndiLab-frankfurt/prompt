@@ -57,6 +57,12 @@ class PromptDrawer extends StatelessWidget {
               }),
           _buildDrawerItem(
               icon: Icons.add_box,
+              text: "Datenschutzerklärung",
+              onTap: () async {
+                await Navigator.pushNamed(context, AppScreen.DataPrivacy.name);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
               text: "Login",
               onTap: () async {
                 await Navigator.pushReplacementNamed(

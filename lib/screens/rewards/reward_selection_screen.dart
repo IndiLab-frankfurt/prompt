@@ -20,12 +20,12 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
     var rewardService = locator<RewardService>();
 
     for (var bg in rewardService.backgrounds) {
-      unlockItems.add(_buildUnlockItem(bg, rewardService.daysActive));
+      unlockItems.add(_buildUnlockItem(bg, rewardService.scoreValue));
     }
 
     return Scaffold(
       appBar: PromptAppBar(
-        title: "Wähle einen neuen Hintergrud",
+        title: "Hintergründe freischalten",
         showBackButton: true,
       ),
       body: Container(
@@ -33,14 +33,14 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
               indicatorColor: Theme.of(context).primaryColor,
               indicatorColorInactive: Colors.grey,
               lineColor: Theme.of(context).primaryColor,
-              progress: ((rewardService.daysActive + 5) / 27),
+              progress: ((rewardService.scoreValue) / RewardService.MAX_SCORE),
               children: [...unlockItems])),
     );
   }
 
-  _buildUnlockItem(UnlockableBackground unlockable, int daysActive) {
+  _buildUnlockItem(UnlockableBackground unlockable, int balance) {
     var rewardService = locator.get<RewardService>();
-    var unlocked = daysActive >= unlockable.requiredDays;
+    var unlocked = balance >= unlockable.cost;
     Widget unlockButton;
 
     if (unlocked) {
@@ -58,9 +58,9 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
       );
     } else {
       String text = "";
-      var daysToUnlock = unlockable.requiredDays - daysActive;
+      var daysToUnlock = unlockable.cost - balance;
       if (daysToUnlock == 1) {
-        text = "Noch $daysToUnlock Tag alle Aufgaben erledigen";
+        text = "Noch $daysToUnlock 💎";
       } else {
         text = "Noch $daysToUnlock Tage alle Aufgaben erledigen";
       }

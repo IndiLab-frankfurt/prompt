@@ -77,6 +77,7 @@ enum AppScreen {
   Questionnaire("/aa"),
   ScreenSelect("/screenselect"),
   RewardSelection("/rewardselection"),
+  DataPrivacy("/dataprivacy"),
   UserSettings("/usersettings");
 
   const AppScreen(this.routeName);
