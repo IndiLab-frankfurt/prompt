@@ -62,7 +62,7 @@ class _WaitingInternalisationScreenState
     final vm = Provider.of<InternalisationViewModel>(context, listen: false);
 
     return Container(
-      margin: UIHelper.getContainerMargin(),
+      margin: UIHelper.containerMargin,
       child: ListView(
         children: <Widget>[
           MarkdownBody(

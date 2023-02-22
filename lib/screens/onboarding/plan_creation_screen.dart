@@ -3,6 +3,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
+import 'package:prompt/widgets/onboarding_instructionbubble.dart';
 import 'package:provider/provider.dart';
 
 class PlanCreationScreen extends StatefulWidget {
@@ -17,28 +18,10 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Widget childWidget = buildEnterHabit();
-
-    return Container(
-      child: childWidget,
-    );
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _habitTextController.text =
-        Provider.of<OnboardingViewModel>(context, listen: false)
-            .plan
-            .replaceFirst("Wenn ich ", "")
-            .replaceFirst(", dann lerne ich mit cabuu!", "");
-  }
-
-  Widget buildEnterHabit() {
     var vm = Provider.of<OnboardingViewModel>(context);
 
-    return ListView(children: [
-      UIHelper.verticalSpaceLarge,
+    return Container(
+        child: ListView(children: [
       MarkdownBody(data: "### " + AppStrings.PlanCreation_LetsCreatePlan),
       UIHelper.verticalSpaceSmall,
       MarkdownBody(
@@ -48,7 +31,6 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
       UIHelper.verticalSpaceMedium,
       Container(
         padding: EdgeInsets.all(10),
-        // round corners and white background
         decoration: BoxDecoration(
           color: Theme.of(context).selectedRowColor,
           borderRadius: BorderRadius.circular(10),
@@ -68,7 +50,7 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
                     },
                     keyboardType: TextInputType.text,
                     decoration: new InputDecoration(
-                        fillColor: Colors.white.withAlpha(100),
+                        fillColor: Theme.of(context).selectedRowColor,
                         filled: true,
                         hintText: '   ...'),
                     style: TextStyle(
@@ -83,14 +65,16 @@ class _PlanCreationScreenState extends State<PlanCreationScreen> {
           MarkdownBody(data: '### dann lerne ich mit cabuu! "'),
         ]),
       )
+    ]));
+  }
 
-      // ElevatedButton(
-      //     onPressed: () {
-      //       setState(() {
-      //         _screenState = PlanCreationScreenState.selectTime;
-      //       });
-      //     },
-      //     child: Text(AppStrings.Continue))
-    ]);
+  @override
+  void initState() {
+    super.initState();
+    _habitTextController.text =
+        Provider.of<OnboardingViewModel>(context, listen: false)
+            .plan
+            .replaceFirst("Wenn ich ", "")
+            .replaceFirst(", dann lerne ich mit cabuu!", "");
   }
 }

@@ -22,12 +22,12 @@ class AppStrings {
     return "Fortschritt zur nächsten Belohnung: $days / $max";
   }
 
-  // Session Zero Welcome Screen
+  // Onboarding Welcome Screen
   static const String Welcome_WelcomeToPROMPT = "Willkommen bei PROMPT!";
   static const String Welcome_IntroductionTakeYourTime =
       "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.";
 
-  // Session Zero Cabuu Link
+  // Onboarding Cabuu Link
   static const String CabuuLink_WantToParticipate =
       "Ja, ich möchte an der Studie teilnehmen.";
   static const String CabuuLink_EnterEmail =
@@ -35,11 +35,11 @@ class AppStrings {
   static const String CabuuLink_EnterUsername =
       "Falls du bei cabuu auch mit einem Benutzernamen angemeldet bist, gib diesen bitte hier ein";
 
-  // Session Zero Plan Creation
+  // Onboarding Plan Creation
   static const String PlanCreation_LetsCreatePlan =
-      "Erstelle jetzt für dich selbst einen Plan.";
+      "Erstelle jetzt deinen ersten Plan!";
   static const String PlanCreation_PlanCreationExplanation =
-      "Überlege dir einen Zeitpunkt oder Ort, der möglichst jeden Tag passt, um mit cabuu zu lernen (z.B. morgens nach dem Zähneputzen, mittags an der Bushaltestelle).";
+      "Wann und wo könntest du morgen gut Vokabeln lernen?";
   static const String PlanCreation_CompleteThePlan =
       "Vervollständige den Plan:";
   static const String ThinkOfSomething =
@@ -50,15 +50,24 @@ class AppStrings {
   static const String After = "Danach";
   static const String Neither = "Weder noch";
 
-  // Session Zero Plan Display
+  // Onboarding Plan Display
   static const String PlanDisplay_Excellent = "Prima!";
   static const String PlanDisplay_YourPlanIs = "Dein Plan lautet also:";
   static const String PlanDisplay_RememberYourPlan = "Merke dir den Plan gut!";
 
+  // Onboarding Why Vocabulary Learning Screen
   static const String WhyVocab_ParagraphOne =
       "In der Studie PROMPT wollen wir dir dabei helfen, Vokabeln so zu lernen, dass du sie dir besonders gut merken kannst.";
   static const String WhyVocab_ParagraphTwo =
       "Denk mal nach: Warum ist es für dich wichtig, Englischvokabeln zu lernen? Wie könnte es für dich auch außerhalb der Schule gut sein, viele Englischvokabeln zu kennen?";
+
+  // Onboarding Obstacle Outcome Coping
+  static const String SessionZero_ObstacleEnter_1 =
+      "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:";
+  static const String SessionZero_OutcomeEnter_1 =
+      "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:";
+  static const String SessionZero_CopingPlanEnter_1 =
+      "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:";
 
   static const String GoalIntention_ParagraphOne =
       "Damit du es schaffst, regelmäßig Vokabeln zu lernen, solltest du dir ein **Ziel** setzen";
@@ -67,13 +76,6 @@ class AppStrings {
   static const String GoalIntention_SayToYourself = "Sag zu dir selbst:";
   static const String GoalIntention_Plan =
       '"Ich will jeden Tag ein paar Vokabeln mit cabuu lernen"';
-
-  //Session Zero  Mascot Selection
-  static const String EndofsessionText =
-      "Prima, gleich bist du für heute fertig! Denk daran, dass du PROMPT ab morgen jeden Tag - am besten schon morgens - benutzen sollst.";
-  static const String SelectionOfMascot =
-      "Zum Schluss kannst du dir jetzt noch ein Monster aussuchen, das dich im Laufe der Studie begleitet. Es macht für die Studie keinen Unterschied, welches Monster du wählst. Du kannst das Monster auch später noch wechseln.";
-  static const String ThinkAboutYourGoal = "Denke an dein Ziel:";
 
   // Goal Intention
   static const String HelpLearnVocabulary =
@@ -90,13 +92,6 @@ class AppStrings {
 
   // Shared Across Many Screens
   static const String Continue = "Weiter";
-
-  static const String SessionZero_ObstacleEnter_1 =
-      "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:";
-  static const String SessionZero_OutcomeEnter_1 =
-      "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:";
-  static const String SessionZero_CopingPlanEnter_1 =
-      "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:";
 
   // Emoji Internalisation Screen
   static const String EmojiInternalisation_Instruction =
@@ -124,13 +119,18 @@ class AppStrings {
   static const String BoosterPrompt_Text =
       "Denk daran, dass du dir die Vokabeln am besten merken kannst, wenn du jeden Tag lernst!";
 
-  static const String NoTask_Continue_After_Cabuu =
+  // DASHBOARD
+  static const String Dashboard_Continue_After_Cabuu =
       "Drücke hier, sobald du heute mit cabuu gelernt hast.";
-  static const String NoTask_ContinueTomorrow =
+  static const String Dashboard_ContinueTomorrow =
       "Komme morgen früh hierher zurück und mache weiter.";
-
-  static const String EveningAssessment_Completed =
-      "Vielen Dank, dass du die Fragen beantwortet hast.";
+  static const String Dashboard_StartTomorrow = "Morgen geht es richtig los";
+  static const String Dashboard_MainMessage_FirstDay =
+      "Morgen geht es richtig los!";
+  static const String Dashboard_MainMessage_BeforeEvening =
+      "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.";
+  static const String Dashboard_ClickAfterVocabTest =
+      "Drücke hier, wenn du deinen Vokabeltest erledigt hast";
 
   static const String MorningAssessment_FirstDay_Screen1_1 =
       "Benutze PROMPT ab jetzt **jeden Tag** und zwar am besten schon **morgens**. Die ersten Fragen sollst du nämlich beantworten, **bevor** du mit cabuu lernst.";
@@ -159,9 +159,4 @@ class AppStrings {
 
   static const String PlanTiming_Paragraph2 =
       "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.";
-
-  static const String Dashboard_MainMessage_FirstDay =
-      "Morgen geht es richtig los!";
-  static const String Dashboard_MainMessage_BeforeEvening =
-      "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.";
 }

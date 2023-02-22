@@ -6,8 +6,6 @@ import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
-// import 'package:prompt/widgets/emoji_keyboard/base_emoji.dart';
-// import 'package:prompt/widgets/emoji_keyboard/emoji_keyboard_widget.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart' as foundation;
@@ -134,7 +132,7 @@ class _EmojiInternalisationScreenState
         width: width,
         child: Stack(children: [
           TextField(
-            minLines: 3,
+            minLines: 2,
             maxLines: 3,
             controller: controller,
             autofocus: true,

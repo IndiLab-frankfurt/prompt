@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/services/locator.dart';
@@ -6,6 +5,7 @@ import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
+import 'package:prompt/widgets/dashboard_button.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:provider/provider.dart';
@@ -20,12 +20,9 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver {
   late DashboardViewModel vm = Provider.of<DashboardViewModel>(context);
-  Timer? updateRegularlyTimer;
   @override
   void initState() {
     super.initState();
-
-    WidgetsBinding.instance.addPostFrameCallback((_) async {});
 
     WidgetsBinding.instance.addObserver(this);
   }
@@ -38,39 +35,11 @@ class _DashboardScreenState extends State<DashboardScreen>
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.resumed:
-        onResumed();
-        break;
-      case AppLifecycleState.inactive:
-        onPaused();
-        break;
-      case AppLifecycleState.paused:
-        onInactive();
-        break;
-      case AppLifecycleState.detached:
-        onDetached();
-        break;
+    if (state == AppLifecycleState.resumed) {
+      setState(() {
+        vm.getNextTask();
+      });
     }
-  }
-
-  void onResumed() {
-    print("on resumed");
-    setState(() {
-      vm.getNextTask();
-    });
-  }
-
-  void onPaused() {
-    print("on paused");
-  }
-
-  void onInactive() {
-    print("on inactive");
-  }
-
-  void onDetached() {
-    print("on detached");
   }
 
   showDialogIfNecessary() async {
@@ -104,14 +73,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  Future<bool> setNextText() async {
-    return true;
-  }
-
-  _getDrawer() {
-    return PromptDrawer();
-  }
-
   @override
   Widget build(BuildContext context) {
     var rewardService = locator.get<RewardService>();
@@ -129,7 +90,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 child: Scaffold(
                     backgroundColor: Colors.transparent,
                     appBar: PromptAppBar(showBackButton: true),
-                    drawer: _getDrawer(),
+                    drawer: PromptDrawer(),
                     body: FutureBuilder(
                       future: vm.getNextTask(),
                       builder: (_, snapshot) {
@@ -144,14 +105,10 @@ class _DashboardScreenState extends State<DashboardScreen>
                                         _buildToNextTaskButton(),
                                       if (vm.showVocabularyTestReminder)
                                         _buildVocabTestReminder(),
-                                      if (vm.showContinueTomorrowButton)
-                                        _buildReturnTomorrowButton(),
                                       if (vm.startTomorrow)
                                         _buildStartTomorrow(),
                                       UIHelper.verticalSpaceSmall,
-                                      // _buildChangeBackgroundButton(),
                                       UIHelper.verticalSpaceMedium,
-                                      // Divider(),
                                       _buildStatistics()
                                     ],
                                   ),
@@ -184,8 +141,6 @@ class _DashboardScreenState extends State<DashboardScreen>
         UIHelper.verticalSpaceMedium,
         Text(nextVocab),
         UIHelper.verticalSpaceMedium,
-        // Text(AppStrings.progressToReward(vm.daysActive, daysToNextReward)),
-        // UIHelper.verticalSpaceSmall,
         SizedBox(
           width: 300,
           child: LinearProgressIndicator(
@@ -199,89 +154,18 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   _buildVocabTestReminder() {
-    return Container(
-        width: double.infinity,
-        height: 80,
-        margin: EdgeInsets.all(10),
-        child: Column(
-          children: [
-            Text("Denk dran, heute in cabuu den Test zu machen."),
-            OutlinedButton(
-              onPressed: () async {
-                setState(() {});
-              },
-              child: Text(
-                "Drücke hier, wenn du damit fertig bist.",
-                style: TextStyle(color: Colors.black),
-              ),
-              style: OutlinedButton.styleFrom(
-                  backgroundColor: Colors.orange[200],
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  side: BorderSide(width: 1.0, color: Colors.grey)),
-            ),
-          ],
-        ));
+    return DashboardButton(
+        onPressed: () async {
+          setState(() {});
+        },
+        text: AppStrings.Dashboard_ClickAfterVocabTest);
   }
 
   _buildStartTomorrow() {
-    return Container(
-        width: double.infinity,
-        height: 80,
-        margin: EdgeInsets.all(10),
-        child: OutlinedButton(
-          onPressed: () async {},
-          child: Text(
-            "Morgen geht es richtig los",
-            style: TextStyle(color: Colors.black),
-          ),
-          style: OutlinedButton.styleFrom(
-              backgroundColor: Colors.orange[200],
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              side: BorderSide(width: 1.0, color: Colors.grey)),
-        ));
+    return DashboardButton(text: AppStrings.Dashboard_MainMessage_FirstDay);
   }
 
   _buildToNextTaskButton() {
-    return Container(
-        width: double.infinity,
-        height: 80,
-        margin: EdgeInsets.all(10),
-        child: OutlinedButton(
-          onPressed: () async {
-            setState(() {});
-          },
-          child: Text(
-            vm.messageContinueAfterCabuu,
-            style: TextStyle(color: Colors.black),
-          ),
-          style: OutlinedButton.styleFrom(
-              backgroundColor: Colors.orange[200],
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              side: BorderSide(width: 1.0, color: Colors.grey)),
-        ));
-  }
-
-  _buildReturnTomorrowButton() {
-    return Container(
-        width: double.infinity,
-        height: 50,
-        margin: EdgeInsets.all(10),
-        child: OutlinedButton(
-          onPressed: () async {
-            setState(() {});
-          },
-          child: Text(
-            vm.messageContinueTomorrow,
-            style: TextStyle(color: Colors.black),
-          ),
-          style: OutlinedButton.styleFrom(
-              backgroundColor: Colors.orange[200],
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(10))),
-              side: BorderSide(width: 1.0, color: Colors.grey)),
-        ));
+    return DashboardButton(text: AppStrings.Dashboard_Continue_After_Cabuu);
   }
 }

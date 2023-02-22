@@ -5,7 +5,6 @@ class UIHelper {
   static const double _verticalSpaceMedium = 20.0;
   static const double _verticalSpaceLarge = 50.0;
 
-  // Vertical spacing constants. Adjust to your liking.
   static const double _horizontalSpaceSmall = 10.0;
   static const double _horizontalSpaceMedium = 20.0;
   static const double _horizontalSpaceLarge = 50.0;
@@ -26,8 +25,9 @@ class UIHelper {
       border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))));
 
-  static Color bgGradientStart = Color(0xfff2994a);
-  static Color bgGradientEnd = Color(0xfff2c94c);
+  static Color bgGradientStart = Color(0xFFFFF3E0);
+  static Color bgGradientEnd = Color(0xff9fc7f0);
+  static Color boxColor = Color.fromARGB(146, 139, 187, 235);
 
   static List<Color> baseGradientColors = [
     UIHelper.bgGradientStart,
@@ -61,10 +61,6 @@ class UIHelper {
 
   static Widget horizontalSpace(double width) {
     return SizedBox(width: width);
-  }
-
-  static EdgeInsets getContainerMargin() {
-    return EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 5);
   }
 
   static const containerPadding =

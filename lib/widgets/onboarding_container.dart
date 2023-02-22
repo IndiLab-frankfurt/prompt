@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/shared/ui_helper.dart';
 
 class OnboardingContainer extends StatelessWidget {
   final Widget child;
@@ -11,9 +10,7 @@ class OnboardingContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 30),
-      decoration: BoxDecoration(
-          gradient: UIHelper.baseGradient, image: this.decorationImage),
+      decoration: BoxDecoration(image: this.decorationImage),
       child: this.child,
     );
   }

@@ -16,9 +16,6 @@ class DashboardViewModel extends BaseViewModel {
 
   late double studyProgress = daysActive / getMaxStudyDays();
 
-  String messageContinueAfterCabuu = AppStrings.NoTask_Continue_After_Cabuu;
-  String messageContinueTomorrow = AppStrings.NoTask_ContinueTomorrow;
-
   DashboardViewModel(this._studyService);
 
   String daysUntilVocabTestString() {

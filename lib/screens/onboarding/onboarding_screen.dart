@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
-import 'package:prompt/screens/onboarding/cabuu_code_screen.dart';
 import 'package:prompt/screens/onboarding/copingplan_enter_screen.dart';
 import 'package:prompt/screens/onboarding/horizontal_questionnaire.dart';
+import 'package:prompt/screens/onboarding/instructions_cabuu_1.dart';
+import 'package:prompt/screens/onboarding/instructions_cabuu_2.dart';
 import 'package:prompt/screens/onboarding/instructions_distributed_learning.dart';
 import 'package:prompt/screens/onboarding/instructions_implementation_intentions.dart';
 import 'package:prompt/screens/onboarding/obstacle_enter_screen.dart';
 import 'package:prompt/screens/onboarding/outcome_enter_screen.dart';
 import 'package:prompt/screens/onboarding/plan_creation_screen.dart';
-import 'package:prompt/screens/onboarding/plan_display_screen.dart';
 import 'package:prompt/screens/onboarding/plan_timing_screen.dart';
 import 'package:prompt/screens/onboarding/reward_screen_1.dart';
 import 'package:prompt/screens/onboarding/welcome_screen.dart';
-import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/keep_alive_page.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
@@ -53,8 +52,16 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     return WillPopScope(
         onWillPop: () async => false,
         child: Container(
-          decoration: UIHelper.defaultBoxDecoration,
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                Theme.of(context).dialogBackgroundColor,
+                Theme.of(context).primaryColorLight
+              ])),
           child: Scaffold(
+              backgroundColor: Colors.transparent,
               appBar: PromptAppBar(
                 showBackButton: true,
                 title: vm.pages[vm.page]
@@ -69,8 +76,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.hasData) {
                     return Container(
-                        decoration: UIHelper.defaultBoxDecoration,
-                        padding: UIHelper.containerPadding,
+                        color: Colors.transparent,
+                        margin: EdgeInsets.only(left: 5, right: 5),
+                        padding: EdgeInsets.only(
+                            left: 5, right: 5, top: 40, bottom: 20),
                         child: MultiPageScreen(
                           vm,
                           snapshot.data,
@@ -98,8 +107,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           onVideoCompleted: vm.videoWelcomeCompleted,
           key: key,
         );
-      case OnboardingStep.cabuuCode:
-        return CabuuCodeScreen(key: key);
       case OnboardingStep.video_distributedLearning:
         return VideoScreen('assets/videos/videoDistributedLearning.mp4',
             key: key, onVideoCompleted: vm.videoDistributedLearningCompleted);
@@ -116,8 +123,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             key: key, onVideoCompleted: vm.videoPlanningCompleted);
       case OnboardingStep.planCreation:
         return PlanCreationScreen(key: key);
-      case OnboardingStep.planDisplay:
-        return PlanDisplayScreen(key: key);
       case OnboardingStep.planInternalisationEmoji:
         return ChangeNotifierProvider.value(
           value: vm.internalisationViewmodelEmoji,
@@ -144,29 +149,12 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         return ChangeNotifierProvider(
             create: (_) => vm.questionnaireToB,
             child: HorizontalQuestionnaire());
-        break;
-      case OnboardingStep.whyLearnVocabScreen:
-        // TODO: Handle this case.
-        break;
       case OnboardingStep.planTiming:
         return PlanTimingScreen(key: key);
       case OnboardingStep.instructions_cabuu_1:
-        // TODO: Handle this case.
-        break;
+        return InstructionsCabuu1(key: key);
       case OnboardingStep.instructions_cabuu_2:
-        // TODO: Handle this case.
-        break;
-      case OnboardingStep.instructions_cabuu_3:
-        // TODO: Handle this case.
-        break;
-
-      case OnboardingStep.endOfSession:
-        // TODO: Handle this case.
-        break;
+        return InstructionsCabuu2(key: key);
     }
-    return Container(
-      key: key,
-      child: Text('Not implemented: $step'),
-    );
   }
 }

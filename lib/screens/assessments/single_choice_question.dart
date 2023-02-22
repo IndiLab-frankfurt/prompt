@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/models/question.dart';
+import 'package:prompt/shared/ui_helper.dart';
 
 typedef void ChoiceQuestionCallback(String val);
 
@@ -77,9 +78,10 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
             },
           ),
           Expanded(
-            child: MarkdownBody(
-              data: text,
-            ),
+            // child: MarkdownBody(
+            //   data: text,
+            // ),
+            child: Text(text, style: TextStyle(fontSize: 18.0)),
           )
         ],
       ),
@@ -190,6 +192,7 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
       MarkdownBody(
         data: "## " + widget.question.questionText,
       ),
+      UIHelper.verticalSpaceMedium,
       Column(mainAxisAlignment: MainAxisAlignment.start, children: items)
     ]);
   }

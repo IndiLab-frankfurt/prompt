@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_router.dart';
+import 'package:prompt/shared/ui_helper.dart';
 
 import 'screens/main/startup_screen.dart';
 
@@ -32,27 +33,26 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Prompt',
       theme: ThemeData(
-          scaffoldBackgroundColor: Color(0xfff2994a),
-          canvasColor: Colors.white,
-          selectedRowColor: Colors.orange[200],
-          textTheme: TextTheme(
-            bodyText1: GoogleFonts.quicksand(fontSize: 15),
-            bodyText2: GoogleFonts.quicksand(
-                fontSize: 15, fontWeight: FontWeight.w700),
-            subtitle1: GoogleFonts.quicksand(
-                fontSize: 20, fontWeight: FontWeight.w600),
-          ),
-          buttonTheme: ButtonThemeData(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)))),
-          iconTheme: IconThemeData(color: Colors.black),
-          colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)
-              .copyWith(secondary: Color(0xfff96d15))),
+        useMaterial3: true,
+        colorSchemeSeed: Colors.lightBlue,
+        scaffoldBackgroundColor: UIHelper.bgGradientStart,
+        textTheme: TextTheme(
+          bodyText1: GoogleFonts.quicksand(fontSize: 15),
+          bodyText2:
+              GoogleFonts.quicksand(fontSize: 15, fontWeight: FontWeight.w700),
+          subtitle1:
+              GoogleFonts.quicksand(fontSize: 20, fontWeight: FontWeight.w600),
+        ),
+        buttonTheme: ButtonThemeData(
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+            style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20)))),
+        iconTheme: IconThemeData(color: Colors.black),
+      ),
       onGenerateRoute: AppRouter.generateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
       home: StartupScreen(),

@@ -26,7 +26,7 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
       padding: EdgeInsets.all(10),
       child: ListView(
         children: [
-          SpeechBubble(text: vm.plan),
+          // SpeechBubble(text: vm.plan),
           UIHelper.verticalSpaceMedium,
           MarkdownBody(data: "### " + AppStrings.PlanTiming_Paragraph1),
           UIHelper.verticalSpaceMedium,
@@ -46,7 +46,10 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
       TimeOfDay? time = await showTimePicker(
         initialTime: TimeOfDay(hour: 18, minute: 0),
         context: context,
-        initialEntryMode: TimePickerEntryMode.input,
+        errorInvalidText:
+            "Der Zeitpunkt muss zwischen 18 Uhr und 24 Uhr liegen",
+        helpText: "Wähle die Uhrzeit für die Erinnerung aus",
+        initialEntryMode: TimePickerEntryMode.dial,
         builder: (BuildContext context, Widget? child) {
           return MediaQuery(
             data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
@@ -76,35 +79,14 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
       onTap: () async {
         selectTime();
       },
+      style: Theme.of(context).textTheme.headline3,
+      textAlign: TextAlign.center,
       decoration: InputDecoration(
         labelText: "Uhrzeit",
         suffixIcon: Icon(Icons.access_time),
         hintText: "Uhrzeit",
       ),
     );
-
-    // return InkWell(
-    //   child: Row(
-    //     children: <Widget>[
-    //       Radio(
-    //         groupValue: _groupValue,
-    //         value: groupValue,
-    //         onChanged: (value) {
-    //           // FocusScope.of(context).unfocus();
-    //           selectTime();
-    //         },
-    //       ),
-    //       Expanded(
-    //         child: MarkdownBody(
-    //           data: text,
-    //         ),
-    //       )
-    //     ],
-    //   ),
-    //   onTap: () async {
-    //     selectTime();
-    //   },
-    // );
   }
 
   _onChanged(String selectedValue) {

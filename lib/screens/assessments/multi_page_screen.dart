@@ -9,8 +9,12 @@ class MultiPageScreen extends StatefulWidget {
   final List<Widget> pages;
   final int initialStep;
   final bool showBottomBar;
+  final bool useGestures;
   MultiPageScreen(this.vm, this.pages,
-      {this.initialStep = 0, this.showBottomBar = true, Key? key})
+      {this.initialStep = 0,
+      this.showBottomBar = true,
+      this.useGestures = false,
+      Key? key})
       : super(key: key);
 
   @override
@@ -51,23 +55,41 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
   }
 
   _buildPageView() {
-    return Container(
-      child: Column(
-        children: [
-          Flexible(
-            child: PageView.builder(
-              controller: _controller,
-              physics: NeverScrollableScrollPhysics(),
-              itemCount: widget.pages.length,
-              itemBuilder: (context, index) {
-                return KeepAlivePage(child: widget.pages[index]);
-              },
+    return GestureDetector(
+      onHorizontalDragEnd: (details) async {
+        if (details.primaryVelocity == null) return;
+
+        int sensitivity = 6;
+
+        // Swiping in right direction.
+        if (details.primaryVelocity! > sensitivity) {
+          await widget.vm.previousPage();
+        }
+        // Swiping in left direction.
+        if (details.primaryVelocity! < sensitivity) {
+          await widget.vm.nextPage();
+        }
+      },
+      child: Container(
+        child: Column(
+          children: [
+            Flexible(
+              child: PageView.builder(
+                controller: _controller,
+                // We need increased control, so we cannot use the default scroll physics here
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: widget.pages.length,
+                itemBuilder: (context, index) {
+                  return KeepAlivePage(child: widget.pages[index]);
+                },
+              ),
             ),
-          ),
-          if (widget.showBottomBar) _buildBottomNavigation(),
-          if (widget.vm.page < widget.pages.length - 1)
-            if (widget.vm.page == widget.pages.length - 1) _buildSubmitButton()
-        ],
+            if (widget.showBottomBar) _buildBottomNavigation(),
+            if (widget.vm.page < widget.pages.length - 1)
+              if (widget.vm.page == widget.pages.length - 1)
+                _buildSubmitButton()
+          ],
+        ),
       ),
     );
   }

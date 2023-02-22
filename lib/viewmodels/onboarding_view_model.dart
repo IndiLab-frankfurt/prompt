@@ -29,11 +29,6 @@ enum OnboardingStep {
   planTiming,
   instructions_cabuu_1,
   instructions_cabuu_2,
-  instructions_cabuu_3,
-  cabuuCode,
-  whyLearnVocabScreen,
-  planDisplay,
-  endOfSession
 }
 
 class OnboardingViewModel extends MultiPageViewModel {
@@ -227,16 +222,13 @@ class OnboardingViewModel extends MultiPageViewModel {
 
     switch (stepKey) {
       case OnboardingStep.welcome:
-      case OnboardingStep.cabuuCode:
       case OnboardingStep.video_Planning:
       case OnboardingStep.video_distributedLearning:
       case OnboardingStep.instructions_cabuu_1:
       case OnboardingStep.instructions_cabuu_2:
-      case OnboardingStep.instructions_cabuu_3:
       case OnboardingStep.instructions_distributedLearning:
       case OnboardingStep.instructions_implementationIntentions:
       case OnboardingStep.rewardScreen1:
-      case OnboardingStep.planDisplay:
         break;
       case OnboardingStep.video_introduction:
         if (_rewardService.scoreValue < 5) {
@@ -247,15 +239,6 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.assessment_ToB:
       case OnboardingStep.assessment_motivation:
       case OnboardingStep.planTiming:
-        break;
-      case OnboardingStep.whyLearnVocabScreen:
-        var vocabValueResponse = QuestionnaireResponse(
-            name: "vocabValue",
-            questionnaireName: "vocabvalue",
-            questionText: "",
-            response: vocabValue,
-            dateSubmitted: DateTime.now());
-        _dataService.saveQuestionnaireResponse(vocabValueResponse);
         break;
       case OnboardingStep.planCreation:
         var planResponse = QuestionnaireResponse(
@@ -271,9 +254,6 @@ class OnboardingViewModel extends MultiPageViewModel {
         if (_rewardService.scoreValue < 10) {
           _rewardService.addPoints(20);
         }
-
-        break;
-      case OnboardingStep.endOfSession:
         break;
       case OnboardingStep.outcome:
         var outcomeResponse = QuestionnaireResponse(
@@ -319,10 +299,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     switch (stepKey) {
       case OnboardingStep.rewardScreen1:
       case OnboardingStep.instructions_cabuu_2:
-      case OnboardingStep.instructions_cabuu_3:
       case OnboardingStep.video_introduction:
-      case OnboardingStep.planDisplay:
-      case OnboardingStep.cabuuCode:
       case OnboardingStep.welcome:
       case OnboardingStep.instructions_cabuu_1:
       case OnboardingStep.assessment_vocabRoutine:
@@ -335,8 +312,6 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.planTiming:
       case OnboardingStep.instructions_distributedLearning:
       case OnboardingStep.instructions_implementationIntentions:
-      case OnboardingStep.endOfSession:
-      case OnboardingStep.whyLearnVocabScreen:
         return false;
       case OnboardingStep.outcome:
         return outcome.isNotEmpty;
@@ -355,15 +330,11 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.video_introduction:
         return _videoWelcomeCompleted;
       case OnboardingStep.welcome:
-      case OnboardingStep.cabuuCode:
-      case OnboardingStep.planDisplay:
         return true;
       case OnboardingStep.assessment_vocabRoutine:
       case OnboardingStep.assessment_ToB:
       case OnboardingStep.assessment_motivation:
         return true;
-      case OnboardingStep.whyLearnVocabScreen:
-        return vocabValue.isNotEmpty;
       case OnboardingStep.video_Planning:
         return _videoPlanningCompleted;
       case OnboardingStep.video_distributedLearning:
