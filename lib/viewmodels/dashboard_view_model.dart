@@ -42,7 +42,7 @@ class DashboardViewModel extends BaseViewModel {
     }
     if (daysAgo >= 1 && daysAgo < getMaxStudyDays()) {
       // show message only if it is earlier than 6pm
-      if (DateTime.now().hour < 18) {
+      if (DateTime.now().toLocal().hour < 18) {
         return AppStrings.Dashboard_MainMessage_BeforeEvening;
       }
     }
