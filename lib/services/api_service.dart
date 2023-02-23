@@ -8,14 +8,12 @@ import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 import 'package:prompt/shared/enums.dart';
 
 class ApiService {
-  // static String serverUrl = "https://prompt-app.eu";
   static String serverUrl = "http://10.0.2.2:8000";
 
   final SettingsService _settingsService;
 
   Future<bool> initialize() {
-    if (kIsWeb && kDebugMode) {
-      // serverUrl = "http://127.0.0.1:8000";
+    if (kIsWeb || !kDebugMode) {
       serverUrl = "https://prompt-app.eu";
     }
     return Future.value(true);

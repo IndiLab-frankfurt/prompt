@@ -23,6 +23,8 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
       unlockItems.add(_buildUnlockItem(bg, rewardService.scoreValue));
     }
 
+    var progress = rewardService.getRewardProgress(rewardService.scoreValue);
+
     return Scaffold(
       appBar: PromptAppBar(
         title: "Hintergründe freischalten",
@@ -33,7 +35,7 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
               indicatorColor: Theme.of(context).primaryColor,
               indicatorColorInactive: Colors.grey,
               lineColor: Theme.of(context).primaryColor,
-              progress: ((rewardService.scoreValue) / RewardService.MAX_SCORE),
+              progress: progress,
               children: [...unlockItems])),
     );
   }
@@ -59,11 +61,8 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
     } else {
       String text = "";
       var daysToUnlock = unlockable.cost - balance;
-      if (daysToUnlock == 1) {
-        text = "Noch $daysToUnlock 💎";
-      } else {
-        text = "Noch $daysToUnlock Tage alle Aufgaben erledigen";
-      }
+      text = "Noch $daysToUnlock 💎";
+
       unlockButton = ElevatedButton(
         style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
         onPressed: () {

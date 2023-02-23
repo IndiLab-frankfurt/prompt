@@ -5,6 +5,8 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/logging_service.dart';
 
 class RewardService {
+  RewardService(this._dataService, this._logService);
+
   late StreamController<int> controller = StreamController.broadcast();
   int scoreValue = 0;
   int gems = 0;
@@ -34,17 +36,55 @@ class RewardService {
   final DataService _dataService;
   final LoggingService _logService;
 
-  final List<int> unlockDays = [
-    0,
-    1,
-    3,
-  ];
+  final Map<String, int> unlockValues = {
+    "Monster": 0,
+    "Flugzeug": 10,
+    "Weltraum 1": 40,
+    "Pyramiden 1": 100,
+    "Vulkan 1": 170,
+    "Wikinger 1": 300,
+    "Ozean 1": 810,
+    "Pyramiden 2": 660,
+    "Zauberei 1": 1260,
+    "Weltraum 2": 1000,
+    "Vulkan 2": 400,
+    "Ozean 2": 1200,
+    "Wikinger 2": 1290,
+    "Zauberei 2": 1260,
+  };
+
+  double getRewardProgress(int val) {
+    var prevStep = 0;
+
+    var values = unlockValues.values.toList();
+    values.sort();
+
+    if (val == 0) return 0;
+
+    for (var i = 0; i < values.length; i++) {
+      var current = values[i];
+
+      // if prev_step is higher than val, then this step is unlocked
+      // otherwise, the next step is the one that is unlocked next
+      if (val < current) {
+        var prevPercentage = i / unlockValues.length;
+        var nextPercentage = (i + 1) / unlockValues.length;
+        // return linear interpolation between previous and current step
+        return prevPercentage +
+            (val - prevStep) /
+                (current - prevStep) *
+                (nextPercentage - prevPercentage);
+      }
+
+      prevStep = current;
+    }
+
+    return 1;
+  }
 
   List<UnlockableBackground> get backgrounds {
     return getBackgroundImages(_selectedMascot);
   }
-
-  RewardService(this._dataService, this._logService);
 
   Future retrieveScore() async {
     await _dataService.getScore().then((s) {
@@ -112,24 +152,8 @@ class RewardService {
   }
 
   getUnlockDays(String background) {
-    var unlockDays = {
-      "Monster": 0,
-      "Flugzeug": 10,
-      "Weltraum 1": 40,
-      "Pyramiden 1": 100,
-      "Vulkan 1": 170,
-      "Wikinger 1": 300,
-      "Ozean 1": 810,
-      "Pyramiden 2": 660,
-      "Zauberei 1": 1260,
-      "Weltraum 2": 1000,
-      "Vulkan 2": 400,
-      "Ozean 2": 1200,
-      "Wikinger 2": 1290,
-      "Zauberei 2": 1260,
-    };
-    if (unlockDays.containsKey(background)) {
-      return unlockDays[background];
+    if (unlockValues.containsKey(background)) {
+      return unlockValues[background];
     }
 
     return 0;
