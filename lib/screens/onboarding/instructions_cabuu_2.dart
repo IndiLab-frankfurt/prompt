@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:url_launcher/url_launcher_string.dart';
+import 'package:intl/intl.dart';
 
 class InstructionsCabuu2 extends StatelessWidget {
   const InstructionsCabuu2({Key? key}) : super(key: key);
@@ -9,6 +10,9 @@ class InstructionsCabuu2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var url = "https://youtu.be/k47mVYRf-yU";
+
+    var format = new DateFormat("dd.MM.yyyy");
+    var targetDate = format.format(DateTime.now().add(Duration(days: 8)));
     return Container(
         child: ListView(
       children: [
@@ -30,6 +34,11 @@ class InstructionsCabuu2 extends StatelessWidget {
                   }
                 })),
         UIHelper.verticalSpaceMedium,
+        MarkdownBody(data: "Schreibe dir außerdem dieses Datum auf:"),
+        UIHelper.verticalSpaceSmall,
+        Center(child: MarkdownBody(data: "# **$targetDate**")),
+        UIHelper.verticalSpaceSmall,
+        MarkdownBody(data: "Wofür du das brauchst, erfährst du gleich."),
         MarkdownBody(
             data:
                 "Komme hierher zurück und klicke auf “Weiter”, wenn du damit fertig bist.")

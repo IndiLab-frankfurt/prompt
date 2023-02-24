@@ -22,11 +22,6 @@ class AppStrings {
     return "Fortschritt zur nächsten Belohnung: $days / $max";
   }
 
-  // Onboarding Welcome Screen
-  static const String Welcome_WelcomeToPROMPT = "Willkommen bei PROMPT!";
-  static const String Welcome_IntroductionTakeYourTime =
-      "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.";
-
   // Onboarding Cabuu Link
   static const String CabuuLink_WantToParticipate =
       "Ja, ich möchte an der Studie teilnehmen.";
