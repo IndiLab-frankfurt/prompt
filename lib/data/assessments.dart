@@ -5,7 +5,12 @@ import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/shared/enums.dart';
 
 Map<String, String> CHOICES_APPLIES = {
-  "does_not_apply": "Das trifft nicht auf mich zu",
+  "does_fully_not_apply": "Trifft gar nicht auf mich zu",
+  "does_barely_not_apply": "trifft kaum auf mich zu",
+  "does_rather_not_apply": "Trifft eher nicht auf mich zu",
+  "neutral": "Teils / teils",
+  "barely_applies": "Trifft eher auf mich zu",
+  "rather_applies": "trifft deutlich auf mich zu",
   "fully_applies": "Trifft voll und ganz auf mich zu",
 };
 

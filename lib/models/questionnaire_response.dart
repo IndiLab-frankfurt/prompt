@@ -27,7 +27,7 @@ class QuestionnaireResponse {
         var response = "";
         if (q.selectedChoices.length > 1) {
           response = q.selectedChoices.join(", ");
-        } else {
+        } else if (q.selectedChoices.length == 1) {
           response = q.selectedChoices.first;
         }
         responses.add(QuestionnaireResponse(

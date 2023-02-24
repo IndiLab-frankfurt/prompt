@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
+import 'package:prompt/widgets/time_picker_grid_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:prompt/shared/app_strings.dart';
 
@@ -41,42 +42,46 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
   }
 
   buildTimeSelector() {
-    var selectTime = () async {
-      TimeOfDay? time = await showTimePicker(
-        initialTime: TimeOfDay(hour: 18, minute: 0),
-        context: context,
-        errorInvalidText:
-            "Der Zeitpunkt muss zwischen 18 Uhr und 24 Uhr liegen",
-        helpText: "Wähle die Uhrzeit für die Erinnerung aus",
-        initialEntryMode: TimePickerEntryMode.dial,
-        builder: (BuildContext context, Widget? child) {
-          return MediaQuery(
-            data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-            child: child!,
-          );
-        },
-      );
+    // var selectTime = () async {
+    //   TimeOfDay? time = await showTimePicker(
+    //     initialTime: TimeOfDay(hour: 18, minute: 0),
+    //     context: context,
+    //     errorInvalidText:
+    //         "Der Zeitpunkt muss zwischen 18 Uhr und 24 Uhr liegen",
+    //     helpText: "Wähle die Uhrzeit für die Erinnerung aus",
+    //     initialEntryMode: TimePickerEntryMode.dial,
+    //     builder: (BuildContext context, Widget? child) {
+    //       return MediaQuery(
+    //         data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
+    //         child: child!,
+    //       );
+    //     },
+    //   );
 
-      setState(() {
-        if (time != null) {
-          this.selectedTime = time;
-        }
-      });
+    //   setState(() {
+    //     if (time != null) {
+    //       this.selectedTime = time;
+    //     }
+    //   });
 
-      if (selectedTime != null) {
-        final localizations = MaterialLocalizations.of(context);
-        final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!,
-            alwaysUse24HourFormat: true);
-        _timeDisplayController.text = formattedTimeOfDay;
-        _onChanged(formattedTimeOfDay);
-      }
-    };
+    //   if (selectedTime != null) {
+    //     final localizations = MaterialLocalizations.of(context);
+    //     final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!,
+    //         alwaysUse24HourFormat: true);
+    //     _timeDisplayController.text = formattedTimeOfDay;
+    //     _onChanged(formattedTimeOfDay);
+    //   }
+    // };
     // Textfield to select time
     return TextField(
       controller: _timeDisplayController,
       readOnly: true,
       onTap: () async {
-        selectTime();
+        await showDialog(
+            context: context,
+            builder: (context) {
+              return TimePickerGridDialog();
+            }).then((value) => _onChanged(value));
       },
       style: Theme.of(context).textTheme.headline3,
       textAlign: TextAlign.center,
@@ -88,9 +93,13 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
     );
   }
 
-  _onChanged(String selectedValue) {
+  _onChanged(TimeOfDay? selectedValue) {
+    if (selectedValue == null) {
+      return;
+    }
     setState(() {
-      vm.savePlanTiming(selectedValue);
+      _timeDisplayController.text = selectedValue.format(context);
+      vm.savePlanTiming(selectedValue.format(context));
     });
   }
 }
