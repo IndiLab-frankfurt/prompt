@@ -2,53 +2,40 @@ import 'package:json_annotation/json_annotation.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
-// part 'UserData.g.dart';
+part 'user_data.g.dart';
+
 @JsonSerializable()
 class UserData {
+  @JsonKey(fromJson: _userFromJson)
   String user = "";
   String group = "1";
-  DateTime registrationDate = DateTime.now();
+  DateTime? startDate = DateTime.now();
+  DateTime? reminderTime = DateTime.now();
   int streakDays = 0;
   int score = 0;
   int daysActive = 0;
   int onboardingStep = 0;
-  String appVersion = "";
-  String selectedMascot = "1";
   String cabuuCode = "123";
-  String platform = kIsWeb ? "Web" : (Platform.isAndroid ? "Android" : "iOS");
+  @JsonKey(includeIfNull: false)
+  String? platform = kIsWeb ? "Web" : (Platform.isAndroid ? "Android" : "iOS");
+
+  static String _userFromJson(dynamic user) {
+    return user.toString();
+  }
 
   UserData(
-      {required this.user,
+      {this.user = "",
       this.group = "1",
-      required this.registrationDate,
+      required this.startDate,
       this.cabuuCode = "123",
+      this.reminderTime,
       this.streakDays = 0,
       this.score = 0,
       this.onboardingStep = 0,
-      this.appVersion = "",
-      this.selectedMascot = "1",
       this.daysActive = 0});
 
-  Map<String, dynamic> toMap() {
-    return {
-      "user": this.user,
-      "group": this.group,
-      "registrationDate": this.registrationDate.toIso8601String(),
-      "streakDays": this.streakDays,
-      "score": this.score,
-      "daysActive": this.daysActive,
-      "initSessionStep": this.onboardingStep,
-      "app_version": this.appVersion,
-      "selectedMascot": this.selectedMascot,
-      "cabuuCode": this.cabuuCode,
-    };
-  }
+  factory UserData.fromJson(Map<String, dynamic> json) =>
+      _$UserDataFromJson(json);
 
-  UserData.fromJson(Map<String, dynamic> json) {
-    user = json["user"].toString();
-    group = json["group"];
-    appVersion = json["app_version"];
-    onboardingStep = json["init_step"];
-    score = json["score"];
-  }
+  Map<String, dynamic> toJson() => _$UserDataToJson(this);
 }

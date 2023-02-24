@@ -1,12 +1,13 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_router.dart';
 import 'package:prompt/shared/ui_helper.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'screens/main/startup_screen.dart';
 
 @pragma('vm:entry-point')
@@ -32,6 +33,15 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Prompt',
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: [
+        Locale('de'), // German
+      ],
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.lightBlue,

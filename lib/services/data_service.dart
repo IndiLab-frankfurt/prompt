@@ -115,24 +115,10 @@ class DataService implements BaseService {
     return await _databaseService.getLastPlan();
   }
 
-  setSelectedMascot(String mascot) async {
-    var ud = await getUserData();
-    if (ud != null) {
-      ud.selectedMascot = mascot;
-      await saveUserDataProperty("selectedMascot", mascot);
-    }
-  }
-
   Future<int> getStreakDays() async {
     var userData = await getUserData();
     if (userData == null) return 0;
     return userData.streakDays;
-  }
-
-  Future<String> getSelectedMascot() async {
-    var userData = await getUserData();
-    if (userData == null) return "1";
-    return userData.selectedMascot;
   }
 
   Future<List<Color>?> getBackgroundGradientColors() async {

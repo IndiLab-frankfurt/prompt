@@ -27,8 +27,8 @@ void main() {
 
     await locator<DataService>().initialize();
     var dataService = locator<DataService>();
-    var userData = UserData(
-        user: "123456", registrationDate: DateTime.now(), onboardingStep: 0);
+    var userData =
+        UserData(user: "123456", startDate: DateTime.now(), onboardingStep: 0);
     dataService.setUserDataCache(userData);
     await locator<UserService>().initialize();
     await locator<ApiService>().initialize();

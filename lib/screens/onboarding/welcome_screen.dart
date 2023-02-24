@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
@@ -16,7 +17,7 @@ class WelcomeScreen extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            AppStrings.Welcome_WelcomeToPROMPT,
+            AppLocalizations.of(context)!.welcome,
             style: Theme.of(context).textTheme.headline4,
           ),
           UIHelper.verticalSpaceMedium,

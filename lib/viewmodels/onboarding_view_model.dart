@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:prompt/data/assessments.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
@@ -8,7 +7,6 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
 import 'package:prompt/viewmodels/onboarding_questionnaire_view_model.dart';
-import 'package:collection/collection.dart';
 
 enum OnboardingStep {
   welcome,
@@ -49,8 +47,6 @@ class OnboardingViewModel extends MultiPageViewModel {
       OnboardingQuestionnaireViewModel(
     questionnaire: OB_ToB,
   );
-
-  List<QuestionnaireResponse> _questionnaireResponses = [];
 
   String _plan = "";
   String get plan => _plan;
@@ -133,6 +129,10 @@ class OnboardingViewModel extends MultiPageViewModel {
     generateScreenOrder();
   }
 
+  void savePlanTiming(selectedValue) {
+    _dataService.saveUserDataProperty("reminder_time", selectedValue);
+  }
+
   void generateScreenOrder() {
     pages = getScreenOrder();
   }
@@ -187,6 +187,8 @@ class OnboardingViewModel extends MultiPageViewModel {
       return getNextSubQuestionnairePage(questionnaireToB);
     }
 
+    doStepDependentSubmission();
+
     return super.getNextPage();
   }
 
@@ -217,8 +219,8 @@ class OnboardingViewModel extends MultiPageViewModel {
     _dataService.saveQuestionnaireResponse(response);
   }
 
-  Future<bool> doStepDependentSubmission(ValueKey currentPageKey) async {
-    var stepKey = currentPageKey.value as OnboardingStep;
+  Future<bool> doStepDependentSubmission() async {
+    var stepKey = pages[page];
 
     switch (stepKey) {
       case OnboardingStep.welcome:
@@ -352,35 +354,26 @@ class OnboardingViewModel extends MultiPageViewModel {
     return true;
   }
 
-  saveQuestionnaireResponse(
-      String questionnaireName, String itemName, String response) {
-    // check if there is already a response for this questionnaire and item id
-    var existingResponse = _questionnaireResponses.firstWhereOrNull((element) =>
-        element.questionnaireName == questionnaireName &&
-        element.name == itemName);
+  getAllQuestionnaireResponses() {
+    var responses = <QuestionnaireResponse>[];
 
-    if (existingResponse != null) {
-      _questionnaireResponses.remove(existingResponse);
-    }
-    var newResponse = QuestionnaireResponse(
-        questionnaireName: questionnaireName,
-        name: itemName,
-        questionText: "",
-        response: response,
-        dateSubmitted: DateTime.now());
+    responses.addAll(QuestionnaireResponse.fromQuestionnaire(
+        questionnaireVocabRoutine.questionnaire));
+    responses.addAll(QuestionnaireResponse.fromQuestionnaire(
+        questionnaireMotivation.questionnaire));
+    responses.addAll(QuestionnaireResponse.fromQuestionnaire(
+        questionnaireToB.questionnaire));
 
-    _questionnaireResponses.add(newResponse);
-
-    notifyListeners();
+    return responses;
   }
 
   @override
   void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-      // TODO: Submit responses
-      // await _experimentService.submitResponses(
-      //     questionnaireResponses, SESSION_ZERO);
+
+      await _experimentService.submitResponses(
+          getAllQuestionnaireResponses(), SESSION_ZERO);
 
       _experimentService.nextScreen();
     }

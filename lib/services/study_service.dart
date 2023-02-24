@@ -57,7 +57,10 @@ class StudyService {
   }
 
   int getDaysSinceStart() {
-    var regDate = _dataService.getUserDataCache().registrationDate;
+    var regDate = _dataService.getUserDataCache().startDate;
+    if (regDate == null) {
+      return 0;
+    }
     var compareDate =
         DateTime(regDate.year, regDate.month, regDate.day, 3, 0, 0);
     var daysAgo = compareDate.daysAgo();

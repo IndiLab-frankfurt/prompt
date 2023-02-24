@@ -108,13 +108,6 @@ class RewardService {
     });
   }
 
-  Future getMasot() async {
-    return await _dataService.getSelectedMascot().then((path) {
-      this._selectedMascot = path;
-      return path;
-    });
-  }
-
   Future getBackgroundImagePath() async {
     _dataService.getBackgroundImagePath().then((path) {
       if (path != null && path.isNotEmpty) {
@@ -148,7 +141,6 @@ class RewardService {
     await retrieveScore();
     await getDaysActive();
     await getStreakDays();
-    await getMasot();
   }
 
   getUnlockDays(String background) {

@@ -109,7 +109,7 @@ class ApiService {
   }
 
   updateUserData(UserData userData) {
-    return postAsync("/api/user/profile/", userData.toMap());
+    return postAsync("/api/user/profile/", userData.toJson());
   }
 
   Future saveUserDataProperty(String key, dynamic value) {
