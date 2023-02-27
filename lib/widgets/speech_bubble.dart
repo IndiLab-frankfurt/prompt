@@ -9,7 +9,7 @@ class SpeechBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: MarkdownBody(
-        data: "## " + text,
+        data: "### " + text,
       ),
       margin: EdgeInsets.all(5),
       padding: const EdgeInsets.all(12.0),

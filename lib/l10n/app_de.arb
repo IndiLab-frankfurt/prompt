@@ -1,4 +1,36 @@
 {
   "welcome": "Willkommen bei PROMPT!",
-  "introductionTakeYourTime": "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit."
+  "introductionTakeYourTime": "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.",
+  "congratsMoreDiamonds": "Glückwunsch, du hast weitere {number} 💎 verdient!",
+  "@congratsMoreDiamonds": {
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "20"
+      }
+    }
+  },
+  "rewards1p1": "Glückwunsch, du hast deine ersten {number} 💎 verdient!",
+  "@rewards1p1": {
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "20"
+      }
+    }
+  },
+  "labelTextWriteDownBulletPoints": "Schreibe deine Antwort hier auf (Stichworte genügen)",
+  "rewards1p2": "Jetzt haben wir erst mal ein paar Fragen an dich.",
+  "rewards1p3": "Bitte beantworte alle Fragen ehrlich. Dir entstehen dadurch keine Nachteile.",
+  "planTimingParagraph1": "Ab morgen sollst du die App PROMPT jeden Abend einmal benutzen, Das dauert auch nur 3 Minuten.",
+  "planTimingParagraph2": "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.",
+  "instructionsCabuu2Paragraph1": "In unserer Studie sollst du cabuu auf eine ganz bestimmte Art benutzen - wie, erklären wir in unserem Video. Schaue es auf einem anderen Gerät (z. B. Computer) an, damit du cabuu gleichzeitig auf deinem Handy installieren kannst. Den Link zum Video haben deine Eltern per E-Mail erhalten.",
+  "instructionsCabuuLink": "Hier ist der Link noch mal:",
+  "instructionsCabuuWriteCode": "Um cabuu freizuschalten, brauchst du gleich diesen Code:",
+  "instructionsCabuuWriteDate": "Außerdem brauchst du dieses Datum:",
+  "instructionsCabuu2Finish": "Komme hierher zurück und klicke auf “Weiter”, wenn du damit fertig bist.",
+  "instructionsDistributedp1": "Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.",
+  "obstacleEnterP1": "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:",
+  "outcomeEnterP1": "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:",
+  "copingPlanEnterP1": "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:"
 }

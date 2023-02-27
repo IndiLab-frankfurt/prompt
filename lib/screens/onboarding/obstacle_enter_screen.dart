@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/onboarding_container.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ObstacleEnterScreen extends StatefulWidget {
   ObstacleEnterScreen({Key? key}) : super(key: key);
@@ -30,10 +30,11 @@ class _ObstacleEnterScreenState extends State<ObstacleEnterScreen> {
           alignment: Alignment.bottomCenter),
       child: ListView(
         children: [
-          MarkdownBody(data: "### ${AppStrings.SessionZero_ObstacleEnter_1}"),
+          MarkdownBody(
+              data: "${AppLocalizations.of(context)!.obstacleEnterP1}"),
           UIHelper.verticalSpaceMedium,
           TextField(
-              minLines: 5,
+              minLines: 3,
               maxLines: null,
               onChanged: (text) {
                 vm.obstacle = text;
@@ -44,8 +45,8 @@ class _ObstacleEnterScreenState extends State<ObstacleEnterScreen> {
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                labelText:
-                    'Schreibe deine Antwort hier auf (Stichworte genügen)',
+                labelText: AppLocalizations.of(context)!
+                    .labelTextWriteDownBulletPoints,
               )),
         ],
       ),

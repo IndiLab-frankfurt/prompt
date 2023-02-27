@@ -128,7 +128,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
             maintainState: true,
             visible: widget.vm.canMoveBack() && widget.vm.page > 0,
             child: SizedBox(
-              height: 50,
+              height: 40,
               child: TextButton(
                 key: ValueKey("backButton"),
                 child: Row(
@@ -152,7 +152,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
             maintainState: true,
             visible: widget.vm.canMoveNext(),
             child: SizedBox(
-              height: 50,
+              height: 40,
               child: ElevatedButton(
                 key: ValueKey("nextButton"),
                 child: Row(

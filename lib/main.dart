@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: Colors.lightBlue,
         scaffoldBackgroundColor: UIHelper.bgGradientStart,
         textTheme: TextTheme(
-          bodyText1: GoogleFonts.quicksand(fontSize: 15),
+          bodyText1: GoogleFonts.quicksand(fontSize: 16),
           bodyText2:
               GoogleFonts.quicksand(fontSize: 15, fontWeight: FontWeight.w700),
           subtitle1:

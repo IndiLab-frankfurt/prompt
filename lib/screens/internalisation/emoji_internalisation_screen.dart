@@ -64,10 +64,10 @@ class _EmojiInternalisationScreenState
             child: ListView(
               children: [
                 MarkdownBody(
-                    data: "## " + AppStrings.EmojiInternalisation_Instruction),
+                    data: "### " + AppStrings.EmojiInternalisation_Instruction),
                 UIHelper.verticalSpaceSmall,
                 SpeechBubble(text: '"${vm.plan}"'),
-                UIHelper.verticalSpaceMedium,
+                UIHelper.verticalSpaceSmall,
                 _buildEmojiPickerCompatibleTextInput(),
                 UIHelper.verticalSpaceMedium,
                 _buildEmojiPicker(),
@@ -109,7 +109,7 @@ class _EmojiInternalisationScreenState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("Wenn...", style: Theme.of(context).textTheme.headline6),
+        Text("Wenn..."),
         _buildEmojiInput(_controllerLeft, emojiNamesLeft),
       ],
     );
@@ -119,7 +119,7 @@ class _EmojiInternalisationScreenState
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text("dann...", style: Theme.of(context).textTheme.headline6),
+        Text("dann..."),
         _buildEmojiInput(_controllerRight, emojiNamesRight),
       ],
     );

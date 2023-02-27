@@ -1,47 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InstructionsCabuu2 extends StatelessWidget {
   const InstructionsCabuu2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var url = "https://youtu.be/k47mVYRf-yU";
-
+    var url = "https://youtu.be/_OlPiLu949U";
+    late var vm = Provider.of<OnboardingViewModel>(context);
     var format = new DateFormat("dd.MM.yyyy");
-    var targetDate = format.format(DateTime.now().add(Duration(days: 8)));
+    var targetDate = format.format(DateTime.now().add(Duration(days: 21)));
     return Container(
         child: ListView(
       children: [
         MarkdownBody(
-            data:
-                "In unserer Studie sollst du cabuu auf eine ganz bestimmte Art benutzen - wie erklären wir dir in unserem Erklärvideo. Schaue es auf einem anderen Gerät (z. B. Computer) an, damit du cabuu gleichzeitig auf deinem Handy installieren kannst."),
+            data: AppLocalizations.of(context)!.instructionsCabuu2Paragraph1),
         UIHelper.verticalSpaceMedium,
-        MarkdownBody(
-            data:
-                "Der Link zum Video wurde an deine Eltern per E-Mail gesendet. Hier ist der Link nochmal:"),
+        MarkdownBody(data: AppLocalizations.of(context)!.instructionsCabuuLink),
         UIHelper.verticalSpaceMedium,
         Center(
             child: MarkdownBody(
-                data: "# **https://youtu.be/k47mVYRf-yU**",
+                data: "# **$url**",
                 selectable: true,
                 onTapLink: (_, __, ___) async {
                   if (await canLaunchUrlString(url)) {
-                    await launchUrlString('https://youtu.be/k47mVYRf-yU');
+                    await launchUrlString(url);
                   }
                 })),
         UIHelper.verticalSpaceMedium,
-        MarkdownBody(data: "Schreibe dir außerdem dieses Datum auf:"),
+        MarkdownBody(
+            data: AppLocalizations.of(context)!.instructionsCabuuWriteCode),
+        UIHelper.verticalSpaceMedium,
+        Center(child: MarkdownBody(data: "# **${vm.cabuuCode}**")),
+        UIHelper.verticalSpaceMedium,
+        MarkdownBody(
+            data: AppLocalizations.of(context)!.instructionsCabuuWriteDate),
         UIHelper.verticalSpaceSmall,
         Center(child: MarkdownBody(data: "# **$targetDate**")),
         UIHelper.verticalSpaceSmall,
-        MarkdownBody(data: "Wofür du das brauchst, erfährst du gleich."),
         MarkdownBody(
-            data:
-                "Komme hierher zurück und klicke auf “Weiter”, wenn du damit fertig bist.")
+            data: AppLocalizations.of(context)!.instructionsCabuu2Finish)
       ],
     ));
   }

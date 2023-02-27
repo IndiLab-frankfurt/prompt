@@ -3,7 +3,6 @@ import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/onboarding/copingplan_enter_screen.dart';
 import 'package:prompt/screens/onboarding/horizontal_questionnaire.dart';
-import 'package:prompt/screens/onboarding/instructions_cabuu_1.dart';
 import 'package:prompt/screens/onboarding/instructions_cabuu_2.dart';
 import 'package:prompt/screens/onboarding/instructions_distributed_learning.dart';
 import 'package:prompt/screens/onboarding/instructions_implementation_intentions.dart';
@@ -79,7 +78,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         color: Colors.transparent,
                         margin: EdgeInsets.only(left: 5, right: 5),
                         padding: EdgeInsets.only(
-                            left: 5, right: 5, top: 40, bottom: 20),
+                            left: 5, right: 5, top: 20, bottom: 10),
                         child: MultiPageScreen(
                           vm,
                           snapshot.data,
@@ -151,8 +150,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             child: HorizontalQuestionnaire());
       case OnboardingStep.planTiming:
         return PlanTimingScreen(key: key);
-      case OnboardingStep.instructions_cabuu_1:
-        return InstructionsCabuu1(key: key);
       case OnboardingStep.instructions_cabuu_2:
         return InstructionsCabuu2(key: key);
     }

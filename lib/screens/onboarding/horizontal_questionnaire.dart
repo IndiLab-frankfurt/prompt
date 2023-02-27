@@ -29,27 +29,22 @@ class _HorizontalQuestionnaireState extends State<HorizontalQuestionnaire> {
 
       for (var question in vm.questionnaire.questions) {
         if (question is ChoiceQuestion) {
-          _screens.add(Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              key: ValueKey(question.name),
-              children: [
-                Container(
-                    padding: EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 2,
-                          blurRadius: 4,
-                          offset: Offset(3, 3),
-                        ),
-                      ],
-                      color: Theme.of(context).dialogBackgroundColor,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: SingleChoiceQuestion(
-                        question: question, onSelection: (_) {})),
-              ]));
+          _screens.add(Container(
+              padding: EdgeInsets.all(10),
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 4,
+                    offset: Offset(3, 3),
+                  ),
+                ],
+                color: Theme.of(context).dialogBackgroundColor,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: SingleChoiceQuestion(
+                  question: question, onSelection: (_) {})));
         }
         if (question is QuestionnaireText) {
           _screens.add(Column(children: [

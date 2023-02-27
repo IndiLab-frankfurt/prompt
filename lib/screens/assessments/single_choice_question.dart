@@ -64,6 +64,40 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
     }
   }
 
+  @override
+  Widget build(BuildContext context) {
+    List<Widget> items = [];
+
+    int displayGroupValue = 1;
+    for (var key in widget.question.choices.keys) {
+      if (key.contains("TEXTINPUT")) {
+        if (widget.question.choices.length == 1) {
+          items.add(buildTextInputItem(
+              displayGroupValue, widget.question.choices[key]!,
+              hintText: widget.question.choices[key]!));
+        } else {
+          items.add(buildSingleTextInputItemWithSelector(
+              displayGroupValue, widget.question.choices[key]!));
+          _selectedValue = displayGroupValue;
+        }
+      } else {
+        items.add(
+            buildStaticItem(displayGroupValue, widget.question.choices[key]!));
+      }
+      displayGroupValue += 1;
+    }
+
+    return Expanded(
+      child: ListView(shrinkWrap: true, children: <Widget>[
+        MarkdownBody(
+          data: "### " + widget.question.questionText,
+        ),
+        UIHelper.verticalSpaceMedium,
+        ...items,
+      ]),
+    );
+  }
+
   buildStaticItem(int groupValue, String text) {
     return InkWell(
       child: Row(
@@ -78,10 +112,7 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
             },
           ),
           Expanded(
-            // child: MarkdownBody(
-            //   data: text,
-            // ),
-            child: Text(text, style: TextStyle(fontSize: 18.0)),
+            child: Text(text, style: TextStyle(fontSize: 16.0)),
           )
         ],
       ),
@@ -163,37 +194,5 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
       return widget.question.choices[key];
     }
     return "MISSING LABEL";
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    List<Widget> items = [];
-
-    int displayGroupValue = 1;
-    for (var key in widget.question.choices.keys) {
-      if (key.contains("TEXTINPUT")) {
-        if (widget.question.choices.length == 1) {
-          items.add(buildTextInputItem(
-              displayGroupValue, widget.question.choices[key]!,
-              hintText: widget.question.choices[key]!));
-        } else {
-          items.add(buildSingleTextInputItemWithSelector(
-              displayGroupValue, widget.question.choices[key]!));
-          _selectedValue = displayGroupValue;
-        }
-      } else {
-        items.add(
-            buildStaticItem(displayGroupValue, widget.question.choices[key]!));
-      }
-      displayGroupValue += 1;
-    }
-
-    return Column(children: <Widget>[
-      MarkdownBody(
-        data: "## " + widget.question.questionText,
-      ),
-      UIHelper.verticalSpaceMedium,
-      Column(mainAxisAlignment: MainAxisAlignment.start, children: items)
-    ]);
   }
 }

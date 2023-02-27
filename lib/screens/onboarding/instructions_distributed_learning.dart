@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InstructionsDistributedLearning extends StatelessWidget {
   const InstructionsDistributedLearning({Key? key}) : super(key: key);
@@ -11,13 +12,12 @@ class InstructionsDistributedLearning extends StatelessWidget {
           image: DecorationImage(
               image: AssetImage("assets/illustrations/mascot_1_sideglance.png"),
               fit: BoxFit.none,
-              scale: 2.5,
+              scale: 3.5,
               alignment: Alignment.bottomCenter)),
       child: ListView(
         children: [
           MarkdownBody(
-              data:
-                  "### Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.")
+              data: AppLocalizations.of(context)!.instructionsDistributedp1)
         ],
       ),
     );

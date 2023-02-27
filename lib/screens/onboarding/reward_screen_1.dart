@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RewardScreen1 extends StatefulWidget {
   const RewardScreen1({Key? key}) : super(key: key);
@@ -31,20 +32,14 @@ class _RewardScreen1State extends State<RewardScreen1> {
     return Container(
       child: ListView(
         children: [
-          UIHelper.verticalSpaceLarge,
-          SpeechBubble(
-            text: "Glückwunsch, du hast deine ersten 5 💎 verdient!",
-          ),
+          SpeechBubble(text: AppLocalizations.of(context)!.rewards1p1("5")),
           _buildConfettiTop(),
           UIHelper.verticalSpaceMedium,
           MarkdownBody(
-            data: "## Jetzt haben wir erst mal ein paar Fragen an dich.",
+            data: "### " + AppLocalizations.of(context)!.rewards1p2,
           ),
           UIHelper.verticalSpaceMedium,
-          MarkdownBody(
-            data:
-                "## Bitte beantworte alle Fragen ehrlich. Dir entstehen dadurch keine Nachteile.",
-          ),
+          MarkdownBody(data: "### " + AppLocalizations.of(context)!.rewards1p3),
         ],
       ),
     );

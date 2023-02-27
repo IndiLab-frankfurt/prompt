@@ -1,10 +1,14 @@
+import 'dart:math';
+
+import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
+import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:prompt/widgets/time_picker_grid_dialog.dart';
 import 'package:provider/provider.dart';
-import 'package:prompt/shared/app_strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlanTimingScreen extends StatefulWidget {
   const PlanTimingScreen({Key? key}) : super(key: key);
@@ -14,6 +18,8 @@ class PlanTimingScreen extends StatefulWidget {
 }
 
 class _PlanTimingScreenState extends State<PlanTimingScreen> {
+  final ConfettiController _controllerTopCenter =
+      ConfettiController(duration: const Duration(seconds: 2));
   late final vm = Provider.of<OnboardingViewModel>(context, listen: false);
   TextEditingController _timeDisplayController =
       TextEditingController(text: "18 Uhr");
@@ -21,17 +27,31 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
   TimeOfDay? selectedTime;
 
   @override
+  void initState() {
+    super.initState();
+    // wait a bit, then play the animation
+    Future.delayed(const Duration(milliseconds: 500), () {
+      _controllerTopCenter.play();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
       child: ListView(
         children: [
-          // SpeechBubble(text: vm.plan),
+          SpeechBubble(
+            text: AppLocalizations.of(context)!.congratsMoreDiamonds("20"),
+          ),
+          _buildConfetti(),
           UIHelper.verticalSpaceMedium,
-          MarkdownBody(data: "### " + AppStrings.PlanTiming_Paragraph1),
+          MarkdownBody(
+              data:
+                  "### " + AppLocalizations.of(context)!.planTimingParagraph1),
           UIHelper.verticalSpaceMedium,
           Text(
-            AppStrings.PlanTiming_Paragraph2,
+            AppLocalizations.of(context)!.planTimingParagraph2,
             style: Theme.of(context).textTheme.subtitle1,
           ),
           UIHelper.verticalSpaceMedium,
@@ -42,37 +62,6 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
   }
 
   buildTimeSelector() {
-    // var selectTime = () async {
-    //   TimeOfDay? time = await showTimePicker(
-    //     initialTime: TimeOfDay(hour: 18, minute: 0),
-    //     context: context,
-    //     errorInvalidText:
-    //         "Der Zeitpunkt muss zwischen 18 Uhr und 24 Uhr liegen",
-    //     helpText: "Wähle die Uhrzeit für die Erinnerung aus",
-    //     initialEntryMode: TimePickerEntryMode.dial,
-    //     builder: (BuildContext context, Widget? child) {
-    //       return MediaQuery(
-    //         data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: true),
-    //         child: child!,
-    //       );
-    //     },
-    //   );
-
-    //   setState(() {
-    //     if (time != null) {
-    //       this.selectedTime = time;
-    //     }
-    //   });
-
-    //   if (selectedTime != null) {
-    //     final localizations = MaterialLocalizations.of(context);
-    //     final formattedTimeOfDay = localizations.formatTimeOfDay(selectedTime!,
-    //         alwaysUse24HourFormat: true);
-    //     _timeDisplayController.text = formattedTimeOfDay;
-    //     _onChanged(formattedTimeOfDay);
-    //   }
-    // };
-    // Textfield to select time
     return TextField(
       controller: _timeDisplayController,
       readOnly: true,
@@ -101,5 +90,20 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
       _timeDisplayController.text = selectedValue.format(context);
       vm.savePlanTiming(selectedValue.format(context));
     });
+  }
+
+  _buildConfetti() {
+    return Align(
+      alignment: Alignment.topCenter,
+      child: ConfettiWidget(
+        confettiController: _controllerTopCenter,
+        blastDirection: pi / 2,
+        maxBlastForce: 5, // set a lower max blast force
+        minBlastForce: 2, // set a lower min blast force
+        emissionFrequency: 0.1,
+        numberOfParticles: 30, // a lot of particles at once
+        gravity: 0.8,
+      ),
+    );
   }
 }

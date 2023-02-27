@@ -56,14 +56,6 @@ class AppStrings {
   static const String WhyVocab_ParagraphTwo =
       "Denk mal nach: Warum ist es für dich wichtig, Englischvokabeln zu lernen? Wie könnte es für dich auch außerhalb der Schule gut sein, viele Englischvokabeln zu kennen?";
 
-  // Onboarding Obstacle Outcome Coping
-  static const String SessionZero_ObstacleEnter_1 =
-      "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:";
-  static const String SessionZero_OutcomeEnter_1 =
-      "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:";
-  static const String SessionZero_CopingPlanEnter_1 =
-      "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:";
-
   static const String GoalIntention_ParagraphOne =
       "Damit du es schaffst, regelmäßig Vokabeln zu lernen, solltest du dir ein **Ziel** setzen";
   static const String GoalIntention_ParagraphTwo =
@@ -148,10 +140,4 @@ class AppStrings {
 
   static const String Login_ForgotPassword =
       "Passwort vergessen? Klicke hier und wir erklären dir, was zu tun ist.";
-
-  static const String PlanTiming_Paragraph1 =
-      "Ab morgen sollst du die App PROMPT jeden Abend einmal benutzen, Das dauert auch nur 3 Minuten.";
-
-  static const String PlanTiming_Paragraph2 =
-      "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.";
 }

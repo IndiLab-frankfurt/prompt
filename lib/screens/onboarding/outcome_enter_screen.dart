@@ -5,6 +5,7 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/onboarding_container.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OutcomeEnterScreen extends StatefulWidget {
   OutcomeEnterScreen({Key? key}) : super(key: key);
@@ -29,14 +30,14 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
       decorationImage: DecorationImage(
           image: AssetImage(bgimg),
           fit: BoxFit.none,
-          scale: 5,
+          scale: 6,
           alignment: Alignment.bottomCenter),
       child: ListView(
         children: [
-          MarkdownBody(data: "### ${AppStrings.SessionZero_OutcomeEnter_1}"),
-          UIHelper.verticalSpaceLarge,
+          MarkdownBody(data: AppLocalizations.of(context)!.outcomeEnterP1),
+          UIHelper.verticalSpaceMedium,
           TextField(
-              minLines: 4,
+              minLines: 3,
               maxLines: null,
               onChanged: (text) {
                 vm.outcome = text;

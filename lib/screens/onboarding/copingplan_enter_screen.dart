@@ -5,6 +5,7 @@ import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/onboarding_container.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CopingPlanEnterScreen extends StatefulWidget {
   CopingPlanEnterScreen({Key? key}) : super(key: key);
@@ -31,10 +32,11 @@ class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
       ),
       child: ListView(
         children: [
-          MarkdownBody(data: "### ${AppStrings.SessionZero_CopingPlanEnter_1}"),
+          MarkdownBody(
+              data: "${AppLocalizations.of(context)!.copingPlanEnterP1}"),
           UIHelper.verticalSpaceMedium,
           TextField(
-              minLines: 5,
+              minLines: 3,
               maxLines: null,
               onChanged: (text) {
                 vm.copingPlan = text;
@@ -45,8 +47,8 @@ class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                labelText:
-                    'Schreibe deine Antwort hier auf (Stichworte genügen)',
+                labelText: AppLocalizations.of(context)!
+                    .labelTextWriteDownBulletPoints,
               )),
         ],
       ),

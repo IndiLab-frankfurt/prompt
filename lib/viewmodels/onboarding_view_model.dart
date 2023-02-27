@@ -25,7 +25,7 @@ enum OnboardingStep {
   planCreation,
   planInternalisationEmoji,
   planTiming,
-  instructions_cabuu_1,
+  // instructions_cabuu_1,
   instructions_cabuu_2,
 }
 
@@ -147,7 +147,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     // TODO: Restore after testing
     // initialPage = max(ud.initStep, pages.length - 1);
     initialPage = 0;
-    cabuuCode = ud.cabuuCode;
+    cabuuCode = ud.cabuuCode.isNotEmpty ? ud.cabuuCode : "HIER CABUU CODE";
 
     return true;
   }
@@ -226,7 +226,6 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.welcome:
       case OnboardingStep.video_Planning:
       case OnboardingStep.video_distributedLearning:
-      case OnboardingStep.instructions_cabuu_1:
       case OnboardingStep.instructions_cabuu_2:
       case OnboardingStep.instructions_distributedLearning:
       case OnboardingStep.instructions_implementationIntentions:
@@ -303,7 +302,6 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.instructions_cabuu_2:
       case OnboardingStep.video_introduction:
       case OnboardingStep.welcome:
-      case OnboardingStep.instructions_cabuu_1:
       case OnboardingStep.assessment_vocabRoutine:
       case OnboardingStep.assessment_ToB:
       case OnboardingStep.assessment_motivation:
