@@ -76,7 +76,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
             Flexible(
               child: PageView.builder(
                 controller: _controller,
-                // We need increased control, so we cannot use the default scroll physics here
+                // We need increased control, so we cannot use the default of the pageview here
                 physics: NeverScrollableScrollPhysics(),
                 itemCount: widget.pages.length,
                 itemBuilder: (context, index) {

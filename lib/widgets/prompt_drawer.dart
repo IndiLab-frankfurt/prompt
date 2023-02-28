@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/screens/main/text_compare_screen.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -88,6 +89,15 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushReplacementNamed(
                     context, AppScreen.ScreenSelect.name);
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Text Compare",
+              onTap: () async {
+                await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => TextCompareScreen()));
               }),
         ],
       ),

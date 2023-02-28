@@ -10,11 +10,13 @@ class QuestionnaireTextScreen extends StatelessWidget {
     return Container(
         height: 400,
         child: Center(
-          child: ListView.builder(
+          child: ListView.separated(
+              separatorBuilder: (context, index) => SizedBox(height: 10),
               shrinkWrap: true,
               itemCount: text.length,
-              itemBuilder: ((context, index) =>
-                  Center(child: MarkdownBody(data: text[index])))),
+              itemBuilder: ((context, index) {
+                return Center(child: MarkdownBody(data: text[index]));
+              })),
         ));
   }
 }

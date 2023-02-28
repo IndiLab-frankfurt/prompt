@@ -74,61 +74,57 @@ class AppRouter {
       case AppScreen.Questionnaire:
         final questionnaire = settings.arguments as Questionnaire;
         screen = ChangeNotifierProvider(
-            create: (_) => MultiPageQuestionnaireViewModel(
-                locator.get<DataService>(),
-                rewardService: locator.get<RewardService>(),
-                studyService: locator.get<StudyService>(),
-                questionnaire: questionnaire),
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: questionnaire),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.AA_DidYouLearn:
         screen = ChangeNotifierProvider(
-            create: (_) => MultiPageQuestionnaireViewModel(
-                locator.get<DataService>(),
-                rewardService: locator.get<RewardService>(),
-                studyService: locator.get<StudyService>(),
-                questionnaire: AA_DidYouLearn),
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: AA_DidYouLearn),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.AA_WhyNotLearn:
         screen = ChangeNotifierProvider(
-            create: (_) => MultiPageQuestionnaireViewModel(
-                locator.get<DataService>(),
-                rewardService: locator.get<RewardService>(),
-                studyService: locator.get<StudyService>(),
-                questionnaire: AA_WhyNotLearn),
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: AA_WhyNotLearn),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.AA_NextStudySession:
         screen = ChangeNotifierProvider(
-            create: (_) => MultiPageQuestionnaireViewModel(
-                locator.get<DataService>(),
-                rewardService: locator.get<RewardService>(),
-                studyService: locator.get<StudyService>(),
-                questionnaire: AA_NextStudySession),
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: AA_NextStudySession),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.AA_PreviousStudySession:
         screen = ChangeNotifierProvider(
-            create: (_) => MultiPageQuestionnaireViewModel(
-                locator.get<DataService>(),
-                rewardService: locator.get<RewardService>(),
-                studyService: locator.get<StudyService>(),
-                questionnaire: AA_PreviousStudySession),
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: AA_PreviousStudySession),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.RememberToLearn:
         screen = ChangeNotifierProvider(
-            create: (_) => MultiPageQuestionnaireViewModel(
-                locator.get<DataService>(),
-                rewardService: locator.get<RewardService>(),
-                studyService: locator.get<StudyService>(),
-                questionnaire: RememberToLearn),
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: RememberToLearn),
+            child: MultiPageQuestionnaire());
+        break;
+
+      case AppScreen.ReminderTestToday:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: ReminderTestToday),
+            child: MultiPageQuestionnaire());
+        break;
+
+      case AppScreen.ReminderNextList:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: AA_WhyNotLearn),
             child: MultiPageQuestionnaire());
         break;
 

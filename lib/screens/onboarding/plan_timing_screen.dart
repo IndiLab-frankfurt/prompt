@@ -47,12 +47,10 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
           _buildConfetti(),
           UIHelper.verticalSpaceMedium,
           MarkdownBody(
-              data:
-                  "### " + AppLocalizations.of(context)!.planTimingParagraph1),
+              data: AppLocalizations.of(context)!.planTimingParagraph1),
           UIHelper.verticalSpaceMedium,
           Text(
             AppLocalizations.of(context)!.planTimingParagraph2,
-            style: Theme.of(context).textTheme.subtitle1,
           ),
           UIHelper.verticalSpaceMedium,
           buildTimeSelector()
@@ -72,7 +70,7 @@ class _PlanTimingScreenState extends State<PlanTimingScreen> {
               return TimePickerGridDialog();
             }).then((value) => _onChanged(value));
       },
-      style: Theme.of(context).textTheme.headline3,
+      // style: Theme.of(context).textTheme.headline3,
       textAlign: TextAlign.center,
       decoration: InputDecoration(
         labelText: "Uhrzeit",

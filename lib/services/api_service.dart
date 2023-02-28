@@ -32,8 +32,12 @@ class ApiService {
     return headers;
   }
 
-  Future<dynamic> getAsync(String endpoint) async {
+  Future<dynamic> getAsync(String endpoint,
+      {Map<String, String>? queryParams}) async {
     var url = Uri.parse("$serverUrl$endpoint");
+    if (queryParams != null) {
+      url = url.replace(queryParameters: queryParams);
+    }
     try {
       var response = await http.get(url, headers: getHeaders());
       return response;
@@ -157,7 +161,11 @@ class ApiService {
   }
 
   Future<String> getNextState(String currentState) async {
-    return getAsync("/api/nextstate/$currentState/").then((response) =>
+    var params = {
+      "current_state": currentState,
+      "local_time": DateTime.now().toLocal().toIso8601String()
+    };
+    return getAsync("/api/nextstate/", queryParams: params).then((response) =>
         response.statusCode == 200
             ? jsonDecode(response.body)["next_state"]
             : "");

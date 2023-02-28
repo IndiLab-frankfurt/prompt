@@ -6,11 +6,11 @@ import 'package:prompt/shared/enums.dart';
 
 Map<String, String> CHOICES_APPLIES = {
   "does_fully_not_apply": "Trifft gar nicht auf mich zu",
-  "does_barely_not_apply": "trifft kaum auf mich zu",
+  "does_barely_not_apply": "Trifft kaum auf mich zu",
   "does_rather_not_apply": "Trifft eher nicht auf mich zu",
   "neutral": "Teils / teils",
   "barely_applies": "Trifft eher auf mich zu",
-  "rather_applies": "trifft deutlich auf mich zu",
+  "rather_applies": "Trifft deutlich auf mich zu",
   "fully_applies": "Trifft voll und ganz auf mich zu",
 };
 
@@ -251,4 +251,24 @@ Questionnaire RememberToLearn =
   QuestionnaireText(
       name: "${AppScreen.RememberToLearn.name}_1",
       text: ["## Denk daran, morgen Vokabeln zu lernen! "])
+]);
+
+Questionnaire ReminderTestToday = Questionnaire(
+    title: "",
+    name: AppScreen.ReminderTestToday.name,
+    questions: [
+      QuestionnaireText(name: "${AppScreen.ReminderTestToday.name}_1", text: [
+        '### Bitte mache heute noch den Test in cabuu!',
+        '### Drücke dazu auf die Liste und wähle "Abfrage".',
+        '### Fange dann ab morgen mit der nächsten Liste an.'
+      ])
+    ]);
+
+Questionnaire ReminderNextList =
+    Questionnaire(title: "", name: AppScreen.ReminderNextList.name, questions: [
+  QuestionnaireText(name: "${AppScreen.ReminderNextList.name}_1", text: [
+    '### Prima!',
+    '### Fange ab morgen an, die nächste Liste in cabuu zu lernen.',
+    '### Du hast wieder 20 Tage Zeit bis zum nächsten Test.'
+  ])
 ]);

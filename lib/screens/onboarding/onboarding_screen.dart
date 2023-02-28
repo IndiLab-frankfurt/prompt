@@ -74,15 +74,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.hasData) {
-                    return Container(
-                        color: Colors.transparent,
-                        margin: EdgeInsets.only(left: 5, right: 5),
-                        padding: EdgeInsets.only(
-                            left: 5, right: 5, top: 20, bottom: 10),
-                        child: MultiPageScreen(
-                          vm,
-                          snapshot.data,
-                        ));
+                    return Scrollbar(
+                      child: Container(
+                          color: Colors.transparent,
+                          margin: EdgeInsets.only(left: 5, right: 5),
+                          padding: EdgeInsets.only(
+                              left: 5, right: 5, top: 20, bottom: 15),
+                          child: MultiPageScreen(
+                            vm,
+                            snapshot.data,
+                          )),
+                    );
                   } else {
                     return Center(
                       child: CircularProgressIndicator(),

@@ -88,7 +88,7 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
     }
 
     return Expanded(
-      child: ListView(shrinkWrap: true, children: <Widget>[
+      child: ListView(children: <Widget>[
         MarkdownBody(
           data: "### " + widget.question.questionText,
         ),
@@ -112,7 +112,7 @@ class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
             },
           ),
           Expanded(
-            child: Text(text, style: TextStyle(fontSize: 16.0)),
+            child: Text(text, style: TextStyle(fontSize: 15.0)),
           )
         ],
       ),

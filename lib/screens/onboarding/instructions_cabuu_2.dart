@@ -26,7 +26,7 @@ class InstructionsCabuu2 extends StatelessWidget {
         UIHelper.verticalSpaceMedium,
         Center(
             child: MarkdownBody(
-                data: "# **$url**",
+                data: "## **$url**",
                 selectable: true,
                 onTapLink: (_, __, ___) async {
                   if (await canLaunchUrlString(url)) {
@@ -37,12 +37,12 @@ class InstructionsCabuu2 extends StatelessWidget {
         MarkdownBody(
             data: AppLocalizations.of(context)!.instructionsCabuuWriteCode),
         UIHelper.verticalSpaceMedium,
-        Center(child: MarkdownBody(data: "# **${vm.cabuuCode}**")),
+        Center(child: MarkdownBody(data: "## **${vm.cabuuCode}**")),
         UIHelper.verticalSpaceMedium,
         MarkdownBody(
             data: AppLocalizations.of(context)!.instructionsCabuuWriteDate),
         UIHelper.verticalSpaceSmall,
-        Center(child: MarkdownBody(data: "# **$targetDate**")),
+        Center(child: MarkdownBody(data: "## **$targetDate**")),
         UIHelper.verticalSpaceSmall,
         MarkdownBody(
             data: AppLocalizations.of(context)!.instructionsCabuu2Finish)

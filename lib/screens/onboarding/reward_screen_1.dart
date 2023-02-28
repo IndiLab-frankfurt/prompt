@@ -35,11 +35,9 @@ class _RewardScreen1State extends State<RewardScreen1> {
           SpeechBubble(text: AppLocalizations.of(context)!.rewards1p1("5")),
           _buildConfettiTop(),
           UIHelper.verticalSpaceMedium,
-          MarkdownBody(
-            data: "### " + AppLocalizations.of(context)!.rewards1p2,
-          ),
+          Text(AppLocalizations.of(context)!.rewards1p2),
           UIHelper.verticalSpaceMedium,
-          MarkdownBody(data: "### " + AppLocalizations.of(context)!.rewards1p3),
+          Text(AppLocalizations.of(context)!.rewards1p3),
         ],
       ),
     );
@@ -51,10 +49,10 @@ class _RewardScreen1State extends State<RewardScreen1> {
       child: ConfettiWidget(
         confettiController: _controllerTopCenter,
         blastDirection: pi / 2,
-        maxBlastForce: 5, // set a lower max blast force
-        minBlastForce: 2, // set a lower min blast force
+        maxBlastForce: 5,
+        minBlastForce: 2,
         emissionFrequency: 0.1,
-        numberOfParticles: 30, // a lot of particles at once
+        numberOfParticles: 30,
         gravity: 0.9,
       ),
     );
