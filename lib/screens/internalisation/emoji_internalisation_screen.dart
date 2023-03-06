@@ -1,26 +1,18 @@
+import 'dart:io';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter/foundation.dart' as foundation;
 
 class EmojiInternalisationScreen extends StatefulWidget {
-  final OnCompletedCallback? onCompleted;
-  final bool emojiInputIf;
-  final bool emojiInputThen;
+  final InternalisationViewModel vm;
 
-  EmojiInternalisationScreen(
-      {Key? key,
-      this.onCompleted,
-      this.emojiInputIf = true,
-      this.emojiInputThen = true})
-      : super(key: key);
+  EmojiInternalisationScreen({Key? key, required this.vm}) : super(key: key);
 
   @override
   _EmojiInternalisationScreenState createState() =>
@@ -29,14 +21,15 @@ class EmojiInternalisationScreen extends StatefulWidget {
 
 class _EmojiInternalisationScreenState
     extends State<EmojiInternalisationScreen> {
-  late InternalisationViewModel vm =
-      Provider.of<InternalisationViewModel>(context);
+  late InternalisationViewModel vm;
 
   bool _done = false;
-  String emojiInfo = "!INFO:";
 
   List<Emoji> emojiNamesLeft = [];
   List<Emoji> emojiNamesRight = [];
+
+  bool emojiInputIf = true;
+  bool emojiInputThen = true;
 
   final TextEditingController _controllerLeft = TextEditingController();
   final TextEditingController _controllerRight = TextEditingController();
@@ -46,8 +39,14 @@ class _EmojiInternalisationScreenState
   @override
   void initState() {
     super.initState();
+    emojiInputIf = (widget.vm.condition == InternalisationCondition.emojiIf) ||
+        (widget.vm.condition == InternalisationCondition.emojiBoth);
 
-    if (widget.emojiInputIf) {
+    emojiInputThen =
+        (widget.vm.condition == InternalisationCondition.emojiThen) ||
+            (widget.vm.condition == InternalisationCondition.emojiBoth);
+
+    if (emojiInputIf) {
       _activeController = _controllerLeft;
     } else {
       _activeController = _controllerRight;
@@ -56,53 +55,59 @@ class _EmojiInternalisationScreenState
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: ListView(
+    return ChangeNotifierProvider.value(
+        value: this.widget.vm,
+        builder: (context, child) {
+          return Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                MarkdownBody(
-                    data: "### " + AppStrings.EmojiInternalisation_Instruction),
-                UIHelper.verticalSpaceSmall,
-                SpeechBubble(text: '"${vm.plan}"'),
-                UIHelper.verticalSpaceSmall,
-                _buildEmojiPickerCompatibleTextInput(),
-                UIHelper.verticalSpaceMedium,
-                _buildEmojiPicker(),
-                UIHelper.verticalSpaceMedium,
+                Expanded(
+                  child: ListView(
+                    children: [
+                      MarkdownBody(
+                          data: "### " +
+                              AppStrings.EmojiInternalisation_Instruction),
+                      UIHelper.verticalSpaceSmall,
+                      SpeechBubble(
+                          text:
+                              '"${Provider.of<InternalisationViewModel>(context).plan}"'),
+                      UIHelper.verticalSpaceSmall,
+                      _buildEmojiPickerCompatibleTextInput(),
+                      UIHelper.verticalSpaceMedium,
+                      _buildEmojiPicker(),
+                      UIHelper.verticalSpaceMedium,
+                    ],
+                  ),
+                ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
+          );
+        });
   }
 
   _buildEmojiPickerCompatibleTextInput() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        if (this.widget.emojiInputIf) _buildEmojiInputLeft(),
-        if (!this.widget.emojiInputIf) _buildIfPart(),
-        if (this.widget.emojiInputThen) _buildEmojiInputRight(),
-        if (!this.widget.emojiInputThen) _builThenPart()
+        if (this.emojiInputIf) _buildEmojiInputLeft(),
+        if (!this.emojiInputIf) _buildIfPart(),
+        if (this.emojiInputThen) _buildEmojiInputRight(),
+        if (!this.emojiInputThen) _builThenPart()
       ],
     );
   }
 
   _buildIfPart() {
     var width = MediaQuery.of(context).size.width * 0.42;
-    var ifPart = this.vm.plan.split("dann")[0];
-    return Container(width: width, child: MarkdownBody(data: "## $ifPart..."));
+    var ifPart = this.widget.vm.getIfPart();
+    return Container(width: width, child: MarkdownBody(data: "## $ifPart"));
   }
 
   _builThenPart() {
     var width = MediaQuery.of(context).size.width * 0.42;
-    var thenPart = this.vm.plan.split("dann")[1];
-    return Container(
-        width: width, child: MarkdownBody(data: "## ...dann $thenPart"));
+    var thenPart = this.widget.vm.getThenPart();
+    return Container(width: width, child: MarkdownBody(data: "## $thenPart"));
   }
 
   _buildEmojiInputLeft() {
@@ -204,10 +209,7 @@ class _EmojiInternalisationScreenState
         config: Config(
           columns: 8,
           // Issue: https://github.com/flutter/flutter/issues/28894
-          emojiSizeMax: 32 *
-              (foundation.defaultTargetPlatform == TargetPlatform.iOS
-                  ? 1.30
-                  : 1.0),
+          emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
           verticalSpacing: 0,
           horizontalSpacing: 0,
           gridPadding: EdgeInsets.zero,
@@ -262,16 +264,14 @@ class _EmojiInternalisationScreenState
   }
 
   void _checkIfIsDone() {
-    var leftSide =
-        this.widget.emojiInputIf ? _controllerLeft.text.isNotEmpty : true;
+    var leftSide = this.emojiInputIf ? _controllerLeft.text.isNotEmpty : true;
     var rightSide =
-        this.widget.emojiInputThen ? _controllerRight.text.isNotEmpty : true;
+        this.emojiInputThen ? _controllerRight.text.isNotEmpty : true;
     _done = leftSide && rightSide;
 
-    if (_done && widget.onCompleted != null) {
+    if (_done) {
       var input = _getEmojiInput();
-      widget.onCompleted!(input);
-      vm.submit(InternalisationCondition.emojiIf, input);
+      this.widget.vm.onComplete(input);
     }
   }
 }

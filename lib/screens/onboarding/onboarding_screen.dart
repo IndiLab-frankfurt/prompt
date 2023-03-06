@@ -8,8 +8,8 @@ import 'package:prompt/screens/onboarding/instructions_distributed_learning.dart
 import 'package:prompt/screens/onboarding/instructions_implementation_intentions.dart';
 import 'package:prompt/screens/onboarding/obstacle_enter_screen.dart';
 import 'package:prompt/screens/onboarding/outcome_enter_screen.dart';
-import 'package:prompt/screens/onboarding/plan_creation_screen.dart';
-import 'package:prompt/screens/onboarding/plan_timing_screen.dart';
+import 'package:prompt/screens/onboarding/first_plan_creation_screen.dart';
+import 'package:prompt/screens/onboarding/onboarding_plan_timing_screen.dart';
 import 'package:prompt/screens/onboarding/reward_screen_1.dart';
 import 'package:prompt/screens/onboarding/welcome_screen.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
@@ -102,14 +102,20 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         return WelcomeScreen(key: key);
       case OnboardingStep.rewardScreen1:
         return RewardScreen1(key: key);
-      case OnboardingStep.video_introduction:
+      case OnboardingStep.video_introduction_1:
         return VideoScreen(
-          'assets/videos/intro_prompt_compressed.mp4',
+          'assets/videos/Onboarding_1.mp4',
+          onVideoCompleted: vm.videoWelcomeCompleted,
+          key: key,
+        );
+      case OnboardingStep.video_introduction_2:
+        return VideoScreen(
+          'assets/videos/Onboarding_2.mp4',
           onVideoCompleted: vm.videoWelcomeCompleted,
           key: key,
         );
       case OnboardingStep.video_distributedLearning:
-        return VideoScreen('assets/videos/videoDistributedLearning.mp4',
+        return VideoScreen('assets/videos/distributed_practice.mp4',
             key: key, onVideoCompleted: vm.videoDistributedLearningCompleted);
       case OnboardingStep.outcome:
         return OutcomeEnterScreen(key: key);
@@ -119,20 +125,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         return CopingPlanEnterScreen(key: key);
       case OnboardingStep.instructions_implementationIntentions:
         return InstructionsImplementationIntentions(key: key);
-      case OnboardingStep.video_Planning:
-        return VideoScreen('assets/videos/videoPlanning.mp4',
+      case OnboardingStep.video_planning:
+        return VideoScreen('assets/videos/implementation_intentions.mp4',
             key: key, onVideoCompleted: vm.videoPlanningCompleted);
       case OnboardingStep.planCreation:
-        return PlanCreationScreen(key: key);
+        return FirstPlanCreationScreen(key: key);
       case OnboardingStep.planInternalisationEmoji:
         return ChangeNotifierProvider.value(
           value: vm.internalisationViewmodelEmoji,
           key: key,
           child: EmojiInternalisationScreen(
-              onCompleted: vm.onInternalisationCompleted,
-              emojiInputIf: true,
-              emojiInputThen: true,
-              key: key),
+              vm: vm.internalisationViewmodelEmoji, key: key),
         );
       case OnboardingStep.assessment_vocabRoutine:
         return KeepAlivePage(
@@ -151,7 +154,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
             create: (_) => vm.questionnaireToB,
             child: HorizontalQuestionnaire());
       case OnboardingStep.planTiming:
-        return PlanTimingScreen(key: key);
+        return OnboardingPlanTimingScreen(key: key);
       case OnboardingStep.instructions_cabuu_2:
         return InstructionsCabuu2(key: key);
     }

@@ -20,7 +20,10 @@ void main() {
 
     var widget = MaterialApp(
       home: ChangeNotifierProvider(
-          create: (_) => vm, child: MultiPageQuestionnaire()),
+          create: (_) => vm,
+          child: MultiPageQuestionnaire(
+            vm: vm,
+          )),
     );
 
     await tester.pumpWidget(widget);

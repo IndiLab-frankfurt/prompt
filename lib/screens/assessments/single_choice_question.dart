@@ -1,20 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/models/question.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/viewmodels/choice_question_view_model.dart';
+import 'package:prompt/viewmodels/single_choice_question_view_model.dart';
 
 typedef void ChoiceQuestionCallback(String val);
 
-class SingleChoiceQuestion extends StatefulWidget {
+class SingleChoiceQuestionView extends StatefulWidget {
   @override
-  _SingleChoiceQuestionState createState() => _SingleChoiceQuestionState();
+  _SingleChoiceQuestionViewState createState() =>
+      _SingleChoiceQuestionViewState();
 
-  final ChoiceQuestion question;
+  final ChoiceQuestionViewModel question;
   final int selectecValue;
   final bool randomize;
   final ChoiceQuestionCallback onSelection;
 
-  SingleChoiceQuestion(
+  SingleChoiceQuestionView(
       {Key? key,
       required this.question,
       this.selectecValue = -1,
@@ -23,33 +25,22 @@ class SingleChoiceQuestion extends StatefulWidget {
       : super(key: key);
 }
 
-class _SingleChoiceQuestionState extends State<SingleChoiceQuestion> {
+class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
   int _selectedValue = -1;
   Map<String, String> items = {};
-
-  randomizeMap(Map<String, String> map) {
-    Map<String, String> newmap = {};
-    var list = List<int>.generate(map.length, (i) => i + 1);
-    list.shuffle();
-    for (var i in list) {
-      var existingKey = widget.question.choices.keys.elementAt(i);
-      var existingValue = widget.question.choices.values.elementAt(i);
-      newmap[existingKey] = existingValue;
-    }
-
-    return newmap;
-  }
+  late SingleChoiceQuestionViewModel _vm;
 
   @override
   void initState() {
     super.initState();
     _selectedValue = widget.selectecValue;
+    items = widget.question.choices;
+  }
 
-    if (widget.randomize) {
-      items = randomizeMap(widget.question.choices);
-    } else {
-      items = widget.question.choices;
-    }
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // _vm = Provider.of<SingleChoiceQuestionViewModel>(context);
   }
 
   _onChanged(int groupValue, String selectedValue) {

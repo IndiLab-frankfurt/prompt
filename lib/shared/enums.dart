@@ -50,11 +50,7 @@ class AssessmentTypes {
   static const vocabValue = "vocabValue";
 }
 
-enum InternalisationCondition {
-  waiting,
-  emojiIf,
-  emojiThen,
-}
+enum InternalisationCondition { waiting, emojiIf, emojiThen, emojiBoth }
 
 enum AppScreen {
   Mainscreen("/main"),
@@ -78,6 +74,7 @@ enum AppScreen {
   ScreenSelect("/screenselect"),
   RewardSelection("/rewardselection"),
   DataPrivacy("/dataprivacy"),
+  PlanTimingChange("/plantimingchange"),
   UserSettings("/usersettings");
 
   const AppScreen(this.routeName);

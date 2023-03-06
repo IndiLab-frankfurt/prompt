@@ -3,7 +3,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
 
@@ -43,7 +42,7 @@ class _WaitingInternalisationScreenState
     animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-          vm.submit(InternalisationCondition.waiting, "");
+          vm.onComplete("");
           this.widget.onCompleted!("");
         });
       }

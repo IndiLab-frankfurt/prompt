@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/models/question.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/screens/assessments/single_choice_question.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/viewmodels/choice_question_view_model.dart';
+import 'package:prompt/viewmodels/questionnaire_page_view_model.dart';
 
 typedef void ItemSelectedCallback(
     String assessment, String itemId, String value);
@@ -85,7 +86,7 @@ class _VerticalQuestionnaireState extends State<VerticalQuestionnaire> {
     }
   }
 
-  buildQuestionCard(QuestionnairePage question, int index) {
+  buildQuestionCard(QuestionnairePageViewModel question, int index) {
     var groupValue = -1;
     if (_results.containsKey(widget.questionnaire.questions[index].name)) {
       var parseResult =
@@ -95,16 +96,16 @@ class _VerticalQuestionnaireState extends State<VerticalQuestionnaire> {
       }
     }
 
-    if (question is SingleChoiceQuestion) {
+    if (question is SingleChoiceQuestionView) {
       // cast question  to SingleChoiceQuestion
-      var singleChoiceQuestion = question as ChoiceQuestion;
+      var singleChoiceQuestion = question as ChoiceQuestionViewModel;
       return Card(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),
           child: Container(
             padding: EdgeInsets.all(10),
-            child: SingleChoiceQuestion(
+            child: SingleChoiceQuestionView(
               question: singleChoiceQuestion,
               selectecValue: groupValue,
               onSelection: (val) {

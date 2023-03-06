@@ -1,4 +1,5 @@
 {
+  "@@locale": "de",
   "welcome": "Willkommen bei PROMPT!",
   "introductionTakeYourTime": "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.",
   "congratsMoreDiamonds": "Glückwunsch, du hast weitere {number} 💎 verdient!",
@@ -19,7 +20,8 @@
       }
     }
   },
-  "labelTextWriteDownBulletPoints": "Schreibe deine Antwort hier auf (Stichworte genügen)",
+  "labelTextWriteDownBulletPoints": "Schreibe deine Antwort hier auf",
+  "obstacleOutcomeHelperText": "Stichworte genügen",
   "rewards1p2": "Jetzt haben wir erst mal ein paar Fragen an dich.",
   "rewards1p3": "Bitte beantworte alle Fragen ehrlich. Dir entstehen dadurch keine Nachteile.",
   "planTimingParagraph1": "Ab morgen sollst du die App PROMPT jeden Abend einmal benutzen, Das dauert auch nur 3 Minuten.",
@@ -32,5 +34,10 @@
   "instructionsDistributedp1": "Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.",
   "obstacleEnterP1": "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:",
   "outcomeEnterP1": "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:",
-  "copingPlanEnterP1": "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:"
+  "copingPlanEnterP1": "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:",
+  "planInputP1": "Wann und wo könntest du morgen Vokabeln lernen??",
+  "planInputIfI": "Wenn ich",
+  "planInputThenILearnWithCabuu": ", dann lerne ich mit cabuu!",
+  "planTimingChangeP1": "Wenn du die Benachrichtigung zu einer anderen Uhrzeit erhalten möchtest, kannst du das hier einstellen.",
+  "time": "Uhrzeit"
 }

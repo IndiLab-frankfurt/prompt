@@ -47,6 +47,8 @@ class _ObstacleEnterScreenState extends State<ObstacleEnterScreen> {
                     borderRadius: BorderRadius.all(Radius.circular(5.0))),
                 labelText: AppLocalizations.of(context)!
                     .labelTextWriteDownBulletPoints,
+                helperText:
+                    AppLocalizations.of(context)!.obstacleOutcomeHelperText,
               )),
         ],
       ),

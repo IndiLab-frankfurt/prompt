@@ -50,6 +50,12 @@ class PromptDrawer extends StatelessWidget {
           ),
           Divider(),
           _buildDrawerItem(
+              icon: Icons.dashboard_outlined,
+              text: "Hauptbildschirm",
+              onTap: () async {
+                await Navigator.pushNamed(context, AppScreen.Mainscreen.name);
+              }),
+          _buildDrawerItem(
               icon: Icons.image_outlined,
               text: "Hintergrund ändern",
               onTap: () async {
@@ -57,11 +63,20 @@ class PromptDrawer extends StatelessWidget {
                     context, AppScreen.RewardSelection.name);
               }),
           _buildDrawerItem(
-              icon: Icons.add_box,
+              icon: Icons.alarm,
+              text: "Uhrzeit für Erinnerungen",
+              onTap: () async {
+                await Navigator.pushReplacementNamed(
+                    context, AppScreen.PlanTimingChange.name);
+              }),
+          _buildDrawerItem(
+              icon: Icons.privacy_tip_outlined,
               text: "Datenschutzerklärung",
               onTap: () async {
                 await Navigator.pushNamed(context, AppScreen.DataPrivacy.name);
               }),
+          Divider(),
+          Text("DEBUG STUFF"),
           _buildDrawerItem(
               icon: Icons.add_box,
               text: "Login",
@@ -75,13 +90,6 @@ class PromptDrawer extends StatelessWidget {
               onTap: () async {
                 await Navigator.pushReplacementNamed(
                     context, AppScreen.Onboarding.name);
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Questionnaire Test",
-              onTap: () async {
-                await Navigator.pushReplacementNamed(
-                    context, AppScreen.AA_DidYouLearn.name);
               }),
           _buildDrawerItem(
               icon: Icons.add_box,

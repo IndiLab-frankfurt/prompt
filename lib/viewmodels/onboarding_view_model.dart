@@ -35,7 +35,7 @@ enum OnboardingStep {
 class OnboardingViewModel extends MultiPageViewModel {
   InternalisationViewModel internalisationViewmodelEmoji =
       InternalisationViewModel(condition: InternalisationCondition.emojiBoth);
-  late PlanTimingViewModel _planTimingViewModel;
+  late PlanTimingViewModel planTimingViewModel;
 
   late OnboardingQuestionnaireViewModel questionnaireVocabRoutine =
       OnboardingQuestionnaireViewModel(
@@ -132,7 +132,8 @@ class OnboardingViewModel extends MultiPageViewModel {
 
   OnboardingViewModel(
       this._studyService, this._dataService, this._rewardService) {
-    _planTimingViewModel = PlanTimingViewModel(this._dataService);
+    planTimingViewModel =
+        PlanTimingViewModel(this._dataService, this._studyService);
     generateScreenOrder();
   }
 

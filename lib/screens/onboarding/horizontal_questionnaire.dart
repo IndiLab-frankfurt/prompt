@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/models/question.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/assessments/questionnaire_text_screen.dart';
 import 'package:prompt/screens/assessments/single_choice_question.dart';
+import 'package:prompt/viewmodels/choice_question_view_model.dart';
 import 'package:prompt/viewmodels/onboarding_questionnaire_view_model.dart';
+import 'package:prompt/viewmodels/questionnaire_textpage_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:async/async.dart';
 
@@ -28,7 +29,7 @@ class _HorizontalQuestionnaireState extends State<HorizontalQuestionnaire> {
       _screens = [];
 
       for (var question in vm.questionnaire.questions) {
-        if (question is ChoiceQuestion) {
+        if (question is ChoiceQuestionViewModel) {
           _screens.add(Container(
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
@@ -43,10 +44,10 @@ class _HorizontalQuestionnaireState extends State<HorizontalQuestionnaire> {
                 color: Theme.of(context).dialogBackgroundColor,
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: SingleChoiceQuestion(
+              child: SingleChoiceQuestionView(
                   question: question, onSelection: (_) {})));
         }
-        if (question is QuestionnaireText) {
+        if (question is QuestionnaireTextPageViewModel) {
           _screens.add(Column(children: [
             QuestionnaireTextScreen(
                 text: question.text, key: ValueKey(question.name)),

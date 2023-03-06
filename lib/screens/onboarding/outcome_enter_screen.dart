@@ -48,7 +48,7 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                labelText:
+                helperText:
                     'Schreibe deine Antwort hier auf (Stichworte genügen)',
               )),
         ],

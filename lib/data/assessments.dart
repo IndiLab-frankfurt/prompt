@@ -1,8 +1,10 @@
 // ignore_for_file: non_constant_identifier_names
 
-import 'package:prompt/models/question.dart';
+import 'package:intl/intl.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/viewmodels/choice_question_view_model.dart';
+import 'package:prompt/viewmodels/questionnaire_textpage_view_model.dart';
 
 Map<String, String> CHOICES_APPLIES = {
   "does_fully_not_apply": "Trifft gar nicht auf mich zu",
@@ -67,11 +69,41 @@ Map<String, String> CHOICES_IMPORTANCE = {
   "very_unimportant": "Sehr unwichtig",
 };
 
+Map<String, String> CHOICES_ANNOYING_ENJOYABLE = {
+  "very_annoying": "Sehr nervig",
+  "annoying": "Eher nervig",
+  "slightly_annoying": "Teilweise nervig",
+  "neutral": "Teils / teils",
+  "slightly_enjoyable": "Teilweise angenehm",
+  "rather_enjoyable": "Eher angenehm",
+  "very_enjoyable": "Sehr angenehm",
+};
+
+Map<String, String> CHOICES_USELESS_HELPFUL = {
+  "very_useless": "Sehr unnötig",
+  "rather_useless": "Eher unnötig",
+  "slightly_useless": "Teilweise unnötig",
+  "neutral": "Teils / teils",
+  "slightly_helpful": "Teilweise hilfreich",
+  "rather_helpful": "Eher hilfreich",
+  "very_helpful": "Sehr hilfreich",
+};
+
+Map<String, String> CHOICES_DIFFICULT_EASY = {
+  "very_difficult": "Sehr schwer",
+  "rather_difficult": "Eher schwer",
+  "slightly_difficult": "Teilweise schwer",
+  "neutral": "Teils / teils",
+  "slightly_easy": "Teilweise einfach",
+  "rather_easy": "Eher einfach",
+  "very_easy": "Sehr einfach",
+};
+
 Questionnaire AA_DidYouLearn = Questionnaire(
     title: "Hast du heute mit cabuu Vokabeln gelernt?",
     name: AppScreen.AA_DidYouLearn.name,
     questions: [
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           choices: CHOICES_YESNO,
           name: "AA_DidYouLearn_1",
           questionText: "Hast du heute mit cabuu Vokabeln gelernt?"),
@@ -81,7 +113,7 @@ Questionnaire AA_PreviousStudySession = Questionnaire(
     title: "Hast du heute mit cabuu Vokabeln gelernt?",
     name: AppScreen.AA_PreviousStudySession.name,
     questions: [
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           choices: {
             "very_satisfied": "Sehr zufrieden",
             "Very unsatisfied": "Sehr unzufrieden"
@@ -93,7 +125,7 @@ Questionnaire AA_PreviousStudySession = Questionnaire(
 
 Questionnaire AA_WhyNotLearn =
     Questionnaire(title: "", name: AppScreen.AA_WhyNotLearn.name, questions: [
-  ChoiceQuestion(
+  ChoiceQuestionViewModel(
       choices: {
         "forgot": "Ich habe vergessen, Vokabeln zu lernen",
         "procrastinated": "Ich habe das Lernen zu lange vor mir hergeschoben",
@@ -110,13 +142,13 @@ Questionnaire AA_NextStudySession = Questionnaire(
     title: "",
     name: AppScreen.AA_NextStudySession.name,
     questions: [
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
         questionText:
             "Wie wahrscheinlich ist es, dass du morgen Vokabeln lernen wirst?",
         choices: CHOICES_LIKELY,
         name: "${AppScreen.AA_NextStudySession.name}_expectation",
       ),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           questionText: "Wie wichtig ist es dir, morgen Vokabeln zu lernen?",
           choices: CHOICES_IMPORTANCE,
           name: "${AppScreen.AA_NextStudySession.name}_importance"),
@@ -127,7 +159,7 @@ Questionnaire OB_VocabRoutine = Questionnaire(
         "Wie lernst du Vokabeln? Gib an, wie sehr die Aussagen auf dich zutreffen",
     name: "OB_VocabRoutine",
     questions: [
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_VocabRoutine_1",
           questionText: "Wie gefällt dir die Vokabel-App cabuu?",
           choices: {
@@ -138,22 +170,22 @@ Questionnaire OB_VocabRoutine = Questionnaire(
             "very_bad": "Sehr schlecht",
             "not_tried_yet": "Ich habe cabuu noch nicht ausprobiert"
           }),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_VocabRoutine_2",
           questionText:
               "Ich habe eine feste Routine dafür, wann ich Vokabeln lerne.",
           choices: CHOICES_APPLIES),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_VocabRoutine_3",
           questionText:
               "Ich entscheide meistens spontan, wann ich Vokabeln lerne.",
           choices: CHOICES_APPLIES),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_VocabRoutine_4",
           questionText:
               "Obwohl ich weiß, dass ich Vokabeln lernen sollte, schiebe ich es oft lange vor mir her.",
           choices: CHOICES_APPLIES),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_VocabRoutine_5",
           questionText:
               "Wie oft lernst du normalerweise Englischvokabeln, wenn kein Test ansteht?",
@@ -164,7 +196,7 @@ Questionnaire OB_VocabRoutine = Questionnaire(
             "5_6_days_per_week": "5-6 Tage pro Woche",
             "every_day": "Jeden Tag",
           }),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_VocabRoutine_6",
           questionText:
               "Wie oft lernst du normalerweise Englischvokabeln, wenn ein Test angekündigt ist?",
@@ -181,27 +213,27 @@ Questionnaire OB_Motivation = Questionnaire(
     title: "Gib an, wie sehr die Aussagen auf dich zutreffen",
     name: "OB_Motivation",
     questions: [
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_Motivation_1",
           questionText:
               "Ich lerne Vokabeln, weil ich Freude daran habe, neue Wörter zu lernen.",
           choices: CHOICES_APPLIES),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_Motivation_2",
           questionText:
               "Ich lerne Vokabeln, weil ich jemand bin, der gut Englisch sprechen kann.",
           choices: CHOICES_APPLIES),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_Motivation_3",
           questionText:
               "Ich lerne Vokabeln, weil ich sonst ein schlechtes Gewissen hätte.",
           choices: CHOICES_APPLIES),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_Motivation_4",
           questionText:
               "Ich lerne Vokabeln, weil ich gute Noten bekommen möchte",
           choices: CHOICES_APPLIES),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_Motivation_4",
           questionText:
               "Ich lerne Vokabeln, obwohl ich nicht wirklich weiß, wozu überhaupt.",
@@ -212,35 +244,35 @@ Questionnaire OB_ToB = Questionnaire(
     title: "Gib an, wie sehr die Aussagen auf dich zutreffen",
     name: "OB_ToB",
     questions: [
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_ToB_1",
           questionText:
               "Wenn ich möglichst oft Vokabeln lernen würde, wäre das...",
           choices: CHOICES_GOODBAD),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_ToB_2",
           questionText:
               "Wenn ich möglichst oft Vokabeln lernen würde, wäre das...",
           choices: CHOICES_PLEASANT),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_ToB_3",
           questionText:
               "Meine Eltern, Freunde, Lehrer denken, dass ich möglichst oft Vokabeln lernen sollte.",
           choices: CHOICES_AGREE),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_ToB_4",
           questionText: "Die meisten Kinder lernen möglichst oft Vokabeln.",
           choices: CHOICES_LIKELY),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_ToB_5",
           questionText:
               "Ich bin sicher, dass ich möglichst oft Vokabeln lernen kann.",
           choices: CHOICES_RIGHTWRONG),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_ToB_6",
           questionText: "Es liegt an mir, wie ich Vokabeln lerne.",
           choices: CHOICES_AGREE),
-      ChoiceQuestion(
+      ChoiceQuestionViewModel(
           name: "OB_ToB_7",
           questionText: "Ich habe vor, möglichst oft Vokabeln zu lernen.",
           choices: CHOICES_LIKELY),
@@ -248,7 +280,7 @@ Questionnaire OB_ToB = Questionnaire(
 
 Questionnaire RememberToLearn =
     Questionnaire(title: "", name: AppScreen.RememberToLearn.name, questions: [
-  QuestionnaireText(
+  QuestionnaireTextPageViewModel(
       name: "${AppScreen.RememberToLearn.name}_1",
       text: ["## Denk daran, morgen Vokabeln zu lernen! "])
 ]);
@@ -257,18 +289,99 @@ Questionnaire ReminderTestToday = Questionnaire(
     title: "",
     name: AppScreen.ReminderTestToday.name,
     questions: [
-      QuestionnaireText(name: "${AppScreen.ReminderTestToday.name}_1", text: [
-        '### Bitte mache heute noch den Test in cabuu!',
-        '### Drücke dazu auf die Liste und wähle "Abfrage".',
-        '### Fange dann ab morgen mit der nächsten Liste an.'
-      ])
+      QuestionnaireTextPageViewModel(
+          name: "${AppScreen.ReminderTestToday.name}_1",
+          text: [
+            '### Bitte mache heute noch den Test in cabuu!',
+            '### Drücke dazu auf die Liste und wähle "Abfrage".',
+            '### Fange dann ab morgen mit der nächsten Liste an.'
+          ])
+    ]);
+
+Questionnaire ReminderTestTomorrow = Questionnaire(
+    title: "",
+    name: AppScreen.ReminderTestTomorrow.name,
+    questions: [
+      QuestionnaireTextPageViewModel(
+          name: "${AppScreen.ReminderTestTomorrow.name}_1",
+          text: [
+            '### Morgen sollst du in cabuu den Vokabeltest machen!',
+            '### Wir erinnern dich morgen noch einmal daran.',
+          ])
     ]);
 
 Questionnaire ReminderNextList =
     Questionnaire(title: "", name: AppScreen.ReminderNextList.name, questions: [
-  QuestionnaireText(name: "${AppScreen.ReminderNextList.name}_1", text: [
-    '### Prima!',
-    '### Fange ab morgen an, die nächste Liste in cabuu zu lernen.',
-    '### Du hast wieder 20 Tage Zeit bis zum nächsten Test.'
-  ])
+  QuestionnaireTextPageViewModel(
+      name: "${AppScreen.ReminderNextList.name}_1",
+      text: [
+        '### Prima!',
+        '### Fange ab morgen an, die nächste Liste in cabuu zu lernen.',
+        '### Du hast wieder 20 Tage Zeit bis zum nächsten Test.'
+      ])
+]);
+
+Questionnaire WeeklyQuestions =
+    Questionnaire(title: "", name: AppScreen.WeeklyQuestions.name, questions: [
+  ChoiceQuestionViewModel(
+      name: "Weekly_DifficultiesWhileLearning",
+      questionText:
+          "Welche Schwierigkeiten hattest du in der vergangenen Woche beim Vokabellernen (z.B. wenig Konzentration, keine Lust, Ablenkung, ...).",
+      choices: {"TEXTINPUT": ""}),
+  ChoiceQuestionViewModel(
+      name: "Weekly_PerceptionOfIntervention_AnnoyingEnjoyable",
+      questionText: "Abends in der App einen Plan aufzuschreiben, fand ich...",
+      choices: CHOICES_ANNOYING_ENJOYABLE),
+  ChoiceQuestionViewModel(
+      name: "Weekly_PerceptionOfIntervention_UselessHelpful",
+      questionText: "Abends in der App einen Plan aufzuschreiben, fand ich...",
+      choices: CHOICES_USELESS_HELPFUL),
+  ChoiceQuestionViewModel(
+      name: "Weekly_PerceptionOfIntervention_DifficultEasy",
+      questionText: "Abends in der App einen Plan aufzuschreiben, fand ich...",
+      choices: CHOICES_DIFFICULT_EASY),
+  ChoiceQuestionViewModel(
+      name: "Weekly_vocabLearning_1",
+      questionText: "Abends in der App einen Plan aufzuschreiben, fand ich...",
+      choices: CHOICES_DIFFICULT_EASY),
+  ChoiceQuestionViewModel(
+      name: "Weekly_vocabLearning_daysago",
+      questionText: "Wann war dein letzter Vokabeltest in der Schule?",
+      choices: {
+        "today": "Heute",
+        "1_day_ago": DateFormat('EEEE')
+            .format(DateTime.now().subtract(Duration(days: 1))),
+        "2_days_ago": DateFormat('EEEE')
+            .format(DateTime.now().subtract(Duration(days: 2)))
+            .toString(),
+        "3_days_ago": DateFormat('EEEE')
+            .format(DateTime.now().subtract(Duration(days: 3)))
+            .toString(),
+        "4_day_ago": DateFormat('EEEE')
+            .format(DateTime.now().subtract(Duration(days: 4)))
+            .toString(),
+        "5_days_ago": DateFormat('EEEE')
+            .format(DateTime.now().subtract(Duration(days: 5)))
+            .toString(),
+        "6_days_ago": DateFormat('EEEE')
+            .format(DateTime.now().subtract(Duration(days: 6)))
+            .toString(),
+        "more_than_one_wek_ago": "Mehr als eine Woche her",
+      }),
+  ChoiceQuestionViewModel(
+      name: "Weekly_vocabLearning_medium",
+      questionText:
+          "Hast du in den letzten 7 Tagen deine Englischvokabeln auch anders als mit cabuu gelernt (zum Beispiel mit dem Vokabelheft)?",
+      choices: {
+        "no": "Nein",
+        "1_2_days": "Ja, an 1-2 Tagen",
+        "3_4_days": "Ja, an 3-4 Tagen",
+        "5_6_days": "Ja, an 5-6 Tagen",
+        "7_days": "Ja, jeden Tag",
+      }),
+  QuestionnaireTextPageViewModel(
+      name: "${AppScreen.ReminderNextList.name}_1",
+      text: [
+        '### Denk dran, dass du dir die Vokabeln besser merken kannst, wenn du jeden Tag ein bisschen lernst.',
+      ])
 ]);

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/logging_service.dart';
@@ -62,7 +63,7 @@ class StudyService {
       return 0;
     }
     var compareDate =
-        DateTime(regDate.year, regDate.month, regDate.day, 3, 0, 0);
+        DateTime(regDate.year, regDate.month, regDate.day, 12, 0, 0);
     var daysAgo = compareDate.daysAgo();
     return daysAgo;
   }
@@ -89,18 +90,8 @@ class StudyService {
     }
   }
 
-  Future<void> submitResponses(
-      List<QuestionnaireResponse> responses, String type) async {
+  Future<void> submitResponses(List<QuestionnaireResponse> responses) async {
     await this._dataService.saveQuestionnaireResponses(responses);
-
-    if (type == MORNING_ASSESSMENT) {
-      if (_shouldIncrementStreakDay()) {
-        await _rewardService.addStreakDays(1);
-      } else {
-        await _rewardService.clearStreakDays();
-      }
-      await _rewardService.onMorningAssessment();
-    }
   }
 
   bool isLastVocabTestDay() {
@@ -120,6 +111,20 @@ class StudyService {
 
   isTimeForFinalQuestions() {
     return false;
+  }
+
+  scheduleDailyReminders(TimeOfDay dailyReminderTime) async {
+    var userData = _dataService.getUserDataCache();
+    // check how many reminders we have to schedule
+    var daysAgo = getDaysSinceStart();
+
+    for (var i = 1; i <= daysAgo; i++) {
+      var reminderDate = userData.startDate!.add(Duration(days: i));
+      var reminderDateTime = DateTime(reminderDate.year, reminderDate.month,
+          reminderDate.day, dailyReminderTime.hour, dailyReminderTime.minute);
+      await _notificationService.deleteDailyReminderWithId(i);
+      _notificationService.scheduleDailyReminder(reminderDateTime, i);
+    }
   }
 
   scheduleFinalTaskReminder() {

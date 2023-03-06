@@ -96,6 +96,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                       builder: (_, snapshot) {
                         if (snapshot.hasData) {
                           return Container(
+                              margin: EdgeInsets.all(15),
                               child: Align(
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.start,
@@ -125,7 +126,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     var nextVocab = vm.daysUntilVocabTestString();
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         UIHelper.verticalSpaceMedium,
         Text(AppStrings.daysOfTotal(vm.daysActive, vm.getMaxStudyDays())),

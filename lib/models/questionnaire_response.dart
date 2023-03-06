@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:prompt/models/question.dart';
 import 'package:prompt/models/questionnaire.dart';
+import 'package:prompt/viewmodels/choice_question_view_model.dart';
 
 part 'questionnaire_response.g.dart';
 
@@ -23,7 +23,7 @@ class QuestionnaireResponse {
   static List<QuestionnaireResponse> fromQuestionnaire(Questionnaire q) {
     List<QuestionnaireResponse> responses = [];
     for (var q in q.questions) {
-      if (q is ChoiceQuestion) {
+      if (q is ChoiceQuestionViewModel) {
         var response = "";
         if (q.selectedChoices.length > 1) {
           response = q.selectedChoices.join(", ");

@@ -65,21 +65,12 @@ class NotificationService implements BaseService {
     print("Received Local Notification");
   }
 
-  deleteReminderWithId(int id) async {
+  deleteDailyReminderWithId(int id) async {
     var pendingNotifications = await getPendingNotifications();
     var reminderExists =
-        pendingNotifications.firstWhereOrNull((n) => n.id == ID_MORNING);
+        pendingNotifications.firstWhereOrNull((n) => n.id == (ID_MORNING + id));
     if (reminderExists == null) {
       localNotifications.cancel(id);
-    }
-  }
-
-  deleteScheduledRecallReminderTask() async {
-    var pendingNotifications = await getPendingNotifications();
-    var taskReminderExists =
-        pendingNotifications.firstWhereOrNull((n) => n.id == ID_TASK_REMINDER);
-    if (taskReminderExists == null) {
-      localNotifications.cancel(ID_TASK_REMINDER);
     }
   }
 
@@ -114,7 +105,7 @@ class NotificationService implements BaseService {
     }
   }
 
-  scheduleMorningReminder(DateTime time, int id) async {
+  scheduleDailyReminder(DateTime time, int id) async {
     var timeoutAfter = getMillisecondsUntilMidnight(time);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         CHANNEL_ID_MORNING_REMINDER, CHANNEL_NAME_MORNING_REMINDER,
@@ -149,55 +140,6 @@ class NotificationService implements BaseService {
     var midnight = DateTime(now.year, now.month, now.day, 23, 59);
 
     return midnight.difference(now).inMilliseconds;
-  }
-
-  scheduleEveningReminder(DateTime time) async {
-    await deleteScheduledRecallReminderTask();
-
-    var timeoutAfter = getMillisecondsUntilMidnight(time);
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_EVENING, CHANNEL_NAME_EVENING,
-        channelDescription: CHANNEL_DESCRIPTION_EVENING,
-        ongoing: true,
-        timeoutAfter: timeoutAfter);
-    var notificationDetails =
-        new NotificationDetails(android: androidPlatformChannelSpecifics);
-
-    var scheduledDate = tz.TZDateTime(
-        tz.local, time.year, time.month, time.day, time.hour, time.minute);
-
-    String title = "Mache jetzt weiter mit PROMPT!";
-    String body = "";
-
-    _loggingService.logEvent("ScheduleEveningReminder");
-
-    await localNotifications.zonedSchedule(
-        ID_TASK_REMINDER, title, body, scheduledDate, notificationDetails,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOAD_EVENING,
-        androidAllowWhileIdle: true);
-  }
-
-  scheduleBoosterPrompt(DateTime time) async {
-    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_BOOSTER_PROMPT, CHANNEL_NAME_BOOSTER_PROMPT,
-        channelDescription: CHANNEL_DESCRIPTION_BOOSTER_PROMPT, ongoing: true);
-    var notificationDetails =
-        new NotificationDetails(android: androidPlatformChannelSpecifics);
-
-    String title = "Mache jetzt weiter mit PROMPT!";
-    String body = "";
-
-    var scheduledDate = tz.TZDateTime(
-        tz.local, time.year, time.month, time.day, time.hour, time.minute);
-
-    await localNotifications.zonedSchedule(
-        ID_BOOSTER_PROMPT, title, body, scheduledDate, notificationDetails,
-        uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOAD_BOOSTER_PROMPT,
-        androidAllowWhileIdle: true);
   }
 
   scheduleFinalTaskReminder(DateTime dateTime) async {
