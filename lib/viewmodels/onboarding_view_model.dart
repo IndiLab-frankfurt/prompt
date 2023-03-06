@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:prompt/data/assessments.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
@@ -7,10 +8,11 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
 import 'package:prompt/viewmodels/onboarding_questionnaire_view_model.dart';
+import 'package:prompt/viewmodels/plan_timing_view_model.dart';
 
 enum OnboardingStep {
   welcome,
-  video_introduction,
+  video_introduction_1,
   rewardScreen1,
   assessment_vocabRoutine,
   instructions_distributedLearning,
@@ -21,17 +23,19 @@ enum OnboardingStep {
   copingPlan,
   assessment_ToB,
   instructions_implementationIntentions,
-  video_Planning,
+  video_planning,
   planCreation,
   planInternalisationEmoji,
   planTiming,
   // instructions_cabuu_1,
   instructions_cabuu_2,
+  video_introduction_2
 }
 
 class OnboardingViewModel extends MultiPageViewModel {
   InternalisationViewModel internalisationViewmodelEmoji =
-      InternalisationViewModel();
+      InternalisationViewModel(condition: InternalisationCondition.emojiBoth);
+  late PlanTimingViewModel _planTimingViewModel;
 
   late OnboardingQuestionnaireViewModel questionnaireVocabRoutine =
       OnboardingQuestionnaireViewModel(
@@ -112,6 +116,8 @@ class OnboardingViewModel extends MultiPageViewModel {
     notifyListeners();
   }
 
+  TimeOfDay _planTiming = TimeOfDay.now();
+
   void onInternalisationCompleted(String result) {
     notifyListeners();
   }
@@ -120,17 +126,14 @@ class OnboardingViewModel extends MultiPageViewModel {
     notifyListeners();
   }
 
-  final StudyService _experimentService;
+  final StudyService _studyService;
   final RewardService _rewardService;
   final DataService _dataService;
 
   OnboardingViewModel(
-      this._experimentService, this._dataService, this._rewardService) {
+      this._studyService, this._dataService, this._rewardService) {
+    _planTimingViewModel = PlanTimingViewModel(this._dataService);
     generateScreenOrder();
-  }
-
-  void savePlanTiming(selectedValue) {
-    _dataService.saveUserDataProperty("reminder_time", selectedValue);
   }
 
   void generateScreenOrder() {
@@ -224,14 +227,14 @@ class OnboardingViewModel extends MultiPageViewModel {
 
     switch (stepKey) {
       case OnboardingStep.welcome:
-      case OnboardingStep.video_Planning:
+      case OnboardingStep.video_planning:
       case OnboardingStep.video_distributedLearning:
       case OnboardingStep.instructions_cabuu_2:
       case OnboardingStep.instructions_distributedLearning:
       case OnboardingStep.instructions_implementationIntentions:
       case OnboardingStep.rewardScreen1:
         break;
-      case OnboardingStep.video_introduction:
+      case OnboardingStep.video_introduction_1:
         if (_rewardService.scoreValue < 5) {
           _rewardService.addPoints(5);
         }
@@ -300,12 +303,12 @@ class OnboardingViewModel extends MultiPageViewModel {
     switch (stepKey) {
       case OnboardingStep.rewardScreen1:
       case OnboardingStep.instructions_cabuu_2:
-      case OnboardingStep.video_introduction:
+      case OnboardingStep.video_introduction_1:
       case OnboardingStep.welcome:
       case OnboardingStep.assessment_vocabRoutine:
       case OnboardingStep.assessment_ToB:
       case OnboardingStep.assessment_motivation:
-      case OnboardingStep.video_Planning:
+      case OnboardingStep.video_planning:
       case OnboardingStep.video_distributedLearning:
       case OnboardingStep.planCreation:
       case OnboardingStep.planInternalisationEmoji:
@@ -327,7 +330,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     var stepKey = pages[page]; //currentPageKey!.value as SessionZeroStep;
     return true;
     switch (stepKey) {
-      case OnboardingStep.video_introduction:
+      case OnboardingStep.video_introduction_1:
         return _videoWelcomeCompleted;
       case OnboardingStep.welcome:
         return true;
@@ -335,7 +338,7 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.assessment_ToB:
       case OnboardingStep.assessment_motivation:
         return true;
-      case OnboardingStep.video_Planning:
+      case OnboardingStep.video_planning:
         return _videoPlanningCompleted;
       case OnboardingStep.video_distributedLearning:
         return _videoDistributedLearningCompleted;
@@ -362,6 +365,15 @@ class OnboardingViewModel extends MultiPageViewModel {
     responses.addAll(QuestionnaireResponse.fromQuestionnaire(
         questionnaireToB.questionnaire));
 
+    // create a response for the onboarding to signal that it is completed
+    var onboardingResponse = QuestionnaireResponse(
+        name: "onboarding",
+        questionnaireName: "onboarding",
+        questionText: "",
+        response: "completed",
+        dateSubmitted: DateTime.now());
+    responses.add(onboardingResponse);
+
     return responses;
   }
 
@@ -370,10 +382,10 @@ class OnboardingViewModel extends MultiPageViewModel {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
 
-      await _experimentService.submitResponses(
-          getAllQuestionnaireResponses(), SESSION_ZERO);
+      _studyService.scheduleDailyReminders(_planTiming);
+      await _studyService.submitResponses(getAllQuestionnaireResponses());
 
-      _experimentService.nextScreen();
+      _studyService.nextScreen();
     }
   }
 }
