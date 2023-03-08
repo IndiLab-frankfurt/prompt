@@ -65,7 +65,7 @@ class PlanPromptViewModel extends MultiPageViewModel {
   @override
   void submit() async {
     this.setState(ViewState.busy);
-    await this.studyService.submitResponses(buildResponses());
+    await this.studyService.submitResponses(responses);
     this.studyService.nextScreen();
     this.setState(ViewState.idle);
   }
