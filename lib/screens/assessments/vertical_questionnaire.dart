@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/models/questionnaire.dart';
-import 'package:prompt/screens/assessments/single_choice_question.dart';
+import 'package:prompt/widgets/single_choice_question_view.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
 import 'package:prompt/viewmodels/questionnaire_page_view_model.dart';

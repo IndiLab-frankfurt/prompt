@@ -9,13 +9,16 @@ import 'package:prompt/shared/enums.dart';
 
 class ApiService {
   // static String serverUrl = "http://10.0.2.2:8000";
-  static String serverUrl = "https://prompt-app.eu";
+  String serverUrl = "https://prompt-app.eu";
 
   final SettingsService _settingsService;
 
   Future<bool> initialize() {
     if (kIsWeb || !kDebugMode) {
-      serverUrl = "https://prompt-app.eu";
+      serverUrl = _settingsService.getSetting(SettingsKeys.apiBaseUrl);
+    } else if (kDebugMode) {
+      // serverUrl = "https://prompt-app.eu";
+      serverUrl = "http://10.0.2.2:8000";
     }
     return Future.value(true);
   }
@@ -149,11 +152,6 @@ class ApiService {
 
   Future<void> savePlan(String plan) {
     // TODO: implement savePlan
-    throw UnimplementedError();
-  }
-
-  Future<void> saveScore(String userid, int score) {
-    // TODO: implement saveScore
     throw UnimplementedError();
   }
 

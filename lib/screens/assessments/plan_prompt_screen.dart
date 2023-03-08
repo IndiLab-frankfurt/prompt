@@ -1,4 +1,3 @@
-import 'package:async/async.dart';
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/assessments/plan_input_screen.dart';
@@ -11,64 +10,48 @@ import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:provider/provider.dart';
 
-class PlanPromptScreen extends StatelessWidget {
-  final AsyncMemoizer _memoizer = AsyncMemoizer();
-  final PlanPromptViewModel vm;
+class PlanPromptScreen extends StatefulWidget {
+  PlanPromptScreen({super.key});
 
-  PlanPromptScreen({super.key, required this.vm});
+  @override
+  State<PlanPromptScreen> createState() => _PlanPromptScreenState();
+}
 
-  init(BuildContext context) async {
-    return this._memoizer.runOnce(() async {
-      List<Widget> _screens = [];
-
-      for (var page in vm.pages) {
-        if (page is InternalisationViewModel) {
-          _screens.add(
-              EmojiInternalisationScreen(vm: vm.internalisationViewmodelEmoji));
-        }
-
-        if (page is PlanInputViewModel) {
-          _screens.add(PlanInputScreen());
-        }
+class _PlanPromptScreenState extends State<PlanPromptScreen> {
+  late PlanPromptViewModel vm;
+  List<Widget> _screens = [];
+  @override
+  void initState() {
+    vm = Provider.of<PlanPromptViewModel>(context, listen: false);
+    super.initState();
+    for (var page in vm.pages) {
+      if (page is InternalisationViewModel) {
+        _screens.add(
+            EmojiInternalisationScreen(vm: vm.internalisationViewmodelEmoji));
       }
 
-      return _screens;
-    });
+      if (page is PlanInputViewModel) {
+        _screens.add(PlanInputScreen());
+      }
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    vm = Provider.of<PlanPromptViewModel>(context);
     return WillPopScope(
-        onWillPop: () async => false,
-        child: Container(
-          child: Scaffold(
-              appBar: PromptAppBar(showBackButton: true),
-              drawer: PromptDrawer(),
-              extendBodyBehindAppBar: true,
-              body: ChangeNotifierProvider.value(
-                value: vm,
-                builder: (context, child) {
-                  return FutureBuilder(
-                    future: init(context),
-                    builder: (BuildContext context,
-                        AsyncSnapshot<dynamic> snapshot) {
-                      if (snapshot.hasData) {
-                        return BackgroundImageContainer(
-                            child: MultiPageScreen(
-                          vm,
-                          snapshot.data,
-                        ));
-                      } else if (snapshot.hasError) {
-                        return Center(child: Text("${snapshot.error}"));
-                      } else {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                    },
-                  );
-                },
-              )),
-        ));
+      onWillPop: () async => false,
+      child: Container(
+        child: Scaffold(
+            appBar: PromptAppBar(showBackButton: true),
+            drawer: PromptDrawer(),
+            extendBodyBehindAppBar: true,
+            body: BackgroundImageContainer(
+                child: MultiPageScreen(
+              vm,
+              _screens,
+            ))),
+      ),
+    );
   }
 }

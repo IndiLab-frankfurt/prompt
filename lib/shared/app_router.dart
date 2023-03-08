@@ -3,6 +3,7 @@ import 'package:prompt/data/assessments.dart';
 import 'package:prompt/screens/assessments/plan_prompt_screen.dart';
 import 'package:prompt/screens/main/change_plan_timing_screen.dart';
 import 'package:prompt/screens/main/data_privacy_screen.dart';
+import 'package:prompt/screens/main/forgot_password_screen.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/screens/assessments/multi_page_questionnaire_screen.dart';
@@ -45,12 +46,7 @@ class AppRouter {
         screen = ChangeNotifierProvider<LoginViewModel>(
             create: (_) => LoginViewModel(
                 locator.get<UserService>(), locator.get<NavigationService>()),
-            child: LoginScreen(
-              backgroundColor1: Color(0xFFFFF3E0),
-              backgroundColor2: Color(0xFFFFF3E0),
-              highlightColor: Colors.blue,
-              foregroundColor: Color(0xFFFFF3E0),
-            ));
+            child: LoginScreen());
         break;
 
       case AppScreen.Mainscreen:
@@ -73,6 +69,10 @@ class AppRouter {
 
       case AppScreen.AboutPrompt:
         screen = AboutScreen();
+        break;
+
+      case AppScreen.ForgotPassword:
+        screen = ForgotPasswordScreen();
         break;
 
       case AppScreen.Questionnaire:
@@ -137,7 +137,9 @@ class AppRouter {
         break;
 
       case AppScreen.PlanPrompt:
-        screen = PlanPromptScreen(vm: locator.get<PlanPromptViewModel>());
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<PlanPromptViewModel>(),
+            child: PlanPromptScreen());
         break;
 
       case AppScreen.PlanTimingChange:

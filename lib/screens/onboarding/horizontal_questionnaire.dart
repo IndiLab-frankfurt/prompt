@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/assessments/questionnaire_text_screen.dart';
-import 'package:prompt/screens/assessments/single_choice_question.dart';
+import 'package:prompt/widgets/single_choice_question_view.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
 import 'package:prompt/viewmodels/onboarding_questionnaire_view_model.dart';
 import 'package:prompt/viewmodels/questionnaire_textpage_view_model.dart';
@@ -32,6 +32,7 @@ class _HorizontalQuestionnaireState extends State<HorizontalQuestionnaire> {
         if (question is ChoiceQuestionViewModel) {
           _screens.add(Container(
               padding: EdgeInsets.all(10),
+              margin: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 boxShadow: [
                   BoxShadow(

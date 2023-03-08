@@ -246,6 +246,7 @@ class RewardService {
     await _dataService.saveDaysActive(daysActive);
   }
 
+  // TODO: Add a function to also schedule the points for a notification
   addPoints(int points) async {
     scoreValue += points;
     controller.add(scoreValue);

@@ -75,6 +75,7 @@ enum AppScreen {
   RewardSelection("/rewardselection"),
   DataPrivacy("/dataprivacy"),
   PlanTimingChange("/plantimingchange"),
+  ForgotPassword("/forgotpassword"),
   UserSettings("/usersettings");
 
   const AppScreen(this.routeName);
@@ -92,6 +93,7 @@ enum SettingsKeys {
   backGroundImage,
   backgroundColors,
   fcmToken,
+  apiBaseUrl,
 }
 
 const String EVENING_ASSESSMENT = "eveningAssessment";

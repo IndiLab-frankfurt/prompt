@@ -15,9 +15,9 @@ class PlanInputScreen extends StatelessWidget {
       MarkdownBody(data: "### " + AppLocalizations.of(context)!.planInputP1),
       UIHelper.verticalSpaceMedium,
       PlanInput(
-        plan: vm.plan,
+        vm: vm.planInputViewModel,
         onChanged: (newText) {
-          vm.plan = "Wenn ich " + newText + ", dann lerne ich mit cabuu!";
+          // vm.plan = "Wenn ich " + newText + ", dann lerne ich mit cabuu!";
         },
       )
     ]));

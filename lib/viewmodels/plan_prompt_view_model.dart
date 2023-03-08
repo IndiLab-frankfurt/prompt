@@ -5,6 +5,7 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
 import 'package:prompt/viewmodels/plan_input_view_model.dart';
+import 'package:collection/collection.dart';
 
 class PlanPromptViewModel extends MultiPageViewModel {
   String plan = "";
@@ -15,15 +16,36 @@ class PlanPromptViewModel extends MultiPageViewModel {
   final StudyService studyService;
   final DataService dataService;
 
+  final List<QuestionnaireResponse> responses = [];
+
   PlanPromptViewModel({
     required this.studyService,
     required this.dataService,
   }) {
-    planInputViewModel.addListener(() {
-      plan = planInputViewModel.plan;
-      internalisationViewmodelEmoji.plan = plan;
-    });
+    planInputViewModel.onAnswered = onPlanChanged;
+    internalisationViewmodelEmoji.onAnswered = onEmojisCompleted;
     pages = [planInputViewModel, internalisationViewmodelEmoji];
+  }
+
+  void onPlanChanged(QuestionnaireResponse planResponse) {
+    internalisationViewmodelEmoji.plan = planResponse.response;
+    updateRespones(planResponse);
+    this.notifyListeners();
+  }
+
+  void onEmojisCompleted(QuestionnaireResponse planResponse) {
+    updateRespones(planResponse);
+    this.notifyListeners();
+  }
+
+  void updateRespones(QuestionnaireResponse response) {
+    // if a response with the same name already exists, replace it
+    var existing =
+        responses.firstWhereOrNull((element) => element.name == response.name);
+    if (existing != null) {
+      responses.remove(existing);
+    }
+    responses.add(response);
   }
 
   @override

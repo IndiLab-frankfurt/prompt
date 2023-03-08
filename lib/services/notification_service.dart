@@ -2,9 +2,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:prompt/services/base_service.dart';
 import 'package:prompt/services/logging_service.dart';
-import 'package:timezone/data/latest.dart' as tz;
-import 'package:timezone/timezone.dart' as tz;
 import 'package:collection/collection.dart';
+import 'package:timezone/data/latest_all.dart' as tzdata;
+import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 class NotificationService implements BaseService {
   final LoggingService _loggingService;
@@ -20,17 +21,6 @@ class NotificationService implements BaseService {
   static const String CHANNEL_DESCRIPTION_MORNING_REMINDER =
       "Wenn-Dann-Plan Erinnerung";
   static const String PAYLOAD_MORNING_REMINDER = "PAYLOAD_II_REMINDER";
-
-  static const String CHANNEL_ID_EVENING = "Erinnerung Abend";
-  static const String CHANNEL_NAME_EVENING = "Erinnerung Abend";
-  static const String CHANNEL_DESCRIPTION_EVENING = "Erinnerung Abend";
-  static const String PAYLOAD_EVENING = "PAYLOAD_EVENING";
-
-  static const String CHANNEL_ID_BOOSTER_PROMPT = "Strategie Erinnerung";
-  static const String CHANNEL_NAME_BOOSTER_PROMPT = "Strategie Erinnerung";
-  static const String CHANNEL_DESCRIPTION_BOOSTER_PROMPT =
-      "Strategie Erinnerung";
-  static const String PAYLOAD_BOOSTER_PROMPT = "PAYLOAD_STRATEGIE_REMINDER";
 
   static const String CHANNEL_ID_FINAL_REMINDER =
       "Erinnerung Abschlussbefragung";
@@ -84,9 +74,10 @@ class NotificationService implements BaseService {
   }
 
   Future<void> _configureLocalTimeZone() async {
-    tz.initializeTimeZones();
-    // TODO: Get the user's time zone
-    tz.setLocalLocation(tz.getLocation("Europe/Berlin"));
+    tzdata.initializeTimeZones();
+    final String currentTimeZone =
+        await FlutterNativeTimezone.getLocalTimezone();
+    tz.setLocalLocation(tz.getLocation(currentTimeZone));
   }
 
   Future onSelectNotification(String? payload) async {
@@ -95,9 +86,6 @@ class NotificationService implements BaseService {
 
       if (payload == PAYLOAD_MORNING_REMINDER) {
         _loggingService.logEvent("NotificationClickInternalisation");
-      }
-      if (payload == PAYLOAD_EVENING) {
-        _loggingService.logEvent("NotificationClickRecallTask");
       }
       if (payload == PAYLOAD_FINAL_REMINDER) {
         _loggingService.logEvent("NotificationClickFinalTask");
@@ -168,8 +156,8 @@ class NotificationService implements BaseService {
 
   sendDebugReminder() async {
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        "WURST", CHANNEL_NAME_EVENING,
-        channelDescription: CHANNEL_DESCRIPTION_EVENING);
+        "WURST", "DEBUG",
+        channelDescription: "DEBUG");
     var notificationDetails =
         new NotificationDetails(android: androidPlatformChannelSpecifics);
 
@@ -185,7 +173,7 @@ class NotificationService implements BaseService {
         notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOAD_EVENING,
+        payload: "DEBUG",
         androidAllowWhileIdle: true);
   }
 

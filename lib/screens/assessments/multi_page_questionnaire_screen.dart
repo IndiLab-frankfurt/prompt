@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/assessments/questionnaire_text_screen.dart';
-import 'package:prompt/screens/assessments/single_choice_question.dart';
+import 'package:prompt/widgets/single_choice_question_view.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
 import 'package:prompt/viewmodels/questionnaire_textpage_view_model.dart';

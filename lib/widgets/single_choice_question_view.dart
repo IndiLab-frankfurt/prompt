@@ -40,7 +40,6 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    // _vm = Provider.of<SingleChoiceQuestionViewModel>(context);
   }
 
   _onChanged(int groupValue, String selectedValue) {
@@ -78,14 +77,15 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
       displayGroupValue += 1;
     }
 
-    return Expanded(
-      child: ListView(children: <Widget>[
+    return ListView(
+      shrinkWrap: true,
+      children: <Widget>[
         MarkdownBody(
           data: "### " + widget.question.questionText,
         ),
         UIHelper.verticalSpaceMedium,
         ...items,
-      ]),
+      ],
     );
   }
 

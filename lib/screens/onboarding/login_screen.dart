@@ -6,17 +6,8 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 
 class LoginScreen extends StatefulWidget {
-  final Color backgroundColor1;
-  final Color backgroundColor2;
-  final Color highlightColor;
-  final Color foregroundColor;
-
   LoginScreen({
     Key? k,
-    required this.backgroundColor1,
-    required this.backgroundColor2,
-    required this.highlightColor,
-    required this.foregroundColor,
   });
 
   @override
@@ -81,7 +72,6 @@ class _LoginScreenState extends State<LoginScreen> {
       width: 128.0,
       child: new CircleAvatar(
         backgroundColor: Colors.transparent,
-        foregroundColor: this.widget.foregroundColor,
         radius: 100.0,
         backgroundImage: AssetImage('assets/icons/icon_256.png'),
       ),
@@ -180,31 +170,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  buildForgotPassword(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(left: 40.0, right: 40.0),
-      alignment: Alignment.center,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Expanded(
-            child: TextButton(
-              child: Text(
-                AppStrings.Login_ForgotPassword,
-                textAlign: TextAlign.center,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/forgotPassword');
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
   buildSubmitButton(BuildContext context) {
     var vm = Provider.of<LoginViewModel>(context);
     return new ElevatedButton(
@@ -229,18 +194,6 @@ class _LoginScreenState extends State<LoginScreen> {
     return Form(
       key: _formKey,
       child: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment(
-                1.0, 0.0), // 10% of the width, so there are ten blinds.
-            colors: [
-              this.widget.backgroundColor1,
-              this.widget.backgroundColor2
-            ], // whitish to gray
-            // tileMode: TileMode.repeated, // repeats the gradient over the canvas
-          ),
-        ),
         height: MediaQuery.of(context).size.height,
         child: ListView(
           children: <Widget>[
@@ -259,8 +212,60 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             UIHelper.verticalSpaceLarge,
             buildForgotPassword(context),
+            UIHelper.verticalSpaceLarge,
+            buildToDataProtectionScreen(context),
           ],
         ),
+      ),
+    );
+  }
+
+  buildForgotPassword(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(left: 40.0, right: 40.0),
+      alignment: Alignment.center,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Expanded(
+            child: TextButton(
+              child: Text(
+                AppStrings.Login_ForgotPassword,
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, AppScreen.ForgotPassword.name);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  buildToDataProtectionScreen(BuildContext context) {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      margin: const EdgeInsets.only(left: 40.0, right: 40.0),
+      alignment: Alignment.center,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Expanded(
+            child: TextButton(
+              child: Text(
+                "Hier findest du unsere Datenschutzerklärung",
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () {
+                Navigator.pushNamed(context, AppScreen.DataPrivacy.name);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }

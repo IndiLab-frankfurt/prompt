@@ -34,7 +34,9 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
 
     widget.vm.currentPageStream.listen((index) {
       _controller.animateToPage(index, duration: _kDuration, curve: _kCurve);
-      setState(() {});
+      setState(() {
+        FocusManager.instance.primaryFocus?.unfocus();
+      });
     });
 
     Future.delayed(Duration(milliseconds: 1), (() {
@@ -63,11 +65,15 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
 
         // Swiping in right direction.
         if (details.primaryVelocity! > sensitivity) {
-          await widget.vm.previousPage();
+          if (widget.vm.canMoveBack()) {
+            await widget.vm.previousPage();
+          }
         }
         // Swiping in left direction.
         if (details.primaryVelocity! < sensitivity) {
-          await widget.vm.nextPage();
+          if (widget.vm.canMoveNext()) {
+            await widget.vm.nextPage();
+          }
         }
       },
       child: Container(

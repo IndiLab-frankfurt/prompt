@@ -8,10 +8,12 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
 import 'package:prompt/viewmodels/onboarding_questionnaire_view_model.dart';
+import 'package:prompt/viewmodels/plan_input_view_model.dart';
 import 'package:prompt/viewmodels/plan_timing_view_model.dart';
 
 enum OnboardingStep {
   welcome,
+  data_privacy,
   video_introduction_1,
   rewardScreen1,
   assessment_vocabRoutine,
@@ -36,6 +38,7 @@ class OnboardingViewModel extends MultiPageViewModel {
   InternalisationViewModel internalisationViewmodelEmoji =
       InternalisationViewModel(condition: InternalisationCondition.emojiBoth);
   late PlanTimingViewModel planTimingViewModel;
+  PlanInputViewModel planInputViewModel = PlanInputViewModel();
 
   late OnboardingQuestionnaireViewModel questionnaireVocabRoutine =
       OnboardingQuestionnaireViewModel(
@@ -55,7 +58,6 @@ class OnboardingViewModel extends MultiPageViewModel {
   String _plan = "";
   String get plan => _plan;
   set plan(String plan) {
-    plan = "Wenn ich $plan, dann lerne ich mit cabuu!";
     this._plan = plan;
     internalisationViewmodelEmoji.plan = plan;
     notifyListeners();
@@ -132,9 +134,16 @@ class OnboardingViewModel extends MultiPageViewModel {
 
   OnboardingViewModel(
       this._studyService, this._dataService, this._rewardService) {
+    planInputViewModel.onAnswered = onPlanChanged;
     planTimingViewModel =
         PlanTimingViewModel(this._dataService, this._studyService);
     generateScreenOrder();
+  }
+
+  void onPlanChanged(dynamic planInput) {
+    internalisationViewmodelEmoji.plan =
+        "Wenn ich $planInput, dann lerne ich mit cabuu!";
+    this.notifyListeners();
   }
 
   void generateScreenOrder() {
@@ -257,7 +266,7 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.planInternalisationEmoji:
         saveInternalisation();
         if (_rewardService.scoreValue < 10) {
-          _rewardService.addPoints(20);
+          _rewardService.addPoints(5);
         }
         break;
       case OnboardingStep.outcome:
@@ -329,10 +338,12 @@ class OnboardingViewModel extends MultiPageViewModel {
   @override
   bool canMoveNext() {
     var stepKey = pages[page]; //currentPageKey!.value as SessionZeroStep;
-    return true;
+    // return true;
     switch (stepKey) {
+      case OnboardingStep.data_privacy:
+        return _consented;
       case OnboardingStep.video_introduction_1:
-        return _videoWelcomeCompleted;
+        return true;
       case OnboardingStep.welcome:
         return true;
       case OnboardingStep.assessment_vocabRoutine:
@@ -340,7 +351,8 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.assessment_motivation:
         return true;
       case OnboardingStep.video_planning:
-        return _videoPlanningCompleted;
+        return true;
+      // return _videoPlanningCompleted;
       case OnboardingStep.video_distributedLearning:
         return _videoDistributedLearningCompleted;
       case OnboardingStep.planCreation:

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
 import 'package:prompt/screens/onboarding/copingplan_enter_screen.dart';
+import 'package:prompt/screens/onboarding/data_privavy_consent_screen.dart';
 import 'package:prompt/screens/onboarding/horizontal_questionnaire.dart';
 import 'package:prompt/screens/onboarding/instructions_cabuu_2.dart';
 import 'package:prompt/screens/onboarding/instructions_distributed_learning.dart';
@@ -74,17 +75,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                 builder:
                     (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                   if (snapshot.hasData) {
-                    return Scrollbar(
-                      child: Container(
-                          color: Colors.transparent,
-                          margin: EdgeInsets.only(left: 5, right: 5),
-                          padding: EdgeInsets.only(
-                              left: 5, right: 5, top: 20, bottom: 15),
-                          child: MultiPageScreen(
-                            vm,
-                            snapshot.data,
-                          )),
-                    );
+                    return Container(
+                        color: Colors.transparent,
+                        margin: EdgeInsets.only(left: 5, right: 5),
+                        padding: EdgeInsets.only(
+                            left: 5, right: 5, top: 20, bottom: 15),
+                        child: MultiPageScreen(
+                          vm,
+                          snapshot.data,
+                        ));
                   } else {
                     return Center(
                       child: CircularProgressIndicator(),
@@ -100,6 +99,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     switch (step) {
       case OnboardingStep.welcome:
         return WelcomeScreen(key: key);
+      case OnboardingStep.data_privacy:
+        return DataPrivacyConsentScreen(key: key);
       case OnboardingStep.rewardScreen1:
         return RewardScreen1(key: key);
       case OnboardingStep.video_introduction_1:

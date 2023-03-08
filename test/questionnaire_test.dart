@@ -53,7 +53,7 @@ void main() {
     mockSettingsService.setSetting(SettingsKeys.username, "123456");
     mockSettingsService.setSetting(SettingsKeys.password, "Prompt1234");
     var apiService = ApiService(settingsService);
-    ApiService.serverUrl = "http://localhost:8000";
+    // ApiService.serverUrl = "http://localhost:8000";
     var response = await apiService
         .submitQuestionnaireResponses(questionnaireSubmission.toJson());
     expect(response, true);

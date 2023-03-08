@@ -15,7 +15,8 @@ class SettingsService {
     SettingsKeys.timerDurationInSeconds: "1500",
     SettingsKeys.initSessionStep: "0",
     SettingsKeys.backGroundImage: "",
-    SettingsKeys.backgroundColors: "ffff55,ffff55"
+    SettingsKeys.backgroundColors: "ffff55,ffff55",
+    SettingsKeys.apiBaseUrl: "https://prompt-app.eu",
   };
 
   SettingsService();

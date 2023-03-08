@@ -22,6 +22,7 @@ class _FirstPlanCreationScreenState extends State<FirstPlanCreationScreen> {
     super.initState();
     _habitTextController.text =
         Provider.of<OnboardingViewModel>(context, listen: false)
+            .planInputViewModel
             .plan
             .replaceFirst("Wenn ich ", "")
             .replaceFirst(", dann lerne ich mit cabuu!", "");
@@ -41,11 +42,9 @@ class _FirstPlanCreationScreenState extends State<FirstPlanCreationScreen> {
       MarkdownBody(data: "### " + AppStrings.PlanCreation_CompleteThePlan),
       UIHelper.verticalSpaceMedium,
       PlanInput(
-        plan: vm.plan,
-        onChanged: (newText) {
-          vm.plan = "Wenn ich " + newText + ", dann lerne ich mit cabuu!";
-        },
-      )
+        vm: vm.planInputViewModel,
+        onChanged: (newText) {},
+      ),
     ]));
   }
 }

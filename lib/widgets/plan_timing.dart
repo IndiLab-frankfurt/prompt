@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:prompt/viewmodels/plan_timing_view_model.dart';
 import 'package:prompt/widgets/time_picker_grid_dialog.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlanTiming extends StatelessWidget {
   const PlanTiming({super.key});
@@ -30,9 +31,9 @@ class PlanTiming extends StatelessWidget {
       },
       textAlign: TextAlign.center,
       decoration: InputDecoration(
-        labelText: "Uhrzeit",
+        labelText: AppLocalizations.of(context)!.time,
         suffixIcon: Icon(Icons.access_time),
-        hintText: "Uhrzeit",
+        hintText: AppLocalizations.of(context)!.time,
       ),
     );
   }

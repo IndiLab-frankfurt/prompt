@@ -49,7 +49,7 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5.0))),
                 helperText:
-                    'Schreibe deine Antwort hier auf (Stichworte genügen)',
+                    AppLocalizations.of(context)!.obstacleOutcomeHelperText,
               )),
         ],
       ),

@@ -39,27 +39,26 @@ class _OnboardingPlanTimingScreenState
     var vm = Provider.of<OnboardingViewModel>(context, listen: false);
     return Container(
       padding: EdgeInsets.all(10),
-      child: Expanded(
-        child: ListView(
-          children: [
-            SpeechBubble(
-              text: AppLocalizations.of(context)!.congratsMoreDiamonds("20"),
-            ),
-            _buildConfetti(),
-            UIHelper.verticalSpaceMedium,
-            MarkdownBody(
-                data: AppLocalizations.of(context)!.planTimingParagraph1),
-            UIHelper.verticalSpaceMedium,
-            Text(
-              AppLocalizations.of(context)!.planTimingParagraph2,
-            ),
-            UIHelper.verticalSpaceMedium,
-            ChangeNotifierProvider.value(
-              value: vm.planTimingViewModel,
-              builder: (context, child) => PlanTiming(),
-            )
-          ],
-        ),
+      child: ListView(
+        shrinkWrap: true,
+        children: [
+          SpeechBubble(
+            text: AppLocalizations.of(context)!.congratsMoreDiamonds("20"),
+          ),
+          _buildConfetti(),
+          UIHelper.verticalSpaceMedium,
+          MarkdownBody(
+              data: AppLocalizations.of(context)!.planTimingParagraph1),
+          UIHelper.verticalSpaceMedium,
+          Text(
+            AppLocalizations.of(context)!.planTimingParagraph2,
+          ),
+          UIHelper.verticalSpaceMedium,
+          ChangeNotifierProvider.value(
+            value: vm.planTimingViewModel,
+            builder: (context, child) => PlanTiming(),
+          )
+        ],
       ),
     );
   }
