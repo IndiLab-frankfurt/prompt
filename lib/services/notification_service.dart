@@ -41,7 +41,12 @@ class NotificationService implements BaseService {
 
     var initSettingsAndroid =
         new AndroidInitializationSettings('ic_notification');
-    var initSettings = InitializationSettings(android: initSettingsAndroid);
+
+ DarwinInitializationSettings initializationSettingsDarwin =
+    DarwinInitializationSettings(
+        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+
+    var initSettings = InitializationSettings(android: initSettingsAndroid, iOS: initializationSettingsDarwin);
 
     await _configureLocalTimeZone();
 
