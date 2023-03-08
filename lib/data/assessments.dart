@@ -19,7 +19,9 @@ Map<String, String> CHOICES_APPLIES = {
 Map<String, String> CHOICES_GOODBAD = {
   "very_good": "Sehr gut",
   "good": "Gut",
+  "rather_good": "Eher gut",
   "neutral": "Neutral",
+  "rather_bad": "Eher schlecht",
   "bad": "Schlecht",
   "very_bad": "Sehr schlecht",
 };
@@ -27,7 +29,9 @@ Map<String, String> CHOICES_GOODBAD = {
 Map<String, String> CHOICES_PLEASANT = {
   "very_pleasant": "Sehr angenehm",
   "pleasant": "Angenehm",
+  "rather pleasant": "Eher angenehm",
   "neutral": "Neutral",
+  "rather_unpleasant": "Eher unangenehm",
   "unpleasant": "Unangenehm",
   "very_unpleasant": "Sehr unangenehm",
 };
@@ -35,7 +39,9 @@ Map<String, String> CHOICES_PLEASANT = {
 Map<String, String> CHOICES_AGREE = {
   "strongly_agree": "Stimme voll und ganz zu",
   "agree": "Stimme zu",
+  "rather_agree": "Stimme eher zu",
   "neutral": "Neutral",
+  "rather_disagree": "Stimme eher nicht zu",
   "disagree": "Stimme nicht zu",
   "strongly_disagree": "Stimme überhaupt nicht zu",
 };
@@ -43,7 +49,9 @@ Map<String, String> CHOICES_AGREE = {
 Map<String, String> CHOICES_LIKELY = {
   "very_likely": "Sehr wahrscheinlich",
   "likely": "Wahrscheinlich",
+  "rather_likely": "Eher wahrscheinlich",
   "neutral": "Neutral",
+  "rather_unlikely": "Eher unwahrscheinlich",
   "unlikely": "Unwahrscheinlich",
   "very_unlikely": "Sehr unwahrscheinlich",
 };
@@ -51,7 +59,9 @@ Map<String, String> CHOICES_LIKELY = {
 Map<String, String> CHOICES_RIGHTWRONG = {
   "very_right": "Sehr richtig",
   "right": "Richtig",
+  "rather_right": "Eher richtig",
   "neutral": "Neutral",
+  "rather_wrong": "Eher falsch",
   "wrong": "Falsch",
   "very_wrong": "Sehr falsch",
 };
