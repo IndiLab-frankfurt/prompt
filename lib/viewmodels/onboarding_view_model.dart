@@ -354,18 +354,16 @@ class OnboardingViewModel extends MultiPageViewModel {
         return true;
       // return _videoPlanningCompleted;
       case OnboardingStep.video_distributedLearning:
-        return _videoDistributedLearningCompleted;
+        return true;
       case OnboardingStep.planCreation:
-        return plan.isNotEmpty;
+        return true;
       case OnboardingStep.planInternalisationEmoji:
-        return this.internalisationViewmodelEmoji.input.isNotEmpty;
+        return true;
       case OnboardingStep.planTiming:
-        break;
+        return true;
       default:
         return true;
     }
-
-    return true;
   }
 
   getAllQuestionnaireResponses() {
