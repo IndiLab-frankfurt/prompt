@@ -74,7 +74,9 @@ Map<String, String> CHOICES_YESNO = {
 Map<String, String> CHOICES_IMPORTANCE = {
   "very_important": "Sehr wichtig",
   "important": "Wichtig",
+  "rather_important": "Eher wichtig",
   "neutral": "Neutral",
+  "rather_unimportant": "Eher unwichtig",
   "unimportant": "Unwichtig",
   "very_unimportant": "Sehr unwichtig",
 };
