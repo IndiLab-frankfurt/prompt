@@ -11,7 +11,8 @@ class PlanPromptViewModel extends MultiPageViewModel {
   String plan = "";
   InternalisationViewModel internalisationViewmodelEmoji =
       InternalisationViewModel(condition: InternalisationCondition.emojiBoth);
-  PlanInputViewModel planInputViewModel = PlanInputViewModel();
+  PlanInputViewModel planInputViewModel =
+      PlanInputViewModel(name: "Plan Input");
 
   final StudyService studyService;
   final DataService dataService;

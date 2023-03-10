@@ -13,7 +13,11 @@ import 'package:prompt/screens/onboarding/first_plan_creation_screen.dart';
 import 'package:prompt/screens/onboarding/onboarding_plan_timing_screen.dart';
 import 'package:prompt/screens/onboarding/reward_screen_1.dart';
 import 'package:prompt/screens/onboarding/welcome_screen.dart';
+import 'package:prompt/viewmodels/completable_page.dart';
+import 'package:prompt/viewmodels/data_privacy_consent_view_model.dart';
+import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
+import 'package:prompt/viewmodels/questionnaire_video_page_view_model.dart';
 import 'package:prompt/widgets/keep_alive_page.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
@@ -64,9 +68,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               backgroundColor: Colors.transparent,
               appBar: PromptAppBar(
                 showBackButton: true,
-                title: vm.pages[vm.page]
-                    .toString()
-                    .replaceAll("OnboardingStep.", ""),
+                title: vm.pages[vm.page].name,
               ),
               drawer: PromptDrawer(),
               resizeToAvoidBottomInset: false,
@@ -94,70 +96,98 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         ));
   }
 
-  Widget getScreen(OnboardingStep step) {
+  Widget getScreen(CompletablePageMixin step) {
     var key = ValueKey(step);
-    switch (step) {
-      case OnboardingStep.welcome:
-        return WelcomeScreen(key: key);
-      case OnboardingStep.data_privacy:
-        return DataPrivacyConsentScreen(key: key);
-      case OnboardingStep.rewardScreen1:
-        return RewardScreen1(key: key);
-      case OnboardingStep.video_introduction_1:
-        return VideoScreen(
-          'assets/videos/Onboarding_1.mp4',
-          onVideoCompleted: vm.videoWelcomeCompleted,
-          key: key,
-        );
-      case OnboardingStep.video_introduction_2:
-        return VideoScreen(
-          'assets/videos/Onboarding_2.mp4',
-          onVideoCompleted: vm.videoWelcomeCompleted,
-          key: key,
-        );
-      case OnboardingStep.video_distributedLearning:
-        return VideoScreen('assets/videos/distributed_practice.mp4',
-            key: key, onVideoCompleted: vm.videoDistributedLearningCompleted);
-      case OnboardingStep.outcome:
-        return OutcomeEnterScreen(key: key);
-      case OnboardingStep.obstacle:
-        return ObstacleEnterScreen(key: key);
-      case OnboardingStep.copingPlan:
-        return CopingPlanEnterScreen(key: key);
-      case OnboardingStep.instructions_implementationIntentions:
-        return InstructionsImplementationIntentions(key: key);
-      case OnboardingStep.video_planning:
-        return VideoScreen('assets/videos/implementation_intentions.mp4',
-            key: key, onVideoCompleted: vm.videoPlanningCompleted);
-      case OnboardingStep.planCreation:
-        return FirstPlanCreationScreen(key: key);
-      case OnboardingStep.planInternalisationEmoji:
-        return ChangeNotifierProvider.value(
-          value: vm.internalisationViewmodelEmoji,
-          key: key,
-          child: EmojiInternalisationScreen(
-              vm: vm.internalisationViewmodelEmoji, key: key),
-        );
-      case OnboardingStep.assessment_vocabRoutine:
-        return KeepAlivePage(
-            child: ChangeNotifierProvider(
-                create: (_) => vm.questionnaireVocabRoutine,
-                child: HorizontalQuestionnaire()));
 
-      case OnboardingStep.instructions_distributedLearning:
-        return InstructionsDistributedLearning(key: key);
-      case OnboardingStep.assessment_motivation:
-        return ChangeNotifierProvider(
-            create: (_) => vm.questionnaireMotivation,
-            child: HorizontalQuestionnaire());
-      case OnboardingStep.assessment_ToB:
-        return ChangeNotifierProvider(
-            create: (_) => vm.questionnaireToB,
-            child: HorizontalQuestionnaire());
-      case OnboardingStep.planTiming:
-        return OnboardingPlanTimingScreen(key: key);
-      case OnboardingStep.instructions_cabuu_2:
-        return InstructionsCabuu2(key: key);
+    Widget page =
+        Container(child: Center(child: Text("Missing Page ${step.name}")));
+
+    if (step.name == OnboardingStep.welcome.name) {
+      page = WelcomeScreen(key: key);
     }
+
+    if (step is DataPrivacyConsentViewModel) {
+      return ChangeNotifierProvider.value(
+        value: step,
+        key: key,
+        child: DataPrivacyConsentScreen(key: key),
+        // builder: (context, child) => page,
+      );
+    }
+
+    if (step.name == OnboardingStep.rewardScreen1.name) {
+      page = RewardScreen1(key: key);
+    }
+
+    if (step is QuestionnaireVideoPageViewModel) {
+      page = VideoScreen(
+        step.videoUrl,
+        onVideoCompleted: step.onVideoCompleted,
+        key: key,
+      );
+    }
+
+    if (step.name == OnboardingStep.outcome.name) {
+      return OutcomeEnterScreen(key: key);
+    }
+
+    if (step.name == OnboardingStep.obstacle.name) {
+      return ObstacleEnterScreen(key: key);
+    }
+
+    if (step.name == OnboardingStep.copingPlan.name) {
+      return CopingPlanEnterScreen(key: key);
+    }
+
+    if (step.name ==
+        OnboardingStep.instructions_implementationIntentions.name) {
+      return InstructionsImplementationIntentions(key: key);
+    }
+
+    if (step.name == OnboardingStep.planCreation.name) {
+      return FirstPlanCreationScreen(key: key);
+    }
+
+    if (step.name == OnboardingStep.planInternalisationEmoji.name) {
+      return ChangeNotifierProvider.value(
+        value: step,
+        key: key,
+        child: EmojiInternalisationScreen(
+            vm: vm.internalisationViewmodelEmoji, key: key),
+      );
+    }
+
+    if (step is MultiPageQuestionnaireViewModel) {
+      return ChangeNotifierProvider.value(
+        value: step,
+        key: key,
+        child: HorizontalQuestionnaire(),
+      );
+    }
+
+    if (step.name == OnboardingStep.instructions_distributedLearning.name) {
+      return InstructionsDistributedLearning(key: key);
+    }
+
+    if (step.name == OnboardingStep.planTiming.name) {
+      return OnboardingPlanTimingScreen(key: key);
+    }
+
+    if (step.name == OnboardingStep.instructions_cabuu_2.name) {
+      return InstructionsCabuu2(key: key);
+    }
+
+    return page;
+    // return ChangeNotifierProvider.value(
+    //   value: step,
+    //   key: key,
+    //   child: page,
+    //   // builder: (context, child) => page,
+    // );
+    // return ChangeNotifierProvider.value(
+    //   value: step,
+    //   key: key,
+    //   builder: (context, child) => page,
+    // );
   }
 }

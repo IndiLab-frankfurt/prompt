@@ -17,12 +17,12 @@ class WelcomeScreen extends StatelessWidget {
         children: [
           Text(
             AppLocalizations.of(context)!.welcome,
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
           UIHelper.verticalSpaceMedium,
           Text(
             AppLocalizations.of(context)!.introductionTakeYourTime,
-            style: Theme.of(context).textTheme.subtitle1,
+            style: Theme.of(context).textTheme.titleMedium,
           ),
         ],
       ),

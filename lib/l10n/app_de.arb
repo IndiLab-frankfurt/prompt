@@ -1,6 +1,6 @@
 {
   "@@locale": "de",
-  "welcome": "Willkommen bei PROMPT!",
+  "welcome": "Willkommen bei PROMPT-ADAPT!",
   "introductionTakeYourTime": "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.",
   "congratsMoreDiamonds": "Glückwunsch, du hast weitere {number} 💎 verdient!",
   "@congratsMoreDiamonds": {
@@ -20,11 +20,20 @@
       }
     }
   },
+  "planPlaceHolder": "Wenn ich {when}, dann lerne ich mit cabuu!",
+  "@planPlaceHolder": {
+    "placeholders": {
+      "when": {
+        "type": "String",
+        "example": "20"
+      }
+    }
+  },
   "labelTextWriteDownBulletPoints": "Schreibe deine Antwort hier auf",
   "obstacleOutcomeHelperText": "Stichworte genügen",
   "rewards1p2": "Jetzt haben wir erst mal ein paar Fragen an dich.",
   "rewards1p3": "Bitte beantworte alle Fragen ehrlich. Dir entstehen dadurch keine Nachteile.",
-  "planTimingParagraph1": "Ab morgen sollst du die App PROMPT jeden Abend einmal benutzen, Das dauert auch nur 3 Minuten.",
+  "planTimingParagraph1": "Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen, Das dauert auch nur 3 Minuten.",
   "planTimingParagraph2": "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.",
   "instructionsCabuu2Paragraph1": "In unserer Studie sollst du cabuu auf eine ganz bestimmte Art benutzen - wie, erklären wir in unserem Video. Schaue es auf einem anderen Gerät (z. B. Computer) an, damit du cabuu gleichzeitig auf deinem Handy installieren kannst. Den Link zum Video haben deine Eltern per E-Mail erhalten.",
   "instructionsCabuuLink": "Hier ist der Link noch mal:",
@@ -40,6 +49,9 @@
   "planInputThenILearnWithCabuu": ", dann lerne ich mit cabuu!",
   "planTimingChangeP1": "Wenn du die Benachrichtigung zu einer anderen Uhrzeit erhalten möchtest, kannst du das hier einstellen.",
   "time": "Uhrzeit",
+  "planCreation_letsCreatePlan": "Erstelle jetzt deinen ersten Plan!",
+  "planCreation_whenAndWhere": "Wann und wo könntest du morgen gut Vokabeln lernen?",
+  "planCreation_completeThePlan": "Vervollständige den Plan:",
   "consent_readthis": "Bitte lies dir die folgenden Informationen gemeinsam mit deinen Eltern sorgfältig durch.",
   "consent_appuse": "Ich habe die Datenschutzerklärung gelesen und bin damit einverstanden, dass mein Kind die App PROMPT-ADAPT unter den genannten Bedingungen verwendet.",
   "consent_study": "Ich bin damit einverstanden, dass mein Kind an der Studie PROMP-Adapt teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden."

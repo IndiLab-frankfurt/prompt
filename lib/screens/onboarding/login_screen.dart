@@ -213,7 +213,6 @@ class _LoginScreenState extends State<LoginScreen> {
             UIHelper.verticalSpaceLarge,
             buildForgotPassword(context),
             UIHelper.verticalSpaceLarge,
-            buildToDataProtectionScreen(context),
           ],
         ),
       ),
@@ -237,31 +236,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
               onPressed: () {
                 Navigator.pushNamed(context, AppScreen.ForgotPassword.name);
-              },
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-
-  buildToDataProtectionScreen(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(left: 40.0, right: 40.0),
-      alignment: Alignment.center,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Expanded(
-            child: TextButton(
-              child: Text(
-                "Hier findest du unsere Datenschutzerklärung",
-                textAlign: TextAlign.center,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, AppScreen.DataPrivacy.name);
               },
             ),
           ),

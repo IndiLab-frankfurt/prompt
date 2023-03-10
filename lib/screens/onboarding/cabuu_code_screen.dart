@@ -15,7 +15,7 @@ class CabuuCodeScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Text("Dein Cabuu Code lautet:",
-              style: Theme.of(context).textTheme.subtitle1),
+              style: Theme.of(context).textTheme.titleMedium),
           Center(
             child: MarkdownBody(data: "# **12356**"),
           ),

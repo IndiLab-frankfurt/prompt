@@ -1,12 +1,16 @@
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
+import 'package:prompt/viewmodels/completable_page.dart';
 
 typedef void OnAnsweredCallback(QuestionnaireResponse value);
 
-abstract class QuestionnairePageViewModel extends BaseViewModel {
-  final String name;
-  bool completed = false;
+class QuestionnairePageViewModel extends BaseViewModel
+    with CompletablePageMixin {
   OnAnsweredCallback? onAnswered;
   QuestionnaireResponse? response;
-  QuestionnairePageViewModel(this.name);
+  QuestionnairePageViewModel(
+      {required String name, bool completed = false, this.onAnswered}) {
+    this.completed = completed;
+    this.name = name;
+  }
 }

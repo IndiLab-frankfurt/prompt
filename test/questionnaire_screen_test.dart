@@ -13,17 +13,14 @@ void main() {
   });
 
   testWidgets("Questionnaire with multiple pages", (tester) async {
-    var vm = MultiPageQuestionnaireViewModel(MockDataService(),
-        rewardService: MockRewardService(),
+    var vm = MultiPageQuestionnaireViewModel(
+        name: "Test",
         studyService: MockStudyService(),
         questionnaire: AA_NextStudySession);
 
     var widget = MaterialApp(
       home: ChangeNotifierProvider(
-          create: (_) => vm,
-          child: MultiPageQuestionnaire(
-            vm: vm,
-          )),
+          create: (_) => vm, child: MultiPageQuestionnaire()),
     );
 
     await tester.pumpWidget(widget);

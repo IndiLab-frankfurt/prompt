@@ -6,8 +6,8 @@ part 'questionnaire_response.g.dart';
 
 @JsonSerializable()
 class QuestionnaireResponse {
+  String questionnaireName;
   final String name;
-  final String questionnaireName;
   final String questionText;
   final String response;
   final DateTime dateSubmitted;

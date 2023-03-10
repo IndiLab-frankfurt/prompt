@@ -9,9 +9,12 @@ class OnboardingContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(image: this.decorationImage),
-      child: this.child,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Container(
+        decoration: BoxDecoration(image: this.decorationImage),
+        child: this.child,
+      ),
     );
   }
 }

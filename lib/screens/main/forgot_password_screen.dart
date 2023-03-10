@@ -14,12 +14,12 @@ class ForgotPasswordScreen extends StatelessWidget {
         child: ListView(children: [
           Text(
             "Hast du dein Passwort oder deinen Benutzernamen vergessen?",
-            style: Theme.of(context).textTheme.headline5,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
           UIHelper.verticalSpaceMedium,
           Text(
             "Kein Problem! Schreibe einfach eine Mail an prompt@dipf-institut.de und wir helfen dir gerne weiter.",
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.headlineSmall,
           ),
         ]),
       ),

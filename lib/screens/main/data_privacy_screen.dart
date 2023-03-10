@@ -9,7 +9,7 @@ class DataPrivacyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PromptAppBar(showBackButton: true),
-      body: DataPrivacyInfo(),
+      body: Container(child: DataPrivacyInfo()),
     );
   }
 }

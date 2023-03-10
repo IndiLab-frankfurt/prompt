@@ -17,8 +17,8 @@ class ApiService {
     if (kIsWeb || !kDebugMode) {
       serverUrl = _settingsService.getSetting(SettingsKeys.apiBaseUrl);
     } else if (kDebugMode) {
-      serverUrl = "https://prompt-app.eu";
-      // serverUrl = "http://10.0.2.2:8000";
+      // serverUrl = "https://prompt-app.eu";
+      serverUrl = "http://10.0.2.2:8000";
     }
     return Future.value(true);
   }
@@ -138,21 +138,6 @@ class ApiService {
         return false;
       }
     });
-  }
-
-  Future saveDaysAcive(String username, int daysActive) {
-    // TODO: implement saveDaysAcive
-    throw UnimplementedError();
-  }
-
-  Future<void> saveOnboardingStepCompleted(String userid, int step) {
-    // TODO: implement saveInitSessionStepCompleted
-    throw UnimplementedError();
-  }
-
-  Future<void> savePlan(String plan) {
-    // TODO: implement savePlan
-    throw UnimplementedError();
   }
 
   saveScrambleCorrections(corrections) {

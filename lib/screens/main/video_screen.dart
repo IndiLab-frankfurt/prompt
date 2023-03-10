@@ -16,11 +16,9 @@ class VideoScreen extends StatefulWidget {
 class _VideoScreenState extends State<VideoScreen> {
   late VideoPlayerController _videoPlayerController =
       VideoPlayerController.asset(widget.videoURL);
-  late ChewieController _chewieController = ChewieController(
+  late ChewieController _videoController = ChewieController(
     videoPlayerController: _videoPlayerController,
-    looping: false,
-    showControls: true,
-    // autoInitialize: true,
+    allowFullScreen: false,
     aspectRatio: 9 / 16,
   );
 
@@ -33,7 +31,7 @@ class _VideoScreenState extends State<VideoScreen> {
 
       var timeToFinish = _videoPlayerController.value.duration.inSeconds -
           _videoPlayerController.value.position.inSeconds;
-      if (timeToFinish < 2) {
+      if (timeToFinish < 5) {
         widget.onVideoCompleted();
       }
     });
@@ -42,7 +40,7 @@ class _VideoScreenState extends State<VideoScreen> {
   @override
   void dispose() {
     _videoPlayerController.dispose();
-    _chewieController.dispose();
+    _videoController.dispose();
     super.dispose();
   }
 
@@ -50,7 +48,7 @@ class _VideoScreenState extends State<VideoScreen> {
   Widget build(BuildContext context) {
     return Container(
         child: Chewie(
-      controller: _chewieController,
+      controller: _videoController,
     ));
   }
 }

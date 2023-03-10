@@ -8,12 +8,12 @@ class DataPrivacyInfo extends StatelessWidget {
     return [
       Text(
         "Die Datenschutzbestimmungen/Privacy Policy zur PROMPT-ADAPT App bei Studienteilnahme",
-        style: Theme.of(context).textTheme.headline5,
+        style: Theme.of(context).textTheme.titleMedium,
       ),
       UIHelper.verticalSpaceMedium,
       Text(
         "Wozu wird die App PROMPT-ADAPT entwickelt?",
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.headlineMedium,
       ),
       UIHelper.verticalSpaceMedium,
       Text(
@@ -23,7 +23,7 @@ class DataPrivacyInfo extends StatelessWidget {
       UIHelper.verticalSpaceMedium,
       Text(
         "Unsere Datenschutzbestimmungen in Bezug auf die Nutzung der App PROMPT-ADAPT",
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.headlineMedium,
       ),
       UIHelper.verticalSpaceMedium,
       Text(
@@ -37,7 +37,7 @@ class DataPrivacyInfo extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: Scrollbar(
         thumbVisibility: true,
-        child: Column(children: getConsentText(context)),
+        child: ListView(children: getConsentText(context)),
       ),
     );
   }

@@ -11,18 +11,24 @@ import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:provider/provider.dart';
 import 'package:async/async.dart';
 
-class MultiPageQuestionnaire extends StatelessWidget {
-  MultiPageQuestionnaire({Key? key, required this.vm}) : super(key: key);
+class MultiPageQuestionnaire extends StatefulWidget {
+  MultiPageQuestionnaire({Key? key}) : super(key: key);
 
+  @override
+  State<MultiPageQuestionnaire> createState() => _MultiPageQuestionnaireState();
+}
+
+class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
   final AsyncMemoizer _memoizer = AsyncMemoizer();
 
-  final MultiPageQuestionnaireViewModel vm;
+  late MultiPageQuestionnaireViewModel vm =
+      Provider.of<MultiPageQuestionnaireViewModel>(context);
 
   init() async {
     return this._memoizer.runOnce(() async {
       List<Widget> _screens = [];
 
-      for (var question in vm.questionnaire.questions) {
+      for (var question in vm.pages) {
         if (question is ChoiceQuestionViewModel) {
           _screens.add(Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -54,26 +60,21 @@ class MultiPageQuestionnaire extends StatelessWidget {
                 appBar: PromptAppBar(showBackButton: true),
                 drawer: PromptDrawer(),
                 extendBodyBehindAppBar: true,
-                body: ChangeNotifierProvider.value(
-                  value: vm,
-                  builder: (context, child) {
-                    return FutureBuilder(
-                      future: init(),
-                      builder: (BuildContext context,
-                          AsyncSnapshot<dynamic> snapshot) {
-                        if (snapshot.hasData) {
-                          return BackgroundImageContainer(
-                              child: MultiPageScreen(
-                            vm,
-                            snapshot.data,
-                          ));
-                        } else {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-                      },
-                    );
+                body: FutureBuilder(
+                  future: init(),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.hasData) {
+                      return BackgroundImageContainer(
+                          child: MultiPageScreen(
+                        vm,
+                        snapshot.data,
+                      ));
+                    } else {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
                   },
                 ))));
   }

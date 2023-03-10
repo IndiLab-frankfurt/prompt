@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
+import 'package:prompt/viewmodels/plan_input_view_model.dart';
 import 'package:prompt/widgets/onboarding_container.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,7 +22,7 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
 
   @override
   Widget build(BuildContext context) {
-    var vm = Provider.of<OnboardingViewModel>(context, listen: false);
+    var vm = Provider.of<OnboardingViewModel>(context);
 
     var bgimg = "assets/illustrations/mascot_1_thoughtbubble.png";
 
@@ -40,7 +40,7 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
               minLines: 3,
               maxLines: null,
               onChanged: (text) {
-                vm.outcome = text;
+                vm.planInputViewModelOutcome.input = text;
               },
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(

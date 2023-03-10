@@ -12,9 +12,9 @@ class UIHelper {
   ThemeData darkTheme = ThemeData.dark().copyWith(
       primaryColor: Color(0xff1f655d),
       textTheme: TextTheme(
-          headline6: TextStyle(color: Color(0xff40bf7a)),
-          subtitle2: TextStyle(color: Colors.white),
-          subtitle1: TextStyle(color: Color(0xff40bf7a))),
+          titleLarge: TextStyle(color: Color(0xff40bf7a)),
+          titleSmall: TextStyle(color: Colors.white),
+          titleMedium: TextStyle(color: Color(0xff40bf7a))),
       appBarTheme: AppBarTheme(color: Color(0xff1f655d)),
       colorScheme:
           ColorScheme.fromSwatch().copyWith(secondary: Color(0xff40bf7a)));

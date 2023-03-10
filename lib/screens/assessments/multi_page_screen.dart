@@ -61,7 +61,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
       onHorizontalDragEnd: (details) async {
         if (details.primaryVelocity == null) return;
 
-        int sensitivity = 6;
+        int sensitivity = 30;
 
         // Swiping in right direction.
         if (details.primaryVelocity! > sensitivity) {

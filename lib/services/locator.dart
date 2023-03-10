@@ -61,8 +61,7 @@ void _setUpViewModels() {
   locator.registerFactoryParam<MultiPageQuestionnaireViewModel, Questionnaire,
           dynamic>(
       (param1, param2) => MultiPageQuestionnaireViewModel(
-          locator.get<DataService>(),
-          rewardService: locator.get<RewardService>(),
+          name: "",
           studyService: locator.get<StudyService>(),
           questionnaire: param1));
 

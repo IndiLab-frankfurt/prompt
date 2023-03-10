@@ -41,10 +41,10 @@ class MyApp extends StatelessWidget {
         colorSchemeSeed: Colors.lightBlue,
         scaffoldBackgroundColor: UIHelper.bgGradientStart,
         textTheme: TextTheme(
-          bodyText1: TextStyle(fontSize: 18),
-          bodyText2:
+          bodyLarge: TextStyle(fontSize: 18),
+          bodyMedium:
               GoogleFonts.quicksand(fontSize: 18, fontWeight: FontWeight.w600),
-          subtitle1:
+          titleMedium:
               GoogleFonts.quicksand(fontSize: 20, fontWeight: FontWeight.w600),
         ),
         buttonTheme: ButtonThemeData(

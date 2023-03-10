@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/services/locator.dart';
-import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 
 class UserSettingsScreen extends StatelessWidget {
-  late final SettingsService _settingsService = locator.get<SettingsService>();
   UserSettingsScreen({super.key});
 
   @override

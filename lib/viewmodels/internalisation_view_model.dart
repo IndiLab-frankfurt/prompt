@@ -3,7 +3,14 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/questionnaire_page_view_model.dart';
 
 class InternalisationViewModel extends QuestionnairePageViewModel {
-  String plan = "Wenn ich lernen will, dann konzentriere ich mich";
+  String _plan = "Wenn ich lernen will, dann konzentriere ich mich";
+
+  String get plan => _plan;
+
+  set plan(String newPlan) {
+    _plan = "Wenn ich $newPlan, dann lerne ich mit cabuu!";
+    notifyListeners();
+  }
 
   final InternalisationCondition condition;
 
@@ -11,7 +18,7 @@ class InternalisationViewModel extends QuestionnairePageViewModel {
 
   DateTime startDate = DateTime.now();
 
-  InternalisationViewModel({required this.condition}) : super(condition.name);
+  InternalisationViewModel({name, required this.condition}) : super(name: name);
 
   String getIfPart() {
     return "${plan.split("dann")[0]}...";
@@ -33,5 +40,6 @@ class InternalisationViewModel extends QuestionnairePageViewModel {
         response: input,
         dateSubmitted: DateTime.now().toLocal());
     this.onAnswered?.call(response!);
+    notifyListeners();
   }
 }

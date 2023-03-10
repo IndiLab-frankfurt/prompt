@@ -145,7 +145,7 @@ class _EmojiInternalisationScreenState
             readOnly: true,
             enableSuggestions: false,
             enableInteractiveSelection: false,
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
             decoration: InputDecoration(
               fillColor: Colors.white,
               filled: true,

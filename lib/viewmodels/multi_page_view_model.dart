@@ -12,14 +12,6 @@ abstract class MultiPageViewModel extends BaseViewModel {
   Stream<int> get currentPageStream =>
       _currentPageController.stream.map((currentIndex) => currentIndex);
 
-  // final StreamController _moveNextController =
-  //     StreamController<int>.broadcast();
-
-  // Sink get canMoveNext => _moveNextController.sink;
-
-  // Stream<int> get canMoveNextStream =>
-  //     _moveNextController.stream.map((value) => value);
-
   int page = 0;
 
   int initialPage = 0;

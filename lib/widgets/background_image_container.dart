@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/ui_helper.dart';

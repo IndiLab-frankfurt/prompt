@@ -222,11 +222,7 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
 
   buildEmptyWord(String text) {
     return GestureDetector(
-      onTap: () {
-        // setState(() {
-        //   _builtSentence.add(text);
-        // });
-      },
+      onTap: () {},
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
@@ -288,7 +284,7 @@ class _ScrambleInternalisationState extends State<ScrambleInternalisation> {
           children: [
             Text(
               "Merke dir folgenden Satz, und puzzle ihn dann gleich zusammen:",
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
             UIHelper.verticalSpaceMedium,
             SpeechBubble(text: text),

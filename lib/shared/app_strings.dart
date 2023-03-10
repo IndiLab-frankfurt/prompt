@@ -1,9 +1,6 @@
 import 'package:intl/intl.dart';
 
 class AppStrings {
-  // Idle Screen
-  static const String ChangeBackground = "Hintergrund ändern";
-
   static String daysParticipated(int days) {
     String dayString = days == 1 ? "Tag" : "Tage";
     return "$days $dayString insgesamt an der Studie teilgenommen";
@@ -23,27 +20,10 @@ class AppStrings {
   }
 
   // Onboarding Cabuu Link
-  static const String CabuuLink_WantToParticipate =
-      "Ja, ich möchte an der Studie teilnehmen.";
   static const String CabuuLink_EnterEmail =
       "Gib hier die E-Mail-Adresse ein, mit der du bei cabuu angemeldet bist";
   static const String CabuuLink_EnterUsername =
       "Falls du bei cabuu auch mit einem Benutzernamen angemeldet bist, gib diesen bitte hier ein";
-
-  // Onboarding Plan Creation
-  static const String PlanCreation_LetsCreatePlan =
-      "Erstelle jetzt deinen ersten Plan!";
-  static const String PlanCreation_PlanCreationExplanation =
-      "Wann und wo könntest du morgen gut Vokabeln lernen?";
-  static const String PlanCreation_CompleteThePlan =
-      "Vervollständige den Plan:";
-  static const String ThinkOfSomething =
-      "Überlege dir etwas, das du jeden Tag tust, möglichst auch am Wochenende. Schreibe es in 1-3 Stichworten auf:";
-  static const String GotTimeBeforeOrAfter =
-      "Hast du davor oder danach direkt Zeit, um mit cabuu zu lernen?";
-  static const String Before = "Davor";
-  static const String After = "Danach";
-  static const String Neither = "Weder noch";
 
   // Onboarding Plan Display
   static const String PlanDisplay_Excellent = "Prima!";

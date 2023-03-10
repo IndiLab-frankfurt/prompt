@@ -1,3 +1,4 @@
+import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/viewmodels/questionnaire_page_view_model.dart';
 
 class ChoiceQuestionViewModel extends QuestionnairePageViewModel {
@@ -13,7 +14,7 @@ class ChoiceQuestionViewModel extends QuestionnairePageViewModel {
       required this.questionText,
       this.randomize = false,
       this.singleChoice = true})
-      : super(name);
+      : super(name: name);
 
   randomizeMap(Map<String, String> map) {
     Map<String, String> newmap = {};
@@ -31,6 +32,18 @@ class ChoiceQuestionViewModel extends QuestionnairePageViewModel {
   onSingleChoiceSelection(String selectedValue) {
     // map the groupValue to the index of the choice in the list of choices
     selectedChoices = [selectedValue];
+
+    var response = QuestionnaireResponse(
+      dateSubmitted: DateTime.now().toLocal(),
+      name: name,
+      questionnaireName: "",
+      questionText: questionText,
+      response: selectedValue,
+    );
+
+    completed = true;
+
+    onAnswered?.call(response);
 
     notifyListeners();
   }

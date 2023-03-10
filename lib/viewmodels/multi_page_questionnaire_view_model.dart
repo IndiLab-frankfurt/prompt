@@ -1,24 +1,31 @@
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/models/questionnaire_response.dart';
-import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/viewmodels/completable_page.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
 
-class MultiPageQuestionnaireViewModel extends MultiPageViewModel {
+class MultiPageQuestionnaireViewModel extends MultiPageViewModel
+    with CompletablePageMixin {
   final Questionnaire questionnaire;
 
   final StudyService studyService;
-  final RewardService rewardService;
 
-  MultiPageQuestionnaireViewModel(
-    DataService dataService, {
-    required this.rewardService,
+  MultiPageQuestionnaireViewModel({
+    required String name,
     required this.questionnaire,
     required this.studyService,
   }) {
+    this.name = name;
     pages = questionnaire.questions.toList();
+    questionnaire.questions.forEach((element) {
+      element.completed = false;
+      element.onAnswered = onAnswered;
+    });
+  }
+
+  void onAnswered(QuestionnaireResponse response) {
+    this.notifyListeners();
   }
 
   @override
@@ -28,7 +35,7 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel {
 
   @override
   bool canMoveNext() {
-    return true;
+    return pages[page].completed;
   }
 
   @override

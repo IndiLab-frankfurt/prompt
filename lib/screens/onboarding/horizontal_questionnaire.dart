@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/assessments/questionnaire_text_screen.dart';
+import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
 import 'package:prompt/widgets/single_choice_question_view.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
-import 'package:prompt/viewmodels/onboarding_questionnaire_view_model.dart';
 import 'package:prompt/viewmodels/questionnaire_textpage_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:async/async.dart';
@@ -21,8 +21,8 @@ class _HorizontalQuestionnaireState extends State<HorizontalQuestionnaire> {
 
   final AsyncMemoizer _memoizer = AsyncMemoizer();
 
-  late OnboardingQuestionnaireViewModel vm =
-      Provider.of<OnboardingQuestionnaireViewModel>(context);
+  late MultiPageQuestionnaireViewModel vm =
+      Provider.of<MultiPageQuestionnaireViewModel>(context);
 
   init() async {
     return this._memoizer.runOnce(() async {

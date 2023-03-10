@@ -5,11 +5,14 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/viewmodels/data_privacy_consent_view_model.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
+import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
-import 'package:prompt/viewmodels/onboarding_questionnaire_view_model.dart';
 import 'package:prompt/viewmodels/plan_input_view_model.dart';
 import 'package:prompt/viewmodels/plan_timing_view_model.dart';
+import 'package:prompt/viewmodels/questionnaire_page_view_model.dart';
+import 'package:prompt/viewmodels/questionnaire_video_page_view_model.dart';
 
 enum OnboardingStep {
   welcome,
@@ -29,31 +32,45 @@ enum OnboardingStep {
   planCreation,
   planInternalisationEmoji,
   planTiming,
-  // instructions_cabuu_1,
   instructions_cabuu_2,
   video_introduction_2
 }
 
 class OnboardingViewModel extends MultiPageViewModel {
   InternalisationViewModel internalisationViewmodelEmoji =
-      InternalisationViewModel(condition: InternalisationCondition.emojiBoth);
+      InternalisationViewModel(
+          name: OnboardingStep.planInternalisationEmoji.name,
+          condition: InternalisationCondition.emojiBoth);
   late PlanTimingViewModel planTimingViewModel;
-  PlanInputViewModel planInputViewModel = PlanInputViewModel();
+  late PlanInputViewModel planInputViewModel = PlanInputViewModel(
+      name: OnboardingStep.planCreation.name, onAnswered: onPlanInput);
 
-  late OnboardingQuestionnaireViewModel questionnaireVocabRoutine =
-      OnboardingQuestionnaireViewModel(
-    questionnaire: OB_VocabRoutine,
-  );
+  PlanInputViewModel planInputViewModelOutcome =
+      PlanInputViewModel(name: OnboardingStep.outcome.name);
 
-  late OnboardingQuestionnaireViewModel questionnaireMotivation =
-      OnboardingQuestionnaireViewModel(
-    questionnaire: OB_Motivation,
-  );
+  PlanInputViewModel planInputViewModelObstacle =
+      PlanInputViewModel(name: OnboardingStep.obstacle.name);
 
-  late OnboardingQuestionnaireViewModel questionnaireToB =
-      OnboardingQuestionnaireViewModel(
-    questionnaire: OB_ToB,
-  );
+  PlanInputViewModel planInputViewModelCoping =
+      PlanInputViewModel(name: OnboardingStep.copingPlan.name);
+
+  // late MultiPageQuestionnaireViewModel questionnaireVocabRoutine =
+  //     MultiPageQuestionnaireViewModel(
+  //   questionnaire: OB_VocabRoutine,
+  //   studyService: this._studyService,
+  // );
+
+  // late MultiPageQuestionnaireViewModel questionnaireMotivation =
+  //     MultiPageQuestionnaireViewModel(
+  //   questionnaire: OB_Motivation,
+  //   studyService: this._studyService,
+  // );
+
+  // late MultiPageQuestionnaireViewModel questionnaireToB =
+  //     MultiPageQuestionnaireViewModel(
+  //   questionnaire: OB_ToB,
+  //   studyService: this._studyService,
+  // );
 
   String _plan = "";
   String get plan => _plan;
@@ -86,13 +103,6 @@ class OnboardingViewModel extends MultiPageViewModel {
     notifyListeners();
   }
 
-  bool _consented = false;
-  bool get consented => _consented;
-  set consented(bool consented) {
-    _consented = consented;
-    notifyListeners();
-  }
-
   String _vocabValue = "";
   String get vocabValue => _vocabValue;
   set vocabValue(String vocabValue) {
@@ -100,21 +110,10 @@ class OnboardingViewModel extends MultiPageViewModel {
     notifyListeners();
   }
 
-  bool _videoPlanningCompleted = false;
-  void videoPlanningCompleted() {
-    _videoPlanningCompleted = true;
-    notifyListeners();
-  }
-
-  bool _videoDistributedLearningCompleted = false;
-  void videoDistributedLearningCompleted() {
-    _videoDistributedLearningCompleted = true;
-    notifyListeners();
-  }
-
-  bool _videoWelcomeCompleted = false;
-  void videoWelcomeCompleted() {
-    _videoWelcomeCompleted = true;
+  bool _consented = false;
+  bool get consented => _consented;
+  set consented(bool consented) {
+    _consented = consented;
     notifyListeners();
   }
 
@@ -135,19 +134,76 @@ class OnboardingViewModel extends MultiPageViewModel {
   OnboardingViewModel(
       this._studyService, this._dataService, this._rewardService) {
     planInputViewModel.onAnswered = onPlanChanged;
-    planTimingViewModel =
-        PlanTimingViewModel(this._dataService, this._studyService);
+    planTimingViewModel = PlanTimingViewModel(
+        name: OnboardingStep.planTiming.name,
+        dataService: this._dataService,
+        studyService: this._studyService);
     generateScreenOrder();
   }
 
-  void onPlanChanged(dynamic planInput) {
+  void onPlanChanged(QuestionnaireResponse planInput) {
     internalisationViewmodelEmoji.plan =
-        "Wenn ich $planInput, dann lerne ich mit cabuu!";
+        "Wenn ich ${planInput.response}, dann lerne ich mit cabuu!";
     this.notifyListeners();
   }
 
   void generateScreenOrder() {
-    pages = getScreenOrder();
+    var screenOrder = [
+      QuestionnairePageViewModel(
+          name: OnboardingStep.welcome.name, completed: true),
+      DataPrivacyConsentViewModel(name: OnboardingStep.data_privacy.name),
+      QuestionnaireVideoPageViewModel(
+          name: OnboardingStep.video_introduction_1.name,
+          videoUrl: 'assets/videos/onboarding_1.mp4'),
+      QuestionnairePageViewModel(
+          name: OnboardingStep.rewardScreen1.name, completed: true),
+      MultiPageQuestionnaireViewModel(
+          name: OnboardingStep.assessment_vocabRoutine.name,
+          questionnaire: OB_VocabRoutine,
+          studyService: this._studyService),
+      QuestionnairePageViewModel(
+          name: OnboardingStep.instructions_distributedLearning.name,
+          completed: true),
+      QuestionnaireVideoPageViewModel(
+          name: OnboardingStep.video_distributedLearning.name,
+          videoUrl: 'assets/videos/distributed_practice.mp4'),
+      MultiPageQuestionnaireViewModel(
+          name: OnboardingStep.assessment_motivation.name,
+          questionnaire: OB_Motivation,
+          studyService: this._studyService),
+      planInputViewModelOutcome,
+      planInputViewModelObstacle,
+      planInputViewModelCoping,
+      MultiPageQuestionnaireViewModel(
+          name: OnboardingStep.assessment_ToB.name,
+          questionnaire: OB_ToB,
+          studyService: this._studyService),
+      QuestionnairePageViewModel(
+          name: OnboardingStep.instructions_implementationIntentions.name,
+          completed: true),
+      QuestionnaireVideoPageViewModel(
+          name: OnboardingStep.video_planning.name,
+          videoUrl: 'assets/videos/implementation_intentions.mp4'),
+      planInputViewModel,
+      internalisationViewmodelEmoji,
+      planTimingViewModel,
+      QuestionnairePageViewModel(
+          name: OnboardingStep.instructions_cabuu_2.name, completed: true),
+      QuestionnaireVideoPageViewModel(
+          name: OnboardingStep.video_introduction_2.name,
+          videoUrl: 'assets/videos/onboarding_2.mp4'),
+    ];
+    planInputViewModel.onAnswered = onPlanInput;
+    pages = screenOrder;
+    pages.forEach((element) {
+      element.addListener(() {
+        notifyListeners();
+      });
+    });
+  }
+
+  void onPlanInput(QuestionnaireResponse planResponse) {
+    internalisationViewmodelEmoji.plan = planResponse.response;
   }
 
   Future<bool> getInitialValues() async {
@@ -159,7 +215,8 @@ class OnboardingViewModel extends MultiPageViewModel {
     var ud = _dataService.getUserDataCache();
     // TODO: Restore after testing
     // initialPage = max(ud.initStep, pages.length - 1);
-    initialPage = 0;
+    initialPage = 14;
+    this.setPage(initialPage);
     cabuuCode = ud.cabuuCode.isNotEmpty ? ud.cabuuCode : "HIER CABUU CODE";
 
     return true;
@@ -169,7 +226,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     return OnboardingStep.values.toList();
   }
 
-  int getNextSubQuestionnairePage(OnboardingQuestionnaireViewModel vm) {
+  int getNextSubQuestionnairePage(MultiPageQuestionnaireViewModel vm) {
     if (vm.page < vm.pages.length - 1) {
       vm.nextPage();
       return page;
@@ -177,7 +234,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     return page + 1;
   }
 
-  int getPreviousSubQuestionnairePage(OnboardingQuestionnaireViewModel vm) {
+  int getPreviousSubQuestionnairePage(MultiPageQuestionnaireViewModel vm) {
     if (vm.page > 0) {
       vm.previousPage();
       return page;
@@ -189,15 +246,8 @@ class OnboardingViewModel extends MultiPageViewModel {
   int getNextPage() {
     var currentPage = pages[page];
 
-    // Multi page questionnaires need special handling because they themselves consist of multiple pages
-    if (currentPage == OnboardingStep.assessment_vocabRoutine) {
-      return getNextSubQuestionnairePage(questionnaireVocabRoutine);
-    }
-    if (currentPage == OnboardingStep.assessment_motivation) {
-      return getNextSubQuestionnairePage(questionnaireMotivation);
-    }
-    if (currentPage == OnboardingStep.assessment_ToB) {
-      return getNextSubQuestionnairePage(questionnaireToB);
+    if (currentPage is MultiPageQuestionnaireViewModel) {
+      return getNextSubQuestionnairePage(currentPage);
     }
 
     doStepDependentSubmission();
@@ -210,15 +260,10 @@ class OnboardingViewModel extends MultiPageViewModel {
     var currentPage = pages[page];
 
     // Multi page questionnaires need special handling because they themselves consist of multiple pages
-    if (currentPage == OnboardingStep.assessment_vocabRoutine) {
-      return getPreviousSubQuestionnairePage(questionnaireVocabRoutine);
+    if (currentPage is MultiPageQuestionnaireViewModel) {
+      return getPreviousSubQuestionnairePage(currentPage);
     }
-    if (currentPage == OnboardingStep.assessment_motivation) {
-      return getPreviousSubQuestionnairePage(questionnaireMotivation);
-    }
-    if (currentPage == OnboardingStep.assessment_ToB) {
-      return getPreviousSubQuestionnairePage(questionnaireToB);
-    }
+
     return super.getPreviousPage();
   }
 
@@ -301,80 +346,37 @@ class OnboardingViewModel extends MultiPageViewModel {
     return true;
   }
 
-  int getStepIndex(OnboardingStep step) {
-    return pages.indexOf(step);
-  }
-
   @override
   bool canMoveBack() {
     var stepKey = pages[page];
 
-    return true;
-    switch (stepKey) {
-      case OnboardingStep.rewardScreen1:
-      case OnboardingStep.instructions_cabuu_2:
-      case OnboardingStep.video_introduction_1:
-      case OnboardingStep.welcome:
-      case OnboardingStep.assessment_vocabRoutine:
-      case OnboardingStep.assessment_ToB:
-      case OnboardingStep.assessment_motivation:
-      case OnboardingStep.video_planning:
-      case OnboardingStep.video_distributedLearning:
-      case OnboardingStep.planCreation:
-      case OnboardingStep.planInternalisationEmoji:
-      case OnboardingStep.planTiming:
-      case OnboardingStep.instructions_distributedLearning:
-      case OnboardingStep.instructions_implementationIntentions:
-        return false;
-      case OnboardingStep.outcome:
-        return outcome.isNotEmpty;
-      case OnboardingStep.obstacle:
-        return obstacle.isNotEmpty;
-      case OnboardingStep.copingPlan:
-        return copingPlan.isNotEmpty;
+    if (stepKey is MultiPageQuestionnaireViewModel) {
+      return stepKey.canMoveBack();
     }
+
+    return true;
   }
 
   @override
   bool canMoveNext() {
-    var stepKey = pages[page]; //currentPageKey!.value as SessionZeroStep;
-    // return true;
-    switch (stepKey) {
-      case OnboardingStep.data_privacy:
-        return _consented;
-      case OnboardingStep.video_introduction_1:
-        return true;
-      case OnboardingStep.welcome:
-        return true;
-      case OnboardingStep.assessment_vocabRoutine:
-      case OnboardingStep.assessment_ToB:
-      case OnboardingStep.assessment_motivation:
-        return true;
-      case OnboardingStep.video_planning:
-        return true;
-      // return _videoPlanningCompleted;
-      case OnboardingStep.video_distributedLearning:
-        return true;
-      case OnboardingStep.planCreation:
-        return true;
-      case OnboardingStep.planInternalisationEmoji:
-        return true;
-      case OnboardingStep.planTiming:
-        return true;
-      default:
-        return true;
+    var stepKey = pages[page];
+
+    if (stepKey is MultiPageQuestionnaireViewModel) {
+      return stepKey.canMoveNext();
     }
+
+    return stepKey.completed;
   }
 
   getAllQuestionnaireResponses() {
     var responses = <QuestionnaireResponse>[];
 
-    responses.addAll(QuestionnaireResponse.fromQuestionnaire(
-        questionnaireVocabRoutine.questionnaire));
-    responses.addAll(QuestionnaireResponse.fromQuestionnaire(
-        questionnaireMotivation.questionnaire));
-    responses.addAll(QuestionnaireResponse.fromQuestionnaire(
-        questionnaireToB.questionnaire));
+    // responses.addAll(QuestionnaireResponse.fromQuestionnaire(
+    //     questionnaireVocabRoutine.questionnaire));
+    // responses.addAll(QuestionnaireResponse.fromQuestionnaire(
+    //     questionnaireMotivation.questionnaire));
+    // responses.addAll(QuestionnaireResponse.fromQuestionnaire(
+    //     questionnaireToB.questionnaire));
 
     // create a response for the onboarding to signal that it is completed
     var onboardingResponse = QuestionnaireResponse(

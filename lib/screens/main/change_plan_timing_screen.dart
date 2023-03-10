@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/plan_timing_view_model.dart';
 import 'package:prompt/widgets/background_image_container.dart';
@@ -27,7 +25,7 @@ class ChangePlanTimingScreen extends StatelessWidget {
             UIHelper.verticalSpaceMedium,
             Text(
               AppLocalizations.of(context)!.planTimingChangeP1,
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             ChangeNotifierProvider.value(
                 value: vm, builder: (context, child) => PlanTiming()),

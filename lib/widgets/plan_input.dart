@@ -36,7 +36,7 @@ class _PlanInputState extends State<PlanInput> {
           return Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Theme.of(context).selectedRowColor,
+              color: Theme.of(context).secondaryHeaderColor,
               borderRadius: BorderRadius.circular(10),
             ),
             child:
@@ -58,7 +58,7 @@ class _PlanInputState extends State<PlanInput> {
                         },
                         keyboardType: TextInputType.text,
                         decoration: new InputDecoration(
-                            fillColor: Theme.of(context).selectedRowColor,
+                            fillColor: Theme.of(context).secondaryHeaderColor,
                             filled: true,
                             hintText: '   ...'),
                         style: TextStyle(

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/plan_input.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class FirstPlanCreationScreen extends StatefulWidget {
   FirstPlanCreationScreen({Key? key}) : super(key: key);
@@ -15,17 +15,9 @@ class FirstPlanCreationScreen extends StatefulWidget {
 }
 
 class _FirstPlanCreationScreenState extends State<FirstPlanCreationScreen> {
-  TextEditingController _habitTextController = new TextEditingController();
-
   @override
   void initState() {
     super.initState();
-    _habitTextController.text =
-        Provider.of<OnboardingViewModel>(context, listen: false)
-            .planInputViewModel
-            .plan
-            .replaceFirst("Wenn ich ", "")
-            .replaceFirst(", dann lerne ich mit cabuu!", "");
   }
 
   @override
@@ -34,12 +26,17 @@ class _FirstPlanCreationScreenState extends State<FirstPlanCreationScreen> {
 
     return Container(
         child: ListView(children: [
-      MarkdownBody(data: "### " + AppStrings.PlanCreation_LetsCreatePlan),
+      MarkdownBody(
+          data: "### " +
+              AppLocalizations.of(context)!.planCreation_letsCreatePlan),
       UIHelper.verticalSpaceSmall,
       MarkdownBody(
-          data: "### " + AppStrings.PlanCreation_PlanCreationExplanation),
+          data:
+              "### " + AppLocalizations.of(context)!.planCreation_whenAndWhere),
       UIHelper.verticalSpaceLarge,
-      MarkdownBody(data: "### " + AppStrings.PlanCreation_CompleteThePlan),
+      MarkdownBody(
+          data:
+              "### " + AppLocalizations.of(context)!.planCreation_whenAndWhere),
       UIHelper.verticalSpaceMedium,
       PlanInput(
         vm: vm.planInputViewModel,

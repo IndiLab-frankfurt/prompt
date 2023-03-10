@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/viewmodels/data_privacy_consent_view_model.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/data_privacy_info.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
@@ -17,7 +18,7 @@ class DataPrivacyConsentScreen extends StatefulWidget {
 class _DataPrivacyConsentScreenState extends State<DataPrivacyConsentScreen> {
   @override
   Widget build(BuildContext context) {
-    var vm = Provider.of<OnboardingViewModel>(context);
+    var vm = Provider.of<DataPrivacyConsentViewModel>(context);
     return ListView(
       shrinkWrap: true,
       children: [

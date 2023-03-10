@@ -3,6 +3,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
 import 'package:prompt/viewmodels/single_choice_question_view_model.dart';
+import 'package:provider/provider.dart';
 
 typedef void ChoiceQuestionCallback(String val);
 
@@ -46,6 +47,7 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
     setState(() {
       _selectedValue = groupValue;
     });
+    widget.question.onSingleChoiceSelection(selectedValue);
     // map the groupValue to the index of the choice in the list of choices
     if (groupValue >= 0 && groupValue <= widget.question.choices.length) {
       var choice = widget.question.choices.keys.toList()[groupValue - 1];
@@ -77,15 +79,18 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
       displayGroupValue += 1;
     }
 
-    return ListView(
-      shrinkWrap: true,
-      children: <Widget>[
-        MarkdownBody(
-          data: "### " + widget.question.questionText,
-        ),
-        UIHelper.verticalSpaceMedium,
-        ...items,
-      ],
+    return ChangeNotifierProvider.value(
+      value: widget.question,
+      builder: (context, child) => ListView(
+        shrinkWrap: true,
+        children: <Widget>[
+          MarkdownBody(
+            data: "### " + widget.question.questionText,
+          ),
+          UIHelper.verticalSpaceMedium,
+          ...items,
+        ],
+      ),
     );
   }
 
@@ -178,12 +183,5 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
         )
       ],
     );
-  }
-
-  String? getLabel(String key) {
-    if (widget.question.choices.containsKey(key)) {
-      return widget.question.choices[key];
-    }
-    return "MISSING LABEL";
   }
 }

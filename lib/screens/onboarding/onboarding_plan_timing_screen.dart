@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
-import 'package:prompt/viewmodels/plan_timing_view_model.dart';
 import 'package:prompt/widgets/plan_timing.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
-import 'package:prompt/widgets/time_picker_grid_dialog.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
