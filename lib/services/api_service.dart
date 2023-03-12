@@ -17,8 +17,8 @@ class ApiService {
     if (kIsWeb || !kDebugMode) {
       serverUrl = _settingsService.getSetting(SettingsKeys.apiBaseUrl);
     } else if (kDebugMode) {
-      serverUrl = "https://prompt-app.eu";
-      // serverUrl = "http://10.0.2.2:8000";
+      // serverUrl = "https://prompt-app.eu";
+      serverUrl = "http://10.0.2.2:8000";
     }
     return Future.value(true);
   }
@@ -51,9 +51,12 @@ class ApiService {
     }
   }
 
-  Future<dynamic> postAsync(String endpoint, dynamic data) async {
+  Future<dynamic> postAsync(String endpoint, dynamic data,
+      {Map<String, String>? queryParams}) async {
     var url = Uri.parse("$serverUrl$endpoint");
-
+    if (queryParams != null) {
+      url = url.replace(queryParameters: queryParams);
+    }
     try {
       var response =
           await http.post(url, headers: getHeaders(), body: jsonEncode(data));
@@ -65,13 +68,8 @@ class ApiService {
   }
 
   Future<bool> submitQuestionnaireResponses(dynamic responses) {
-    return postAsync("/api/questionnaires/", responses).then((response) {
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return true;
-      } else {
-        return false;
-      }
-    });
+    return postAsync("/api/questionnaires/", responses)
+        .then((response) => response);
   }
 
   ApiService(this._settingsService);

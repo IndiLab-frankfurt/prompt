@@ -18,7 +18,6 @@ import 'package:prompt/viewmodels/data_privacy_consent_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/viewmodels/questionnaire_video_page_view_model.dart';
-import 'package:prompt/widgets/keep_alive_page.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
 import 'package:prompt/screens/main/video_screen.dart';
@@ -111,7 +110,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         value: step,
         key: key,
         child: DataPrivacyConsentScreen(key: key),
-        // builder: (context, child) => page,
       );
     }
 

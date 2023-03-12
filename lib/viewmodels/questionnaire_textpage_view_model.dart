@@ -5,5 +5,7 @@ class QuestionnaireTextPageViewModel extends QuestionnairePageViewModel {
 
   QuestionnaireTextPageViewModel(
       {required this.text, required String name, completed = true})
-      : super(name: name);
+      : super(name: name) {
+    this.completed = completed;
+  }
 }

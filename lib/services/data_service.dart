@@ -102,11 +102,12 @@ class DataService implements BaseService {
     _userDataCache = await _databaseService.getUserData();
   }
 
-  Future<bool> saveQuestionnaireResponse(QuestionnaireResponse response) async {
+  Future<dynamic> saveQuestionnaireResponse(
+      QuestionnaireResponse response) async {
     return await _databaseService.saveQuestionnaireResponses([response]);
   }
 
-  Future<bool> saveQuestionnaireResponses(
+  Future<dynamic> saveQuestionnaireResponses(
       List<QuestionnaireResponse> responses) async {
     return await _databaseService.saveQuestionnaireResponses(responses);
   }

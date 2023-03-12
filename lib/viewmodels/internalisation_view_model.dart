@@ -18,7 +18,8 @@ class InternalisationViewModel extends QuestionnairePageViewModel {
 
   DateTime startDate = DateTime.now();
 
-  InternalisationViewModel({name, required this.condition}) : super(name: name);
+  InternalisationViewModel({required name, required this.condition})
+      : super(name: name);
 
   String getIfPart() {
     return "${plan.split("dann")[0]}...";

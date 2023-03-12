@@ -19,7 +19,6 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel
     this.name = name;
     pages = questionnaire.questions.toList();
     questionnaire.questions.forEach((element) {
-      element.completed = false;
       element.onAnswered = onAnswered;
     });
   }
@@ -44,6 +43,5 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel
     await this.studyService.submitResponses(
         QuestionnaireResponse.fromQuestionnaire(this.questionnaire));
     this.studyService.nextScreen();
-    this.setState(ViewState.idle);
   }
 }

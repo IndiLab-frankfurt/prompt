@@ -315,6 +315,7 @@ Questionnaire ReminderTestTomorrow = Questionnaire(
     name: AppScreen.ReminderTestTomorrow.name,
     questions: [
       QuestionnaireTextPageViewModel(
+          completed: true,
           name: "${AppScreen.ReminderTestTomorrow.name}_1",
           text: [
             '### Morgen sollst du in cabuu den Vokabeltest machen!',
@@ -332,6 +333,16 @@ Questionnaire ReminderNextList =
         '### Du hast wieder 20 Tage Zeit bis zum nächsten Test.'
       ])
 ]);
+
+Questionnaire AA_DidYouTest = Questionnaire(
+    title: "AA_DidYouTest",
+    name: AppScreen.DidYouTest.name,
+    questions: [
+      ChoiceQuestionViewModel(
+          name: "AA_DidYouTest_1",
+          questionText: "Hast du heute den Vokabeltest in cabuu gemacht?",
+          choices: CHOICES_YESNO),
+    ]);
 
 Questionnaire WeeklyQuestions =
     Questionnaire(title: "", name: AppScreen.WeeklyQuestions.name, questions: [

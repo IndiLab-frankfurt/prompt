@@ -81,15 +81,30 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
 
     return ChangeNotifierProvider.value(
       value: widget.question,
-      builder: (context, child) => ListView(
-        shrinkWrap: true,
-        children: <Widget>[
-          MarkdownBody(
-            data: "### " + widget.question.questionText,
-          ),
-          UIHelper.verticalSpaceMedium,
-          ...items,
-        ],
+      builder: (context, child) => Container(
+        margin: EdgeInsets.all(10),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+                blurRadius: 2,
+                offset: Offset(5.0, 2.0),
+                color: Colors.black.withOpacity(.12))
+          ],
+          color: Theme.of(context).dialogBackgroundColor,
+          borderRadius: BorderRadius.all(Radius.circular(20.0)),
+        ),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          shrinkWrap: true,
+          children: <Widget>[
+            MarkdownBody(
+              data: "#### " + widget.question.questionText,
+            ),
+            UIHelper.verticalSpaceMedium,
+            ...items,
+          ],
+        ),
       ),
     );
   }
@@ -134,9 +149,7 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
                   }
                 },
               ),
-              MarkdownBody(
-                data: text,
-              )
+              Text(text, style: TextStyle(fontSize: 15.0))
             ],
           ),
           onTap: () {
@@ -145,6 +158,7 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
           },
         ),
         Container(
+          color: Colors.grey[200],
           margin: EdgeInsets.only(left: 15.0),
           child: TextField(
             decoration: InputDecoration(border: OutlineInputBorder()),
@@ -167,7 +181,7 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
     return Column(
       children: [
         Container(
-          margin: EdgeInsets.only(left: 15.0),
+          color: Colors.grey[200],
           child: TextField(
             decoration: InputDecoration(
                 border: OutlineInputBorder(), label: Text(hintText)),

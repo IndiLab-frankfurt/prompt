@@ -10,7 +10,9 @@ import 'package:collection/collection.dart';
 class PlanPromptViewModel extends MultiPageViewModel {
   String plan = "";
   InternalisationViewModel internalisationViewmodelEmoji =
-      InternalisationViewModel(condition: InternalisationCondition.emojiBoth);
+      InternalisationViewModel(
+          name: "Internalisation Emoji",
+          condition: InternalisationCondition.emojiBoth);
   PlanInputViewModel planInputViewModel =
       PlanInputViewModel(name: "Plan Input");
 
@@ -68,6 +70,5 @@ class PlanPromptViewModel extends MultiPageViewModel {
     this.setState(ViewState.busy);
     await this.studyService.submitResponses(responses);
     this.studyService.nextScreen();
-    this.setState(ViewState.idle);
   }
 }

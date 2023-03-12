@@ -30,13 +30,10 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
 
       for (var question in vm.pages) {
         if (question is ChoiceQuestionViewModel) {
-          _screens.add(Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              key: ValueKey(question.name),
-              children: [
-                SingleChoiceQuestionView(
-                    question: question, onSelection: (_) {}),
-              ]));
+          _screens.add(Center(
+            child: SingleChoiceQuestionView(
+                question: question, onSelection: (_) {}),
+          ));
         }
 
         if (question is QuestionnaireTextPageViewModel) {
@@ -55,27 +52,25 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
   Widget build(BuildContext context) {
     return WillPopScope(
         onWillPop: () async => false,
-        child: Container(
-            child: Scaffold(
-                appBar: PromptAppBar(showBackButton: true),
-                drawer: PromptDrawer(),
-                extendBodyBehindAppBar: true,
-                body: FutureBuilder(
-                  future: init(),
-                  builder:
-                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    if (snapshot.hasData) {
-                      return BackgroundImageContainer(
-                          child: MultiPageScreen(
-                        vm,
-                        snapshot.data,
-                      ));
-                    } else {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                  },
-                ))));
+        child: Scaffold(
+            appBar: PromptAppBar(showBackButton: true),
+            drawer: PromptDrawer(),
+            extendBodyBehindAppBar: true,
+            body: FutureBuilder(
+              future: init(),
+              builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                if (snapshot.hasData) {
+                  return BackgroundImageContainer(
+                      child: MultiPageScreen(
+                    vm,
+                    snapshot.data,
+                  ));
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            )));
   }
 }

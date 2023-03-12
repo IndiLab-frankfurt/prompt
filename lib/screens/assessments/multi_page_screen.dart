@@ -53,130 +53,117 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return _buildPageView();
+    return GestureDetector(
+        onHorizontalDragEnd: (details) async {
+          if (!widget.useGestures) return;
+          if (details.primaryVelocity == null) return;
+
+          int sensitivity = 30;
+
+          // Swiping in right direction.
+          if (details.primaryVelocity! > sensitivity) {
+            if (widget.vm.canMoveBack()) {
+              await widget.vm.previousPage();
+            }
+          }
+          // Swiping in left direction.
+          if (details.primaryVelocity! < sensitivity) {
+            if (widget.vm.canMoveNext()) {
+              await widget.vm.nextPage();
+            }
+          }
+        },
+        child: _buildPageView());
   }
 
   _buildPageView() {
-    return GestureDetector(
-      onHorizontalDragEnd: (details) async {
-        if (details.primaryVelocity == null) return;
-
-        int sensitivity = 30;
-
-        // Swiping in right direction.
-        if (details.primaryVelocity! > sensitivity) {
-          if (widget.vm.canMoveBack()) {
-            await widget.vm.previousPage();
-          }
-        }
-        // Swiping in left direction.
-        if (details.primaryVelocity! < sensitivity) {
-          if (widget.vm.canMoveNext()) {
-            await widget.vm.nextPage();
-          }
-        }
-      },
-      child: Container(
-        child: Column(
-          children: [
-            Flexible(
-              child: PageView.builder(
-                controller: _controller,
-                // We need increased control, so we cannot use the default of the pageview here
-                physics: NeverScrollableScrollPhysics(),
-                itemCount: widget.pages.length,
-                itemBuilder: (context, index) {
-                  return KeepAlivePage(child: widget.pages[index]);
-                },
-              ),
+    if (widget.vm.state == ViewState.busy) {
+      return Center(child: CircularProgressIndicator());
+    }
+    return Container(
+      child: Stack(
+        children: [
+          Container(
+            padding: EdgeInsets.only(bottom: 40),
+            child: PageView.builder(
+              controller: _controller,
+              // We need increased control, so we cannot use the default of the pageview here
+              physics: NeverScrollableScrollPhysics(),
+              itemCount: widget.pages.length,
+              itemBuilder: (context, index) {
+                return KeepAlivePage(child: widget.pages[index]);
+              },
             ),
-            if (widget.showBottomBar) _buildBottomNavigation(),
-            if (widget.vm.page < widget.pages.length - 1)
-              if (widget.vm.page == widget.pages.length - 1)
-                _buildSubmitButton()
-          ],
+          ),
+          if (widget.showBottomBar) _buildBackButton(),
+          if (widget.showBottomBar) _buildNextButton(),
+        ],
+      ),
+    );
+  }
+
+  _buildBackButton() {
+    return Positioned(
+      bottom: 5,
+      left: 5,
+      child: Visibility(
+        maintainSize: true,
+        maintainAnimation: true,
+        maintainState: true,
+        visible: widget.vm.canMoveBack() && widget.vm.page > 0,
+        child: SizedBox(
+          height: 40,
+          child: TextButton(
+            key: ValueKey("backButton"),
+            child: Row(
+              children: <Widget>[
+                Icon(Icons.navigate_before),
+                Text(
+                  "Zurück",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ],
+            ),
+            onPressed: () async {
+              await widget.vm.previousPage();
+            },
+          ),
         ),
       ),
     );
   }
 
-  _buildSubmitButton() {
-    if (widget.vm.canMoveNext()) {
-      if (widget.vm.state == ViewState.idle) {
-        return FullWidthButton(
-          key: ValueKey("submitButton"),
-          onPressed: () async {
-            widget.vm.submit();
-          },
-          text: "Weiter",
-        );
-      } else {
-        return Center(child: CircularProgressIndicator());
-      }
-    }
-    return Container();
-  }
-
-  _buildBottomNavigation() {
+  _buildNextButton() {
     if (widget.vm.state == ViewState.busy) {
       return Center(child: CircularProgressIndicator());
     }
 
-    return Container(
-      color: Colors.transparent,
-      child: Row(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: <Widget>[
-          Visibility(
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            visible: widget.vm.canMoveBack() && widget.vm.page > 0,
-            child: SizedBox(
-              height: 40,
-              child: TextButton(
-                key: ValueKey("backButton"),
-                child: Row(
-                  children: <Widget>[
-                    Icon(Icons.navigate_before),
-                    Text(
-                      "Zurück",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ],
+    return Positioned(
+      bottom: 5,
+      right: 5,
+      child: Visibility(
+        maintainSize: true,
+        maintainAnimation: true,
+        maintainState: true,
+        visible: widget.vm.canMoveNext(),
+        child: SizedBox(
+          height: 40,
+          child: ElevatedButton(
+            key: ValueKey("nextButton"),
+            child: Row(
+              children: <Widget>[
+                Text(
+                  "Weiter",
+                  style: TextStyle(fontSize: 20),
                 ),
-                onPressed: () async {
-                  await widget.vm.previousPage();
-                },
-              ),
+                Icon(Icons.navigate_next)
+              ],
             ),
+            onPressed: () async {
+              await widget.vm.nextPage();
+            },
           ),
-          Visibility(
-            maintainSize: true,
-            maintainAnimation: true,
-            maintainState: true,
-            visible: widget.vm.canMoveNext(),
-            child: SizedBox(
-              height: 40,
-              child: ElevatedButton(
-                key: ValueKey("nextButton"),
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      "Weiter",
-                      style: TextStyle(fontSize: 20),
-                    ),
-                    Icon(Icons.navigate_next)
-                  ],
-                ),
-                onPressed: () async {
-                  await widget.vm.nextPage();
-                },
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

@@ -146,6 +146,13 @@ class AppRouter {
             child: MultiPageQuestionnaire());
         break;
 
+      case AppScreen.DidYouTest:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: AA_DidYouTest),
+            child: MultiPageQuestionnaire());
+        break;
+
       case AppScreen.PlanPrompt:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<PlanPromptViewModel>(),
