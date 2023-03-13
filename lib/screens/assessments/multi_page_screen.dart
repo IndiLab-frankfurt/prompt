@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/multi_page_view_model.dart';
-import 'package:prompt/widgets/full_width_button.dart';
 import 'package:prompt/widgets/keep_alive_page.dart';
 
 class MultiPageScreen extends StatefulWidget {
@@ -54,6 +53,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+        onTap: () => FocusScope.of(context).unfocus(),
         onHorizontalDragEnd: (details) async {
           if (!widget.useGestures) return;
           if (details.primaryVelocity == null) return;

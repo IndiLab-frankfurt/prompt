@@ -10,7 +10,7 @@ void main() {
   setUp(() {
     setupLocator();
   });
-  test('Submitting PlanPrompt response should yield rewards', () {
+  test('Submitting PlanPrompt response should yield rewards', () async {
     // Verify that our counter has incremented.
     // expService.schedulePrompts(1);
     var response = QuestionnaireResponse(
@@ -22,7 +22,7 @@ void main() {
 
     var studyService = locator.get<StudyService>();
 
-    studyService.submitResponses([response]);
+    await studyService.submitResponses([response]);
 
     var rewardService = locator.get<RewardService>();
 

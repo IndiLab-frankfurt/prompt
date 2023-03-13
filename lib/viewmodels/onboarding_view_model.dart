@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:prompt/data/assessments.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
@@ -54,24 +53,6 @@ class OnboardingViewModel extends MultiPageViewModel {
   PlanInputViewModel planInputViewModelCoping =
       PlanInputViewModel(name: OnboardingStep.copingPlan.name);
 
-  // late MultiPageQuestionnaireViewModel questionnaireVocabRoutine =
-  //     MultiPageQuestionnaireViewModel(
-  //   questionnaire: OB_VocabRoutine,
-  //   studyService: this._studyService,
-  // );
-
-  // late MultiPageQuestionnaireViewModel questionnaireMotivation =
-  //     MultiPageQuestionnaireViewModel(
-  //   questionnaire: OB_Motivation,
-  //   studyService: this._studyService,
-  // );
-
-  // late MultiPageQuestionnaireViewModel questionnaireToB =
-  //     MultiPageQuestionnaireViewModel(
-  //   questionnaire: OB_ToB,
-  //   studyService: this._studyService,
-  // );
-
   String _plan = "";
   String get plan => _plan;
   set plan(String plan) {
@@ -81,13 +62,6 @@ class OnboardingViewModel extends MultiPageViewModel {
   }
 
   String cabuuCode = "123";
-
-  bool _consented = false;
-  bool get consented => _consented;
-  set consented(bool consented) {
-    _consented = consented;
-    notifyListeners();
-  }
 
   void onInternalisationCompleted(String result) {
     notifyListeners();
@@ -129,7 +103,7 @@ class OnboardingViewModel extends MultiPageViewModel {
           name: OnboardingStep.rewardScreen1.name, completed: true),
       MultiPageQuestionnaireViewModel(
           name: OnboardingStep.assessment_vocabRoutine.name,
-          questionnaire: OB_VocabRoutine,
+          questionnaire: OB_VocabRoutine(),
           studyService: this._studyService),
       QuestionnairePageViewModel(
           name: OnboardingStep.instructions_distributedLearning.name,
@@ -139,14 +113,14 @@ class OnboardingViewModel extends MultiPageViewModel {
           videoUrl: 'assets/videos/distributed_practice.mp4'),
       MultiPageQuestionnaireViewModel(
           name: OnboardingStep.assessment_motivation.name,
-          questionnaire: OB_Motivation,
+          questionnaire: OB_Motivation(),
           studyService: this._studyService),
       planInputViewModelOutcome,
       planInputViewModelObstacle,
       planInputViewModelCoping,
       MultiPageQuestionnaireViewModel(
           name: OnboardingStep.assessment_ToB.name,
-          questionnaire: OB_ToB,
+          questionnaire: OB_ToB(),
           studyService: this._studyService),
       QuestionnairePageViewModel(
           name: OnboardingStep.instructions_implementationIntentions.name,
@@ -185,7 +159,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     var ud = _dataService.getUserDataCache();
     // TODO: Restore after testing
     // initialPage = max(ud.initStep, pages.length - 1);
-    initialPage = 0;
+    initialPage = 18;
     this.setPage(initialPage);
     cabuuCode = ud.cabuuCode.isNotEmpty ? ud.cabuuCode : "HIER CABUU CODE";
 
@@ -326,6 +300,10 @@ class OnboardingViewModel extends MultiPageViewModel {
         response: "completed",
         dateSubmitted: DateTime.now());
     responses.add(onboardingResponse);
+
+    responses.forEach((element) {
+      element.questionnaireName = "onboarding";
+    });
 
     return responses;
   }

@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
+import 'package:prompt/services/dialog_service.dart';
 import 'package:prompt/services/push_notification_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/local_database_service.dart';
@@ -23,6 +24,8 @@ void setupLocator() {
 
 void _setUpServices() {
   locator.registerSingleton<NavigationService>(NavigationService());
+
+  locator.registerSingleton<DialogService>(DialogService());
 
   locator.registerSingleton<LocalDatabaseService>(LocalDatabaseService.db);
 

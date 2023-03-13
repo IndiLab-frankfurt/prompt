@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
+import 'package:prompt/services/dialog_service.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
@@ -64,7 +66,10 @@ class StudyService {
     var responseData =
         await this._dataService.saveQuestionnaireResponses(responses);
     var score = responseData["score"];
-    this._rewardService.scheduledRewards.add(score);
+    if (score > 0) {
+      this._rewardService.addPoints(score);
+      locator<DialogService>().showRewardDialog(title: "", score: score);
+    }
   }
 
   bool isLastVocabTestDay() {

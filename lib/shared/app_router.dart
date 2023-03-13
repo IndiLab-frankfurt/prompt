@@ -86,77 +86,77 @@ class AppRouter {
       case AppScreen.AA_DidYouLearn:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: AA_DidYouLearn),
+                param1: AA_DidYouLearn()),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.AA_WhyNotLearn:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: AA_WhyNotLearn),
+                param1: AA_WhyNotLearn()),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.AA_NextStudySession:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: AA_NextStudySession),
+                param1: AA_NextStudySession()),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.AA_PreviousStudySession:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: AA_PreviousStudySession),
+                param1: AA_PreviousStudySession()),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.RememberToLearn:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: RememberToLearn),
+                param1: RememberToLearn()),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.ReminderTestToday:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: ReminderTestToday),
+                param1: ReminderTestToday()),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.ReminderNextList:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: ReminderNextList),
+                param1: ReminderNextList()),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.WeeklyQuestions:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: WeeklyQuestions),
+                param1: WeeklyQuestions()),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.ReminderTestTomorrow:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: ReminderTestTomorrow),
+                param1: ReminderTestTomorrow()),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.DidYouTest:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: AA_DidYouTest),
+                param1: AA_DidYouTest()),
             child: MultiPageQuestionnaire());
         break;
 
       case AppScreen.FinalQuestionnaire:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: FinalQuestionnaire),
+                param1: FinalQuestionnaire()),
             child: MultiPageQuestionnaire());
         break;
 

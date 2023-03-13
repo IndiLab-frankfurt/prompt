@@ -12,9 +12,12 @@ class ChoiceQuestionViewModel extends QuestionnairePageViewModel {
       {required String name,
       required this.choices,
       required this.questionText,
+      bool completed = false,
       this.randomize = false,
       this.singleChoice = true})
-      : super(name: name);
+      : super(name: name) {
+    this.completed = completed;
+  }
 
   randomizeMap(Map<String, String> map) {
     Map<String, String> newmap = {};

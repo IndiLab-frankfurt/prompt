@@ -16,7 +16,7 @@ void main() {
     var vm = MultiPageQuestionnaireViewModel(
         name: "Test",
         studyService: MockStudyService(),
-        questionnaire: AA_NextStudySession);
+        questionnaire: AA_NextStudySession());
 
     var widget = MaterialApp(
       home: ChangeNotifierProvider(

@@ -75,4 +75,10 @@ class _OnboardingPlanTimingScreenState
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _controllerTopCenter.dispose();
+    super.dispose();
+  }
 }

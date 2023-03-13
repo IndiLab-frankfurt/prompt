@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/main/text_compare_screen.dart';
+import 'package:prompt/services/dialog_service.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -106,6 +107,13 @@ class PromptDrawer extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => TextCompareScreen()));
+              }),
+          _buildDrawerItem(
+              icon: Icons.add_box,
+              text: "Dialog",
+              onTap: () async {
+                await locator<DialogService>()
+                    .showRewardDialog(title: "title", score: 5);
               }),
         ],
       ),

@@ -48,6 +48,7 @@ class PlanPromptViewModel extends MultiPageViewModel {
     if (existing != null) {
       responses.remove(existing);
     }
+    response.questionnaireName = "PlanPrompt";
     responses.add(response);
   }
 

@@ -3,6 +3,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:prompt/managers/dialog_manager.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_router.dart';
@@ -59,6 +60,13 @@ class MyApp extends StatelessWidget {
       ),
       onGenerateRoute: AppRouter.generateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
+      builder: (context, widget) => Navigator(
+        onGenerateRoute: (settings) => MaterialPageRoute(
+          builder: (context) => DialogManager(
+            child: widget!,
+          ),
+        ),
+      ),
       home: StartupScreen(),
     );
   }
