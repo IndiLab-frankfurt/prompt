@@ -20,9 +20,10 @@ class QuestionnaireResponse {
     required this.dateSubmitted,
   });
 
-  static List<QuestionnaireResponse> fromQuestionnaire(Questionnaire q) {
+  static List<QuestionnaireResponse> fromQuestionnaire(
+      Questionnaire questionnaire) {
     List<QuestionnaireResponse> responses = [];
-    for (var q in q.questions) {
+    for (var q in questionnaire.questions) {
       if (q is ChoiceQuestionViewModel) {
         var response = "";
         if (q.selectedChoices.length > 1) {
@@ -32,7 +33,7 @@ class QuestionnaireResponse {
         }
         responses.add(QuestionnaireResponse(
           name: q.name,
-          questionnaireName: q.name,
+          questionnaireName: questionnaire.name,
           questionText: q.questionText,
           response: response,
           dateSubmitted: DateTime.now().toLocal(),

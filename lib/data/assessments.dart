@@ -408,3 +408,54 @@ Questionnaire WeeklyQuestions =
         '### Denk dran, dass du dir die Vokabeln besser merken kannst, wenn du jeden Tag ein bisschen lernst.',
       ])
 ]);
+
+Questionnaire FinalQuestionnaire = Questionnaire(
+    title: "FinalQuestionnaire",
+    name: AppScreen.FinalQuestionnaire.name,
+    questions: [
+      QuestionnaireTextPageViewModel(name: "FinalQuestionnaire_Intro", text: [
+        "### Du nimmst jetzt schon seit einiger Zeit an der Studie teil.",
+        "###  Auf den nächsten Seiten haben wir dazu ein paar Fragen an dich.",
+        "###  Nimm dir dafür ein paar Minuten Zeit.",
+      ]),
+      ChoiceQuestionViewModel(
+          name: "FinalQuestionnaire_tech_affin1",
+          questionText:
+              "Ich beschäftige mich gerne länger mit Smartphone Apps.",
+          choices: CHOICES_APPLIES),
+      ChoiceQuestionViewModel(
+          name: "FinalQuestionnaire_tech_affin2",
+          questionText:
+              "Ich teste gerne, was man mit neuen Smartphone Apps machen kann.",
+          choices: CHOICES_APPLIES),
+      ChoiceQuestionViewModel(
+          name: "FinalQuestionnaire_tech_affin3",
+          questionText:
+              "Ich beschäftige mich hauptsächlich mit Smartphone Apps, weil ich muss.",
+          choices: CHOICES_APPLIES),
+      ChoiceQuestionViewModel(
+          name: "FinalQuestionnaire_tech_affin4",
+          questionText:
+              "Wenn ich ein neues Gerät wie ein Handy oder Tablet vor mir habe, dann probiere ich es lange aus.",
+          choices: CHOICES_APPLIES),
+      ChoiceQuestionViewModel(
+          name: "FinalQuestionnaire_tech_affin5",
+          questionText:
+              "Wenn ich eine neue App auf dem Smartphone habe, dann verbringe ich gerne Zeit damit, alle Funktionen der App auszuprobieren.",
+          choices: CHOICES_APPLIES),
+      ChoiceQuestionViewModel(
+          name: "FinalQuestionnaire_tech_affin6",
+          questionText:
+              "Es reicht mir, dass eine mobile App funktioniert; das Wie und Warum ist mir egal.",
+          choices: CHOICES_APPLIES),
+      ChoiceQuestionViewModel(
+          name: "FinalQuestionnaire_tech_affin7",
+          questionText:
+              "Ich interesiere mich dafür, wie eine Smartphone App genau funktioniert.",
+          choices: CHOICES_APPLIES),
+      QuestionnaireTextPageViewModel(name: "FinalQuestionnaire_Last", text: [
+        "### Die letzte Vokabelliste sollst du nun alleine lernen.",
+        "### Ab morgen brauchst du also nicht mehr täglich PROMPT benutzen.",
+        "### Versuche trotzdem daran zu denken, regelmäßig Vokabeln zu lernen. Du hast wieder 20 Tage Zeit zum Lernen, bevor du dich testen sollst.",
+      ]),
+    ]);

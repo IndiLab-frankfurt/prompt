@@ -56,7 +56,6 @@ enum AppScreen {
   Mainscreen("/main"),
   Login("/login"),
   Onboarding("/onboarding"),
-  Internalisation("/internalisation"),
   AboutPrompt("/aboutprompt"),
   AA_DidYouLearn("aa/didyoulearn"),
   AA_NextStudySession("aa/nextstudysession"),
