@@ -23,9 +23,9 @@ class DashboardViewModel extends BaseViewModel {
     var difference = nextDate.weekDaysAgo(DateTime.now());
 
     if (nextDate.isToday()) {
-      return "Dein nächster Vokabeltest ist heute";
+      return AppStrings.NextVocabToday;
     } else if (nextDate.isTomorrow()) {
-      return "Dein nächster Vokabeltest ist morgen";
+      return AppStrings.NextVocabTomorrow;
     } else {
       var daysPlural = difference == 1 ? "Tag" : "Tage";
       return "Noch $difference $daysPlural bis zum nächsten Vokabeltest";

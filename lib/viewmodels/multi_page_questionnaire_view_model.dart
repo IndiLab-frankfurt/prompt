@@ -27,6 +27,10 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel
     this.notifyListeners();
   }
 
+  getResponse() {
+    return QuestionnaireResponse.fromQuestionnaire(this.questionnaire);
+  }
+
   @override
   bool canMoveBack() {
     return true;
@@ -40,8 +44,7 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel
   @override
   void submit() async {
     this.setState(ViewState.busy);
-    await this.studyService.submitResponses(
-        QuestionnaireResponse.fromQuestionnaire(this.questionnaire));
+    await this.studyService.submitResponses(this.getResponse());
     this.studyService.nextScreen();
   }
 }

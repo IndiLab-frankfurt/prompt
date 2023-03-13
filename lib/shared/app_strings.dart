@@ -98,6 +98,9 @@ class AppStrings {
       "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.";
   static const String Dashboard_ClickAfterVocabTest =
       "Drücke hier, wenn du deinen Vokabeltest erledigt hast";
+  static const String NextVocabToday = "Dein nächster Vokabeltest ist heute";
+  static const String NextVocabTomorrow =
+      "Dein nächster Vokabeltest ist morgen";
 
   static const String MorningAssessment_FirstDay_Screen1_1 =
       "Benutze PROMPT ab jetzt **jeden Tag** und zwar am besten schon **morgens**. Die ersten Fragen sollst du nämlich beantworten, **bevor** du mit cabuu lernst.";

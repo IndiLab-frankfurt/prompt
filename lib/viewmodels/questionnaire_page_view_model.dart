@@ -8,6 +8,7 @@ class QuestionnairePageViewModel extends BaseViewModel
     with CompletablePageMixin {
   OnAnsweredCallback? onAnswered;
   QuestionnaireResponse? response;
+
   QuestionnairePageViewModel(
       {required String name, bool completed = false, this.onAnswered}) {
     this.completed = completed;

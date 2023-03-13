@@ -18,7 +18,7 @@ class StudyService {
   final RewardService _rewardService;
   final NavigationService _navigationService;
 
-  final List<int> vocabTestDays = [9, 18, 27, 36, 45, 54];
+  final List<int> vocabTestDays = [21, 42];
 
   StudyService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
@@ -49,14 +49,6 @@ class StudyService {
     return DateTime.now();
   }
 
-  bool isVocabTestDay() {
-    return vocabTestDays.contains(getDaysSinceStart());
-  }
-
-  bool wasVocabDayYesterday() {
-    return vocabTestDays.contains(getDaysSinceStart() - 1);
-  }
-
   int getDaysSinceStart() {
     var regDate = _dataService.getUserDataCache().startDate;
     if (regDate == null) {
@@ -68,57 +60,23 @@ class StudyService {
     return daysAgo;
   }
 
-  bool _shouldIncrementStreakDay() {
-    var last =
-        _dataService.getLastAssessmentResultForCached(MORNING_ASSESSMENT);
-    if (last == null) {
-      return getDaysSinceStart() == 1;
-    }
-
-    var adequateSubmissionDate =
-        last.submissionDate.isYesterday() || last.submissionDate.isToday();
-    return adequateSubmissionDate;
-  }
-
-  int getPointsForMorningAssessment() {
-    if (_shouldIncrementStreakDay()) {
-      return 1 +
-          RewardService.pointsForMorningAssessment +
-          _rewardService.streakDays;
-    } else {
-      return RewardService.pointsForMorningAssessment;
-    }
-  }
-
   Future<void> submitResponses(List<QuestionnaireResponse> responses) async {
-    await this._dataService.saveQuestionnaireResponses(responses);
+    var responseData =
+        await this._dataService.saveQuestionnaireResponses(responses);
+    var score = responseData["score"];
+    this._rewardService.scheduledRewards.add(score);
   }
 
   bool isLastVocabTestDay() {
     return getDaysSinceStart() == vocabTestDays.last;
   }
 
-  int getNextVocabListNumber() {
-    var listNumber = getDaysSinceStart() ~/ 9;
-    return listNumber;
-  }
-
-  bool isFirstDay() {
-    var daysAgo = getDaysSinceStart();
-
-    return daysAgo == 1;
-  }
-
-  isTimeForFinalQuestions() {
-    return false;
-  }
-
   scheduleDailyReminders(TimeOfDay dailyReminderTime) async {
     var userData = _dataService.getUserDataCache();
     // check how many reminders we have to schedule
     var daysAgo = getDaysSinceStart();
-
-    for (var i = 1; i <= daysAgo; i++) {
+    var toSchedule = STUDY_DURATION.inDays - daysAgo;
+    for (var i = 0; i <= toSchedule; i++) {
       var reminderDate = userData.startDate!.add(Duration(days: i));
       var reminderDateTime = DateTime(reminderDate.year, reminderDate.month,
           reminderDate.day, dailyReminderTime.hour, dailyReminderTime.minute);

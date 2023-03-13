@@ -1,8 +1,12 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:prompt/services/locator.dart';
 
 import 'mocks/mock_services.dart';
 
 void main() {
+  setUp(() {
+    setupLocator();
+  });
   test("Percentage of reward progress gets calculated correctly", () {
     var rewardService = mockRewardService;
     rewardService.scoreValue = 0;

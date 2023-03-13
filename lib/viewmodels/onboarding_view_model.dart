@@ -82,42 +82,12 @@ class OnboardingViewModel extends MultiPageViewModel {
 
   String cabuuCode = "123";
 
-  String _obstacle = "";
-  String get obstacle => _obstacle;
-  set obstacle(String obstacle) {
-    _obstacle = obstacle;
-    notifyListeners();
-  }
-
-  String _outcome = "";
-  String get outcome => _outcome;
-  set outcome(String outcome) {
-    _outcome = outcome;
-    notifyListeners();
-  }
-
-  String _copingPlan = "";
-  String get copingPlan => _copingPlan;
-  set copingPlan(String copingPlan) {
-    _copingPlan = copingPlan;
-    notifyListeners();
-  }
-
-  String _vocabValue = "";
-  String get vocabValue => _vocabValue;
-  set vocabValue(String vocabValue) {
-    _vocabValue = vocabValue;
-    notifyListeners();
-  }
-
   bool _consented = false;
   bool get consented => _consented;
   set consented(bool consented) {
     _consented = consented;
     notifyListeners();
   }
-
-  TimeOfDay _planTiming = TimeOfDay.now();
 
   void onInternalisationCompleted(String result) {
     notifyListeners();
@@ -298,15 +268,7 @@ class OnboardingViewModel extends MultiPageViewModel {
       case OnboardingStep.assessment_ToB:
       case OnboardingStep.assessment_motivation:
       case OnboardingStep.planTiming:
-        break;
       case OnboardingStep.planCreation:
-        var planResponse = QuestionnaireResponse(
-            name: AssessmentTypes.plan,
-            questionnaireName: AssessmentTypes.plan,
-            questionText: "",
-            response: vocabValue,
-            dateSubmitted: DateTime.now());
-        _dataService.saveQuestionnaireResponse(planResponse);
         break;
       case OnboardingStep.planInternalisationEmoji:
         saveInternalisation();
@@ -315,31 +277,8 @@ class OnboardingViewModel extends MultiPageViewModel {
         }
         break;
       case OnboardingStep.outcome:
-        var outcomeResponse = QuestionnaireResponse(
-            name: "outcome",
-            questionnaireName: "outcome",
-            questionText: "",
-            response: outcome,
-            dateSubmitted: DateTime.now());
-        _dataService.saveQuestionnaireResponse(outcomeResponse);
-        break;
       case OnboardingStep.obstacle:
-        var obstacleResponse = QuestionnaireResponse(
-            name: "obstacle",
-            questionnaireName: "obstacle",
-            questionText: "",
-            response: obstacle,
-            dateSubmitted: DateTime.now());
-        _dataService.saveQuestionnaireResponse(obstacleResponse);
-        break;
       case OnboardingStep.copingPlan:
-        var copingPlanResponse = QuestionnaireResponse(
-            name: "copingPlan",
-            questionnaireName: "copingPlan",
-            questionText: "",
-            response: copingPlan,
-            dateSubmitted: DateTime.now());
-        _dataService.saveQuestionnaireResponse(copingPlanResponse);
         break;
     }
 
@@ -368,16 +307,17 @@ class OnboardingViewModel extends MultiPageViewModel {
     return stepKey.completed;
   }
 
-  getAllQuestionnaireResponses() {
+  getResponse() {
     var responses = <QuestionnaireResponse>[];
 
-    // responses.addAll(QuestionnaireResponse.fromQuestionnaire(
-    //     questionnaireVocabRoutine.questionnaire));
-    // responses.addAll(QuestionnaireResponse.fromQuestionnaire(
-    //     questionnaireMotivation.questionnaire));
-    // responses.addAll(QuestionnaireResponse.fromQuestionnaire(
-    //     questionnaireToB.questionnaire));
-
+    for (var page in pages) {
+      if (page is MultiPageQuestionnaireViewModel) {
+        responses.addAll(
+            QuestionnaireResponse.fromQuestionnaire(page.questionnaire));
+      } else if (page is QuestionnairePageViewModel) {
+        if (page.response != null) responses.add(page.response!);
+      }
+    }
     // create a response for the onboarding to signal that it is completed
     var onboardingResponse = QuestionnaireResponse(
         name: "onboarding",
@@ -394,10 +334,7 @@ class OnboardingViewModel extends MultiPageViewModel {
   void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-
-      _studyService.scheduleDailyReminders(_planTiming);
-      await _studyService.submitResponses(getAllQuestionnaireResponses());
-
+      await _studyService.submitResponses(getResponse());
       _studyService.nextScreen();
     }
   }

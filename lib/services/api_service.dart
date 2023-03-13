@@ -68,7 +68,8 @@ class ApiService {
   }
 
   Future<bool> submitQuestionnaireResponses(dynamic responses) {
-    return postAsync("/api/questionnaires/", responses)
+    var params = {"local_time": DateTime.now().toLocal().toIso8601String()};
+    return postAsync("/api/questionnaires/", responses, queryParams: params)
         .then((response) => response);
   }
 
@@ -126,14 +127,14 @@ class ApiService {
     return postAsync("/api/applogs/", data);
   }
 
-  Future<bool> saveQuestionnaireResponses(
+  Future<dynamic> saveQuestionnaireResponses(
       List<QuestionnaireResponse> responses) {
     var responseJson = responses.map((e) => e.toJson()).toList();
     return postAsync("/api/responses/", responseJson).then((response) {
-      if (response.statusCode == 200 || response.statusCode == 201) {
-        return true;
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return jsonDecode(response.body);
       } else {
-        return false;
+        return null;
       }
     });
   }

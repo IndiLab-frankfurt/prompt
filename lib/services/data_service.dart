@@ -107,9 +107,15 @@ class DataService implements BaseService {
     return await _databaseService.saveQuestionnaireResponses([response]);
   }
 
-  Future<dynamic> saveQuestionnaireResponses(
+  Future<Map<String, dynamic>> saveQuestionnaireResponses(
       List<QuestionnaireResponse> responses) async {
-    return await _databaseService.saveQuestionnaireResponses(responses);
+    var responseData =
+        await _databaseService.saveQuestionnaireResponses(responses);
+    var userDataResponse = responseData["user_profile"];
+    if (userDataResponse != null) {
+      _userDataCache = UserData.fromJson(userDataResponse);
+    }
+    return responseData;
   }
 
   Future<String?> getLastPlan() async {
