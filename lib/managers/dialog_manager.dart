@@ -1,13 +1,9 @@
-import 'dart:math';
-
-import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:prompt/models/alert_request.dart';
 import 'package:prompt/models/alert_response.dart';
 import 'package:prompt/models/reward_request.dart';
 import 'package:prompt/services/dialog_service.dart';
 import 'package:prompt/services/locator.dart';
-import 'package:prompt/widgets/reward_dialog.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 class DialogManager extends StatefulWidget {

@@ -78,48 +78,43 @@ class _DashboardScreenState extends State<DashboardScreen>
     var rewardService = locator.get<RewardService>();
     return WillPopScope(
         onWillPop: () async => false,
-        child: Stack(
-          children: [
-            Container(
-                decoration: BoxDecoration(
-                    gradient: rewardService.backgroundColor,
-                    image: DecorationImage(
-                        image: AssetImage(rewardService.backgroundImagePath),
-                        fit: BoxFit.contain,
-                        alignment: Alignment.bottomCenter)),
-                child: Scaffold(
-                    backgroundColor: Colors.transparent,
-                    appBar: PromptAppBar(showBackButton: true),
-                    drawer: PromptDrawer(),
-                    body: FutureBuilder(
-                      future: vm.getNextTask(),
-                      builder: (_, snapshot) {
-                        if (snapshot.hasData) {
-                          return Container(
-                              margin: EdgeInsets.all(15),
-                              child: Align(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      UIHelper.verticalSpaceSmall,
-                                      if (vm.showLearnedWithCabuuButton)
-                                        _buildToNextTaskButton(),
-                                      if (vm.showVocabularyTestReminder)
-                                        _buildVocabTestReminder(),
-                                      if (vm.startTomorrow)
-                                        _buildStartTomorrow(),
-                                      UIHelper.verticalSpaceSmall,
-                                      UIHelper.verticalSpaceMedium,
-                                      _buildStatistics()
-                                    ],
-                                  ),
-                                  alignment: Alignment(0.0, 0.6)));
-                        }
-                        return Center(child: CircularProgressIndicator());
-                      },
-                    ))),
-          ],
-        ));
+        child: Container(
+            decoration: BoxDecoration(
+                gradient: rewardService.backgroundColor,
+                image: DecorationImage(
+                    image: AssetImage(rewardService.backgroundImagePath),
+                    fit: BoxFit.contain,
+                    alignment: Alignment.bottomCenter)),
+            child: Scaffold(
+                backgroundColor: Colors.transparent,
+                appBar: PromptAppBar(showBackButton: true),
+                drawer: PromptDrawer(),
+                body: FutureBuilder(
+                  future: vm.getNextTask(),
+                  builder: (_, snapshot) {
+                    if (snapshot.hasData) {
+                      return Container(
+                          margin: EdgeInsets.all(15),
+                          child: Align(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  UIHelper.verticalSpaceSmall,
+                                  if (vm.showLearnedWithCabuuButton)
+                                    _buildToNextTaskButton(),
+                                  if (vm.showVocabularyTestReminder)
+                                    _buildVocabTestReminder(),
+                                  if (vm.startTomorrow) _buildStartTomorrow(),
+                                  UIHelper.verticalSpaceSmall,
+                                  UIHelper.verticalSpaceMedium,
+                                  _buildStatistics()
+                                ],
+                              ),
+                              alignment: Alignment(0.0, 0.6)));
+                    }
+                    return Center(child: CircularProgressIndicator());
+                  },
+                ))));
   }
 
   _buildStatistics() {
@@ -134,20 +129,23 @@ class _DashboardScreenState extends State<DashboardScreen>
         SizedBox(
           width: 300,
           child: LinearProgressIndicator(
-            color: Colors.blue,
+            backgroundColor: Theme.of(context).primaryColorLight,
             minHeight: 12,
             value: vm.studyProgress,
           ),
         ),
-        UIHelper.verticalSpaceMedium,
-        Text(nextVocab),
+        UIHelper.verticalSpaceLarge,
+        Text(
+          nextVocab,
+          textAlign: TextAlign.center,
+        ),
         UIHelper.verticalSpaceMedium,
         SizedBox(
           width: 300,
           child: LinearProgressIndicator(
-            color: Colors.blue,
+            backgroundColor: Theme.of(context).primaryColorLight,
             minHeight: 12,
-            value: (9 - vm.daysUntilVocabTest()) / 9,
+            value: vm.getVocabProgress(),
           ),
         )
       ],
