@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
-import 'package:prompt/viewmodels/plan_input_view_model.dart';
 import 'package:prompt/widgets/onboarding_container.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OutcomeEnterScreen extends StatefulWidget {
   OutcomeEnterScreen({Key? key}) : super(key: key);
@@ -34,7 +33,7 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
           alignment: Alignment.bottomCenter),
       child: ListView(
         children: [
-          MarkdownBody(data: AppLocalizations.of(context)!.outcomeEnterP1),
+          MarkdownBody(data: S.of(context).outcomeEnterP1),
           UIHelper.verticalSpaceMedium,
           TextField(
               minLines: 3,
@@ -48,8 +47,7 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                helperText:
-                    AppLocalizations.of(context)!.obstacleOutcomeHelperText,
+                helperText: S.of(context).obstacleOutcomeHelperText,
               )),
         ],
       ),

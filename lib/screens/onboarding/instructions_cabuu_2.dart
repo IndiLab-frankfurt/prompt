@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import 'package:intl/intl.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class InstructionsCabuu2 extends StatelessWidget {
   const InstructionsCabuu2({Key? key}) : super(key: key);
@@ -19,10 +19,9 @@ class InstructionsCabuu2 extends StatelessWidget {
     return Container(
         child: ListView(
       children: [
-        MarkdownBody(
-            data: AppLocalizations.of(context)!.instructionsCabuu2Paragraph1),
+        MarkdownBody(data: S.of(context).instructionsCabuu2Paragraph1),
         UIHelper.verticalSpaceMedium,
-        MarkdownBody(data: AppLocalizations.of(context)!.instructionsCabuuLink),
+        MarkdownBody(data: S.of(context).instructionsCabuuLink),
         UIHelper.verticalSpaceMedium,
         Center(
             child: MarkdownBody(
@@ -34,18 +33,15 @@ class InstructionsCabuu2 extends StatelessWidget {
                   }
                 })),
         UIHelper.verticalSpaceMedium,
-        MarkdownBody(
-            data: AppLocalizations.of(context)!.instructionsCabuuWriteCode),
+        MarkdownBody(data: S.of(context).instructionsCabuuWriteCode),
         UIHelper.verticalSpaceMedium,
         Center(child: MarkdownBody(data: "## **${vm.cabuuCode}**")),
         UIHelper.verticalSpaceMedium,
-        MarkdownBody(
-            data: AppLocalizations.of(context)!.instructionsCabuuWriteDate),
+        MarkdownBody(data: S.of(context).instructionsCabuuWriteDate),
         UIHelper.verticalSpaceSmall,
         Center(child: MarkdownBody(data: "## **$targetDate**")),
         UIHelper.verticalSpaceSmall,
-        MarkdownBody(
-            data: AppLocalizations.of(context)!.instructionsCabuu2Finish)
+        MarkdownBody(data: S.of(context).instructionsCabuu2Finish)
       ],
     ));
   }

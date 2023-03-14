@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
-import 'package:prompt/viewmodels/single_choice_question_view_model.dart';
 import 'package:provider/provider.dart';
 
 typedef void ChoiceQuestionCallback(String val);
@@ -29,7 +28,6 @@ class SingleChoiceQuestionView extends StatefulWidget {
 class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
   int _selectedValue = -1;
   Map<String, String> items = {};
-  late SingleChoiceQuestionViewModel _vm;
 
   @override
   void initState() {

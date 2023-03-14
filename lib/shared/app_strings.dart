@@ -91,16 +91,8 @@ class AppStrings {
       "Drücke hier, sobald du heute mit cabuu gelernt hast.";
   static const String Dashboard_ContinueTomorrow =
       "Komme morgen früh hierher zurück und mache weiter.";
-  static const String Dashboard_StartTomorrow = "Morgen geht es richtig los";
-  static const String Dashboard_MainMessage_FirstDay =
-      "Morgen geht es richtig los!";
-  static const String Dashboard_MainMessage_BeforeEvening =
-      "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.";
   static const String Dashboard_ClickAfterVocabTest =
       "Drücke hier, wenn du deinen Vokabeltest erledigt hast";
-  static const String NextVocabToday = "Dein nächster Vokabeltest ist heute";
-  static const String NextVocabTomorrow =
-      "Dein nächster Vokabeltest ist morgen";
 
   static const String MorningAssessment_FirstDay_Screen1_1 =
       "Benutze PROMPT ab jetzt **jeden Tag** und zwar am besten schon **morgens**. Die ersten Fragen sollst du nämlich beantworten, **bevor** du mit cabuu lernst.";

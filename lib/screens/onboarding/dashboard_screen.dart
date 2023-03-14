@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/app_strings.dart';
@@ -100,8 +101,6 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   UIHelper.verticalSpaceSmall,
-                                  if (vm.showLearnedWithCabuuButton)
-                                    _buildToNextTaskButton(),
                                   if (vm.showVocabularyTestReminder)
                                     _buildVocabTestReminder(),
                                   if (vm.startTomorrow) _buildStartTomorrow(),
@@ -161,10 +160,6 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   _buildStartTomorrow() {
-    return DashboardButton(text: AppStrings.Dashboard_MainMessage_FirstDay);
-  }
-
-  _buildToNextTaskButton() {
-    return DashboardButton(text: AppStrings.Dashboard_Continue_After_Cabuu);
+    return DashboardButton(text: S.current.dashboard_mainmessage_firstday);
   }
 }

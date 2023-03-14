@@ -7,9 +7,8 @@ import 'package:prompt/managers/dialog_manager.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/shared/app_router.dart';
-import 'package:prompt/shared/ui_helper.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'screens/main/startup_screen.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -29,14 +28,12 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Prompt',
       localizationsDelegates: [
-        AppLocalizations.delegate,
+        S.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: [
-        Locale('de'), // German
-      ],
+      supportedLocales: S.delegate.supportedLocales,
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.lightBlue,

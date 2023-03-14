@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:prompt/viewmodels/plan_input_view_model.dart';
@@ -43,9 +44,7 @@ class _PlanInputState extends State<PlanInput> {
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Row(
                 children: [
-                  MarkdownBody(
-                      data:
-                          '### "${AppLocalizations.of(context)!.planInputIfI} '),
+                  MarkdownBody(data: '### "${S.of(context).planInputIfI} '),
                   UIHelper.horizontalSpaceSmall,
                   Expanded(
                     child: TextField(
@@ -71,8 +70,7 @@ class _PlanInputState extends State<PlanInput> {
               ),
               UIHelper.verticalSpaceSmall,
               MarkdownBody(
-                  data:
-                      '### ${AppLocalizations.of(context)!.planInputThenILearnWithCabuu} "'),
+                  data: '### ${S.of(context).planInputThenILearnWithCabuu} "'),
             ]),
           );
         });

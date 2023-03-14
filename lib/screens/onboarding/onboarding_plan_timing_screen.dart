@@ -3,12 +3,12 @@ import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/plan_timing.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class OnboardingPlanTimingScreen extends StatefulWidget {
   const OnboardingPlanTimingScreen({Key? key}) : super(key: key);
@@ -41,15 +41,14 @@ class _OnboardingPlanTimingScreenState
         shrinkWrap: true,
         children: [
           SpeechBubble(
-            text: AppLocalizations.of(context)!.congratsMoreDiamonds("20"),
+            text: S.of(context).congratsMoreDiamonds("20"),
           ),
           _buildConfetti(),
           UIHelper.verticalSpaceMedium,
-          MarkdownBody(
-              data: AppLocalizations.of(context)!.planTimingParagraph1),
+          MarkdownBody(data: S.of(context).planTimingParagraph1),
           UIHelper.verticalSpaceMedium,
           Text(
-            AppLocalizations.of(context)!.planTimingParagraph2,
+            S.of(context).planTimingParagraph2,
           ),
           UIHelper.verticalSpaceMedium,
           ChangeNotifierProvider.value(

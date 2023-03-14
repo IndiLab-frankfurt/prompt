@@ -1,9 +1,9 @@
 import 'dart:math';
 import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RewardScreen1 extends StatefulWidget {
   const RewardScreen1({Key? key}) : super(key: key);
@@ -30,12 +30,12 @@ class _RewardScreen1State extends State<RewardScreen1> {
     return Container(
       child: ListView(
         children: [
-          SpeechBubble(text: AppLocalizations.of(context)!.rewards1p1("5")),
+          SpeechBubble(text: S.of(context).rewards1p1("5")),
           _buildConfettiTop(),
           UIHelper.verticalSpaceMedium,
-          Text(AppLocalizations.of(context)!.rewards1p2),
+          Text(S.of(context).rewards1p2),
           UIHelper.verticalSpaceMedium,
-          Text(AppLocalizations.of(context)!.rewards1p3),
+          Text(S.of(context).rewards1p3),
         ],
       ),
     );

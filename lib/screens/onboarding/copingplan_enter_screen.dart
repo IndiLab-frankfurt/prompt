@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/onboarding_container.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class CopingPlanEnterScreen extends StatefulWidget {
   CopingPlanEnterScreen({Key? key}) : super(key: key);
@@ -31,8 +31,7 @@ class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
       ),
       child: ListView(
         children: [
-          MarkdownBody(
-              data: "${AppLocalizations.of(context)!.copingPlanEnterP1}"),
+          MarkdownBody(data: "${S.of(context).copingPlanEnterP1}"),
           UIHelper.verticalSpaceMedium,
           TextField(
               minLines: 3,
@@ -46,10 +45,8 @@ class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
                 fillColor: Colors.white,
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(5.0))),
-                labelText: AppLocalizations.of(context)!
-                    .labelTextWriteDownBulletPoints,
-                helperText:
-                    AppLocalizations.of(context)!.obstacleOutcomeHelperText,
+                labelText: S.of(context).labelTextWriteDownBulletPoints,
+                helperText: S.of(context).obstacleOutcomeHelperText,
               )),
         ],
       ),

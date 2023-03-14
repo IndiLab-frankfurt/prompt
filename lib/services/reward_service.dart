@@ -27,8 +27,8 @@ class RewardService {
   String get selectedMascot => _selectedMascot;
   static const int STREAK_THRESHOLD = 5;
   List<int> scheduledRewards = [];
-  LinearGradient backgroundColor = LinearGradient(
-    colors: [Colors.orange, Colors.orange],
+  late LinearGradient backgroundColor = LinearGradient(
+    colors: [backgroundBase, backgroundBase],
     begin: Alignment.topCenter,
     end: Alignment.bottomCenter,
   );

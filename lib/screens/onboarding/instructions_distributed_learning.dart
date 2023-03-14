@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 
 class InstructionsDistributedLearning extends StatelessWidget {
   const InstructionsDistributedLearning({Key? key}) : super(key: key);
@@ -15,10 +15,7 @@ class InstructionsDistributedLearning extends StatelessWidget {
               scale: 3.5,
               alignment: Alignment.bottomCenter)),
       child: ListView(
-        children: [
-          MarkdownBody(
-              data: AppLocalizations.of(context)!.instructionsDistributedp1)
-        ],
+        children: [MarkdownBody(data: S.of(context).instructionsDistributedp1)],
       ),
     );
   }

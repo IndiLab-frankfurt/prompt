@@ -1,8 +1,6 @@
 import 'dart:math';
-
 import 'package:confetti/confetti.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter/material.dart';
 
 class RewardDialog extends StatefulWidget {
   const RewardDialog({super.key});
