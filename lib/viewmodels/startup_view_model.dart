@@ -6,6 +6,7 @@ import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/push_notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/settings_service.dart';
+import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 import 'package:prompt/shared/enums.dart';
@@ -39,7 +40,9 @@ class StartupViewModel extends BaseViewModel {
         nav.navigateAndRemove(AppScreen.Login);
         break;
       case AppStartupMode.noTasks:
-        nav.navigateAndRemove(AppScreen.Mainscreen);
+        // nav.navigateAndRemove(AppScreen.Mainscreen);
+        await locator<StudyService>()
+            .nextScreenForScreenName(AppScreen.Mainscreen.name);
         break;
     }
   }

@@ -30,15 +30,19 @@ class StudyService {
     if (currentScreen?.isEmpty ?? true) {
       _loggingService
           .logError("nextScreen called with empty current route name");
+      currentScreen = AppScreen.Mainscreen.name;
     }
-    var nextState = AppScreen.Mainscreen;
+    return await nextScreenForScreenName(currentScreen!);
+  }
+
+  Future<dynamic> nextScreenForScreenName(String currentScreen) async {
     try {
-      nextState = await _dataService.getNextState(currentScreen!);
+      var nextState = await _dataService.getNextState(currentScreen);
+      return await _navigationService.navigateTo(nextState);
     } catch (e) {
       _loggingService.logError("Error trying to navigate to next state",
           data: "Error getting next state: $e");
     }
-    return await _navigationService.navigateTo(nextState);
   }
 
   DateTime getNextVocabTestDate() {

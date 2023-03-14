@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/extensions.dart';

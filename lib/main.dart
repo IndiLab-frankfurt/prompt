@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.lightBlue,
-        scaffoldBackgroundColor: UIHelper.bgGradientStart,
+        // scaffoldBackgroundColor: UIHelper.bgGradientStart,
         textTheme: TextTheme(
           bodyLarge: TextStyle(fontSize: 18),
           bodyMedium:

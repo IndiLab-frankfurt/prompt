@@ -1,8 +1,11 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:prompt/models/authentication_response.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:http/http.dart' as http;
+import 'package:prompt/services/dialog_service.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 import 'package:prompt/shared/enums.dart';
@@ -17,8 +20,8 @@ class ApiService {
     if (kIsWeb || !kDebugMode) {
       serverUrl = _settingsService.getSetting(SettingsKeys.apiBaseUrl);
     } else if (kDebugMode) {
-      // serverUrl = "https://prompt-app.eu";
-      serverUrl = "http://10.0.2.2:8000";
+      serverUrl = "https://prompt-app.eu";
+      // serverUrl = "http://10.0.2.2:8000";
     }
     return Future.value(true);
   }
@@ -43,10 +46,16 @@ class ApiService {
       url = url.replace(queryParameters: queryParams);
     }
     try {
-      var response = await http.get(url, headers: getHeaders());
+      var response = await http.get(url, headers: getHeaders()).timeout(
+          Duration(seconds: 20),
+          onTimeout: () => throw ArgumentError("Timeout"));
       return response;
     } on ArgumentError catch (e) {
       print(e);
+      locator<DialogService>().showDialog(
+          title: "Server nicht erreichbar",
+          description:
+              "Bitte überprüfe deine Internetverbindung und versuche es erneut.");
       return null;
     }
   }
@@ -58,11 +67,17 @@ class ApiService {
       url = url.replace(queryParameters: queryParams);
     }
     try {
-      var response =
-          await http.post(url, headers: getHeaders(), body: jsonEncode(data));
+      var response = await http
+          .post(url, headers: getHeaders(), body: jsonEncode(data))
+          .timeout(Duration(seconds: 20),
+              onTimeout: () => throw ArgumentError("Timeout"));
       return response;
     } on ArgumentError catch (e) {
       print(e);
+      locator<DialogService>().showDialog(
+          title: "Server nicht erreichbar",
+          description:
+              "Bitte überprüfe deine Internetverbindung und versuche es erneut.");
       return null;
     }
   }
@@ -105,6 +120,9 @@ class ApiService {
 
   Future<UserData?> getUserData() async {
     var response = await getAsync("/api/user/profile/");
+    if (response == null) {
+      return null;
+    }
     if (response.statusCode == 200) {
       var data = response.body;
       var userData = UserData.fromJson(jsonDecode(data));
