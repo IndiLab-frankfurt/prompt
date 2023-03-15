@@ -37,13 +37,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.lightBlue,
-        // scaffoldBackgroundColor: UIHelper.bgGradientStart,
+        fontFamily: 'ComicNeue',
         textTheme: TextTheme(
-          bodyLarge: TextStyle(fontSize: 18),
+          bodyLarge: GoogleFonts.comicNeue(fontSize: 18),
           bodyMedium:
-              GoogleFonts.quicksand(fontSize: 18, fontWeight: FontWeight.w600),
+              GoogleFonts.comicNeue(fontSize: 18, fontWeight: FontWeight.w600),
           titleMedium:
-              GoogleFonts.quicksand(fontSize: 20, fontWeight: FontWeight.w600),
+              GoogleFonts.comicNeue(fontSize: 20, fontWeight: FontWeight.w600),
         ),
         buttonTheme: ButtonThemeData(
           shape:
