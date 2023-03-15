@@ -30,10 +30,8 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
 
       for (var question in vm.pages) {
         if (question is ChoiceQuestionViewModel) {
-          _screens.add(Center(
-            child: SingleChoiceQuestionView(
-                question: question, onSelection: (_) {}),
-          ));
+          _screens.add(SingleChoiceQuestionView(
+              question: question, onSelection: (_) {}));
         }
 
         if (question is QuestionnaireTextPageViewModel) {
@@ -61,9 +59,11 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
               builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.hasData) {
                   return BackgroundImageContainer(
-                      child: MultiPageScreen(
-                    vm,
-                    snapshot.data,
+                      child: SafeArea(
+                    child: MultiPageScreen(
+                      vm,
+                      snapshot.data,
+                    ),
                   ));
                 } else {
                   return Center(

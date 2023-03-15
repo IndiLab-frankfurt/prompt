@@ -7,7 +7,6 @@ import 'package:prompt/screens/main/forgot_password_screen.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/screens/assessments/multi_page_questionnaire_screen.dart';
-import 'package:prompt/screens/main/about_screen.dart';
 import 'package:prompt/screens/main/screen_selection.dart';
 import 'package:prompt/screens/main/dashboard_screen.dart';
 import 'package:prompt/screens/onboarding/login_screen.dart';
@@ -67,9 +66,9 @@ class AppRouter {
         screen = RewardSelectionScreen();
         break;
 
-      case AppScreen.AboutPrompt:
-        screen = AboutScreen();
-        break;
+      // case AppScreen.AboutPrompt:
+      //   screen = AboutScreen();
+      //   break;
 
       case AppScreen.ForgotPassword:
         screen = ForgotPasswordScreen();
@@ -118,7 +117,7 @@ class AppRouter {
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.VocabTdoay:
+      case AppScreen.VocabTestToday:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: VocabToday()),

@@ -77,32 +77,21 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
       displayGroupValue += 1;
     }
 
-    return ChangeNotifierProvider.value(
-      value: widget.question,
-      builder: (context, child) => Container(
-        margin: EdgeInsets.all(10),
-        padding: EdgeInsets.all(10),
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-                blurRadius: 2,
-                offset: Offset(5.0, 2.0),
-                color: Colors.black.withOpacity(.12))
-          ],
-          color: Theme.of(context).dialogBackgroundColor,
-          borderRadius: BorderRadius.all(Radius.circular(20.0)),
-        ),
-        child: ListView(
-          padding: EdgeInsets.zero,
-          shrinkWrap: true,
-          children: <Widget>[
-            MarkdownBody(
-              data: "#### " + widget.question.questionText,
-            ),
-            UIHelper.verticalSpaceMedium,
-            ...items,
-          ],
-        ),
+    return Container(
+      padding: EdgeInsets.all(10),
+      margin: EdgeInsets.all(10),
+      decoration: BoxDecoration(
+        color: Theme.of(context).dialogBackgroundColor.withOpacity(0.7),
+        borderRadius: BorderRadius.all(Radius.circular(20.0)),
+      ),
+      child: ListView(
+        children: <Widget>[
+          MarkdownBody(
+            data: "**${widget.question.questionText}**",
+          ),
+          UIHelper.verticalSpaceMedium,
+          ...items,
+        ],
       ),
     );
   }

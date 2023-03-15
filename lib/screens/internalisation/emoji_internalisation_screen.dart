@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
@@ -67,7 +67,7 @@ class _EmojiInternalisationScreenState
                     children: [
                       MarkdownBody(
                           data: "### " +
-                              AppStrings.EmojiInternalisation_Instruction),
+                              S.of(context).emojiInternalisation_createPlan),
                       UIHelper.verticalSpaceSmall,
                       SpeechBubble(
                           text:

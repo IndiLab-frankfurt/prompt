@@ -23,12 +23,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m0(number) =>
       "Glückwunsch, du hast weitere ${number} 💎 verdient!";
 
-  static String m1(numDays) =>
+  static String m1(currentDay, maxDays) => "Tag ${currentDay} von ${maxDays}";
+
+  static String m2(numDays) =>
       "Noch ${Intl.plural(numDays, one: '1 Tag', other: '${numDays}Tage')} bis zum nächsten Vokabeltest";
 
-  static String m2(when) => "Wenn ich ${when}, dann lerne ich mit cabuu!";
+  static String m3(when) => "Wenn ich ${when}, dann lerne ich mit cabuu!";
 
-  static String m3(number) =>
+  static String m4(number) =>
       "Glückwunsch, du hast deine ersten ${number} 💎 verdient!";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -42,7 +44,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ich bin damit einverstanden, dass mein Kind an der Studie PROMP-ADAPT teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden."),
         "copingPlanEnterP1": MessageLookupByLibrary.simpleMessage(
             "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:"),
-        "dashboard_daysUntilVocabTest": m1,
+        "dashboard_daysOfTotal": m1,
+        "dashboard_daysUntilVocabTest": m2,
         "dashboard_inFollowUpPhase": MessageLookupByLibrary.simpleMessage(
             "Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe"),
         "dashboard_mainmessage_beforeEvening":
@@ -56,6 +59,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Dein nächster Vokabeltest ist morgen."),
         "dashboard_studyCompletelyFinished": MessageLookupByLibrary.simpleMessage(
             "Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren"),
+        "emojiInternalisation_createPlan": MessageLookupByLibrary.simpleMessage(
+            "Erstelle aus Emojis eine Darstellung deines Planes"),
         "instructionsCabuu2Finish": MessageLookupByLibrary.simpleMessage(
             "Komme hierher zurück und klicke auf “Weiter”, wenn du damit fertig bist."),
         "instructionsCabuu2Paragraph1": MessageLookupByLibrary.simpleMessage(
@@ -97,14 +102,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "**Wann** und **wo** könntest du morgen Vokabeln lernen??"),
         "planInputThenILearnWithCabuu":
             MessageLookupByLibrary.simpleMessage(", dann lerne ich mit cabuu!"),
-        "planPlaceHolder": m2,
+        "planPlaceHolder": m3,
         "planTimingChangeP1": MessageLookupByLibrary.simpleMessage(
             "Wenn du die Benachrichtigung zu einer anderen Uhrzeit erhalten möchtest, kannst du das hier einstellen."),
         "planTimingParagraph1": MessageLookupByLibrary.simpleMessage(
             "Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten."),
         "planTimingParagraph2": MessageLookupByLibrary.simpleMessage(
             "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen."),
-        "rewards1p1": m3,
+        "rewards1p1": m4,
         "rewards1p2": MessageLookupByLibrary.simpleMessage(
             "Jetzt haben wir erst mal ein paar Fragen an dich."),
         "rewards1p3": MessageLookupByLibrary.simpleMessage(

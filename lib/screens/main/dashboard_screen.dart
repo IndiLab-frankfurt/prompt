@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/reward_service.dart';
-import 'package:prompt/shared/app_strings.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
 import 'package:prompt/widgets/dashboard_button.dart';
@@ -87,7 +87,8 @@ class _DashboardScreenState extends State<DashboardScreen>
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         UIHelper.verticalSpaceMedium,
-        Text(AppStrings.daysOfTotal(vm.daysActive, vm.getMaxStudyDays())),
+        Text(S.current
+            .dashboard_daysOfTotal(vm.daysActive, vm.getMaxStudyDays())),
         UIHelper.verticalSpaceSmall,
         SizedBox(
           width: 300,

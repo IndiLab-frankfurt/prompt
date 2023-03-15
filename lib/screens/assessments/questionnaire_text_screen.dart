@@ -7,16 +7,24 @@ class QuestionnaireTextScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        height: 400,
-        child: Center(
-          child: ListView.separated(
-              separatorBuilder: (context, index) => SizedBox(height: 10),
-              shrinkWrap: true,
-              itemCount: text.length,
-              itemBuilder: ((context, index) {
-                return Center(child: MarkdownBody(data: text[index]));
-              })),
-        ));
+    return SafeArea(
+      child: Container(
+          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.all(5),
+          decoration: BoxDecoration(
+            color: Theme.of(context).dialogBackgroundColor.withOpacity(0.7),
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          ),
+          child: Center(
+            child: ListView.separated(
+                padding: EdgeInsets.zero,
+                separatorBuilder: (context, index) => SizedBox(height: 10),
+                shrinkWrap: true,
+                itemCount: text.length,
+                itemBuilder: ((context, index) {
+                  return Center(child: MarkdownBody(data: text[index]));
+                })),
+          )),
+    );
   }
 }

@@ -1,13 +1,9 @@
-import 'dart:math';
-
-import 'package:confetti/confetti.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/plan_timing.dart';
-import 'package:prompt/widgets/speech_bubble.dart';
 import 'package:provider/provider.dart';
 
 class OnboardingPlanTimingScreen extends StatefulWidget {
@@ -20,16 +16,9 @@ class OnboardingPlanTimingScreen extends StatefulWidget {
 
 class _OnboardingPlanTimingScreenState
     extends State<OnboardingPlanTimingScreen> {
-  final ConfettiController _controllerTopCenter =
-      ConfettiController(duration: const Duration(seconds: 2));
-
   @override
   void initState() {
     super.initState();
-    // wait a bit, then play the animation
-    Future.delayed(const Duration(milliseconds: 500), () {
-      _controllerTopCenter.play();
-    });
   }
 
   @override
@@ -56,24 +45,8 @@ class _OnboardingPlanTimingScreenState
     );
   }
 
-  _buildConfetti() {
-    return Align(
-      alignment: Alignment.topCenter,
-      child: ConfettiWidget(
-        confettiController: _controllerTopCenter,
-        blastDirection: pi / 2,
-        maxBlastForce: 5, // set a lower max blast force
-        minBlastForce: 2, // set a lower min blast force
-        emissionFrequency: 0.1,
-        numberOfParticles: 30, // a lot of particles at once
-        gravity: 0.8,
-      ),
-    );
-  }
-
   @override
   void dispose() {
-    _controllerTopCenter.dispose();
     super.dispose();
   }
 }

@@ -56,7 +56,7 @@ enum AppScreen {
   Mainscreen("/main"),
   Login("/login"),
   Onboarding("/onboarding"),
-  AboutPrompt("/aboutprompt"),
+  // AboutPrompt("/aboutprompt"),
   AA_DidYouLearn("aa/didyoulearn"),
   AA_NextStudySession("aa/nextstudysession"),
   AA_PreviousStudySession("aa/previousstudysession"),
@@ -75,7 +75,8 @@ enum AppScreen {
   DataPrivacy("/dataprivacy"),
   PlanTimingChange("/plantimingchange"),
   ForgotPassword("/forgotpassword"),
-  VocabTdoay("/vocabtoday"),
+  VocabTestToday("/vocabtoday"),
+  // VocabTestTdoay("/vocabtesttoday"),
   UserSettings("/usersettings");
 
   const AppScreen(this.routeName);

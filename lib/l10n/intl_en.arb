@@ -71,9 +71,24 @@
     },
     "dashboard_studyCompletelyFinished": "Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren",
     "dashboard_inFollowUpPhase": "Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe",
+    "dashboard_daysOfTotal": "Tag {currentDay} von {maxDays}",
+    "@dashboard_daysOfTotal": {
+      "placeholders": {
+        "currentDay": {
+          "type": "num",
+          "example": "20"
+        },
+        "maxDays": {
+          "type": "num",
+          "example": "20"
+        }
+      }
+    },
     "notificationMessage_daily": "Mache jetzt weiter mit PROMPT!",
     "notificationMessage_vocabTest": "Denk daran, heute den Test in cabuu zu machen!",
     "notificationTitle_final": "Wir haben noch ein paar Fragen an dich!",
-    "notificationBody_final":  "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎"
+    "notificationBody_final":  "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎",
+    "emojiInternalisation_createPlan": "Erstelle aus Emojis eine Darstellung deines Planes"
+
   }
   

@@ -1,5 +1,3 @@
-import 'package:intl/intl.dart';
-
 class AppStrings {
   static String daysParticipated(int days) {
     String dayString = days == 1 ? "Tag" : "Tage";
@@ -11,58 +9,9 @@ class AppStrings {
     return "$days $dayString Tage in Folge mitgemacht";
   }
 
-  static String daysOfTotal(int days, int max) {
-    return "Tag $days von $max";
-  }
-
   static String progressToReward(int days, int max) {
     return "Fortschritt zur nächsten Belohnung: $days / $max";
   }
-
-  // Onboarding Cabuu Link
-  static const String CabuuLink_EnterEmail =
-      "Gib hier die E-Mail-Adresse ein, mit der du bei cabuu angemeldet bist";
-  static const String CabuuLink_EnterUsername =
-      "Falls du bei cabuu auch mit einem Benutzernamen angemeldet bist, gib diesen bitte hier ein";
-
-  // Onboarding Plan Display
-  static const String PlanDisplay_Excellent = "Prima!";
-  static const String PlanDisplay_YourPlanIs = "Dein Plan lautet also:";
-  static const String PlanDisplay_RememberYourPlan = "Merke dir den Plan gut!";
-
-  // Onboarding Why Vocabulary Learning Screen
-  static const String WhyVocab_ParagraphOne =
-      "In der Studie PROMPT wollen wir dir dabei helfen, Vokabeln so zu lernen, dass du sie dir besonders gut merken kannst.";
-  static const String WhyVocab_ParagraphTwo =
-      "Denk mal nach: Warum ist es für dich wichtig, Englischvokabeln zu lernen? Wie könnte es für dich auch außerhalb der Schule gut sein, viele Englischvokabeln zu kennen?";
-
-  static const String GoalIntention_ParagraphOne =
-      "Damit du es schaffst, regelmäßig Vokabeln zu lernen, solltest du dir ein **Ziel** setzen";
-  static const String GoalIntention_ParagraphTwo =
-      "Nimm dir jetzt vor, jeden Tag ein paar Vokabeln mit cabuu zu lernen. Denk dran: Du musst auch gar nicht lange lernen.";
-  static const String GoalIntention_SayToYourself = "Sag zu dir selbst:";
-  static const String GoalIntention_Plan =
-      '"Ich will jeden Tag ein paar Vokabeln mit cabuu lernen"';
-
-  // Goal Intention
-  static const String HelpLearnVocabulary =
-      "In der Studie PROMPT wollen wir dir dabei helfen, Vokabeln so zu lernen, dass du sie dir besonders gut merken kannst.";
-  static const String ThinkAboutWhy =
-      "Denk mal nach: Warum ist es für dich wichtig, Vokabeln zu lernen? Wie könnte es für dich in Zukunft von Vorteil sein, viele Vokabeln gelernt zu haben?";
-  static const String WriteYourResponse =
-      "Schreibe deine Antwort hier auf (Stichworte genügen):";
-
-  // Internalisation Screen
-  static const Internalisation_ThinkAboutYourGoal = "Denke an dein Ziel:";
-  static const Internalisation_ToReachYourGoal =
-      "Um dein Ziel zu erreichen, hast du folgenden Plan:";
-
-  // Shared Across Many Screens
-  static const String Continue = "Weiter";
-
-  // Emoji Internalisation Screen
-  static const String EmojiInternalisation_Instruction =
-      "Erstelle aus Emojis eine Darstellung deines Planes";
 
   // Study Info Screen
   static const String InfoScreen_Header1 = "Über PROMPT";
@@ -85,33 +34,6 @@ class AppStrings {
   static const String BoosterPrompt_Header = "BOOSTER PROMPT!";
   static const String BoosterPrompt_Text =
       "Denk daran, dass du dir die Vokabeln am besten merken kannst, wenn du jeden Tag lernst!";
-
-  // DASHBOARD
-  static const String Dashboard_Continue_After_Cabuu =
-      "Drücke hier, sobald du heute mit cabuu gelernt hast.";
-  static const String Dashboard_ContinueTomorrow =
-      "Komme morgen früh hierher zurück und mache weiter.";
-  static const String Dashboard_ClickAfterVocabTest =
-      "Drücke hier, wenn du deinen Vokabeltest erledigt hast";
-
-  static const String MorningAssessment_FirstDay_Screen1_1 =
-      "Benutze PROMPT ab jetzt **jeden Tag** und zwar am besten schon **morgens**. Die ersten Fragen sollst du nämlich beantworten, **bevor** du mit cabuu lernst.";
-  static const String MorningAssessment_FirstDay_Screen1_2 =
-      "An Tagen, an denen du mit cabuu gelernt hast, benutzt du PROMPT **danach noch einmal**. An Tagen, an denen du nicht mit cabuu gelernt hast, benutzt du PROMPT erst wieder am nächsten Tag.";
-
-  static const String MorningAssessment_FirstDay_Screen2_1 =
-      'Du solltest bereits in cabuu den Lernplan für Liste 1 angelegt haben. Klicke auf "Weiter", wenn du das gemacht hast.';
-  // ignore: non_constant_identifier_names
-  static String MorningAssessment_FirstDay_Screen2_2(DateTime datetime) {
-    var format = new DateFormat("dd.MM.yyyy");
-    var targetDate = format.format(datetime);
-    return '**Falls du den Lernplan noch nicht erstellt hast**: Klicke in cabuu auf Liste 1 und wähle "Lernplan". Gib als End-Datum ein: $targetDate';
-  }
-
-  static const String MorningAssessment_lastVocab1_1 =
-      'Heute sollst du in cabuu den letzten Test machen. Klicke dazu in cabuu auf Liste 6 und wähle "Abfrage".';
-  static const String MorningAssessment_lastVocab1_2 =
-      'Mach bitte den Test und komm danach direkt zurück zu PROMPT, um die letzten Fragen zu beantworten. Danach bist du fertig mit der Studie.';
 
   static const String Login_ForgotPassword =
       "Passwort vergessen? Klicke hier und wir erklären dir, was zu tun ist.";

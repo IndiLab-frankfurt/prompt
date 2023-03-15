@@ -338,12 +338,13 @@ Questionnaire ReminderNextList() =>
     ]);
 
 Questionnaire VocabToday() =>
-    Questionnaire(title: "", name: AppScreen.VocabTdoay.name, questions: [
+    Questionnaire(title: "", name: AppScreen.VocabTestToday.name, questions: [
       QuestionnaireTextPageViewModel(
-          name: "${AppScreen.VocabTdoay.name}_1",
+          name: "${AppScreen.VocabTestToday.name}_1",
           text: [
-            '### Mache heute den Vokabeltest in cabuu!',
-            '### Drücke dazu auf die Liste, die du gerade lernst, und wähle "Abfrage".',
+            'Mache heute den Vokabeltest in cabuu!',
+            'Drücke dazu auf die Liste, die du gerade lernst, und wähle "Abfrage".',
+            "Mache hier in der App dann ab 18 Uhr weiter."
           ])
     ]);
 

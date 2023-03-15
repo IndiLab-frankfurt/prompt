@@ -440,6 +440,16 @@ class S {
     );
   }
 
+  /// `Tag {currentDay} von {maxDays}`
+  String dashboard_daysOfTotal(num currentDay, num maxDays) {
+    return Intl.message(
+      'Tag $currentDay von $maxDays',
+      name: 'dashboard_daysOfTotal',
+      desc: '',
+      args: [currentDay, maxDays],
+    );
+  }
+
   /// `Mache jetzt weiter mit PROMPT!`
   String get notificationMessage_daily {
     return Intl.message(
@@ -475,6 +485,16 @@ class S {
     return Intl.message(
       'Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎',
       name: 'notificationBody_final',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Erstelle aus Emojis eine Darstellung deines Planes`
+  String get emojiInternalisation_createPlan {
+    return Intl.message(
+      'Erstelle aus Emojis eine Darstellung deines Planes',
+      name: 'emojiInternalisation_createPlan',
       desc: '',
       args: [],
     );
