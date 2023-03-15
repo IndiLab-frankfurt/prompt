@@ -37,14 +37,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.lightBlue,
-        fontFamily: 'ComicNeue',
-        textTheme: TextTheme(
-          bodyLarge: GoogleFonts.comicNeue(fontSize: 18),
-          bodyMedium:
-              GoogleFonts.comicNeue(fontSize: 18, fontWeight: FontWeight.w600),
-          titleMedium:
-              GoogleFonts.comicNeue(fontSize: 20, fontWeight: FontWeight.w600),
-        ),
+        textTheme: GoogleFonts.comicNeueTextTheme(Theme.of(context).textTheme),
+        // textTheme: TextTheme(
+        //   bodyLarge: GoogleFonts.comicNeue(fontSize: 18),
+        //   bodyMedium:
+        //       GoogleFonts.comicNeue(fontSize: 18, fontWeight: FontWeight.w600),
+        //   titleMedium:
+        //       GoogleFonts.comicNeue(fontSize: 20, fontWeight: FontWeight.w600),
+        // ),
         buttonTheme: ButtonThemeData(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
