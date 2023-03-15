@@ -76,7 +76,7 @@ enum AppScreen {
   PlanTimingChange("/plantimingchange"),
   ForgotPassword("/forgotpassword"),
   VocabTestToday("/vocabtoday"),
-  // VocabTestTdoay("/vocabtesttoday"),
+  ThemePreview("/themepreview"),
   UserSettings("/usersettings");
 
   const AppScreen(this.routeName);
