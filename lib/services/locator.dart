@@ -14,7 +14,6 @@ import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
 import 'package:prompt/viewmodels/plan_prompt_view_model.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 GetIt locator = GetIt.instance;
 

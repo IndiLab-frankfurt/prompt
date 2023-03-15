@@ -370,6 +370,16 @@ class S {
     );
   }
 
+  /// `Morgen geht es weiter!`
+  String get dashboard_continueTomorrow {
+    return Intl.message(
+      'Morgen geht es weiter!',
+      name: 'dashboard_continueTomorrow',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.`
   String get dashboard_mainmessage_beforeEvening {
     return Intl.message(
@@ -407,6 +417,66 @@ class S {
       name: 'dashboard_daysUntilVocabTest',
       desc: '',
       args: [numDays],
+    );
+  }
+
+  /// `Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren`
+  String get dashboard_studyCompletelyFinished {
+    return Intl.message(
+      'Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren',
+      name: 'dashboard_studyCompletelyFinished',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe`
+  String get dashboard_inFollowUpPhase {
+    return Intl.message(
+      'Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe',
+      name: 'dashboard_inFollowUpPhase',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mache jetzt weiter mit PROMPT!`
+  String get notificationMessage_daily {
+    return Intl.message(
+      'Mache jetzt weiter mit PROMPT!',
+      name: 'notificationMessage_daily',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Denk daran, heute den Test in cabuu zu machen!`
+  String get notificationMessage_vocabTest {
+    return Intl.message(
+      'Denk daran, heute den Test in cabuu zu machen!',
+      name: 'notificationMessage_vocabTest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wir haben noch ein paar Fragen an dich!`
+  String get notificationTitle_final {
+    return Intl.message(
+      'Wir haben noch ein paar Fragen an dich!',
+      name: 'notificationTitle_final',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎`
+  String get notificationBody_final {
+    return Intl.message(
+      'Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎',
+      name: 'notificationBody_final',
+      desc: '',
+      args: [],
     );
   }
 }

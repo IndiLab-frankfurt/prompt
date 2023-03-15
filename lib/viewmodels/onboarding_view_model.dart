@@ -159,7 +159,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     var ud = _dataService.getUserDataCache();
     // TODO: Restore after testing
     // initialPage = max(ud.initStep, pages.length - 1);
-    initialPage = 0;
+    initialPage = 15;
     this.setPage(initialPage);
     cabuuCode = ud.cabuuCode.isNotEmpty ? ud.cabuuCode : "HIER CABUU CODE";
 
@@ -222,41 +222,22 @@ class OnboardingViewModel extends MultiPageViewModel {
   }
 
   Future<bool> doStepDependentSubmission() async {
-    var stepKey = pages[page];
+    var pageName = pages[page].name;
 
-    switch (stepKey) {
-      case OnboardingStep.welcome:
-      case OnboardingStep.video_planning:
-      case OnboardingStep.video_distributedLearning:
-      case OnboardingStep.instructions_cabuu_2:
-      case OnboardingStep.instructions_distributedLearning:
-      case OnboardingStep.instructions_implementationIntentions:
-      case OnboardingStep.rewardScreen1:
-        break;
-      case OnboardingStep.video_introduction_1:
-        if (_rewardService.scoreValue < 5) {
-          _rewardService.addPoints(5);
-        }
-        break;
-      case OnboardingStep.assessment_vocabRoutine:
-      case OnboardingStep.assessment_ToB:
-      case OnboardingStep.assessment_motivation:
-      case OnboardingStep.planTiming:
-      case OnboardingStep.planCreation:
-        break;
-      case OnboardingStep.planInternalisationEmoji:
-        saveInternalisation();
-        if (_rewardService.scoreValue < 10) {
-          _rewardService.addPoints(5);
-        }
-        break;
-      case OnboardingStep.outcome:
-      case OnboardingStep.obstacle:
-      case OnboardingStep.copingPlan:
-        break;
+    if (getPageReward(pageName) > 0) {
+      _rewardService.addPoints(5);
     }
 
+    _dataService.saveOnboardingStep(page);
+
     return true;
+  }
+
+  int getPageReward(String name) {
+    if (name == OnboardingStep.video_introduction_1.name) {
+      return 5;
+    }
+    return 0;
   }
 
   @override
@@ -313,6 +294,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
       await _studyService.submitResponses(getResponse());
+      await _studyService.onboardingComplete();
       _studyService.nextScreen();
     }
   }

@@ -11,8 +11,8 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/extensions.dart';
 
 class StudyService {
-  static const int NUM_GROUPS = 7;
-  static const Duration STUDY_DURATION = Duration(days: 42);
+  static const Duration FULL_STUDY_DURATION = Duration(days: 63);
+  static const Duration DAILY_USE_DURATION = Duration(days: 42);
 
   final DataService _dataService;
   final NotificationService _notificationService;
@@ -20,7 +20,7 @@ class StudyService {
   final RewardService _rewardService;
   final NavigationService _navigationService;
 
-  final List<int> vocabTestDays = [21, 42];
+  final List<int> vocabTestDays = [21, 42, 63];
 
   StudyService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
@@ -76,6 +76,13 @@ class StudyService {
     }
   }
 
+  Future onboardingComplete() async {
+    await _scheduleFinalTaskReminder();
+    await _scheduleVocabReminders();
+    this._rewardService.addPoints(5);
+    locator<DialogService>().showRewardDialog(title: "", score: 5);
+  }
+
   bool isLastVocabTestDay() {
     return getDaysSinceStart() == vocabTestDays.last;
   }
@@ -84,7 +91,7 @@ class StudyService {
     var userData = _dataService.getUserDataCache();
     // check how many reminders we have to schedule
     var daysAgo = getDaysSinceStart();
-    var toSchedule = STUDY_DURATION.inDays - daysAgo;
+    var toSchedule = DAILY_USE_DURATION.inDays - daysAgo;
     for (var i = 0; i <= toSchedule; i++) {
       var reminderDate = userData.startDate!.add(Duration(days: i));
       var reminderDateTime = DateTime(reminderDate.year, reminderDate.month,
@@ -94,10 +101,18 @@ class StudyService {
     }
   }
 
-  scheduleFinalTaskReminder() {
-    var dayAfterFinal = DateTime.now().add(StudyService.STUDY_DURATION);
+  _scheduleFinalTaskReminder() async {
+    var dayAfterFinal = DateTime.now().add(StudyService.FULL_STUDY_DURATION);
     print(
         "scheduling final task reminder for ${dayAfterFinal.toIso8601String()}");
     _notificationService.scheduleFinalTaskReminder(dayAfterFinal);
+  }
+
+  _scheduleVocabReminders() async {
+    // schedule three vocab reminders: 21, 42, 63 days after start
+    for (var day in vocabTestDays) {
+      var reminderDate = DateTime.now().add(Duration(days: day));
+      await _notificationService.scheduleVocabTestReminder(reminderDate);
+    }
   }
 }

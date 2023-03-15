@@ -21,7 +21,7 @@
     </intent>
   </queries>
 
-  <application android:label="PROMPT" android:icon="@mipmap/ic_launcher">
+  <application android:label="PROMPT-ADAPT" android:icon="@mipmap/ic_launcher">
     <activity android:name=".MainActivity" 
     android:launchMode="singleTop" 
     android:theme="@style/LaunchTheme" 

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:prompt/viewmodels/plan_input_view_model.dart';
 import 'package:provider/provider.dart';
 
@@ -37,7 +36,7 @@ class _PlanInputState extends State<PlanInput> {
           return Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Theme.of(context).secondaryHeaderColor,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(10),
             ),
             child:
@@ -57,7 +56,7 @@ class _PlanInputState extends State<PlanInput> {
                         },
                         keyboardType: TextInputType.text,
                         decoration: new InputDecoration(
-                            fillColor: Theme.of(context).secondaryHeaderColor,
+                            fillColor: Colors.white70,
                             filled: true,
                             hintText: '   ...'),
                         style: TextStyle(

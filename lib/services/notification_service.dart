@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/services/base_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:collection/collection.dart';
@@ -15,25 +16,39 @@ class NotificationService implements BaseService {
   FlutterLocalNotificationsPlugin localNotifications =
       FlutterLocalNotificationsPlugin();
 
-  static const String CHANNEL_ID_MORNING_REMINDER = "WDP Erinnerung";
-  static const String CHANNEL_NAME_MORNING_REMINDER =
-      "Wenn-Dann-Plan Erinnerung";
-  static const String CHANNEL_DESCRIPTION_MORNING_REMINDER =
-      "Wenn-Dann-Plan Erinnerung";
-  static const String PAYLOAD_MORNING_REMINDER = "PAYLOAD_II_REMINDER";
+  static const String KEY_DAILY = "daily";
+  static const String KEY_VOCAB = "vocab";
+  static const String KEY_FINAL = "final";
 
-  static const String CHANNEL_ID_FINAL_REMINDER =
-      "Erinnerung Abschlussbefragung";
-  static const String CHANNEL_NAME_FINAL_REMINDER =
-      "Erinnerung Abschlussbefragung";
-  static const String CHANNEL_DESCRIPTION_FINAL_REMINDER =
-      "Erinnerung Abschlussbefragung";
-  static const String PAYLOAD_FINAL_REMINDER = "PAYLOAD_FINAL_REMINDER";
+  static const Map<String, String> CHANNEL_IDS = {
+    KEY_DAILY: "Channel_Daily_Reminder",
+    KEY_VOCAB: "Channel_Vocab_Reminder",
+    KEY_FINAL: "Channel_Final_Reminder",
+  };
 
-  static const int ID_MORNING = 6969;
-  static const int ID_TASK_REMINDER = 42;
-  static const int ID_FINAL_TASK_REMINDER = 1901;
-  static const int ID_BOOSTER_PROMPT = 329;
+  static const Map<String, String> CHANNEL_NAMES = {
+    KEY_DAILY: "Daily Reminder",
+    KEY_VOCAB: "Vocab Reminder",
+    KEY_FINAL: "Final Reminder",
+  };
+
+  static const Map<String, String> CHANNEL_DESCRIPTIONS = {
+    KEY_DAILY: "Daily Reminder",
+    KEY_VOCAB: "Vocab Reminder",
+    KEY_FINAL: "Final Reminder",
+  };
+
+  static const Map<String, String> PAYLOADS = {
+    KEY_DAILY: "PAYLOAD_DAILY_REMINDER",
+    KEY_VOCAB: "PAYLOAD_VOCAB_REMINDER",
+    KEY_FINAL: "PAYLOAD_FINAL_REMINDER",
+  };
+
+  static const Map<String, int> NOTIFICATION_IDS = {
+    KEY_DAILY: 1000,
+    KEY_VOCAB: 2000,
+    KEY_FINAL: 3000,
+  };
 
   @override
   Future<bool> initialize() async {
@@ -42,11 +57,12 @@ class NotificationService implements BaseService {
     var initSettingsAndroid =
         new AndroidInitializationSettings('ic_notification');
 
- DarwinInitializationSettings initializationSettingsDarwin =
-    DarwinInitializationSettings(
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings(
+            onDidReceiveLocalNotification: onDidReceiveLocalNotification);
 
-    var initSettings = InitializationSettings(android: initSettingsAndroid, iOS: initializationSettingsDarwin);
+    var initSettings = InitializationSettings(
+        android: initSettingsAndroid, iOS: initializationSettingsDarwin);
 
     await _configureLocalTimeZone();
 
@@ -61,20 +77,20 @@ class NotificationService implements BaseService {
   }
 
   deleteDailyReminderWithId(int id) async {
-    var pendingNotifications = await getPendingNotifications();
-    var reminderExists =
-        pendingNotifications.firstWhereOrNull((n) => n.id == (ID_MORNING + id));
-    if (reminderExists == null) {
-      localNotifications.cancel(id);
-    }
+    var dailyId = NOTIFICATION_IDS[KEY_DAILY]! + id;
+    return deleteNotification(dailyId);
   }
 
   deleteScheduledFinalReminderTask() async {
+    return deleteNotification(NOTIFICATION_IDS[KEY_FINAL]!);
+  }
+
+  deleteNotification(int id) async {
     var pendingNotifications = await getPendingNotifications();
-    var taskReminderExists = pendingNotifications
-        .firstWhereOrNull((n) => n.id == ID_FINAL_TASK_REMINDER);
-    if (taskReminderExists == null) {
-      localNotifications.cancel(ID_FINAL_TASK_REMINDER);
+    var reminderExists =
+        pendingNotifications.firstWhereOrNull((n) => n.id == id);
+    if (reminderExists == null) {
+      localNotifications.cancel(id);
     }
   }
 
@@ -89,10 +105,10 @@ class NotificationService implements BaseService {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
 
-      if (payload == PAYLOAD_MORNING_REMINDER) {
+      if (payload == PAYLOADS[KEY_DAILY]) {
         _loggingService.logEvent("NotificationClickInternalisation");
       }
-      if (payload == PAYLOAD_FINAL_REMINDER) {
+      if (payload == PAYLOADS[KEY_FINAL]) {
         _loggingService.logEvent("NotificationClickFinalTask");
       }
     }
@@ -101,8 +117,8 @@ class NotificationService implements BaseService {
   scheduleDailyReminder(DateTime time, int id) async {
     var timeoutAfter = getMillisecondsUntilMidnight(time);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_MORNING_REMINDER, CHANNEL_NAME_MORNING_REMINDER,
-        channelDescription: CHANNEL_DESCRIPTION_MORNING_REMINDER,
+        CHANNEL_IDS[KEY_DAILY]!, CHANNEL_NAMES[KEY_DAILY]!,
+        channelDescription: CHANNEL_DESCRIPTIONS[KEY_DAILY]!,
         timeoutAfter: timeoutAfter,
         ongoing: true);
     var notificationDetails =
@@ -110,13 +126,13 @@ class NotificationService implements BaseService {
 
     _loggingService.logEvent("ScheduleNotificationTaskReminder");
 
-    String title = "Mache jetzt weiter mit PROMPT!";
+    String title = S.current.notificationMessage_daily;
     String body = "";
 
     var scheduledDate = tz.TZDateTime(
         tz.local, time.year, time.month, time.day, time.hour, time.minute);
 
-    var reminderId = ID_MORNING + id;
+    var reminderId = NOTIFICATION_IDS[KEY_DAILY]! + id;
 
     print("Scheduling Morning Reminder for $scheduledDate with id $reminderId");
 
@@ -124,7 +140,36 @@ class NotificationService implements BaseService {
         reminderId, title, body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        payload: reminderId.toString(),
+        payload: PAYLOADS[KEY_DAILY]!,
+        androidAllowWhileIdle: true);
+  }
+
+  scheduleVocabTestReminder(DateTime time) async {
+    var timeoutAfter = getMillisecondsUntilMidnight(time);
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        CHANNEL_IDS[KEY_VOCAB]!, CHANNEL_NAMES[KEY_VOCAB]!,
+        channelDescription: CHANNEL_DESCRIPTIONS[KEY_VOCAB]!,
+        timeoutAfter: timeoutAfter);
+    var notificationDetails =
+        new NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    _loggingService.logEvent("Scheduled Notification Vocab Reminder");
+
+    String title = S.current.notificationMessage_vocabTest;
+    String body = "";
+
+    var scheduledDate = tz.TZDateTime(
+        tz.local, time.year, time.month, time.day, time.hour, time.minute);
+
+    var reminderId = NOTIFICATION_IDS[KEY_VOCAB]!;
+
+    print("Scheduling Vocab Reminder for $scheduledDate ");
+
+    await localNotifications.zonedSchedule(
+        reminderId, title, body, scheduledDate, notificationDetails,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        payload: PAYLOADS[KEY_VOCAB]!,
         androidAllowWhileIdle: true);
   }
 
@@ -135,12 +180,12 @@ class NotificationService implements BaseService {
     return midnight.difference(now).inMilliseconds;
   }
 
-  scheduleFinalTaskReminder(DateTime dateTime) async {
+  Future scheduleFinalTaskReminder(DateTime dateTime) async {
     await deleteScheduledFinalReminderTask();
 
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_FINAL_REMINDER, CHANNEL_NAME_FINAL_REMINDER,
-        channelDescription: CHANNEL_DESCRIPTION_FINAL_REMINDER, ongoing: true);
+        CHANNEL_IDS[KEY_FINAL]!, CHANNEL_NAMES[KEY_FINAL]!,
+        channelDescription: CHANNEL_DESCRIPTIONS[KEY_FINAL]!, ongoing: true);
     var notificationDetails =
         new NotificationDetails(android: androidPlatformChannelSpecifics);
 
@@ -151,11 +196,11 @@ class NotificationService implements BaseService {
     String body =
         "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎";
 
-    await localNotifications.zonedSchedule(
-        ID_FINAL_TASK_REMINDER, title, body, scheduledDate, notificationDetails,
+    await localNotifications.zonedSchedule(NOTIFICATION_IDS[KEY_FINAL]!, title,
+        body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOAD_FINAL_REMINDER,
+        payload: PAYLOADS[KEY_FINAL]!,
         androidAllowWhileIdle: true);
   }
 

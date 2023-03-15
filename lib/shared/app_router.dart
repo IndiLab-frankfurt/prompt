@@ -9,7 +9,7 @@ import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/screens/assessments/multi_page_questionnaire_screen.dart';
 import 'package:prompt/screens/main/about_screen.dart';
 import 'package:prompt/screens/main/screen_selection.dart';
-import 'package:prompt/screens/onboarding/dashboard_screen.dart';
+import 'package:prompt/screens/main/dashboard_screen.dart';
 import 'package:prompt/screens/onboarding/login_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
 import 'package:prompt/screens/onboarding/onboarding_screen.dart';
@@ -115,6 +115,13 @@ class AppRouter {
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: RememberToLearn()),
+            child: MultiPageQuestionnaire());
+        break;
+
+      case AppScreen.VocabTdoay:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: VocabToday()),
             child: MultiPageQuestionnaire());
         break;
 

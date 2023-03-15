@@ -36,15 +36,28 @@ class DashboardViewModel extends BaseViewModel {
 
     if (daysAgo == 0) {
       return S.current.dashboard_mainmessage_firstday;
-    } else if (daysAgo > getMaxStudyDays()) {
-      return "";
     }
-    if (daysAgo >= 1 && daysAgo < getMaxStudyDays()) {
-      // show message only if it is earlier than 6pm
-      if (DateTime.now().toLocal().hour < 18) {
-        return S.current.dashboard_mainmessage_beforeEvening;
-      }
+
+    if (daysAgo > StudyService.FULL_STUDY_DURATION.inDays) {
+      return S.current.dashboard_studyCompletelyFinished;
     }
+
+    if (daysAgo > StudyService.FULL_STUDY_DURATION.inDays) {
+      return S.current.dashboard_inFollowUpPhase;
+    }
+
+    // Still in study phase. show message only if it is earlier than 6pm
+    if (DateTime.now().toLocal().hour < 18) {
+      return S.current.dashboard_mainmessage_beforeEvening;
+    }
+
+    // Still in study phase. After 6pm this screen should only be reached if the
+    // user has done their last task for the day.
+    if (DateTime.now().toLocal().hour >= 18) {
+      return S.current.dashboard_continueTomorrow;
+    }
+
+    notifyListeners();
 
     return "";
   }
@@ -55,7 +68,7 @@ class DashboardViewModel extends BaseViewModel {
   }
 
   int getMaxStudyDays() {
-    return StudyService.STUDY_DURATION.inDays;
+    return StudyService.DAILY_USE_DURATION.inDays;
   }
 
   double getVocabProgress() {
@@ -64,17 +77,9 @@ class DashboardViewModel extends BaseViewModel {
 
   Future<void> initialize() async {}
 
-  Future<bool> getNextTask() async {
+  Future<String> getNextTask() async {
     await initialize();
 
-    showLearnedWithCabuuButton = false;
-    showVocabularyTestReminder = false;
-
-    if (daysActive == 0) {
-      startTomorrow = true;
-      return true;
-    }
-
-    return false;
+    return await getButtonText();
   }
 }

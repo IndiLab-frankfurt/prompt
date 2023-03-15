@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/app_strings.dart';
@@ -43,37 +41,6 @@ class _DashboardScreenState extends State<DashboardScreen>
     }
   }
 
-  showDialogIfNecessary() async {
-    String _title = "";
-    String _textReward = "";
-    String _textStreak = "";
-    String _textTotal = "";
-
-    await showDialog<String>(
-      context: context,
-      builder: (BuildContext context) => new AlertDialog(
-        title: new Text(_title),
-        content: new Column(
-          children: [
-            MarkdownBody(data: _textReward),
-            UIHelper.verticalSpaceMedium,
-            MarkdownBody(data: _textStreak),
-            UIHelper.verticalSpaceMedium,
-            Text(_textTotal)
-          ],
-        ),
-        actions: <Widget>[
-          new ElevatedButton(
-            child: new Text("OK"),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ],
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     var rewardService = locator.get<RewardService>();
@@ -101,10 +68,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   UIHelper.verticalSpaceSmall,
-                                  if (vm.showVocabularyTestReminder)
-                                    _buildVocabTestReminder(),
-                                  if (vm.startTomorrow) _buildStartTomorrow(),
-                                  UIHelper.verticalSpaceSmall,
+                                  _buildMainText(snapshot.data.toString()),
                                   UIHelper.verticalSpaceMedium,
                                   _buildStatistics()
                                 ],
@@ -151,15 +115,11 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  _buildVocabTestReminder() {
+  _buildMainText(String text) {
     return DashboardButton(
         onPressed: () async {
           setState(() {});
         },
-        text: AppStrings.Dashboard_ClickAfterVocabTest);
-  }
-
-  _buildStartTomorrow() {
-    return DashboardButton(text: S.current.dashboard_mainmessage_firstday);
+        text: text);
   }
 }

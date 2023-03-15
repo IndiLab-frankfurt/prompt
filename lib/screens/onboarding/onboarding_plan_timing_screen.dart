@@ -40,10 +40,6 @@ class _OnboardingPlanTimingScreenState
       child: ListView(
         shrinkWrap: true,
         children: [
-          SpeechBubble(
-            text: S.of(context).congratsMoreDiamonds("20"),
-          ),
-          _buildConfetti(),
           UIHelper.verticalSpaceMedium,
           MarkdownBody(data: S.of(context).planTimingParagraph1),
           UIHelper.verticalSpaceMedium,

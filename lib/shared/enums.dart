@@ -75,6 +75,7 @@ enum AppScreen {
   DataPrivacy("/dataprivacy"),
   PlanTimingChange("/plantimingchange"),
   ForgotPassword("/forgotpassword"),
+  VocabTdoay("/vocabtoday"),
   UserSettings("/usersettings");
 
   const AppScreen(this.routeName);

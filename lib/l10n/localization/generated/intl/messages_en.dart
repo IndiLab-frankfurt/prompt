@@ -42,7 +42,11 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ich bin damit einverstanden, dass mein Kind an der Studie PROMP-ADAPT teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden."),
         "copingPlanEnterP1": MessageLookupByLibrary.simpleMessage(
             "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:"),
+        "dashboard_continueTomorrow":
+            MessageLookupByLibrary.simpleMessage("Morgen geht es weiter!"),
         "dashboard_daysUntilVocabTest": m1,
+        "dashboard_inFollowUpPhase": MessageLookupByLibrary.simpleMessage(
+            "Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe"),
         "dashboard_mainmessage_beforeEvening":
             MessageLookupByLibrary.simpleMessage(
                 "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei."),
@@ -52,6 +56,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Dein nächster Vokabeltest ist heute."),
         "dashboard_nextVocabTomorrow": MessageLookupByLibrary.simpleMessage(
             "Dein nächster Vokabeltest ist morgen."),
+        "dashboard_studyCompletelyFinished": MessageLookupByLibrary.simpleMessage(
+            "Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren"),
         "instructionsCabuu2Finish": MessageLookupByLibrary.simpleMessage(
             "Komme hierher zurück und klicke auf “Weiter”, wenn du damit fertig bist."),
         "instructionsCabuu2Paragraph1": MessageLookupByLibrary.simpleMessage(
@@ -68,6 +74,14 @@ class MessageLookup extends MessageLookupByLibrary {
             "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit."),
         "labelTextWriteDownBulletPoints": MessageLookupByLibrary.simpleMessage(
             "Schreibe deine Antwort hier auf"),
+        "notificationBody_final": MessageLookupByLibrary.simpleMessage(
+            "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎"),
+        "notificationMessage_daily": MessageLookupByLibrary.simpleMessage(
+            "Mache jetzt weiter mit PROMPT!"),
+        "notificationMessage_vocabTest": MessageLookupByLibrary.simpleMessage(
+            "Denk daran, heute den Test in cabuu zu machen!"),
+        "notificationTitle_final": MessageLookupByLibrary.simpleMessage(
+            "Wir haben noch ein paar Fragen an dich!"),
         "obstacleEnterP1": MessageLookupByLibrary.simpleMessage(
             "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:"),
         "obstacleOutcomeHelperText":

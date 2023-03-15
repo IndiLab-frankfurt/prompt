@@ -45,13 +45,13 @@ class DataService implements BaseService {
   saveScore(int score) async {
     var userData = getUserDataCache();
     userData.score = score;
-    await _databaseService.updateUserData(userData);
+    await _databaseService.saveUserDataProperty("score", score);
   }
 
-  saveSessionZeroStep(int step) async {
+  saveOnboardingStep(int step) async {
     var userData = getUserDataCache();
     userData.onboardingStep = step;
-    await _databaseService.saveUserDataProperty("init_step", step);
+    await _databaseService.saveUserDataProperty("onboarding_step", step);
   }
 
   Future<int> getDaysActive() async {

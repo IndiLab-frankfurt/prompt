@@ -20,8 +20,8 @@ class ApiService {
     if (kIsWeb || !kDebugMode) {
       serverUrl = _settingsService.getSetting(SettingsKeys.apiBaseUrl);
     } else if (kDebugMode) {
-      serverUrl = "https://prompt-app.eu";
-      // serverUrl = "http://10.0.2.2:8000";
+      // serverUrl = "https://prompt-app.eu";
+      serverUrl = "http://10.0.2.2:8000";
     }
     return Future.value(true);
   }
@@ -52,11 +52,12 @@ class ApiService {
       return response;
     } on ArgumentError catch (e) {
       print(e);
-      locator<DialogService>().showDialog(
+      await locator<DialogService>().showDialog(
           title: "Server nicht erreichbar",
           description:
               "Bitte überprüfe deine Internetverbindung und versuche es erneut.");
-      return null;
+      // try again
+      return this.getAsync(endpoint, queryParams: queryParams);
     }
   }
 
@@ -78,7 +79,8 @@ class ApiService {
           title: "Server nicht erreichbar",
           description:
               "Bitte überprüfe deine Internetverbindung und versuche es erneut.");
-      return null;
+      // try again
+      return this.postAsync(endpoint, data, queryParams: queryParams);
     }
   }
 
