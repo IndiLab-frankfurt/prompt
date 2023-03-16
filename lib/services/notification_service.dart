@@ -124,7 +124,7 @@ class NotificationService implements BaseService {
     var notificationDetails =
         new NotificationDetails(android: androidPlatformChannelSpecifics);
 
-    _loggingService.logEvent("ScheduleNotificationTaskReminder");
+    // _loggingService.logEvent("ScheduleNotificationTaskReminder");
 
     String title = S.current.notificationMessage_daily;
     String body = "";

@@ -15,6 +15,7 @@ class ChangePlanTimingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        extendBodyBehindAppBar: true,
         appBar: PromptAppBar(
           showBackButton: true,
         ),

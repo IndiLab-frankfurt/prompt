@@ -101,8 +101,9 @@ class ApiService {
         try {
           return QuestionnaireResponse.fromJson(jsonDecode(data)[0]);
         } catch (e) {
-          logEvent(
-              {"data": "error parsing questionnaire response", "error": "$e"});
+          logEvents([
+            {"data": "error parsing questionnaire response", "error": "$e"}
+          ]);
           return null;
         }
       } else {
@@ -143,7 +144,7 @@ class ApiService {
     return postAsync("/api/user/profile/", {key: value});
   }
 
-  logEvent(Map<String, String> data) async {
+  logEvents(List<dynamic> data) async {
     return postAsync("/api/applogs/", data);
   }
 

@@ -159,7 +159,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     var ud = _dataService.getUserDataCache();
     // TODO: Restore after testing
     // initialPage = max(ud.initStep, pages.length - 1);
-    initialPage = 15;
+    initialPage = 0;
     this.setPage(initialPage);
     cabuuCode = ud.cabuuCode.isNotEmpty ? ud.cabuuCode : "HIER CABUU CODE";
 
@@ -226,6 +226,10 @@ class OnboardingViewModel extends MultiPageViewModel {
 
     if (getPageReward(pageName) > 0) {
       _rewardService.addPoints(5);
+    }
+
+    if (pageName == OnboardingStep.planTiming.name) {
+      planTimingViewModel.savePlanTiming(planTimingViewModel.planTiming);
     }
 
     _dataService.saveOnboardingStep(page);

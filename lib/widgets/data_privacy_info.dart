@@ -13,7 +13,7 @@ class DataPrivacyInfo extends StatelessWidget {
       UIHelper.verticalSpaceMedium,
       Text(
         "Wozu wird die App PROMPT-ADAPT entwickelt?",
-        style: Theme.of(context).textTheme.headlineMedium,
+        style: Theme.of(context).textTheme.headlineSmall,
       ),
       UIHelper.verticalSpaceMedium,
       Text(
@@ -23,7 +23,7 @@ class DataPrivacyInfo extends StatelessWidget {
       UIHelper.verticalSpaceMedium,
       Text(
         "Unsere Datenschutzbestimmungen in Bezug auf die Nutzung der App PROMPT-ADAPT",
-        style: Theme.of(context).textTheme.headlineMedium,
+        style: Theme.of(context).textTheme.headlineSmall,
       ),
       UIHelper.verticalSpaceMedium,
       Text(

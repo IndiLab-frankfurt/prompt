@@ -13,17 +13,17 @@ import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/shared/enums.dart';
 
 class DataService implements BaseService {
-  final ApiService _databaseService;
+  final ApiService _apiService;
   final SettingsService _settingsService;
 
   UserData? _userDataCache;
   AssessmentResult? _lastAssessmentResultCache;
   List<AssessmentResult>? _assessmentResultsCache;
 
-  DataService(this._databaseService, this._settingsService);
+  DataService(this._apiService, this._settingsService);
 
-  logData(Map<String, String> data) async {
-    _databaseService.logEvent(data);
+  sendLogs(List<dynamic> data) async {
+    _apiService.logEvents(data);
   }
 
   setUserDataCache(UserData ud) async {
@@ -32,7 +32,7 @@ class DataService implements BaseService {
 
   Future<UserData?> getUserData() async {
     if (_userDataCache == null) {
-      _userDataCache = (await _databaseService.getUserData());
+      _userDataCache = (await _apiService.getUserData());
     }
 
     return _userDataCache;
@@ -45,13 +45,13 @@ class DataService implements BaseService {
   saveScore(int score) async {
     var userData = getUserDataCache();
     userData.score = score;
-    await _databaseService.saveUserDataProperty("score", score);
+    await _apiService.saveUserDataProperty("score", score);
   }
 
   saveOnboardingStep(int step) async {
     var userData = getUserDataCache();
     userData.onboardingStep = step;
-    await _databaseService.saveUserDataProperty("onboarding_step", step);
+    await _apiService.saveUserDataProperty("onboarding_step", step);
   }
 
   Future<int> getDaysActive() async {
@@ -89,8 +89,7 @@ class DataService implements BaseService {
 
   Future<QuestionnaireResponse?> getLatestQuestionnaireResponse(
       String questionnaireName) async {
-    return await _databaseService
-        .getLastQuestionnaireResponse(questionnaireName);
+    return await _apiService.getLastQuestionnaireResponse(questionnaireName);
   }
 
   saveDaysActive(int daysActive) async {
@@ -98,19 +97,18 @@ class DataService implements BaseService {
   }
 
   saveUserDataProperty(String propertyname, dynamic value) async {
-    await _databaseService.saveUserDataProperty(propertyname, value);
-    _userDataCache = await _databaseService.getUserData();
+    await _apiService.saveUserDataProperty(propertyname, value);
+    _userDataCache = await _apiService.getUserData();
   }
 
   Future<dynamic> saveQuestionnaireResponse(
       QuestionnaireResponse response) async {
-    return await _databaseService.saveQuestionnaireResponses([response]);
+    return await _apiService.saveQuestionnaireResponses([response]);
   }
 
   Future<Map<String, dynamic>> saveQuestionnaireResponses(
       List<QuestionnaireResponse> responses) async {
-    var responseData =
-        await _databaseService.saveQuestionnaireResponses(responses);
+    var responseData = await _apiService.saveQuestionnaireResponses(responses);
     var userDataResponse = responseData["user_profile"];
     if (userDataResponse != null) {
       _userDataCache = UserData.fromJson(userDataResponse);
@@ -119,7 +117,7 @@ class DataService implements BaseService {
   }
 
   Future<String?> getLastPlan() async {
-    return await _databaseService.getLastPlan();
+    return await _apiService.getLastPlan();
   }
 
   Future<int> getStreakDays() async {
@@ -163,7 +161,7 @@ class DataService implements BaseService {
   }
 
   Future<AppScreen> getNextState(String currentScreen) async {
-    var response = await _databaseService.getNextState(currentScreen);
+    var response = await _apiService.getNextState(currentScreen);
 
     return AppScreen.values.byName(response);
   }
@@ -187,7 +185,7 @@ class DataService implements BaseService {
 
   Future<AuthenticationResponse?> signInUser(
       String username, String password) async {
-    return await _databaseService.signInUser(username, password);
+    return await _apiService.signInUser(username, password);
   }
 
   @override

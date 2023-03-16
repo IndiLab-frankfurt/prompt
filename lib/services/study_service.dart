@@ -92,7 +92,7 @@ class StudyService {
     // check how many reminders we have to schedule
     var daysAgo = getDaysSinceStart();
     var toSchedule = DAILY_USE_DURATION.inDays - daysAgo;
-    for (var i = 0; i <= toSchedule; i++) {
+    for (var i = 1; i <= toSchedule; i++) {
       var reminderDate = userData.startDate!.add(Duration(days: i));
       var reminderDateTime = DateTime(reminderDate.year, reminderDate.month,
           reminderDate.day, dailyReminderTime.hour, dailyReminderTime.minute);
