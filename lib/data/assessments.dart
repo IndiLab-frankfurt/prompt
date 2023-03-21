@@ -9,7 +9,7 @@ import 'package:prompt/viewmodels/questionnaire_textpage_view_model.dart';
 Map<String, String> CHOICES_APPLIES = {
   "1": "Gar nicht",
   "2": "Eher nicht",
-  "3": "Teils / teils",
+  "3": "Teils/teils",
   "4": "Eher ja",
   "5": "Voll und ganz",
 };
