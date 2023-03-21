@@ -67,8 +67,8 @@ Map<String, String> CHOICES_RIGHTWRONG = {
 };
 
 Map<String, String> CHOICES_YESNO = {
-  "Yes": "Ja",
-  "No": "Nein",
+  "1": "Ja",
+  "0": "Nein",
 };
 
 Map<String, String> CHOICES_IMPORTANCE = {
