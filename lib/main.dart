@@ -37,14 +37,26 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.lightBlue,
-        textTheme: GoogleFonts.comicNeueTextTheme(Theme.of(context).textTheme),
-        // textTheme: TextTheme(
-        //   bodyLarge: GoogleFonts.comicNeue(fontSize: 18),
-        //   bodyMedium:
-        //       GoogleFonts.comicNeue(fontSize: 18, fontWeight: FontWeight.w600),
-        //   titleMedium:
-        //       GoogleFonts.comicNeue(fontSize: 20, fontWeight: FontWeight.w600),
-        // ),
+        // textTheme: GoogleFonts.comicNeueTextTheme(Theme.of(context).textTheme)
+        //     .apply(fontSizeFactor: 1.0),
+        textTheme: TextTheme(
+          bodyLarge: GoogleFonts.comicNeue(fontSize: 18),
+          bodyMedium:
+              GoogleFonts.comicNeue(fontSize: 18, fontWeight: FontWeight.w500),
+          titleMedium:
+              GoogleFonts.comicNeue(fontSize: 20, fontWeight: FontWeight.w600),
+          bodySmall: GoogleFonts.comicNeue(fontSize: 16),
+          displayLarge: GoogleFonts.comicNeue(fontSize: 40),
+          displayMedium: GoogleFonts.comicNeue(fontSize: 35),
+          displaySmall: GoogleFonts.comicNeue(fontSize: 30),
+          headlineLarge: GoogleFonts.comicNeue(fontSize: 40),
+          headlineMedium: GoogleFonts.comicNeue(fontSize: 35),
+          headlineSmall: GoogleFonts.comicNeue(fontSize: 30),
+          titleLarge: GoogleFonts.comicNeue(fontSize: 30),
+          titleSmall: GoogleFonts.comicNeue(fontSize: 20),
+          labelLarge: GoogleFonts.comicNeue(fontSize: 20),
+          labelSmall: GoogleFonts.comicNeue(fontSize: 15),
+        ),
         buttonTheme: ButtonThemeData(
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),

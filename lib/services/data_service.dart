@@ -163,7 +163,11 @@ class DataService implements BaseService {
   Future<AppScreen> getNextState(String currentScreen) async {
     var response = await _apiService.getNextState(currentScreen);
 
-    return AppScreen.values.byName(response);
+    return AppScreen.values.byName(response.toUpperCase());
+  }
+
+  Future<bool> deleteUser() async {
+    return true;
   }
 
   getAssessment(String name) async {

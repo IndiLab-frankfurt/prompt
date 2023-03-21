@@ -30,7 +30,7 @@ class StudyService {
     if (currentScreen?.isEmpty ?? true) {
       _loggingService
           .logError("nextScreen called with empty current route name");
-      currentScreen = AppScreen.Mainscreen.name;
+      currentScreen = AppScreen.MAINSCREEN.name;
     }
     return await nextScreenForScreenName(currentScreen!);
   }
@@ -87,17 +87,46 @@ class StudyService {
     return getDaysSinceStart() == vocabTestDays.last;
   }
 
-  scheduleDailyReminders(TimeOfDay dailyReminderTime) async {
-    var userData = _dataService.getUserDataCache();
-    // check how many reminders we have to schedule
+  List<DateTime> getDailyScheduleTimes(DateTime dailyReminderTime) {
+    // Determine how many reminders we need to schedule
+    // by looking at the days since start and the duration of the study
     var daysAgo = getDaysSinceStart();
     var toSchedule = DAILY_USE_DURATION.inDays - daysAgo;
-    for (var i = 1; i <= toSchedule; i++) {
-      var reminderDate = userData.startDate!.add(Duration(days: i));
+
+    // If the first schedule is for today, this should be zero
+    var firstSchedule = 0;
+
+    // check if we are already past the daily reminder time, if that is the case,
+    // we need to schedule the first reminder for tomorrow
+    // Moreover, if the study started only today, then the first reminder also needs to be tomorrow
+    var nowTime = TimeOfDay.now();
+    var shouldScheduleFirstReminderToday =
+        dailyReminderTime.hour > nowTime.hour ||
+            (dailyReminderTime.hour == nowTime.hour &&
+                dailyReminderTime.minute > nowTime.minute) ||
+            daysAgo == 0;
+    if (shouldScheduleFirstReminderToday) {
+      firstSchedule = 1;
+    }
+
+    var times = <DateTime>[];
+    var today = DateTime.now();
+
+    for (var i = firstSchedule; i <= toSchedule; i++) {
+      var reminderDate = today.add(Duration(days: i));
       var reminderDateTime = DateTime(reminderDate.year, reminderDate.month,
           reminderDate.day, dailyReminderTime.hour, dailyReminderTime.minute);
+      times.add(reminderDateTime);
+    }
+
+    return times;
+  }
+
+  scheduleDailyReminders(DateTime dailyReminderTime) async {
+    var scheduleTimes = getDailyScheduleTimes(dailyReminderTime);
+    for (var i = 0; i < scheduleTimes.length; i++) {
       await _notificationService.deleteDailyReminderWithId(i);
-      _notificationService.scheduleDailyReminder(reminderDateTime, i);
+      _notificationService.scheduleDailyReminder(scheduleTimes[i], i);
     }
   }
 

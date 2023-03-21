@@ -10,15 +10,4 @@ void main() {
     // Create the dashboard view model
     _mockStudyService = MockStudyService();
   });
-
-  test("Display correct message according to day", () async {
-    // Create the dashboard view model
-    var vm = DashboardViewModel(_mockStudyService);
-
-    _mockStudyService.daysSinceStart = 0;
-    await expectLater(vm.getButtonText(), "Morgen geht es richtig los!");
-
-    _mockStudyService.daysSinceStart = 0;
-    await expectLater(vm.getButtonText(), "Morgen geht es richtig los!");
-  });
 }

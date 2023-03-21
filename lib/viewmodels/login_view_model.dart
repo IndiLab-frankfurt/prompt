@@ -40,7 +40,7 @@ class LoginViewModel extends BaseViewModel {
   }
 
   submit() async {
-    _navigationService.navigateTo(AppScreen.Onboarding);
+    _navigationService.navigateTo(AppScreen.ONBOARDING);
   }
 
   validateEmail(String userid) {

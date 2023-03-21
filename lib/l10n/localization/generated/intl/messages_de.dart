@@ -101,7 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "planInputP1": MessageLookupByLibrary.simpleMessage(
             "**Wann** und **wo** könntest du morgen Vokabeln lernen??"),
         "planInputThenILearnWithCabuu":
-            MessageLookupByLibrary.simpleMessage(", dann lerne ich mit cabuu!"),
+            MessageLookupByLibrary.simpleMessage("dann lerne ich mit cabuu!"),
         "planPlaceHolder": m3,
         "planTimingChangeP1": MessageLookupByLibrary.simpleMessage(
             "Wenn du die Benachrichtigung zu einer anderen Uhrzeit erhalten möchtest, kannst du das hier einstellen."),

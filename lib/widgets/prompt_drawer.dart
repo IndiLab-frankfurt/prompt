@@ -55,27 +55,34 @@ class PromptDrawer extends StatelessWidget {
               icon: Icons.dashboard_outlined,
               text: "Hauptbildschirm",
               onTap: () async {
-                await Navigator.pushNamed(context, AppScreen.Mainscreen.name);
+                await Navigator.pushNamed(context, AppScreen.MAINSCREEN.name);
               }),
           _buildDrawerItem(
               icon: Icons.image_outlined,
               text: "Hintergrund ändern",
               onTap: () async {
                 await Navigator.pushNamed(
-                    context, AppScreen.RewardSelection.name);
+                    context, AppScreen.REWARDSELECTION.name);
               }),
           _buildDrawerItem(
               icon: Icons.alarm,
               text: "Uhrzeit für Erinnerungen",
               onTap: () async {
                 await Navigator.pushReplacementNamed(
-                    context, AppScreen.PlanTimingChange.name);
+                    context, AppScreen.PLANTIMINGCHANGE.name);
               }),
           _buildDrawerItem(
               icon: Icons.privacy_tip_outlined,
               text: "Datenschutzerklärung",
               onTap: () async {
-                await Navigator.pushNamed(context, AppScreen.DataPrivacy.name);
+                await Navigator.pushNamed(context, AppScreen.DATAPRIVACY.name);
+              }),
+          _buildDrawerItem(
+              icon: Icons.account_circle,
+              text: "Benutzerkonto",
+              onTap: () async {
+                await Navigator.pushNamed(
+                    context, AppScreen.ACCOUNTMANAGEMENT.name);
               }),
           Divider(),
           Text("DEBUG STUFF"),
@@ -84,21 +91,21 @@ class PromptDrawer extends StatelessWidget {
               text: "Login",
               onTap: () async {
                 await Navigator.pushReplacementNamed(
-                    context, AppScreen.Login.name);
+                    context, AppScreen.LOGIN.name);
               }),
           _buildDrawerItem(
               icon: Icons.add_box,
               text: "Onboarding",
               onTap: () async {
                 await Navigator.pushReplacementNamed(
-                    context, AppScreen.Onboarding.name);
+                    context, AppScreen.ONBOARDING.name);
               }),
           _buildDrawerItem(
               icon: Icons.add_box,
               text: "Screen Select",
               onTap: () async {
                 await Navigator.pushReplacementNamed(
-                    context, AppScreen.ScreenSelect.name);
+                    context, AppScreen.SCREENSELECT.name);
               }),
           _buildDrawerItem(
               icon: Icons.add_box,

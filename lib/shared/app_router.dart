@@ -41,28 +41,28 @@ class AppRouter {
     var appScreen = AppScreen.values.byName(settings.name!);
     Widget screen;
     switch (appScreen) {
-      case AppScreen.Login:
+      case AppScreen.LOGIN:
         screen = ChangeNotifierProvider<LoginViewModel>(
             create: (_) => LoginViewModel(
                 locator.get<UserService>(), locator.get<NavigationService>()),
             child: LoginScreen());
         break;
 
-      case AppScreen.Mainscreen:
+      case AppScreen.MAINSCREEN:
         screen = ChangeNotifierProvider(
           create: (_) => DashboardViewModel(locator.get<StudyService>()),
           child: DashboardScreen(),
         );
         break;
 
-      case AppScreen.Onboarding:
+      case AppScreen.ONBOARDING:
         screen = ChangeNotifierProvider(
             create: (_) => OnboardingViewModel(locator.get<StudyService>(),
                 locator.get<DataService>(), locator.get<RewardService>()),
             child: OnboardingScreen());
         break;
 
-      case AppScreen.RewardSelection:
+      case AppScreen.REWARDSELECTION:
         screen = RewardSelectionScreen();
         break;
 
@@ -70,11 +70,11 @@ class AppRouter {
       //   screen = AboutScreen();
       //   break;
 
-      case AppScreen.ForgotPassword:
+      case AppScreen.FORGOTPASSWORD:
         screen = ForgotPasswordScreen();
         break;
 
-      case AppScreen.Questionnaire:
+      case AppScreen.QUESTIONNAIRE:
         final questionnaire = settings.arguments as Questionnaire;
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
@@ -82,109 +82,116 @@ class AppRouter {
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.AA_DidYouLearn:
+      case AppScreen.AA_DIDYOULEARN:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: AA_DidYouLearn()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.AA_WhyNotLearn:
+      case AppScreen.AA_WHYNOTLEARN:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: AA_WhyNotLearn()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.AA_NextStudySession:
+      case AppScreen.AA_NEXTSTUDYSESSION:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: AA_NextStudySession()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.AA_PreviousStudySession:
+      case AppScreen.AA_PREVIOUSSTUDYSESSION:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: AA_PreviousStudySession()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.RememberToLearn:
+      case AppScreen.AA_PROCRAST:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: AA_Procrast()),
+            child: MultiPageQuestionnaire());
+        break;
+
+      case AppScreen.REMEMBERTOLEARN:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: RememberToLearn()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.VocabTestToday:
+      case AppScreen.VOCABTESTTODAY:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: VocabToday()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.ReminderTestToday:
+      case AppScreen.REMINDERTESTTODAY:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: ReminderTestToday()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.ReminderNextList:
+      case AppScreen.REMINDERNEXTLIST:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: ReminderNextList()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.WeeklyQuestions:
+      case AppScreen.WEEKLYQUESTIONS:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: WeeklyQuestions()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.ReminderTestTomorrow:
+      case AppScreen.REMINDERTESTTOMORROW:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: ReminderTestTomorrow()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.DidYouTest:
+      case AppScreen.DIDYOUTEST:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: AA_DidYouTest()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.FinalQuestionnaire:
+      case AppScreen.FINALQUESTIONNAIRE:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
                 param1: FinalQuestionnaire()),
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.PlanPrompt:
+      case AppScreen.PLANPROMPT:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<PlanPromptViewModel>(),
             child: PlanPromptScreen());
         break;
 
-      case AppScreen.PlanTimingChange:
+      case AppScreen.PLANTIMINGCHANGE:
         screen = ChangePlanTimingScreen(
             vm: PlanTimingViewModel(
-                name: AppScreen.PlanTimingChange.name,
+                name: AppScreen.PLANTIMINGCHANGE.name,
                 dataService: locator.get<DataService>(),
                 studyService: locator.get<StudyService>()));
         break;
 
-      case AppScreen.ScreenSelect:
+      case AppScreen.SCREENSELECT:
         screen = ScreenSelectionScreen();
         break;
 
-      case AppScreen.DataPrivacy:
+      case AppScreen.DATAPRIVACY:
         screen = DataPrivacyScreen();
         break;
 

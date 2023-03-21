@@ -2,6 +2,8 @@
 //
 import 'package:flutter_test/flutter_test.dart';
 import 'package:prompt/models/questionnaire_response.dart';
+import 'package:prompt/models/user_data.dart';
+import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/study_service.dart';
@@ -10,22 +12,37 @@ void main() {
   setUp(() {
     setupLocator();
   });
-  test('Submitting PlanPrompt response should yield rewards', () async {
-    // Verify that our counter has incremented.
-    // expService.schedulePrompts(1);
-    var response = QuestionnaireResponse(
-        name: "name",
-        questionnaireName: "PlanPrompt",
-        questionText: "",
-        response: "",
-        dateSubmitted: DateTime.now().toLocal());
 
+  test('Schedule daily reminders', () async {
     var studyService = locator.get<StudyService>();
+    var dataService = locator.get<DataService>();
 
-    await studyService.submitResponses([response]);
+    // User started yesterday
+    var daysRunning = 1;
+    var startDate = DateTime.now().subtract(Duration(days: daysRunning));
 
-    var rewardService = locator.get<RewardService>();
+    var mockUD = UserData(
+      user: "test",
+      group: "test",
+      startDate: startDate,
+    );
 
-    expect(rewardService.scheduledRewards[0], greaterThanOrEqualTo(10));
+    dataService.setUserDataCache(mockUD);
+
+    var ud = dataService.getUserDataCache();
+
+    // Reminder time should be one hour into the future
+    var oneHourFuture = DateTime.now().add(Duration(hours: 1));
+    ud.reminderTime = oneHourFuture;
+    dataService.setUserDataCache(ud);
+
+    // Since it's the first day, but the first reminder is in the future, we should
+    // 41 reminders, with the first one being in one hour today
+
+    var scheduleTimes = studyService.getDailyScheduleTimes(ud.reminderTime!);
+
+    expect(scheduleTimes.length, 41);
+    var difference = scheduleTimes[0].difference(oneHourFuture);
+    expect(difference.inMinutes, lessThan(2));
   });
 }

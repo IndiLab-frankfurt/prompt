@@ -235,7 +235,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 textAlign: TextAlign.center,
               ),
               onPressed: () {
-                Navigator.pushNamed(context, AppScreen.ForgotPassword.name);
+                Navigator.pushNamed(context, AppScreen.FORGOTPASSWORD.name);
               },
             ),
           ),

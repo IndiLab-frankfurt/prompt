@@ -164,6 +164,10 @@ class ApiService {
     throw UnimplementedError();
   }
 
+  Future deleteUser() async {
+    return postAsync("/api/user/delete/", {});
+  }
+
   Future<String> getNextState(String currentState) async {
     var params = {
       "current_state": currentState,

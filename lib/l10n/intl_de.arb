@@ -46,7 +46,7 @@
   "copingPlanEnterP1": "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:",
   "planInputP1": "**Wann** und **wo** könntest du morgen Vokabeln lernen??",
   "planInputIfI": "Wenn ich",
-  "planInputThenILearnWithCabuu": ", dann lerne ich mit cabuu!",
+  "planInputThenILearnWithCabuu": "dann lerne ich mit cabuu!",
   "planTimingChangeP1": "Wenn du die Benachrichtigung zu einer anderen Uhrzeit erhalten möchtest, kannst du das hier einstellen.",
   "time": "Uhrzeit",
   "planCreation_letsCreatePlan": "Erstelle jetzt deinen ersten Plan!",

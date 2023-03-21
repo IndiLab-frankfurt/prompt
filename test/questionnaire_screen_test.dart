@@ -8,7 +8,7 @@ import 'package:prompt/services/locator.dart';
 import 'mocks/mock_services.dart';
 
 void main() {
-  setUpAll(() {
+  setUp(() {
     setupLocator();
   });
 

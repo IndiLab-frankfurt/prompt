@@ -270,10 +270,10 @@ class S {
     );
   }
 
-  /// `, dann lerne ich mit cabuu!`
+  /// `dann lerne ich mit cabuu!`
   String get planInputThenILearnWithCabuu {
     return Intl.message(
-      ', dann lerne ich mit cabuu!',
+      'dann lerne ich mit cabuu!',
       name: 'planInputThenILearnWithCabuu',
       desc: '',
       args: [],

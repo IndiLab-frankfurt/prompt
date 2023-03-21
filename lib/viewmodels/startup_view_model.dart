@@ -31,18 +31,18 @@ class StartupViewModel extends BaseViewModel {
 
     switch (appStartupMode) {
       case AppStartupMode.normal:
-        nav.navigateAndRemove(AppScreen.Mainscreen);
+        nav.navigateAndRemove(AppScreen.MAINSCREEN);
         break;
       case AppStartupMode.signin:
-        nav.navigateAndRemove(AppScreen.Login);
+        nav.navigateAndRemove(AppScreen.LOGIN);
         break;
       case AppStartupMode.firstLaunch:
-        nav.navigateAndRemove(AppScreen.Login);
+        nav.navigateAndRemove(AppScreen.LOGIN);
         break;
       case AppStartupMode.noTasks:
         // nav.navigateAndRemove(AppScreen.Mainscreen);
         await locator<StudyService>()
-            .nextScreenForScreenName(AppScreen.Mainscreen.name);
+            .nextScreenForScreenName(AppScreen.MAINSCREEN.name);
         break;
     }
   }

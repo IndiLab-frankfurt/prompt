@@ -113,7 +113,7 @@ Map<String, String> CHOICES_DIFFICULT_EASY = {
 
 Questionnaire AA_DidYouLearn() => Questionnaire(
         title: "Hast du heute mit cabuu Vokabeln gelernt?",
-        name: AppScreen.AA_DidYouLearn.name,
+        name: AppScreen.AA_DIDYOULEARN.name,
         questions: [
           ChoiceQuestionViewModel(
               choices: CHOICES_YESNO,
@@ -123,20 +123,20 @@ Questionnaire AA_DidYouLearn() => Questionnaire(
 
 Questionnaire AA_PreviousStudySession() => Questionnaire(
         title: "Hast du heute mit cabuu Vokabeln gelernt?",
-        name: AppScreen.AA_PreviousStudySession.name,
+        name: AppScreen.AA_PREVIOUSSTUDYSESSION.name,
         questions: [
           ChoiceQuestionViewModel(
               choices: {
                 "very_satisfied": "Sehr zufrieden",
                 "Very unsatisfied": "Sehr unzufrieden"
               },
-              name: "${AppScreen.AA_PreviousStudySession.name}_1",
+              name: "${AppScreen.AA_PREVIOUSSTUDYSESSION.name}_1",
               questionText:
                   "Wie zufrieden bist du damit, wie du heute mit cabuu gelernt hast?"),
         ]);
 
 Questionnaire AA_WhyNotLearn() =>
-    Questionnaire(title: "", name: AppScreen.AA_WhyNotLearn.name, questions: [
+    Questionnaire(title: "", name: AppScreen.AA_WHYNOTLEARN.name, questions: [
       ChoiceQuestionViewModel(
           choices: {
             "forgot": "Ich habe vergessen, Vokabeln zu lernen",
@@ -148,25 +148,42 @@ Questionnaire AA_WhyNotLearn() =>
                 "Ich habe Vokabeln gelernt, aber nicht mit cabuu",
             "TEXTINPUT": "Sonstiges, nämlich"
           },
-          name: AppScreen.AA_WhyNotLearn.name,
+          name: AppScreen.AA_WHYNOTLEARN.name,
           questionText: "Warum hast du keine Vokabeln mit cabuu gelernt?"),
     ]);
 
 Questionnaire AA_NextStudySession() => Questionnaire(
         title: "",
-        name: AppScreen.AA_NextStudySession.name,
+        name: AppScreen.AA_NEXTSTUDYSESSION.name,
         questions: [
           ChoiceQuestionViewModel(
             questionText:
                 "Wie wahrscheinlich ist es, dass du morgen Vokabeln lernen wirst?",
             choices: CHOICES_LIKELY,
-            name: "${AppScreen.AA_NextStudySession.name}_expectation",
+            name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_expectation",
           ),
           ChoiceQuestionViewModel(
               questionText:
                   "Wie wichtig ist es dir, morgen Vokabeln zu lernen?",
               choices: CHOICES_IMPORTANCE,
-              name: "${AppScreen.AA_NextStudySession.name}_importance"),
+              name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_importance"),
+        ]);
+
+Questionnaire AA_Procrast() => Questionnaire(
+        title: "",
+        name: AppScreen.AA_NEXTSTUDYSESSION.name,
+        questions: [
+          ChoiceQuestionViewModel(
+            questionText:
+                "Wie wahrscheinlich ist es, dass du morgen Vokabeln lernen wirst?",
+            choices: CHOICES_LIKELY,
+            name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_expectation",
+          ),
+          ChoiceQuestionViewModel(
+              questionText:
+                  "Wie wichtig ist es dir, morgen Vokabeln zu lernen?",
+              choices: CHOICES_IMPORTANCE,
+              name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_importance"),
         ]);
 
 Questionnaire OB_VocabRoutine() => Questionnaire(
@@ -294,18 +311,18 @@ Questionnaire OB_ToB() => Questionnaire(
         ]);
 
 Questionnaire RememberToLearn() =>
-    Questionnaire(title: "", name: AppScreen.RememberToLearn.name, questions: [
+    Questionnaire(title: "", name: AppScreen.REMEMBERTOLEARN.name, questions: [
       QuestionnaireTextPageViewModel(
-          name: "${AppScreen.RememberToLearn.name}_1",
+          name: "${AppScreen.REMEMBERTOLEARN.name}_1",
           text: ["## Denk daran, morgen Vokabeln zu lernen! "])
     ]);
 
 Questionnaire ReminderTestToday() => Questionnaire(
         title: "",
-        name: AppScreen.ReminderTestToday.name,
+        name: AppScreen.REMINDERTESTTODAY.name,
         questions: [
           QuestionnaireTextPageViewModel(
-              name: "${AppScreen.ReminderTestToday.name}_1",
+              name: "${AppScreen.REMINDERTESTTODAY.name}_1",
               text: [
                 '### Bitte mache heute noch den Test in cabuu!',
                 '### Drücke dazu auf die Liste und wähle "Abfrage".',
@@ -315,11 +332,11 @@ Questionnaire ReminderTestToday() => Questionnaire(
 
 Questionnaire ReminderTestTomorrow() => Questionnaire(
         title: "",
-        name: AppScreen.ReminderTestTomorrow.name,
+        name: AppScreen.REMINDERTESTTOMORROW.name,
         questions: [
           QuestionnaireTextPageViewModel(
               completed: true,
-              name: "${AppScreen.ReminderTestTomorrow.name}_1",
+              name: "${AppScreen.REMINDERTESTTOMORROW.name}_1",
               text: [
                 '### Morgen sollst du in cabuu den Vokabeltest machen!',
                 '### Wir erinnern dich morgen noch einmal daran.',
@@ -327,9 +344,9 @@ Questionnaire ReminderTestTomorrow() => Questionnaire(
         ]);
 
 Questionnaire ReminderNextList() =>
-    Questionnaire(title: "", name: AppScreen.ReminderNextList.name, questions: [
+    Questionnaire(title: "", name: AppScreen.REMINDERNEXTLIST.name, questions: [
       QuestionnaireTextPageViewModel(
-          name: "${AppScreen.ReminderNextList.name}_1",
+          name: "${AppScreen.REMINDERNEXTLIST.name}_1",
           text: [
             '### Prima!',
             '### Fange ab morgen an, die nächste Liste in cabuu zu lernen.',
@@ -338,9 +355,9 @@ Questionnaire ReminderNextList() =>
     ]);
 
 Questionnaire VocabToday() =>
-    Questionnaire(title: "", name: AppScreen.VocabTestToday.name, questions: [
+    Questionnaire(title: "", name: AppScreen.VOCABTESTTODAY.name, questions: [
       QuestionnaireTextPageViewModel(
-          name: "${AppScreen.VocabTestToday.name}_1",
+          name: "${AppScreen.VOCABTESTTODAY.name}_1",
           text: [
             'Mache heute den Vokabeltest in cabuu!',
             'Drücke dazu auf die Liste, die du gerade lernst, und wähle "Abfrage".',
@@ -350,7 +367,7 @@ Questionnaire VocabToday() =>
 
 Questionnaire AA_DidYouTest() => Questionnaire(
         title: "AA_DidYouTest",
-        name: AppScreen.DidYouTest.name,
+        name: AppScreen.DIDYOUTEST.name,
         questions: [
           ChoiceQuestionViewModel(
               name: "AA_DidYouTest_1",
@@ -359,7 +376,7 @@ Questionnaire AA_DidYouTest() => Questionnaire(
         ]);
 
 Questionnaire WeeklyQuestions() =>
-    Questionnaire(title: "", name: AppScreen.WeeklyQuestions.name, questions: [
+    Questionnaire(title: "", name: AppScreen.WEEKLYQUESTIONS.name, questions: [
       ChoiceQuestionViewModel(
           name: "Weekly_DifficultiesWhileLearning",
           questionText:
@@ -421,7 +438,7 @@ Questionnaire WeeklyQuestions() =>
             "7_days": "Ja, jeden Tag",
           }),
       QuestionnaireTextPageViewModel(
-          name: "${AppScreen.ReminderNextList.name}_1",
+          name: "${AppScreen.REMINDERNEXTLIST.name}_1",
           text: [
             '### Denk dran, dass du dir die Vokabeln besser merken kannst, wenn du jeden Tag ein bisschen lernst.',
           ])
@@ -429,7 +446,7 @@ Questionnaire WeeklyQuestions() =>
 
 Questionnaire FinalQuestionnaire() => Questionnaire(
         title: "FinalQuestionnaire",
-        name: AppScreen.FinalQuestionnaire.name,
+        name: AppScreen.FINALQUESTIONNAIRE.name,
         questions: [
           QuestionnaireTextPageViewModel(
               name: "FinalQuestionnaire_Intro",

@@ -26,11 +26,11 @@ class _FirstPlanCreationScreenState extends State<FirstPlanCreationScreen> {
 
     return Container(
         child: ListView(children: [
-      MarkdownBody(data: "### " + S.of(context).planCreation_letsCreatePlan),
+      MarkdownBody(data: S.of(context).planCreation_letsCreatePlan),
       UIHelper.verticalSpaceSmall,
-      MarkdownBody(data: "### " + S.of(context).planCreation_whenAndWhere),
-      UIHelper.verticalSpaceLarge,
-      MarkdownBody(data: "### " + S.of(context).planCreation_whenAndWhere),
+      MarkdownBody(data: S.of(context).planCreation_whenAndWhere),
+      UIHelper.verticalSpaceSmall,
+      MarkdownBody(data: S.of(context).planCreation_completeThePlan),
       UIHelper.verticalSpaceMedium,
       PlanInput(
         vm: vm.planInputViewModel,

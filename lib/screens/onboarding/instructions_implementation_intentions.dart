@@ -19,11 +19,11 @@ class InstructionsImplementationIntentions extends StatelessWidget {
         children: [
           MarkdownBody(
               data:
-                  "### Es kann schwierig sein, jeden Tag daran zu denken, Vokabeln zu lernen."),
+                  "Es kann schwierig sein, jeden Tag daran zu denken, Vokabeln zu lernen."),
           UIHelper.verticalSpaceMedium,
           MarkdownBody(
               data:
-                  "### Auf der nächsten Seite zeigt dir unser Monster einen Trick, der dir dabei hilft, dieses Ziel zu erreichen."),
+                  "Auf der nächsten Seite zeigt dir unser Monster einen Trick, der dir dabei hilft, dieses Ziel zu erreichen."),
         ],
       ),
     );

@@ -29,13 +29,15 @@ class PlanTimingViewModel extends BaseViewModel with CompletablePageMixin {
     dataService.saveUserDataProperty(
         "reminder_time", dateTime.toIso8601String());
 
+    studyService.scheduleDailyReminders(dateTime);
+
     // pad the time with a 0 if it's less than 10
     var minuteDisplay = selectedValue.minute < 10
         ? "0${selectedValue.minute}"
         : selectedValue.minute;
 
     timeDisplay = "${selectedValue.hour}:$minuteDisplay";
-    studyService.scheduleDailyReminders(selectedValue);
+
     notifyListeners();
   }
 }

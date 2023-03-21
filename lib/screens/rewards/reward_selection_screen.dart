@@ -53,7 +53,7 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
 
             rewardService.setBackgroundColor(unlockable.backgroundColor);
 
-            Navigator.pushNamed(context, AppScreen.Mainscreen.name);
+            Navigator.pushNamed(context, AppScreen.MAINSCREEN.name);
           });
         },
         child: Text("Aktivieren"),
@@ -110,7 +110,7 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
                   ElevatedButton.styleFrom(backgroundColor: Colors.green[300]),
               onPressed: () {
                 setState(() {});
-                Navigator.pushNamed(context, AppScreen.Mainscreen.name);
+                Navigator.pushNamed(context, AppScreen.MAINSCREEN.name);
               },
               child: Text("Ausgewählt"),
             ),
