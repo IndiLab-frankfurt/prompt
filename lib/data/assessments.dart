@@ -70,7 +70,7 @@ Map<String, String> CHOICES_IMPORTANCE = {
 Map<String, String> CHOICES_ANNOYING_ENJOYABLE = {
   "1": "Sehr nervig",
   "2": "Eher nervig",
-  "3": "Teils / teils",
+  "3": "Teils/teils",
   "4": "Eher angenehm",
   "5": "Sehr angenehm",
 };
@@ -78,7 +78,7 @@ Map<String, String> CHOICES_ANNOYING_ENJOYABLE = {
 Map<String, String> CHOICES_USELESS_HELPFUL = {
   "1": "Sehr unnötig",
   "2": "Eher unnötig",
-  "3": "Teils / teils",
+  "3": "Teils/teils",
   "4": "Eher hilfreich",
   "5": "Sehr hilfreich",
 };
@@ -86,7 +86,7 @@ Map<String, String> CHOICES_USELESS_HELPFUL = {
 Map<String, String> CHOICES_DIFFICULT_EASY = {
   "1": "Sehr schwer",
   "2": "Eher schwer",
-  "3": "Teils / teils",
+  "3": "Teils/teils",
   "4": "Eher einfach",
   "5": "Sehr einfach",
 };
@@ -175,12 +175,12 @@ Questionnaire OB_VocabRoutine() => Questionnaire(
               name: "OB_VocabRoutine_1",
               questionText: "Wie gefällt dir die Vokabel-App cabuu?",
               choices: {
-                "very_good": "Sehr gut",
-                "good": "Gut",
-                "neutral": "Mittel",
-                "bad": "Schlecht",
-                "very_bad": "Sehr schlecht",
-                "not_tried_yet": "Ich habe cabuu noch nicht ausprobiert"
+                "1": "Sehr schlecht",
+                "2": "Eher schlecht",
+                "3": "Teils/teils",
+                "4": "Eher gut",
+                "5": "Sehr gut",
+                "6": "Ich habe cabuu noch nicht ausprobiert"
               }),
           ChoiceQuestionViewModel(
               name: "OB_VocabRoutine_2",
@@ -202,22 +202,22 @@ Questionnaire OB_VocabRoutine() => Questionnaire(
               questionText:
                   "Wie oft lernst du normalerweise Englischvokabeln, wenn kein Test ansteht?",
               choices: {
-                "less_once_per_week": "Weniger als 1 Tag pro Woche",
-                "1_2_days_per_week": "1-2 Tage pro Woche",
-                "3_4_days_per_week": "3-4 Tage pro Woche",
-                "5_6_days_per_week": "5-6 Tage pro Woche",
-                "every_day": "Jeden Tag",
+                "1": "Weniger als 1 Tag pro Woche",
+                "2": "1-2 Tage pro Woche",
+                "3": "3-4 Tage pro Woche",
+                "4": "5-6 Tage pro Woche",
+                "5": "Jeden Tag",
               }),
           ChoiceQuestionViewModel(
               name: "OB_VocabRoutine_6",
               questionText:
                   "Wie oft lernst du normalerweise Englischvokabeln, wenn ein Test angekündigt ist?",
               choices: {
-                "less_once_per_week": "Weniger als 1 Tag pro Woche",
-                "1_2_days_per_week": "1-2 Tage pro Woche",
-                "3_4_days_per_week": "3-4 Tage pro Woche",
-                "5_6_days_per_week": "5-6 Tage pro Woche",
-                "every_day": "Jeden Tag",
+                "1": "Weniger als 1 Tag pro Woche",
+                "2": "1-2 Tage pro Woche",
+                "3": "3-4 Tage pro Woche",
+                "4": "5-6 Tage pro Woche",
+                "5": "Jeden Tag",
               }),
         ]);
 
@@ -411,16 +411,16 @@ Questionnaire WeeklyQuestions() =>
           questionText:
               "Hast du in den letzten 7 Tagen deine Englischvokabeln auch anders als mit cabuu gelernt (zum Beispiel mit dem Vokabelheft)?",
           choices: {
-            "no": "Nein",
-            "1_2_days": "Ja, an 1-2 Tagen",
-            "3_4_days": "Ja, an 3-4 Tagen",
-            "5_6_days": "Ja, an 5-6 Tagen",
-            "7_days": "Ja, jeden Tag",
+            "1": "Nein",
+            "2": "Ja, an 1-2 Tagen",
+            "3": "Ja, an 3-4 Tagen",
+            "4": "Ja, an 5-6 Tagen",
+            "5": "Ja, jeden Tag",
           }),
       QuestionnaireTextPageViewModel(
           name: "${AppScreen.REMINDERNEXTLIST.name}_1",
           text: [
-            '### Denk dran, dass du dir die Vokabeln besser merken kannst, wenn du jeden Tag ein bisschen lernst.',
+            '### Denk daran, dass du dir die Vokabeln besser merken kannst, wenn du jeden Tag ein bisschen lernst.',
           ])
     ]);
 
