@@ -7,63 +7,51 @@ import 'package:prompt/viewmodels/choice_question_view_model.dart';
 import 'package:prompt/viewmodels/questionnaire_textpage_view_model.dart';
 
 Map<String, String> CHOICES_APPLIES = {
-  "does_fully_not_apply": "Trifft gar nicht auf mich zu",
-  "does_barely_not_apply": "Trifft kaum auf mich zu",
-  "does_rather_not_apply": "Trifft eher nicht auf mich zu",
-  "neutral": "Teils / teils",
-  "barely_applies": "Trifft eher auf mich zu",
-  "rather_applies": "Trifft deutlich auf mich zu",
-  "fully_applies": "Trifft voll und ganz auf mich zu",
+  "1": "Gar nicht",
+  "2": "Eher nicht",
+  "3": "Teils / teils",
+  "4": "Eher ja",
+  "5": "Voll und ganz",
 };
 
 Map<String, String> CHOICES_GOODBAD = {
-  "very_good": "Sehr gut",
-  "good": "Gut",
-  "rather_good": "Eher gut",
-  "neutral": "Neutral",
-  "rather_bad": "Eher schlecht",
-  "bad": "Schlecht",
-  "very_bad": "Sehr schlecht",
+  "1": "Sehr schlecht",
+  "2": "Eher schlecht",
+  "3": "Teils/teils",
+  "4": "Eher gut",
+  "5": "Sehr gut",
 };
 
 Map<String, String> CHOICES_PLEASANT = {
-  "very_pleasant": "Sehr angenehm",
-  "pleasant": "Angenehm",
-  "rather pleasant": "Eher angenehm",
-  "neutral": "Neutral",
-  "rather_unpleasant": "Eher unangenehm",
-  "unpleasant": "Unangenehm",
-  "very_unpleasant": "Sehr unangenehm",
+  "1": "Sehr unangenehm",
+  "2": "Eher unangenehm",
+  "3": "Teils/teils",
+  "4": "Eher angenehm",
+  "5": "Sehr angenehm",
 };
 
 Map<String, String> CHOICES_AGREE = {
-  "strongly_agree": "Stimme voll und ganz zu",
-  "agree": "Stimme zu",
-  "rather_agree": "Stimme eher zu",
-  "neutral": "Neutral",
-  "rather_disagree": "Stimme eher nicht zu",
-  "disagree": "Stimme nicht zu",
-  "strongly_disagree": "Stimme überhaupt nicht zu",
+  "1": "Stimme überhaupt nicht zu",
+  "2": "Stimme eher nicht zu",
+  "3": "Teils/teils",
+  "4": "Stimme eher zu",
+  "5": "Stimme voll und ganz zu",
 };
 
 Map<String, String> CHOICES_LIKELY = {
-  "very_likely": "Sehr wahrscheinlich",
-  "likely": "Wahrscheinlich",
-  "rather_likely": "Eher wahrscheinlich",
-  "neutral": "Neutral",
-  "rather_unlikely": "Eher unwahrscheinlich",
-  "unlikely": "Unwahrscheinlich",
-  "very_unlikely": "Sehr unwahrscheinlich",
+  "1": "Sehr unwahrscheinlich",
+  "2": "Eher unwahrscheinlich",
+  "3": "Teils/teils",
+  "4": "Eher wahrscheinlich",
+  "5": "Sehr wahrscheinlich",
 };
 
 Map<String, String> CHOICES_RIGHTWRONG = {
-  "very_right": "Sehr richtig",
-  "right": "Richtig",
-  "rather_right": "Eher richtig",
-  "neutral": "Neutral",
-  "rather_wrong": "Eher falsch",
-  "wrong": "Falsch",
-  "very_wrong": "Sehr falsch",
+  "1": "Sehr falsch",
+  "2": "Eher falsch",
+  "3": "Teils/teils",
+  "4": "Eher richtig",
+  "5": "Sehr richtig",
 };
 
 Map<String, String> CHOICES_YESNO = {
@@ -72,43 +60,35 @@ Map<String, String> CHOICES_YESNO = {
 };
 
 Map<String, String> CHOICES_IMPORTANCE = {
-  "very_important": "Sehr wichtig",
-  "important": "Wichtig",
-  "rather_important": "Eher wichtig",
-  "neutral": "Neutral",
-  "rather_unimportant": "Eher unwichtig",
-  "unimportant": "Unwichtig",
-  "very_unimportant": "Sehr unwichtig",
+  "1": "Sehr unwichtig",
+  "2": "Eher unwichtig",
+  "3": "Teils/teils",
+  "4": "Eher wichtig",
+  "5": "Sehr wichtig",
 };
 
 Map<String, String> CHOICES_ANNOYING_ENJOYABLE = {
-  "very_annoying": "Sehr nervig",
-  "annoying": "Eher nervig",
-  "slightly_annoying": "Teilweise nervig",
-  "neutral": "Teils / teils",
-  "slightly_enjoyable": "Teilweise angenehm",
-  "rather_enjoyable": "Eher angenehm",
-  "very_enjoyable": "Sehr angenehm",
+  "1": "Sehr nervig",
+  "2": "Eher nervig",
+  "3": "Teils / teils",
+  "4": "Eher angenehm",
+  "5": "Sehr angenehm",
 };
 
 Map<String, String> CHOICES_USELESS_HELPFUL = {
-  "very_useless": "Sehr unnötig",
-  "rather_useless": "Eher unnötig",
-  "slightly_useless": "Teilweise unnötig",
-  "neutral": "Teils / teils",
-  "slightly_helpful": "Teilweise hilfreich",
-  "rather_helpful": "Eher hilfreich",
-  "very_helpful": "Sehr hilfreich",
+  "1": "Sehr unnötig",
+  "2": "Eher unnötig",
+  "3": "Teils / teils",
+  "4": "Eher hilfreich",
+  "5": "Sehr hilfreich",
 };
 
 Map<String, String> CHOICES_DIFFICULT_EASY = {
-  "very_difficult": "Sehr schwer",
-  "rather_difficult": "Eher schwer",
-  "slightly_difficult": "Teilweise schwer",
-  "neutral": "Teils / teils",
-  "slightly_easy": "Teilweise einfach",
-  "rather_easy": "Eher einfach",
-  "very_easy": "Sehr einfach",
+  "1": "Sehr schwer",
+  "2": "Eher schwer",
+  "3": "Teils / teils",
+  "4": "Eher einfach",
+  "5": "Sehr einfach",
 };
 
 Questionnaire AA_DidYouLearn() => Questionnaire(
