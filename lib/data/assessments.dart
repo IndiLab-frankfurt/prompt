@@ -103,6 +103,27 @@ Map<String, String> CHOICES_TEXTFIELD = {
   "TEXTINPUT": "TEXTINPUT",
 };
 
+Questionnaire AA_PROCRAST() =>
+    Questionnaire(title: "", name: AppScreen.AA_PROCRAST.name, questions: [
+      ChoiceQuestionViewModel(
+        questionText: "Heute habe ich das Vokabellernen aufgeschoben.",
+        choices: CHOICES_APPLIES,
+        name: "AA_procrastination_1",
+      ),
+      ChoiceQuestionViewModel(
+        questionText:
+            "Heute fiel es mir sehr schwer, mich zum Vokabellernen zu bringen.",
+        choices: CHOICES_APPLIES,
+        name: "AA_procrastination_1",
+      ),
+      ChoiceQuestionViewModel(
+        questionText:
+            "Heute habe ich lange darüber nachgedacht, ob ich mit dem Vokabellernen anfangen soll.",
+        choices: CHOICES_APPLIES,
+        name: "AA_procrastination_1",
+      ),
+    ]);
+
 Questionnaire AA_NextStudySession() => Questionnaire(
         title: "",
         name: AppScreen.AA_NEXTSTUDYSESSION.name,
@@ -129,28 +150,6 @@ Questionnaire AA_NextStudySession() => Questionnaire(
                   "Ich glaube, dass ich mich morgen gut zum Vokabellernen motivieren kann.",
               choices: CHOICES_APPLIES,
               name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_efficacy"),
-        ]);
-
-Questionnaire AA_Procrast() => Questionnaire(
-        title: "",
-        name: AppScreen.AA_NEXTSTUDYSESSION.name,
-        questions: [
-          ChoiceQuestionViewModel(
-            questionText: "Heute habe ich das Vokabellernen aufgeschoben.",
-            choices: CHOICES_APPLIES,
-            name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_procrastination_1",
-          ),
-          ChoiceQuestionViewModel(
-            questionText:
-                "Heute fiel es mir sehr schwer, mich zum Vokabellernen zu bringen.",
-            choices: CHOICES_APPLIES,
-            name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_procrastination_2",
-          ),
-          ChoiceQuestionViewModel(
-              questionText:
-                  "Heute habe ich lange darüber nachgedacht, ob ich mit dem Vokabellernen  anfangen soll.",
-              choices: CHOICES_APPLIES,
-              name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_procrastination_3"),
         ]);
 
 Questionnaire OB_VocabRoutine() => Questionnaire(
@@ -379,7 +378,7 @@ Questionnaire AA_DidYouTest() => Questionnaire(
 
 Questionnaire WeeklyQuestions() => Questionnaire(
         title:
-            "Am Ende jeder Woche haben wir noch ein paar zusätzliche Fragen an dich. Denke an die letzten Sieben Tage zurück und antworte ehrlich. ",
+            "Am Ende jeder Woche haben wir noch ein paar zusätzliche Fragen an dich. Denke an die letzten sieben Tage zurück und antworte ehrlich.",
         name: AppScreen.WEEKLYQUESTIONS.name,
         questions: [
           ChoiceQuestionViewModel(

@@ -122,7 +122,7 @@ class AppRouter {
       case AppScreen.AA_PROCRAST:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: AA_Procrast()),
+                param1: AA_PROCRAST()),
             child: MultiPageQuestionnaire());
         break;
 
