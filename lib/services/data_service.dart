@@ -166,7 +166,8 @@ class DataService implements BaseService {
     return AppScreen.values.byName(response.toUpperCase());
   }
 
-  Future<bool> deleteUser() async {
+  Future<bool> deleteAccount() async {
+    this.logout();
     return true;
   }
 
@@ -195,5 +196,10 @@ class DataService implements BaseService {
   @override
   Future<bool> initialize() async {
     return true;
+  }
+
+  logout() async {
+    await this._settingsService.deleteSetting(SettingsKeys.email);
+    await this._settingsService.deleteSetting(SettingsKeys.password);
   }
 }

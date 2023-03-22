@@ -60,7 +60,7 @@
     "dashboard_mainmessage_beforeEvening": "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.",
     "dashboard_nextVocabToday": "Dein nächster Vokabeltest ist heute.",
     "dashboard_nextVocabTomorrow": "Dein nächster Vokabeltest ist morgen.",
-    "dashboard_daysUntilVocabTest": "Noch {numDays, plural, =1{1 Tag} other{{numDays}Tage}} bis zum nächsten Vokabeltest",
+    "dashboard_daysUntilVocabTest": "Noch {numDays, plural, =1{1 Tag} other{{numDays} Tage}} bis zum nächsten Vokabeltest",
     "@dashboard_daysUntilVocabTest": {
       "placeholders": {
         "numDays": {
@@ -88,7 +88,7 @@
     "notificationMessage_vocabTest": "Denk daran, heute den Test in cabuu zu machen!",
     "notificationTitle_final": "Wir haben noch ein paar Fragen an dich!",
     "notificationBody_final":  "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎",
-    "emojiInternalisation_createPlan": "Erstelle aus Emojis eine Darstellung deines Planes"
-
+    "emojiInternalisation_createPlan": "Erstelle aus Emojis eine Darstellung deines Planes",
+    "accountManagement_invalidPassword": "The password was not correct"
   }
   

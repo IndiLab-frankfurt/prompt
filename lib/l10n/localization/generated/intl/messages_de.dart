@@ -26,7 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m1(currentDay, maxDays) => "Tag ${currentDay} von ${maxDays}";
 
   static String m2(numDays) =>
-      "Noch ${Intl.plural(numDays, one: '1 Tag', other: '${numDays}Tage')} bis zum nächsten Vokabeltest";
+      "Noch ${Intl.plural(numDays, one: '1 Tag', other: '${numDays} Tage')} bis zum nächsten Vokabeltest";
 
   static String m3(when) => "Wenn ich ${when}, dann lerne ich mit cabuu!";
 
@@ -35,6 +35,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "accountManagement_invalidPassword":
+            MessageLookupByLibrary.simpleMessage(
+                "Das Passwort war nicht richtig"),
         "congratsMoreDiamonds": m0,
         "consent_appuse": MessageLookupByLibrary.simpleMessage(
             "Ich habe die Datenschutzerklärung gelesen und bin damit einverstanden, dass mein Kind die App PROMPT-ADAPT unter den genannten Bedingungen verwendet."),

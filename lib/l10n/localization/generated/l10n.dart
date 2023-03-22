@@ -410,10 +410,10 @@ class S {
     );
   }
 
-  /// `Noch {numDays, plural, =1{1 Tag} other{{numDays}Tage}} bis zum nächsten Vokabeltest`
+  /// `Noch {numDays, plural, =1{1 Tag} other{{numDays} Tage}} bis zum nächsten Vokabeltest`
   String dashboard_daysUntilVocabTest(num numDays) {
     return Intl.message(
-      'Noch ${Intl.plural(numDays, one: '1 Tag', other: '${numDays}Tage')} bis zum nächsten Vokabeltest',
+      'Noch ${Intl.plural(numDays, one: '1 Tag', other: '$numDays Tage')} bis zum nächsten Vokabeltest',
       name: 'dashboard_daysUntilVocabTest',
       desc: '',
       args: [numDays],
@@ -495,6 +495,16 @@ class S {
     return Intl.message(
       'Erstelle aus Emojis eine Darstellung deines Planes',
       name: 'emojiInternalisation_createPlan',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The password was not correct`
+  String get accountManagement_invalidPassword {
+    return Intl.message(
+      'The password was not correct',
+      name: 'accountManagement_invalidPassword',
       desc: '',
       args: [],
     );

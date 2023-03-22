@@ -12,6 +12,7 @@ import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/user_service.dart';
+import 'package:prompt/viewmodels/account_management_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
 import 'package:prompt/viewmodels/plan_prompt_view_model.dart';
 
@@ -71,4 +72,9 @@ void _setUpViewModels() {
   locator.registerFactory<PlanPromptViewModel>(() => PlanPromptViewModel(
       studyService: locator.get<StudyService>(),
       dataService: locator.get<DataService>()));
+
+  locator.registerFactory<AccountManagementViewModel>(() =>
+      AccountManagementViewModel(
+          dataService: locator.get<DataService>(),
+          navigationService: locator.get<NavigationService>()));
 }

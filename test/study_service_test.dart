@@ -1,11 +1,9 @@
 // This is a basic Flutter widget test.
 //
 import 'package:flutter_test/flutter_test.dart';
-import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/locator.dart';
-import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/study_service.dart';
 
 void main() {

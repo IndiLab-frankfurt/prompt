@@ -4,6 +4,7 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/shared/enums.dart';
 
+// TODO: UserService is not really needed and should be put into DataService
 class UserService implements BaseService {
   UserService(this._settings, this._dataService);
 

@@ -44,7 +44,7 @@ android {
         multiDexEnabled true
         applicationId "de.dipf.prompt"
         minSdkVersion 19
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
     }

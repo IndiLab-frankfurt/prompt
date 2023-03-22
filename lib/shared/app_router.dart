@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/data/assessments.dart';
 import 'package:prompt/screens/assessments/plan_prompt_screen.dart';
+import 'package:prompt/screens/main/account_management_screen.dart';
 import 'package:prompt/screens/main/change_plan_timing_screen.dart';
 import 'package:prompt/screens/main/data_privacy_screen.dart';
 import 'package:prompt/screens/main/forgot_password_screen.dart';
@@ -19,6 +20,7 @@ import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/viewmodels/account_management_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
@@ -185,6 +187,12 @@ class AppRouter {
                 name: AppScreen.PLANTIMINGCHANGE.name,
                 dataService: locator.get<DataService>(),
                 studyService: locator.get<StudyService>()));
+        break;
+
+      case AppScreen.ACCOUNTMANAGEMENT:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<AccountManagementViewModel>(),
+            child: AccountManagementScreen());
         break;
 
       case AppScreen.SCREENSELECT:

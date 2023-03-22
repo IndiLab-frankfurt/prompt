@@ -50,8 +50,8 @@ class SettingsService {
     }
   }
 
-  deleteSetting(String setting) async {
-    await this.storage.delete(key: setting);
+  Future<void> deleteSetting(SettingsKeys setting) async {
+    await this.storage.delete(key: setting.name);
     _settingsCache.remove(setting);
   }
 }
