@@ -163,7 +163,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     var ud = _dataService.getUserDataCache();
     // TODO: Restore after testing
     // initialPage = max(ud.initStep, pages.length - 1);
-    initialPage = 18;
+    initialPage = 0;
     this.setPage(initialPage);
     cabuuCode = ud.cabuuCode.isNotEmpty ? ud.cabuuCode : "HIER CABUU CODE";
 
