@@ -302,7 +302,7 @@ Questionnaire OB_ToB() => Questionnaire(
               choices: CHOICES_RIGHTWRONG),
           ChoiceQuestionViewModel(
               name: "OB_ToB_control2",
-              questionText: "Es liegt an mir, wie ich Vokabeln lerne.",
+              questionText: "Es liegt an mir, wie oft ich Vokabeln lerne.",
               choices: CHOICES_APPLIES),
           ChoiceQuestionViewModel(
               name: "OB_ToB_intent",
