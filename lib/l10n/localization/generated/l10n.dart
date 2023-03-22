@@ -200,10 +200,10 @@ class S {
     );
   }
 
-  /// `Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz`
+  /// `Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz“.`
   String get instructionsQuestionnaires_p5 {
     return Intl.message(
-      'Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz',
+      'Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz“.',
       name: 'instructionsQuestionnaires_p5',
       desc: '',
       args: [],
@@ -400,10 +400,10 @@ class S {
     );
   }
 
-  /// `Ich bin damit einverstanden, dass mein Kind an der Studie PROMP-ADAPT teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden.`
+  /// `Ich bin damit einverstanden, dass mein Kind an der Studie PROMPT-ADAPT teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden.`
   String get consent_study {
     return Intl.message(
-      'Ich bin damit einverstanden, dass mein Kind an der Studie PROMP-ADAPT teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden.',
+      'Ich bin damit einverstanden, dass mein Kind an der Studie PROMPT-ADAPT teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden.',
       name: 'consent_study',
       desc: '',
       args: [],

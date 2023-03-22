@@ -58,7 +58,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "consent_readthis": MessageLookupByLibrary.simpleMessage(
             "Bitte lies dir die folgenden Informationen gemeinsam mit deinen Eltern sorgfältig durch."),
         "consent_study": MessageLookupByLibrary.simpleMessage(
-            "Ich bin damit einverstanden, dass mein Kind an der Studie PROMP-ADAPT teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden."),
+            "Ich bin damit einverstanden, dass mein Kind an der Studie PROMPT-ADAPT teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden."),
         "copingPlanEnterP1": MessageLookupByLibrary.simpleMessage(
             "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:"),
         "dashboard_continueTomorrow": MessageLookupByLibrary.simpleMessage(
@@ -107,7 +107,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "instructionsQuestionnaires_p4": MessageLookupByLibrary.simpleMessage(
             " - Gar nicht \n - Eher nicht \n - Teils/teils \n - Eher ja \n - Voll und ganz"),
         "instructionsQuestionnaires_p5": MessageLookupByLibrary.simpleMessage(
-            "Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz"),
+            "Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz“."),
         "introductionTakeYourTime": MessageLookupByLibrary.simpleMessage(
             "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit."),
         "labelTextWriteDownBulletPoints": MessageLookupByLibrary.simpleMessage(
