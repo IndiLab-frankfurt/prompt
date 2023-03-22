@@ -117,6 +117,6 @@ flutter:
 flutter_intl:                                   
   enabled: true                                 
   class_name: l10n                              
-  main_locale: en                               
+  main_locale: de                               
   arb_dir: lib/l10n/           
   output_dir: lib/l10n/localization/generated   
