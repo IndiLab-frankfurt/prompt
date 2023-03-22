@@ -23,14 +23,29 @@ class _AccountManagementScreenState extends State<AccountManagementScreen> {
       drawer: PromptDrawer(),
       body: Container(
         margin: EdgeInsets.all(16),
-        child: Column(children: [
-          UIHelper.verticalSpaceMedium,
-          Text(
-            vm.username,
-            style: Theme.of(context).textTheme.bodyLarge,
-          ),
-          buildDeleteAccountButton(context, vm),
-        ]),
+        child: SingleChildScrollView(
+          child: Column(children: [
+            UIHelper.verticalSpaceMedium,
+            Text(
+              S.of(context).accountManagement_yourAccountName(vm.username),
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            UIHelper.verticalSpaceMedium,
+            Container(
+                padding: EdgeInsets.all(10),
+                color: Color.fromARGB(255, 223, 152, 152),
+                child: Column(
+                  children: [
+                    Text(
+                      S.of(context).accountManagement_deleteAccountExplanation,
+                      style: Theme.of(context).textTheme.bodyLarge,
+                    ),
+                    UIHelper.verticalSpaceMedium,
+                    buildDeleteAccountButton(context, vm),
+                  ],
+                )),
+          ]),
+        ),
       ),
     );
   }
@@ -40,8 +55,15 @@ class _AccountManagementScreenState extends State<AccountManagementScreen> {
     return Container(
       margin: EdgeInsets.all(16),
       child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+              Theme.of(context).colorScheme.error),
+        ),
         onPressed: () => showDeleteAccountDialog(context, vm),
-        child: Text('Press here to delete your account'),
+        child: Text(
+          S.of(context).accountManagement_clickToDeleteAccount,
+          style: TextStyle(color: Colors.white),
+        ),
       ),
     );
   }
@@ -53,12 +75,13 @@ class _AccountManagementScreenState extends State<AccountManagementScreen> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
-            title: Text('Delete Account?'),
+            title: Text(S.of(context).accountManagement_deleteDialog_title),
             content: Column(
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Please enter your password to confirm:'),
+                Text(
+                    S.of(context).accountManagement_deleteDialog_EnterPassword),
                 TextField(
                   obscureText: true,
                   onChanged: (value) => password = value,
@@ -68,7 +91,7 @@ class _AccountManagementScreenState extends State<AccountManagementScreen> {
             actions: [
               ElevatedButton(
                 onPressed: () => Navigator.of(context).pop(),
-                child: Text('Cancel'),
+                child: Text(S.of(context).general_buttonTexts_cancel),
               ),
               ElevatedButton(
                 onPressed: () async {
@@ -86,7 +109,7 @@ class _AccountManagementScreenState extends State<AccountManagementScreen> {
                     ));
                   }
                 },
-                child: Text('Confirm'),
+                child: Text(S.of(context).general_buttonTexts_confirm),
               ),
             ],
           );

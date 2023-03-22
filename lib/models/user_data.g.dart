@@ -7,7 +7,9 @@ part of 'user_data.dart';
 // **************************************************************************
 
 UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
-      user: json['user'] == null ? "" : UserData._userFromJson(json['user']),
+      username: json['username'] == null
+          ? ""
+          : UserData._userFromJson(json['username']),
       group: json['group'] as String? ?? "1",
       startDate: json['start_date'] == null
           ? null
@@ -24,7 +26,7 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
 
 Map<String, dynamic> _$UserDataToJson(UserData instance) {
   final val = <String, dynamic>{
-    'user': instance.user,
+    'username': instance.username,
     'group': instance.group,
     'start_date': instance.startDate?.toIso8601String(),
     'reminder_time': instance.reminderTime?.toIso8601String(),

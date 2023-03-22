@@ -18,6 +18,7 @@ enum OnboardingStep {
   data_privacy,
   video_introduction_1,
   rewardScreen1,
+  instructions_questionnaires,
   assessment_vocabRoutine,
   instructions_distributedLearning,
   video_distributedLearning,
@@ -101,6 +102,9 @@ class OnboardingViewModel extends MultiPageViewModel {
           videoUrl: 'assets/videos/onboarding_1.mp4'),
       QuestionnairePageViewModel(
           name: OnboardingStep.rewardScreen1.name, completed: true),
+      QuestionnairePageViewModel(
+          name: OnboardingStep.instructions_questionnaires.name,
+          completed: true),
       MultiPageQuestionnaireViewModel(
           name: OnboardingStep.assessment_vocabRoutine.name,
           questionnaire: OB_VocabRoutine(),
@@ -113,14 +117,14 @@ class OnboardingViewModel extends MultiPageViewModel {
           videoUrl: 'assets/videos/distributed_practice.mp4'),
       MultiPageQuestionnaireViewModel(
           name: OnboardingStep.assessment_motivation.name,
-          questionnaire: OB_Motivation(),
+          questionnaire: OB_ToB(),
           studyService: this._studyService),
       planInputViewModelOutcome,
       planInputViewModelObstacle,
       planInputViewModelCoping,
       MultiPageQuestionnaireViewModel(
           name: OnboardingStep.assessment_ToB.name,
-          questionnaire: OB_ToB(),
+          questionnaire: OB_Procrastination(),
           studyService: this._studyService),
       QuestionnairePageViewModel(
           name: OnboardingStep.instructions_implementationIntentions.name,

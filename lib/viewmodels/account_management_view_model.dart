@@ -11,7 +11,7 @@ class AccountManagementViewModel extends BaseViewModel {
 
   AccountManagementViewModel(
       {required this.dataService, required this.navigationService}) {
-    username = dataService.getUserDataCache().user;
+    username = dataService.getUserDataCache().username;
   }
 
   Future<void> logout() async {

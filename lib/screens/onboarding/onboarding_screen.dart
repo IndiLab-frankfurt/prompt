@@ -7,6 +7,7 @@ import 'package:prompt/screens/onboarding/horizontal_questionnaire.dart';
 import 'package:prompt/screens/onboarding/instructions_cabuu_2.dart';
 import 'package:prompt/screens/onboarding/instructions_distributed_learning.dart';
 import 'package:prompt/screens/onboarding/instructions_implementation_intentions.dart';
+import 'package:prompt/screens/onboarding/instructions_questionnaires.dart';
 import 'package:prompt/screens/onboarding/obstacle_enter_screen.dart';
 import 'package:prompt/screens/onboarding/outcome_enter_screen.dart';
 import 'package:prompt/screens/onboarding/first_plan_creation_screen.dart';
@@ -115,6 +116,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
 
     if (step.name == OnboardingStep.rewardScreen1.name) {
       page = RewardScreen1(key: key);
+    }
+
+    if (step.name == OnboardingStep.instructions_questionnaires.name) {
+      page = InstructionsQuestionnaires(key: key);
     }
 
     if (step is QuestionnaireVideoPageViewModel) {

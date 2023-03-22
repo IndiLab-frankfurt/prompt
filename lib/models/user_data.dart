@@ -7,7 +7,7 @@ part 'user_data.g.dart';
 @JsonSerializable()
 class UserData {
   @JsonKey(fromJson: _userFromJson)
-  String user = "";
+  String username = "";
   String group = "1";
   DateTime? startDate = DateTime.now();
   DateTime? reminderTime = DateTime.now();
@@ -24,7 +24,7 @@ class UserData {
   }
 
   UserData(
-      {this.user = "",
+      {this.username = "",
       this.group = "1",
       required this.startDate,
       this.cabuuCode = "123",

@@ -167,6 +167,7 @@ class DataService implements BaseService {
   }
 
   Future<bool> deleteAccount() async {
+    await _apiService.deleteAccount();
     this.logout();
     return true;
   }

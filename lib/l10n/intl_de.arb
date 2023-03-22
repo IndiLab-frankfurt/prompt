@@ -35,6 +35,7 @@
   "rewards1p3": "Bitte beantworte alle Fragen ehrlich. Dir entstehen dadurch keine Nachteile.",
   "planTimingParagraph1": "Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten.",
   "planTimingParagraph2": "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.",
+  "instructionsQuestionnaires_p1": "TODO: Hier eine tolle Erklärung zum Fragebögen ausfüllen.",
   "instructionsCabuu2Paragraph1": "In unserer Studie sollst du cabuu auf eine ganz bestimmte Art benutzen - wie, erklären wir in unserem Video. Schaue es auf einem anderen Gerät (z. B. Computer) an, damit du cabuu gleichzeitig auf deinem Handy installieren kannst. Den Link zum Video haben deine Eltern per E-Mail erhalten.",
   "instructionsCabuuLink": "Hier ist der Link noch mal:",
   "instructionsCabuuWriteCode": "Um cabuu freizuschalten, brauchst du gleich diesen Code:",
@@ -56,6 +57,7 @@
   "consent_appuse": "Ich habe die Datenschutzerklärung gelesen und bin damit einverstanden, dass mein Kind die App PROMPT-ADAPT unter den genannten Bedingungen verwendet.",
   "consent_study": "Ich bin damit einverstanden, dass mein Kind an der Studie PROMP-ADAPT teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden.",
   "dashboard_mainmessage_firstday": "Morgen es richtig los",
+  "dashboard_continueTomorrow": "Morgen geht es weiter! Schaue ab 18 Uhr wieder vorbei.",
   "dashboard_mainmessage_beforeEvening": "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.",
   "dashboard_nextVocabToday": "Dein nächster Vokabeltest ist heute.",
   "dashboard_nextVocabTomorrow": "Dein nächster Vokabeltest ist morgen.",
@@ -88,5 +90,21 @@
   "notificationTitle_final": "Wir haben noch ein paar Fragen an dich!",
   "notificationBody_final":  "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎",
   "emojiInternalisation_createPlan": "Erstelle aus Emojis eine Darstellung deines Planes",
-  "accountManagement_invalidPassword": "Das Passwort war nicht richtig"
+  "accountManagement_yourAccountName": "Dein Benutzername ist: {username}",
+  "@accountManagement_yourAccountName": {
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "User1020"
+      }
+    }
+  },
+  "accountManagement_deleteAccountExplanation": "Du kannst hier deinen Account löschen. Wenn du das tust, werden alle deine Daten gelöscht und du kannst die App nicht mehr benutzen. Das Löschen passiert erst nach manueller Prüfung.",
+  "accountManagement_clickToDeleteAccount": "Klicke hier, falls du dein Konto löschen möchtest",
+  "accountManagement_invalidPassword": "Das Passwort war nicht richtig",
+  "accountManagement_deleteDialog_title": "Konto löschen?",
+  "accountManagement_deleteDialog_EnterPassword": "Gib hier dein Passwort zur Bestätigung ein",
+  "general_buttonTexts_cancel": "Abbrechen",
+  "general_buttonTexts_confirm": "Bestätigen",
+  "general_buttonTexts_logout": "Ausloggen"
 }

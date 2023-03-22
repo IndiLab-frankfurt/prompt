@@ -20,7 +20,7 @@ void main() {
     var startDate = DateTime.now().subtract(Duration(days: daysRunning));
 
     var mockUD = UserData(
-      user: "test",
+      username: "test",
       group: "test",
       startDate: startDate,
     );

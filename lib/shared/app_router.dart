@@ -84,19 +84,19 @@ class AppRouter {
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.AA_DIDYOULEARN:
-        screen = ChangeNotifierProvider(
-            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: AA_DidYouLearn()),
-            child: MultiPageQuestionnaire());
-        break;
+      // case AppScreen.AA_DIDYOULEARN:
+      //   screen = ChangeNotifierProvider(
+      //       create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+      //           param1: AA_DidYouLearn()),
+      //       child: MultiPageQuestionnaire());
+      //   break;
 
-      case AppScreen.AA_WHYNOTLEARN:
-        screen = ChangeNotifierProvider(
-            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: AA_WhyNotLearn()),
-            child: MultiPageQuestionnaire());
-        break;
+      // case AppScreen.AA_WHYNOTLEARN:
+      //   screen = ChangeNotifierProvider(
+      //       create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+      //           param1: AA_WhyNotLearn()),
+      //       child: MultiPageQuestionnaire());
+      //   break;
 
       case AppScreen.AA_NEXTSTUDYSESSION:
         screen = ChangeNotifierProvider(
@@ -105,12 +105,19 @@ class AppRouter {
             child: MultiPageQuestionnaire());
         break;
 
-      case AppScreen.AA_PREVIOUSSTUDYSESSION:
+      case AppScreen.STUDYFINISHED:
         screen = ChangeNotifierProvider(
             create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-                param1: AA_PreviousStudySession()),
+                param1: StudyFinishedQuestionnaire()),
             child: MultiPageQuestionnaire());
         break;
+
+      // case AppScreen.AA_PREVIOUSSTUDYSESSION:
+      //   screen = ChangeNotifierProvider(
+      //       create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+      //           param1: AA_PreviousStudySession()),
+      //       child: MultiPageQuestionnaire());
+      //   break;
 
       case AppScreen.AA_PROCRAST:
         screen = ChangeNotifierProvider(

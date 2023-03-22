@@ -160,6 +160,16 @@ class S {
     );
   }
 
+  /// `TODO: Hier eine tolle Erklärung zum Fragebögen ausfüllen.`
+  String get instructionsQuestionnaires_p1 {
+    return Intl.message(
+      'TODO: Hier eine tolle Erklärung zum Fragebögen ausfüllen.',
+      name: 'instructionsQuestionnaires_p1',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `In unserer Studie sollst du cabuu auf eine ganz bestimmte Art benutzen - wie, erklären wir in unserem Video. Schaue es auf einem anderen Gerät (z. B. Computer) an, damit du cabuu gleichzeitig auf deinem Handy installieren kannst. Den Link zum Video haben deine Eltern per E-Mail erhalten.`
   String get instructionsCabuu2Paragraph1 {
     return Intl.message(
@@ -370,6 +380,16 @@ class S {
     );
   }
 
+  /// `Morgen geht es weiter! Schaue ab 18 Uhr wieder vorbei.`
+  String get dashboard_continueTomorrow {
+    return Intl.message(
+      'Morgen geht es weiter! Schaue ab 18 Uhr wieder vorbei.',
+      name: 'dashboard_continueTomorrow',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.`
   String get dashboard_mainmessage_beforeEvening {
     return Intl.message(
@@ -490,11 +510,91 @@ class S {
     );
   }
 
+  /// `Dein Benutzername ist: {username}`
+  String accountManagement_yourAccountName(String username) {
+    return Intl.message(
+      'Dein Benutzername ist: $username',
+      name: 'accountManagement_yourAccountName',
+      desc: '',
+      args: [username],
+    );
+  }
+
+  /// `Du kannst hier deinen Account löschen. Wenn du das tust, werden alle deine Daten gelöscht und du kannst die App nicht mehr benutzen. Das Löschen passiert erst nach manueller Prüfung.`
+  String get accountManagement_deleteAccountExplanation {
+    return Intl.message(
+      'Du kannst hier deinen Account löschen. Wenn du das tust, werden alle deine Daten gelöscht und du kannst die App nicht mehr benutzen. Das Löschen passiert erst nach manueller Prüfung.',
+      name: 'accountManagement_deleteAccountExplanation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Klicke hier, falls du dein Konto löschen möchtest`
+  String get accountManagement_clickToDeleteAccount {
+    return Intl.message(
+      'Klicke hier, falls du dein Konto löschen möchtest',
+      name: 'accountManagement_clickToDeleteAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Das Passwort war nicht richtig`
   String get accountManagement_invalidPassword {
     return Intl.message(
       'Das Passwort war nicht richtig',
       name: 'accountManagement_invalidPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Konto löschen?`
+  String get accountManagement_deleteDialog_title {
+    return Intl.message(
+      'Konto löschen?',
+      name: 'accountManagement_deleteDialog_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Gib hier dein Passwort zur Bestätigung ein`
+  String get accountManagement_deleteDialog_EnterPassword {
+    return Intl.message(
+      'Gib hier dein Passwort zur Bestätigung ein',
+      name: 'accountManagement_deleteDialog_EnterPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Abbrechen`
+  String get general_buttonTexts_cancel {
+    return Intl.message(
+      'Abbrechen',
+      name: 'general_buttonTexts_cancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bestätigen`
+  String get general_buttonTexts_confirm {
+    return Intl.message(
+      'Bestätigen',
+      name: 'general_buttonTexts_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ausloggen`
+  String get general_buttonTexts_logout {
+    return Intl.message(
+      'Ausloggen',
+      name: 'general_buttonTexts_logout',
       desc: '',
       args: [],
     );

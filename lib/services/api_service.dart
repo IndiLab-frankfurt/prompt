@@ -20,8 +20,8 @@ class ApiService {
     if (kIsWeb || !kDebugMode) {
       serverUrl = _settingsService.getSetting(SettingsKeys.apiBaseUrl);
     } else if (kDebugMode) {
-      serverUrl = "https://prompt-app.eu";
-      // serverUrl = "http://10.0.2.2:8000";
+      // serverUrl = "https://prompt-app.eu";
+      serverUrl = "http://10.0.2.2:8000";
     }
     return Future.value(true);
   }
@@ -164,8 +164,8 @@ class ApiService {
     throw UnimplementedError();
   }
 
-  Future deleteUser() async {
-    return postAsync("/api/user/delete/", {});
+  Future deleteAccount() async {
+    return postAsync("/api/user/deleteself/", {});
   }
 
   Future<String> getNextState(String currentState) async {

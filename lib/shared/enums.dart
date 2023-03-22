@@ -79,6 +79,7 @@ enum AppScreen {
   VOCABTESTTODAY("/vocabtoday"),
   THEMEPREVIEW("/themepreview"),
   ACCOUNTMANAGEMENT("/accountmanagement"),
+  STUDYFINISHED("/studyfinished"),
   USERSETTINGS("/usersettings");
 
   const AppScreen(this.routeName);
