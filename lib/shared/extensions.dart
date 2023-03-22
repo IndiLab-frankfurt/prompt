@@ -57,6 +57,13 @@ extension DateHelpers on DateTime {
         yesterday.year == this.year;
   }
 
+  String toTimeZoneAwareISOString() {
+    String offSetString(Duration offset) =>
+        "${offset.isNegative ? "-" : "+"}${offset.inHours.abs().toString().padLeft(2, "0")}:${(offset.inMinutes - offset.inHours * 60).abs().toString().padLeft(2, "0")}";
+    var timeZoneOffset = this.timeZoneOffset;
+    return this.toUtc().toIso8601String() + offSetString(timeZoneOffset);
+  }
+
   /// Returns the days since this date in terms of days of the weeek.
   /// For example, if this date is Thursday, 21.01.2021, 15:40 and it is
   /// Friday, 22.02.2021, 14:10, this function returns 1 as the number

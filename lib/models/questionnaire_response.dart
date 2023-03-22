@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:prompt/models/questionnaire.dart';
+import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
 
 part 'questionnaire_response.g.dart';
@@ -10,6 +11,7 @@ class QuestionnaireResponse {
   final String name;
   final String questionText;
   final String response;
+  @JsonKey(toJson: _dateSubmittedToJson)
   final DateTime dateSubmitted;
 
   QuestionnaireResponse({
@@ -41,6 +43,10 @@ class QuestionnaireResponse {
       }
     }
     return responses;
+  }
+
+  static String _dateSubmittedToJson(DateTime date) {
+    return date.toTimeZoneAwareISOString();
   }
 
   factory QuestionnaireResponse.fromJson(Map<String, dynamic> json) =>

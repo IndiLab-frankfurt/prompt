@@ -28,13 +28,6 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) {
   final val = <String, dynamic>{
     'username': instance.username,
     'group': instance.group,
-    'start_date': instance.startDate?.toIso8601String(),
-    'reminder_time': instance.reminderTime?.toIso8601String(),
-    'streak_days': instance.streakDays,
-    'score': instance.score,
-    'days_active': instance.daysActive,
-    'onboarding_step': instance.onboardingStep,
-    'cabuu_code': instance.cabuuCode,
   };
 
   void writeNotNull(String key, dynamic value) {
@@ -43,6 +36,13 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) {
     }
   }
 
+  writeNotNull('start_date', UserData.toNull(instance.startDate));
+  val['reminder_time'] = instance.reminderTime?.toIso8601String();
+  val['streak_days'] = instance.streakDays;
+  val['score'] = instance.score;
+  val['days_active'] = instance.daysActive;
+  val['onboarding_step'] = instance.onboardingStep;
+  val['cabuu_code'] = instance.cabuuCode;
   writeNotNull('platform', instance.platform);
   return val;
 }

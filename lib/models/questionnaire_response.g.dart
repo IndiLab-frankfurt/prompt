@@ -23,5 +23,6 @@ Map<String, dynamic> _$QuestionnaireResponseToJson(
       'name': instance.name,
       'question_text': instance.questionText,
       'response': instance.response,
-      'date_submitted': instance.dateSubmitted.toIso8601String(),
+      'date_submitted':
+          QuestionnaireResponse._dateSubmittedToJson(instance.dateSubmitted),
     };

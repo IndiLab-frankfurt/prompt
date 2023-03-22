@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:prompt/l10n/localization/generated/l10n.dart';
@@ -96,8 +97,11 @@ class NotificationService implements BaseService {
 
   Future<void> _configureLocalTimeZone() async {
     tzdata.initializeTimeZones();
-    final String currentTimeZone =
-        await FlutterNativeTimezone.getLocalTimezone();
+    String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+    // The emulator doesn't have the correct timezone set
+    if (kDebugMode) {
+      currentTimeZone = "Europe/Berlin";
+    }
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
   }
 
@@ -120,7 +124,8 @@ class NotificationService implements BaseService {
         CHANNEL_IDS[KEY_DAILY]!, CHANNEL_NAMES[KEY_DAILY]!,
         channelDescription: CHANNEL_DESCRIPTIONS[KEY_DAILY]!,
         timeoutAfter: timeoutAfter,
-        ongoing: true);
+        // TODO: Change back to ongoing: true
+        ongoing: false);
     var notificationDetails =
         new NotificationDetails(android: androidPlatformChannelSpecifics);
 

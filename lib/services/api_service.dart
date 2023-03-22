@@ -9,6 +9,7 @@ import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:flutter/foundation.dart' show kIsWeb, kDebugMode;
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/shared/extensions.dart';
 
 class ApiService {
   // static String serverUrl = "http://10.0.2.2:8000";
@@ -85,7 +86,7 @@ class ApiService {
   }
 
   Future<bool> submitQuestionnaireResponses(dynamic responses) {
-    var params = {"local_time": DateTime.now().toLocal().toIso8601String()};
+    var params = {"local_time": DateTime.now().toTimeZoneAwareISOString()};
     return postAsync("/api/questionnaires/", responses, queryParams: params)
         .then((response) => response);
   }
@@ -171,7 +172,7 @@ class ApiService {
   Future<String> getNextState(String currentState) async {
     var params = {
       "current_state": currentState,
-      "local_time": DateTime.now().toLocal().toIso8601String()
+      "local_time": DateTime.now().toTimeZoneAwareISOString()
     };
     return getAsync("/api/nextstate/", queryParams: params).then((response) =>
         response.statusCode == 200

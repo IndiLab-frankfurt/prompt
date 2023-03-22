@@ -132,9 +132,12 @@ class StudyService {
 
   _scheduleFinalTaskReminder() async {
     var dayAfterFinal = DateTime.now().add(StudyService.FULL_STUDY_DURATION);
+    var scheduleDate = DateTime(
+        dayAfterFinal.year, dayAfterFinal.month, dayAfterFinal.day, 18, 00);
+
     print(
-        "scheduling final task reminder for ${dayAfterFinal.toIso8601String()}");
-    _notificationService.scheduleFinalTaskReminder(dayAfterFinal);
+        "scheduling final task reminder for ${scheduleDate.toIso8601String()}");
+    await _notificationService.scheduleFinalTaskReminder(scheduleDate);
   }
 
   _scheduleVocabReminders() async {

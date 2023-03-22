@@ -9,7 +9,11 @@ class UserData {
   @JsonKey(fromJson: _userFromJson)
   String username = "";
   String group = "1";
+
+  static toNull(_) => null;
+  @JsonKey(toJson: toNull, includeIfNull: false)
   DateTime? startDate = DateTime.now();
+
   DateTime? reminderTime = DateTime.now();
   int streakDays = 0;
   int score = 0;
