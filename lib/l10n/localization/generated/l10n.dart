@@ -160,11 +160,51 @@ class S {
     );
   }
 
-  /// `TODO: Hier eine tolle Erklärung zum Fragebögen ausfüllen.`
+  /// `Heute und im Laufe der Studie werden wir dir einige Fragen stellen.`
   String get instructionsQuestionnaires_p1 {
     return Intl.message(
-      'TODO: Hier eine tolle Erklärung zum Fragebögen ausfüllen.',
+      'Heute und im Laufe der Studie werden wir dir einige Fragen stellen.',
       name: 'instructionsQuestionnaires_p1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Meistens zeigen wir dir eine Aussage, z.B.: Ich lerne gerne Vokabeln.`
+  String get instructionsQuestionnaires_p2 {
+    return Intl.message(
+      'Meistens zeigen wir dir eine Aussage, z.B.: Ich lerne gerne Vokabeln.',
+      name: 'instructionsQuestionnaires_p2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Überlege, wie sehr die Aussage auf **dich persönlich** zutrifft und wähle die passende Antwort:`
+  String get instructionsQuestionnaires_p3 {
+    return Intl.message(
+      'Überlege, wie sehr die Aussage auf **dich persönlich** zutrifft und wähle die passende Antwort:',
+      name: 'instructionsQuestionnaires_p3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` - Gar nicht \n - Eher nicht \n - Teils/teils \n - Eher ja \n - Voll und ganz`
+  String get instructionsQuestionnaires_p4 {
+    return Intl.message(
+      ' - Gar nicht \n - Eher nicht \n - Teils/teils \n - Eher ja \n - Voll und ganz',
+      name: 'instructionsQuestionnaires_p4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz`
+  String get instructionsQuestionnaires_p5 {
+    return Intl.message(
+      'Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz',
+      name: 'instructionsQuestionnaires_p5',
       desc: '',
       args: [],
     );

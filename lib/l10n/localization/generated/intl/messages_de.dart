@@ -99,7 +99,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "instructionsDistributedp1": MessageLookupByLibrary.simpleMessage(
             "Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden."),
         "instructionsQuestionnaires_p1": MessageLookupByLibrary.simpleMessage(
-            "TODO: Hier eine tolle Erklärung zum Fragebögen ausfüllen."),
+            "Heute und im Laufe der Studie werden wir dir einige Fragen stellen."),
+        "instructionsQuestionnaires_p2": MessageLookupByLibrary.simpleMessage(
+            "Meistens zeigen wir dir eine Aussage, z.B.: Ich lerne gerne Vokabeln."),
+        "instructionsQuestionnaires_p3": MessageLookupByLibrary.simpleMessage(
+            "Überlege, wie sehr die Aussage auf **dich persönlich** zutrifft und wähle die passende Antwort:"),
+        "instructionsQuestionnaires_p4": MessageLookupByLibrary.simpleMessage(
+            " - Gar nicht \n - Eher nicht \n - Teils/teils \n - Eher ja \n - Voll und ganz"),
+        "instructionsQuestionnaires_p5": MessageLookupByLibrary.simpleMessage(
+            "Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz"),
         "introductionTakeYourTime": MessageLookupByLibrary.simpleMessage(
             "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit."),
         "labelTextWriteDownBulletPoints": MessageLookupByLibrary.simpleMessage(
