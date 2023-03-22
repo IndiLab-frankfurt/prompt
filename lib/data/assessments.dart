@@ -7,63 +7,51 @@ import 'package:prompt/viewmodels/choice_question_view_model.dart';
 import 'package:prompt/viewmodels/questionnaire_textpage_view_model.dart';
 
 Map<String, String> CHOICES_APPLIES = {
-  "does_fully_not_apply": "Trifft gar nicht auf mich zu",
-  "does_barely_not_apply": "Trifft kaum auf mich zu",
-  "does_rather_not_apply": "Trifft eher nicht auf mich zu",
-  "neutral": "Teils / teils",
-  "barely_applies": "Trifft eher auf mich zu",
-  "rather_applies": "Trifft deutlich auf mich zu",
-  "fully_applies": "Trifft voll und ganz auf mich zu",
+  "1": "Gar nicht",
+  "2": "Eher nicht",
+  "3": "Teils/teils",
+  "4": "Eher ja",
+  "5": "Voll und ganz",
 };
 
 Map<String, String> CHOICES_GOODBAD = {
-  "very_good": "Sehr gut",
-  "good": "Gut",
-  "rather_good": "Eher gut",
-  "neutral": "Neutral",
-  "rather_bad": "Eher schlecht",
-  "bad": "Schlecht",
-  "very_bad": "Sehr schlecht",
+  "1": "Sehr schlecht",
+  "2": "Eher schlecht",
+  "3": "Teils/teils",
+  "4": "Eher gut",
+  "5": "Sehr gut",
 };
 
 Map<String, String> CHOICES_PLEASANT = {
-  "very_pleasant": "Sehr angenehm",
-  "pleasant": "Angenehm",
-  "rather pleasant": "Eher angenehm",
-  "neutral": "Neutral",
-  "rather_unpleasant": "Eher unangenehm",
-  "unpleasant": "Unangenehm",
-  "very_unpleasant": "Sehr unangenehm",
+  "1": "Sehr unangenehm",
+  "2": "Eher unangenehm",
+  "3": "Teils/teils",
+  "4": "Eher angenehm",
+  "5": "Sehr angenehm",
 };
 
 Map<String, String> CHOICES_AGREE = {
-  "strongly_agree": "Stimme voll und ganz zu",
-  "agree": "Stimme zu",
-  "rather_agree": "Stimme eher zu",
-  "neutral": "Neutral",
-  "rather_disagree": "Stimme eher nicht zu",
-  "disagree": "Stimme nicht zu",
-  "strongly_disagree": "Stimme überhaupt nicht zu",
+  "1": "Stimme überhaupt nicht zu",
+  "2": "Stimme eher nicht zu",
+  "3": "Teils/teils",
+  "4": "Stimme eher zu",
+  "5": "Stimme voll und ganz zu",
 };
 
 Map<String, String> CHOICES_LIKELY = {
-  "very_likely": "Sehr wahrscheinlich",
-  "likely": "Wahrscheinlich",
-  "rather_likely": "Eher wahrscheinlich",
-  "neutral": "Neutral",
-  "rather_unlikely": "Eher unwahrscheinlich",
-  "unlikely": "Unwahrscheinlich",
-  "very_unlikely": "Sehr unwahrscheinlich",
+  "1": "Sehr unwahrscheinlich",
+  "2": "Eher unwahrscheinlich",
+  "3": "Teils/teils",
+  "4": "Eher wahrscheinlich",
+  "5": "Sehr wahrscheinlich",
 };
 
 Map<String, String> CHOICES_RIGHTWRONG = {
-  "very_right": "Sehr richtig",
-  "right": "Richtig",
-  "rather_right": "Eher richtig",
-  "neutral": "Neutral",
-  "rather_wrong": "Eher falsch",
-  "wrong": "Falsch",
-  "very_wrong": "Sehr falsch",
+  "1": "Sehr falsch",
+  "2": "Eher falsch",
+  "3": "Teils/teils",
+  "4": "Eher richtig",
+  "5": "Sehr richtig",
 };
 
 Map<String, String> CHOICES_YESNO = {
@@ -72,43 +60,35 @@ Map<String, String> CHOICES_YESNO = {
 };
 
 Map<String, String> CHOICES_IMPORTANCE = {
-  "very_important": "Sehr wichtig",
-  "important": "Wichtig",
-  "rather_important": "Eher wichtig",
-  "neutral": "Neutral",
-  "rather_unimportant": "Eher unwichtig",
-  "unimportant": "Unwichtig",
-  "very_unimportant": "Sehr unwichtig",
+  "1": "Sehr unwichtig",
+  "2": "Eher unwichtig",
+  "3": "Teils/teils",
+  "4": "Eher wichtig",
+  "5": "Sehr wichtig",
 };
 
 Map<String, String> CHOICES_ANNOYING_ENJOYABLE = {
-  "very_annoying": "Sehr nervig",
-  "annoying": "Eher nervig",
-  "slightly_annoying": "Teilweise nervig",
-  "neutral": "Teils / teils",
-  "slightly_enjoyable": "Teilweise angenehm",
-  "rather_enjoyable": "Eher angenehm",
-  "very_enjoyable": "Sehr angenehm",
+  "1": "Sehr nervig",
+  "2": "Eher nervig",
+  "3": "Teils/teils",
+  "4": "Eher angenehm",
+  "5": "Sehr angenehm",
 };
 
 Map<String, String> CHOICES_USELESS_HELPFUL = {
-  "very_useless": "Sehr unnötig",
-  "rather_useless": "Eher unnötig",
-  "slightly_useless": "Teilweise unnötig",
-  "neutral": "Teils / teils",
-  "slightly_helpful": "Teilweise hilfreich",
-  "rather_helpful": "Eher hilfreich",
-  "very_helpful": "Sehr hilfreich",
+  "1": "Sehr unnötig",
+  "2": "Eher unnötig",
+  "3": "Teils/teils",
+  "4": "Eher hilfreich",
+  "5": "Sehr hilfreich",
 };
 
 Map<String, String> CHOICES_DIFFICULT_EASY = {
-  "very_difficult": "Sehr schwer",
-  "rather_difficult": "Eher schwer",
-  "slightly_difficult": "Teilweise schwer",
-  "neutral": "Teils / teils",
-  "slightly_easy": "Teilweise einfach",
-  "rather_easy": "Eher einfach",
-  "very_easy": "Sehr einfach",
+  "1": "Sehr schwer",
+  "2": "Eher schwer",
+  "3": "Teils/teils",
+  "4": "Eher einfach",
+  "5": "Sehr einfach",
 };
 
 Questionnaire AA_DidYouLearn() => Questionnaire(
@@ -195,12 +175,12 @@ Questionnaire OB_VocabRoutine() => Questionnaire(
               name: "OB_VocabRoutine_1",
               questionText: "Wie gefällt dir die Vokabel-App cabuu?",
               choices: {
-                "very_good": "Sehr gut",
-                "good": "Gut",
-                "neutral": "Mittel",
-                "bad": "Schlecht",
-                "very_bad": "Sehr schlecht",
-                "not_tried_yet": "Ich habe cabuu noch nicht ausprobiert"
+                "1": "Sehr schlecht",
+                "2": "Eher schlecht",
+                "3": "Teils/teils",
+                "4": "Eher gut",
+                "5": "Sehr gut",
+                "6": "Ich habe cabuu noch nicht ausprobiert"
               }),
           ChoiceQuestionViewModel(
               name: "OB_VocabRoutine_2",
@@ -222,22 +202,22 @@ Questionnaire OB_VocabRoutine() => Questionnaire(
               questionText:
                   "Wie oft lernst du normalerweise Englischvokabeln, wenn kein Test ansteht?",
               choices: {
-                "less_once_per_week": "Weniger als 1 Tag pro Woche",
-                "1_2_days_per_week": "1-2 Tage pro Woche",
-                "3_4_days_per_week": "3-4 Tage pro Woche",
-                "5_6_days_per_week": "5-6 Tage pro Woche",
-                "every_day": "Jeden Tag",
+                "1": "Weniger als 1 Tag pro Woche",
+                "2": "1-2 Tage pro Woche",
+                "3": "3-4 Tage pro Woche",
+                "4": "5-6 Tage pro Woche",
+                "5": "Jeden Tag",
               }),
           ChoiceQuestionViewModel(
               name: "OB_VocabRoutine_6",
               questionText:
                   "Wie oft lernst du normalerweise Englischvokabeln, wenn ein Test angekündigt ist?",
               choices: {
-                "less_once_per_week": "Weniger als 1 Tag pro Woche",
-                "1_2_days_per_week": "1-2 Tage pro Woche",
-                "3_4_days_per_week": "3-4 Tage pro Woche",
-                "5_6_days_per_week": "5-6 Tage pro Woche",
-                "every_day": "Jeden Tag",
+                "1": "Weniger als 1 Tag pro Woche",
+                "2": "1-2 Tage pro Woche",
+                "3": "3-4 Tage pro Woche",
+                "4": "5-6 Tage pro Woche",
+                "5": "Jeden Tag",
               }),
         ]);
 
@@ -431,16 +411,16 @@ Questionnaire WeeklyQuestions() =>
           questionText:
               "Hast du in den letzten 7 Tagen deine Englischvokabeln auch anders als mit cabuu gelernt (zum Beispiel mit dem Vokabelheft)?",
           choices: {
-            "no": "Nein",
-            "1_2_days": "Ja, an 1-2 Tagen",
-            "3_4_days": "Ja, an 3-4 Tagen",
-            "5_6_days": "Ja, an 5-6 Tagen",
-            "7_days": "Ja, jeden Tag",
+            "1": "Nein",
+            "2": "Ja, an 1-2 Tagen",
+            "3": "Ja, an 3-4 Tagen",
+            "4": "Ja, an 5-6 Tagen",
+            "5": "Ja, jeden Tag",
           }),
       QuestionnaireTextPageViewModel(
           name: "${AppScreen.REMINDERNEXTLIST.name}_1",
           text: [
-            '### Denk dran, dass du dir die Vokabeln besser merken kannst, wenn du jeden Tag ein bisschen lernst.',
+            '### Denk daran, dass du dir die Vokabeln besser merken kannst, wenn du jeden Tag ein bisschen lernst.',
           ])
     ]);
 
