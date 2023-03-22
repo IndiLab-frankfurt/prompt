@@ -50,10 +50,10 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
-  /// `Welcome to PROMPT-ADAPT!`
+  /// `Willkommen bei PROMPT-ADAPT!`
   String get welcome {
     return Intl.message(
-      'Welcome to PROMPT-ADAPT!',
+      'Willkommen bei PROMPT-ADAPT!',
       name: 'welcome',
       desc: '',
       args: [],
@@ -140,10 +140,10 @@ class S {
     );
   }
 
-  /// `Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen, Das dauert auch nur 3 Minuten.`
+  /// `Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten.`
   String get planTimingParagraph1 {
     return Intl.message(
-      'Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen, Das dauert auch nur 3 Minuten.',
+      'Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten.',
       name: 'planTimingParagraph1',
       desc: '',
       args: [],
@@ -370,16 +370,6 @@ class S {
     );
   }
 
-  /// `Morgen geht es weiter!`
-  String get dashboard_continueTomorrow {
-    return Intl.message(
-      'Morgen geht es weiter!',
-      name: 'dashboard_continueTomorrow',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.`
   String get dashboard_mainmessage_beforeEvening {
     return Intl.message(
@@ -500,10 +490,10 @@ class S {
     );
   }
 
-  /// `The password was not correct`
+  /// `Das Passwort war nicht richtig`
   String get accountManagement_invalidPassword {
     return Intl.message(
-      'The password was not correct',
+      'Das Passwort war nicht richtig',
       name: 'accountManagement_invalidPassword',
       desc: '',
       args: [],
@@ -516,7 +506,6 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
 
   List<Locale> get supportedLocales {
     return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'de'),
     ];
   }
