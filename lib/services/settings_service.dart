@@ -2,7 +2,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:prompt/shared/enums.dart';
 
 class SettingsService {
-  static const Map<SettingsKeys, String> DEFAULT_VALUES = {
+  static Map<SettingsKeys, String> defaultValues = {
     SettingsKeys.accessToken: "",
     SettingsKeys.username: "",
     SettingsKeys.email: "",
@@ -15,7 +15,7 @@ class SettingsService {
 
   final storage = new FlutterSecureStorage();
 
-  Map<SettingsKeys, String> _settingsCache = DEFAULT_VALUES;
+  Map<SettingsKeys, String> _settingsCache = Map.from(defaultValues);
 
   SettingsService();
 
@@ -55,6 +55,6 @@ class SettingsService {
 
   Future<void> deleteAllSettings() async {
     await this.storage.deleteAll();
-    _settingsCache = DEFAULT_VALUES;
+    _settingsCache = Map.from(defaultValues);
   }
 }
