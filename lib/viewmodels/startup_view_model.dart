@@ -10,6 +10,7 @@ import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
 
 class StartupViewModel extends BaseViewModel {
   List<String> debugTexts = [];
@@ -38,6 +39,9 @@ class StartupViewModel extends BaseViewModel {
         break;
       case AppStartupMode.firstLaunch:
         nav.navigateAndRemove(AppScreen.LOGIN);
+        break;
+      case AppStartupMode.onboarding:
+        nav.navigateAndRemove(AppScreen.ONBOARDING);
         break;
       case AppStartupMode.noTasks:
         // nav.navigateAndRemove(AppScreen.Mainscreen);
@@ -73,6 +77,10 @@ class StartupViewModel extends BaseViewModel {
     var userData = await locator<DataService>().getUserData();
     if (userData == null) {
       return AppStartupMode.firstLaunch;
+    }
+
+    if (userData.onboardingStep < OnboardingStep.values.length - 3) {
+      return AppStartupMode.onboarding;
     }
 
     return AppStartupMode.noTasks;

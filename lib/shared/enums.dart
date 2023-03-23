@@ -1,11 +1,6 @@
 enum ViewState { idle, busy }
 
-enum AppStartupMode {
-  normal,
-  signin,
-  firstLaunch,
-  noTasks,
-}
+enum AppStartupMode { normal, signin, firstLaunch, noTasks, onboarding }
 
 class RegistrationCodes {
   static const SUCCESS = "SUCCESS";

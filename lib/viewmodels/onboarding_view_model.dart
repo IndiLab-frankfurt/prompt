@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:prompt/data/assessments.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/services/data_service.dart';
@@ -162,8 +164,8 @@ class OnboardingViewModel extends MultiPageViewModel {
 
     var ud = _dataService.getUserDataCache();
     // TODO: Restore after testing
-    // initialPage = max(ud.initStep, pages.length - 1);
-    initialPage = 0;
+    initialPage = max(ud.onboardingStep, pages.length - 1);
+    // initialPage = 0;
     this.setPage(initialPage);
     cabuuCode = ud.cabuuCode.isNotEmpty ? ud.cabuuCode : "HIER CABUU CODE";
 
@@ -232,13 +234,27 @@ class OnboardingViewModel extends MultiPageViewModel {
       _rewardService.addPoints(5);
     }
 
+    // After the plan timing input, there is no more user input, and we can already submit
     if (pageName == OnboardingStep.planTiming.name) {
-      planTimingViewModel.savePlanTiming(planTimingViewModel.planTiming);
+      submitUserInput();
     }
 
     _dataService.saveOnboardingStep(page);
 
     return true;
+  }
+
+  void submitUserInput() async {
+    var now = DateTime.now();
+    var planTimingDateTime = DateTime(
+        now.year,
+        now.month,
+        now.day,
+        planTimingViewModel.planTiming.hour,
+        planTimingViewModel.planTiming.minute);
+    await _studyService.scheduleDailyReminders(planTimingDateTime);
+    await _studyService.submitResponses(getResponse());
+    await _studyService.onboardingComplete();
   }
 
   int getPageReward(String name) {
@@ -301,8 +317,7 @@ class OnboardingViewModel extends MultiPageViewModel {
   void submit() async {
     if (state == ViewState.idle) {
       setState(ViewState.busy);
-      await _studyService.submitResponses(getResponse());
-      await _studyService.onboardingComplete();
+
       _studyService.nextScreen();
     }
   }
