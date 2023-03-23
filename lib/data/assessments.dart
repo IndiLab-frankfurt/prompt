@@ -381,6 +381,9 @@ Questionnaire WeeklyQuestions() => Questionnaire(
             "Am Ende jeder Woche haben wir noch ein paar zusätzliche Fragen an dich. Denke an die letzten sieben Tage zurück und antworte ehrlich.",
         name: AppScreen.WEEKLYQUESTIONS.name,
         questions: [
+          QuestionnaireTextPageViewModel(name: "weekly_intro", text: [
+            '### Am Ende jeder Woche haben wir noch ein paar zusätzliche Fragen an dich. Denke an die letzten sieben Tage zurück und antworte ehrlich.',
+          ]),
           ChoiceQuestionViewModel(
               name: "perc_int_1",
               questionText:
@@ -446,11 +449,6 @@ Questionnaire WeeklyQuestions() => Questionnaire(
               questionText:
                   "Ich habe in der letzten Woche genauso häufig Vokabeln gelernt, wie ich vorhatte.",
               choices: CHOICES_APPLIES),
-          QuestionnaireTextPageViewModel(
-              name: "${AppScreen.REMINDERNEXTLIST.name}_1",
-              text: [
-                '### Denk daran, dass du dir die Vokabeln besser merken kannst, wenn du jeden Tag ein bisschen lernst.',
-              ])
         ]);
 
 Questionnaire FinalQuestionnaire() => Questionnaire(

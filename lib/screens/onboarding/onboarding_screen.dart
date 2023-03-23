@@ -130,17 +130,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       );
     }
 
-    if (step.name == OnboardingStep.outcome.name) {
-      return OutcomeEnterScreen(key: key);
-    }
+    // if (step.name == OnboardingStep.outcome.name) {
+    //   return OutcomeEnterScreen(key: key);
+    // }
 
-    if (step.name == OnboardingStep.obstacle.name) {
-      return ObstacleEnterScreen(key: key);
-    }
+    // if (step.name == OnboardingStep.obstacle.name) {
+    //   return ObstacleEnterScreen(key: key);
+    // }
 
-    if (step.name == OnboardingStep.copingPlan.name) {
-      return CopingPlanEnterScreen(key: key);
-    }
+    // if (step.name == OnboardingStep.copingPlan.name) {
+    //   return CopingPlanEnterScreen(key: key);
+    // }
 
     if (step.name ==
         OnboardingStep.instructions_implementationIntentions.name) {

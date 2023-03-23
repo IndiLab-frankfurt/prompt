@@ -37,7 +37,7 @@ class _CopingPlanEnterScreenState extends State<CopingPlanEnterScreen> {
               minLines: 3,
               maxLines: null,
               onChanged: (text) {
-                vm.planInputViewModelCoping.input = text;
+                // vm.planInputViewModelCoping.input = text;
               },
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(

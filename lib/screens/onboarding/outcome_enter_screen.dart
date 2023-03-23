@@ -39,7 +39,7 @@ class _OutcomeEnterScreenState extends State<OutcomeEnterScreen> {
               minLines: 3,
               maxLines: null,
               onChanged: (text) {
-                vm.planInputViewModelOutcome.input = text;
+                // vm.planInputViewModelOutcome.input = text;
               },
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(

@@ -25,9 +25,9 @@ enum OnboardingStep {
   instructions_distributedLearning,
   video_distributedLearning,
   assessment_procrastination,
-  outcome,
-  obstacle,
-  copingPlan,
+  // outcome,
+  // obstacle,
+  // copingPlan,
   assessment_ToB,
   instructions_implementationIntentions,
   video_planning,
@@ -47,14 +47,14 @@ class OnboardingViewModel extends MultiPageViewModel {
   late PlanInputViewModel planInputViewModel = PlanInputViewModel(
       name: OnboardingStep.planCreation.name, onAnswered: onPlanInput);
 
-  PlanInputViewModel planInputViewModelOutcome =
-      PlanInputViewModel(name: OnboardingStep.outcome.name);
+  // PlanInputViewModel planInputViewModelOutcome =
+  //     PlanInputViewModel(name: OnboardingStep.outcome.name);
 
-  PlanInputViewModel planInputViewModelObstacle =
-      PlanInputViewModel(name: OnboardingStep.obstacle.name);
+  // PlanInputViewModel planInputViewModelObstacle =
+  //     PlanInputViewModel(name: OnboardingStep.obstacle.name);
 
-  PlanInputViewModel planInputViewModelCoping =
-      PlanInputViewModel(name: OnboardingStep.copingPlan.name);
+  // PlanInputViewModel planInputViewModelCoping =
+  //     PlanInputViewModel(name: OnboardingStep.copingPlan.name);
 
   String _plan = "";
   String get plan => _plan;

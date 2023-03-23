@@ -36,7 +36,7 @@ class _ObstacleEnterScreenState extends State<ObstacleEnterScreen> {
               minLines: 3,
               maxLines: null,
               onChanged: (text) {
-                vm.planInputViewModelObstacle.input = text;
+                // vm.planInputViewModelObstacle.input = text;
               },
               keyboardType: TextInputType.multiline,
               decoration: InputDecoration(
