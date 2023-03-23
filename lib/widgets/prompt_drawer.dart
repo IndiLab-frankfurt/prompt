@@ -40,13 +40,13 @@ class PromptDrawer extends StatelessWidget {
                   height: 140,
                   decoration: BoxDecoration(
                       image: DecorationImage(
-                          image: AssetImage('assets/icons/icon_256.png'),
-                          fit: BoxFit.cover)),
+                          image: AssetImage('assets/icons/icon_mascot1.png'),
+                          fit: BoxFit.contain)),
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(locator<UserService>().getUsername()),
+                        // Text(locator<UserService>().getUsername()),
                       ])),
             ),
           ),
@@ -84,54 +84,54 @@ class PromptDrawer extends StatelessWidget {
                 await Navigator.pushNamed(
                     context, AppScreen.ACCOUNTMANAGEMENT.name);
               }),
-          Divider(),
-          Text("DEBUG STUFF"),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Login",
-              onTap: () async {
-                await Navigator.pushReplacementNamed(
-                    context, AppScreen.LOGIN.name);
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Onboarding",
-              onTap: () async {
-                await Navigator.pushReplacementNamed(
-                    context, AppScreen.ONBOARDING.name);
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Screen Select",
-              onTap: () async {
-                await Navigator.pushReplacementNamed(
-                    context, AppScreen.SCREENSELECT.name);
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Text Compare",
-              onTap: () async {
-                await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => TextCompareScreen()));
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Theme Overview",
-              onTap: () async {
-                await Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ThemePreviewScreen()));
-              }),
-          _buildDrawerItem(
-              icon: Icons.add_box,
-              text: "Dialog",
-              onTap: () async {
-                await locator<DialogService>()
-                    .showRewardDialog(title: "title", score: 5);
-              }),
+          // Divider(),
+          // Text("DEBUG STUFF"),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Login",
+          //     onTap: () async {
+          //       await Navigator.pushReplacementNamed(
+          //           context, AppScreen.LOGIN.name);
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Onboarding",
+          //     onTap: () async {
+          //       await Navigator.pushReplacementNamed(
+          //           context, AppScreen.ONBOARDING.name);
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Screen Select",
+          //     onTap: () async {
+          //       await Navigator.pushReplacementNamed(
+          //           context, AppScreen.SCREENSELECT.name);
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Text Compare",
+          //     onTap: () async {
+          //       await Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //               builder: (context) => TextCompareScreen()));
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Theme Overview",
+          //     onTap: () async {
+          //       await Navigator.push(
+          //           context,
+          //           MaterialPageRoute(
+          //               builder: (context) => ThemePreviewScreen()));
+          //     }),
+          // _buildDrawerItem(
+          //     icon: Icons.add_box,
+          //     text: "Dialog",
+          //     onTap: () async {
+          //       await locator<DialogService>()
+          //           .showRewardDialog(title: "title", score: 5);
+          //     }),
         ],
       ),
     );
