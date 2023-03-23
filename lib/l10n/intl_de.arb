@@ -29,7 +29,7 @@
       }
     }
   },
-  "labelTextWriteDownBulletPoints": "Schreibe deine Antwort hier auf",
+  "labelTextWriteDownBulletPoints": "Schreibe deine Antwort hier auf.",
   "obstacleOutcomeHelperText": "Stichworte genügen",
   "rewards1p2": "Jetzt haben wir erst mal ein paar Fragen an dich.",
   "rewards1p3": "Bitte beantworte alle Fragen ehrlich. Dir entstehen dadurch keine Nachteile.",
@@ -49,7 +49,7 @@
   "obstacleEnterP1": "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:",
   "outcomeEnterP1": "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:",
   "copingPlanEnterP1": "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:",
-  "planInputP1": "**Wann** und **wo** könntest du morgen Vokabeln lernen??",
+  "planInputP1": "**Wann** und **wo** könntest du morgen Vokabeln lernen?",
   "planInputIfI": "Wenn ich",
   "planInputThenILearnWithCabuu": "dann lerne ich mit cabuu!",
   "planTimingChangeP1": "Wenn du die Benachrichtigung zu einer anderen Uhrzeit erhalten möchtest, kannst du das hier einstellen.",
@@ -74,8 +74,8 @@
       }
     }
   },
-  "dashboard_studyCompletelyFinished": "Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren",
-  "dashboard_inFollowUpPhase": "Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe",
+  "dashboard_studyCompletelyFinished": "Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren.",
+  "dashboard_inFollowUpPhase": "Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe.",
   "dashboard_daysOfTotal": "Tag {currentDay} von {maxDays}",
   "@dashboard_daysOfTotal": {
     "placeholders": {
@@ -92,8 +92,8 @@
   "notificationMessage_daily": "Mache jetzt weiter mit PROMPT!",
   "notificationMessage_vocabTest": "Denk daran, heute den Test in cabuu zu machen!",
   "notificationTitle_final": "Wir haben noch ein paar Fragen an dich!",
-  "notificationBody_final":  "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎",
-  "emojiInternalisation_createPlan": "Erstelle aus Emojis eine Darstellung deines Planes",
+  "notificationBody_final":  "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎.",
+  "emojiInternalisation_createPlan": "Erstelle aus Emojis eine Darstellung deines Planes.",
   "accountManagement_yourAccountName": "Dein Benutzername ist: {username}",
   "@accountManagement_yourAccountName": {
     "placeholders": {
@@ -104,10 +104,10 @@
     }
   },
   "accountManagement_deleteAccountExplanation": "Du kannst hier deinen Account löschen. Wenn du das tust, werden alle deine Daten gelöscht und du kannst die App nicht mehr benutzen. Das Löschen passiert erst nach manueller Prüfung.",
-  "accountManagement_clickToDeleteAccount": "Klicke hier, falls du dein Konto löschen möchtest",
-  "accountManagement_invalidPassword": "Das Passwort war nicht richtig",
+  "accountManagement_clickToDeleteAccount": "Klicke hier, falls du dein Konto löschen möchtest.",
+  "accountManagement_invalidPassword": "Das Passwort war nicht richtig.",
   "accountManagement_deleteDialog_title": "Konto löschen?",
-  "accountManagement_deleteDialog_EnterPassword": "Gib hier dein Passwort zur Bestätigung ein",
+  "accountManagement_deleteDialog_EnterPassword": "Gib hier dein Passwort zur Bestätigung ein.",
   "general_buttonTexts_cancel": "Abbrechen",
   "general_buttonTexts_confirm": "Bestätigen",
   "general_buttonTexts_logout": "Ausloggen"
