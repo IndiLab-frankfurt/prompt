@@ -61,7 +61,7 @@ class _AccountManagementScreenState extends State<AccountManagementScreen> {
           backgroundColor: MaterialStateProperty.all<Color>(
               Theme.of(context).colorScheme.primary),
         ),
-        onPressed: () => showDeleteAccountDialog(context, vm),
+        onPressed: () => vm.logout(),
         child: Text(
           S.of(context).general_buttonTexts_logout,
           style: TextStyle(color: Colors.white),
