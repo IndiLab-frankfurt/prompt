@@ -24,7 +24,7 @@ enum OnboardingStep {
   assessment_vocabRoutine,
   instructions_distributedLearning,
   video_distributedLearning,
-  assessment_motivation,
+  assessment_procrastination,
   outcome,
   obstacle,
   copingPlan,
@@ -118,14 +118,14 @@ class OnboardingViewModel extends MultiPageViewModel {
           name: OnboardingStep.video_distributedLearning.name,
           videoUrl: 'assets/videos/distributed_practice.mp4'),
       MultiPageQuestionnaireViewModel(
-          name: OnboardingStep.assessment_motivation.name,
+          name: OnboardingStep.assessment_ToB.name,
           questionnaire: OB_ToB(),
           studyService: this._studyService),
       planInputViewModelOutcome,
       planInputViewModelObstacle,
       planInputViewModelCoping,
       MultiPageQuestionnaireViewModel(
-          name: OnboardingStep.assessment_ToB.name,
+          name: OnboardingStep.assessment_procrastination.name,
           questionnaire: OB_Procrastination(),
           studyService: this._studyService),
       QuestionnairePageViewModel(
