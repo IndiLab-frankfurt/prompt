@@ -2,22 +2,20 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:prompt/shared/enums.dart';
 
 class SettingsService {
-  // LocalDatabaseService _databaseService;
-
-  final storage = new FlutterSecureStorage();
-
-  Map<SettingsKeys, String> _settingsCache = {
+  static const Map<SettingsKeys, String> DEFAULT_VALUES = {
     SettingsKeys.accessToken: "",
     SettingsKeys.username: "",
     SettingsKeys.email: "",
     SettingsKeys.password: "",
     SettingsKeys.refreshToken: "",
-    SettingsKeys.timerDurationInSeconds: "1500",
-    SettingsKeys.initSessionStep: "0",
     SettingsKeys.backGroundImage: "",
     SettingsKeys.backgroundColors: "ffff55,ffff55",
     SettingsKeys.apiBaseUrl: "https://prompt-app.eu",
   };
+
+  final storage = new FlutterSecureStorage();
+
+  Map<SettingsKeys, String> _settingsCache = DEFAULT_VALUES;
 
   SettingsService();
 
@@ -53,5 +51,10 @@ class SettingsService {
   Future<void> deleteSetting(SettingsKeys setting) async {
     await this.storage.delete(key: setting.name);
     _settingsCache.remove(setting);
+  }
+
+  Future<void> deleteAllSettings() async {
+    await this.storage.deleteAll();
+    _settingsCache = DEFAULT_VALUES;
   }
 }

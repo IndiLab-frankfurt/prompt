@@ -31,6 +31,8 @@ class _AccountManagementScreenState extends State<AccountManagementScreen> {
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             UIHelper.verticalSpaceMedium,
+            buildLogoutButton(context, vm),
+            UIHelper.verticalSpaceMedium,
             Container(
                 padding: EdgeInsets.all(10),
                 color: Color.fromARGB(255, 223, 152, 152),
@@ -45,6 +47,24 @@ class _AccountManagementScreenState extends State<AccountManagementScreen> {
                   ],
                 )),
           ]),
+        ),
+      ),
+    );
+  }
+
+  Widget buildLogoutButton(
+      BuildContext context, AccountManagementViewModel vm) {
+    return Container(
+      margin: EdgeInsets.all(16),
+      child: ElevatedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all<Color>(
+              Theme.of(context).colorScheme.primary),
+        ),
+        onPressed: () => showDeleteAccountDialog(context, vm),
+        child: Text(
+          S.of(context).general_buttonTexts_logout,
+          style: TextStyle(color: Colors.white),
         ),
       ),
     );

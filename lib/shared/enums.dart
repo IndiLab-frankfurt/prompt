@@ -87,8 +87,6 @@ enum SettingsKeys {
   password,
   accessToken,
   refreshToken,
-  timerDurationInSeconds,
-  initSessionStep,
   backGroundImage,
   backgroundColors,
   fcmToken,
