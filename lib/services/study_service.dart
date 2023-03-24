@@ -32,10 +32,14 @@ class StudyService {
           .logError("nextScreen called with empty current route name");
       currentScreen = AppScreen.MAINSCREEN.name;
     }
-    return await nextScreenForScreenName(currentScreen!);
+    return await navigateToStateFromState(currentScreen!);
   }
 
-  Future<dynamic> nextScreenForScreenName(String currentScreen) async {
+  Future<AppScreen> getNextState(AppScreen current) async {
+    return await _dataService.getNextState(current.name);
+  }
+
+  Future<dynamic> navigateToStateFromState(String currentScreen) async {
     try {
       var nextState = await _dataService.getNextState(currentScreen);
       return await _navigationService.navigateTo(nextState);

@@ -36,7 +36,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       setState(() {
-        vm.getNextTask();
+        vm.checkTasks();
       });
     }
   }
@@ -58,7 +58,7 @@ class _DashboardScreenState extends State<DashboardScreen>
                 appBar: PromptAppBar(showBackButton: true),
                 drawer: PromptDrawer(),
                 body: FutureBuilder(
-                  future: vm.getNextTask(),
+                  future: vm.getButtonText(),
                   builder: (_, snapshot) {
                     if (snapshot.hasData) {
                       return Container(
@@ -81,12 +81,20 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   _buildStatistics() {
-    var nextVocab = vm.daysUntilVocabTestString();
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         UIHelper.verticalSpaceMedium,
+        if (vm.isInStudyPhase()) studyProgress(),
+        UIHelper.verticalSpaceLarge,
+        vocabTestProgress()
+      ],
+    );
+  }
+
+  Widget studyProgress() {
+    return Column(
+      children: [
         Text(S.current
             .dashboard_daysOfTotal(vm.daysActive, vm.getMaxStudyDays())),
         UIHelper.verticalSpaceSmall,
@@ -97,10 +105,16 @@ class _DashboardScreenState extends State<DashboardScreen>
             minHeight: 12,
             value: vm.studyProgress,
           ),
-        ),
-        UIHelper.verticalSpaceLarge,
+        )
+      ],
+    );
+  }
+
+  Widget vocabTestProgress() {
+    return Column(
+      children: [
         Text(
-          nextVocab,
+          vm.daysUntilVocabTestString(),
           textAlign: TextAlign.center,
         ),
         UIHelper.verticalSpaceMedium,
@@ -119,7 +133,7 @@ class _DashboardScreenState extends State<DashboardScreen>
   _buildMainText(String text) {
     return DashboardButton(
         onPressed: () async {
-          setState(() {});
+          vm.checkTasks();
         },
         text: text);
   }

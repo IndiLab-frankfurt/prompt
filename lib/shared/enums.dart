@@ -1,4 +1,4 @@
-enum ViewState { idle, busy }
+enum ViewState { Idle, Busy }
 
 enum AppStartupMode { normal, signin, firstLaunch, noTasks, onboarding }
 

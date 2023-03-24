@@ -15,7 +15,7 @@ class AccountManagementViewModel extends BaseViewModel {
   }
 
   Future<void> logout() async {
-    this.setState(ViewState.busy);
+    this.setState(ViewState.Busy);
     await dataService.logout();
     navigationService.navigateAndRemove(AppScreen.LOGIN);
   }
@@ -28,7 +28,7 @@ class AccountManagementViewModel extends BaseViewModel {
     if (response == null) {
       return false;
     }
-    this.setState(ViewState.busy);
+    this.setState(ViewState.Busy);
     await dataService.deleteAccount();
     navigationService.navigateAndRemove(AppScreen.LOGIN);
     return true;

@@ -77,7 +77,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
   }
 
   _buildPageView() {
-    if (widget.vm.state == ViewState.busy) {
+    if (widget.vm.state == ViewState.Busy) {
       return Center(child: CircularProgressIndicator());
     }
     return Container(
@@ -134,7 +134,7 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
   }
 
   _buildNextButton() {
-    if (widget.vm.state == ViewState.busy) {
+    if (widget.vm.state == ViewState.Busy) {
       return Center(child: CircularProgressIndicator());
     }
 

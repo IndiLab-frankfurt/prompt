@@ -24,14 +24,14 @@ class LoginViewModel extends BaseViewModel {
   }
 
   Future<String> signIn(String username, String password) async {
-    setState(ViewState.busy);
+    setState(ViewState.Busy);
     var signin = await _userService.signInUser(username, password);
     if (signin == null) {
-      setState(ViewState.idle);
+      setState(ViewState.Idle);
       return RegistrationCodes.USER_NOT_FOUND;
     }
 
-    setState(ViewState.idle);
+    setState(ViewState.Idle);
     return RegistrationCodes.SUCCESS;
   }
 

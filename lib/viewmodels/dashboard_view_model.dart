@@ -1,5 +1,6 @@
 import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/services/study_service.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
@@ -42,7 +43,7 @@ class DashboardViewModel extends BaseViewModel {
       return S.current.dashboard_studyCompletelyFinished;
     }
 
-    if (daysAgo > StudyService.FULL_STUDY_DURATION.inDays) {
+    if (daysAgo > StudyService.DAILY_USE_DURATION.inDays) {
       return S.current.dashboard_inFollowUpPhase;
     }
 
@@ -67,6 +68,11 @@ class DashboardViewModel extends BaseViewModel {
     return nextDate.weekDaysAgo(DateTime.now());
   }
 
+  bool isInStudyPhase() {
+    return _studyService.getDaysSinceStart() <=
+        StudyService.DAILY_USE_DURATION.inDays;
+  }
+
   int getMaxStudyDays() {
     return StudyService.DAILY_USE_DURATION.inDays;
   }
@@ -75,11 +81,12 @@ class DashboardViewModel extends BaseViewModel {
     return (21 - daysUntilVocabTest()) / 21;
   }
 
-  Future<void> initialize() async {}
+  Future<void> checkTasks() async {
+    var nextState = await _studyService.getNextState(AppScreen.MAINSCREEN);
 
-  Future<String> getNextTask() async {
-    await initialize();
-
-    return await getButtonText();
+    if (nextState != AppScreen.MAINSCREEN) {
+      setState(ViewState.Busy);
+      await _studyService.nextScreen();
+    }
   }
 }

@@ -121,9 +121,9 @@ class OnboardingViewModel extends MultiPageViewModel {
           name: OnboardingStep.assessment_ToB.name,
           questionnaire: OB_ToB(),
           studyService: this._studyService),
-      planInputViewModelOutcome,
-      planInputViewModelObstacle,
-      planInputViewModelCoping,
+      // planInputViewModelOutcome,
+      // planInputViewModelObstacle,
+      // planInputViewModelCoping,
       MultiPageQuestionnaireViewModel(
           name: OnboardingStep.assessment_procrastination.name,
           questionnaire: OB_Procrastination(),
@@ -315,8 +315,8 @@ class OnboardingViewModel extends MultiPageViewModel {
 
   @override
   void submit() async {
-    if (state == ViewState.idle) {
-      setState(ViewState.busy);
+    if (state == ViewState.Idle) {
+      setState(ViewState.Busy);
 
       _studyService.nextScreen();
     }

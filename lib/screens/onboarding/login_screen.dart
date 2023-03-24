@@ -175,14 +175,14 @@ class _LoginScreenState extends State<LoginScreen> {
     return new ElevatedButton(
       style: ElevatedButton.styleFrom(minimumSize: Size(200, 50)),
       onPressed: () async {
-        if (vm.state != ViewState.idle) return;
+        if (vm.state != ViewState.Idle) return;
         if (_userIdTextController.text.length != 6) {
           _buildErrorDialog("Der Code besteht aus 6 Ziffern", "");
         } else {
           await _signInClick(vm, context);
         }
       },
-      child: vm.state == ViewState.idle
+      child: vm.state == ViewState.Idle
           ? Text("Anmelden")
           : CircularProgressIndicator(
               backgroundColor: Colors.blue,

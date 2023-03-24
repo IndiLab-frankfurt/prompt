@@ -9,7 +9,7 @@ class DashboardButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
         width: double.infinity,
-        height: 80,
+        constraints: BoxConstraints(maxWidth: 400, minHeight: 80),
         child: OutlinedButton(
           onPressed: () async {
             if (this.onPressed != null) {

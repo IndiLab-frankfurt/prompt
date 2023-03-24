@@ -3,7 +3,7 @@ import 'package:prompt/shared/enums.dart';
 
 class BaseViewModel extends ChangeNotifier {
   final GlobalKey<State> keyLoader = new GlobalKey<State>();
-  ViewState _state = ViewState.idle;
+  ViewState _state = ViewState.Idle;
 
   ViewState get state => _state;
 
