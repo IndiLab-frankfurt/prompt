@@ -136,13 +136,19 @@ Questionnaire AA_NextStudySession() => Questionnaire(
           ),
           ChoiceQuestionViewModel(
             questionText: "Wie wichtig ist es dir, morgen Vokabeln zu lernen?",
-            choices: CHOICES_APPLIES,
+            choices: CHOICES_IMPORTANCE,
             name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_importance",
           ),
           ChoiceQuestionViewModel(
             questionText:
-                "Ich wäre enttäuscht, wenn ich es morgen nicht schaffen würde, Vokabeln zu lernen.",
-            choices: CHOICES_APPLIES,
+                "Wie enttäuscht wärst du, wenn du es morgen nicht schaffen würdest, Vokabeln zu lernen?",
+            choices: {
+                "1": "Gar nicht enttäuscht",
+                "2": "Eher nicht enttäuscht",
+                "3": "Teils/teils",
+                "4": "Eher enttäuscht",
+                "5": "Sehr enttäuscht",
+              },
             name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_commitment",
           ),
           ChoiceQuestionViewModel(
