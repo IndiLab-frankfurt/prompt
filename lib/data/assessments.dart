@@ -100,7 +100,7 @@ Map<String, String> CHOICES_FREQUENCY = {
 };
 
 Map<String, String> CHOICES_TEXTFIELD = {
-  "TEXTINPUT": "TEXTINPUT",
+  "TEXTINPUT": "",
 };
 
 Questionnaire AA_PROCRAST() =>
