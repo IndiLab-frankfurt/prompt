@@ -7,11 +7,11 @@ import 'package:prompt/viewmodels/choice_question_view_model.dart';
 import 'package:prompt/viewmodels/questionnaire_textpage_view_model.dart';
 
 Map<String, String> CHOICES_APPLIES = {
-  "1": "Gar nicht",
-  "2": "Eher nicht",
+  "1": "Stimmt gar nicht",
+  "2": "Stimmt eher nicht",
   "3": "Teils/teils",
-  "4": "Eher ja",
-  "5": "Voll und ganz",
+  "4": "Stimmt eher",
+  "5": "Stimmt genau",
 };
 
 Map<String, String> CHOICES_GOODBAD = {
@@ -282,7 +282,7 @@ Questionnaire OB_Procrastination() => Questionnaire(
               name: "OB_procrastination_3",
               questionText:
                   "Auch wenn ein guter Zeitpunkt da ist, mit dem Vokabellernen anzufangen, tue ich es nicht sofort.",
-              choices: CHOICES_FREQUENCY),
+              choices: CHOICES_APPLIES),
           ChoiceQuestionViewModel(
               name: "OB_procrastination_4",
               questionText:
@@ -433,11 +433,6 @@ Questionnaire WeeklyQuestions() => Questionnaire(
               questionText:
                   "Wenn ich in der App einen Plan aufgeschrieben habe, habe ich am nächsten Tag genau zu dem Zeitpunkt gelernt.",
               choices: CHOICES_FREQUENCY),
-          ChoiceQuestionViewModel(
-              name: "voc_test_school_1",
-              questionText:
-                  "Hast du in den letzten sieben Tagen einen Vokabeltest in der Schule geschrieben?",
-              choices: CHOICES_YESNO),
           ChoiceQuestionViewModel(
               name: "Weekly_vocabLearning_daysago",
               questionText: "Wann war dein letzter Vokabeltest in der Schule?",
