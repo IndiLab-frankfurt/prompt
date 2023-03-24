@@ -299,15 +299,15 @@ class OnboardingViewModel extends MultiPageViewModel {
     }
     // create a response for the onboarding to signal that it is completed
     var onboardingResponse = QuestionnaireResponse(
-        name: "onboarding",
-        questionnaireName: "onboarding",
+        name: "ONBOARDING",
+        questionnaireName: "ONBOARDING",
         questionText: "",
         response: "completed",
         dateSubmitted: DateTime.now());
     responses.add(onboardingResponse);
 
     responses.forEach((element) {
-      element.questionnaireName = "onboarding";
+      element.questionnaireName = "ONBOARDING";
     });
 
     return responses;
