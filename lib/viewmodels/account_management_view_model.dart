@@ -8,10 +8,12 @@ class AccountManagementViewModel extends BaseViewModel {
   NavigationService navigationService;
 
   late String username;
+  late String cabuuCode;
 
   AccountManagementViewModel(
       {required this.dataService, required this.navigationService}) {
     username = dataService.getUserDataCache().username;
+    cabuuCode = dataService.getUserDataCache().cabuuCode;
   }
 
   Future<void> logout() async {

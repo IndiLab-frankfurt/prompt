@@ -103,6 +103,15 @@
       }
     }
   },
+  "accountManagement_yourCabuuCode": "Dein Benutzername ist: {cabuuCode}",
+  "@accountManagement_yourCabuuCode": {
+    "placeholders": {
+      "cabuuCode": {
+        "type": "String",
+        "example": "1834721874"
+      }
+    }
+  },
   "accountManagement_deleteAccountExplanation": "Du kannst hier deinen Account löschen. Wenn du das tust, werden alle deine Daten gelöscht und du kannst die App nicht mehr benutzen. Das Löschen passiert erst nach manueller Prüfung.",
   "accountManagement_clickToDeleteAccount": "Klicke hier, falls du dein Konto löschen möchtest.",
   "accountManagement_invalidPassword": "Das Passwort war nicht richtig.",

@@ -100,10 +100,10 @@ class S {
     );
   }
 
-  /// `Schreibe deine Antwort hier auf`
+  /// `Schreibe deine Antwort hier auf.`
   String get labelTextWriteDownBulletPoints {
     return Intl.message(
-      'Schreibe deine Antwort hier auf',
+      'Schreibe deine Antwort hier auf.',
       name: 'labelTextWriteDownBulletPoints',
       desc: '',
       args: [],
@@ -300,10 +300,10 @@ class S {
     );
   }
 
-  /// `**Wann** und **wo** könntest du morgen Vokabeln lernen??`
+  /// `**Wann** und **wo** könntest du morgen Vokabeln lernen?`
   String get planInputP1 {
     return Intl.message(
-      '**Wann** und **wo** könntest du morgen Vokabeln lernen??',
+      '**Wann** und **wo** könntest du morgen Vokabeln lernen?',
       name: 'planInputP1',
       desc: '',
       args: [],
@@ -470,20 +470,20 @@ class S {
     );
   }
 
-  /// `Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren`
+  /// `Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren.`
   String get dashboard_studyCompletelyFinished {
     return Intl.message(
-      'Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren',
+      'Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren.',
       name: 'dashboard_studyCompletelyFinished',
       desc: '',
       args: [],
     );
   }
 
-  /// `Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe`
+  /// `Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe.`
   String get dashboard_inFollowUpPhase {
     return Intl.message(
-      'Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe',
+      'Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe.',
       name: 'dashboard_inFollowUpPhase',
       desc: '',
       args: [],
@@ -530,20 +530,20 @@ class S {
     );
   }
 
-  /// `Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎`
+  /// `Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎.`
   String get notificationBody_final {
     return Intl.message(
-      'Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎',
+      'Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎.',
       name: 'notificationBody_final',
       desc: '',
       args: [],
     );
   }
 
-  /// `Erstelle aus Emojis eine Darstellung deines Planes`
+  /// `Erstelle aus Emojis eine Darstellung deines Planes.`
   String get emojiInternalisation_createPlan {
     return Intl.message(
-      'Erstelle aus Emojis eine Darstellung deines Planes',
+      'Erstelle aus Emojis eine Darstellung deines Planes.',
       name: 'emojiInternalisation_createPlan',
       desc: '',
       args: [],
@@ -560,6 +560,16 @@ class S {
     );
   }
 
+  /// `Dein Benutzername ist: {cabuuCode}`
+  String accountManagement_yourCabuuCode(String cabuuCode) {
+    return Intl.message(
+      'Dein Benutzername ist: $cabuuCode',
+      name: 'accountManagement_yourCabuuCode',
+      desc: '',
+      args: [cabuuCode],
+    );
+  }
+
   /// `Du kannst hier deinen Account löschen. Wenn du das tust, werden alle deine Daten gelöscht und du kannst die App nicht mehr benutzen. Das Löschen passiert erst nach manueller Prüfung.`
   String get accountManagement_deleteAccountExplanation {
     return Intl.message(
@@ -570,20 +580,20 @@ class S {
     );
   }
 
-  /// `Klicke hier, falls du dein Konto löschen möchtest`
+  /// `Klicke hier, falls du dein Konto löschen möchtest.`
   String get accountManagement_clickToDeleteAccount {
     return Intl.message(
-      'Klicke hier, falls du dein Konto löschen möchtest',
+      'Klicke hier, falls du dein Konto löschen möchtest.',
       name: 'accountManagement_clickToDeleteAccount',
       desc: '',
       args: [],
     );
   }
 
-  /// `Das Passwort war nicht richtig`
+  /// `Das Passwort war nicht richtig.`
   String get accountManagement_invalidPassword {
     return Intl.message(
-      'Das Passwort war nicht richtig',
+      'Das Passwort war nicht richtig.',
       name: 'accountManagement_invalidPassword',
       desc: '',
       args: [],
@@ -600,10 +610,10 @@ class S {
     );
   }
 
-  /// `Gib hier dein Passwort zur Bestätigung ein`
+  /// `Gib hier dein Passwort zur Bestätigung ein.`
   String get accountManagement_deleteDialog_EnterPassword {
     return Intl.message(
-      'Gib hier dein Passwort zur Bestätigung ein',
+      'Gib hier dein Passwort zur Bestätigung ein.',
       name: 'accountManagement_deleteDialog_EnterPassword',
       desc: '',
       args: [],

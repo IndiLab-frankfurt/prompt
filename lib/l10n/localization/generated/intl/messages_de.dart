@@ -22,37 +22,40 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(username) => "Dein Benutzername ist: ${username}";
 
-  static String m1(number) =>
+  static String m1(cabuuCode) => "Dein Benutzername ist: ${cabuuCode}";
+
+  static String m2(number) =>
       "Glückwunsch, du hast weitere ${number} 💎 verdient!";
 
-  static String m2(currentDay, maxDays) => "Tag ${currentDay} von ${maxDays}";
+  static String m3(currentDay, maxDays) => "Tag ${currentDay} von ${maxDays}";
 
-  static String m3(numDays) =>
+  static String m4(numDays) =>
       "Noch ${Intl.plural(numDays, one: '1 Tag', other: '${numDays} Tage')} bis zum nächsten Vokabeltest";
 
-  static String m4(when) => "Wenn ich ${when}, dann lerne ich mit cabuu!";
+  static String m5(when) => "Wenn ich ${when}, dann lerne ich mit cabuu!";
 
-  static String m5(number) =>
+  static String m6(number) =>
       "Glückwunsch, du hast deine ersten ${number} 💎 verdient!";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "accountManagement_clickToDeleteAccount":
             MessageLookupByLibrary.simpleMessage(
-                "Klicke hier, falls du dein Konto löschen möchtest"),
+                "Klicke hier, falls du dein Konto löschen möchtest."),
         "accountManagement_deleteAccountExplanation":
             MessageLookupByLibrary.simpleMessage(
                 "Du kannst hier deinen Account löschen. Wenn du das tust, werden alle deine Daten gelöscht und du kannst die App nicht mehr benutzen. Das Löschen passiert erst nach manueller Prüfung."),
         "accountManagement_deleteDialog_EnterPassword":
             MessageLookupByLibrary.simpleMessage(
-                "Gib hier dein Passwort zur Bestätigung ein"),
+                "Gib hier dein Passwort zur Bestätigung ein."),
         "accountManagement_deleteDialog_title":
             MessageLookupByLibrary.simpleMessage("Konto löschen?"),
         "accountManagement_invalidPassword":
             MessageLookupByLibrary.simpleMessage(
-                "Das Passwort war nicht richtig"),
+                "Das Passwort war nicht richtig."),
         "accountManagement_yourAccountName": m0,
-        "congratsMoreDiamonds": m1,
+        "accountManagement_yourCabuuCode": m1,
+        "congratsMoreDiamonds": m2,
         "consent_appuse": MessageLookupByLibrary.simpleMessage(
             "Ich habe die Datenschutzerklärung gelesen und bin damit einverstanden, dass mein Kind die App PROMPT-ADAPT unter den genannten Bedingungen verwendet."),
         "consent_readthis": MessageLookupByLibrary.simpleMessage(
@@ -63,10 +66,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:"),
         "dashboard_continueTomorrow": MessageLookupByLibrary.simpleMessage(
             "Morgen geht es weiter! Schaue ab 18 Uhr wieder vorbei."),
-        "dashboard_daysOfTotal": m2,
-        "dashboard_daysUntilVocabTest": m3,
+        "dashboard_daysOfTotal": m3,
+        "dashboard_daysUntilVocabTest": m4,
         "dashboard_inFollowUpPhase": MessageLookupByLibrary.simpleMessage(
-            "Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe"),
+            "Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe."),
         "dashboard_mainmessage_beforeEvening":
             MessageLookupByLibrary.simpleMessage(
                 "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei."),
@@ -77,9 +80,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "dashboard_nextVocabTomorrow": MessageLookupByLibrary.simpleMessage(
             "Dein nächster Vokabeltest ist morgen."),
         "dashboard_studyCompletelyFinished": MessageLookupByLibrary.simpleMessage(
-            "Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren"),
+            "Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren."),
         "emojiInternalisation_createPlan": MessageLookupByLibrary.simpleMessage(
-            "Erstelle aus Emojis eine Darstellung deines Planes"),
+            "Erstelle aus Emojis eine Darstellung deines Planes."),
         "general_buttonTexts_cancel":
             MessageLookupByLibrary.simpleMessage("Abbrechen"),
         "general_buttonTexts_confirm":
@@ -111,9 +114,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "introductionTakeYourTime": MessageLookupByLibrary.simpleMessage(
             "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit."),
         "labelTextWriteDownBulletPoints": MessageLookupByLibrary.simpleMessage(
-            "Schreibe deine Antwort hier auf"),
+            "Schreibe deine Antwort hier auf."),
         "notificationBody_final": MessageLookupByLibrary.simpleMessage(
-            "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎"),
+            "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎."),
         "notificationMessage_daily": MessageLookupByLibrary.simpleMessage(
             "Mache jetzt weiter mit PROMPT!"),
         "notificationMessage_vocabTest": MessageLookupByLibrary.simpleMessage(
@@ -134,17 +137,17 @@ class MessageLookup extends MessageLookupByLibrary {
             "Wann und wo könntest du morgen gut Vokabeln lernen?"),
         "planInputIfI": MessageLookupByLibrary.simpleMessage("Wenn ich"),
         "planInputP1": MessageLookupByLibrary.simpleMessage(
-            "**Wann** und **wo** könntest du morgen Vokabeln lernen??"),
+            "**Wann** und **wo** könntest du morgen Vokabeln lernen?"),
         "planInputThenILearnWithCabuu":
             MessageLookupByLibrary.simpleMessage("dann lerne ich mit cabuu!"),
-        "planPlaceHolder": m4,
+        "planPlaceHolder": m5,
         "planTimingChangeP1": MessageLookupByLibrary.simpleMessage(
             "Wenn du die Benachrichtigung zu einer anderen Uhrzeit erhalten möchtest, kannst du das hier einstellen."),
         "planTimingParagraph1": MessageLookupByLibrary.simpleMessage(
             "Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten."),
         "planTimingParagraph2": MessageLookupByLibrary.simpleMessage(
             "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen."),
-        "rewards1p1": m5,
+        "rewards1p1": m6,
         "rewards1p2": MessageLookupByLibrary.simpleMessage(
             "Jetzt haben wir erst mal ein paar Fragen an dich."),
         "rewards1p3": MessageLookupByLibrary.simpleMessage(
