@@ -11,7 +11,7 @@ Map<String, String> CHOICES_APPLIES = {
   "2": "Stimmt eher nicht",
   "3": "Teils/teils",
   "4": "Stimmt eher",
-  "5": "Stimmt voll und ganz",
+  "5": "Stimmt genau",
 };
 
 Map<String, String> CHOICES_GOODBAD = {
