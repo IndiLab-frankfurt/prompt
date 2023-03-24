@@ -411,11 +411,6 @@ Questionnaire WeeklyQuestions() => Questionnaire(
                   "Wenn ich in der App einen Plan aufgeschrieben habe, habe ich am nächsten Tag genau zu dem Zeitpunkt gelernt.",
               choices: CHOICES_FREQUENCY),
           ChoiceQuestionViewModel(
-              name: "voc_test_school_1",
-              questionText:
-                  "Hast du in den letzten sieben Tagen einen Vokabeltest in der Schule geschrieben?",
-              choices: CHOICES_YESNO),
-          ChoiceQuestionViewModel(
               name: "Weekly_vocabLearning_daysago",
               questionText: "Wann war dein letzter Vokabeltest in der Schule?",
               choices: {
