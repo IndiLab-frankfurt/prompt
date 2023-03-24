@@ -108,7 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "instructionsQuestionnaires_p3": MessageLookupByLibrary.simpleMessage(
             "Überlege, wie sehr die Aussage auf **dich persönlich** zutrifft und wähle die passende Antwort:"),
         "instructionsQuestionnaires_p4": MessageLookupByLibrary.simpleMessage(
-            " - Gar nicht \n - Eher nicht \n - Teils/teils \n - Eher ja \n - Voll und ganz"),
+            " - Stimmt gar nicht \n - Stimmt eher nicht \n - Teils/teils \n - Stimmt eher \n - Stimmt genau"),
         "instructionsQuestionnaires_p5": MessageLookupByLibrary.simpleMessage(
             "Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz“."),
         "introductionTakeYourTime": MessageLookupByLibrary.simpleMessage(

@@ -190,10 +190,10 @@ class S {
     );
   }
 
-  /// ` - Gar nicht \n - Eher nicht \n - Teils/teils \n - Eher ja \n - Voll und ganz`
+  /// ` - Stimmt gar nicht \n - Stimmt eher nicht \n - Teils/teils \n - Stimmt eher \n - Stimmt genau`
   String get instructionsQuestionnaires_p4 {
     return Intl.message(
-      ' - Gar nicht \n - Eher nicht \n - Teils/teils \n - Eher ja \n - Voll und ganz',
+      ' - Stimmt gar nicht \n - Stimmt eher nicht \n - Teils/teils \n - Stimmt eher \n - Stimmt genau',
       name: 'instructionsQuestionnaires_p4',
       desc: '',
       args: [],
