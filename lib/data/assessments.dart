@@ -259,7 +259,13 @@ Questionnaire OB_Procrastination() => Questionnaire(
               name: "OB_procrastination_3",
               questionText:
                   "Auch wenn ein guter Zeitpunkt da ist, mit dem Vokabellernen anzufangen, tue ich es nicht sofort.",
-              choices: CHOICES_FREQUENCY),
+              choices: {
+                "1": "Stimmt gar nicht",
+                "2": "Stimmt eher nicht",
+                "3": "Teils/teils",
+                "4": "Stimmt eher",
+                "5": "Stimmt genau",
+              }),
           ChoiceQuestionViewModel(
               name: "OB_procrastination_4",
               questionText:
