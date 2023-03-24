@@ -90,14 +90,6 @@ class _TimePickerGridDialogState extends State<TimePickerGridDialog> {
   }
 
   TimeOfDay _getTimeForIndex(int index) {
-    //TODO: DEBUG ONLY: REMOVE!!
-    if (index == 0) {
-      // reminder in 2 minutes
-      var intwominutes = min(59, TimeOfDay.now().minute + 2);
-      var debugTime = TimeOfDay.now()
-          .replacing(hour: TimeOfDay.now().hour, minute: intwominutes);
-      return debugTime;
-    }
     final startTimeDuration =
         Duration(hours: _startTime.hour, minutes: _startTime.minute);
     final timeDuration = startTimeDuration +

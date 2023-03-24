@@ -66,8 +66,7 @@ class _EmojiInternalisationScreenState
                   child: ListView(
                     children: [
                       MarkdownBody(
-                          data: "### " +
-                              S.of(context).emojiInternalisation_createPlan),
+                          data: S.of(context).emojiInternalisation_createPlan),
                       UIHelper.verticalSpaceSmall,
                       SpeechBubble(
                           text:
@@ -145,7 +144,7 @@ class _EmojiInternalisationScreenState
             readOnly: true,
             enableSuggestions: false,
             enableInteractiveSelection: false,
-            style: Theme.of(context).textTheme.titleLarge,
+            style: Theme.of(context).textTheme.bodyMedium,
             decoration: InputDecoration(
               fillColor: Colors.white,
               filled: true,
@@ -192,7 +191,7 @@ class _EmojiInternalisationScreenState
 
   _buildEmojiPicker() {
     return SizedBox(
-      height: 300,
+      height: 260,
       child: EmojiPicker(
         onEmojiSelected: (category, emoji) => {
           setState(() {
@@ -209,7 +208,7 @@ class _EmojiInternalisationScreenState
         config: Config(
           columns: 8,
           // Issue: https://github.com/flutter/flutter/issues/28894
-          emojiSizeMax: 32 * (Platform.isIOS ? 1.30 : 1.0),
+          emojiSizeMax: 28 * (Platform.isIOS ? 1.30 : 1.0),
           verticalSpacing: 0,
           horizontalSpacing: 0,
           gridPadding: EdgeInsets.zero,

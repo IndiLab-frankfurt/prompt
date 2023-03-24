@@ -55,7 +55,6 @@ enum AppScreen {
   AA_DIDYOULEARN("aa/didyoulearn"),
   AA_NEXTSTUDYSESSION("aa/nextstudysession"),
   AA_PREVIOUSSTUDYSESSION("aa/previousstudysession"),
-  AA_WHYNOTLEARN("aa/whynotlearn"),
   AA_PROCRAST("aa/procrast"),
   REMINDERTESTTOMORROW("/remindertesttomorrow"),
   WEEKLYQUESTIONS("/weeklyquestions"),

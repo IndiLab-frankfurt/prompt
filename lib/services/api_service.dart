@@ -76,7 +76,7 @@ class ApiService {
       return response;
     } on ArgumentError catch (e) {
       print(e);
-      locator<DialogService>().showDialog(
+      await locator<DialogService>().showDialog(
           title: "Server nicht erreichbar",
           description:
               "Bitte überprüfe deine Internetverbindung und versuche es erneut.");

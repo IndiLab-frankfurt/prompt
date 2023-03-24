@@ -61,7 +61,7 @@ extension DateHelpers on DateTime {
     String offSetString(Duration offset) =>
         "${offset.isNegative ? "-" : "+"}${offset.inHours.abs().toString().padLeft(2, "0")}:${(offset.inMinutes - offset.inHours * 60).abs().toString().padLeft(2, "0")}";
     var timeZoneOffset = this.timeZoneOffset;
-    return this.toUtc().toIso8601String() + offSetString(timeZoneOffset);
+    return this.toLocal().toIso8601String() + offSetString(timeZoneOffset);
   }
 
   /// Returns the days since this date in terms of days of the weeek.

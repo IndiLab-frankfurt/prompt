@@ -143,12 +143,12 @@ Questionnaire AA_NextStudySession() => Questionnaire(
             questionText:
                 "Wie enttäuscht wärst du, wenn du es morgen nicht schaffen würdest, Vokabeln zu lernen?",
             choices: {
-                "1": "Gar nicht enttäuscht",
-                "2": "Eher nicht enttäuscht",
-                "3": "Teils/teils",
-                "4": "Eher enttäuscht",
-                "5": "Sehr enttäuscht",
-              },
+              "1": "Gar nicht enttäuscht",
+              "2": "Eher nicht enttäuscht",
+              "3": "Teils/teils",
+              "4": "Eher enttäuscht",
+              "5": "Sehr enttäuscht",
+            },
             name: "${AppScreen.AA_NEXTSTUDYSESSION.name}_commitment",
           ),
           ChoiceQuestionViewModel(
@@ -206,9 +206,32 @@ Questionnaire OB_VocabRoutine() => Questionnaire(
                 "4": "5-6 Tage pro Woche",
                 "5": "Jeden Tag",
               }),
+          ChoiceQuestionViewModel(
+              name: "belief_distributed_practice_1",
+              questionText:
+                  "Auch wenn ich die Vokabeln erst kurz vor dem Test lerne, werde ich sie im Test gut können.",
+              choices: CHOICES_APPLIES),
+          ChoiceQuestionViewModel(
+              name: "expectation_distributed_practice",
+              questionText:
+                  "Ich glaube, ich werde es schaffen, (fast) jeden Tag in cabuu Vokabeln zu lernen.",
+              choices: CHOICES_APPLIES),
+          ChoiceQuestionViewModel(
+              name: "value_distributed_practice",
+              questionText:
+                  "Es ist mir wichtig, in cabuu möglichst jeden Tag Vokabeln zu lernen.",
+              choices: CHOICES_APPLIES),
+          ChoiceQuestionViewModel(
+              name: "value_distributed_practice",
+              questionText:
+                  "Es ist mir wichtig, in cabuu möglichst jeden Tag Vokabeln zu lernen.",
+              choices: CHOICES_APPLIES),
+          ChoiceQuestionViewModel(
+              name: "belief_distributed_practice_2",
+              questionText:
+                  "Je öfter ich in cabuu Vokabeln lerne, desto besser werde ich sie mir merken können.",
+              choices: CHOICES_APPLIES),
         ]);
-
-// Questionnaire OB_DP vgl. Onboarding Zeilen 7-10
 
 Questionnaire StudyFinishedQuestionnaire() =>
     Questionnaire(title: "", name: AppScreen.STUDYFINISHED.name, questions: [
