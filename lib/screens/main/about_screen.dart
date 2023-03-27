@@ -28,9 +28,9 @@ class _AboutScreenState extends State<AboutScreen> {
         body: Container(
             margin: UIHelper.containerMargin,
             child: ListView(children: [
-              FullWidthButton(
-                  text: "Drücke hier, um das Einführungsvideo anzusehen.",
-                  onPressed: () async {}),
+              // FullWidthButton(
+              //     text: "Drücke hier, um das Einführungsvideo anzusehen.",
+              //     onPressed: () async {}),
               UIHelper.verticalSpaceMedium,
               MarkdownBody(data: "# Was ist PROMPT?"),
               MarkdownBody(

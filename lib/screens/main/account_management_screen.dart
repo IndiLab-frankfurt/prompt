@@ -32,7 +32,7 @@ class _AccountManagementScreenState extends State<AccountManagementScreen> {
             ),
             UIHelper.verticalSpaceMedium,
             Text(
-              S.of(context).accountManagement_yourCabuuCode(vm.username),
+              S.of(context).accountManagement_yourCabuuCode(vm.cabuuCode),
               style: Theme.of(context).textTheme.bodyLarge,
             ),
             buildLogoutButton(context, vm),

@@ -14,8 +14,9 @@ class PlanTiming extends StatelessWidget {
 
   buildTimeSelector(BuildContext context) {
     var vm = Provider.of<PlanTimingViewModel>(context);
+    var timeDisplay = vm.planTiming.format(context);
     return TextField(
-      controller: TextEditingController(text: vm.timeDisplay),
+      controller: TextEditingController(text: timeDisplay),
       readOnly: true,
       onTap: () async {
         await showDialog(

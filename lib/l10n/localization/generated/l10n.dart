@@ -560,10 +560,10 @@ class S {
     );
   }
 
-  /// `Dein Benutzername ist: {cabuuCode}`
+  /// `Dein Cabuu Code ist: {cabuuCode}`
   String accountManagement_yourCabuuCode(String cabuuCode) {
     return Intl.message(
-      'Dein Benutzername ist: $cabuuCode',
+      'Dein Cabuu Code ist: $cabuuCode',
       name: 'accountManagement_yourCabuuCode',
       desc: '',
       args: [cabuuCode],
@@ -645,6 +645,66 @@ class S {
     return Intl.message(
       'Ausloggen',
       name: 'general_buttonTexts_logout',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Über PROMPT`
+  String get drawer_aboutPrompt {
+    return Intl.message(
+      'Über PROMPT',
+      name: 'drawer_aboutPrompt',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Benutzerkonto`
+  String get drawer_accountManagement {
+    return Intl.message(
+      'Benutzerkonto',
+      name: 'drawer_accountManagement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hauptbildschirm`
+  String get drawer_mainScreen {
+    return Intl.message(
+      'Hauptbildschirm',
+      name: 'drawer_mainScreen',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Uhrzeit für Erinnerungen`
+  String get drawer_changeReminderTimes {
+    return Intl.message(
+      'Uhrzeit für Erinnerungen',
+      name: 'drawer_changeReminderTimes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hintergrund ändern`
+  String get drawer_changeBackground {
+    return Intl.message(
+      'Hintergrund ändern',
+      name: 'drawer_changeBackground',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Datenschutzerklärung`
+  String get drawer_dataPrivacy {
+    return Intl.message(
+      'Datenschutzerklärung',
+      name: 'drawer_dataPrivacy',
       desc: '',
       args: [],
     );

@@ -103,7 +103,7 @@
       }
     }
   },
-  "accountManagement_yourCabuuCode": "Dein Benutzername ist: {cabuuCode}",
+  "accountManagement_yourCabuuCode": "Dein Cabuu Code ist: {cabuuCode}",
   "@accountManagement_yourCabuuCode": {
     "placeholders": {
       "cabuuCode": {
@@ -119,5 +119,11 @@
   "accountManagement_deleteDialog_EnterPassword": "Gib hier dein Passwort zur Bestätigung ein.",
   "general_buttonTexts_cancel": "Abbrechen",
   "general_buttonTexts_confirm": "Bestätigen",
-  "general_buttonTexts_logout": "Ausloggen"
+  "general_buttonTexts_logout": "Ausloggen",
+  "drawer_aboutPrompt": "Über PROMPT",
+  "drawer_accountManagement": "Benutzerkonto",
+  "drawer_mainScreen": "Hauptbildschirm",
+  "drawer_changeReminderTimes": "Uhrzeit für Erinnerungen",
+  "drawer_changeBackground": "Hintergrund ändern",
+  "drawer_dataPrivacy": "Datenschutzerklärung"
 }

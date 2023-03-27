@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/data/assessments.dart';
 import 'package:prompt/screens/assessments/plan_prompt_screen.dart';
+import 'package:prompt/screens/main/about_screen.dart';
 import 'package:prompt/screens/main/account_management_screen.dart';
 import 'package:prompt/screens/main/change_plan_timing_screen.dart';
 import 'package:prompt/screens/main/data_privacy_screen.dart';
@@ -112,12 +113,9 @@ class AppRouter {
             child: MultiPageQuestionnaire());
         break;
 
-      // case AppScreen.AA_PREVIOUSSTUDYSESSION:
-      //   screen = ChangeNotifierProvider(
-      //       create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
-      //           param1: AA_PreviousStudySession()),
-      //       child: MultiPageQuestionnaire());
-      //   break;
+      case AppScreen.ABOUTPROMPT:
+        screen = AboutScreen();
+        break;
 
       case AppScreen.AA_PROCRAST:
         screen = ChangeNotifierProvider(

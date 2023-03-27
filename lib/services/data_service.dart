@@ -96,9 +96,14 @@ class DataService implements BaseService {
     throw Exception("Not implemented");
   }
 
-  saveUserDataProperty(String propertyname, dynamic value) async {
-    await _apiService.saveUserDataProperty(propertyname, value);
-    _userDataCache = await _apiService.getUserData();
+  Future<UserData?> saveUserDataProperty(
+      String propertyname, dynamic value) async {
+    var resonse = await _apiService.saveUserDataProperty(propertyname, value);
+    if (resonse is Map<String, dynamic>) {
+      _userDataCache = UserData.fromJson(resonse);
+      return _userDataCache;
+    }
+    return null;
   }
 
   Future<dynamic> saveQuestionnaireResponse(

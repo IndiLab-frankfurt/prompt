@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:http/http.dart';
 import 'package:prompt/models/authentication_response.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
@@ -62,7 +63,7 @@ class ApiService {
     }
   }
 
-  Future<dynamic> postAsync(String endpoint, dynamic data,
+  Future<Response?> postAsync(String endpoint, dynamic data,
       {Map<String, String>? queryParams}) async {
     var url = Uri.parse("$serverUrl$endpoint");
     if (queryParams != null) {
@@ -88,7 +89,7 @@ class ApiService {
   Future<bool> submitQuestionnaireResponses(dynamic responses) {
     var params = {"local_time": DateTime.now().toTimeZoneAwareISOString()};
     return postAsync("/api/questionnaires/", responses, queryParams: params)
-        .then((response) => response);
+        .then((response) => response != null && response.statusCode == 200);
   }
 
   ApiService(this._settingsService);
@@ -141,8 +142,19 @@ class ApiService {
     return postAsync("/api/user/profile/", userData.toJson());
   }
 
-  Future saveUserDataProperty(String key, dynamic value) {
-    return postAsync("/api/user/profile/", {key: value});
+  Future<Map<String, dynamic>?> saveUserDataProperty(
+      String key, dynamic value) async {
+    var response = await postAsync("/api/user/profile/", {key: value});
+    if (response == null) {
+      return null;
+    }
+    if (response.statusCode == 200 || response.statusCode == 201) {
+      var data = response.body;
+      return jsonDecode(data);
+    } else {
+      print(response.statusCode);
+      return null;
+    }
   }
 
   logEvents(List<dynamic> data) async {
@@ -153,6 +165,9 @@ class ApiService {
       List<QuestionnaireResponse> responses) {
     var responseJson = responses.map((e) => e.toJson()).toList();
     return postAsync("/api/responses/", responseJson).then((response) {
+      if (response == null) {
+        return null;
+      }
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return jsonDecode(response.body);
       } else {
@@ -184,6 +199,9 @@ class ApiService {
       String userId, String password) async {
     var result = await postAsync(
         "/api/token/", {"username": userId, "password": password});
+    if (result == null) {
+      return null;
+    }
     if (result.statusCode == 200) {
       var data = result.body;
       var accessToken = jsonDecode(data)["access"];

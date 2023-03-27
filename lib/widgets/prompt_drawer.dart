@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/screens/main/text_compare_screen.dart';
 import 'package:prompt/screens/main/theme_preview_screen.dart';
 import 'package:prompt/services/dialog_service.dart';
@@ -52,33 +53,40 @@ class PromptDrawer extends StatelessWidget {
         Divider(),
         _buildDrawerItem(
             icon: Icons.dashboard_outlined,
-            text: "Hauptbildschirm",
+            text: S.of(context).drawer_mainScreen,
             onTap: () async {
               await Navigator.pushNamed(context, AppScreen.MAINSCREEN.name);
             }),
         _buildDrawerItem(
             icon: Icons.image_outlined,
-            text: "Hintergrund ändern",
+            text: S.of(context).drawer_changeBackground,
             onTap: () async {
               await Navigator.pushNamed(
                   context, AppScreen.REWARDSELECTION.name);
             }),
         _buildDrawerItem(
             icon: Icons.alarm,
-            text: "Uhrzeit für Erinnerungen",
+            text: S.of(context).drawer_changeReminderTimes,
             onTap: () async {
               await Navigator.pushReplacementNamed(
                   context, AppScreen.PLANTIMINGCHANGE.name);
             }),
         _buildDrawerItem(
+            icon: Icons.info_outline_rounded,
+            text: S.of(context).drawer_aboutPrompt,
+            onTap: () async {
+              await Navigator.pushReplacementNamed(
+                  context, AppScreen.ABOUTPROMPT.name);
+            }),
+        _buildDrawerItem(
             icon: Icons.privacy_tip_outlined,
-            text: "Datenschutzerklärung",
+            text: S.of(context).drawer_dataPrivacy,
             onTap: () async {
               await Navigator.pushNamed(context, AppScreen.DATAPRIVACY.name);
             }),
         _buildDrawerItem(
             icon: Icons.account_circle,
-            text: "Benutzerkonto",
+            text: S.of(context).drawer_accountManagement,
             onTap: () async {
               await Navigator.pushNamed(
                   context, AppScreen.ACCOUNTMANAGEMENT.name);

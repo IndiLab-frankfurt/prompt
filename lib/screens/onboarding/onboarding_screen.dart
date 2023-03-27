@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
-import 'package:prompt/screens/onboarding/copingplan_enter_screen.dart';
 import 'package:prompt/screens/onboarding/data_privavy_consent_screen.dart';
 import 'package:prompt/screens/onboarding/horizontal_questionnaire.dart';
 import 'package:prompt/screens/onboarding/instructions_cabuu_2.dart';
 import 'package:prompt/screens/onboarding/instructions_distributed_learning.dart';
 import 'package:prompt/screens/onboarding/instructions_implementation_intentions.dart';
 import 'package:prompt/screens/onboarding/instructions_questionnaires.dart';
-import 'package:prompt/screens/onboarding/obstacle_enter_screen.dart';
-import 'package:prompt/screens/onboarding/outcome_enter_screen.dart';
 import 'package:prompt/screens/onboarding/first_plan_creation_screen.dart';
 import 'package:prompt/screens/onboarding/onboarding_plan_timing_screen.dart';
 import 'package:prompt/screens/onboarding/reward_screen_1.dart';

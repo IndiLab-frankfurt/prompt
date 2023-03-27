@@ -8,7 +8,6 @@ class PlanTimingViewModel extends BaseViewModel with CompletablePageMixin {
   DataService dataService;
   StudyService studyService;
   TimeOfDay planTiming = TimeOfDay(hour: 18, minute: 0);
-  String timeDisplay = "18:00";
 
   PlanTimingViewModel(
       {required String name,
@@ -16,6 +15,10 @@ class PlanTimingViewModel extends BaseViewModel with CompletablePageMixin {
       required this.studyService}) {
     this.name = name;
     completed = true;
+    var ud = dataService.getUserDataCache();
+    if (ud.reminderTime != null) {
+      planTiming = TimeOfDay.fromDateTime(ud.reminderTime!);
+    }
   }
 
   void savePlanTiming(TimeOfDay selectedValue) {
@@ -30,13 +33,6 @@ class PlanTimingViewModel extends BaseViewModel with CompletablePageMixin {
         "reminder_time", dateTime.toIso8601String());
 
     studyService.scheduleDailyReminders(dateTime);
-
-    // pad the time with a 0 if it's less than 10
-    var minuteDisplay = selectedValue.minute < 10
-        ? "0${selectedValue.minute}"
-        : selectedValue.minute;
-
-    timeDisplay = "${selectedValue.hour}:$minuteDisplay";
 
     notifyListeners();
   }

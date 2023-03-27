@@ -22,7 +22,7 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(username) => "Dein Benutzername ist: ${username}";
 
-  static String m1(cabuuCode) => "Dein Benutzername ist: ${cabuuCode}";
+  static String m1(cabuuCode) => "Dein Cabuu Code ist: ${cabuuCode}";
 
   static String m2(number) =>
       "Glückwunsch, du hast weitere ${number} 💎 verdient!";
@@ -81,6 +81,18 @@ class MessageLookup extends MessageLookupByLibrary {
             "Dein nächster Vokabeltest ist morgen."),
         "dashboard_studyCompletelyFinished": MessageLookupByLibrary.simpleMessage(
             "Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren."),
+        "drawer_aboutPrompt":
+            MessageLookupByLibrary.simpleMessage("Über PROMPT"),
+        "drawer_accountManagement":
+            MessageLookupByLibrary.simpleMessage("Benutzerkonto"),
+        "drawer_changeBackground":
+            MessageLookupByLibrary.simpleMessage("Hintergrund ändern"),
+        "drawer_changeReminderTimes":
+            MessageLookupByLibrary.simpleMessage("Uhrzeit für Erinnerungen"),
+        "drawer_dataPrivacy":
+            MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
+        "drawer_mainScreen":
+            MessageLookupByLibrary.simpleMessage("Hauptbildschirm"),
         "emojiInternalisation_createPlan": MessageLookupByLibrary.simpleMessage(
             "Erstelle aus Emojis eine Darstellung deines Planes."),
         "general_buttonTexts_cancel":

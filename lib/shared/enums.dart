@@ -51,7 +51,7 @@ enum AppScreen {
   MAINSCREEN("/main"),
   LOGIN("/login"),
   ONBOARDING("/onboarding"),
-  // AboutPrompt("/aboutprompt"),
+  ABOUTPROMPT("/aboutprompt"),
   AA_DIDYOULEARN("aa/didyoulearn"),
   AA_NEXTSTUDYSESSION("aa/nextstudysession"),
   AA_PREVIOUSSTUDYSESSION("aa/previousstudysession"),
