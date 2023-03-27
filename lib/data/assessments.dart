@@ -432,25 +432,25 @@ Questionnaire WeeklyQuestions() => Questionnaire(
               name: "Weekly_vocabLearning_daysago",
               questionText: "Wann war dein letzter Vokabeltest in der Schule?",
               choices: {
-                "today": "Heute",
-                "1_day_ago": DateFormat('EEEE')
+                "0": "Heute",
+                "1": DateFormat('EEEE')
                     .format(DateTime.now().subtract(Duration(days: 1))),
-                "2_days_ago": DateFormat('EEEE')
+                "2": DateFormat('EEEE')
                     .format(DateTime.now().subtract(Duration(days: 2)))
                     .toString(),
-                "3_days_ago": DateFormat('EEEE')
+                "3": DateFormat('EEEE')
                     .format(DateTime.now().subtract(Duration(days: 3)))
                     .toString(),
-                "4_day_ago": DateFormat('EEEE')
+                "4": DateFormat('EEEE')
                     .format(DateTime.now().subtract(Duration(days: 4)))
                     .toString(),
-                "5_days_ago": DateFormat('EEEE')
+                "5": DateFormat('EEEE')
                     .format(DateTime.now().subtract(Duration(days: 5)))
                     .toString(),
-                "6_days_ago": DateFormat('EEEE')
+                "6": DateFormat('EEEE')
                     .format(DateTime.now().subtract(Duration(days: 6)))
                     .toString(),
-                "more_than_one_wek_ago": "Mehr als eine Woche her",
+                "7": "Mehr als eine Woche her",
               }),
           ChoiceQuestionViewModel(
               name: "learning_mode",
