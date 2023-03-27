@@ -222,11 +222,6 @@ Questionnaire OB_VocabRoutine() => Questionnaire(
                   "Es ist mir wichtig, in cabuu möglichst jeden Tag Vokabeln zu lernen.",
               choices: CHOICES_APPLIES),
           ChoiceQuestionViewModel(
-              name: "value_distributed_practice",
-              questionText:
-                  "Es ist mir wichtig, in cabuu möglichst jeden Tag Vokabeln zu lernen.",
-              choices: CHOICES_APPLIES),
-          ChoiceQuestionViewModel(
               name: "belief_distributed_practice_2",
               questionText:
                   "Je öfter ich in cabuu Vokabeln lerne, desto besser werde ich sie mir merken können.",
