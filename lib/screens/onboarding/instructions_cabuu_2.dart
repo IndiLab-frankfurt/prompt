@@ -12,7 +12,7 @@ class InstructionsCabuu2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var url = "https://youtu.be/_OlPiLu949U";
+    var url = "https://bit.ly/3JAUxLR";
     late var vm = Provider.of<OnboardingViewModel>(context);
     var format = new DateFormat("dd.MM.yyyy");
     var targetDate = format.format(DateTime.now().add(Duration(days: 21)));
