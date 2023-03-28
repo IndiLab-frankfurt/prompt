@@ -125,5 +125,9 @@
   "drawer_mainScreen": "Hauptbildschirm",
   "drawer_changeReminderTimes": "Uhrzeit für Erinnerungen",
   "drawer_changeBackground": "Hintergrund ändern",
-  "drawer_dataPrivacy": "Datenschutzerklärung"
+  "drawer_dataPrivacy": "Datenschutzerklärung",
+  "aboutScreen_title": "Über PROMPT-ADAPT",
+  "aboutScreen_p1": "PROMPT-ADAPT ist eine Lernplan-App, die Dir beim selbstständigen Lernen deiner Vokabeln helfen soll. Sie enthält Erklärungen und Anleitungen zu verschiedenen Lernstrategien und stellt dir Fragen zu deinem Lernverhalten.",
+  "aboutScreen_p2": "Hier siehst du den Ablauf unserer Studie.",
+  "aboutScreen_p3": "Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de"
 }

@@ -39,6 +39,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "aboutScreen_p1": MessageLookupByLibrary.simpleMessage(
+            "PROMPT-ADAPT ist eine Lernplan-App, die Dir beim selbstständigen Lernen deiner Vokabeln helfen soll. Sie enthält Erklärungen und Anleitungen zu verschiedenen Lernstrategien und stellt dir Fragen zu deinem Lernverhalten."),
+        "aboutScreen_p2": MessageLookupByLibrary.simpleMessage(
+            "Hier siehst du den Ablauf unserer Studie."),
+        "aboutScreen_p3": MessageLookupByLibrary.simpleMessage(
+            "Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de"),
+        "aboutScreen_title":
+            MessageLookupByLibrary.simpleMessage("Über PROMPT-ADAPT"),
         "accountManagement_clickToDeleteAccount":
             MessageLookupByLibrary.simpleMessage(
                 "Klicke hier, falls du dein Konto löschen möchtest."),

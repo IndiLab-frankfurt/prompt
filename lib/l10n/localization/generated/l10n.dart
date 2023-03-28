@@ -709,6 +709,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Über PROMPT-ADAPT`
+  String get aboutScreen_title {
+    return Intl.message(
+      'Über PROMPT-ADAPT',
+      name: 'aboutScreen_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `PROMPT-ADAPT ist eine Lernplan-App, die Dir beim selbstständigen Lernen deiner Vokabeln helfen soll. Sie enthält Erklärungen und Anleitungen zu verschiedenen Lernstrategien und stellt dir Fragen zu deinem Lernverhalten.`
+  String get aboutScreen_p1 {
+    return Intl.message(
+      'PROMPT-ADAPT ist eine Lernplan-App, die Dir beim selbstständigen Lernen deiner Vokabeln helfen soll. Sie enthält Erklärungen und Anleitungen zu verschiedenen Lernstrategien und stellt dir Fragen zu deinem Lernverhalten.',
+      name: 'aboutScreen_p1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hier siehst du den Ablauf unserer Studie.`
+  String get aboutScreen_p2 {
+    return Intl.message(
+      'Hier siehst du den Ablauf unserer Studie.',
+      name: 'aboutScreen_p2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de`
+  String get aboutScreen_p3 {
+    return Intl.message(
+      'Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de',
+      name: 'aboutScreen_p3',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
