@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/internalisation/emoji_internalisation_screen.dart';
@@ -64,8 +65,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: PromptAppBar(
-                showBackButton: true,
-                title: vm.pages[vm.page].name,
+                showBackButton: kDebugMode,
+                title: kDebugMode ? vm.pages[vm.page].name : "",
               ),
               drawer: PromptDrawer(),
               resizeToAvoidBottomInset: false,
