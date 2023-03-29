@@ -239,7 +239,7 @@ class OnboardingViewModel extends MultiPageViewModel {
       submitUserInput();
     }
 
-    _dataService.saveOnboardingStep(page);
+    _dataService.saveOnboardingStep(page + 1);
 
     return true;
   }
@@ -317,7 +317,7 @@ class OnboardingViewModel extends MultiPageViewModel {
   void submit() async {
     if (state == ViewState.Idle) {
       setState(ViewState.Busy);
-
+      _dataService.saveOnboardingStep(pages.length - 1);
       _studyService.nextScreen();
     }
   }

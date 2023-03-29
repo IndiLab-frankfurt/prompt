@@ -18,10 +18,13 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver {
-  late DashboardViewModel vm = Provider.of<DashboardViewModel>(context);
+  bool _hasCheckedTasks = false;
+
   @override
   void initState() {
     super.initState();
+
+    _hasCheckedTasks = false;
 
     WidgetsBinding.instance.addObserver(this);
   }
@@ -33,16 +36,21 @@ class _DashboardScreenState extends State<DashboardScreen>
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) {
-      setState(() {
-        vm.checkTasks();
-      });
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.resumed && !_hasCheckedTasks) {
+      _hasCheckedTasks = true;
+      DashboardViewModel vm =
+          Provider.of<DashboardViewModel>(context, listen: false);
+      await vm.checkTasks();
+    } else if (state == AppLifecycleState.inactive ||
+        state == AppLifecycleState.paused) {
+      _hasCheckedTasks = false;
     }
   }
 
   @override
   Widget build(BuildContext context) {
+    DashboardViewModel vm = Provider.of<DashboardViewModel>(context);
     var rewardService = locator.get<RewardService>();
     return WillPopScope(
         onWillPop: () async => false,
@@ -68,9 +76,9 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   UIHelper.verticalSpaceSmall,
-                                  _buildMainText(snapshot.data.toString()),
+                                  _buildMainText(snapshot.data.toString(), vm),
                                   UIHelper.verticalSpaceMedium,
-                                  _buildStatistics()
+                                  _buildStatistics(vm)
                                 ],
                               ),
                               alignment: Alignment(0.0, 0.6)));
@@ -80,19 +88,19 @@ class _DashboardScreenState extends State<DashboardScreen>
                 ))));
   }
 
-  _buildStatistics() {
+  _buildStatistics(DashboardViewModel vm) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         UIHelper.verticalSpaceMedium,
-        if (vm.isInStudyPhase()) studyProgress(),
+        if (vm.isInStudyPhase()) studyProgress(vm),
         UIHelper.verticalSpaceLarge,
-        vocabTestProgress()
+        vocabTestProgress(vm)
       ],
     );
   }
 
-  Widget studyProgress() {
+  Widget studyProgress(DashboardViewModel vm) {
     return Column(
       children: [
         Text(S.current
@@ -110,7 +118,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  Widget vocabTestProgress() {
+  Widget vocabTestProgress(DashboardViewModel vm) {
     return Column(
       children: [
         Text(
@@ -130,7 +138,7 @@ class _DashboardScreenState extends State<DashboardScreen>
     );
   }
 
-  _buildMainText(String text) {
+  _buildMainText(String text, DashboardViewModel vm) {
     return DashboardButton(
         onPressed: () async {
           vm.checkTasks();

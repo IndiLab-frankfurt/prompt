@@ -161,7 +161,7 @@ Questionnaire AA_NextStudySession() => Questionnaire(
 Questionnaire OB_VocabRoutine() => Questionnaire(
         title:
             "Wie lernst du Vokabeln? Gib an, wie sehr die Aussagen auf dich zutreffen.",
-        name: "OB_VocabRoutine",
+        name: "OB_VOCABROUTINE",
         questions: [
           ChoiceQuestionViewModel(
               name: "attitude_cabuu",
@@ -261,7 +261,7 @@ Questionnaire StudyFinishedQuestionnaire() =>
 
 Questionnaire OB_Procrastination() => Questionnaire(
         title: "Gib an, wie sehr die Aussagen auf dich zutreffen.",
-        name: "OB_Procrastination",
+        name: "OB_PROCRASTINATION",
         questions: [
           ChoiceQuestionViewModel(
               name: "OB_procrastination_1",

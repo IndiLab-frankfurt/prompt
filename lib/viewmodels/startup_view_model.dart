@@ -79,7 +79,7 @@ class StartupViewModel extends BaseViewModel {
       return AppStartupMode.firstLaunch;
     }
 
-    if (userData.onboardingStep < OnboardingStep.values.length - 3) {
+    if (userData.onboardingStep < OnboardingStep.values.length - 2) {
       return AppStartupMode.onboarding;
     }
 

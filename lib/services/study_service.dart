@@ -42,7 +42,7 @@ class StudyService {
   Future<dynamic> navigateToStateFromState(String currentScreen) async {
     try {
       var nextState = await _dataService.getNextState(currentScreen);
-      return await _navigationService.navigateTo(nextState);
+      return await _navigationService.navigateWithReplacement(nextState);
     } catch (e) {
       _loggingService.logError("Error trying to navigate to next state",
           data: "Error getting next state: $e");
