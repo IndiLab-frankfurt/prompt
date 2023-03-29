@@ -518,6 +518,37 @@ Questionnaire FinalQuestionnaire() => Questionnaire(
               questionText:
                   "Wenn du irgendwelche Schwierigkeiten mit der App PROMPT hattest, wie hast du sie gelöst?",
               choices: CHOICES_TEXTFIELD),
+          ChoiceQuestionViewModel(
+              name: "FinalQuestionnaire_parent_help_frequency_prompt",
+              questionText:
+                  "*Wie oft* haben deine Eltern dir bei der Nutzung von PROMPT-ADAPT geholfen?",
+              choices: CHOICES_FREQUENCY),
+          ChoiceQuestionViewModel(
+              name: "FinalQuestionnaire_parent_help_frequency_cabuu",
+              questionText:
+                  "*Wie oft* haben deine Eltern dir bei der Nutzung von cabuu geholfen?",
+              choices: CHOICES_FREQUENCY),
+          ChoiceQuestionViewModel(
+              name: "FinalQuestionnaire_parent_help_nature_prompt",
+              questionText:
+                  "Wie haben deine Eltern dir bei der Nutzung von PROMPT-ADAPT geholfen?",
+              choices: {
+              "1": "Gar nicht",
+              "2": "Herunterladen/Installieren der App",
+              "3": "Verstehen der Anleitungen/Fragen",
+              "4": "Beantworten der Fragen",
+            },
+            ChoiceQuestionViewModel(
+              name: "FinalQuestionnaire_parent_help_nature_cabuu",
+              questionText:
+                  "Wie haben deine Eltern dir bei der Nutzung von cabuu geholfen?",
+              choices: {
+              "1": "Gar nicht",
+              "2": "Herunterladen/Installieren der App",
+              "3": "Verstehen der Anleitungen/Fragen",
+              "4": "Hilfe beim Vokabellernen",
+              "5": "Hilfe bei den Vokabeltests",
+            },
           QuestionnaireTextPageViewModel(
               name: "FinalQuestionnaire_Last",
               text: [
