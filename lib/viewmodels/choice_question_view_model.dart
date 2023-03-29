@@ -61,6 +61,18 @@ class ChoiceQuestionViewModel extends QuestionnairePageViewModel {
       selectedChoices.add(selectedValue);
     }
 
+    var response = QuestionnaireResponse(
+      dateSubmitted: DateTime.now().toLocal(),
+      name: name,
+      questionnaireName: "",
+      questionText: questionText,
+      response: selectedValue,
+    );
+
+    completed = true;
+
+    onAnswered?.call(response);
+
     notifyListeners();
   }
 

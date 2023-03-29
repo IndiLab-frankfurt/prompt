@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:prompt/screens/assessments/multi_page_screen.dart';
 import 'package:prompt/screens/assessments/questionnaire_text_screen.dart';
+import 'package:prompt/widgets/multiple_choice_question_view.dart';
 import 'package:prompt/widgets/single_choice_question_view.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
 import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
@@ -30,8 +31,13 @@ class _MultiPageQuestionnaireState extends State<MultiPageQuestionnaire> {
 
       for (var question in vm.pages) {
         if (question is ChoiceQuestionViewModel) {
-          _screens.add(SingleChoiceQuestionView(
-              question: question, onSelection: (_) {}));
+          if (question.singleChoice) {
+            _screens.add(SingleChoiceQuestionView(
+                question: question, onSelection: (_) {}));
+          } else {
+            _screens.add(MultipleChoiceQuestionView(
+                selectedValues: [], question: question, onSelection: (_) {}));
+          }
         }
 
         if (question is QuestionnaireTextPageViewModel) {

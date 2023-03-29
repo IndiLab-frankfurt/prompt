@@ -474,81 +474,83 @@ Questionnaire FinalQuestionnaire() => Questionnaire(
         title: "FinalQuestionnaire",
         name: AppScreen.FINALQUESTIONNAIRE.name,
         questions: [
-          QuestionnaireTextPageViewModel(
-              name: "FinalQuestionnaire_Intro",
-              text: [
-                "### Du nimmst jetzt schon seit einiger Zeit an der Studie teil.",
-                "###  Auf den nächsten Seiten haben wir dazu ein paar Fragen an dich.",
-                "###  Nimm dir dafür ein paar Minuten Zeit.",
-              ]),
-          ChoiceQuestionViewModel(
-              name: "FinalQuestionnaire_usability_fun",
-              questionText:
-                  "Es hat mir Spaß gemacht, die App PROMPT zu nutzen.",
-              choices: CHOICES_APPLIES),
-          ChoiceQuestionViewModel(
-              name: "FinalQuestionnaire_usability_difficulty",
-              questionText:
-                  "Ich fand es schwierig, die App PROMPT zu bedienen.",
-              choices: CHOICES_APPLIES),
-          ChoiceQuestionViewModel(
-              name: "FinalQuestionnaire_usability_helpful",
-              questionText:
-                  "Die App PROMPT hat mir beim Lernen mit der App cabuu geholfen.",
-              choices: CHOICES_APPLIES),
-          ChoiceQuestionViewModel(
-              name: "FinalQuestionnaire_usability_intention",
-              questionText: "Ich würde die App PROMPT gerne weiter benutzen.",
-              choices: CHOICES_APPLIES),
-          ChoiceQuestionViewModel(
-              name: "FinalQuestionnaire_usability_confusion",
-              questionText:
-                  "Wenn du etwas verwirrend an der App PROMPT fandest, was war das?",
-              choices: CHOICES_TEXTFIELD),
-          ChoiceQuestionViewModel(
-              name: "FinalQuestionnaire_usabilty_good",
-              questionText: "Das fand ich gut an der App PROMPT:",
-              choices: CHOICES_TEXTFIELD),
-          ChoiceQuestionViewModel(
-              name: "FinalQuestionnaire_usabilty_bad",
-              questionText: "Das fand ich nicht so gut an der App PROMPT:",
-              choices: CHOICES_TEXTFIELD),
-          ChoiceQuestionViewModel(
-              name: "FinalQuestionnaire_usability_workaround",
-              questionText:
-                  "Wenn du irgendwelche Schwierigkeiten mit der App PROMPT hattest, wie hast du sie gelöst?",
-              choices: CHOICES_TEXTFIELD),
-          ChoiceQuestionViewModel(
-              name: "FinalQuestionnaire_parent_help_frequency_prompt",
-              questionText:
-                  "*Wie oft* haben deine Eltern dir bei der Nutzung von PROMPT-ADAPT geholfen?",
-              choices: CHOICES_FREQUENCY),
-          ChoiceQuestionViewModel(
-              name: "FinalQuestionnaire_parent_help_frequency_cabuu",
-              questionText:
-                  "*Wie oft* haben deine Eltern dir bei der Nutzung von cabuu geholfen?",
-              choices: CHOICES_FREQUENCY),
+          // QuestionnaireTextPageViewModel(
+          //     name: "FinalQuestionnaire_Intro",
+          //     text: [
+          //       "### Du nimmst jetzt schon seit einiger Zeit an der Studie teil.",
+          //       "###  Auf den nächsten Seiten haben wir dazu ein paar Fragen an dich.",
+          //       "###  Nimm dir dafür ein paar Minuten Zeit.",
+          //     ]),
+          // ChoiceQuestionViewModel(
+          //     name: "FinalQuestionnaire_usability_fun",
+          //     questionText:
+          //         "Es hat mir Spaß gemacht, die App PROMPT zu nutzen.",
+          //     choices: CHOICES_APPLIES),
+          // ChoiceQuestionViewModel(
+          //     name: "FinalQuestionnaire_usability_difficulty",
+          //     questionText:
+          //         "Ich fand es schwierig, die App PROMPT zu bedienen.",
+          //     choices: CHOICES_APPLIES),
+          // ChoiceQuestionViewModel(
+          //     name: "FinalQuestionnaire_usability_helpful",
+          //     questionText:
+          //         "Die App PROMPT hat mir beim Lernen mit der App cabuu geholfen.",
+          //     choices: CHOICES_APPLIES),
+          // ChoiceQuestionViewModel(
+          //     name: "FinalQuestionnaire_usability_intention",
+          //     questionText: "Ich würde die App PROMPT gerne weiter benutzen.",
+          //     choices: CHOICES_APPLIES),
+          // ChoiceQuestionViewModel(
+          //     name: "FinalQuestionnaire_usability_confusion",
+          //     questionText:
+          //         "Wenn du etwas verwirrend an der App PROMPT fandest, was war das?",
+          //     choices: CHOICES_TEXTFIELD),
+          // ChoiceQuestionViewModel(
+          //     name: "FinalQuestionnaire_usabilty_good",
+          //     questionText: "Das fand ich gut an der App PROMPT:",
+          //     choices: CHOICES_TEXTFIELD),
+          // ChoiceQuestionViewModel(
+          //     name: "FinalQuestionnaire_usabilty_bad",
+          //     questionText: "Das fand ich nicht so gut an der App PROMPT:",
+          //     choices: CHOICES_TEXTFIELD),
+          // ChoiceQuestionViewModel(
+          //     name: "FinalQuestionnaire_usability_workaround",
+          //     questionText:
+          //         "Wenn du irgendwelche Schwierigkeiten mit der App PROMPT hattest, wie hast du sie gelöst?",
+          //     choices: CHOICES_TEXTFIELD),
+          // ChoiceQuestionViewModel(
+          //     name: "FinalQuestionnaire_parent_help_frequency_prompt",
+          //     questionText:
+          //         "*Wie oft* haben deine Eltern dir bei der Nutzung von PROMPT-ADAPT geholfen?",
+          //     choices: CHOICES_FREQUENCY),
+          // ChoiceQuestionViewModel(
+          //     name: "FinalQuestionnaire_parent_help_frequency_cabuu",
+          //     questionText:
+          //         "*Wie oft* haben deine Eltern dir bei der Nutzung von cabuu geholfen?",
+          //     choices: CHOICES_FREQUENCY),
           ChoiceQuestionViewModel(
               name: "FinalQuestionnaire_parent_help_nature_prompt",
+              singleChoice: false,
               questionText:
                   "Wie haben deine Eltern dir bei der Nutzung von PROMPT-ADAPT geholfen?",
               choices: {
-              "1": "Gar nicht",
-              "2": "Herunterladen/Installieren der App",
-              "3": "Verstehen der Anleitungen/Fragen",
-              "4": "Beantworten der Fragen",
-            },
-            ChoiceQuestionViewModel(
+                "1": "Gar nicht",
+                "2": "Herunterladen/Installieren der App",
+                "3": "Verstehen der Anleitungen/Fragen",
+                "4": "Beantworten der Fragen",
+              }),
+          ChoiceQuestionViewModel(
               name: "FinalQuestionnaire_parent_help_nature_cabuu",
+              singleChoice: false,
               questionText:
                   "Wie haben deine Eltern dir bei der Nutzung von cabuu geholfen?",
               choices: {
-              "1": "Gar nicht",
-              "2": "Herunterladen/Installieren der App",
-              "3": "Verstehen der Anleitungen/Fragen",
-              "4": "Hilfe beim Vokabellernen",
-              "5": "Hilfe bei den Vokabeltests",
-            },
+                "1": "Gar nicht",
+                "2": "Herunterladen/Installieren der App",
+                "3": "Verstehen der Anleitungen/Fragen",
+                "4": "Hilfe beim Vokabellernen",
+                "5": "Hilfe bei den Vokabeltests",
+              }),
           QuestionnaireTextPageViewModel(
               name: "FinalQuestionnaire_Last",
               text: [

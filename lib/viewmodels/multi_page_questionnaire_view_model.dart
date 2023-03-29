@@ -44,7 +44,8 @@ class MultiPageQuestionnaireViewModel extends MultiPageViewModel
   @override
   void submit() async {
     this.setState(ViewState.Busy);
-    await this.studyService.submitResponses(this.getResponse());
+    var responses = this.getResponse();
+    await this.studyService.submitResponses(responses);
     this.studyService.nextScreen();
   }
 }

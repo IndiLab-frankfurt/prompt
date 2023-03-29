@@ -29,17 +29,26 @@ class QuestionnaireResponse {
       if (q is ChoiceQuestionViewModel) {
         var response = "";
         if (q.selectedChoices.length > 1) {
-          response = q.selectedChoices.join(", ");
+          // create multiple responses for each choice
+          for (var choice in q.selectedChoices) {
+            responses.add(QuestionnaireResponse(
+              name: q.name,
+              questionnaireName: questionnaire.name,
+              questionText: q.questionText,
+              response: choice,
+              dateSubmitted: DateTime.now().toLocal(),
+            ));
+          }
         } else if (q.selectedChoices.length == 1) {
           response = q.selectedChoices.first;
+          responses.add(QuestionnaireResponse(
+            name: q.name,
+            questionnaireName: questionnaire.name,
+            questionText: q.questionText,
+            response: response,
+            dateSubmitted: DateTime.now().toLocal(),
+          ));
         }
-        responses.add(QuestionnaireResponse(
-          name: q.name,
-          questionnaireName: questionnaire.name,
-          questionText: q.questionText,
-          response: response,
-          dateSubmitted: DateTime.now().toLocal(),
-        ));
       }
     }
     return responses;

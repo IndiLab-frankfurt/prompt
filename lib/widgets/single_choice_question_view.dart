@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
-import 'package:provider/provider.dart';
 
 typedef void ChoiceQuestionCallback(String val);
 
@@ -13,14 +12,12 @@ class SingleChoiceQuestionView extends StatefulWidget {
 
   final ChoiceQuestionViewModel question;
   final int selectecValue;
-  final bool randomize;
   final ChoiceQuestionCallback onSelection;
 
   SingleChoiceQuestionView(
       {Key? key,
       required this.question,
       this.selectecValue = -1,
-      this.randomize = false,
       required this.onSelection})
       : super(key: key);
 }
