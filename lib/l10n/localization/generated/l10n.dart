@@ -330,10 +330,10 @@ class S {
     );
   }
 
-  /// `Wenn du die Benachrichtigung zu einer anderen Uhrzeit erhalten möchtest, kannst du das hier einstellen.`
+  /// `Wenn du die Benachrichtigung zu einer späteren Uhrzeit erhalten möchtest, kannst du das hier einstellen.`
   String get planTimingChangeP1 {
     return Intl.message(
-      'Wenn du die Benachrichtigung zu einer anderen Uhrzeit erhalten möchtest, kannst du das hier einstellen.',
+      'Wenn du die Benachrichtigung zu einer späteren Uhrzeit erhalten möchtest, kannst du das hier einstellen.',
       name: 'planTimingChangeP1',
       desc: '',
       args: [],
