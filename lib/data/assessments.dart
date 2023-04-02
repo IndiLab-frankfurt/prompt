@@ -532,7 +532,7 @@ Questionnaire FinalQuestionnaire() => Questionnaire(
               name: "FinalQuestionnaire_parent_help_nature_prompt",
               singleChoice: false,
               questionText:
-                  "Wie haben deine Eltern dir bei der Nutzung von PROMPT-ADAPT geholfen?",
+                  "Wie haben deine Eltern dir bei der Nutzung von PROMPT-ADAPT geholfen? (Hier kannst du mehr als eine Antwort auswählen.)",
               choices: {
                 "1": "Gar nicht",
                 "2": "Herunterladen/Installieren der App",
@@ -543,7 +543,7 @@ Questionnaire FinalQuestionnaire() => Questionnaire(
               name: "FinalQuestionnaire_parent_help_nature_cabuu",
               singleChoice: false,
               questionText:
-                  "Wie haben deine Eltern dir bei der Nutzung von cabuu geholfen?",
+                  "Wie haben deine Eltern dir bei der Nutzung von cabuu geholfen? (Hier kannst du mehr als eine Antwort auswählen.)",
               choices: {
                 "1": "Gar nicht",
                 "2": "Herunterladen/Installieren der App",

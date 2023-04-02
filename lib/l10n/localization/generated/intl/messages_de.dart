@@ -164,7 +164,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("dann lerne ich mit cabuu!"),
         "planPlaceHolder": m5,
         "planTimingChangeP1": MessageLookupByLibrary.simpleMessage(
-            "Wenn du die Benachrichtigung zu einer anderen Uhrzeit erhalten möchtest, kannst du das hier einstellen."),
+            "Wenn du die Benachrichtigung zu einer späteren Uhrzeit erhalten möchtest, kannst du das hier einstellen."),
         "planTimingParagraph1": MessageLookupByLibrary.simpleMessage(
             "Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten."),
         "planTimingParagraph2": MessageLookupByLibrary.simpleMessage(

@@ -74,22 +74,26 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
       displayGroupValue += 1;
     }
 
-    return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Theme.of(context).dialogBackgroundColor.withOpacity(0.7),
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-      ),
-      child: ListView(
-        children: <Widget>[
-          MarkdownBody(
-            data: "**${widget.question.questionText}**",
+    return ListView(
+      children: <Widget>[
+        Container(
+          padding: EdgeInsets.all(10),
+          margin: EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: Theme.of(context).dialogBackgroundColor.withOpacity(0.7),
+            borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
-          UIHelper.verticalSpaceMedium,
-          ...items,
-        ],
-      ),
+          child: Column(
+            children: <Widget>[
+              MarkdownBody(
+                data: "**${widget.question.questionText}**",
+              ),
+              UIHelper.verticalSpaceMedium,
+              ...items,
+            ],
+          ),
+        ),
+      ],
     );
   }
 
