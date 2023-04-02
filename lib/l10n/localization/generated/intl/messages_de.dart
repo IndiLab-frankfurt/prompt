@@ -34,7 +34,9 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m5(when) => "Wenn ich ${when}, dann lerne ich mit cabuu!";
 
-  static String m6(number) =>
+  static String m6(score) => "Du hast ${score} Punkte verdient!";
+
+  static String m7(number) =>
       "Glückwunsch, du hast deine ersten ${number} 💎 verdient!";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
@@ -82,7 +84,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage(
                 "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei."),
         "dashboard_mainmessage_firstday":
-            MessageLookupByLibrary.simpleMessage("Morgen es richtig los"),
+            MessageLookupByLibrary.simpleMessage("Morgen geht es richtig los."),
         "dashboard_nextVocabToday": MessageLookupByLibrary.simpleMessage(
             "Dein nächster Vokabeltest ist heute."),
         "dashboard_nextVocabTomorrow": MessageLookupByLibrary.simpleMessage(
@@ -167,7 +169,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten."),
         "planTimingParagraph2": MessageLookupByLibrary.simpleMessage(
             "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen."),
-        "rewards1p1": m6,
+        "rewardDialog_text": m6,
+        "rewardDialog_title":
+            MessageLookupByLibrary.simpleMessage("Glückwunsch!"),
+        "rewards1p1": m7,
         "rewards1p2": MessageLookupByLibrary.simpleMessage(
             "Jetzt haben wir erst mal ein paar Fragen an dich."),
         "rewards1p3": MessageLookupByLibrary.simpleMessage(

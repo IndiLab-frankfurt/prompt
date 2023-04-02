@@ -150,6 +150,8 @@ class OnboardingViewModel extends MultiPageViewModel {
         notifyListeners();
       });
     });
+
+    assert(pages.length == OnboardingStep.values.length);
   }
 
   void onPlanInput(QuestionnaireResponse planResponse) {

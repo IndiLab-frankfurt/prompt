@@ -5,6 +5,7 @@ import 'package:prompt/models/reward_request.dart';
 import 'package:prompt/services/dialog_service.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 
 class DialogManager extends StatefulWidget {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -48,15 +49,17 @@ class _DialogManagerState extends State<DialogManager> {
   void _showRewardDialog(RewardRequest request) {
     Alert(
         context: context,
-        title: "Glückwunsch!",
-        closeFunction: () =>
-            _dialogService.dialogComplete(AlertResponse(confirmed: false)),
+        title: S.of(context).rewardDialog_title,
+        closeFunction: () {
+          _dialogService.dialogComplete(AlertResponse(confirmed: false));
+          Navigator.of(context).pop();
+        },
         content: Column(children: [
           Text(
             "💎",
             style: TextStyle(fontSize: 50),
           ),
-          Text("Du hast ${request.score} Punkte verdient!",
+          Text(S.of(context).rewardDialog_text(request.score.toString()),
               textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
         ]),
         buttons: [

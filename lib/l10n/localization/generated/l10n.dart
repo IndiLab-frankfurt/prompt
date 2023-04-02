@@ -410,10 +410,10 @@ class S {
     );
   }
 
-  /// `Morgen es richtig los`
+  /// `Morgen geht es richtig los.`
   String get dashboard_mainmessage_firstday {
     return Intl.message(
-      'Morgen es richtig los',
+      'Morgen geht es richtig los.',
       name: 'dashboard_mainmessage_firstday',
       desc: '',
       args: [],
@@ -747,6 +747,26 @@ class S {
       name: 'aboutScreen_p3',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Glückwunsch!`
+  String get rewardDialog_title {
+    return Intl.message(
+      'Glückwunsch!',
+      name: 'rewardDialog_title',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Du hast {score} Punkte verdient!`
+  String rewardDialog_text(String score) {
+    return Intl.message(
+      'Du hast $score Punkte verdient!',
+      name: 'rewardDialog_text',
+      desc: '',
+      args: [score],
     );
   }
 }
