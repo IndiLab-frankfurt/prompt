@@ -46,7 +46,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutScreen_p2": MessageLookupByLibrary.simpleMessage(
             "Hier siehst du den Ablauf unserer Studie."),
         "aboutScreen_p3": MessageLookupByLibrary.simpleMessage(
-            "Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT-ADAPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de"),
+            "Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de"),
         "aboutScreen_title":
             MessageLookupByLibrary.simpleMessage("Über PROMPT-ADAPT"),
         "accountManagement_clickToDeleteAccount":
@@ -122,13 +122,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "instructionsCabuuWriteDate": MessageLookupByLibrary.simpleMessage(
             "Außerdem brauchst du dieses Datum:"),
         "instructionsDistributedp1": MessageLookupByLibrary.simpleMessage(
-            "Beim Vokabellernen kann man **Strategien** anwenden, die einem beim Lernen und Erinnern **helfen**. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden."),
+            "Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden."),
         "instructionsQuestionnaires_p1": MessageLookupByLibrary.simpleMessage(
-            "Heute und im Laufe der Studie stellen wir dir einige Fragen."),
+            "Heute und im Laufe der Studie werden wir dir einige Fragen stellen."),
         "instructionsQuestionnaires_p2": MessageLookupByLibrary.simpleMessage(
-            "Meistens zeigen wir dir eine Aussage, z.B.:"),
-        "instructionsQuestionnaires_p2b":
-            MessageLookupByLibrary.simpleMessage("Ich lerne gerne Vokabeln."),
+            "Meistens zeigen wir dir eine Aussage, z.B.: Ich lerne gerne Vokabeln."),
         "instructionsQuestionnaires_p3": MessageLookupByLibrary.simpleMessage(
             "Überlege, wie sehr die Aussage auf **dich persönlich** zutrifft und wähle die passende Antwort:"),
         "instructionsQuestionnaires_p4": MessageLookupByLibrary.simpleMessage(
@@ -139,6 +137,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit."),
         "labelTextWriteDownBulletPoints": MessageLookupByLibrary.simpleMessage(
             "Schreibe deine Antwort hier auf."),
+        "login_codeLengthErrorText": MessageLookupByLibrary.simpleMessage(
+            "Der Code besteht aus 6 Ziffern"),
+        "login_enterCode":
+            MessageLookupByLibrary.simpleMessage("Code eingeben"),
+        "login_forgotPassword": MessageLookupByLibrary.simpleMessage(
+            "Passwort vergessen? Klicke hier, und wir erklären dir, was zu tun ist."),
+        "login_loginButton": MessageLookupByLibrary.simpleMessage("Anmelden"),
+        "login_passwordHintText":
+            MessageLookupByLibrary.simpleMessage("Passwort eingeben"),
         "notificationBody_final": MessageLookupByLibrary.simpleMessage(
             "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎."),
         "notificationMessage_daily": MessageLookupByLibrary.simpleMessage(
@@ -156,21 +163,21 @@ class MessageLookup extends MessageLookupByLibrary {
         "planCreation_completeThePlan":
             MessageLookupByLibrary.simpleMessage("Vervollständige den Plan:"),
         "planCreation_letsCreatePlan": MessageLookupByLibrary.simpleMessage(
-            "# Erstelle jetzt deinen ersten Plan!"),
+            "Erstelle jetzt deinen ersten Plan!"),
         "planCreation_whenAndWhere": MessageLookupByLibrary.simpleMessage(
-            "**Wann** und **wo** könntest du morgen gut Vokabeln lernen?"),
+            "Wann und wo könntest du morgen gut Vokabeln lernen?"),
         "planInputIfI": MessageLookupByLibrary.simpleMessage("Wenn ich"),
         "planInputP1": MessageLookupByLibrary.simpleMessage(
-            "*Wann* und *wo* könntest du morgen Vokabeln lernen?"),
+            "**Wann** und **wo** könntest du morgen Vokabeln lernen?"),
         "planInputThenILearnWithCabuu":
             MessageLookupByLibrary.simpleMessage("dann lerne ich mit cabuu!"),
         "planPlaceHolder": m5,
         "planTimingChangeP1": MessageLookupByLibrary.simpleMessage(
             "Wenn du die Benachrichtigung zu einer späteren Uhrzeit erhalten möchtest, kannst du das hier einstellen."),
         "planTimingParagraph1": MessageLookupByLibrary.simpleMessage(
-            "Ab morgen sollst du die App PROMPT-ADAPT **jeden Abend** einmal benutzen; das dauert auch nur 3 Minuten."),
+            "Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten."),
         "planTimingParagraph2": MessageLookupByLibrary.simpleMessage(
-            "Zur Erinnerung senden wir dir jeden Abend um **18** **Uhr** eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen."),
+            "Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen."),
         "rewardDialog_text": m6,
         "rewardDialog_title":
             MessageLookupByLibrary.simpleMessage("Glückwunsch!"),

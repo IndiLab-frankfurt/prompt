@@ -214,8 +214,13 @@ class ApiService {
   }
 
   Future<int> getRewardScore(String lastQuestionnaire) async {
-    var params = {"local_time": DateTime.now().toTimeZoneAwareISOString()};
-    return getAsync("/api/user/reward/", queryParams: params).then((response) =>
-        response.statusCode == 200 ? jsonDecode(response.body)["score"] : 0);
+    var params = {
+      "local_time": DateTime.now().toTimeZoneAwareISOString(),
+      "last_questionnaire": lastQuestionnaire
+    };
+    return getAsync("/api/user/reward/$lastQuestionnaire/", queryParams: params)
+        .then((response) => response.statusCode == 200
+            ? jsonDecode(response.body)["score"]
+            : 0);
   }
 }

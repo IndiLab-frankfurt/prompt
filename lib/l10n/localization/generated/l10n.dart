@@ -143,7 +143,7 @@ class S {
   /// `Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten.`
   String get planTimingParagraph1 {
     return Intl.message(
-      'Ab morgen sollst du die App PROMPT-ADAPT **jeden Abend** einmal benutzen; das dauert auch nur 3 Minuten.',
+      'Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten.',
       name: 'planTimingParagraph1',
       desc: '',
       args: [],
@@ -153,7 +153,7 @@ class S {
   /// `Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.`
   String get planTimingParagraph2 {
     return Intl.message(
-      'Zur Erinnerung senden wir dir jeden Abend um **18** **Uhr** eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.',
+      'Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.',
       name: 'planTimingParagraph2',
       desc: '',
       args: [],
@@ -163,7 +163,7 @@ class S {
   /// `Heute und im Laufe der Studie werden wir dir einige Fragen stellen.`
   String get instructionsQuestionnaires_p1 {
     return Intl.message(
-      'Heute und im Laufe der Studie stellen wir dir einige Fragen.',
+      'Heute und im Laufe der Studie werden wir dir einige Fragen stellen.',
       name: 'instructionsQuestionnaires_p1',
       desc: '',
       args: [],
@@ -173,18 +173,8 @@ class S {
   /// `Meistens zeigen wir dir eine Aussage, z.B.: Ich lerne gerne Vokabeln.`
   String get instructionsQuestionnaires_p2 {
     return Intl.message(
-      'Meistens zeigen wir dir eine Aussage, z.B.:',
+      'Meistens zeigen wir dir eine Aussage, z.B.: Ich lerne gerne Vokabeln.',
       name: 'instructionsQuestionnaires_p2',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Meistens zeigen wir dir eine Aussage, z.B.: Ich lerne gerne Vokabeln.`
-  String get instructionsQuestionnaires_p2b {
-    return Intl.message(
-      'Ich lerne gerne Vokabeln.',
-      name: 'instructionsQuestionnaires_p2b',
       desc: '',
       args: [],
     );
@@ -273,7 +263,7 @@ class S {
   /// `Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.`
   String get instructionsDistributedp1 {
     return Intl.message(
-      'Beim Vokabellernen kann man **Strategien** anwenden, die einem beim Lernen und Erinnern **helfen**. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.',
+      'Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.',
       name: 'instructionsDistributedp1',
       desc: '',
       args: [],
@@ -313,7 +303,7 @@ class S {
   /// `**Wann** und **wo** könntest du morgen Vokabeln lernen?`
   String get planInputP1 {
     return Intl.message(
-      '*Wann* und *wo* könntest du morgen Vokabeln lernen?',
+      '**Wann** und **wo** könntest du morgen Vokabeln lernen?',
       name: 'planInputP1',
       desc: '',
       args: [],
@@ -363,7 +353,7 @@ class S {
   /// `Erstelle jetzt deinen ersten Plan!`
   String get planCreation_letsCreatePlan {
     return Intl.message(
-      '# Erstelle jetzt deinen ersten Plan!',
+      'Erstelle jetzt deinen ersten Plan!',
       name: 'planCreation_letsCreatePlan',
       desc: '',
       args: [],
@@ -373,7 +363,7 @@ class S {
   /// `Wann und wo könntest du morgen gut Vokabeln lernen?`
   String get planCreation_whenAndWhere {
     return Intl.message(
-      '*Wann* und *wo* könntest du morgen gut Vokabeln lernen?',
+      'Wann und wo könntest du morgen gut Vokabeln lernen?',
       name: 'planCreation_whenAndWhere',
       desc: '',
       args: [],
@@ -750,10 +740,10 @@ class S {
     );
   }
 
-  /// `Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT-ADAPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de`
+  /// `Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de`
   String get aboutScreen_p3 {
     return Intl.message(
-      'Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT-ADAPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de',
+      'Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de',
       name: 'aboutScreen_p3',
       desc: '',
       args: [],
@@ -777,6 +767,56 @@ class S {
       name: 'rewardDialog_text',
       desc: '',
       args: [score],
+    );
+  }
+
+  /// `Code eingeben`
+  String get login_enterCode {
+    return Intl.message(
+      'Code eingeben',
+      name: 'login_enterCode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwort vergessen? Klicke hier, und wir erklären dir, was zu tun ist.`
+  String get login_forgotPassword {
+    return Intl.message(
+      'Passwort vergessen? Klicke hier, und wir erklären dir, was zu tun ist.',
+      name: 'login_forgotPassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passwort eingeben`
+  String get login_passwordHintText {
+    return Intl.message(
+      'Passwort eingeben',
+      name: 'login_passwordHintText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Anmelden`
+  String get login_loginButton {
+    return Intl.message(
+      'Anmelden',
+      name: 'login_loginButton',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Der Code besteht aus 6 Ziffern`
+  String get login_codeLengthErrorText {
+    return Intl.message(
+      'Der Code besteht aus 6 Ziffern',
+      name: 'login_codeLengthErrorText',
+      desc: '',
+      args: [],
     );
   }
 }

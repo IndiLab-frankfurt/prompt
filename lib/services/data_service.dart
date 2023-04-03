@@ -166,7 +166,9 @@ class DataService implements BaseService {
   }
 
   Future<int> getRewardScore(String lastQuestionnaire) async {
-    return await _apiService.getRewardScore(lastQuestionnaire);
+    var rewardScore = await _apiService.getRewardScore(lastQuestionnaire);
+    this._userDataCache!.score += rewardScore;
+    return rewardScore;
   }
 
   Future<AppScreen> getNextState(String currentScreen) async {

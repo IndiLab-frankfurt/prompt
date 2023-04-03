@@ -15,9 +15,8 @@ UserData _$UserDataFromJson(Map<String, dynamic> json) => UserData(
           ? null
           : DateTime.parse(json['start_date'] as String),
       cabuuCode: json['cabuu_code'] as String? ?? "123",
-      reminderTime: json['reminder_time'] == null
-          ? null
-          : DateTime.parse(json['reminder_time'] as String),
+      reminderTime: UserData.parseTimeAndCombineWithCurrentDate(
+          json['reminder_time'] as String),
       streakDays: json['streak_days'] as int? ?? 0,
       score: json['score'] as int? ?? 0,
       onboardingStep: json['onboarding_step'] as int? ?? 0,
@@ -37,7 +36,7 @@ Map<String, dynamic> _$UserDataToJson(UserData instance) {
   }
 
   writeNotNull('start_date', UserData.toNull(instance.startDate));
-  val['reminder_time'] = instance.reminderTime?.toIso8601String();
+  writeNotNull('reminder_time', instance.reminderTime?.toIso8601String());
   val['streak_days'] = instance.streakDays;
   val['score'] = instance.score;
   val['days_active'] = instance.daysActive;

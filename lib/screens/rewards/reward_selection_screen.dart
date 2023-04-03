@@ -19,7 +19,10 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
     List<Widget> unlockItems = [];
     var rewardService = locator<RewardService>();
 
-    for (var bg in rewardService.backgrounds) {
+    var sortedByScore = rewardService.backgrounds.toList()
+      ..sort((a, b) => a.cost.compareTo(b.cost));
+
+    for (var bg in sortedByScore) {
       unlockItems.add(_buildUnlockItem(bg, rewardService.scoreValue));
     }
 

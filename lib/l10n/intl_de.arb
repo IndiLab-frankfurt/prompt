@@ -139,5 +139,10 @@
         "example": "34"
       }
     }
-  }
+  },
+  "login_enterCode": "Code eingeben",
+  "login_forgotPassword": "Passwort vergessen? Klicke hier, und wir erklären dir, was zu tun ist.",
+  "login_passwordHintText": "Passwort eingeben",
+  "login_loginButton": "Anmelden",
+  "login_codeLengthErrorText": "Der Code besteht aus 6 Ziffern"
 }

@@ -10,7 +10,6 @@ class RewardService {
   late StreamController<int> controller = StreamController.broadcast();
   int scoreValue = 0;
   int gems = 0;
-  int daysActive = 0;
   int streakDays = 0;
   static const int MAX_SCORE = 1290;
   static final pointsForMorningAssessment = 10;
@@ -44,11 +43,11 @@ class RewardService {
     "Pyramiden 1": 100,
     "Vulkan 1": 170,
     "Wikinger 1": 300,
+    "Vulkan 2": 400,
     "Ozean 1": 810,
     "Pyramiden 2": 660,
     "Zauberei 1": 1260,
     "Weltraum 2": 1000,
-    "Vulkan 2": 400,
     "Ozean 2": 1200,
     "Wikinger 2": 1290,
     "Zauberei 2": 1260,
@@ -95,20 +94,6 @@ class RewardService {
     });
   }
 
-  Future getDaysActive() async {
-    await _dataService.getDaysActive().then((s) {
-      daysActive = s;
-      return s;
-    });
-  }
-
-  Future<int> getStreakDays() async {
-    return await _dataService.getStreakDays().then((s) {
-      streakDays = s;
-      return s;
-    });
-  }
-
   Future getBackgroundImagePath() async {
     _dataService.getBackgroundImagePath().then((path) {
       if (path != null && path.isNotEmpty) {
@@ -140,8 +125,6 @@ class RewardService {
     await getBackgroundColors();
     await getBackgroundImagePath();
     await retrieveScore();
-    await getDaysActive();
-    await getStreakDays();
   }
 
   getUnlockDays(String background) {
@@ -232,34 +215,8 @@ class RewardService {
     await this._dataService.saveBackgroundGradientColors(lg.colors);
   }
 
-  onMorningAssessment() async {
-    int points = pointsForMorningAssessment + streakDays;
-    await addPoints(points);
-    await addDaysActive(1);
-  }
-
-  onFinalTask() async {
-    await addPoints(10);
-  }
-
-  addDaysActive(int days) async {
-    daysActive += days;
-    await _dataService.saveDaysActive(daysActive);
-  }
-
   Future<void> addPoints(int points) async {
     scoreValue += points;
     controller.add(scoreValue);
-    await _dataService.saveScore(scoreValue);
-  }
-
-  addStreakDays(int days) async {
-    streakDays += days;
-    await _dataService.setStreakDays(streakDays);
-  }
-
-  clearStreakDays() async {
-    streakDays = ((streakDays / STREAK_THRESHOLD).floor() * STREAK_THRESHOLD);
-    await _dataService.setStreakDays(streakDays);
   }
 }

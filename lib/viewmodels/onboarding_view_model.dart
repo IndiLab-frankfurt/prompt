@@ -234,6 +234,7 @@ class OnboardingViewModel extends MultiPageViewModel {
 
     if (getPageReward(pageName) > 0) {
       _rewardService.addPoints(5);
+      _dataService.saveScore(5);
     }
 
     // After the plan timing input, there is no more user input, and we can already submit

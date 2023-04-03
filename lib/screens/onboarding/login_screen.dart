@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/shared/app_strings.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:provider/provider.dart';
 import 'package:prompt/shared/enums.dart';
@@ -104,14 +104,14 @@ class _LoginScreenState extends State<LoginScreen> {
               onChanged: (text) {},
               validator: (String? arg) {
                 if (arg!.length != 6) {
-                  return "Dein Code sollte aus sechs Zeichen bestehen";
+                  return S.of(context).login_codeLengthErrorText;
                 } else {
                   return null;
                 }
               },
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: AppStrings.LoginScreen_EnterCode,
+                hintText: S.of(context).login_enterCode,
               ),
             ),
           ),
@@ -149,7 +149,7 @@ class _LoginScreenState extends State<LoginScreen> {
               },
               decoration: InputDecoration(
                 border: InputBorder.none,
-                hintText: 'Passwort eingeben',
+                hintText: S.of(context).login_passwordHintText,
                 suffixIcon: IconButton(
                   icon: Icon(_obscurePassword
                       ? Icons.visibility
@@ -175,13 +175,13 @@ class _LoginScreenState extends State<LoginScreen> {
       onPressed: () async {
         if (vm.state != ViewState.Idle) return;
         if (_userIdTextController.text.length != 6) {
-          _buildErrorDialog("Der Code besteht aus 6 Ziffern", "");
+          _buildErrorDialog(S.of(context).login_codeLengthErrorText, "");
         } else {
           await _signInClick(vm, context);
         }
       },
       child: vm.state == ViewState.Idle
-          ? Text("Anmelden")
+          ? Text(S.of(context).login_loginButton)
           : CircularProgressIndicator(
               backgroundColor: Colors.blue,
             ),
@@ -229,7 +229,7 @@ class _LoginScreenState extends State<LoginScreen> {
           Expanded(
             child: TextButton(
               child: Text(
-                AppStrings.Login_ForgotPassword,
+                S.of(context).login_forgotPassword,
                 textAlign: TextAlign.center,
               ),
               onPressed: () {

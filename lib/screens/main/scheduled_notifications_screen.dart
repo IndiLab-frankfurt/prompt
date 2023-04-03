@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/notification_service.dart';
+import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/widgets/prompt_drawer.dart';
 
 class ScheduledNotificationsScreen extends StatelessWidget {
@@ -14,6 +13,7 @@ class ScheduledNotificationsScreen extends StatelessWidget {
     var notificationService = locator<NotificationService>();
     return Scaffold(
         drawer: PromptDrawer(),
+        appBar: PromptAppBar(showBackButton: true),
         body: FutureBuilder(
             future: notificationService.getPendingNotifications(),
             builder: (context, snapshot) {

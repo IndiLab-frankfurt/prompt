@@ -41,7 +41,6 @@ class _PromptAppBarState extends State<PromptAppBar> {
       automaticallyImplyLeading: widget.showBackButton,
       elevation: 0,
       actions: [
-        // _buildAboutButton(),
         UIHelper.horizontalSpaceSmall,
         StreamBuilder(
             stream: rewardService.controller.stream,

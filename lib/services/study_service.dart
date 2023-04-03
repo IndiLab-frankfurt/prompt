@@ -43,10 +43,10 @@ class StudyService {
     try {
       var nextState = await _dataService.getNextState(currentScreen);
       if (nextState == AppScreen.MAINSCREEN) {
-        _dataService.getScore().then((scoreValue) {
+        _dataService.getRewardScore(currentScreen).then((scoreValue) async {
           if (scoreValue > 0) {
             this._rewardService.addPoints(scoreValue);
-            locator<DialogService>()
+            await locator<DialogService>()
                 .showRewardDialog(title: "", score: scoreValue);
           }
         });
@@ -87,6 +87,7 @@ class StudyService {
     await _scheduleFinalTaskReminder();
     await _scheduleVocabReminders();
     this._rewardService.addPoints(5);
+    _dataService.saveScore(5);
     locator<DialogService>().showRewardDialog(title: "", score: 5);
   }
 
