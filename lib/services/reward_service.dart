@@ -14,7 +14,8 @@ class RewardService {
   int streakDays = 0;
   static const int MAX_SCORE = 1290;
   static final pointsForMorningAssessment = 10;
-  final Color backgroundBase = Color(0xFFFFF3E0);
+  // final Color backgroundBase = Color(0xFFFFF3E0);
+  final Color backgroundBase = Color(0xFFE6F0F6);
   final Color backGroundViking = Color(0xff061021);
   final Color backgroundPlane = Color(0xff9fc7f0);
   final Color backgroundSpace = Color(0xff08111f);

@@ -49,15 +49,23 @@ class _PromptAppBarState extends State<PromptAppBar> {
               if (snapshot.connectionState == ConnectionState.active ||
                   snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  return TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "${snapshot.data}💎",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[850]),
-                      ));
+                  return Container(
+                    padding: EdgeInsets.all(0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      border: Border.all(color: Color(0xFF000000), width: 1),
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                    ),
+                    child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "${snapshot.data}💎",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[850]),
+                        )),
+                  );
                 }
               }
               return Text("${rewardService.scoreValue}💎",

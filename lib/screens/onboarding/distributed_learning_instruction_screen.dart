@@ -9,7 +9,7 @@ class DistributedLearningInstructionScreen extends StatelessWidget {
     return Container(
         child: MarkdownBody(
       data:
-          'Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.',
+          'Beim Vokabellernen kann man **Strategien** anwenden, die einem beim Lernen und Erinnern **helfen**. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.',
     ));
   }
 }

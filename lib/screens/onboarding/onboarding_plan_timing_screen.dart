@@ -32,8 +32,8 @@ class _OnboardingPlanTimingScreenState
           UIHelper.verticalSpaceMedium,
           MarkdownBody(data: S.of(context).planTimingParagraph1),
           UIHelper.verticalSpaceMedium,
-          Text(
-            S.of(context).planTimingParagraph2,
+          MarkdownBody(
+            data: S.of(context).planTimingParagraph2,
           ),
           UIHelper.verticalSpaceMedium,
           ChangeNotifierProvider.value(

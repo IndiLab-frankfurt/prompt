@@ -148,23 +148,29 @@ class _MultiPageScreenState extends State<MultiPageScreen> {
         visible: widget.vm.canMoveNext(),
         child: SizedBox(
           height: 40,
-          child: ElevatedButton(
-            key: ValueKey("nextButton"),
-            child: Row(
-              children: <Widget>[
-                Text(
-                  "Weiter",
-                  style: TextStyle(fontSize: 20),
-                ),
-                Icon(Icons.navigate_next)
-              ],
-            ),
-            onPressed: () async {
-              await widget.vm.nextPage();
-            },
-          ),
-        ),
-      ),
+          child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Color(0xFF000000), width: 1),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0)),
+                  ),
+                  child: ElevatedButton(
+                    key: ValueKey("nextButton"),
+                    child: Row(
+                      children: <Widget>[
+                        Text(
+                          "Weiter",
+                          style: TextStyle(fontSize: 20),
+                        ),
+                        Icon(Icons.navigate_next)
+                      ],
+                    ),
+                    onPressed: () async {
+                      await widget.vm.nextPage();
+                      },
+                      ),
+                      ),
+                      ),
+                      ),
     );
   }
 }

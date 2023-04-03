@@ -27,7 +27,7 @@ class _FirstPlanCreationScreenState extends State<FirstPlanCreationScreen> {
     return Container(
         child: ListView(children: [
       MarkdownBody(data: S.of(context).planCreation_letsCreatePlan),
-      UIHelper.verticalSpaceSmall,
+      UIHelper.verticalSpaceMedium,
       MarkdownBody(data: S.of(context).planCreation_whenAndWhere),
       UIHelper.verticalSpaceSmall,
       MarkdownBody(data: S.of(context).planCreation_completeThePlan),

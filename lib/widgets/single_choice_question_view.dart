@@ -80,7 +80,8 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
           padding: EdgeInsets.all(10),
           margin: EdgeInsets.all(10),
           decoration: BoxDecoration(
-            color: Theme.of(context).dialogBackgroundColor.withOpacity(0.7),
+            color: Theme.of(context).dialogBackgroundColor.withOpacity(0.9),
+            border: Border.all(color: Color(0xFF000000), width: 1),
             borderRadius: BorderRadius.all(Radius.circular(20.0)),
           ),
           child: Column(

@@ -10,7 +10,7 @@ class WelcomeScreen extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/illustrations/mascot_1_bare.png"),
+              image: AssetImage("assets/illustrations/mascot_1_bookpillar.png"),
               fit: BoxFit.fitWidth,
               alignment: Alignment.bottomCenter)),
       child: Column(
@@ -18,11 +18,20 @@ class WelcomeScreen extends StatelessWidget {
           Text(
             S.of(context).welcome,
             style: Theme.of(context).textTheme.headlineMedium,
+            textAlign: TextAlign.center,
           ),
           UIHelper.verticalSpaceMedium,
-          Text(
-            S.of(context).introductionTakeYourTime,
-            style: Theme.of(context).textTheme.titleMedium,
+          Container(
+            padding: EdgeInsets.all(10),
+            margin: EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: Theme.of(context).dialogBackgroundColor.withOpacity(0.9),
+              border: Border.all(color: Color(0xFF000000), width: 1),
+              borderRadius: BorderRadius.all(Radius.circular(20.0)),
+            ),
+            child: Text(
+              S.of(context).introductionTakeYourTime,
+              style: Theme.of(context).textTheme.titleMedium,            ),
           ),
         ],
       ),
