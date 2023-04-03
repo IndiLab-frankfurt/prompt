@@ -233,7 +233,7 @@ Questionnaire StudyFinishedQuestionnaire() =>
       QuestionnaireTextPageViewModel(
           name: "${AppScreen.REMINDERTESTTODAY.name}_1",
           text: [
-            '### In den letzten 20 Tagen hast du Prompt nicht mehr benutzt, aber noch mit cabuu deine Vokabeln gelernt. Wir stellen dir noch ein paar Fragen dazu, wie es dir dabei ergangen ist.',
+            '### In den letzten 20 Tagen hast du Prompt nicht mehr benutzt, aber noch mit cabuu deine Vokabeln gelernt. Wir stellen dir noch ein paar *Fragen* dazu, wie es dir dabei ergangen ist.',
           ]),
       ChoiceQuestionViewModel(
           name: "followup_1",
@@ -349,8 +349,8 @@ Questionnaire ReminderTestToday() => Questionnaire(
           QuestionnaireTextPageViewModel(
               name: "${AppScreen.REMINDERTESTTODAY.name}_1",
               text: [
-                '### Bitte mache heute noch den Test in cabuu!',
-                '### Drücke dazu auf die Liste und wähle "Abfrage".',
+                '### Bitte mache *heute* noch den Test in cabuu!',
+                '### Drücke dazu in cabuu auf die Liste und wähle "Abfrage".',
                 '### Fange dann ab morgen mit der nächsten Liste an.'
               ])
         ]);
@@ -385,7 +385,7 @@ Questionnaire VocabToday() =>
           name: "${AppScreen.VOCABTESTTODAY.name}_1",
           text: [
             'Mache heute den Vokabeltest in cabuu!',
-            'Drücke dazu auf die Liste, die du gerade lernst, und wähle "Abfrage".',
+            'Drücke dazu in cabuu auf die Liste, die du gerade lernst, und wähle "Abfrage".',
             "Mache hier in der App dann ab 18 Uhr weiter."
           ])
     ]);
@@ -478,8 +478,8 @@ Questionnaire FinalQuestionnaire() => Questionnaire(
               name: "FinalQuestionnaire_Intro",
               text: [
                 "### Du nimmst jetzt schon seit einiger Zeit an der Studie teil.",
-                "###  Auf den nächsten Seiten haben wir dazu ein paar Fragen an dich.",
-                "###  Nimm dir dafür ein paar Minuten Zeit.",
+                "### Auf den nächsten Seiten haben wir dazu ein paar Fragen an dich.",
+                "### Nimm dir dafür ein paar Minuten Zeit.",
               ]),
           ChoiceQuestionViewModel(
               name: "FinalQuestionnaire_usability_fun",
