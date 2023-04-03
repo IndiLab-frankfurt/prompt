@@ -140,41 +140,51 @@ class S {
     );
   }
 
-  /// `Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten.`
+  /// `Ab morgen sollst du die App PROMPT-ADAPT **jeden Abend** einmal benutzen; das dauert auch nur 3 Minuten.`
   String get planTimingParagraph1 {
     return Intl.message(
-      'Ab morgen sollst du die App PROMPT-ADAPT jeden Abend einmal benutzen; das dauert auch nur 3 Minuten.',
+      'Ab morgen sollst du die App PROMPT-ADAPT **jeden Abend** einmal benutzen; das dauert auch nur 3 Minuten.',
       name: 'planTimingParagraph1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.`
+  /// `Zur Erinnerung senden wir dir jeden Abend um **18 Uhr** eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.`
   String get planTimingParagraph2 {
     return Intl.message(
-      'Zur Erinnerung senden wir dir jeden Abend um 18 Uhr eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.',
+      'Zur Erinnerung senden wir dir jeden Abend um **18 Uhr** eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.',
       name: 'planTimingParagraph2',
       desc: '',
       args: [],
     );
   }
 
-  /// `Heute und im Laufe der Studie werden wir dir einige Fragen stellen.`
+  /// `Heute und im Laufe der Studie stellen wir dir einige Fragen.`
   String get instructionsQuestionnaires_p1 {
     return Intl.message(
-      'Heute und im Laufe der Studie werden wir dir einige Fragen stellen.',
+      'Heute und im Laufe der Studie stellen wir dir einige Fragen.',
       name: 'instructionsQuestionnaires_p1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Meistens zeigen wir dir eine Aussage, z.B.: Ich lerne gerne Vokabeln.`
+  /// `Meistens zeigen wir dir eine Aussage, z.B.:`
   String get instructionsQuestionnaires_p2 {
     return Intl.message(
-      'Meistens zeigen wir dir eine Aussage, z.B.: Ich lerne gerne Vokabeln.',
+      'Meistens zeigen wir dir eine Aussage, z.B.:',
       name: 'instructionsQuestionnaires_p2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ich lerne gerne Vokabeln.`
+  String get instructionsQuestionnaires_p2b {
+    return Intl.message(
+      'Ich lerne gerne Vokabeln.',
+      name: 'instructionsQuestionnaires_p2b',
       desc: '',
       args: [],
     );
@@ -360,10 +370,10 @@ class S {
     );
   }
 
-  /// `Wann und wo könntest du morgen gut Vokabeln lernen?`
+  /// `**Wann** und **wo** könntest du morgen gut Vokabeln lernen?`
   String get planCreation_whenAndWhere {
     return Intl.message(
-      'Wann und wo könntest du morgen gut Vokabeln lernen?',
+      '**Wann** und **wo** könntest du morgen gut Vokabeln lernen?',
       name: 'planCreation_whenAndWhere',
       desc: '',
       args: [],
@@ -480,10 +490,10 @@ class S {
     );
   }
 
-  /// `Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe.`
+  /// `Du musst PROMPT-ADAPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe.`
   String get dashboard_inFollowUpPhase {
     return Intl.message(
-      'Du musst PROMPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe.',
+      'Du musst PROMPT-ADAPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe.',
       name: 'dashboard_inFollowUpPhase',
       desc: '',
       args: [],
@@ -650,10 +660,10 @@ class S {
     );
   }
 
-  /// `Über PROMPT`
+  /// `Über PROMPT-ADAPT`
   String get drawer_aboutPrompt {
     return Intl.message(
-      'Über PROMPT',
+      'Über PROMPT-ADAPT',
       name: 'drawer_aboutPrompt',
       desc: '',
       args: [],
