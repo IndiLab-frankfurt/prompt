@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:prompt/l10n/localization/generated/l10n.dart';
+import 'package:prompt/screens/main/scheduled_notifications_screen.dart';
 import 'package:prompt/screens/main/text_compare_screen.dart';
 import 'package:prompt/screens/main/theme_preview_screen.dart';
 import 'package:prompt/services/dialog_service.dart';
@@ -136,10 +137,12 @@ class PromptDrawer extends StatelessWidget {
           }),
       _buildDrawerItem(
           icon: Icons.add_box,
-          text: "Dialog",
+          text: "Scheduled Notifications",
           onTap: () async {
-            await locator<DialogService>()
-                .showRewardDialog(title: "title", score: 5);
+            await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ScheduledNotificationsScreen()));
           }),
     ];
   }

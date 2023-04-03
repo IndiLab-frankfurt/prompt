@@ -22,8 +22,8 @@ class ApiService {
     if (kIsWeb || !kDebugMode) {
       serverUrl = _settingsService.getSetting(SettingsKeys.apiBaseUrl);
     } else if (kDebugMode) {
-      serverUrl = "https://prompt-app.eu";
-      // serverUrl = "http://10.0.2.2:8000";
+      // serverUrl = "https://prompt-app.eu";
+      serverUrl = "http://10.0.2.2:8000";
     }
     return Future.value(true);
   }
@@ -211,5 +211,11 @@ class ApiService {
     } else {
       return null;
     }
+  }
+
+  Future<int> getRewardScore(String lastQuestionnaire) async {
+    var params = {"local_time": DateTime.now().toTimeZoneAwareISOString()};
+    return getAsync("/api/user/reward/", queryParams: params).then((response) =>
+        response.statusCode == 200 ? jsonDecode(response.body)["score"] : 0);
   }
 }

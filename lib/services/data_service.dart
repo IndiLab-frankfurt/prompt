@@ -165,6 +165,10 @@ class DataService implements BaseService {
     throw Exception("Not implemented");
   }
 
+  Future<int> getRewardScore(String lastQuestionnaire) async {
+    return await _apiService.getRewardScore(lastQuestionnaire);
+  }
+
   Future<AppScreen> getNextState(String currentScreen) async {
     var response = await _apiService.getNextState(currentScreen);
 

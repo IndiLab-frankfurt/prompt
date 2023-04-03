@@ -132,19 +132,20 @@ class NotificationService implements BaseService {
 
     String title = S.current.notificationMessage_daily;
     String body = "";
+    String payload = time.toIso8601String();
 
     var scheduledDate = tz.TZDateTime(
         tz.local, time.year, time.month, time.day, time.hour, time.minute);
 
     var reminderId = NOTIFICATION_IDS[KEY_DAILY]! + id;
 
-    print("Scheduling Morning Reminder for $scheduledDate with id $reminderId");
+    print("Scheduling Daily Reminder for $scheduledDate with id $reminderId");
 
     await localNotifications.zonedSchedule(
         reminderId, title, body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOADS[KEY_DAILY]!,
+        payload: payload,
         androidAllowWhileIdle: true);
   }
 
@@ -161,6 +162,7 @@ class NotificationService implements BaseService {
 
     String title = S.current.notificationMessage_vocabTest;
     String body = "";
+    String payload = time.toIso8601String();
 
     var scheduledDate = tz.TZDateTime(
         tz.local, time.year, time.month, time.day, time.hour, time.minute);
@@ -173,7 +175,7 @@ class NotificationService implements BaseService {
         reminderId, title, body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOADS[KEY_VOCAB]!,
+        payload: payload,
         androidAllowWhileIdle: true);
   }
 
@@ -196,15 +198,15 @@ class NotificationService implements BaseService {
     var scheduledDate = tz.TZDateTime(tz.local, dateTime.year, dateTime.month,
         dateTime.day, dateTime.hour, dateTime.minute);
 
-    String title = "Wir haben noch ein paar Fragen an dich!";
-    String body =
-        "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎";
+    String title = S.current.notificationTitle_final;
+    String body = S.current.notificationBody_final;
+    String payload = dateTime.toIso8601String();
 
     await localNotifications.zonedSchedule(NOTIFICATION_IDS[KEY_FINAL]!, title,
         body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
             UILocalNotificationDateInterpretation.absoluteTime,
-        payload: PAYLOADS[KEY_FINAL]!,
+        payload: payload,
         androidAllowWhileIdle: true);
   }
 

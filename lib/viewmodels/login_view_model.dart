@@ -3,6 +3,7 @@ import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
 
 class LoginViewModel extends BaseViewModel {
   String _email = "";
@@ -25,13 +26,18 @@ class LoginViewModel extends BaseViewModel {
 
   Future<String> signIn(String username, String password) async {
     setState(ViewState.Busy);
-    var signin = await _userService.signInUser(username, password);
-    if (signin == null) {
+    var userData = await _userService.signInUser(username, password);
+    if (userData == null) {
       setState(ViewState.Idle);
       return RegistrationCodes.USER_NOT_FOUND;
     }
 
     setState(ViewState.Idle);
+    if (userData.onboardingStep >= OnboardingStep.values.length - 2) {
+      _navigationService.navigateTo(AppScreen.MAINSCREEN);
+    } else {
+      _navigationService.navigateTo(AppScreen.ONBOARDING);
+    }
     return RegistrationCodes.SUCCESS;
   }
 
@@ -39,7 +45,7 @@ class LoginViewModel extends BaseViewModel {
     return "hasselhoernchen!$userid";
   }
 
-  submit() async {
+  startOnboarding() async {
     _navigationService.navigateTo(AppScreen.ONBOARDING);
   }
 

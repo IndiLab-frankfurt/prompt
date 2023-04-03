@@ -42,7 +42,16 @@ class StudyService {
   Future<dynamic> navigateToStateFromState(String currentScreen) async {
     try {
       var nextState = await _dataService.getNextState(currentScreen);
-      return await _navigationService.navigateWithReplacement(nextState);
+      if (nextState == AppScreen.MAINSCREEN) {
+        _dataService.getScore().then((scoreValue) {
+          if (scoreValue > 0) {
+            this._rewardService.addPoints(scoreValue);
+            locator<DialogService>()
+                .showRewardDialog(title: "", score: scoreValue);
+          }
+        });
+        return await _navigationService.navigateWithReplacement(nextState);
+      }
     } catch (e) {
       _loggingService.logError("Error trying to navigate to next state",
           data: "Error getting next state: $e");
@@ -71,13 +80,7 @@ class StudyService {
   }
 
   Future<void> submitResponses(List<QuestionnaireResponse> responses) async {
-    var responseData =
-        await this._dataService.saveQuestionnaireResponses(responses);
-    var score = responseData["score"];
-    if (score > 0) {
-      this._rewardService.addPoints(score);
-      locator<DialogService>().showRewardDialog(title: "", score: score);
-    }
+    await this._dataService.saveQuestionnaireResponses(responses);
   }
 
   Future onboardingComplete() async {

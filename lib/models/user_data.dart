@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart' show kIsWeb;
@@ -13,7 +15,7 @@ class UserData {
   static toNull(_) => null;
   @JsonKey(toJson: toNull, includeIfNull: false)
   DateTime? startDate = DateTime.now();
-
+  @JsonKey(fromJson: parseTimeAndCombineWithCurrentDate, includeIfNull: false)
   DateTime? reminderTime = DateTime.now();
   int streakDays = 0;
   int score = 0;
@@ -22,6 +24,26 @@ class UserData {
   String cabuuCode = "123";
   @JsonKey(includeIfNull: false)
   String? platform = kIsWeb ? "Web" : (Platform.isAndroid ? "Android" : "iOS");
+
+  static DateTime parseTimeAndCombineWithCurrentDate(String timeString) {
+    // Parse the time string into a TimeOfDay object
+    final timeFormat = DateFormat.Hm();
+    final timeOfDay = TimeOfDay.fromDateTime(timeFormat.parse(timeString));
+
+    // Get the current date
+    final currentDate = DateTime.now();
+
+    // Combine the current date with the parsed time
+    final combinedDateTime = DateTime(
+      currentDate.year,
+      currentDate.month,
+      currentDate.day,
+      timeOfDay.hour,
+      timeOfDay.minute,
+    );
+
+    return combinedDateTime;
+  }
 
   static String _userFromJson(dynamic user) {
     return user.toString();

@@ -49,11 +49,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   _signInClick(LoginViewModel vm, BuildContext context) async {
-    var registered = await vm.signIn(
+    var registrationResponse = await vm.signIn(
         _userIdTextController.text, _passwordTextController.text);
-    if (registered == RegistrationCodes.SUCCESS) {
-      vm.submit();
-    } else if (registered == RegistrationCodes.USER_NOT_FOUND) {
+    if (registrationResponse == RegistrationCodes.USER_NOT_FOUND) {
       _buildErrorDialog("Falscher Code",
           "Der eingegebene Code war nicht richtig. Bitte überprüfe, ob du ihn richtig eingegeben hast.");
     }

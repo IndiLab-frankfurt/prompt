@@ -230,11 +230,9 @@ Questionnaire OB_VocabRoutine() => Questionnaire(
 
 Questionnaire StudyFinishedQuestionnaire() =>
     Questionnaire(title: "", name: AppScreen.STUDYFINISHED.name, questions: [
-      QuestionnaireTextPageViewModel(
-          name: "${AppScreen.REMINDERTESTTODAY.name}_1",
-          text: [
-            '### In den letzten 20 Tagen hast du Prompt nicht mehr benutzt, aber noch mit cabuu deine Vokabeln gelernt. Wir stellen dir noch ein paar Fragen dazu, wie es dir dabei ergangen ist.',
-          ]),
+      QuestionnaireTextPageViewModel(name: "followup_intotext", text: [
+        '### In den letzten 20 Tagen hast du Prompt nicht mehr benutzt, aber noch mit cabuu deine Vokabeln gelernt. Wir stellen dir noch ein paar Fragen dazu, wie es dir dabei ergangen ist.',
+      ]),
       ChoiceQuestionViewModel(
           name: "followup_1",
           choices: CHOICES_FREQUENCY,
@@ -250,13 +248,11 @@ Questionnaire StudyFinishedQuestionnaire() =>
           choices: CHOICES_FREQUENCY,
           questionText:
               "Ich habe spontan entschieden, wann und wo ich Vokabeln lerne."),
-      QuestionnaireTextPageViewModel(
-          name: "${AppScreen.REMINDERTESTTODAY.name}_1",
-          text: [
-            '### Vielen Dank, dass du so toll mitgemacht hast!',
-            '### Die Studie ist jetzt vorbei. Wir senden dir in Kürze deinen Amazon-Gutschein zu - bitte habe ein wenig Geduld.',
-            '### Die App cabuu kannst du nun kostenlos weiter benutzen. Die App PROMPT kannst du deinstallieren.'
-          ]),
+      QuestionnaireTextPageViewModel(name: "followup_finaltext", text: [
+        '### Vielen Dank, dass du so toll mitgemacht hast!',
+        '### Die Studie ist jetzt vorbei. Wir senden dir in Kürze deinen Amazon-Gutschein zu - bitte habe ein wenig Geduld.',
+        '### Die App cabuu kannst du nun kostenlos weiter benutzen. Die App PROMPT kannst du deinstallieren.'
+      ]),
     ]);
 
 Questionnaire OB_Procrastination() => Questionnaire(
@@ -342,18 +338,22 @@ Questionnaire RememberToLearn() =>
           text: ["## Denk daran, morgen Vokabeln zu lernen! "])
     ]);
 
-Questionnaire ReminderTestToday() => Questionnaire(
-        title: "",
-        name: AppScreen.REMINDERTESTTODAY.name,
-        questions: [
-          QuestionnaireTextPageViewModel(
-              name: "${AppScreen.REMINDERTESTTODAY.name}_1",
-              text: [
-                '### Bitte mache heute noch den Test in cabuu!',
-                '### Drücke dazu auf die Liste und wähle "Abfrage".',
-                '### Fange dann ab morgen mit der nächsten Liste an.'
-              ])
-        ]);
+Questionnaire ReminderTestToday() {
+  var format = new DateFormat("dd.MM.yyyy");
+  var targetDate = format.format(DateTime.now().add(Duration(days: 21)));
+  return Questionnaire(
+      title: "",
+      name: AppScreen.REMINDERTESTTODAY.name,
+      questions: [
+        QuestionnaireTextPageViewModel(
+            name: "${AppScreen.REMINDERTESTTODAY.name}_1",
+            text: [
+              '### Bitte mache heute noch den Test in cabuu!',
+              '### Drücke dazu auf die Liste und wähle "Abfrage".',
+              '### Fange dann ab morgen mit der nächsten Liste an. Klicke dazu auf die Liste und wähle "Lernplan". Dein nächster Lernplan endet am $targetDate.',
+            ])
+      ]);
+}
 
 Questionnaire ReminderTestTomorrow() => Questionnaire(
         title: "",
