@@ -270,20 +270,20 @@ class S {
     );
   }
 
-  /// `Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.`
+  /// `Beim Vokabellernen kann man **Strategien** anwenden, die einem beim Lernen und Erinnern **helfen**. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.`
   String get instructionsDistributedp1 {
     return Intl.message(
-      'Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.',
+      'Beim Vokabellernen kann man **Strategien** anwenden, die einem beim Lernen und Erinnern **helfen**. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.',
       name: 'instructionsDistributedp1',
       desc: '',
       args: [],
     );
   }
 
-  /// `Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:`
+  /// `Was sind **Hindernisse**, ƒdie dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:`
   String get obstacleEnterP1 {
     return Intl.message(
-      'Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:',
+      'Was sind **Hindernisse**, ƒdie dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:',
       name: 'obstacleEnterP1',
       desc: '',
       args: [],
@@ -310,10 +310,10 @@ class S {
     );
   }
 
-  /// `**Wann** und **wo** könntest du morgen Vokabeln lernen?`
+  /// `*Wann* und *wo* könntest du morgen Vokabeln lernen?`
   String get planInputP1 {
     return Intl.message(
-      '**Wann** und **wo** könntest du morgen Vokabeln lernen?',
+      '*Wann* und *wo* könntest du morgen Vokabeln lernen?',
       name: 'planInputP1',
       desc: '',
       args: [],
@@ -360,10 +360,10 @@ class S {
     );
   }
 
-  /// `Erstelle jetzt deinen ersten Plan!`
+  /// `## Erstelle jetzt deinen ersten Plan!`
   String get planCreation_letsCreatePlan {
     return Intl.message(
-      'Erstelle jetzt deinen ersten Plan!',
+      '## Erstelle jetzt deinen ersten Plan!',
       name: 'planCreation_letsCreatePlan',
       desc: '',
       args: [],
