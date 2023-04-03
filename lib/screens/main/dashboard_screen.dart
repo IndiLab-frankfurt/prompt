@@ -108,10 +108,17 @@ class _DashboardScreenState extends State<DashboardScreen>
         UIHelper.verticalSpaceSmall,
         SizedBox(
           width: 300,
-          child: LinearProgressIndicator(
-            backgroundColor: Theme.of(context).primaryColorLight,
-            minHeight: 12,
-            value: vm.studyProgress,
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFF000000), width: 1),
+              color: Color(0xFFFFFFFF),
+            ),
+            child: LinearProgressIndicator(
+              backgroundColor: Color(0xFFFFFFFF),
+              // backgroundColor: Theme.of(context).primaryColorLight,
+              minHeight: 12,
+              value: vm.studyProgress,
+            ),
           ),
         )
       ],
@@ -128,10 +135,17 @@ class _DashboardScreenState extends State<DashboardScreen>
         UIHelper.verticalSpaceMedium,
         SizedBox(
           width: 300,
-          child: LinearProgressIndicator(
-            backgroundColor: Theme.of(context).primaryColorLight,
-            minHeight: 12,
-            value: vm.getVocabProgress(),
+          child: Container(
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0xFF000000), width: 1),
+              color: Color(0xFFFFFFFF),
+            ),
+            child: LinearProgressIndicator(
+              backgroundColor: Color(0xFFFFFFFF),
+              // backgroundColor: Theme.of(context).primaryColorLight,
+              minHeight: 12,
+              value: vm.getVocabProgress(),
+            ),
           ),
         )
       ],
