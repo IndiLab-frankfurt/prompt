@@ -350,7 +350,7 @@ Questionnaire ReminderTestToday() {
             text: [
               '### Bitte mache *heute* noch den Test in cabuu!',
               '### Drücke dazu in cabuu auf die Liste und wähle "Abfrage".',
-              '### Fange dann ab morgen mit der nächsten Liste an. Klicke dazu auf die Liste und wähle "Lernplant". Dein nächster Lernplan endet am $targetDate.'
+              '### Fange dann ab morgen mit der nächsten Liste an. Klicke dazu auf die Liste und wähle "Lernplan". Dein nächster Lernplan endet am $targetDate.'
             ])
       ]);
 }
