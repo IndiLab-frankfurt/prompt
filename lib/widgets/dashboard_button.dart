@@ -24,7 +24,7 @@ class DashboardButton extends StatelessWidget {
               backgroundColor: Theme.of(context).primaryColorLight,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10))),
-              side: BorderSide(width: 1.0, color: Colors.grey)),
+              side: BorderSide(width: 1.0, color: Colors.black)),
         ));
   }
 }
