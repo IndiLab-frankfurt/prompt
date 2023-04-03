@@ -14,12 +14,13 @@ class SpeechBubble extends StatelessWidget {
       margin: EdgeInsets.all(5),
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-              blurRadius: 2,
-              offset: Offset(5.0, 2.0),
-              color: Colors.black.withOpacity(.12))
-        ],
+        border: Border.all(color: Color(0xFF000000), width: 1),
+        // boxShadow: [
+        //   BoxShadow(
+        //       blurRadius: 2,
+        //       offset: Offset(5.0, 2.0),
+        //       color: Colors.black.withOpacity(.12))
+        // ],
         color: Theme.of(context).dialogBackgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(20.0)),
       ),
