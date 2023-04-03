@@ -26,6 +26,8 @@ class _VideoScreenState extends State<VideoScreen> {
   void initState() {
     super.initState();
 
+    _videoPlayerController.initialize().then((_) => setState(() {}));
+
     _videoPlayerController.addListener(() {
       if (!_videoPlayerController.value.isInitialized) return;
 
