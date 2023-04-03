@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
+import 'package:prompt/widgets/question_container.dart';
 
 typedef void MultipleChoiceQuestionCallback(List<String> selectedValues);
 
@@ -68,23 +69,8 @@ class _MultipleChoiceQuestionViewState
       displayGroupValue += 1;
     }
 
-    return Container(
-      padding: EdgeInsets.all(10),
-      margin: EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        color: Theme.of(context).dialogBackgroundColor.withOpacity(0.7),
-        borderRadius: BorderRadius.all(Radius.circular(20.0)),
-      ),
-      child: ListView(
-        children: <Widget>[
-          MarkdownBody(
-            data: "**${widget.question.questionText}**",
-          ),
-          UIHelper.verticalSpaceMedium,
-          ...items,
-        ],
-      ),
-    );
+    return QuestionContainer(
+        data: widget.question.questionText, choices: [...items]);
   }
 
   buildStaticItem(int groupValue, String text) {
