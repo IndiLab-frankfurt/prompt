@@ -23,7 +23,7 @@ class InstructionsImplementationIntentions extends StatelessWidget {
           UIHelper.verticalSpaceMedium,
           MarkdownBody(
               data:
-                  "Auf der nächsten Seite zeigt dir unser Monster einen Trick, der dir dabei hilft, dieses Ziel zu erreichen."),
+                  "Auf der nächsten Seite zeigt dir unser Monster **einen Trick**, der dir dabei hilft, dieses Ziel zu erreichen."),
         ],
       ),
     );
