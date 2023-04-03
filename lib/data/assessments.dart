@@ -187,7 +187,7 @@ Questionnaire OB_VocabRoutine() => Questionnaire(
           ChoiceQuestionViewModel(
               name: "OB_routine_3",
               questionText:
-                  "Wie oft lernst du normalerweise Englischvokabeln, **wenn kein Test ansteht**?",
+                  "Wie oft lernst du normalerweise Englischvokabeln, *wenn kein Test ansteht*?",
               choices: {
                 "1": "Weniger als 1 Tag pro Woche",
                 "2": "1-2 Tage pro Woche",
@@ -198,7 +198,7 @@ Questionnaire OB_VocabRoutine() => Questionnaire(
           ChoiceQuestionViewModel(
               name: "OB_routine_4",
               questionText:
-                  "Wie oft lernst du normalerweise Englischvokabeln, **wenn ein Test angekündigt ist**?",
+                  "Wie oft lernst du normalerweise Englischvokabeln, *wenn ein Test angekündigt ist*?",
               choices: {
                 "1": "Weniger als 1 Tag pro Woche",
                 "2": "1-2 Tage pro Woche",
