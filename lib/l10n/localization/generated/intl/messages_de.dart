@@ -122,7 +122,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "instructionsCabuuWriteDate": MessageLookupByLibrary.simpleMessage(
             "Außerdem brauchst du dieses Datum:"),
         "instructionsDistributedp1": MessageLookupByLibrary.simpleMessage(
-            "Beim Vokabellernen kann man Strategien anwenden, die einem beim Lernen und Erinnern helfen. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden."),
+            "Beim Vokabellernen kann man **Strategien** anwenden, die einem beim Lernen und Erinnern **helfen**. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden."),
         "instructionsQuestionnaires_p1": MessageLookupByLibrary.simpleMessage(
             "Heute und im Laufe der Studie stellen wir dir einige Fragen."),
         "instructionsQuestionnaires_p2": MessageLookupByLibrary.simpleMessage(
@@ -157,7 +157,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notificationTitle_final": MessageLookupByLibrary.simpleMessage(
             "Wir haben noch ein paar Fragen an dich!"),
         "obstacleEnterP1": MessageLookupByLibrary.simpleMessage(
-            "Was sind **Hindernisse**, die dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:"),
+            "Was sind **Hindernisse**, ƒdie dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:"),
         "obstacleOutcomeHelperText":
             MessageLookupByLibrary.simpleMessage("Stichworte genügen"),
         "outcomeEnterP1": MessageLookupByLibrary.simpleMessage(
@@ -165,12 +165,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "planCreation_completeThePlan":
             MessageLookupByLibrary.simpleMessage("Vervollständige den Plan:"),
         "planCreation_letsCreatePlan": MessageLookupByLibrary.simpleMessage(
-            "Erstelle jetzt deinen ersten Plan!"),
+            "## Erstelle jetzt deinen ersten Plan!"),
         "planCreation_whenAndWhere": MessageLookupByLibrary.simpleMessage(
             "**Wann** und **wo** könntest du morgen gut Vokabeln lernen?"),
         "planInputIfI": MessageLookupByLibrary.simpleMessage("Wenn ich"),
         "planInputP1": MessageLookupByLibrary.simpleMessage(
-            "**Wann** und **wo** könntest du morgen Vokabeln lernen?"),
+            "*Wann* und *wo* könntest du morgen Vokabeln lernen?"),
         "planInputThenILearnWithCabuu":
             MessageLookupByLibrary.simpleMessage("dann lerne ich mit cabuu!"),
         "planPlaceHolder": m5,
