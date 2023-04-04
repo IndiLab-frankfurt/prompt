@@ -150,11 +150,13 @@ class StudyService {
 
   _scheduleVocabReminders() async {
     // schedule three vocab reminders: 21, 42, 63 days after start
-    for (var day in vocabTestDays) {
+    for (var i = 0; i < vocabTestDays.length; i++) {
+      await _notificationService.deleteVocabReminderWithId(i);
+      var day = vocabTestDays[i];
       var reminderDate = DateTime.now().add(Duration(days: day));
       var reminderDateTime = DateTime(
           reminderDate.year, reminderDate.month, reminderDate.day, 6, 00);
-      await _notificationService.scheduleVocabTestReminder(reminderDateTime);
+      await _notificationService.scheduleVocabTestReminder(reminderDateTime, i);
     }
   }
 }

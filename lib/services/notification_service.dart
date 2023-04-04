@@ -85,6 +85,11 @@ class NotificationService implements BaseService {
     return deleteNotification(NOTIFICATION_IDS[KEY_FINAL]!);
   }
 
+  deleteVocabReminderWithId(int id) async {
+    var vocabId = NOTIFICATION_IDS[KEY_VOCAB]! + id;
+    return deleteNotification(vocabId);
+  }
+
   deleteNotification(int id) async {
     var pendingNotifications = await getPendingNotifications();
     var reminderExists =
@@ -149,7 +154,7 @@ class NotificationService implements BaseService {
         androidAllowWhileIdle: true);
   }
 
-  scheduleVocabTestReminder(DateTime time) async {
+  scheduleVocabTestReminder(DateTime time, int id) async {
     var timeoutAfter = getMillisecondsUntilMidnight(time);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
         CHANNEL_IDS[KEY_VOCAB]!, CHANNEL_NAMES[KEY_VOCAB]!,
@@ -167,7 +172,7 @@ class NotificationService implements BaseService {
     var scheduledDate = tz.TZDateTime(
         tz.local, time.year, time.month, time.day, time.hour, time.minute);
 
-    var reminderId = NOTIFICATION_IDS[KEY_VOCAB]!;
+    var reminderId = NOTIFICATION_IDS[KEY_VOCAB]! + id;
 
     print("Scheduling Vocab Reminder for $scheduledDate ");
 

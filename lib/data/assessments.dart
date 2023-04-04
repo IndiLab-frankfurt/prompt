@@ -368,16 +368,23 @@ Questionnaire ReminderTestTomorrow() => Questionnaire(
               ])
         ]);
 
-Questionnaire ReminderNextList() =>
-    Questionnaire(title: "", name: AppScreen.REMINDERNEXTLIST.name, questions: [
-      QuestionnaireTextPageViewModel(
-          name: "${AppScreen.REMINDERNEXTLIST.name}_1",
-          text: [
-            '### Prima!',
-            '### Fange ab morgen an, die nächste Liste in cabuu zu lernen.',
-            '### Du hast wieder 20 Tage Zeit bis zum nächsten Test.'
-          ])
-    ]);
+Questionnaire ReminderNextList() {
+  var format = new DateFormat("dd.MM.yyyy");
+  var targetDate = format.format(DateTime.now().add(Duration(days: 20)));
+  return Questionnaire(
+      title: "",
+      name: AppScreen.REMINDERNEXTLIST.name,
+      questions: [
+        QuestionnaireTextPageViewModel(
+            name: "${AppScreen.REMINDERNEXTLIST.name}_1",
+            text: [
+              '### Prima!',
+              '### Fange ab morgen an, die nächste Liste in cabuu zu lernen.',
+              '### Klicke dazu auf die Liste Liste und wähle "Lernplan".',
+              '### Dein nächster Lernplan endet am $targetDate.'
+            ])
+      ]);
+}
 
 Questionnaire VocabToday() =>
     Questionnaire(title: "", name: AppScreen.VOCABTESTTODAY.name, questions: [

@@ -65,6 +65,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: PromptAppBar(
+                // Todo: Add Debug Flags back
                 showBackButton: true,
                 title: vm.pages[vm.page].name,
               ),
