@@ -65,8 +65,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
           child: Scaffold(
               backgroundColor: Colors.transparent,
               appBar: PromptAppBar(
-                showBackButton: kDebugMode,
-                title: kDebugMode ? vm.pages[vm.page].name : "",
+                showBackButton: true,
+                title: vm.pages[vm.page].name,
               ),
               drawer: PromptDrawer(),
               resizeToAvoidBottomInset: false,

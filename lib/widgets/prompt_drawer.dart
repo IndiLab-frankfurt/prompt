@@ -99,7 +99,7 @@ class PromptDrawer extends StatelessWidget {
               await Navigator.pushNamed(
                   context, AppScreen.ACCOUNTMANAGEMENT.name);
             }),
-        if (kDebugMode) ...buildDebugItems(context)
+        ...buildDebugItems(context)
       ]),
     );
   }
