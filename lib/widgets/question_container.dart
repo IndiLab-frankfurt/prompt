@@ -5,7 +5,12 @@ import 'package:prompt/shared/ui_helper.dart';
 class QuestionContainer extends StatelessWidget {
   final String data;
   final List<Widget> choices;
-  const QuestionContainer({super.key, required this.data, required this.choices});
+  final String instructions;
+  const QuestionContainer(
+      {super.key,
+      required this.data,
+      required this.choices,
+      required this.instructions});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +26,10 @@ class QuestionContainer extends StatelessWidget {
           ),
           child: Column(
             children: <Widget>[
+              MarkdownBody(
+                data: "${this.instructions}",
+              ),
+              UIHelper.verticalSpaceMedium,
               MarkdownBody(
                 data: "**${this.data}**",
               ),
