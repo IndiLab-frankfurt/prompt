@@ -73,6 +73,13 @@ class PromptDrawer extends StatelessWidget {
                   context, AppScreen.PLANTIMINGCHANGE.name);
             }),
         _buildDrawerItem(
+            icon: Icons.calendar_month_outlined,
+            text: S.of(context).drawer_learningPlan,
+            onTap: () async {
+              await Navigator.pushReplacementNamed(
+                  context, AppScreen.LEARNINGPLANCABUU.name);
+            }),
+        _buildDrawerItem(
             icon: Icons.info_outline_rounded,
             text: S.of(context).drawer_aboutPrompt,
             onTap: () async {

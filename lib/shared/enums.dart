@@ -74,7 +74,8 @@ enum AppScreen {
   THEMEPREVIEW("/themepreview"),
   ACCOUNTMANAGEMENT("/accountmanagement"),
   STUDYFINISHED("/studyfinished"),
-  USERSETTINGS("/usersettings");
+  USERSETTINGS("/usersettings"),
+  LEARNINGPLANCABUU("/learningplancabuu");
 
   const AppScreen(this.routeName);
   final String routeName;

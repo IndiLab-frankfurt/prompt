@@ -6,6 +6,7 @@ import 'package:prompt/screens/main/account_management_screen.dart';
 import 'package:prompt/screens/main/change_plan_timing_screen.dart';
 import 'package:prompt/screens/main/data_privacy_screen.dart';
 import 'package:prompt/screens/main/forgot_password_screen.dart';
+import 'package:prompt/screens/main/learning_plan_overview_screen.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/screens/assessments/multi_page_questionnaire_screen.dart';
@@ -206,6 +207,10 @@ class AppRouter {
 
       case AppScreen.DATAPRIVACY:
         screen = DataPrivacyScreen();
+        break;
+
+      case AppScreen.LEARNINGPLANCABUU:
+        screen = LearningPlanOverviewScreen();
         break;
 
       default:

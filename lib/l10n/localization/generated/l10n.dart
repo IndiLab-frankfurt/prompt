@@ -710,6 +710,16 @@ class S {
     );
   }
 
+  /// `Lernplan cabuu`
+  String get drawer_learningPlan {
+    return Intl.message(
+      'Lernplan cabuu',
+      name: 'drawer_learningPlan',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Über PROMPT-ADAPT`
   String get aboutScreen_title {
     return Intl.message(

@@ -47,15 +47,6 @@ class OnboardingViewModel extends MultiPageViewModel {
   late PlanInputViewModel planInputViewModel = PlanInputViewModel(
       name: OnboardingStep.planCreation.name, onAnswered: onPlanInput);
 
-  // PlanInputViewModel planInputViewModelOutcome =
-  //     PlanInputViewModel(name: OnboardingStep.outcome.name);
-
-  // PlanInputViewModel planInputViewModelObstacle =
-  //     PlanInputViewModel(name: OnboardingStep.obstacle.name);
-
-  // PlanInputViewModel planInputViewModelCoping =
-  //     PlanInputViewModel(name: OnboardingStep.copingPlan.name);
-
   String _plan = "";
   String get plan => _plan;
   set plan(String plan) {
@@ -121,9 +112,6 @@ class OnboardingViewModel extends MultiPageViewModel {
           name: OnboardingStep.assessment_ToB.name,
           questionnaire: OB_ToB(),
           studyService: this._studyService),
-      // planInputViewModelOutcome,
-      // planInputViewModelObstacle,
-      // planInputViewModelCoping,
       MultiPageQuestionnaireViewModel(
           name: OnboardingStep.assessment_procrastination.name,
           questionnaire: OB_Procrastination(),
