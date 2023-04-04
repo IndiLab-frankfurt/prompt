@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:prompt/shared/ui_helper.dart';
 import 'package:prompt/viewmodels/choice_question_view_model.dart';
+import 'package:prompt/widgets/question_container.dart';
 
 typedef void ChoiceQuestionCallback(String val);
 
@@ -74,28 +73,8 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
       displayGroupValue += 1;
     }
 
-    return ListView(
-      children: <Widget>[
-        Container(
-          padding: EdgeInsets.all(10),
-          margin: EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Theme.of(context).dialogBackgroundColor.withOpacity(0.9),
-            border: Border.all(color: Color(0xFF000000), width: 1),
-            borderRadius: BorderRadius.all(Radius.circular(20.0)),
-          ),
-          child: Column(
-            children: <Widget>[
-              MarkdownBody(
-                data: "**${widget.question.questionText}**",
-              ),
-              UIHelper.verticalSpaceMedium,
-              ...items,
-            ],
-          ),
-        ),
-      ],
-    );
+    return QuestionContainer(
+        data: widget.question.questionText, choices: [...items]);
   }
 
   buildStaticItem(int groupValue, String text) {

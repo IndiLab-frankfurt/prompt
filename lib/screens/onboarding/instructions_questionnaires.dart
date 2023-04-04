@@ -34,7 +34,7 @@ class InstructionsQuestionnaires extends StatelessWidget {
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
             ),
             child: Text(
-              S.of(context).instructionsQuestionnaires_p2,
+              S.of(context).instructionsQuestionnaires_p2b,
               textAlign: TextAlign.center,
             ),
           ),
