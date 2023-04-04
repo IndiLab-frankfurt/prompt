@@ -262,7 +262,7 @@ Questionnaire OB_Procrastination() => Questionnaire(
           ChoiceQuestionViewModel(
               name: "OB_procrastination_1",
               questionText:
-                  "Ich lasse unnötig viel Zeit verstreichen, bis ich mit dem Vokabellernen beginne.",
+                  "Bitte überlege, wie du normalerweise Vokabeln lernst. Ich lasse unnötig viel Zeit verstreichen, bis ich mit dem Vokabellernen beginne.",
               choices: CHOICES_FREQUENCY),
           ChoiceQuestionViewModel(
               name: "OB_procrastination_2",
