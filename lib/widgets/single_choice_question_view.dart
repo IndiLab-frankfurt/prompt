@@ -74,7 +74,10 @@ class _SingleChoiceQuestionViewState extends State<SingleChoiceQuestionView> {
     }
 
     return QuestionContainer(
-        data: widget.question.questionText, choices: [...items]);
+      data: widget.question.questionText,
+      choices: [...items],
+      instructions: widget.question.instructions,
+    );
   }
 
   buildStaticItem(int groupValue, String text) {
