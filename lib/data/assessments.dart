@@ -382,7 +382,7 @@ Questionnaire ReminderNextList() {
             text: [
               '### Prima!',
               '### Fange ab morgen an, die nächste Liste in cabuu zu lernen.',
-              '### Klicke dazu auf die Liste Liste und wähle "Lernplan".',
+              '### Klicke dazu auf die Liste und wähle "Lernplan".',
               '### Dein nächster Lernplan endet am $targetDate.'
             ])
       ]);
