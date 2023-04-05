@@ -32,26 +32,26 @@ class StudyService {
           .logError("nextScreen called with empty current route name");
       currentScreen = AppScreen.MAINSCREEN.name;
     }
-    return await navigateToStateFromState(currentScreen!);
+    return await goToNextStateFromState(currentScreen!);
   }
 
   Future<AppScreen> getNextState(AppScreen current) async {
     return await _dataService.getNextState(current.name);
   }
 
-  Future<dynamic> navigateToStateFromState(String currentScreen) async {
+  Future<dynamic> goToNextStateFromState(String currentScreen) async {
     try {
       var nextState = await _dataService.getNextState(currentScreen);
       if (nextState == AppScreen.MAINSCREEN) {
         _dataService.getRewardScore(currentScreen).then((scoreValue) async {
           if (scoreValue > 0) {
             this._rewardService.addPoints(scoreValue);
-            await locator<DialogService>()
+            locator<DialogService>()
                 .showRewardDialog(title: "", score: scoreValue);
           }
         });
-        return await _navigationService.navigateWithReplacement(nextState);
       }
+      return await _navigationService.navigateWithReplacement(nextState);
     } catch (e) {
       _loggingService.logError("Error trying to navigate to next state",
           data: "Error getting next state: $e");
