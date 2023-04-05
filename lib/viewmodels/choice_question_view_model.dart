@@ -6,6 +6,7 @@ class ChoiceQuestionViewModel extends QuestionnairePageViewModel {
   final bool randomize;
   final Map<String, String> choices;
   final String questionText;
+  final String instructions;
   List<String> selectedChoices = [];
 
   ChoiceQuestionViewModel(
@@ -14,6 +15,7 @@ class ChoiceQuestionViewModel extends QuestionnairePageViewModel {
       required this.questionText,
       bool completed = false,
       this.randomize = false,
+      this.instructions = "",
       this.singleChoice = true})
       : super(name: name) {
     this.completed = completed;
