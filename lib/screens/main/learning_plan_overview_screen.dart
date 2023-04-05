@@ -35,6 +35,13 @@ class LearningPlanOverviewScreen extends StatelessWidget {
       Text(
         format.format(nextVocabDate),
       ),
+      Text(
+        "Wie aktiviere ich einen Lernplan in cabuu?",
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+      Text(
+        'Klicke auf die Liste und wähle "Lernplan erstellen". Gib als Enddatum das oben angegebene Datum ein.',
+      ),
     ];
     return Scaffold(
         appBar: PromptAppBar(
@@ -47,10 +54,9 @@ class LearningPlanOverviewScreen extends StatelessWidget {
             itemCount: items.length,
             itemBuilder: ((context, index) {
               return Padding(
-                  padding: const EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  child: Container(
-                    child: Center(child: items[index]),
-                  ));
+                padding: const EdgeInsets.fromLTRB(5, 10, 5, 5),
+                child: Center(child: items[index]),
+              );
             }),
           ),
         ));

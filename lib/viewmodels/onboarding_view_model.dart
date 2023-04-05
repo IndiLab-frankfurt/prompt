@@ -157,7 +157,7 @@ class OnboardingViewModel extends MultiPageViewModel {
     initialPage = min(ud.onboardingStep, pages.length - 1);
     // initialPage = 0;
     this.setPage(initialPage);
-    cabuuCode = ud.cabuuCode.isNotEmpty ? ud.cabuuCode : "HIER CABUU CODE";
+    cabuuCode = ud.cabuuCode.isNotEmpty ? ud.cabuuCode : "cabuu code missing";
 
     return true;
   }

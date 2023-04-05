@@ -5,7 +5,8 @@ import 'package:prompt/shared/ui_helper.dart';
 class QuestionContainer extends StatelessWidget {
   final String data;
   final List<Widget> choices;
-  const QuestionContainer({super.key, required this.data, required this.choices});
+  const QuestionContainer(
+      {super.key, required this.data, required this.choices});
 
   @override
   Widget build(BuildContext context) {
