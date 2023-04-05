@@ -1,6 +1,5 @@
 import 'package:prompt/models/questionnaire.dart';
 import 'package:prompt/models/questionnaire_response.dart';
-import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/completable_page.dart';

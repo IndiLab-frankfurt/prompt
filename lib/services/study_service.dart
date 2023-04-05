@@ -13,14 +13,13 @@ import 'package:prompt/shared/extensions.dart';
 class StudyService {
   static const Duration FULL_STUDY_DURATION = Duration(days: 63);
   static const Duration DAILY_USE_DURATION = Duration(days: 42);
+  static const List<int> VOCAB_TEST_DAYS = [21, 42, 63];
 
   final DataService _dataService;
   final NotificationService _notificationService;
   final LoggingService _loggingService;
   final RewardService _rewardService;
   final NavigationService _navigationService;
-
-  final List<int> vocabTestDays = [21, 42, 63];
 
   StudyService(this._dataService, this._notificationService,
       this._loggingService, this._rewardService, this._navigationService);
@@ -39,19 +38,19 @@ class StudyService {
     return await _dataService.getNextState(current.name);
   }
 
-  Future<dynamic> goToNextStateFromState(String currentScreen) async {
+  Future<void> goToNextStateFromState(String currentScreen) async {
     try {
       var nextState = await _dataService.getNextState(currentScreen);
+
       if (nextState == AppScreen.MAINSCREEN) {
         _dataService.getRewardScore(currentScreen).then((scoreValue) async {
           if (scoreValue > 0) {
             this._rewardService.addPoints(scoreValue);
-            locator<DialogService>()
-                .showRewardDialog(title: "", score: scoreValue);
           }
         });
       }
-      return await _navigationService.navigateWithReplacement(nextState);
+
+      await _navigationService.navigateWithReplacement(nextState);
     } catch (e) {
       _loggingService.logError("Error trying to navigate to next state",
           data: "Error getting next state: $e");
@@ -60,7 +59,7 @@ class StudyService {
 
   DateTime getNextVocabTestDate() {
     var daysAgo = getDaysSinceStart();
-    for (var day in vocabTestDays) {
+    for (var day in VOCAB_TEST_DAYS) {
       if (day > daysAgo) {
         return DateTime.now().add(Duration(days: day - daysAgo));
       }
@@ -85,14 +84,14 @@ class StudyService {
 
   Future onboardingComplete() async {
     await _scheduleFinalTaskReminder();
-    await _scheduleVocabReminders();
+    await scheduleVocabReminders();
     this._rewardService.addPoints(5);
     _dataService.saveScore(5);
     locator<DialogService>().showRewardDialog(title: "", score: 5);
   }
 
   bool isLastVocabTestDay() {
-    return getDaysSinceStart() == vocabTestDays.last;
+    return getDaysSinceStart() == VOCAB_TEST_DAYS.last;
   }
 
   List<DateTime> getDailyScheduleTimes(DateTime dailyReminderTime) {
@@ -101,27 +100,36 @@ class StudyService {
     var daysAgo = getDaysSinceStart();
     var toSchedule = DAILY_USE_DURATION.inDays - daysAgo;
 
+    var nowTime = TimeOfDay.now();
+
+    // However, if it is still before the daily reminder time, we need to schedule one reminder today
+    if (toSchedule > 0 &&
+        daysAgo > 0 &&
+        nowTime.hour < dailyReminderTime.hour) {
+      toSchedule++;
+    }
+
     // If the first schedule is for today, this should be zero
     var firstSchedule = 0;
 
     // check if we are already past the daily reminder time, if that is the case,
     // we need to schedule the first reminder for tomorrow
     // Moreover, if the study started only today, then the first reminder also needs to be tomorrow
-    var nowTime = TimeOfDay.now();
+
     var shouldScheduleFirstReminderToday =
         dailyReminderTime.hour > nowTime.hour ||
             (dailyReminderTime.hour == nowTime.hour &&
                 dailyReminderTime.minute > nowTime.minute) ||
             daysAgo == 0;
-    if (shouldScheduleFirstReminderToday) {
+    if (!shouldScheduleFirstReminderToday) {
       firstSchedule = 1;
     }
 
     var times = <DateTime>[];
     var today = DateTime.now();
 
-    for (var i = firstSchedule; i <= toSchedule; i++) {
-      var reminderDate = today.add(Duration(days: i));
+    for (var i = 0; i < toSchedule; i++) {
+      var reminderDate = today.add(Duration(days: i + firstSchedule));
       var reminderDateTime = DateTime(reminderDate.year, reminderDate.month,
           reminderDate.day, dailyReminderTime.hour, dailyReminderTime.minute);
       times.add(reminderDateTime);
@@ -148,15 +156,24 @@ class StudyService {
     await _notificationService.scheduleFinalTaskReminder(scheduleDate);
   }
 
-  _scheduleVocabReminders() async {
-    // schedule three vocab reminders: 21, 42, 63 days after start
-    for (var i = 0; i < vocabTestDays.length; i++) {
-      await _notificationService.deleteVocabReminderWithId(i);
-      var day = vocabTestDays[i];
+  List<DateTime> getVocabScheduleTimes() {
+    var times = <DateTime>[];
+    for (var i = 0; i < VOCAB_TEST_DAYS.length; i++) {
+      var day = VOCAB_TEST_DAYS[i];
       var reminderDate = DateTime.now().add(Duration(days: day));
       var reminderDateTime = DateTime(
           reminderDate.year, reminderDate.month, reminderDate.day, 6, 00);
-      await _notificationService.scheduleVocabTestReminder(reminderDateTime, i);
+      times.add(reminderDateTime);
+    }
+    return times;
+  }
+
+  scheduleVocabReminders() async {
+    var scheduleTimes = getVocabScheduleTimes();
+    // schedule three vocab reminders: 21, 42, 63 days after start
+    for (var i = 0; i < scheduleTimes.length; i++) {
+      await _notificationService.deleteVocabReminderWithId(i);
+      await _notificationService.scheduleVocabTestReminder(scheduleTimes[i], i);
     }
   }
 }

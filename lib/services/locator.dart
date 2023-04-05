@@ -47,8 +47,10 @@ void _setUpServices() {
   locator.registerSingleton<LoggingService>(
       LoggingService(locator.get<DataService>()));
 
-  locator.registerSingleton<RewardService>(
-      RewardService(locator.get<DataService>(), locator.get<LoggingService>()));
+  locator.registerSingleton<RewardService>(RewardService(
+      locator.get<DataService>(),
+      locator.get<LoggingService>(),
+      locator.get<DialogService>()));
 
   locator.registerSingleton<NotificationService>(
       NotificationService(locator.get<LoggingService>()));

@@ -1,6 +1,7 @@
 import 'package:mockito/mockito.dart';
 import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
+import 'package:prompt/services/dialog_service.dart';
 import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/logging_service.dart';
@@ -19,8 +20,9 @@ UserService mockUserService = UserService(mockSettingsService, mockDataService);
 LoggingService mockLoggingService = LoggingService(mockDataService);
 NotificationService mockNotificationService =
     NotificationService(mockLoggingService);
+DialogService mockDialogService = DialogService();
 RewardService mockRewardService =
-    RewardService(mockDataService, mockLoggingService);
+    RewardService(mockDataService, mockLoggingService, mockDialogService);
 NavigationService mockNavigationService = NavigationService();
 
 StudyService mockStudyService = StudyService(

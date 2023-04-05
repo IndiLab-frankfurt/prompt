@@ -2,10 +2,12 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:prompt/models/unlockable_background.dart';
 import 'package:prompt/services/data_service.dart';
+import 'package:prompt/services/dialog_service.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/logging_service.dart';
 
 class RewardService {
-  RewardService(this._dataService, this._logService);
+  RewardService(this._dataService, this._logService, this._dialogService);
 
   late StreamController<int> controller = StreamController.broadcast();
   int scoreValue = 0;
@@ -35,6 +37,7 @@ class RewardService {
 
   final DataService _dataService;
   final LoggingService _logService;
+  final DialogService _dialogService;
 
   final Map<String, int> unlockValues = {
     "Monster": 0,
@@ -218,5 +221,8 @@ class RewardService {
   Future<void> addPoints(int points) async {
     scoreValue += points;
     controller.add(scoreValue);
+
+    await locator<DialogService>()
+        .showRewardDialog(title: "", score: scoreValue);
   }
 }
