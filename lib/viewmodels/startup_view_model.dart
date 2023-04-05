@@ -46,7 +46,7 @@ class StartupViewModel extends BaseViewModel {
       case AppStartupMode.noTasks:
         // nav.navigateAndRemove(AppScreen.Mainscreen);
         await locator<StudyService>()
-            .navigateToStateFromState(AppScreen.MAINSCREEN.name);
+            .goToNextStateFromState(AppScreen.MAINSCREEN.name);
         break;
     }
   }
