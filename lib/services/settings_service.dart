@@ -9,7 +9,7 @@ class SettingsService {
     SettingsKeys.password: "",
     SettingsKeys.refreshToken: "",
     SettingsKeys.backGroundImage: "",
-    SettingsKeys.backgroundColors: "FFFFF3E0,FFFFF3E0",
+    SettingsKeys.backgroundColors: "FFE6F0F6,FFE6F0F6",
     SettingsKeys.apiBaseUrl: "https://prompt-app.eu",
   };
 
