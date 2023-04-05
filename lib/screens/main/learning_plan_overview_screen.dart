@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:intl/intl.dart';
 import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/study_service.dart';
@@ -29,6 +28,20 @@ class LearningPlanOverviewScreen extends StatelessWidget {
           textAlign: TextAlign.center),
       UIHelper.verticalSpaceSmall,
       Text(
+        "Was ist mein cabuu Code?",
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[300]),
+        textAlign: TextAlign.center,
+      ),
+      Text(
+        'Deinen cabuu Code findest du im Menü unter "Benutzerkonto". Eine genaue Anleitung, wie du den Code freischaltest und cabuu einrichtest, findest du hier:',
+        textAlign: TextAlign.center,
+      ),
+      Text(
+        'https://bit.ly/3JAUxLR',
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[500]),
+        textAlign: TextAlign.center,
+      ),
+      Text(
         "Bis wann habe ich Zeit, die nächste Vokabelliste zu lernen?",
         style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[300]),
         textAlign: TextAlign.center,
@@ -50,7 +63,7 @@ class LearningPlanOverviewScreen extends StatelessWidget {
         textAlign: TextAlign.center,
       ),
       Text(
-        'Klicke auf die Liste und wähle "Lernplan erstellen". Gib als Enddatum das oben angegebene Datum ein.',
+        'Klicke auf die Liste und wähle "Lernplan erstellen". Gib als Enddatum das erste oben angegebene Datum ein.',
         textAlign: TextAlign.center,
       ),
       Image(
