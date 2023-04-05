@@ -720,10 +720,10 @@ class S {
     );
   }
 
-  /// `Lernplan cabuu`
+  /// `Infos cabuu & Lernplan`
   String get drawer_learningPlan {
     return Intl.message(
-      'Lernplan cabuu',
+      'Infos cabuu & Lernplan',
       name: 'drawer_learningPlan',
       desc: '',
       args: [],

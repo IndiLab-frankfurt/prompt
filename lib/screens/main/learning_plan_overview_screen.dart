@@ -17,30 +17,79 @@ class LearningPlanOverviewScreen extends StatelessWidget {
         studyService.getNextVocabTestDate().subtract(Duration(days: 1));
     // format date to locale string
     var format = new DateFormat.yMMMMd('de_DE');
+    var imgExplain1 = "assets/tutorial/cabuu_Erklaerung_Prompt_App1.png";
+    var imgExplain2 = "assets/tutorial/cabuu_Erklaerung_Prompt_App2.png";
+    var imgExplain3 = "assets/tutorial/cabuu_Erklaerung_Prompt_App3.png";
+    var imgExplain4 = "assets/tutorial/cabuu_Erklaerung_Prompt_App4.png";
 
     var items = [
+      Text("Hier findest du alle wichtigen Informationen zu cabuu",
+          style: Theme.of(context).textTheme.headlineSmall,
+          textAlign: TextAlign.center),
+      UIHelper.verticalSpaceSmall,
+      Text(
+        "Was ist mein cabuu Code?",
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[300]),
+        textAlign: TextAlign.center,
+      ),
+      Text(
+        'Deinen cabuu Code findest du im Menü unter "Benutzerkonto". Eine genaue Anleitung, wie du den Code freischaltest und cabuu einrichtest, findest du hier:',
+        textAlign: TextAlign.center,
+      ),
+      Text(
+        'https://bit.ly/3JAUxLR',
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[500]),
+        textAlign: TextAlign.center,
+      ),
       Text(
         "Bis wann habe ich Zeit, die nächste Vokabelliste zu lernen?",
-        style: Theme.of(context).textTheme.headlineSmall,
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[300]),
+        textAlign: TextAlign.center,
       ),
-      UIHelper.verticalSpaceMedium,
       Text(
         format.format(deadlineDate),
       ),
-      UIHelper.verticalSpaceMedium,
       Text(
         "Wann soll ich den nächsten Test machen?",
-        style: Theme.of(context).textTheme.headlineSmall,
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[300]),
+        textAlign: TextAlign.center,
       ),
       Text(
         format.format(nextVocabDate),
       ),
       Text(
         "Wie aktiviere ich einen Lernplan in cabuu?",
-        style: Theme.of(context).textTheme.headlineSmall,
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[300]),
+        textAlign: TextAlign.center,
       ),
       Text(
-        'Klicke auf die Liste und wähle "Lernplan erstellen". Gib als Enddatum das oben angegebene Datum ein.',
+        'Klicke auf die Liste und wähle "Lernplan erstellen". Gib als Enddatum das erste oben angegebene Datum ein.',
+        textAlign: TextAlign.center,
+      ),
+      Image(
+        image: AssetImage(imgExplain1),
+      ),
+      Image(
+        image: AssetImage(imgExplain2),
+      ),
+      Text(
+        "Wie mache ich den Test in cabuu?",
+        style: TextStyle(fontWeight: FontWeight.bold, color: Colors.blue[300]),
+        textAlign: TextAlign.center,
+      ),
+      Text(
+        'Klicke auf die Liste und wähle "Lass dich abfragen".',
+        textAlign: TextAlign.center,
+      ),
+      Image(
+        image: AssetImage(imgExplain3),
+      ),
+      Text(
+        'oder klicke auf dem Hauptbildschirm auf "Lass dich abfragen".',
+        textAlign: TextAlign.center,
+      ),
+      Image(
+        image: AssetImage(imgExplain4),
       ),
     ];
     return Scaffold(

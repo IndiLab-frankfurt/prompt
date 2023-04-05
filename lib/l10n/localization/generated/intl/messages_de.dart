@@ -102,7 +102,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "drawer_dataPrivacy":
             MessageLookupByLibrary.simpleMessage("Datenschutzerklärung"),
         "drawer_learningPlan":
-            MessageLookupByLibrary.simpleMessage("Lernplan cabuu"),
+            MessageLookupByLibrary.simpleMessage("Infos cabuu & Lernplan"),
         "drawer_mainScreen":
             MessageLookupByLibrary.simpleMessage("Hauptbildschirm"),
         "emojiInternalisation_createPlan": MessageLookupByLibrary.simpleMessage(
