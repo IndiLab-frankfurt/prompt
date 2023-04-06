@@ -86,7 +86,7 @@ class StudyService {
     await _scheduleFinalTaskReminder();
     await scheduleVocabReminders();
     this._rewardService.addPoints(5);
-    _dataService.saveScore(5);
+    _dataService.saveScore(this._rewardService.scoreValue);
     locator<DialogService>().showRewardDialog(title: "", score: 5);
   }
 
