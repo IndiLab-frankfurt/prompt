@@ -25,24 +25,6 @@ class UIHelper {
       border: OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20))));
 
-  static Color bgGradientStart = Color(0xFFE6F0F6);
-  static Color bgGradientEnd = Color(0xff9fc7f0);
-  static Color boxColor = Color.fromARGB(146, 139, 187, 235);
-
-  static List<Color> baseGradientColors = [
-    UIHelper.bgGradientStart,
-    UIHelper.bgGradientEnd
-  ];
-
-  static LinearGradient baseGradient = LinearGradient(
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-      colors: [bgGradientStart, bgGradientEnd]);
-
-  static BoxDecoration defaultBoxDecoration = BoxDecoration(
-    gradient: baseGradient,
-  );
-
   static Widget verticalSpaceSmall = verticalSpace(_verticalSpaceSmall);
 
   static Widget verticalSpaceMedium = verticalSpace(_verticalSpaceMedium);
