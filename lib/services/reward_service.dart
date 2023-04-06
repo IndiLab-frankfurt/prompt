@@ -221,8 +221,10 @@ class RewardService {
   Future<void> addPoints(int points) async {
     scoreValue += points;
     controller.add(scoreValue);
+  }
 
-    await locator<DialogService>()
-        .showRewardDialog(title: "", score: scoreValue);
+  Future<void> addPointsWithDialog(int points) async {
+    await addPoints(points);
+    await _dialogService.showRewardDialog(title: "", score: scoreValue);
   }
 }

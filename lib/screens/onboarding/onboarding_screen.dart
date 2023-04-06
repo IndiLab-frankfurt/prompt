@@ -66,8 +66,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               backgroundColor: Colors.transparent,
               appBar: PromptAppBar(
                 // Todo: Add Debug Flags back
-                showBackButton: true,
-                title: vm.pages[vm.page].name,
+                showBackButton: kDebugMode,
+                title: kDebugMode ? vm.pages[vm.page].name : "",
               ),
               drawer: PromptDrawer(),
               resizeToAvoidBottomInset: false,

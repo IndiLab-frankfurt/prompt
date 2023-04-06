@@ -45,7 +45,7 @@ class StudyService {
       if (nextState == AppScreen.MAINSCREEN) {
         _dataService.getRewardScore(currentScreen).then((scoreValue) async {
           if (scoreValue > 0) {
-            this._rewardService.addPoints(scoreValue);
+            this._rewardService.addPointsWithDialog(scoreValue);
           }
         });
       }

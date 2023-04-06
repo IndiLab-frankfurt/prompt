@@ -4,9 +4,6 @@ import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/screens/main/scheduled_notifications_screen.dart';
 import 'package:prompt/screens/main/text_compare_screen.dart';
 import 'package:prompt/screens/main/theme_preview_screen.dart';
-import 'package:prompt/services/dialog_service.dart';
-import 'package:prompt/services/locator.dart';
-import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
 
 class PromptDrawer extends StatelessWidget {
@@ -100,7 +97,7 @@ class PromptDrawer extends StatelessWidget {
                   context, AppScreen.ACCOUNTMANAGEMENT.name);
             }),
         // TODO: Add debug flag back
-        ...buildDebugItems(context)
+        if (kDebugMode) ...buildDebugItems(context)
       ]),
     );
   }
