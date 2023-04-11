@@ -1,6 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
+import 'package:wakelock/wakelock.dart';
 
 class VideoScreen extends StatefulWidget {
   final String videoURL;
@@ -24,6 +25,7 @@ class _VideoScreenState extends State<VideoScreen> {
 
   @override
   void initState() {
+    Wakelock.enable();
     super.initState();
 
     _videoPlayerController.initialize().then((_) => setState(() {}));
@@ -34,6 +36,7 @@ class _VideoScreenState extends State<VideoScreen> {
       var timeToFinish = _videoPlayerController.value.duration.inSeconds -
           _videoPlayerController.value.position.inSeconds;
       if (timeToFinish < 5) {
+        Wakelock.disable();
         widget.onVideoCompleted();
       }
     });
