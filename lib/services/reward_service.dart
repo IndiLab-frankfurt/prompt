@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:prompt/models/unlockable_background.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/dialog_service.dart';
-import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/logging_service.dart';
 
 class RewardService {

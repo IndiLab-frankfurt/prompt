@@ -79,7 +79,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "dashboard_daysOfTotal": m3,
         "dashboard_daysUntilVocabTest": m4,
         "dashboard_inFollowUpPhase": MessageLookupByLibrary.simpleMessage(
-            "Du musst PROMPT-ADAPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe."),
+            "Die letzte Liste sollst du nun alleine in cabuu lernen. In PROMPT-ADAPT geht es erst in 3 Wochen weiter mit einer letzten Aufgabe. Wir benachrichtigen dich dann."),
         "dashboard_mainmessage_beforeEvening":
             MessageLookupByLibrary.simpleMessage(
                 "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei."),

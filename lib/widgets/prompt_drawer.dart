@@ -96,7 +96,6 @@ class PromptDrawer extends StatelessWidget {
               await Navigator.pushNamed(
                   context, AppScreen.ACCOUNTMANAGEMENT.name);
             }),
-        // TODO: Add debug flag back
         if (kDebugMode) ...buildDebugItems(context)
       ]),
     );

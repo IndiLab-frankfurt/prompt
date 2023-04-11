@@ -4,7 +4,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/locator.dart';
-import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/study_service.dart';
 
 void main() {

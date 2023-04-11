@@ -490,10 +490,10 @@ class S {
     );
   }
 
-  /// `Du musst PROMPT-ADAPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe.`
+  /// `Die letzte Liste sollst du nun alleine in cabuu lernen. In PROMPT-ADAPT geht es erst in 3 Wochen weiter mit einer letzten Aufgabe. Wir benachrichtigen dich dann.`
   String get dashboard_inFollowUpPhase {
     return Intl.message(
-      'Du musst PROMPT-ADAPT jetzt nicht mehr täglich nutzen, aber wir benachrichtigen dich in drei Wochen nochmal für eine letzte Aufgabe.',
+      'Die letzte Liste sollst du nun alleine in cabuu lernen. In PROMPT-ADAPT geht es erst in 3 Wochen weiter mit einer letzten Aufgabe. Wir benachrichtigen dich dann.',
       name: 'dashboard_inFollowUpPhase',
       desc: '',
       args: [],
