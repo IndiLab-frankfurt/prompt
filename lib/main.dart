@@ -37,8 +37,6 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         useMaterial3: true,
         colorSchemeSeed: Colors.lightBlue,
-        // textTheme: GoogleFonts.comicNeueTextTheme(Theme.of(context).textTheme)
-        //     .apply(fontSizeFactor: 1.0),
         textTheme: TextTheme(
           bodyLarge: GoogleFonts.comicNeue(fontSize: 18),
           bodyMedium:

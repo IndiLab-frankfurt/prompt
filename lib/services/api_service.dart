@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart';
+import 'package:prompt/constants.dart';
 import 'package:prompt/models/authentication_response.dart';
 import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
@@ -13,8 +14,7 @@ import 'package:prompt/shared/enums.dart';
 import 'package:prompt/shared/extensions.dart';
 
 class ApiService {
-  // static String serverUrl = "http://10.0.2.2:8000";
-  String serverUrl = "https://prompt-app.eu";
+  String serverUrl = Constants.serverUrl;
 
   final SettingsService _settingsService;
 
