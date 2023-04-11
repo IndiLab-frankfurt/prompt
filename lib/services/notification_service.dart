@@ -103,7 +103,7 @@ class NotificationService implements BaseService {
     tzdata.initializeTimeZones();
     String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
     // The emulator doesn't have the correct timezone set
-    if (kDebugMode) {
+    if (kDebugMode || currentTimeZone.isEmpty) {
       currentTimeZone = "Europe/Berlin";
     }
     tz.setLocalLocation(tz.getLocation(currentTimeZone));
