@@ -43,18 +43,20 @@ class DashboardViewModel extends BaseViewModel {
       return S.current.dashboard_studyCompletelyFinished;
     }
 
-    if (daysAgo > StudyService.DAILY_USE_DURATION.inDays) {
+    if (daysAgo >= StudyService.DAILY_USE_DURATION.inDays) {
       return S.current.dashboard_inFollowUpPhase;
     }
 
     // Still in study phase. show message only if it is earlier than 6pm
-    if (DateTime.now().toLocal().hour < 18) {
+    if (DateTime.now().toLocal().hour < 18 &&
+        daysAgo < StudyService.DAILY_USE_DURATION.inDays) {
       return S.current.dashboard_mainmessage_beforeEvening;
     }
 
     // Still in study phase. After 6pm this screen should only be reached if the
     // user has done their last task for the day.
-    if (DateTime.now().toLocal().hour >= 18) {
+    if (DateTime.now().toLocal().hour >= 18 &&
+        daysAgo < StudyService.DAILY_USE_DURATION.inDays) {
       return S.current.dashboard_continueTomorrow;
     }
 
