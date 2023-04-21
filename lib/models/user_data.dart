@@ -1,80 +1,67 @@
-import 'dart:io';
-import 'package:prompt/shared/extensions.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'dart:io';
+import 'package:flutter/foundation.dart' show kIsWeb;
 
+part 'user_data.g.dart';
+
+@JsonSerializable()
 class UserData {
-  String firebaseId = "";
-  String user = "";
-  int group = 1;
-  DateTime registrationDate = DateTime.now();
-  DateTime nextPlanReminder = DateTime.now().add(Duration(days: 6));
+  @JsonKey(fromJson: _userFromJson)
+  String username = "";
+  String group = "1";
+
+  static toNull(_) => null;
+  @JsonKey(toJson: toNull, includeIfNull: false)
+  DateTime? startDate = DateTime.now();
+  @JsonKey(fromJson: parseTimeAndCombineWithCurrentDate, includeIfNull: false)
+  DateTime? reminderTime = DateTime.now();
   int streakDays = 0;
   int score = 0;
   int daysActive = 0;
-  int initSessionStep = 0;
-  String appVersion = "";
-  String selectedMascot = "1";
-  String platform = Platform.isAndroid ? "Android" : "iOS";
-  TimeOfDay preferredReminderTime = TimeOfDay(hour: 18, minute: 0);
+  int onboardingStep = 0;
+  String cabuuCode = "123";
+  @JsonKey(includeIfNull: false)
+  String? platform = kIsWeb ? "Web" : (Platform.isAndroid ? "Android" : "iOS");
+
+  static DateTime parseTimeAndCombineWithCurrentDate(String timeString) {
+    // Parse the time string into a TimeOfDay object
+    final timeFormat = DateFormat.Hm();
+    final timeOfDay = TimeOfDay.fromDateTime(timeFormat.parse(timeString));
+
+    // Get the current date
+    final currentDate = DateTime.now();
+
+    // Combine the current date with the parsed time
+    final combinedDateTime = DateTime(
+      currentDate.year,
+      currentDate.month,
+      currentDate.day,
+      timeOfDay.hour,
+      timeOfDay.minute,
+    );
+
+    return combinedDateTime;
+  }
+
+  static String _userFromJson(dynamic user) {
+    return user.toString();
+  }
 
   UserData(
-      {required this.firebaseId,
-      required this.user,
-      this.group = 1,
-      required this.registrationDate,
+      {this.username = "",
+      this.group = "1",
+      required this.startDate,
+      this.cabuuCode = "123",
+      this.reminderTime,
       this.streakDays = 0,
       this.score = 0,
-      this.initSessionStep = 0,
-      this.appVersion = "",
-      this.selectedMascot = "1",
+      this.onboardingStep = 0,
       this.daysActive = 0});
 
-  Map<String, dynamic> toMap() {
-    return {
-      "firebaseId": this.firebaseId,
-      "user": this.user,
-      "group": this.group,
-      "registrationDate": this.registrationDate.toIso8601String(),
-      "preferredReminderTime": this.preferredReminderTime.to24HourString(),
-      "streakDays": this.streakDays,
-      "score": this.score,
-      "daysActive": this.daysActive,
-      "initSessionStep": this.initSessionStep,
-      "appVersion": this.appVersion,
-      "selectedMascot": this.selectedMascot,
-      "nextPlanReminder": this.nextPlanReminder.toIso8601String(),
-    };
-  }
+  factory UserData.fromJson(Map<String, dynamic> json) =>
+      _$UserDataFromJson(json);
 
-  UserData.fromJson(Map<String, dynamic> json) {
-    user = json["user"];
-    firebaseId = json["firebaseId"];
-    group = json["group"];
-    registrationDate = DateTime.parse(json["registrationDate"]);
-
-    if (json.containsKey("score")) {
-      score = json["score"];
-    }
-    if (json.containsKey("streakDays")) {
-      streakDays = json["streakDays"];
-    }
-    if (json.containsKey("daysActive")) {
-      daysActive = json["daysActive"];
-    }
-    if (json.containsKey("initSessionStep")) {
-      initSessionStep = json["initSessionStep"];
-    }
-    if (json.containsKey("appVersion")) {
-      appVersion = json["appVersion"];
-    }
-    if (json.containsKey("selectedMascot")) {
-      selectedMascot = json["selectedMascot"];
-    }
-    if (json.containsKey("preferredReminderTime")) {
-      preferredReminderTime = from24HourString(json["preferredReminderTime"]);
-    }
-    if (json.containsKey("nextPlanReminder")) {
-      nextPlanReminder = DateTime.parse(json["nextPlanReminder"]);
-    }
-  }
+  Map<String, dynamic> toJson() => _$UserDataToJson(this);
 }

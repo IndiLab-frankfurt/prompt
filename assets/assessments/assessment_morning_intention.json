@@ -1,0 +1,14 @@
+{
+    "title": "",
+    "id": "morning_intention",
+    "questions": [
+        {
+            "id": "intention",
+            "questionText": "Hast du vor, heute mit cabuu zu lernen?",
+            "labels": {
+                "1": "Ja",
+                "2": "Nein"
+            }
+        }
+    ]
+}

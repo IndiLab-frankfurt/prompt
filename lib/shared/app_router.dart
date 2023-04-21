@@ -1,184 +1,217 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/locator.dart';
-import 'package:prompt/screens/about_screen.dart';
-import 'package:prompt/screens/auth/random_user_login_screen.dart';
-import 'package:prompt/screens/change_mascot_screen.dart';
-import 'package:prompt/screens/auth/login_screen.dart';
-import 'package:prompt/screens/dashboard_screen.dart';
-import 'package:prompt/screens/auth/registration_screen.dart';
-import 'package:prompt/screens/learning_tips_screen.dart';
-import 'package:prompt/screens/main/distributed_learning_screens.dart';
-import 'package:prompt/screens/main/learning_tip_screens.dart';
-import 'package:prompt/screens/main/learning_tricks_overview.dart';
-import 'package:prompt/screens/main/mental_contrasting_screens.dart';
-import 'package:prompt/screens/main/plan_edit_screen.dart';
-import 'package:prompt/screens/main/plan_reminder_screens.dart';
-import 'package:prompt/screens/main/video_create_plan_screen.dart';
+import 'package:prompt/data/assessments.dart';
+import 'package:prompt/screens/assessments/plan_prompt_screen.dart';
+import 'package:prompt/screens/main/about_screen.dart';
+import 'package:prompt/screens/main/account_management_screen.dart';
+import 'package:prompt/screens/main/change_plan_timing_screen.dart';
+import 'package:prompt/screens/main/data_privacy_screen.dart';
+import 'package:prompt/screens/main/forgot_password_screen.dart';
+import 'package:prompt/screens/main/learning_plan_overview_screen.dart';
+import 'package:prompt/services/locator.dart';
+import 'package:prompt/models/questionnaire.dart';
+import 'package:prompt/screens/assessments/multi_page_questionnaire_screen.dart';
+import 'package:prompt/screens/main/screen_selection.dart';
+import 'package:prompt/screens/main/dashboard_screen.dart';
+import 'package:prompt/screens/onboarding/login_screen.dart';
 import 'package:prompt/screens/rewards/reward_selection_screen.dart';
-import 'package:prompt/screens/session_zero/session_zero_screen.dart';
-import 'package:prompt/screens/session_zero/vocab_learn_timing_screen.dart';
-import 'package:prompt/screens/study_complete_screen.dart';
+import 'package:prompt/screens/onboarding/onboarding_screen.dart';
 import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
-import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/user_service.dart';
-import 'package:prompt/shared/route_names.dart';
-import 'package:prompt/viewmodels/change_mascot_view_model.dart';
-import 'package:prompt/viewmodels/distributed_learning_view_model.dart';
-import 'package:prompt/viewmodels/learning_tip_view_model.dart';
-import 'package:prompt/viewmodels/learning_tricks_overview_view_model.dart';
+import 'package:prompt/shared/enums.dart';
+import 'package:prompt/viewmodels/account_management_view_model.dart';
 import 'package:prompt/viewmodels/login_view_model.dart';
 import 'package:prompt/viewmodels/dashboard_view_model.dart';
-import 'package:prompt/viewmodels/mental_contrasting_view_model.dart';
-import 'package:prompt/viewmodels/plan_edit_view_model.dart';
-import 'package:prompt/viewmodels/plan_reminder_view_model.dart';
-import 'package:prompt/viewmodels/random_user_login_view_model.dart';
-import 'package:prompt/viewmodels/registration_view_model.dart';
-import 'package:prompt/viewmodels/session_zero_view_model.dart';
-import 'package:prompt/viewmodels/vocab_learn_timing_view_model.dart';
+import 'package:prompt/viewmodels/multi_page_questionnaire_view_model.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
+import 'package:prompt/viewmodels/plan_prompt_view_model.dart';
+import 'package:prompt/viewmodels/plan_timing_view_model.dart';
 import 'package:provider/provider.dart';
 
 class AppRouter {
   static Route<dynamic> generateRoute(RouteSettings settings) {
-    locator<LoggingService>().logEvent("navigation",
-        data: {"routeName": settings.name, "routeArgs": settings.arguments});
-    switch (settings.name) {
-      case RouteNames.LOG_IN:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider<LoginViewModel>(
-                create: (_) => LoginViewModel(locator.get<UserService>(),
-                    locator.get<NavigationService>()),
-                child: LoginScreen(
-                  backgroundColor1: Color(0xFFFFF3E0),
-                  backgroundColor2: Color(0xFFFFF3E0),
-                  highlightColor: Colors.blue,
-                  foregroundColor: Color(0xFFFFF3E0),
-                )));
+    locator<LoggingService>().logEvent("navigation", data: settings.name ?? "");
+    if (settings.name == null) {
+      return MaterialPageRoute(builder: (_) {
+        return Scaffold(
+            body: Center(
+          child: Text('No route defined for ${settings.name}'),
+        ));
+      });
+    }
+    var appScreen = AppScreen.values.byName(settings.name!);
+    Widget screen;
+    switch (appScreen) {
+      case AppScreen.LOGIN:
+        screen = ChangeNotifierProvider<LoginViewModel>(
+            create: (_) => LoginViewModel(
+                locator.get<UserService>(), locator.get<NavigationService>()),
+            child: LoginScreen());
+        break;
 
-      case RouteNames.REGISTER:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider<RegistrationViewModel>(
-                create: (_) => RegistrationViewModel(locator.get<UserService>(),
-                    locator.get<NavigationService>()),
-                child: RegistrationScreen(
-                  backgroundColor1: Color(0xFFFFF3E0),
-                  backgroundColor2: Color(0xFFFFF3E0),
-                  highlightColor: Colors.blue,
-                  foregroundColor: Color(0xFFFFF3E0),
-                )));
+      case AppScreen.MAINSCREEN:
+        screen = ChangeNotifierProvider(
+          create: (_) => DashboardViewModel(locator.get<StudyService>()),
+          child: DashboardScreen(),
+        );
+        break;
 
-      case RouteNames.RANDOM_LOGIN:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => RandomUserLoginViewModel(
-                    locator.get<UserService>(),
-                    locator.get<NavigationService>()),
-                child: RandomUserLoginScreen()));
+      case AppScreen.ONBOARDING:
+        screen = ChangeNotifierProvider(
+            create: (_) => OnboardingViewModel(locator.get<StudyService>(),
+                locator.get<DataService>(), locator.get<RewardService>()),
+            child: OnboardingScreen());
+        break;
 
-      case RouteNames.NO_TASKS:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                  create: (_) => DashboardViewModel(
-                      locator.get<ExperimentService>(),
-                      locator.get<DataService>(),
-                      locator.get<RewardService>()),
-                  child: DashboardScreen(),
-                ));
+      case AppScreen.REWARDSELECTION:
+        screen = RewardSelectionScreen();
+        break;
 
-      case RouteNames.SESSION_ZERO:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => SessionZeroViewModel(
-                    locator.get<ExperimentService>(),
-                    locator.get<DataService>(),
-                    locator.get<RewardService>()),
-                child: SessionZeroScreen()));
+      // case AppScreen.AboutPrompt:
+      //   screen = AboutScreen();
+      //   break;
 
-      case RouteNames.MASCOT_CHANGE:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                create: (_) => ChangeMascotViewModel(
-                    locator.get<RewardService>(), locator.get<DataService>()),
-                child: ChangeMascotScreen()));
+      case AppScreen.FORGOTPASSWORD:
+        screen = ForgotPasswordScreen();
+        break;
 
-      case RouteNames.REWARD_SELECTION:
-        return MaterialPageRoute(builder: (_) => RewardSelectionScreen());
+      case AppScreen.QUESTIONNAIRE:
+        final questionnaire = settings.arguments as Questionnaire;
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: questionnaire),
+            child: MultiPageQuestionnaire());
+        break;
 
-      case RouteNames.DISTRIBUTED_LEARNING:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                  child: DistributedLearningScreens(),
-                  create: (_) => DistributedLearningViewModel(
-                      locator.get<DataService>(),
-                      locator.get<ExperimentService>()),
-                ));
+      // case AppScreen.AA_DIDYOULEARN:
+      //   screen = ChangeNotifierProvider(
+      //       create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+      //           param1: AA_DidYouLearn()),
+      //       child: MultiPageQuestionnaire());
+      //   break;
 
-      case RouteNames.MENTAL_CONTRASTING:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                  child: MentalContrastingScreens(),
-                  create: (_) => MentalContrastingViewModel(
-                      locator.get<DataService>(),
-                      locator.get<ExperimentService>()),
-                ));
+      // case AppScreen.AA_WHYNOTLEARN:
+      //   screen = ChangeNotifierProvider(
+      //       create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+      //           param1: AA_WhyNotLearn()),
+      //       child: MultiPageQuestionnaire());
+      //   break;
 
-      case RouteNames.PLAN_REMINDER:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                  child: PlanReminderScreens(),
-                  create: (_) => PlanReminderViewModel(
-                      locator.get<DataService>(),
-                      locator.get<ExperimentService>()),
-                ));
+      case AppScreen.AA_NEXTSTUDYSESSION:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: AA_NextStudySession()),
+            child: MultiPageQuestionnaire());
+        break;
 
-      case RouteNames.SINGLE_LEARNING_TIP:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                  child: LearningTipScreens(),
-                  create: (_) => LearningTipViewModel(
-                      locator.get<ExperimentService>(),
-                      locator.get<DataService>()),
-                ));
+      case AppScreen.STUDYFINISHED:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: StudyFinishedQuestionnaire()),
+            child: MultiPageQuestionnaire());
+        break;
 
-      case RouteNames.ABOUT_PROMPT:
-        return MaterialPageRoute(builder: (_) => AboutScreen());
+      case AppScreen.ABOUTPROMPT:
+        screen = AboutScreen();
+        break;
 
-      case RouteNames.STUDY_COMPLETE:
-        return MaterialPageRoute(builder: (_) => StudyCompleteScreen());
+      case AppScreen.AA_PROCRAST:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: AA_PROCRAST()),
+            child: MultiPageQuestionnaire());
+        break;
 
-      case RouteNames.LEARNING_TIPS:
-        return MaterialPageRoute(builder: (_) => LearningTipsScreen());
+      case AppScreen.REMEMBERTOLEARN:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: RememberToLearn()),
+            child: MultiPageQuestionnaire());
+        break;
 
-      case RouteNames.EDIT_PLAN:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                child: PlanEditScreen(),
-                create: (_) => PlanEditViewModel(locator.get<DataService>(),
-                    locator.get<ExperimentService>())));
+      case AppScreen.VOCABTESTTODAY:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: VocabToday()),
+            child: MultiPageQuestionnaire());
+        break;
 
-      case RouteNames.CHANGE_REMINDER_TIME:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                  child: VocabLearnTimingScreen(),
-                  create: (_) => VocabLearnTimingViewModel(
-                      locator.get<DataService>(),
-                      locator.get<NotificationService>()),
-                ));
+      case AppScreen.REMINDERTESTTODAY:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: ReminderTestToday()),
+            child: MultiPageQuestionnaire());
+        break;
 
-      case RouteNames.LEARNING_TRICKS_OVERVIEW:
-        return MaterialPageRoute(
-            builder: (_) => ChangeNotifierProvider(
-                  child: LearningTricksOverviewScreen(),
-                  create: (_) => LearningTricksOverviewViewModel(
-                      locator.get<DataService>(),
-                      locator.get<ExperimentService>()),
-                ));
+      case AppScreen.REMINDERNEXTLIST:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: ReminderNextList()),
+            child: MultiPageQuestionnaire());
+        break;
 
-      case RouteNames.VIDEO_CREATEPLAN:
-        return MaterialPageRoute(builder: (_) => VideoCreatePlanScreen());
+      case AppScreen.WEEKLYQUESTIONS:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: WeeklyQuestions()),
+            child: MultiPageQuestionnaire());
+        break;
+
+      case AppScreen.REMINDERTESTTOMORROW:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: ReminderTestTomorrow()),
+            child: MultiPageQuestionnaire());
+        break;
+
+      case AppScreen.DIDYOUTEST:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: AA_DidYouTest()),
+            child: MultiPageQuestionnaire());
+        break;
+
+      case AppScreen.FINALQUESTIONNAIRE:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<MultiPageQuestionnaireViewModel>(
+                param1: FinalQuestionnaire()),
+            child: MultiPageQuestionnaire());
+        break;
+
+      case AppScreen.PLANPROMPT:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<PlanPromptViewModel>(),
+            child: PlanPromptScreen());
+        break;
+
+      case AppScreen.PLANTIMINGCHANGE:
+        screen = ChangePlanTimingScreen(
+            vm: PlanTimingViewModel(
+                name: AppScreen.PLANTIMINGCHANGE.name,
+                dataService: locator.get<DataService>(),
+                studyService: locator.get<StudyService>()));
+        break;
+
+      case AppScreen.ACCOUNTMANAGEMENT:
+        screen = ChangeNotifierProvider(
+            create: (_) => locator.get<AccountManagementViewModel>(),
+            child: AccountManagementScreen());
+        break;
+
+      case AppScreen.SCREENSELECT:
+        screen = ScreenSelectionScreen();
+        break;
+
+      case AppScreen.DATAPRIVACY:
+        screen = DataPrivacyScreen();
+        break;
+
+      case AppScreen.LEARNINGPLANCABUU:
+        screen = LearningPlanOverviewScreen();
+        break;
 
       default:
         return MaterialPageRoute(builder: (_) {
@@ -188,5 +221,8 @@ class AppRouter {
           ));
         });
     }
+
+    return MaterialPageRoute(
+        settings: RouteSettings(name: appScreen.name), builder: (_) => screen);
   }
 }

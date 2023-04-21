@@ -1,0 +1,35 @@
+{
+    "title": "Wie oft und wie lange lernst du normalerweise Vokabeln?",
+    "id": "learningFrequencyDuration",
+    "questions": [
+        {
+            "id": "learning_frequency",
+            "questionText": "Stell dir vor, du schreibst in einer Woche einen Vokabeltest und hast noch nicht gelernt. Wie viele Tage lernst du dann in der Woche bis zum Test?",
+            "labels": {
+                "1": "Weniger als 1 Tag",
+                "2": "1-2 Tage",
+                "3": "3-4 Tage",
+                "4": "5-6 Tage",
+                "5": "Jeden Tag"
+            }
+        },
+        {
+            "id": "learning_duration",
+            "questionText": "Wie lange lernst du Vokabeln, wenn du lernst?",
+            "labels": {
+                "1": "Unter 5 Minuten",
+                "2": "5 bis 15 Minuten",
+                "3": "15 bis 30 Minuten",
+                "4": "Über 30 Minuten"
+            }
+        },
+        {
+            "id": "school_vocabtest_t0",
+            "questionText": "Wurde dir ein Vokabeltest in der Schule angekündigt, der in den nächsten 9 Tagen stattfindet?",
+            "labels": {
+                "1": "ja",
+                "2": "nein"
+            }
+        }
+    ]
+}

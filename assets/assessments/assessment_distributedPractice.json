@@ -1,0 +1,46 @@
+{
+    "title": "Diese Fragen beziehen sich darauf, was du über dein **Vokabellernen** denkst. Manche Fragen sind sich ähnlich, aber doch nicht ganz gleich. Lies also wieder genau und beantworte jede Frage für sich.",
+    "id": "distributedPractice",
+    "questions": [
+        {
+            "id": "expectation_distributed_practice",
+            "questionText": "Ich glaube, ich werde es schaffen, (fast) jeden Tag Vokabeln zu lernen.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "value_distributed_practice",
+            "questionText": "Es ist mir wichtig, möglichst jeden Tag Vokabeln zu lernen.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "belief_distributed_practice_1",
+            "questionText": "Je öfter ich Vokabeln lerne, desto besser werde ich sie mir merken können.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "belief_distributed_practice_2",
+            "questionText": "Auch wenn ich die Vokabeln erst kurz vor dem Test lerne, werde ich sie im Test gut können.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        }
+    ]
+}

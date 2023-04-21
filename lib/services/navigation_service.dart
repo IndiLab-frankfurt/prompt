@@ -1,31 +1,39 @@
 import 'package:flutter/material.dart';
+import 'package:prompt/shared/enums.dart';
 
 class NavigationService {
   GlobalKey<NavigatorState> _navigatorKey = GlobalKey<NavigatorState>();
 
   GlobalKey<NavigatorState> get navigatorKey => _navigatorKey;
 
-  void clearHistory() {
-    // _navigatorKey.currentState.
-  }
-
   void pop() {
     return _navigatorKey.currentState!.pop();
   }
 
-  Future<dynamic> navigateTo(String routeName, {dynamic arguments}) {
-    return _navigatorKey.currentState!
-        .pushNamed(routeName, arguments: arguments);
+  String? getRouteName() {
+    String? currentPath;
+    navigatorKey.currentState?.popUntil((route) {
+      currentPath = route.settings.name;
+      return true;
+    });
+    return currentPath;
   }
 
-  Future<dynamic> navigateWithReplacement(String routeName,
-      {dynamic arguments}) {
+  Future<dynamic> navigateTo(AppScreen routeName, {dynamic arguments}) async {
     return _navigatorKey.currentState!
-        .pushReplacementNamed(routeName, arguments: arguments);
+        .pushNamed(routeName.name, arguments: arguments);
   }
 
-  Future<dynamic> navigateAndRemove(String routeName, {dynamic arguments}) {
+  Future<dynamic> navigateWithReplacement(AppScreen routeName,
+      {dynamic arguments}) async {
     return _navigatorKey.currentState!
-        .pushNamedAndRemoveUntil(routeName, (r) => false, arguments: arguments);
+        .pushReplacementNamed(routeName.name, arguments: arguments);
+  }
+
+  Future<dynamic> navigateAndRemove(AppScreen routeName,
+      {dynamic arguments}) async {
+    return _navigatorKey.currentState!.pushNamedAndRemoveUntil(
+        routeName.name, (r) => false,
+        arguments: arguments);
   }
 }

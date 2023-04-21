@@ -1,0 +1,83 @@
+{
+    "title": "",
+    "id": "morning_without_intention",
+    "questions": [
+        {
+            "id": "no_intention_reasons",
+            "questionText": "Warum hast du heute nicht vor, mit cabuu zu lernen?",
+            "labels": {
+                "TEXTINPUT_1": "(Stichworte reichen)"
+            }
+        },
+        {
+            "id": "expectation_before_rev",
+            "questionText": "Selbst wenn ich heute mit cabuu lernen würde, könnte ich mir die Vokabeln sowieso nicht gut merken.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "value_attainment_before_rev",
+            "questionText": "Mir persönlich ist es egal, ob ich heute mit cabuu lerne oder nicht.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "value_intrinsic_before_rev",
+            "questionText": "Ich habe keine Lust, heute mit cabuu zu lernen.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "value_utility_before_rev",
+            "questionText": "Es würde mir nichts bringen, heute mit cabuu zu lernen.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "cost_opportunity_before_rev",
+            "questionText": "Wenn ich heute mit cabuu lernen würde, müsste ich auf spaßigere Dinge verzichten.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "cost_emotion_before_rev",
+            "questionText": "Wenn ich heute mit cabuu lernen würde, würde mich das in eine schlechte Stimmung bringen.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "cost_effort_before_rev",
+            "questionText": "Wenn ich heute mit cabuu lernen würde, würde mich das erschöpfen.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        }
+    ]
+}

@@ -1,0 +1,76 @@
+{
+    "title": "",
+    "id": "learningExpectations",
+    "questions": [
+        {
+            "id": "expectation_learning",
+            "questionText": "Ich werde es schaffen, die Vokabeln in cabuu gut zu lernen.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "value_intrinsic_learning",
+            "questionText": "Es wird mir Spaß machen, die Vokabeln in cabuu zu lernen.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "value_attainment_learning",
+            "questionText": "Es ist mir persönlich wichtig, die Vokabeln in cabuu gut zu lernen.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "value_utility_learning",
+            "questionText": "Es wird sich für mich lohnen, die Vokabeln in cabuu gut zu lernen.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "cost_effort_learning",
+            "questionText": "Es wird mich erschöpfen, die Vokabeln in cabuu zu lernen.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "cost_emotion_learning",
+            "questionText": "Es wird mich in eine schlechte Stimmung bringen, wenn ich die Vokabeln in cabuu lerne.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "cost_opportunity_learning",
+            "questionText": "Ich werde auf spaßigere Dinge verzichten müssen, wenn ich die Vokabeln in cabuu lerne.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        }
+    ]
+}

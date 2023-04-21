@@ -1,6 +1,4 @@
 import 'package:flutter/services.dart';
-import 'package:prompt/locator.dart';
-import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/usage_stats/usage_info.dart';
 
 class UsageStatsService {
@@ -11,8 +9,6 @@ class UsageStatsService {
   static Future<void> grantUsagePermission() async {
     var result = await _channel.invokeMethod('grantUsagePermission');
     print(result);
-    locator<LoggingService>()
-        .logEvent("UsagePermissions", data: {"result": result});
   }
 
   static Future<List<UsageInfo>> queryUsageStats(
@@ -27,11 +23,4 @@ class UsageStatsService {
     print(result);
     return result;
   }
-
-  // static List<UsageInfo> filterForegroundApps(List<UsageInfo> usageInfos) {
-  //   // return usageInfos
-  //   //     .map((e) => (int.parse(e.totalTimeInForeground)))
-  //   //     .where((element) => element > 0)
-  //   //     .toList();
-  // }
 }

@@ -1,0 +1,46 @@
+{
+    "title": "In unserer Studie hast du ein Video gesehen, in dem dir der Lerntrick des Monsters - früher anfangen und häufiger lernen - erklärt wurde. Hier geht es um dieses Video.",
+    "id": "final_1",
+    "questions": [
+        {
+            "id": "mc_distributed_practice_1",
+            "questionText": "Ich habe, nachdem ich das Video gesehen habe, an mehr Tagen Vokabeln gelernt als vorher.",
+            "labels": {
+                "1": "Nein, seltener.",
+                "2": "Nein, es gab keinen Unterschied.",
+                "3": "Ja, ein bisschen.",
+                "4": "Ja, ich habe (viel) häufiger gelernt."
+            }
+        },
+        {
+            "id": "mc_distributed_practice_2",
+            "questionText": "Das Video hat mir geholfen, öfter Vokabeln zu lernen.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "mc_distributed_practice_3",
+            "questionText": "Ich will den Lerntrick des Lernmonsters (auch) in Zukunft nutzen.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        } ,
+        {
+            "id": "mc_distributed_practice_4",
+            "questionText": "Ich habe im Laufe der Zeit gar nicht mehr an diesen Lerntrick gedacht.",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        } 
+    ]
+}

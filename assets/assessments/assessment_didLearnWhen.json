@@ -1,0 +1,15 @@
+{
+    "title": "",
+    "id": "didLearnWhen",
+    "questions": [
+        {
+            "id": "didLearnWhen_1",
+            "questionText": "Wann hast du das letzte Mal mit cabuu gelernt?",
+            "labels": {
+                "1": "Heute",
+                "2": "Gestern",
+                "3": "Schon länger her"
+            }
+        }
+    ]
+}

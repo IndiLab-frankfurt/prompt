@@ -1,58 +1,72 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:prompt/locator.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
+import 'package:prompt/services/base_service.dart';
 import 'package:prompt/services/logging_service.dart';
-import 'package:prompt/services/navigation_service.dart';
-import 'package:prompt/shared/app_strings.dart';
-import 'package:prompt/shared/route_names.dart';
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:collection/collection.dart';
+import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
-class NotificationService {
-  late FlutterLocalNotificationsPlugin localNotifications;
+class NotificationService implements BaseService {
+  final LoggingService _loggingService;
 
-  static const String CHANNEL_ID_DAILY_REMINDER = "Tägliche Erinnerung";
-  static const String CHANNEL_NAME_DAILY_REMINDER = "Tägliche Erinnerung";
-  static const String CHANNEL_DESCRIPTION_DAILY_REMINDER =
-      "Tägliche Erinnerung";
-  static const String PAYLOAD_MORNING_REMINDER = "Tägliche Erinnerung";
+  NotificationService(this._loggingService);
 
-  static const String CHANNEL_ID_EVENING = "Erinnerung Abend";
-  static const String CHANNEL_NAME_EVENING = "Erinnerung Abend";
-  static const String CHANNEL_DESCRIPTION_EVENING = "Erinnerung Abend";
-  static const String PAYLOAD_EVENING = "PAYLOAD_EVENING";
+  FlutterLocalNotificationsPlugin localNotifications =
+      FlutterLocalNotificationsPlugin();
 
-  static const String CHANNEL_ID_PLAN_REMINDER = "Strategie Erinnerung";
-  static const String CHANNEL_NAME_PLAN_REMINDER = "Strategie Erinnerung";
-  static const String CHANNEL_DESCRIPTION_PLAN_REMINDER =
-      "Strategie Erinnerung";
-  static const String PAYLOAD_PLAN_REMINDER = "PAYLOAD_STRATEGIE_REMINDER";
+  static const String KEY_DAILY = "daily";
+  static const String KEY_VOCAB = "vocab";
+  static const String KEY_FINAL = "final";
 
-  static const int ID_PLAN_REMINDER = 2389;
-  static const int ID_DAILY = 6969;
-  static const int ID_TASK_REMINDER = 42;
-  static const int ID_FINAL_TASK_REMINDER = 1901;
+  static const Map<String, String> CHANNEL_IDS = {
+    KEY_DAILY: "Channel_Daily_Reminder",
+    KEY_VOCAB: "Channel_Vocab_Reminder",
+    KEY_FINAL: "Channel_Final_Reminder",
+  };
 
-  static const String BUTTON_ACTION_LEARNED_TODAY = "LEARNED_TODAY";
-  static const String BUTTON_ACTION_NOT_LEARNED_TODAY = "NOT_LEARNED_TODAY";
+  static const Map<String, String> CHANNEL_NAMES = {
+    KEY_DAILY: "Daily Reminder",
+    KEY_VOCAB: "Vocab Reminder",
+    KEY_FINAL: "Final Reminder",
+  };
 
-  Future initialize() async {
+  static const Map<String, String> CHANNEL_DESCRIPTIONS = {
+    KEY_DAILY: "Daily Reminder",
+    KEY_VOCAB: "Vocab Reminder",
+    KEY_FINAL: "Final Reminder",
+  };
+
+  static const Map<String, String> PAYLOADS = {
+    KEY_DAILY: "PAYLOAD_DAILY_REMINDER",
+    KEY_VOCAB: "PAYLOAD_VOCAB_REMINDER",
+    KEY_FINAL: "PAYLOAD_FINAL_REMINDER",
+  };
+
+  static const Map<String, int> NOTIFICATION_IDS = {
+    KEY_DAILY: 1000,
+    KEY_VOCAB: 2000,
+    KEY_FINAL: 3000,
+  };
+
+  @override
+  Future<bool> initialize() async {
     localNotifications = FlutterLocalNotificationsPlugin();
 
     var initSettingsAndroid =
         new AndroidInitializationSettings('ic_notification');
-    var initSettingsIOS = new IOSInitializationSettings(
-        requestAlertPermission: true,
-        requestBadgePermission: true,
-        requestSoundPermission: true,
-        onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+
+    DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings(
+            onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+
     var initSettings = InitializationSettings(
-        android: initSettingsAndroid, iOS: initSettingsIOS);
+        android: initSettingsAndroid, iOS: initializationSettingsDarwin);
 
     await _configureLocalTimeZone();
 
-    await localNotifications.initialize(initSettings,
-        onSelectNotification: onSelectNotification);
+    await localNotifications.initialize(initSettings);
 
     return true;
   }
@@ -62,82 +76,112 @@ class NotificationService {
     print("Received Local Notification");
   }
 
+  deleteDailyReminderWithId(int id) async {
+    var dailyId = NOTIFICATION_IDS[KEY_DAILY]! + id;
+    return deleteNotification(dailyId);
+  }
+
+  deleteScheduledFinalReminderTask() async {
+    return deleteNotification(NOTIFICATION_IDS[KEY_FINAL]!);
+  }
+
+  deleteVocabReminderWithId(int id) async {
+    var vocabId = NOTIFICATION_IDS[KEY_VOCAB]! + id;
+    return deleteNotification(vocabId);
+  }
+
+  deleteNotification(int id) async {
+    var pendingNotifications = await getPendingNotifications();
+    var reminderExists =
+        pendingNotifications.firstWhereOrNull((n) => n.id == id);
+    if (reminderExists == null) {
+      localNotifications.cancel(id);
+    }
+  }
+
   Future<void> _configureLocalTimeZone() async {
-    tz.initializeTimeZones();
-    tz.setLocalLocation(tz.getLocation("Europe/Berlin"));
+    tzdata.initializeTimeZones();
+    String currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+    // The emulator doesn't have the correct timezone set
+    if (kDebugMode || currentTimeZone.isEmpty) {
+      currentTimeZone = "Europe/Berlin";
+    }
+    tz.setLocalLocation(tz.getLocation(currentTimeZone));
   }
 
   Future onSelectNotification(String? payload) async {
     if (payload != null) {
       debugPrint('notification payload: ' + payload);
 
-      if (payload == PAYLOAD_MORNING_REMINDER) {
-        locator
-            .get<LoggingService>()
-            .logEvent("NotificationClickInternalisation");
+      if (payload == PAYLOADS[KEY_DAILY]) {
+        _loggingService.logEvent("NotificationClickInternalisation");
       }
-      if (payload == PAYLOAD_EVENING) {
-        locator.get<LoggingService>().logEvent("NotificationClickRecallTask");
-      }
-      // this is an annoying hack, but due to the limitations of the flutter
-      // local notifications plugin, we can only use the payload to identify
-      var date = DateTime.tryParse(payload);
-      if (date != null) {
-        locator.get<NavigationService>().navigateTo(RouteNames.PLAN_REMINDER);
+      if (payload == PAYLOADS[KEY_FINAL]) {
+        _loggingService.logEvent("NotificationClickFinalTask");
       }
     }
   }
 
-  Future scheduleDailyReminder(DateTime dateTime, int id) async {
-    // Check if is already scheduled and cancel all dailies
-    try {
-      await localNotifications.cancel(ID_DAILY);
-    } catch (e) {
-      print(e);
-    }
-
-    var timeoutAfter = getMillisecondsUntilMidnight(dateTime);
+  scheduleDailyReminder(DateTime time, int id) async {
+    var timeoutAfter = getMillisecondsUntilMidnight(time);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_DAILY_REMINDER, CHANNEL_NAME_DAILY_REMINDER,
-        channelDescription: CHANNEL_DESCRIPTION_DAILY_REMINDER,
+        CHANNEL_IDS[KEY_DAILY]!, CHANNEL_NAMES[KEY_DAILY]!,
+        channelDescription: CHANNEL_DESCRIPTIONS[KEY_DAILY]!,
         timeoutAfter: timeoutAfter,
-        ongoing: true);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+        // TODO: Change back to ongoing: true
+        ongoing: false);
+    var notificationDetails =
+        new NotificationDetails(android: androidPlatformChannelSpecifics);
 
-    var scheduledDate = tz.TZDateTime.from(dateTime, tz.local);
+    // _loggingService.logEvent("ScheduleNotificationTaskReminder");
+
+    String title = S.current.notificationMessage_daily;
+    String body = "";
+    String payload = time.toIso8601String();
+
+    var scheduledDate = tz.TZDateTime(
+        tz.local, time.year, time.month, time.day, time.hour, time.minute);
+
+    var reminderId = NOTIFICATION_IDS[KEY_DAILY]! + id;
+
+    print("Scheduling Daily Reminder for $scheduledDate with id $reminderId");
 
     await localNotifications.zonedSchedule(
-        ID_DAILY,
-        AppStrings.Notification_Title_VocabReminder,
-        "",
-        scheduledDate,
-        notificationDetails,
-        androidAllowWhileIdle: true,
+        reminderId, title, body, scheduledDate, notificationDetails,
         uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.wallClockTime,
-        matchDateTimeComponents: DateTimeComponents.time);
-
-    locator.get<LoggingService>().logEvent(
-      "Schedule Daily Reminder",
-      data: {"date": dateTime.toString()},
-    );
+            UILocalNotificationDateInterpretation.absoluteTime,
+        payload: payload,
+        androidAllowWhileIdle: true);
   }
 
-  // Future<bool> hasPermissions() async {
-  //   var hasPermission = await localNotifications.resolvePlatformSpecificImplementation<
-  //           IOSFlutterLocalNotificationsPlugin>().
-  //   return hasPermission;
-  // }
+  scheduleVocabTestReminder(DateTime time, int id) async {
+    var timeoutAfter = getMillisecondsUntilMidnight(time);
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        CHANNEL_IDS[KEY_VOCAB]!, CHANNEL_NAMES[KEY_VOCAB]!,
+        channelDescription: CHANNEL_DESCRIPTIONS[KEY_VOCAB]!,
+        timeoutAfter: timeoutAfter);
+    var notificationDetails =
+        new NotificationDetails(android: androidPlatformChannelSpecifics);
 
-  Future<bool?> requestPermissions() async {
-    var result = await localNotifications
-        .resolvePlatformSpecificImplementation<
-            IOSFlutterLocalNotificationsPlugin>()
-        ?.requestPermissions(alert: true, badge: true, sound: true);
-    return result;
+    _loggingService.logEvent("Scheduled Notification Vocab Reminder");
+
+    String title = S.current.notificationMessage_vocabTest;
+    String body = "";
+    String payload = time.toIso8601String();
+
+    var scheduledDate = tz.TZDateTime(
+        tz.local, time.year, time.month, time.day, time.hour, time.minute);
+
+    var reminderId = NOTIFICATION_IDS[KEY_VOCAB]! + id;
+
+    print("Scheduling Vocab Reminder for $scheduledDate ");
+
+    await localNotifications.zonedSchedule(
+        reminderId, title, body, scheduledDate, notificationDetails,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        payload: payload,
+        androidAllowWhileIdle: true);
   }
 
   getMillisecondsUntilMidnight(DateTime time) {
@@ -147,47 +191,55 @@ class NotificationService {
     return midnight.difference(now).inMilliseconds;
   }
 
-  Future<void> schedulePlanReminder(DateTime dateTime) async {
-    try {
-      await localNotifications.cancel(ID_PLAN_REMINDER);
-    } catch (e) {
-      print(e);
-    }
+  Future scheduleFinalTaskReminder(DateTime dateTime) async {
+    await deleteScheduledFinalReminderTask();
 
-    var timeoutAfter = getMillisecondsUntilMidnight(dateTime);
     var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
-        CHANNEL_ID_PLAN_REMINDER, CHANNEL_NAME_PLAN_REMINDER,
-        channelDescription: CHANNEL_DESCRIPTION_PLAN_REMINDER,
-        timeoutAfter: timeoutAfter,
-        ongoing: true);
-    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
-    var notificationDetails = new NotificationDetails(
-        android: androidPlatformChannelSpecifics,
-        iOS: iOSPlatformChannelSpecifics);
+        CHANNEL_IDS[KEY_FINAL]!, CHANNEL_NAMES[KEY_FINAL]!,
+        channelDescription: CHANNEL_DESCRIPTIONS[KEY_FINAL]!, ongoing: true);
+    var notificationDetails =
+        new NotificationDetails(android: androidPlatformChannelSpecifics);
 
-    var scheduledDate = tz.TZDateTime.from(dateTime, tz.local);
+    var scheduledDate = tz.TZDateTime(tz.local, dateTime.year, dateTime.month,
+        dateTime.day, dateTime.hour, dateTime.minute);
+
+    String title = S.current.notificationTitle_final;
+    String body = S.current.notificationBody_final;
+    String payload = dateTime.toIso8601String();
+
+    await localNotifications.zonedSchedule(NOTIFICATION_IDS[KEY_FINAL]!, title,
+        body, scheduledDate, notificationDetails,
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+        payload: payload,
+        androidAllowWhileIdle: true);
+  }
+
+  sendDebugReminder() async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        "WURST", "DEBUG",
+        channelDescription: "DEBUG");
+    var notificationDetails =
+        new NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    var now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduledDate = tz.TZDateTime(tz.local, now.year, now.month,
+        now.day, now.hour, now.minute, now.second + 20);
 
     await localNotifications.zonedSchedule(
-        ID_PLAN_REMINDER,
-        AppStrings.Notification_Title_PlanReminder,
-        "",
+        123123123,
+        "Ich bin eine Benachrichtigung",
+        "Ich bin eine Benachrichtigung",
         scheduledDate,
         notificationDetails,
-        androidAllowWhileIdle: true,
-        payload: dateTime.toIso8601String(),
         uiLocalNotificationDateInterpretation:
-            UILocalNotificationDateInterpretation.wallClockTime);
-
-    locator.get<LoggingService>().logEvent(
-      "Schedule Plan Reminder",
-      data: {"date": dateTime.toString()},
-    );
+            UILocalNotificationDateInterpretation.absoluteTime,
+        payload: "DEBUG",
+        androidAllowWhileIdle: true);
   }
 
   Future<List<PendingNotificationRequest>> getPendingNotifications() async {
-    var scheduled = await localNotifications.pendingNotificationRequests();
-    print(scheduled);
-    return scheduled;
+    return await localNotifications.pendingNotificationRequests();
   }
 
   clearPendingNotifications() async {

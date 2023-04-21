@@ -3,16 +3,19 @@ import Flutter
 
 @UIApplicationMain
 @objc class AppDelegate: FlutterAppDelegate {
-//class AppDelegate: UIResponder, UIApplicationDelegate {
-
-//  var window: UIWindow?
-
-  override func application(_ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions:
-        [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-//    FirebaseApp.configure()
-    GeneratedPluginRegistrant.register(with: self)
-    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
-    return true
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+      if #available(iOS 10.0, *) {
+         UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
+       }
+      GeneratedPluginRegistrant.register(with: self)
+      return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
+    
+    override func applicationDidEnterBackground(_ application: UIApplication){
+             application.applicationIconBadgeNumber = 0
+          }
+    
 }

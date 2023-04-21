@@ -1,0 +1,14 @@
+{
+    "title": "",
+    "id": "after_test",
+    "questions": [
+        {
+            "id": "success_perception",
+            "questionText": "Hast du das Gefühl, dass du heute im Vokabeltest auf cabuu ein gutes Ergebnis erzielt hast?",
+            "labels": {
+                "1": "ja",
+                "2": "nein"
+            }
+        }
+    ]
+}

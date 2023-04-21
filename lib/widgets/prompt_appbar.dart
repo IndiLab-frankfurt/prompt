@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/locator.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
@@ -39,29 +39,32 @@ class _PromptAppBarState extends State<PromptAppBar> {
     return AppBar(
       backgroundColor: Colors.transparent,
       automaticallyImplyLeading: widget.showBackButton,
-      iconTheme: IconThemeData(color: Colors.black),
       elevation: 0,
-      flexibleSpace: Row(
-        children: [],
-      ),
       actions: [
-        // _buildAboutButton(),
-        UIHelper.horizontalSpaceSmall(),
+        UIHelper.horizontalSpaceSmall,
         StreamBuilder(
             stream: rewardService.controller.stream,
             builder: (context, snapshot) {
               if (snapshot.connectionState == ConnectionState.active ||
                   snapshot.connectionState == ConnectionState.done) {
                 if (snapshot.hasData) {
-                  return TextButton(
-                      onPressed: () {},
-                      child: Text(
-                        "${snapshot.data}💎",
-                        style: TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.grey[850]),
-                      ));
+                  return Container(
+                    padding: EdgeInsets.all(0),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[100],
+                      border: Border.all(color: Color(0xFF000000), width: 1),
+                      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+                    ),
+                    child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          "${snapshot.data}💎",
+                          style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.grey[850]),
+                        )),
+                  );
                 }
               }
               return Text("${rewardService.scoreValue}💎",
@@ -70,11 +73,9 @@ class _PromptAppBarState extends State<PromptAppBar> {
                       fontWeight: FontWeight.bold,
                       color: Colors.black));
             }),
-        UIHelper.horizontalSpaceMedium()
+        UIHelper.horizontalSpaceMedium
       ],
-      title: Text(""),
-      // textTheme:
-      //     TextTheme(headline6: TextStyle(color: Colors.black, fontSize: 22)),
+      title: Text(this.widget.title),
       centerTitle: true,
     );
   }

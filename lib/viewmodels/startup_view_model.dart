@@ -1,13 +1,16 @@
-import 'package:prompt/locator.dart';
+import 'package:prompt/services/locator.dart';
+import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
+import 'package:prompt/services/push_notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/settings_service.dart';
+import 'package:prompt/services/study_service.dart';
 import 'package:prompt/services/user_service.dart';
-import 'package:prompt/shared/route_names.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 import 'package:prompt/shared/enums.dart';
+import 'package:prompt/viewmodels/onboarding_view_model.dart';
 
 class StartupViewModel extends BaseViewModel {
   List<String> debugTexts = [];
@@ -26,19 +29,24 @@ class StartupViewModel extends BaseViewModel {
   Future<void> startApp(AppStartupMode appStartupMode) async {
     print("Navigating to ${appStartupMode.toString()}");
     var nav = locator<NavigationService>();
-    // return nav.navigateAndRemove(RouteNames.NO_TASKS);
+
     switch (appStartupMode) {
       case AppStartupMode.normal:
-        nav.navigateAndRemove(RouteNames.MAIN);
+        nav.navigateAndRemove(AppScreen.MAINSCREEN);
         break;
       case AppStartupMode.signin:
-        nav.navigateAndRemove(RouteNames.LOG_IN);
+        nav.navigateAndRemove(AppScreen.LOGIN);
         break;
       case AppStartupMode.firstLaunch:
-        nav.navigateAndRemove(RouteNames.RANDOM_LOGIN);
+        nav.navigateAndRemove(AppScreen.LOGIN);
+        break;
+      case AppStartupMode.onboarding:
+        nav.navigateAndRemove(AppScreen.ONBOARDING);
         break;
       case AppStartupMode.noTasks:
-        nav.navigateAndRemove(RouteNames.NO_TASKS);
+        // nav.navigateAndRemove(AppScreen.Mainscreen);
+        await locator<StudyService>()
+            .goToNextStateFromState(AppScreen.MAINSCREEN.name);
         break;
     }
   }
@@ -50,21 +58,29 @@ class StartupViewModel extends BaseViewModel {
 
   Future<AppStartupMode> initialize() async {
     await locator<SettingsService>().initialize();
-    addDebugText("Initialized Settings Service");
-    await locator<NotificationService>().initialize();
-    addDebugText("Initialized Notification Service");
-    await locator<RewardService>().initialize();
+
+    await locator<ApiService>().initialize();
+
+    await locator<PushNotificationService>().initialize();
 
     bool userInitialized = await locator<UserService>().initialize();
-    addDebugText("User Initialized: $userInitialized");
-    bool signedIn = locator<UserService>().isSignedIn();
+
+    bool signedIn = await locator<UserService>().isSignedIn();
     if (!userInitialized || !signedIn) {
       return AppStartupMode.firstLaunch;
     }
 
+    await locator<NotificationService>().initialize();
+
+    await locator<RewardService>().initialize();
+
     var userData = await locator<DataService>().getUserData();
     if (userData == null) {
       return AppStartupMode.firstLaunch;
+    }
+
+    if (userData.onboardingStep < OnboardingStep.values.length - 2) {
+      return AppStartupMode.onboarding;
     }
 
     return AppStartupMode.noTasks;

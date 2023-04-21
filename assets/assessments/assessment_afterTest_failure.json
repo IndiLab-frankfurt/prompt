@@ -1,0 +1,46 @@
+{
+    "title": "",
+    "id": "after_test_failure",
+    "questions": [
+        {
+            "id": "failure_attribution_effort",
+            "questionText": "Ich war schlecht im Test, weil ich nicht gut genug gelernt habe.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "failure_attribution_ability",
+            "questionText": "Ich war schlecht im Test, weil ich nicht talentiert genug bin.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "failure_attribution_luck",
+            "questionText": "Ich war schlecht im Test, weil ich Pech hatte.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "failure_attribution_difficulty",
+            "questionText": "Ich war schlecht im Test, weil der Test schwierig war.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        }
+    ]
+}

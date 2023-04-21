@@ -6,9 +6,10 @@ class FullWidthButton extends StatelessWidget {
   final double height;
 
   FullWidthButton(
-      {required this.onPressed, this.text = "Abschicken", this.height = 60});
-
-  // const FullWidthButton({Key key}) : super(key: key);
+      {super.key,
+      required this.onPressed,
+      this.text = "Abschicken",
+      this.height = 60});
 
   @override
   Widget build(BuildContext context) {

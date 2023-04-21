@@ -1,0 +1,14 @@
+{
+    "title": "Lernintention",
+    "id": "intention_1",
+    "questions": [
+        {
+            "id": "dailyLearningIntention_1",
+            "questionText": "Hast du vor, heute mit cabuu zu lernen?",
+            "labels": {
+                "1": "Ja",
+                "TEXTINPUT_1": "Nein, weil:"
+            }
+        }
+    ]
+}

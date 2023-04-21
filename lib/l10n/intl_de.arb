@@ -1,0 +1,150 @@
+{
+  "@@locale": "de",
+  "welcome": "Willkommen bei PROMPT-ADAPT!",
+  "introductionTakeYourTime": "Auf der nächsten Seite geben wir dir erst einmal eine Einführung. Nimm dir dafür ein paar Minuten Zeit.",
+  "congratsMoreDiamonds": "Glückwunsch, du hast weitere {number} 💎 verdient!",
+  "@congratsMoreDiamonds": {
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "20"
+      }
+    }
+  },
+  "rewards1p1": "Glückwunsch, du hast deine ersten {number} 💎 verdient!",
+  "@rewards1p1": {
+    "placeholders": {
+      "number": {
+        "type": "String",
+        "example": "20"
+      }
+    }
+  },
+  "planPlaceHolder": "Wenn ich {when}, dann lerne ich mit cabuu!",
+  "@planPlaceHolder": {
+    "placeholders": {
+      "when": {
+        "type": "String",
+        "example": "20"
+      }
+    }
+  },
+  "labelTextWriteDownBulletPoints": "Schreibe deine Antwort hier auf.",
+  "obstacleOutcomeHelperText": "Stichworte genügen",
+  "rewards1p2": "Jetzt haben wir erst mal ein paar Fragen an dich.",
+  "rewards1p3": "Bitte beantworte alle Fragen ehrlich. Dir entstehen dadurch keine Nachteile.",
+  "planTimingParagraph1": "Ab morgen sollst du die App PROMPT-ADAPT **jeden Abend** einmal benutzen; das dauert auch nur 3 Minuten.",
+  "planTimingParagraph2": "Zur Erinnerung senden wir dir jeden Abend um **18 Uhr** eine Benachrichtigung. Wenn du sie später erhalten möchtest, kannst du das hier einstellen.",
+  "instructionsQuestionnaires_p1": "Heute und im Laufe der Studie stellen wir dir einige Fragen.",
+  "instructionsQuestionnaires_p2": "Meistens zeigen wir dir eine Aussage, z.B.:",
+  "instructionsQuestionnaires_p2b": "Ich lerne gerne Vokabeln.",
+  "instructionsQuestionnaires_p3": "Überlege, wie sehr die Aussage auf **dich persönlich** zutrifft und wähle die passende Antwort:",
+  "instructionsQuestionnaires_p4": " - Stimmt gar nicht \n - Stimmt eher nicht \n - Teils/teils \n - Stimmt eher \n - Stimmt genau",
+  "instructionsQuestionnaires_p5": "Wenn die Aussage z.B. eher auf dich zutrifft, wähle “eher ja”. Wenn die Aussage perfekt auf dich zutrifft, wähle “voll und ganz“.",
+  "instructionsCabuu2Paragraph1": "In unserer Studie sollst du cabuu auf eine ganz bestimmte Art benutzen - wie, erklären wir in unserem Video. Schaue es auf einem anderen Gerät (z. B. Computer) an, damit du cabuu gleichzeitig auf deinem Handy installieren kannst. Den Link zum Video haben deine Eltern per E-Mail erhalten.",
+  "instructionsCabuuLink": "Hier ist der Link noch mal:",
+  "instructionsCabuuWriteCode": "Um cabuu freizuschalten, brauchst du gleich diesen Code:",
+  "instructionsCabuuWriteDate": "Außerdem brauchst du dieses Datum:",
+  "instructionsCabuu2Finish": "Komme hierher zurück und klicke auf “Weiter”, wenn du damit fertig bist.",
+  "instructionsDistributedp1": "Beim Vokabellernen kann man **Strategien** anwenden, die einem beim Lernen und Erinnern **helfen**. Auf der nächsten Seite siehst du ein Video, in dem eine solche Strategie und ihre Vorteile erklärt werden.",
+  "obstacleEnterP1": "Was sind **Hindernisse**, ƒdie dich im Alltag davon abhalten, regelmäßig Vokabeln zu lernen? Notiere hier das Hindernis, das dir am meisten im Weg steht:",
+  "outcomeEnterP1": "Denk mal nach: Was wäre für dich persönlich das **Beste** daran, viele Vokabeln zu kennen und eine andere Sprache richtig gut zu sprechen? Notiere deine Antwort in ein paar Stichworten:",
+  "copingPlanEnterP1": "Wie könntest du dieses Hindernis **überwinden**? Notier hier, was du tun könntest:",
+  "planInputP1": "*Wann* und *wo* könntest du morgen Vokabeln lernen?",
+  "planInputIfI": "Wenn ich",
+  "planInputThenILearnWithCabuu": "dann lerne ich mit cabuu!",
+  "planTimingChangeP1": "Wenn du die Benachrichtigung zu einer späteren Uhrzeit erhalten möchtest, kannst du das hier einstellen.",
+  "time": "Uhrzeit",
+  "planCreation_letsCreatePlan": "## Erstelle jetzt deinen ersten Plan!",
+  "planCreation_whenAndWhere": "**Wann** und **wo** könntest du morgen gut Vokabeln lernen?",
+  "planCreation_completeThePlan": "Vervollständige den Plan:",
+  "consent_readthis": "Bitte lies dir die folgenden Informationen gemeinsam mit deinen Eltern sorgfältig durch.",
+  "consent_appuse": "Ich habe die Datenschutzerklärung gelesen und bin damit einverstanden, dass mein Kind die App PROMPT-ADAPT unter den genannten Bedingungen verwendet.",
+  "consent_study": "Ich bin damit einverstanden, dass mein Kind an der Studie PROMPT-ADAPT teilnimmt, und die Daten anonymisiert wissenschaftlich ausgewertet werden.",
+  "dashboard_mainmessage_firstday": "Morgen geht es richtig los.",
+  "dashboard_continueTomorrow": "Morgen geht es weiter! Schaue ab 18 Uhr wieder vorbei.",
+  "dashboard_mainmessage_beforeEvening": "Heute Abend geht es weiter! Schaue ab 18 Uhr wieder vorbei.",
+  "dashboard_nextVocabToday": "Dein nächster Vokabeltest ist heute.",
+  "dashboard_nextVocabTomorrow": "Dein nächster Vokabeltest ist morgen.",
+  "dashboard_daysUntilVocabTest": "Noch {numDays, plural, =1{1 Tag} other{{numDays} Tage}} bis zum nächsten Vokabeltest",
+  "@dashboard_daysUntilVocabTest": {
+    "placeholders": {
+      "numDays": {
+        "type": "num",
+        "example": "20"
+      }
+    }
+  },
+  "dashboard_studyCompletelyFinished": "Danke, dass du so toll mitgemacht hast! Du kannst diese App jetzt deinstallieren.",
+  "dashboard_inFollowUpPhase": "Die letzte Liste sollst du nun alleine in cabuu lernen. In PROMPT-ADAPT geht es erst in 3 Wochen weiter mit einer letzten Aufgabe. Wir benachrichtigen dich dann.",
+  "dashboard_daysOfTotal": "Tag {currentDay} von {maxDays}",
+  "@dashboard_daysOfTotal": {
+    "placeholders": {
+      "currentDay": {
+        "type": "num",
+        "example": "20"
+      },
+      "maxDays": {
+        "type": "num",
+        "example": "20"
+      }
+    }
+  },
+  "notificationMessage_daily": "Mache jetzt weiter mit PROMPT!",
+  "notificationMessage_vocabTest": "Denk daran, heute den Test in cabuu zu machen!",
+  "notificationTitle_final": "Wir haben noch ein paar Fragen an dich!",
+  "notificationBody_final":  "Nimm jetzt an der PROMPT-Abschlussbefragung teil und sichere dir die letzten 💎.",
+  "emojiInternalisation_createPlan": "Erstelle aus Emojis eine Darstellung deines Planes.",
+  "accountManagement_yourAccountName": "Dein Benutzername ist: {username}",
+  "@accountManagement_yourAccountName": {
+    "placeholders": {
+      "username": {
+        "type": "String",
+        "example": "User1020"
+      }
+    }
+  },
+  "accountManagement_yourCabuuCode": "Dein Cabuu Code ist: {cabuuCode}",
+  "@accountManagement_yourCabuuCode": {
+    "placeholders": {
+      "cabuuCode": {
+        "type": "String",
+        "example": "1834721874"
+      }
+    }
+  },
+  "accountManagement_deleteAccountExplanation": "Du kannst hier deinen Account löschen. Wenn du das tust, werden alle deine Daten gelöscht und du kannst die App nicht mehr benutzen. Das Löschen passiert erst nach manueller Prüfung.",
+  "accountManagement_clickToDeleteAccount": "Klicke hier, falls du dein Konto löschen möchtest.",
+  "accountManagement_invalidPassword": "Das Passwort war nicht richtig.",
+  "accountManagement_deleteDialog_title": "Konto löschen?",
+  "accountManagement_deleteDialog_EnterPassword": "Gib hier dein Passwort zur Bestätigung ein.",
+  "general_buttonTexts_cancel": "Abbrechen",
+  "general_buttonTexts_confirm": "Bestätigen",
+  "general_buttonTexts_logout": "Ausloggen",
+  "drawer_aboutPrompt": "Über PROMPT-ADAPT",
+  "drawer_accountManagement": "Benutzerkonto",
+  "drawer_mainScreen": "Hauptbildschirm",
+  "drawer_changeReminderTimes": "Uhrzeit für Erinnerungen",
+  "drawer_changeBackground": "Hintergrund ändern",
+  "drawer_dataPrivacy": "Datenschutzerklärung",
+  "drawer_learningPlan": "Infos cabuu & Lernplan",
+  "aboutScreen_title": "Über PROMPT-ADAPT",
+  "aboutScreen_p1": "PROMPT-ADAPT ist eine Lernplan-App, die Dir beim selbstständigen Lernen deiner Vokabeln helfen soll. Sie enthält Erklärungen und Anleitungen zu verschiedenen Lernstrategien und stellt dir Fragen zu deinem Lernverhalten.",
+  "aboutScreen_p2": "Hier siehst du den Ablauf unserer Studie.",
+  "aboutScreen_p3": "Während unserer Studie erinnern wir dich in der App PROMPT-ADAPT, wenn es Zeit für den Test ist und du den Lernplan für die nächste Liste aktivieren sollst. Es ist sehr wichtig, dass du \n \n - jeden Tag PROMPT benutzt \n - pünktlich die kurzen Vokabeltests machst, \n - pünktlich deine neue Lernliste aktivierst. \n \n \n Wenn Du Fragen hast, schreibe uns eine E-Mail an: prompt@dipf-institut.de",
+  "rewardDialog_title": "Glückwunsch!",
+  "rewardDialog_text": "Du hast {score} Punkte verdient!",
+  "@rewardDialog_text": {
+    "placeholders": {
+      "score": {
+        "type": "String",
+        "example": "34"
+      }
+    }
+  },
+  "login_enterCode": "Code eingeben",
+  "login_forgotPassword": "Passwort vergessen? Klicke hier, und wir erklären dir, was zu tun ist.",
+  "login_passwordHintText": "Passwort eingeben",
+  "login_loginButton": "Anmelden",
+  "login_codeLengthErrorText": "Der Code besteht aus 6 Ziffern"
+}

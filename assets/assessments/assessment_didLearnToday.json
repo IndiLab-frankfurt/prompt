@@ -1,0 +1,14 @@
+{
+    "title": "",
+    "id": "didLearnToday",
+    "questions": [
+        {
+            "id": "didLearnToday_1",
+            "questionText": "Hast du heute schon mit cabuu gelernt?",
+            "labels": {
+                "1": "Ja",
+                "2": "Nein"
+            }
+        }
+    ]
+}

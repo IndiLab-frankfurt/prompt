@@ -1,49 +1,60 @@
-import 'package:prompt/services/local_database_service.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:prompt/shared/enums.dart';
 
 class SettingsService {
-  // SharedPreferences _prefs;
-  LocalDatabaseService _databaseService;
-
-  Map<String, String> _settingsCache = {
-    SettingsKeys.userId: "",
+  static Map<SettingsKeys, String> defaultValues = {
+    SettingsKeys.accessToken: "",
+    SettingsKeys.username: "",
     SettingsKeys.email: "",
-    SettingsKeys.timerDurationInSeconds: "1500",
-    SettingsKeys.initSessionStep: "0",
+    SettingsKeys.password: "",
+    SettingsKeys.refreshToken: "",
     SettingsKeys.backGroundImage: "",
-    SettingsKeys.backgroundColors: "ffffff,ffffff"
+    SettingsKeys.backgroundColors: "FFE6F0F6,FFE6F0F6",
+    SettingsKeys.apiBaseUrl: "https://prompt-app.eu",
   };
 
-  SettingsService(this._databaseService);
+  final storage = new FlutterSecureStorage();
+
+  Map<SettingsKeys, String> _settingsCache = Map.from(defaultValues);
+
+  SettingsService();
 
   Future<bool> initialize() async {
-    // return SharedPreferences.getInstance().then((prefs) {
-    //   _prefs = prefs;
-    //   return true;
-    // }).catchError((error) {
-    //   return false;
-    // });
-    var settings = await _databaseService.getAllSettings();
-    for (var setting in settings) {
-      print("Setting from db is $setting");
-      _settingsCache[setting["key"]] = setting["value"].toString();
+    // iterate over all keys from _settingsCache and read them from secure storage.
+    // We are using the explicit method, because readAll() does not work on all platforms
+    for (var key in _settingsCache.keys) {
+      var value = await storage.read(key: key.name);
+      _settingsCache[key] = value ?? _settingsCache[key]!;
     }
+
     return true;
   }
 
-  getSetting(String setting) {
+  getSettingUncached(String key) async {
+    var settingsValue = await storage.read(key: key);
+    return settingsValue;
+  }
+
+  getSetting(SettingsKeys setting) {
     return _settingsCache[setting];
   }
 
-  setSetting(String setting, String value) async {
-    await this
-        ._databaseService
-        .upsertSetting(setting, value); //_prefs.setString(setting, value);
-    _settingsCache[setting] = value;
+  setSetting(SettingsKeys key, String value) async {
+    try {
+      await this.storage.write(key: key.name, value: value);
+      _settingsCache[key] = value;
+    } catch (e) {
+      throw Exception("Invalid setting key");
+    }
   }
 
-  deleteSetting(String setting) async {
-    await this._databaseService.deleteSetting(setting);
+  Future<void> deleteSetting(SettingsKeys setting) async {
+    await this.storage.delete(key: setting.name);
     _settingsCache.remove(setting);
+  }
+
+  Future<void> deleteAllSettings() async {
+    await this.storage.deleteAll();
+    _settingsCache = Map.from(defaultValues);
   }
 }

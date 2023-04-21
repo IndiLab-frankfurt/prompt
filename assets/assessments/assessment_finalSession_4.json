@@ -1,0 +1,36 @@
+{
+    "title": "",
+    "id": "final_4",
+    "questions": [
+        {
+            "id": "mc_plan_1",
+            "questionText": "Der Plan hat mir geholfen, öfter mit cabuu zu lernen.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "mc_plan_2",
+            "questionText": "Ich habe im Laufe der Zeit gar nicht mehr an diesen Plan gedacht.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "mc_plan_3",
+            "questionText": "Ich habe mich (fast) immer an den Plan gehalten, also zur geplanten Zeit mit cabuu gelernt.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        }
+    ]
+}

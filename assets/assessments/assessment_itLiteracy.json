@@ -1,0 +1,125 @@
+{
+    "title": "Zuerst haben wir ein paar Fragen dazu, wie du digitale Geräte (z.B. Smartphone, Tablet) und digitale Medien (z.B. Apps, Webseiten, Spiele, Filme) benutzt.",
+    "id": "it_literacy",
+    "questions": [
+        {
+            "id": "it_literacy_age",
+            "questionText": "Wie alt warst du, als du angefangen hast, regelmäßig digitale Geräte zu nutzen?",
+            "labels": {
+                "1": "3 Jahre oder jünger",
+                "2": "4-6 Jahre",
+                "3": "7-9 Jahre",
+                "4": "10 Jahre oder älter"
+            }
+        },
+        {
+            "id": "it_literacy_duration",
+            "questionText": "Wie lange verwendest du an einem typischen Tag digitale Geräte (außerhalb der Schule)?",
+            "labels": {
+                "1": "Gar nicht",
+                "2": "Unter einer Stunde",
+                "3": "Unter 4 Stunden",
+                "4": "Über 4 Stunden"
+            }
+        },
+        {
+            "id": "it_literacy_learning",
+            "questionText": "Mit digitalen Lernangeboten (z.B. Webseiten, Videos, Apps) lerne ich besser als mit analogen Methoden (z.B. Bücher, Arbeitsblätter).",
+            "labels": {
+                "1": "Trifft überhaupt nicht zu",
+                "2": "Trifft eher nicht zu",
+                "3": "Trifft eher zu",
+                "4": "Trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "mssf_1",
+            "questionText": "Ich beschäftige mich lieber mit digitalen Medien, statt Zeit zum Lernen oder für Hausaufgaben aufzubringen.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_2",
+            "questionText": "Ich erledige Aufgaben für die Schule eilig, damit ich früher wieder digitale Medien nutzen kann.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_3",
+            "questionText": "Ich vernachlässige Aufgaben für die Schule, weil ich lieber digitale Medien nutze.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_4",
+            "questionText": "Wenn ich für die Schule Aufgaben am PC/Tablet/Laptop erledige, lasse ich mich leicht durch andere digitale Medien ablenken.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig",
+                "6": "Ich habe noch nie für die Schule Aufgaben am PC/Tablet/Laptop erledigt."
+            }
+        },
+        {
+            "id": "mssf_5",
+            "questionText": "Ich nutze digitale Medien zum Spaß, während ich lerne und Hausaufgaben mache.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_6",
+            "questionText": "Ich war so viel mit digitalen Medien beschäftigt, dass nicht mehr genügend Zeit für das Lernen übrig geblieben ist.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_7",
+            "questionText": "Ich habe eine Aufgabe vor mir hergeschoben, um lieber digitale Medien nutzen zu können.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        },
+        {
+            "id": "mssf_8",
+            "questionText": "Ich habe so viel Zeit mit digitalen Medien verbracht, dass ich später beim Lernen Konzentrationsprobleme hatte.",
+            "labels": {
+                "1": "Nie",
+                "2": "Selten",
+                "3": "Manchmal",
+                "4": "Häufig",
+                "5": "Sehr häufig"
+            }
+        }
+    ]
+}

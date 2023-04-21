@@ -9,21 +9,19 @@ class SpeechBubble extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       child: MarkdownBody(
-        data: "## " + text,
+        data: "### " + text,
       ),
-      // child: Text(
-      //   this.text,
-      //   style: Theme.of(context).textTheme.headline6,
-      // ),
+      margin: EdgeInsets.all(5),
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-              blurRadius: .5,
-              spreadRadius: 1.0,
-              color: Colors.black.withOpacity(.12))
-        ],
-        color: Theme.of(context).selectedRowColor,
+        border: Border.all(color: Color(0xFF000000), width: 1),
+        // boxShadow: [
+        //   BoxShadow(
+        //       blurRadius: 2,
+        //       offset: Offset(5.0, 2.0),
+        //       color: Colors.black.withOpacity(.12))
+        // ],
+        color: Theme.of(context).dialogBackgroundColor,
         borderRadius: BorderRadius.all(Radius.circular(20.0)),
       ),
     );

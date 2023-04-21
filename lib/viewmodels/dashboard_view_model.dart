@@ -1,157 +1,94 @@
-import 'dart:async';
-import 'package:prompt/locator.dart';
-import 'package:prompt/models/value_with_date.dart';
-import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/experiment_service.dart';
-import 'package:prompt/services/navigation_service.dart';
-import 'package:prompt/services/reward_service.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
+import 'package:prompt/services/study_service.dart';
 import 'package:prompt/shared/enums.dart';
-import 'package:prompt/shared/route_names.dart';
+import 'package:prompt/shared/extensions.dart';
 import 'package:prompt/viewmodels/base_view_model.dart';
 
 class DashboardViewModel extends BaseViewModel {
-  final ExperimentService _experimentService;
-  final DataService _dataService;
-  final RewardService _rewardService;
-  int daysLearned = 0;
-  int daysNotLearned = 0;
-  Timer? timer;
+  final StudyService _studyService;
 
-  bool _showTimerConfiguration = false;
-  bool get showTimerConfiguration => _showTimerConfiguration;
-  set showTimerConfiguration(bool showTimerConfiguration) {
-    _showTimerConfiguration = showTimerConfiguration;
-    notifyListeners();
-  }
+  bool showLearnedWithCabuuButton = false;
+  bool showVocabularyTestReminder = false;
+  bool showContinueTomorrowButton = false;
+  bool showFinalAssessmentButton = false;
+  bool startTomorrow = false;
 
-  bool _showTimerControls = false;
-  bool get showTimerControls => _showTimerControls;
-  set showTimerControls(bool showTimerControls) {
-    _showTimerControls = showTimerControls;
-    notifyListeners();
-  }
+  late int daysActive = _studyService.getDaysSinceStart();
 
-  bool _showDaysLearned = true;
-  bool get showDaysLearned => _showDaysLearned;
-  set showDaysLearned(bool showDaysLearned) {
-    _showDaysLearned = showDaysLearned;
-    notifyListeners();
-  }
+  late double studyProgress = daysActive / getMaxStudyDays();
 
-  bool _hasLearnedToday = false;
-  bool get hasLearnedToday => _hasLearnedToday;
-  set hasLearnedToday(bool value) {
-    _hasLearnedToday = value;
-    notifyListeners();
-  }
+  DashboardViewModel(this._studyService);
 
-  double _timerGoalInSeconds = 5;
-  double get timerGoalSeconds => _timerGoalInSeconds;
-  set timerGoalSeconds(double timerGoal) {
-    _timerGoalInSeconds = timerGoal;
-    notifyListeners();
-  }
+  String daysUntilVocabTestString() {
+    var nextDate = _studyService.getNextVocabTestDate();
+    var difference = nextDate.weekDaysAgo(DateTime.now());
 
-  List<OpenTasks> openTasks = [];
-
-  addTask(OpenTasks task) {
-    if (!openTasks.contains(task)) {
-      openTasks.add(task);
-      notifyListeners();
+    if (nextDate.isToday()) {
+      return S.current.dashboard_nextVocabToday;
+    } else if (nextDate.isTomorrow()) {
+      return S.current.dashboard_nextVocabTomorrow;
+    } else {
+      return S.current.dashboard_daysUntilVocabTest(difference);
     }
   }
 
-  removeTask(OpenTasks task) {
-    if (openTasks.contains(task)) {
-      openTasks.remove(task);
-      notifyListeners();
-    }
-  }
+  Future<String> getButtonText() async {
+    var daysAgo = _studyService.getDaysSinceStart();
 
-  double timerProgressSeconds = 0;
-
-  DashboardViewModel(
-      this._experimentService, this._dataService, this._rewardService);
-
-  Future<bool> initialize() async {
-    OpenTasks? openTask;
-    late List<ValueWithDate> datesLearned;
-
-    await Future.wait([
-      _dataService.getDatesLearned().then((dl) => datesLearned = dl),
-      _experimentService.getOpenTask().then((res) => openTask = res),
-      _experimentService.hasLearnedToday().then((res) => hasLearnedToday = res),
-    ]);
-
-    var sevenDaysAgo = DateTime.now().subtract(Duration(days: 7));
-    daysLearned = _datesLearnedSince(datesLearned, sevenDaysAgo, true);
-    daysNotLearned = _datesLearnedSince(datesLearned, sevenDaysAgo, false);
-
-    if (openTask == OpenTasks.ViewDistributedLearning) {
-      addTask(OpenTasks.ViewDistributedLearning);
-    }
-    if (openTask == OpenTasks.ViewMentalContrasting) {
-      addTask(OpenTasks.ViewMentalContrasting);
-    }
-    if (openTask == OpenTasks.LearningTip) {
-      addTask(OpenTasks.LearningTip);
+    if (daysAgo == 0) {
+      return S.current.dashboard_mainmessage_firstday;
     }
 
-    return true;
-  }
-
-  Future<void> navigateToPlanReminderIfNeeded() async {
-    if (await _experimentService.isPlanReminderDay()) {
-      await locator<NavigationService>().navigateTo(RouteNames.PLAN_REMINDER);
+    if (daysAgo > StudyService.FULL_STUDY_DURATION.inDays) {
+      return S.current.dashboard_studyCompletelyFinished;
     }
-  }
 
-  List<int> getPendingRewards() {
-    return _rewardService.pendingRewardNotifications;
-  }
+    if (daysAgo >= StudyService.DAILY_USE_DURATION.inDays) {
+      return S.current.dashboard_inFollowUpPhase;
+    }
 
-  void clearPendingRewards() {
-    return _rewardService.pendingRewardNotifications.clear();
-  }
+    // Still in study phase. show message only if it is earlier than 6pm
+    if (DateTime.now().toLocal().hour < 18 &&
+        daysAgo < StudyService.DAILY_USE_DURATION.inDays) {
+      return S.current.dashboard_mainmessage_beforeEvening;
+    }
 
-  _datesLearnedSince(
-      List<ValueWithDate> datesLearned, DateTime date, hasLearned) {
-    // Count how many dates have been learned since the given date
-    return datesLearned
-        .where((element) =>
-            element.date.isAfter(date) && element.value == hasLearned)
-        .length;
-  }
-
-  addDaysLearned(int days) async {
-    daysLearned += days;
-
-    _experimentService.addDayLearned();
-
-    hasLearnedToday = true;
+    // Still in study phase. After 6pm this screen should only be reached if the
+    // user has done their last task for the day.
+    if (DateTime.now().toLocal().hour >= 18 &&
+        daysAgo < StudyService.DAILY_USE_DURATION.inDays) {
+      return S.current.dashboard_continueTomorrow;
+    }
 
     notifyListeners();
+
+    return "";
   }
 
-  startTimer(duration) {
-    timer = Timer.periodic(Duration(seconds: 1), (Timer t) {
-      timerProgressSeconds += 1;
-      notifyListeners();
-      if (timerProgressSeconds >= timerGoalSeconds) {
-        t.cancel();
-        timerProgressSeconds = 0;
-      }
-    });
+  int daysUntilVocabTest() {
+    var nextDate = _studyService.getNextVocabTestDate();
+    return nextDate.weekDaysAgo(DateTime.now());
   }
 
-  pauseTimer() {
-    timer?.cancel();
+  bool isInStudyPhase() {
+    return _studyService.getDaysSinceStart() <=
+        StudyService.DAILY_USE_DURATION.inDays;
   }
 
-  stopTimer() {
-    timer?.cancel();
-    timerProgressSeconds = 0;
-    timer = null;
-    notifyListeners();
+  int getMaxStudyDays() {
+    return StudyService.DAILY_USE_DURATION.inDays;
+  }
+
+  double getVocabProgress() {
+    return (21 - daysUntilVocabTest()) / 21;
+  }
+
+  Future<void> checkTasks() async {
+    var nextState = await _studyService.getNextState(AppScreen.MAINSCREEN);
+
+    if (nextState != AppScreen.MAINSCREEN) {
+      setState(ViewState.Busy);
+      await _studyService.nextScreen();
+    }
   }
 }

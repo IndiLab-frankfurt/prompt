@@ -1,12 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:prompt/locator.dart';
-import 'package:prompt/services/data_service.dart';
-import 'package:prompt/services/notification_service.dart';
-import 'package:prompt/services/user_service.dart';
-import 'package:prompt/shared/route_names.dart';
-import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/widgets/version_info.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
+import 'package:prompt/screens/main/scheduled_notifications_screen.dart';
+import 'package:prompt/screens/main/text_compare_screen.dart';
+import 'package:prompt/screens/main/theme_preview_screen.dart';
+import 'package:prompt/shared/enums.dart';
 
 class PromptDrawer extends StatelessWidget {
   PromptDrawer();
@@ -32,334 +30,124 @@ class PromptDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: <Widget>[
-          ListTile(
-            title: Container(
-                padding: EdgeInsets.only(top: 20, bottom: 10.0),
-                child: Text(
-                  "PROMPT",
-                  style: Theme.of(context).textTheme.headline4,
-                )
-                // child: Container(
-                //     height: 140,
-                //     decoration: BoxDecoration(
-                //         image: DecorationImage(
-                //             image: AssetImage('assets/icons/icon_256.png'),
-                //             fit: BoxFit.cover)),
-                //     child: Column(
-                //         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                //         crossAxisAlignment: CrossAxisAlignment.start,
-                //         children: [
-                //           Text(locator<UserService>().getUsername()),
-                //           VersionInfo(),
-                //         ])),
-                ),
+      child: ListView(padding: EdgeInsets.zero, children: <Widget>[
+        ListTile(
+          title: Container(
+            padding: EdgeInsets.only(top: 20, bottom: 10.0),
+            child: Container(
+                height: 140,
+                decoration: BoxDecoration(
+                    image: DecorationImage(
+                        image: AssetImage('assets/icons/icon_mascot1.png'),
+                        fit: BoxFit.contain)),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      // Text(locator<UserService>().getUsername()),
+                    ])),
           ),
-          Divider(),
-          _buildDrawerItem(
-              icon: Icons.home,
-              text: "Hauptbildschirm",
-              onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.NO_TASKS);
-              }),
-          _buildDrawerItem(
-              icon: Icons.image_outlined,
-              text: "Hintergrund ändern",
-              onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.REWARD_SELECTION);
-              }),
-          _buildDrawerItem(
-              icon: Icons.edit_outlined,
-              text: "Plan ändern",
-              onTap: () async {
-                await Navigator.pushNamed(context, RouteNames.EDIT_PLAN);
-              }),
-          _buildDrawerItem(
-              icon: Icons.info_outline,
-              text: "Lerntricks",
-              onTap: () async {
-                await Navigator.pushNamed(
-                    context, RouteNames.LEARNING_TRICKS_OVERVIEW);
-              }),
-          _buildDrawerItem(
-              icon: Icons.edit_notifications_outlined,
-              text: "Zeitpunkt für Erinnerungen ändern",
-              onTap: () async {
-                await Navigator.pushNamed(
-                    context, RouteNames.CHANGE_REMINDER_TIME);
-              }),
-          _buildDrawerItem(
-              icon: Icons.info_outline,
-              text: "Info",
-              onTap: () async {
-                showDialog(
-                    context: context,
-                    builder: (context) {
-                      return AlertDialog(
-                        title: Text("Infos"),
-                        content: SingleChildScrollView(
-                          child: ListBody(children: [
-                            Text(
-                              "Kontakt: ",
-                              // style: Theme.of(context).textTheme.,
-                            ),
-                            Text("prompt@idea-frankfurt.de"),
-                            UIHelper.verticalSpaceMedium(),
-                            Text("Benutzer-ID: "),
-                            Text(locator<UserService>().getUsername()),
-                            UIHelper.verticalSpaceMedium(),
-                            Text("Version: "),
-                            VersionInfo(),
-                          ]),
-                        ),
-                      );
-                    });
-                //       showDialog(
-                //           context: context,
-                //           builder: (context) {
-                //             return AlertDialog(
-                //               title: Text("Scheduled Notifications"),
-                //               content: SingleChildScrollView(
-                //                 child: ListBody(
-                //                   children: scheduled.map((notification) {
-                //                     var title =
-                //                         notification.content?.title ?? "No title";
-                //                     var schedule = notification.schedule;
-                //                     return Column(
-                //                       children: [
-                //                         Text(title),
-                //                         Text(schedule.toString()),
-                //                         Divider(),
-                //                       ],
-                //                     );
-                //                     // return Text(notification.toString());
-                //                   }).toList(),
-                //                 ),
-                //               ),
-                //             );
-                //           });
-                //     }),
-              }),
-          Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.info_outlined,
-          //     text: "Lerntip",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(
-          //           context, RouteNames.SINGLE_LEARNING_TIP);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "AutoRegistrierung",
-          //     onTap: () async {
-          //       await Navigator.pushReplacementNamed(
-          //           context, RouteNames.RANDOM_LOGIN);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Plan Reminder",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
-          //     }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Einführung",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(context, RouteNames.SESSION_ZERO);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Outcomes/Obstacles",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(
-          //           context, RouteNames.MENTAL_CONTRASTING);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Verteiltes Lernen",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(
-          //           context, RouteNames.DISTRIBUTED_LEARNING);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Trigger Plan Reminder in 1 min.",
-          //     onTap: () async {
-          //       // create datetime one minute from now
-          //       var now = DateTime.now();
-          //       var oneMinuteFromNow = now.add(Duration(minutes: 1));
-          //       // set reminder
-          //       locator
-          //           .get<NotificationService>()
-          //           .schedulePlanReminder(oneMinuteFromNow);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Plan Reminder",
-          //     onTap: () async {
-          //       await Navigator.pushNamed(context, RouteNames.PLAN_REMINDER);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.delete_forever,
-          //     text: "Mit neuem Nutzer anfangen",
-          //     onTap: () async {
-          //       await FirebaseAuth.instance.signOut();
-          //       await Navigator.pushNamed(context, RouteNames.RANDOM_LOGIN);
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Delete Last Date",
-          //     onTap: () async {
-          //       var ds = locator.get<DataService>();
-          //       ds.deleteLastDateLearned();
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "List Scheduled Notifications",
-          //     onTap: () async {
-          //       var scheduled = await locator
-          //           .get<NotificationService>()
-          //           .getPendingNotifications();
-          //       // show a dialog where you can see the list of scheduled notifications
-          //       showDialog(
-          //           context: context,
-          //           builder: (context) {
-          //             return AlertDialog(
-          //               title: Text("Scheduled Notifications"),
-          //               content: SingleChildScrollView(
-          //                 child: ListBody(
-          //                   children: scheduled.map((notification) {
-          //                     var title =
-          //                         notification.content?.title ?? "No title";
-          //                     var schedule = notification.schedule;
-          //                     return Column(
-          //                       children: [
-          //                         Text(title),
-          //                         Text(schedule.toString()),
-          //                         Divider(),
-          //                       ],
-          //                     );
-          //                     // return Text(notification.toString());
-          //                   }).toList(),
-          //                 ),
-          //               ),
-          //             );
-          //           });
-          //     }),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Delete all scheduled reminders",
-          //     onTap: () async {
-          //       locator.get<NotificationService>().clearPendingNotifications();
-          //     }),
-          // Divider(),
-          // Column(
-          //   children: [
-          //     Text("Gruppe ändern"),
-          //     TextFormField(
-          //       textAlign: TextAlign.center,
-          //       keyboardType: TextInputType.number,
-          //       maxLength: 1,
-          //       initialValue: locator
-          //           .get<DataService>()
-          //           .getUserDataCache()
-          //           .group
-          //           .toString(),
-          //       onChanged: (value) {
-          //         if (value.isNotEmpty) {
-          //           var group = int.parse(value);
-          //           if (group <= 7) {
-          //             locator.get<DataService>().getUserDataCache().group =
-          //                 group;
-          //           }
-          //         }
-          //       },
-          //     ),
-          //     // ElevatedButton(onPressed: () {}, child: Text("Ändern"))
-          //   ],
-          // ),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.calendar_today,
-          //     text: "Registrierungsdatum setzen",
-          //     onTap: () async {
-          //       var regDate = locator
-          //           .get<DataService>()
-          //           .getUserDataCache()
-          //           .registrationDate;
-
-          //       var picked = await showDatePicker(
-          //         context: context,
-          //         initialDate: regDate,
-          //         firstDate: DateTime.now().subtract(Duration(days: 120)),
-          //         lastDate: DateTime.now().add(Duration(days: 120)),
-          //         builder: (context, child) {
-          //           return Theme(
-          //             data:
-          //                 ThemeData.dark(), // This will change to light theme.
-          //             child: child!,
-          //           );
-          //         },
-          //       );
-
-          //       if (picked != null) {
-          //         locator
-          //             .get<DataService>()
-          //             .getUserDataCache()
-          //             .registrationDate = picked;
-          //       }
-
-          //       await Navigator.pushReplacementNamed(
-          //           context, RouteNames.NO_TASKS);
-          //     }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Login",
-          //     onTap: () async {
-          //       await Navigator.pushReplacementNamed(
-          //           context, RouteNames.LOG_IN);
-          //     }),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Usage Stats",
-          //     onTap: () async {
-          //       var startDate = DateTime.now().subtract(Duration(days: 20));
-          //       UsageStatsService.queryUsageStats(startDate, DateTime.now());
-          //     }),
-          // Column(
-          //   children: [
-          //     Text("Sesion 0 Schritt"),
-          //     TextFormField(
-          //       textAlign: TextAlign.center,
-          //       keyboardType: TextInputType.number,
-          //       maxLength: 2,
-          //       initialValue: "",
-          //       onChanged: (value) {
-          //         if (value.isNotEmpty) {
-          //           var group = int.parse(value);
-          //           locator.get<DataService>().saveSessionZeroStep(group);
-          //         }
-          //       },
-          //     ),
-          //   ],
-          // ),
-          // Divider(),
-          // _buildDrawerItem(
-          //     icon: Icons.add_box,
-          //     text: "Scheduled Notifications",
-          //     onTap: () async {
-          //       var pending = await locator<NotificationService>()
-          //           .getPendingNotifications();
-
-          //       print(pending);
-          //     }),
-        ],
-      ),
+        ),
+        Divider(),
+        _buildDrawerItem(
+            icon: Icons.dashboard_outlined,
+            text: S.of(context).drawer_mainScreen,
+            onTap: () async {
+              await Navigator.pushNamed(context, AppScreen.MAINSCREEN.name);
+            }),
+        _buildDrawerItem(
+            icon: Icons.image_outlined,
+            text: S.of(context).drawer_changeBackground,
+            onTap: () async {
+              await Navigator.pushNamed(
+                  context, AppScreen.REWARDSELECTION.name);
+            }),
+        _buildDrawerItem(
+            icon: Icons.alarm,
+            text: S.of(context).drawer_changeReminderTimes,
+            onTap: () async {
+              await Navigator.pushReplacementNamed(
+                  context, AppScreen.PLANTIMINGCHANGE.name);
+            }),
+        _buildDrawerItem(
+            icon: Icons.calendar_month_outlined,
+            text: S.of(context).drawer_learningPlan,
+            onTap: () async {
+              await Navigator.pushReplacementNamed(
+                  context, AppScreen.LEARNINGPLANCABUU.name);
+            }),
+        _buildDrawerItem(
+            icon: Icons.info_outline_rounded,
+            text: S.of(context).drawer_aboutPrompt,
+            onTap: () async {
+              await Navigator.pushReplacementNamed(
+                  context, AppScreen.ABOUTPROMPT.name);
+            }),
+        _buildDrawerItem(
+            icon: Icons.privacy_tip_outlined,
+            text: S.of(context).drawer_dataPrivacy,
+            onTap: () async {
+              await Navigator.pushNamed(context, AppScreen.DATAPRIVACY.name);
+            }),
+        _buildDrawerItem(
+            icon: Icons.account_circle,
+            text: S.of(context).drawer_accountManagement,
+            onTap: () async {
+              await Navigator.pushNamed(
+                  context, AppScreen.ACCOUNTMANAGEMENT.name);
+            }),
+        if (kDebugMode) ...buildDebugItems(context)
+      ]),
     );
+  }
+
+  List<Widget> buildDebugItems(BuildContext context) {
+    return [
+      Divider(),
+      Text("DEBUG STUFF"),
+      _buildDrawerItem(
+          icon: Icons.add_box,
+          text: "Login",
+          onTap: () async {
+            await Navigator.pushReplacementNamed(context, AppScreen.LOGIN.name);
+          }),
+      _buildDrawerItem(
+          icon: Icons.add_box,
+          text: "Onboarding",
+          onTap: () async {
+            await Navigator.pushReplacementNamed(
+                context, AppScreen.ONBOARDING.name);
+          }),
+      _buildDrawerItem(
+          icon: Icons.add_box,
+          text: "Screen Select",
+          onTap: () async {
+            await Navigator.pushReplacementNamed(
+                context, AppScreen.SCREENSELECT.name);
+          }),
+      _buildDrawerItem(
+          icon: Icons.add_box,
+          text: "Text Compare",
+          onTap: () async {
+            await Navigator.push(context,
+                MaterialPageRoute(builder: (context) => TextCompareScreen()));
+          }),
+      _buildDrawerItem(
+          icon: Icons.add_box,
+          text: "Theme Overview",
+          onTap: () async {
+            await Navigator.push(context,
+                MaterialPageRoute(builder: (context) => ThemePreviewScreen()));
+          }),
+      _buildDrawerItem(
+          icon: Icons.add_box,
+          text: "Scheduled Notifications",
+          onTap: () async {
+            await Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ScheduledNotificationsScreen()));
+          }),
+    ];
   }
 }

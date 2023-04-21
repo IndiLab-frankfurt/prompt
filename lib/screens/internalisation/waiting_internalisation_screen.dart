@@ -3,7 +3,6 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/screens/internalisation/internalisation_screen.dart';
 import 'package:prompt/shared/ui_helper.dart';
 import 'package:provider/provider.dart';
-import 'package:prompt/shared/enums.dart';
 import 'package:prompt/viewmodels/internalisation_view_model.dart';
 import 'package:prompt/widgets/speech_bubble.dart';
 
@@ -43,7 +42,7 @@ class _WaitingInternalisationScreenState
     animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-          vm.submit(InternalisationCondition.waiting, "");
+          vm.onComplete("");
           this.widget.onCompleted!("");
         });
       }
@@ -62,19 +61,20 @@ class _WaitingInternalisationScreenState
     final vm = Provider.of<InternalisationViewModel>(context, listen: false);
 
     return Container(
-      margin: UIHelper.getContainerMargin(),
+      margin: UIHelper.containerMargin,
       child: ListView(
         children: <Widget>[
           MarkdownBody(
               data:
                   "### Lies dir den Plan mindestens dreimal durch und merke ihn dir gut! Drücke dann auf weiter."),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           SpeechBubble(text: '"${vm.plan}"'),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
           LinearProgressIndicator(
             value: animation.value,
           ),
-          UIHelper.verticalSpaceMedium(),
+          UIHelper.verticalSpaceMedium,
+          // if (_done) _buildSubmitButton()
         ],
       ),
     );

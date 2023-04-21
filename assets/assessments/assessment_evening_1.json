@@ -1,0 +1,16 @@
+{
+    "title": "",
+    "id": "evening_1",
+    "questions": [
+        {
+            "id": "satisfaction",
+            "questionText": "Wenn ich daran denke, wie ich heute mit cabuu gelernt habe, bin ich zufrieden mit mir.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        }
+    ]
+}

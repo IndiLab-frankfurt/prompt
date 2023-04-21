@@ -45,7 +45,7 @@ Future<bool> _getCompatibleEmojis(
 
   if (!kIsWeb) {
     if (Platform.isAndroid) {
-      systemVersion = (await _deviceInfoPlugin.androidInfo).version.release!;
+      systemVersion = (await _deviceInfoPlugin.androidInfo).version.release;
       isCompatible = Emoji.isAndroidCompatible;
     } else if (Platform.isIOS) {
       systemVersion = (await _deviceInfoPlugin.iosInfo).systemVersion!;

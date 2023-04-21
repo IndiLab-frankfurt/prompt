@@ -1,0 +1,66 @@
+{
+    "title": "Wie fandest du die Studie und die App PROMPT?",
+    "id": "final_2",
+    "questions": [
+        {
+            "id": "mc_study_1",
+            "questionText": "Ich fand es nervig, dass ich ständig Vokabeln lernen sollte.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "mc_study_2",
+            "questionText": "Ich hätte die Vokabeln lieber anders (nicht mit cabuu) gelernt.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "usability_fun",
+            "questionText": "Es hat mir Spaß gemacht, die App PROMPT zu nutzen.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "usability_difficulty",
+            "questionText": "Ich fand es schwierig, die App PROMPT zu bedienen.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "usability_helpful",
+            "questionText": "Die App PROMPT hat mir beim Lernen mit der App cabuu geholfen.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        },
+        {
+            "id": "usability_intention",
+            "questionText": "Ich würde die App PROMPT gerne weiter benutzen.",
+            "labels": {
+                "1": "trifft überhaupt nicht zu",
+                "2": "trifft eher nicht zu",
+                "3": "trifft eher zu",
+                "4": "trifft voll und ganz zu"
+            }
+        }
+    ]
+}

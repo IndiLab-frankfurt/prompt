@@ -1,13 +1,19 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:prompt/locator.dart';
-import 'package:prompt/screens/startup_screen.dart';
-import 'package:prompt/services/experiment_service.dart';
+import 'package:prompt/managers/dialog_manager.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/navigation_service.dart';
-import 'package:prompt/services/notification_service.dart';
 import 'package:prompt/shared/app_router.dart';
+import 'screens/main/startup_screen.dart';
+import 'package:prompt/l10n/localization/generated/l10n.dart';
+
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  print("Handling a background message: ${message.messageId}");
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,24 +26,36 @@ class MyApp extends StatelessWidget {
   buildMaterialApp(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Serene',
+      title: 'Prompt',
+      localizationsDelegates: [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.transparent,
-        canvasColor: Colors.white,
-        selectedRowColor: Colors.orange[200],
-        // textTheme: TextTheme(
-        //   bodyText1: GoogleFonts.andikaNewBasic(fontSize: 15),
-        //   bodyText2: GoogleFonts.andikaNewBasic(
-        //       fontSize: 15, fontWeight: FontWeight.w700),
-        //   subtitle1: GoogleFonts.andikaNewBasic(
-        //       fontSize: 20, fontWeight: FontWeight.w600),
-        // ),
-        textTheme: GoogleFonts.andikaNewBasicTextTheme(
-          Theme.of(context).textTheme,
+        useMaterial3: true,
+        colorSchemeSeed: Colors.lightBlue,
+        textTheme: TextTheme(
+          bodyLarge: GoogleFonts.comicNeue(fontSize: 18),
+          bodyMedium:
+              GoogleFonts.comicNeue(fontSize: 18, fontWeight: FontWeight.w500),
+          titleMedium:
+              GoogleFonts.comicNeue(fontSize: 20, fontWeight: FontWeight.w600),
+          bodySmall: GoogleFonts.comicNeue(fontSize: 16),
+          displayLarge: GoogleFonts.comicNeue(fontSize: 40),
+          displayMedium: GoogleFonts.comicNeue(fontSize: 35),
+          displaySmall: GoogleFonts.comicNeue(fontSize: 30),
+          headlineLarge: GoogleFonts.comicNeue(fontSize: 40),
+          headlineMedium: GoogleFonts.comicNeue(fontSize: 35),
+          headlineSmall: GoogleFonts.comicNeue(fontSize: 30),
+          titleLarge: GoogleFonts.comicNeue(fontSize: 30),
+          titleSmall: GoogleFonts.comicNeue(fontSize: 20),
+          labelLarge: GoogleFonts.comicNeue(fontSize: 20),
+          labelSmall: GoogleFonts.comicNeue(fontSize: 15),
         ),
-        // GoogleFonts.quicksandTextTheme(Theme.of(context).textTheme),
         buttonTheme: ButtonThemeData(
-          buttonColor: Colors.white,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
         ),
@@ -46,22 +64,22 @@ class MyApp extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20)))),
         iconTheme: IconThemeData(color: Colors.black),
-        // colorScheme: ColorScheme.fromSwatch(primarySwatch: Colors.orange)
-        //     .copyWith(secondary: Color(0xfff96d15))
       ),
       onGenerateRoute: AppRouter.generateRoute,
       navigatorKey: locator<NavigationService>().navigatorKey,
+      builder: (context, widget) => Navigator(
+        onGenerateRoute: (settings) => MaterialPageRoute(
+          builder: (context) => DialogManager(
+            child: widget!,
+          ),
+        ),
+      ),
       home: StartupScreen(),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-
     return buildMaterialApp(context);
   }
 }

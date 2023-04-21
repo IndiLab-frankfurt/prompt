@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:prompt/locator.dart';
+import 'package:prompt/services/locator.dart';
 import 'package:prompt/screens/rewards/timeline.dart';
 import 'package:prompt/services/reward_service.dart';
-import 'package:prompt/shared/route_names.dart';
-import 'package:prompt/shared/ui_helper.dart';
+import 'package:prompt/shared/enums.dart';
 import 'package:prompt/widgets/prompt_appbar.dart';
 import 'package:prompt/models/unlockable_background.dart';
 
@@ -20,33 +19,33 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
     List<Widget> unlockItems = [];
     var rewardService = locator<RewardService>();
 
-    for (var bg in rewardService.backgrounds) {
+    var sortedByScore = rewardService.backgrounds.toList()
+      ..sort((a, b) => a.cost.compareTo(b.cost));
+
+    for (var bg in sortedByScore) {
       unlockItems.add(_buildUnlockItem(bg, rewardService.scoreValue));
     }
 
-    return Container(
-      decoration: UIHelper.defaultBoxDecoration,
-      child: Scaffold(
-        appBar: PromptAppBar(
-          title: "Wähle einen neuen Hintergrud",
-          showBackButton: true,
-        ),
-        // drawer: PromptDrawer(),
-        backgroundColor: Colors.transparent,
-        body: Container(
-            child: Timeline(
-                indicatorColor: Theme.of(context).primaryColor,
-                indicatorColorInactive: Colors.grey,
-                lineColor: Theme.of(context).primaryColor,
-                progress: ((rewardService.daysActive + 5) / 27),
-                children: [...unlockItems])),
+    var progress = rewardService.getRewardProgress(rewardService.scoreValue);
+
+    return Scaffold(
+      appBar: PromptAppBar(
+        title: "Hintergründe freischalten",
+        showBackButton: true,
       ),
+      body: Container(
+          child: Timeline(
+              indicatorColor: Theme.of(context).primaryColor,
+              indicatorColorInactive: Colors.grey,
+              lineColor: Theme.of(context).primaryColor,
+              progress: progress,
+              children: [...unlockItems])),
     );
   }
 
-  _buildUnlockItem(UnlockableBackground unlockable, int daysActive) {
+  _buildUnlockItem(UnlockableBackground unlockable, int balance) {
     var rewardService = locator.get<RewardService>();
-    var unlocked = daysActive >= unlockable.requiredDays;
+    var unlocked = balance >= unlockable.cost;
     Widget unlockButton;
 
     if (unlocked) {
@@ -57,21 +56,20 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
 
             rewardService.setBackgroundColor(unlockable.backgroundColor);
 
-            Navigator.pushNamed(context, RouteNames.NO_TASKS);
+            Navigator.pushNamed(context, AppScreen.MAINSCREEN.name);
           });
         },
         child: Text("Aktivieren"),
       );
     } else {
       String text = "";
-      var daysToUnlock = unlockable.requiredDays - daysActive;
-      text = "Du brauchst noch $daysToUnlock 💎";
+      var daysToUnlock = unlockable.cost - balance;
+      text = "Noch $daysToUnlock 💎";
+
       unlockButton = ElevatedButton(
-        style: ElevatedButton.styleFrom(primary: Colors.grey),
+        style: ElevatedButton.styleFrom(backgroundColor: Colors.grey),
         onPressed: () {
-          setState(() {
-            // rewardService.setBackgroundImagePath(path);
-          });
+          setState(() {});
         },
         child: Text(text),
       );
@@ -91,10 +89,6 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Column(
         children: [
-          // Text(
-          //   unlockable.name,
-          //   style: Theme.of(context).textTheme.headline6,
-          // ),
           if (unlocked)
             Image(
               image: AssetImage(unlockable.path),
@@ -113,13 +107,13 @@ class _RewardSelectionScreenState extends State<RewardSelectionScreen> {
                 height: 110,
               ),
             ),
-          // Divider(),
           if (isSelected)
             ElevatedButton(
-              style: ElevatedButton.styleFrom(primary: Colors.green[300]),
+              style:
+                  ElevatedButton.styleFrom(backgroundColor: Colors.green[300]),
               onPressed: () {
                 setState(() {});
-                Navigator.pushNamed(context, RouteNames.NO_TASKS);
+                Navigator.pushNamed(context, AppScreen.MAINSCREEN.name);
               },
               child: Text("Ausgewählt"),
             ),

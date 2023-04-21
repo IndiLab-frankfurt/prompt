@@ -1,9 +1,14 @@
-import 'package:prompt/models/question.dart';
+import 'package:prompt/viewmodels/questionnaire_page_view_model.dart';
 
 class Questionnaire {
-  String id = "";
-  List<Question> items = [];
-  String title = "";
+  final String title;
+  final String name;
+  final List<QuestionnairePageViewModel> questions;
+  final List<dynamic>? rules;
 
-  Questionnaire({required this.id, required this.title, required this.items});
+  Questionnaire(
+      {required this.title,
+      required this.name,
+      required this.questions,
+      this.rules});
 }

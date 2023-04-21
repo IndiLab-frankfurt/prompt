@@ -1,13 +1,14 @@
 import 'dart:math';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 extension PageControllerExtension on PageController {
   int get currentPageOrZero {
     if (this.hasClients) {
-      return this.page!.toInt();
-    } else {
-      return this.initialPage;
+      if (this.page != null) {
+        return this.page!.toInt();
+      }
     }
+    return this.initialPage;
   }
 }
 
@@ -56,8 +57,14 @@ extension DateHelpers on DateTime {
         yesterday.year == this.year;
   }
 
-  /// Returns the days since this date NOT assuming full 24 hour days but
-  /// rather days of the weeek.
+  String toTimeZoneAwareISOString() {
+    String offSetString(Duration offset) =>
+        "${offset.isNegative ? "-" : "+"}${offset.inHours.abs().toString().padLeft(2, "0")}:${(offset.inMinutes - offset.inHours * 60).abs().toString().padLeft(2, "0")}";
+    var timeZoneOffset = this.timeZoneOffset;
+    return this.toLocal().toIso8601String() + offSetString(timeZoneOffset);
+  }
+
+  /// Returns the days since this date in terms of days of the weeek.
   /// For example, if this date is Thursday, 21.01.2021, 15:40 and it is
   /// Friday, 22.02.2021, 14:10, this function returns 1 as the number
   /// of days
@@ -72,19 +79,4 @@ extension DateHelpers on DateTime {
         DateTime(other.year, other.month, other.day, 0, 0, 0);
     return compareDateThis.difference(compareDateOther).inDays;
   }
-}
-
-extension TimeOfDayHelpers on TimeOfDay {
-  String to24HourString() {
-    final hour = this.hour.toString().padLeft(2, "0");
-    final min = this.minute.toString().padLeft(2, "0");
-    return "$hour:$min";
-  }
-}
-
-TimeOfDay from24HourString(String input) {
-  var split = input.split(":");
-  var hour = int.parse(split[0]);
-  var min = int.parse(split[1]);
-  return TimeOfDay(hour: hour, minute: min);
 }
