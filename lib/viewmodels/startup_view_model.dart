@@ -3,7 +3,6 @@ import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
-import 'package:prompt/services/push_notification_service.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/study_service.dart';
@@ -60,8 +59,6 @@ class StartupViewModel extends BaseViewModel {
     await locator<SettingsService>().initialize();
 
     await locator<ApiService>().initialize();
-
-    await locator<PushNotificationService>().initialize();
 
     bool userInitialized = await locator<UserService>().initialize();
 

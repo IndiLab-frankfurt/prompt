@@ -64,6 +64,41 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Widget buildControls(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Center(
+        child: Container(
+          height: MediaQuery.of(context).size.height,
+          child: ListView(
+            children: <Widget>[
+              UIHelper.verticalSpaceLarge,
+              buildCircleAvatar(),
+              UIHelper.verticalSpaceLarge,
+              buildTitle(),
+              UIHelper.verticalSpaceLarge,
+              buildUserIdField(context),
+              buildPasswordField(context),
+              new Container(
+                width: MediaQuery.of(context).size.width,
+                margin:
+                    const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
+                alignment: Alignment.center,
+                child: new Row(
+                  children: <Widget>[
+                    new Expanded(child: buildSubmitButton(context)),
+                  ],
+                ),
+              ),
+              UIHelper.verticalSpaceLarge,
+              UIHelper.verticalSpaceLarge,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   buildCircleAvatar() {
     return Container(
       height: 128.0,
@@ -78,6 +113,11 @@ class _LoginScreenState extends State<LoginScreen> {
         //image: DecorationImage(image: this.logo)
       ),
     );
+  }
+
+  buildTitle() {
+    return Container(
+        height: 128.0, width: 128.0, child: Text("PROMPT ICAB-LAB"));
   }
 
   buildUserIdField(BuildContext context) {
@@ -185,60 +225,6 @@ class _LoginScreenState extends State<LoginScreen> {
           : CircularProgressIndicator(
               backgroundColor: Colors.blue,
             ),
-    );
-  }
-
-  Widget buildControls(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Container(
-        height: MediaQuery.of(context).size.height,
-        child: ListView(
-          children: <Widget>[
-            UIHelper.verticalSpaceLarge,
-            buildUserIdField(context),
-            buildPasswordField(context),
-            new Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(left: 40.0, right: 40.0, top: 30.0),
-              alignment: Alignment.center,
-              child: new Row(
-                children: <Widget>[
-                  new Expanded(child: buildSubmitButton(context)),
-                ],
-              ),
-            ),
-            UIHelper.verticalSpaceLarge,
-            buildForgotPassword(context),
-            UIHelper.verticalSpaceLarge,
-          ],
-        ),
-      ),
-    );
-  }
-
-  buildForgotPassword(BuildContext context) {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(left: 40.0, right: 40.0),
-      alignment: Alignment.center,
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Expanded(
-            child: TextButton(
-              child: Text(
-                S.of(context).login_forgotPassword,
-                textAlign: TextAlign.center,
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, AppScreen.FORGOTPASSWORD.name);
-              },
-            ),
-          ),
-        ],
-      ),
     );
   }
 }
