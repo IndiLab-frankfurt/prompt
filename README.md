@@ -2,6 +2,10 @@
 
 Project for the Flutter App of the [PROMPT research project](https://indilearn.de/en/projects-individualized-support/project-prompt/)
 
+# Architecture
+
+The app uses a MVVM architecture with [Provider](https://pub.dev/packages/provider) for the state logic in the ViewModels, and [get_it](https://pub.dev/packages/get_it) for service location.  
+
 # Building
 
 In order to build this project, clone the repository and run
