@@ -1,6 +1,6 @@
 # prompt
 
-Project for the Flutter App of the PROMPT research project
+Project for the Flutter App of the [PROMPT research project](https://indilearn.de/en/projects-individualized-support/project-prompt/)
 
 # Building
 
