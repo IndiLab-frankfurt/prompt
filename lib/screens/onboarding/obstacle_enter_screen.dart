@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:prompt/l10n/localization/generated/l10n.dart';
 import 'package:prompt/shared/ui_helper.dart';
-import 'package:prompt/viewmodels/onboarding_view_model.dart';
 import 'package:prompt/widgets/onboarding_container.dart';
-import 'package:provider/provider.dart';
 
 class ObstacleEnterScreen extends StatefulWidget {
   ObstacleEnterScreen({Key? key}) : super(key: key);
@@ -22,7 +20,6 @@ class _ObstacleEnterScreenState extends State<ObstacleEnterScreen> {
   @override
   Widget build(BuildContext context) {
     var bgimg = "assets/illustrations/mascot_1_wall.png";
-    var vm = Provider.of<OnboardingViewModel>(context);
     return OnboardingContainer(
       decorationImage: DecorationImage(
           image: AssetImage(bgimg),

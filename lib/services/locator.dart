@@ -5,7 +5,6 @@ import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/dialog_service.dart';
 import 'package:prompt/services/push_notification_service.dart';
 import 'package:prompt/services/study_service.dart';
-import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
@@ -27,8 +26,6 @@ void _setUpServices() {
   locator.registerSingleton<NavigationService>(NavigationService());
 
   locator.registerSingleton<DialogService>(DialogService());
-
-  locator.registerSingleton<LocalDatabaseService>(LocalDatabaseService.db);
 
   locator.registerSingleton<SettingsService>(SettingsService());
 

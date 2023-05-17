@@ -1,14 +1,13 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:prompt/l10n/localization/generated/l10n.dart';
-import 'package:prompt/services/base_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:collection/collection.dart';
 import 'package:timezone/data/latest_all.dart' as tzdata;
 import 'package:timezone/timezone.dart' as tz;
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
-class NotificationService implements BaseService {
+class NotificationService {
   final LoggingService _loggingService;
 
   NotificationService(this._loggingService);
@@ -50,7 +49,6 @@ class NotificationService implements BaseService {
     KEY_FINAL: 3000,
   };
 
-  @override
   Future<bool> initialize() async {
     localNotifications = FlutterLocalNotificationsPlugin();
 

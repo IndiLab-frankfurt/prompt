@@ -8,11 +8,10 @@ import 'package:prompt/models/questionnaire_response.dart';
 import 'package:prompt/models/user_data.dart';
 import 'package:collection/collection.dart';
 import 'package:prompt/services/api_service.dart';
-import 'package:prompt/services/base_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/shared/enums.dart';
 
-class DataService implements BaseService {
+class DataService {
   final ApiService _apiService;
   final SettingsService _settingsService;
 
@@ -92,10 +91,6 @@ class DataService implements BaseService {
     return await _apiService.getLastQuestionnaireResponse(questionnaireName);
   }
 
-  saveDaysActive(int daysActive) async {
-    throw Exception("Not implemented");
-  }
-
   Future<UserData?> saveUserDataProperty(
       String propertyname, dynamic value) async {
     var resonse = await _apiService.saveUserDataProperty(propertyname, value);
@@ -161,10 +156,6 @@ class DataService implements BaseService {
     _settingsService.setSetting(SettingsKeys.backgroundColors, colorString);
   }
 
-  Future<void> setStreakDays(int value) async {
-    throw Exception("Not implemented");
-  }
-
   Future<int> getRewardScore(String lastQuestionnaire) async {
     var rewardScore = await _apiService.getRewardScore(lastQuestionnaire);
     this._userDataCache!.score += rewardScore;
@@ -205,7 +196,6 @@ class DataService implements BaseService {
     return await _apiService.signInUser(username, password);
   }
 
-  @override
   Future<bool> initialize() async {
     return true;
   }

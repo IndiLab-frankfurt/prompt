@@ -3,7 +3,7 @@ import 'package:prompt/services/locator.dart';
 import 'package:prompt/services/reward_service.dart';
 import 'package:prompt/shared/ui_helper.dart';
 
-class PromptAppBar extends StatefulWidget with PreferredSizeWidget {
+class PromptAppBar extends StatefulWidget implements PreferredSizeWidget {
   final String title;
   final bool showBackButton;
 

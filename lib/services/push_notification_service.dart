@@ -1,9 +1,8 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:prompt/services/base_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/shared/enums.dart';
 
-class PushNotificationService implements BaseService {
+class PushNotificationService {
   SettingsService _settingsService;
 
   PushNotificationService(this._settingsService);
@@ -45,7 +44,6 @@ class PushNotificationService implements BaseService {
     print(message.notification);
   }
 
-  @override
   Future<bool> initialize() async {
     await initPushNotifications();
     return true;

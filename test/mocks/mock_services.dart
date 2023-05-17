@@ -3,7 +3,6 @@ import 'package:prompt/services/api_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/dialog_service.dart';
 import 'package:prompt/services/study_service.dart';
-import 'package:prompt/services/local_database_service.dart';
 import 'package:prompt/services/logging_service.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/notification_service.dart';
@@ -12,7 +11,6 @@ import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
 
-LocalDatabaseService mockLocalDatabaseService = LocalDatabaseService.db;
 SettingsService mockSettingsService = SettingsService();
 ApiService apiService = ApiService(mockSettingsService);
 DataService mockDataService = DataService(apiService, mockSettingsService);

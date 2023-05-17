@@ -1,4 +1,3 @@
-import 'package:email_validator/email_validator.dart';
 import 'package:prompt/services/navigation_service.dart';
 import 'package:prompt/services/user_service.dart';
 import 'package:prompt/shared/enums.dart';
@@ -47,10 +46,6 @@ class LoginViewModel extends BaseViewModel {
 
   startOnboarding() async {
     _navigationService.navigateTo(AppScreen.ONBOARDING);
-  }
-
-  validateEmail(String userid) {
-    return EmailValidator.validate(userid);
   }
 
   validateUserId(String value) {

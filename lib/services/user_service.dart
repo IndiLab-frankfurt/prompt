@@ -1,17 +1,14 @@
 import 'package:prompt/models/user_data.dart';
-import 'package:prompt/services/base_service.dart';
 import 'package:prompt/services/data_service.dart';
 import 'package:prompt/services/settings_service.dart';
 import 'package:prompt/shared/enums.dart';
 
-// TODO: UserService is not really needed and should be put into DataService
-class UserService implements BaseService {
+class UserService {
   UserService(this._settings, this._dataService);
 
   final SettingsService _settings;
   final DataService _dataService;
 
-  @override
   Future<bool> initialize() async {
     return true;
   }
@@ -23,7 +20,7 @@ class UserService implements BaseService {
       return null;
     }
 
-    // save all the user credential stuff
+    // save all the user credentials
     List<Future> futures = [
       _settings.setSetting(SettingsKeys.accessToken, response.accessToken),
       _settings.setSetting(SettingsKeys.refreshToken, response.accessToken),
